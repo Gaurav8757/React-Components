@@ -1,10 +1,11 @@
-import Home from "../home/Home.jsx"
+import Navbar from "../navbar/Navbar.jsx"
 import './App.css'
+import { Outlet } from "react-router-dom"
 function App() {
   return (
     <>
-      
-      <Home/>
+      <Navbar />
+      <Outlet />
     </>
   )
 }
