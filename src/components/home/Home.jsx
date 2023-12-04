@@ -1,16 +1,48 @@
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'About Us', href: '#', current: false },
-  { name: 'Downloads', href: '#', current: false },
-  { name: 'Service Request', href: '#', current: false },
-  { name: 'Branch', href: '#', current: false },
-  { name: 'Complaint Form', href: '#', current: false },
-  { name: 'Contact Us', href: '#', current: false },
+  { name: 'Home', to: '/', current: true },
+  {
+    name: 'About Us',
+    to: '#',
+    current: false,
+    submenus: [
+      { name: 'About Company', to: '/aboutus' },
+      { name: 'Mission & Vision', to: '/vision' },
+      { name: 'Director Message', to: '/messages' },
+    ],
+  },
+  {
+    name: 'Downloads',
+    to: '#',
+    current: false,
+    submenus: [
+      { name: 'Claim Form', to: '/claimform' },
+      { name: 'Purposal', to: '/purposal' },
+      { name: 'Brochure', to: '/brochures' },
+      // Add more submenus as needed
+    ],
+  },
+  {
+    name: 'Service Request',
+    to: '/service',
+    current: false,
+    submenus: [
+      { name: 'Claim', to: '/serviceclaim' },
+    ],
+  },
+  {
+    name: 'Branch', to: '/branch', current: false, submenus: [
+      { name: 'Submit Request', to: '/submit-request' },
+      { name: 'Track Request', to: '/track-request' },
+      // Add more submenus as needed
+    ],
+  },
+  { name: 'Complaint Form', to: '/complaintform', current: false },
+  { name: 'Contact Us', to: '#', current: false },
 ];
 
 function classNames(...classes) {
@@ -30,7 +62,7 @@ export default function Example() {
       <nav className="bg-gray-100">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+            <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
               {/* Mobile menu button*/}
               <button
                 className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-blue-200 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200"
@@ -45,54 +77,71 @@ export default function Example() {
                 )}
               </button>
             </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch md:justify-between">
-              <div className="flex flex-shrink-0 items-center">
+            <div className="flex flex-1 items-center justify-evenly sm:items-stretch md:justify-between">
+              <Link to="https://www.policybazaar.com/" className="flex flex-shrink-0 items-center">
                 <img
                   className="h-14 w-auto"
                   src="/src/assets/navbar/logopb.svg"
                   alt="Company"
                 />
-              </div>
+              </Link>
               <div className="hidden sm:ml-6 items-center md:block py-4">
-                <div className="flex space-x-1">
+                <div className="flex lg:space-x-1  xl:space-x-4">
                   {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.current ? 'bg-blue-700 text-white font-bold ' : 'text-gray-300 hover:bg-blue-600 hover:text-white',
-                        'rounded-md px-3 py-1 text-md font-medium text-gray-900'
+                    <div key={item.name} className="relative group">
+                      <NavLink
+                        to={item.to}
+                        className={classNames(
+                          item.current ? 'bg-blue-700 text-white font-bold ' : 'text-gray-300 hover:bg-blue-600 hover:text-white',
+                          'rounded-md px-2 py-2 text-md font-medium text-gray-900'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}
+                      >
+                        {item.name}
+                        {item.submenus && (
+                          <svg
+                            className="inline-flex h-5 w-5 ml-2 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
+                      </NavLink>
+                      {item.submenus && (
+                        <div className="absolute hidden bg-gray-100 text-gray-900 pt-4 mt-1 space-y-2 rounded-md group-hover:block w-40">
+                          {item.submenus.map((submenu) => (
+                            <NavLink
+                              key={submenu.name}
+                              to={submenu.to}
+                              className="block px-2 py-2 text-md hover:bg-gray-200 "
+                            >
+                              {submenu.name}
+                            </NavLink>
+                          ))}
+                        </div>
                       )}
-                      aria-current={item.current ? 'page' : undefined}
-                    >
-                      {item.name}
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* <button
-                type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
-              </button> */}
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-4">
                   <div>
-                    {/* <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span className="absolute -inset-1.5" />
-                    <span className="sr-only">Open user menu</span> */}
+
                     <button className="relative inline-flex items-center justify-end p-0.5 mb-1 me-1 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-black  dark:text-white focus:ring-2 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                       <span className="relative px-3 py-1 sm:px-3 sm:py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Sign In
                       </span>
                     </button>
-                    {/* </Menu.Button> */}
+
                   </div>
                   <Transition
                     as={Fragment}
@@ -103,38 +152,7 @@ export default function Example() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
+
                   </Transition>
                 </Menu>
               </div>
