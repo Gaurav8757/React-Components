@@ -58,7 +58,7 @@ export default function Example() {
   };
 
   return (
-    <div>
+    <div className=''>
       {/* Navbar */}
       <nav className="bg-gray-100">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
@@ -82,7 +82,7 @@ export default function Example() {
               <Link to="https://www.policybazaar.com/" className="flex flex-shrink-0 items-center">
                 <img
                   className="h-14 w-auto"
-                  src="/src/assets/navbar/logopb.svg"
+                  src="/src/assets/navbarimg/logopb.svg"
                   alt="Company"
                 />
               </Link>
