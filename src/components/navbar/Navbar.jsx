@@ -58,7 +58,7 @@ export default function Example() {
   };
 
   return (
-    <div className=''>
+   <>
       {/* Navbar */}
       <nav className="bg-gray-100">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
@@ -132,7 +132,7 @@ export default function Example() {
                 </div>
               </div>
 
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 z-40 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-4">
                   <div>
@@ -164,7 +164,7 @@ export default function Example() {
 
       {/* Off-canvas Sidebar */}
       <aside
-        className={`relative inset-y-0  w-64 bg-gray-600 h-screen transform transition-transform md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`relative inset-y-0 z-40 w-64 bg-gray-600 h-screen transform transition-transform md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
         <ul className="">
@@ -192,6 +192,6 @@ export default function Example() {
         </button>
       </aside>
 
-    </div>
+    </>
   );
 }
