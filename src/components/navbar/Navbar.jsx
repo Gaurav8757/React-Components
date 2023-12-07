@@ -46,7 +46,7 @@ const navigation = [
 ];
 
 function classNames(...classes) {
-  console.log(classes.filter(Boolean).join(' '));
+  // console.log(classes.filter(Boolean).join(' '));
   return classes.filter(Boolean).join(' ');
 }
 
@@ -88,8 +88,8 @@ export default function Example() {
               </Link>
               <div className="hidden sm:ml-6 items-center md:block py-4">
                 <div className="flex lg:space-x-1  xl:space-x-3 ">
-                  {navigation.map((item) => (
-                    <div key={item.name} className="relative group">
+                  {navigation.map((item, idx) => (
+                    <div key={idx} className="relative group">
                       <NavLink
                         to={item.to}
                         className={classNames(
@@ -99,6 +99,7 @@ export default function Example() {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
+                        
                         {item.submenus && (
                           <svg
                             className="inline-flex h-5 w-5 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
@@ -115,14 +116,15 @@ export default function Example() {
                         )}
                       </NavLink>
                       {item.submenus && (
-                        <div className="absolute hidden bg-gray-100 text-gray-900 pt-4 mt-1 space-y-2 rounded-md group-hover:block w-40">
-                          {item.submenus.map((submenu) => (
+                        <div className="absolute hidden z-20 bg-gray-100 text-gray-900 pt-4 mt-1 space-y-2 rounded-md group-hover:block w-40">
+                          {item.submenus.map((submenu, idx) => (
                             <NavLink
-                              key={submenu.name}
+                              key={idx}
                               to={submenu.to}
                               className="block px-2 py-2 text-md hover:bg-gray-200 "
                             >
                               {submenu.name}
+                            
                             </NavLink>
                           ))}
                         </div>
