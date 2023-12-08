@@ -36,9 +36,9 @@ const HomeHeading = () => {
     }, [fullText]);
     return <>
         <div className="container-fluid relative bg-slate-500 " >
-            <div className="container-fluid  flex justify-between items-center ml-2 mr-2   bg-slate-100  ">
+            <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-slate-100  ">
                 {/* part-1 */}
-                <div className=" col m-4 pl-2 hidden md:block relative ">
+                <div className=" col m-4 -translate-x-5 hidden md:block relative ">
                     <span className="text-2xl  sm:text-5xl   flex font-thin text-start" style={{lineHeight:"2em"}}>
                         Let&apos;s find you <br /></span>
                     <span className="text-2xl sm:text-5xl  flex font-thin text-start"> the&nbsp;

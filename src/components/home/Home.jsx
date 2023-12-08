@@ -1,8 +1,10 @@
 import HomeHeading from "../homeComponets/HomeHeading";
 import HomeSection from "../homeComponets/HomeSection";
 import Buyalso from "../homeComponets/Buyalso";
-import MiddleCarousel from "../homeComponets/MiddleCarousel";
+import SecondCarousel from "../homeComponets/SecondCarousel";
 import HomeSection4 from "../homeComponets/HomeSection4";
+import ThirdCarousel from "../homeComponets/ThirdCarousel";
+import HomeSection5 from "../homeComponets/HomeSection5";
 let homesection = [{
     title: "Term Life Insurance",
     images: "/src/assets/homesection/umbrella.png",
@@ -132,7 +134,7 @@ const listOfInsurance = [
     }
 ];
 
-const homethirdslider = [
+const homesecondslider = [
     {
         img: "/src/assets/slider/amritkaal.avif"
     }, 
@@ -153,14 +155,35 @@ const homethirdslider = [
     }
 ]
 
+
+const homethirdslider = [
+    {
+        img: "/src/assets/slider1/banner.avif"
+    }, 
+    {
+        img: "/src/assets/slider1/beware-of-fraudsters.avif"
+    },
+    {
+        img: "/src/assets/slider1/fraud_detection_policy.avif"
+    }, 
+    {
+        img: "/src/assets/slider1/homepage-g20-banner.avif"
+    }, 
+    {
+        img: "/src/assets/slider1/pbaskci_banner_1.avif"
+    }
+]
+
 const Home = () => {
     return (<>
         {/* <h1>HomePage</h1> */}
         <HomeHeading />
         <HomeSection homesection={homesection} modal={listOfInsurance} />
         <Buyalso buyalso={buyalso} />
-        <MiddleCarousel homethirdslider={homethirdslider} />
+        <SecondCarousel homesecondslider={homesecondslider} />
         <HomeSection4/>
+        <ThirdCarousel homethirdslider={homethirdslider}/>
+        <HomeSection5/>
     </>
     )
 }

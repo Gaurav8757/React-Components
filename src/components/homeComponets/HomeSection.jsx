@@ -8,7 +8,7 @@ const HomeSection = ({ homesection, modal }) => {
                 {
                     homesection.map((home, idx) => (
                         // adding link to click
-                        <NavLink to="#" className="grid w-40  mb-2 mr-8 ml-8 " key={idx}>
+                        <NavLink to="#" className="grid w-40  mb-2 mr-8 ml-8 hover:-translate-y-1 hover:-translate-x-0 " key={idx}>
                             {/* home links */}
 
                             <div className="p-2 bg-slate-200 rounded-lg   shadow-lg  shadow-white-500/50  hover:shadow-none flex justify-items-center justify-center">
@@ -20,7 +20,7 @@ const HomeSection = ({ homesection, modal }) => {
                     ))
                 }
             </div>
-            <div className="ml-2 mr-2 bg-slate-100">
+            <div className="ml-2 mr-2  bg-slate-100">
                 <ProductModals listOfInsurances={modal} />
             </div>
         </section>
