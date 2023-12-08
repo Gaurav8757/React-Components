@@ -1,18 +1,7 @@
 /* eslint-disable react/prop-types */
 import ProductModals from "./ProductModals";
 import { NavLink } from "react-router-dom";
-const HomeSection = ({ homesection }) => {
-    const listOfInsurance = [
-        {
-            titles: "Personal Insurance",
-            path: "#"
-        },
-        {
-            titles: "Business Insurance",
-            path: "#"
-        }
-    ];
-    
+const HomeSection = ({ homesection, modal }) => {
     return (
         <section className="container-fluid bg-gray-500">
             <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-4  lg:grid-cols-6 xl:grid-cols-6 gap-2 justify-items-center pt-10 ml-2 mr-2 bg-slate-100">
@@ -21,20 +10,19 @@ const HomeSection = ({ homesection }) => {
                         // adding link to click
                         <NavLink to="#" className="grid w-40  mb-2 mr-8 ml-8 " key={idx}>
                             {/* home links */}
-                            
+
                             <div className="p-2 bg-slate-200 rounded-lg   shadow-lg  shadow-white-500/50  hover:shadow-none flex justify-items-center justify-center">
-                            {/* <div className="bg-green-200  z-">hello</div> */}
+                                {/* <div className="bg-green-200  z-">hello</div> */}
                                 <img src={`${home.images}`} className="items-center w-16 " alt="img" />
                             </div>
                             <div className="text-center mt-4">{home.title}</div>
                         </NavLink>
                     ))
                 }
-
             </div>
             <div className="ml-2 mr-2 bg-slate-100">
-                     <ProductModals listOfInsurance = {listOfInsurance}/>
-           </div> 
+                <ProductModals listOfInsurances={modal} />
+            </div>
         </section>
     );
 };

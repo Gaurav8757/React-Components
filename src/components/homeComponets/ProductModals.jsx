@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import { NavLink } from "react-router-dom";
-const ProductModals = ({ listOfInsurance }) => {
+const ProductModals = ({ listOfInsurances }) => {
+    
     return (
 
         <>
@@ -35,9 +36,9 @@ const ProductModals = ({ listOfInsurance }) => {
                         
                             <div className="flex border-b-2 ">
                                 {
-                                    listOfInsurance.map((list, index) => (
+                                    listOfInsurances.map((list, index) => (
                                         <ul key={index}>
-                                            <NavLink to={list.path} className="text-black text-md m-4" activeClassName="active-link" >{list.titles}</NavLink>
+                                            <NavLink to={list.path} className="text-black text-md m-4"  >{list.titles}</NavLink>
                                            
                                         </ul>
                                     ))

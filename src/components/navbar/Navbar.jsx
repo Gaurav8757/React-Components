@@ -1,58 +1,16 @@
+/* eslint-disable react/prop-types */
 import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { NavLink, Link } from 'react-router-dom';
-
-const navigation = [
-  { name: 'Home', to: '/', current: true },
-  {
-    name: 'About Us',
-    to: '#',
-    current: false,
-    submenus: [
-      { name: 'About Company', to: '/aboutus' },
-      { name: 'Mission & Vision', to: '/vision' },
-      { name: 'Director Message', to: '/messages' },
-    ],
-  },
-  {
-    name: 'Downloads',
-    to: '#',
-    current: false,
-    submenus: [
-      { name: 'Claim Form', to: '/claimform' },
-      { name: 'Purposal', to: '/proposal' },
-      { name: 'Brochure', to: '/brochures' },
-      // Add more submenus as needed
-    ],
-  },
-  {
-    name: 'Service Request',
-    to: '#',
-    current: false,
-    submenus: [
-      { name: 'Claim', to: '/serviceclaim' },
-    ],
-  },
-  {
-    name: 'Branch', to: '#', current: false, submenus: [
-      { name: 'Branch from DB', to: '/branch' },
-      { name: 'Track Request', to: '/track-request' },
-      // Add more submenus as needed
-    ],
-  },
-  { name: 'Complaint Form', to: '/complaintform', current: false },
-  { name: 'Contact Us', to: '/contactus', current: false },
-];
 
 function classNames(...classes) {
   // console.log(classes.filter(Boolean).join(' '));
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Example() {
+export default function Navbar({navigation}) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };

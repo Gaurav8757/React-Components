@@ -2,7 +2,7 @@ import HomeHeading from "../homeComponets/HomeHeading";
 import HomeSection from "../homeComponets/HomeSection";
 import Buyalso from "../homeComponets/Buyalso";
 import MiddleCarousel from "../homeComponets/MiddleCarousel";
-
+import HomeSection4 from "../homeComponets/HomeSection4";
 let homesection = [{
     title: "Term Life Insurance",
     images: "/src/assets/homesection/umbrella.png",
@@ -89,7 +89,7 @@ const buyalso = [{
     title: "Health Insurance",
     name: "1 Cr Health Insurance",
 },
- 
+
 {
     title: "Health Insurance",
     name: "Unlimited Restoration of Cover",
@@ -109,26 +109,58 @@ const buyalso = [{
     title: "Business Insurance",
     name: "Directors & Officers Liability",
 },
- 
+
 {
     title: "Business Insurance",
     name: "Workmen Compensation",
 },
- 
+
 {
     title: "Others",
     name: "Pet Insurance",
 },
 ]
 
+const listOfInsurance = [
+    {
+        titles: "Personal Insurance",
+        path: "#"
+    },
+    {
+        titles: "Business Insurance",
+        path: "#"
+    }
+];
+
+const homethirdslider = [
+    {
+        img: "/src/assets/slider/amritkaal.avif"
+    }, 
+    {
+        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+    },
+    {
+        img: "/src/assets/slider/amritkaal.avif"
+    }, 
+    {
+        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+    },
+    {
+        img: "/src/assets/slider/amritkaal.avif"
+    }, 
+    {
+        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+    }
+]
 
 const Home = () => {
     return (<>
         {/* <h1>HomePage</h1> */}
         <HomeHeading />
-        <HomeSection homesection={homesection} />
+        <HomeSection homesection={homesection} modal={listOfInsurance} />
         <Buyalso buyalso={buyalso} />
-        <MiddleCarousel buy = {homesection}/>
+        <MiddleCarousel homethirdslider={homethirdslider} />
+        <HomeSection4/>
     </>
     )
 }
