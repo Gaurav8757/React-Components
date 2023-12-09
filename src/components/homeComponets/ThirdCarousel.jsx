@@ -16,8 +16,8 @@ const ThirdCarousel = ({ homethirdslider }) => {
                 <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-                    spaceBetween={20}
-                    slidesPerView={3} // Adjust the number of slides per view based on screen size
+                    spaceBetween={5}
+                    slidesPerView={2} // Adjust the number of slides per view based on screen size
                     // navigation
                     pagination={{ clickable: true }}
                     autoplay={{

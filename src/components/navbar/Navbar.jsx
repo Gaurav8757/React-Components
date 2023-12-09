@@ -20,7 +20,7 @@ export default function Navbar({navigation}) {
       {/* Navbar */}
       <nav className="bg-gray-100">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-16 items-center justify-between">
+          <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
               {/* Mobile menu button*/}
               <button
@@ -37,10 +37,10 @@ export default function Navbar({navigation}) {
               </button>
             </div>
             <div className="flex flex-1 items-center justify-evenly sm:items-stretch md:justify-between">
-              <Link to="https://www.policybazaar.com/" className="flex flex-shrink-0 items-center">
+              <Link to="/" className="flex flex-shrink-0 items-center">
                 <img
-                  className="h-14 w-auto"
-                  src="/src/assets/navbarimg/logopb.svg"
+                  className="h-16 w-auto   rounded-lg"
+                  src="/src/assets/navbarimg/cname.png"
                   alt="Company"
                 />
               </Link>

@@ -5,9 +5,9 @@ const HomeSection4 = () => {
 
             <div className="container-fluid  ml-2  mr-2 p-5 mx-auto flex leading-relaxed flex-col md:flex-row justify-around items-center bg-cover bg-repeat brightness-100  contrast-125" style={{ backgroundImage: "url(/src/assets/background/bg1.jpg)" }}>
 
-                <div className="md:w-1/2 text-start sm:text-5xl text-3xl   justify-center md:text-start ">
+                <div className="md:w-1/2 text-start sm:text-4xl text-3xl   justify-center md:text-start ">
                     <p className=" font-thin leading-snug">What makes</p>
-                    <p className=" font-thin leading-snug"><b className="font-semibold ">Policybazaar</b> one of</p>
+                    <p className=" font-thin leading-snug"><b className="font-semibold ">Eleedom Imf Private Limited</b> one of</p>
                     <b className=" font-semibold leading-snug">India&apos;s favourite places </b>
                     <br />
                     <span className="font-thin">to</span>

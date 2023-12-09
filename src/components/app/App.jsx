@@ -1,3 +1,6 @@
+import Footer1 from "../footer/footer1.jsx";
+import Footer2 from "../footer/Footer2.jsx";
+import PaymentFooter from "../footer/PaymentFooter.jsx";
 import Navbar from "../navbar/Navbar.jsx"
 import './App.css'
 import { Outlet } from "react-router-dom"
@@ -50,8 +53,11 @@ function App() {
     <>
       <Navbar navigation = {navigation} />
       <Outlet />
+      <Footer1/>
+      <Footer2 footer = {navigation}/>
+      <PaymentFooter/>
     </>
   )
 }
 
-export default App
+export default App;
