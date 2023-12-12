@@ -51,8 +51,8 @@ function App() {
 
   return (
     <>
-      <Navbar navigation = {navigation} />
-      <Outlet />
+      <Navbar navigation = {navigation}/>
+      <Outlet/>
       <Footer1/>
       <Footer2 footer = {navigation}/>
       <PaymentFooter/>

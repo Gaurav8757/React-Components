@@ -1,6 +1,7 @@
 // Inside the component, import React and necessary styles
 import { BsUmbrella, BsShieldFillCheck, BsShieldFillPlus } from "react-icons/bs";
 import { TbHeartHandshake, TbMoneybag } from "react-icons/tb";
+import { NavLink } from "react-router-dom";
 const Footer1 = () => {
     return (
 
@@ -10,7 +11,7 @@ const Footer1 = () => {
                 <div>
 
                     <BsUmbrella className="inline-block m-2" />
-                    <div className="leading-10">
+                    <NavLink className="leading-10">
                         Life Insurance
 
                         <ul>
@@ -29,12 +30,12 @@ const Footer1 = () => {
                             1 Crore Term Insurance
                             </li>
                         </ul>
-                    </div></div>
+                    </NavLink></div>
 
 
 
                 <div ><TbHeartHandshake className="inline-block m-2 " />
-                    <div className="leading-10">
+                    <NavLink className="leading-10">
                         Health Insurance
 
                         <ul>
@@ -51,12 +52,12 @@ const Footer1 = () => {
                             Senior Citizen Health Insurance
                             </li>
                         </ul>
-                    </div>
+                    </NavLink>
                 </div>
 
 
                 <div><TbMoneybag className="inline-block m-2" />
-                    <div className="leading-10">
+                    <NavLink className="leading-10">
                         Investment
 
                         <ul>
@@ -73,12 +74,12 @@ const Footer1 = () => {
                             Child Plans
                             </li>
                         </ul>
-                    </div>
+                    </NavLink>
                 </div>
 
 
                 <div><BsShieldFillCheck className="inline-block m-2" />
-                    <div className="leading-10">
+                    <NavLink className="leading-10">
                         General Insurance
 
                         <ul>
@@ -95,12 +96,12 @@ const Footer1 = () => {
                             Third Party Car Insurance
                             </li>
                         </ul>
-                    </div>
+                    </NavLink>
                 </div>
 
 
                 <div><BsShieldFillPlus className="inline-block m-2 " />
-                    <div className="leading-10">
+                    <NavLink className="leading-10">
                         Other Insurance
 
                         <ul>
@@ -117,7 +118,7 @@ const Footer1 = () => {
                             Professional Indemnity
                             </li>
                         </ul>
-                    </div>
+                    </NavLink>
                 </div>
             </div>
 
