@@ -1,9 +1,6 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
 const Footer2 = ({ footer }) => {
-
-
-
     return (
         <section className="bg-white dark:bg-gray-500 ">
 
@@ -22,19 +19,7 @@ const Footer2 = ({ footer }) => {
                     ))}
 
                 </div>
-
-
-
-
                 <div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
-
-
-
-
-
-
-
-
                     <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">© 2023 <NavLink to="#">Eleedom Imf Private Limited</NavLink>.  All Rights Reserved.
                     </span>
                     <div className="flex mt-4 justify-center md:mt-0 space-x-5 rtl:space-x-reverse">

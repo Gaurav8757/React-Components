@@ -1,21 +1,24 @@
+import AdvantageModals from "./AdvantageModals";
 const HomeSection5 = () => {
   return (
     <section className="container-fluid bg-gray-500">
       <div className="col ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-slate-100">
-        <div className="text-4xl mx-10 font-medium">PB Advantage
+        <div className="text-3xl mx-10 font-medium">ELEEDOM IMF Advantage
           <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
             <line x1="10" y1="50" x2="90" y2="50" stroke="blue" strokeWidth="4" />
           </svg>
         </div>
         {/* p2 start working from here */}
-        <div className="container w-4/5 sm:w-3/2 md:w-2/3 lg:w-2/3 xl:w- text-justify text-2xl mx-10">
+        <div className="container w-4/5 sm:w-3/2 md:w-2/3 lg:w-2/3  text-justify text-xl mx-10">
           <p>When you buy insurance from us, you get more than just financial safety. You also get
             our promise of simplifying complex insurance terms and conditions, quick stress-free claims,
             instant quotes from top insurers and being present for you in the toughest of times.</p>
+            <div><AdvantageModals/></div>
         </div>
-        {/* [part-2]  */}
-        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-5 justify-items-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl m-10 pt-8 dark:text-gray-300 text-black">
 
+        
+        {/* [part-2]  */}
+        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-5 justify-items-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl m-10  dark:text-gray-300 text-black">
           {/* <!-- card-1 --> */}
           <div className="border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-8 rounded-t-lg object-cover" src="/src/assets/paymentfooter/visa.jpg" alt="image" />

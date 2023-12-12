@@ -19,7 +19,7 @@ const HomeSection4 = () => {
                     <div className="shadow-2xl transition transform hover:-translate-y-2 hover:-translate-x-2  hover:shadow-none p-4 rounded-lg border-blue-800 bg-slate-100 border-l-4 ">
                         <img className="w-10" src="/src/assets/section4/confetti.png"/>
                         <p className="text-2xl text-blue-800 font-semibold pb-3">Over 9 million</p>
-                        <p className="">customers trust us &amp; have bought their insurance on Policybazaar</p>
+                        <p className="">customers trust us &amp; have bought their insurance on ELLEDOM IMF PVT LTD</p>
                     </div>
                     {/* 2nd */}
                     <div className="shadow-2xl transition transform hover:-translate-y-2 hover:translate-x-2 hover:shadow-none p-4 rounded-lg shadow-white border-sky-400 bg-slate-100  border-l-4">

@@ -10,21 +10,23 @@ const Footer1 = () => {
                 <div>
 
                     <BsUmbrella className="inline-block m-2" />
-                    <div>
+                    <div className="leading-10">
                         Life Insurance
 
                         <ul>
                             <li>
-                                helo
+                            Life Insurance
+
                             </li>
                             <li>
-                                helo
+                           Term Insurance
+
                             </li>
                             <li>
-                                helo
+                            Term Insurance Calculator
                             </li>
                             <li>
-                                helo
+                            1 Crore Term Insurance
                             </li>
                         </ul>
                     </div></div>
@@ -32,21 +34,21 @@ const Footer1 = () => {
 
 
                 <div ><TbHeartHandshake className="inline-block m-2 " />
-                    <div>
+                    <div className="leading-10">
                         Health Insurance
 
                         <ul>
                             <li>
-                                helo
+                            Health Insurance
                             </li>
                             <li>
-                                helo
+                            1 Cr Health Cover
                             </li>
                             <li>
-                                helo
+                            Family Health Insurance
                             </li>
                             <li>
-                                helo
+                            Senior Citizen Health Insurance
                             </li>
                         </ul>
                     </div>
@@ -54,21 +56,21 @@ const Footer1 = () => {
 
 
                 <div><TbMoneybag className="inline-block m-2" />
-                    <div>
+                    <div className="leading-10">
                         Investment
 
                         <ul>
                             <li>
-                                helo
+                            Investment Plans
                             </li>
                             <li>
-                                helo
+                            Capital Guarantee Plans
                             </li>
                             <li>
-                                helo
+                            Investment Plans for NRIs
                             </li>
                             <li>
-                                helo
+                            Child Plans
                             </li>
                         </ul>
                     </div>
@@ -76,43 +78,43 @@ const Footer1 = () => {
 
 
                 <div><BsShieldFillCheck className="inline-block m-2" />
-                    <div>
+                    <div className="leading-10">
                         General Insurance
 
                         <ul>
                             <li>
-                                helo
+                            Car Insurance
                             </li>
                             <li>
-                                helo
+                            Bike Insurance
                             </li>
                             <li>
-                                helo
+                            Motor Insurance
                             </li>
                             <li>
-                                helo
+                            Third Party Car Insurance
                             </li>
                         </ul>
                     </div>
                 </div>
 
 
-                <div><BsShieldFillPlus className="inline-block m-2" />
-                    <div>
+                <div><BsShieldFillPlus className="inline-block m-2 " />
+                    <div className="leading-10">
                         Other Insurance
 
                         <ul>
                             <li>
-                                helo
+                            Group Health Insurance
                             </li>
                             <li>
-                                helo
+                            Marine Insurance
                             </li>
                             <li>
-                                helo
+                            Workers Compensation
                             </li>
                             <li>
-                                helo
+                            Professional Indemnity
                             </li>
                         </ul>
                     </div>

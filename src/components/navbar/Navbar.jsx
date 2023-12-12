@@ -124,10 +124,10 @@ export default function Navbar({navigation}) {
 
       {/* Off-canvas Sidebar */}
       <aside
-        className={`relative inset-y-0 z-40 w-64 bg-gray-600 h-screen transform transition-transform md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`relative  inset-y-0 z-80 w-64 bg-gray-600 h-screen transform transition-transform md:hidden ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
       >
-        <ul className="">
+        <ul>
           <li>
             <NavLink to="/" className="text-white hover:text-gray-300">
               Home

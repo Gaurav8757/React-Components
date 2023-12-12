@@ -5,6 +5,9 @@ import SecondCarousel from "../homeComponets/SecondCarousel";
 import HomeSection4 from "../homeComponets/HomeSection4";
 import ThirdCarousel from "../homeComponets/ThirdCarousel";
 import HomeSection5 from "../homeComponets/HomeSection5";
+import HomeSection6 from "../homeComponets/HomeSection6";
+import FourthCarousel from "../homeComponets/FourthCarousel";
+import OurPartners from "../homeComponets/OurPartners";
 let homesection = [{
     title: "Term Life Insurance",
     images: "/src/assets/homesection/umbrella.png",
@@ -184,6 +187,9 @@ const Home = () => {
         <HomeSection4/>
         <ThirdCarousel homethirdslider={homethirdslider}/>
         <HomeSection5/>
+        <HomeSection6/>
+        <FourthCarousel/>
+        <OurPartners/>
     </>
     )
 }
