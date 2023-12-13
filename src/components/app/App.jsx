@@ -45,7 +45,10 @@ function App() {
       ],
     },
     { name: 'Complaint Form', to: '/complaintform', current: false },
+    { name: 'Feedback Form', to: '/feedback', current: false },
     { name: 'Contact Us', to: '/contactus', current: false },
+    
+    
   ];
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Companies from "./components/about/Companies.jsx";
+import Feedback from "./components/feedback/Feedback.jsx";
 import App from "./components/app/App.jsx";
 import {
   Route,
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />} >
       {/* home */}
        <Route path="" element={<Home/>} />
+     
       {/* about us */}
       <Route path="/aboutus" element={<Companies />} />
       <Route path="/vision" element={<Mission />} />
@@ -40,7 +42,7 @@ const router = createBrowserRouter(
       <Route path="/complaintform" element={<ComplaintForm />} />
       {/* Contact us */}
       <Route path="/contactus" element={<ContactUs />} />
-
+      <Route path="/feedback" element={<Feedback/>} />
 
     </Route>
 
