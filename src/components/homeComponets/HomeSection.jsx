@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 // import ProductModals from "./ProductModals";
 import { NavLink } from "react-router-dom";
-const HomeSection = ({ homesection,  }) => { //here to pass modal props
+const HomeSection = ({ homesection }) => { //here to pass modal props
     return (
         <section className="container-fluid bg-gray-500">
             <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-4  lg:grid-cols-6 xl:grid-cols-6 gap-2 justify-items-center pt-10 ml-2 mr-2 bg-slate-100">

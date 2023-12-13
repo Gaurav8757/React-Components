@@ -10,64 +10,64 @@ import FourthCarousel from "../homeComponets/FourthCarousel";
 import OurPartners from "../homeComponets/OurPartners";
 let homesection = [{
     title: "Term Life Insurance",
-    images: "/src/assets/homesection/umbrella.png",
+    images: "public/umbrella.png",
 },
 {
     title: "Health Insurance",
-    images: "/src/assets/homesection/heart.png",
+    images: "public/heart.png",
 },
 
 {
     title: "Investment Plans",
-    images: "/src/assets/homesection/invest.png",
+    images: "public/invest.png",
 },
 {
     title: "Car Insurance",
-    images: "/src/assets/homesection/car.png",
+    images: "public/car.png",
 },
 {
     title: "2 Wheeler Insurance",
-    images: "/src/assets/homesection/motorcycle.png",
+    images: "public/motorcycle.png",
 },
 
 
 {
     title: "Family Health Insurance",
-    images: "/src/assets/homesection/family.png",
+    images: "public/family.png",
 },
 {
     title: "Travel Insurance",
-    images: "/src/assets/homesection/flight.png",
+    images: "public/flight.png",
 },
 
 {
     title: "Term Insurance (Women)",
-    images: "/src/assets/homesection/superwoman.png",
+    images: "public/superwoman.png",
 },
 {
     title: "Free of Cost Term Plan",
-    images: "/src/assets/homesection/money.png",
+    images: "public/money.png",
 },
 {
     title: "Guaranteed Return Plans",
-    images: "/src/assets/homesection/money-bag.png",
+    images: "public/money-bag.png",
 },
 
 {
     title: "Child Savings Plans",
-    images: "/src/assets/homesection/childsave.png",
+    images: "public/childsave.png",
 },
 {
     title: "Retirement Plans",
-    images: "/src/assets/homesection/old-man.png",
+    images: "public/old-man.png",
 },
 {
     title: "Employee Group Health Insurance",
-    images: "/src/assets/homesection/group.png",
+    images: "public/group.png",
 },
 {
     title: "Home Insurance",
-    images: "/src/assets/homesection/home.png",
+    images: "public/home.png",
 }]
 
 // buyalso
@@ -139,41 +139,41 @@ const listOfInsurance = [
 
 const homesecondslider = [
     {
-        img: "/src/assets/slider/amritkaal.avif"
+        img: "public/amritkaal.avif"
     }, 
     {
-        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+        img: "public/how-buy-health-insurance-3.avif"
     },
     {
-        img: "/src/assets/slider/amritkaal.avif"
+        img: "public/amritkaal.avif"
     }, 
     {
-        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+        img: "public/how-buy-health-insurance-3.avif"
     },
     {
-        img: "/src/assets/slider/amritkaal.avif"
+        img: "public/amritkaal.avif"
     }, 
     {
-        img: "/src/assets/slider/how-buy-health-insurance-3.avif"
+        img: "public/how-buy-health-insurance-3.avif"
     }
 ]
 
 
 const homethirdslider = [
     {
-        img: "/src/assets/slider1/banner.avif"
+        img: "public/banner.avif"
     }, 
     {
-        img: "/src/assets/slider1/beware-of-fraudsters.avif"
+        img: "public/beware-of-fraudsters.avif"
     },
     {
-        img: "/src/assets/slider1/fraud_detection_policy.avif"
+        img: "public/fraud_detection_policy.avif"
     }, 
     {
-        img: "/src/assets/slider1/homepage-g20-banner.avif"
+        img: "public/homepage-g20-banner.avif"
     }, 
     {
-        img: "/src/assets/slider1/pbaskci_banner_1.avif"
+        img: "public/pbaskci_banner_1.avif"
     }
 ]
 
