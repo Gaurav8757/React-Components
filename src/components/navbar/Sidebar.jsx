@@ -1,63 +1,80 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
-const Sidebar = ({ navigation, isSidebarOpen, toggleSidebar }) => {
-  const [activeSubMenu, setActiveSubMenu] = useState(null);
+function classNames(...classes) {
+    // console.log(classes.filter(Boolean).join(' '));
+    return classes.filter(Boolean).join(' ');
+  }
+  
+// Your component function
+const Sidebar = ({navigation, isSidebarOpen}) => {
+//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState(null);
 
-  const handleMenuClick = (index) => {
-    setActiveSubMenu(activeSubMenu === index ? null : index);
+  
+
+  // Function to toggle the submenu
+  const toggleSubmenu = (idx) => {
+    setOpenSubmenu(openSubmenu === idx ? null : idx);
   };
 
+  // ... (rest of your component code)
+
+  // Off-canvas Sidebar
   return (
     <aside
-      className={`relative inset-y-0 w-64 bg-gray-400 h-screen transform transition-transform md:hidden ${
+      className={`absolute inset-y-20 w-64 z-50 bg-gray-300 h-full transform transition-transform md:hidden ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       <div className="w-auto text-start mx-4 list-none m-0 p-0">
         {navigation.map((item, idx) => (
           <div key={idx} className="relative group">
-            <button
-              // eslint-disable-next-line no-undef
-              className={classNames(
-                item.current
-                  ? "text-white font-bold"
-                  : "text-gray-300 hover:text-white",
-                "rounded-md px-2 font-medium text-gray-900 block py-2 focus:outline-none"
-              )}
-              onClick={() => handleMenuClick(idx)}
+            <div
+              onClick={() => toggleSubmenu(idx)} // Toggle the submenu on click
             >
-              {item.name}
-              {item.submenus && (
-                <span className="float-right">
-                  <svg
-                    className={`inline-flex h-5 w-5 text-gray-600 transition-all ease-in duration-75 transform ${
-                      activeSubMenu === idx ? "rotate-180" : ""
-                    }`}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-              )}
-            </button>
-            {item.submenus && activeSubMenu === idx && (
-              <ul className="absolute z-20 bg-gray-100 text-gray-900 pt-2 mt-1 rounded-md w-40 left-0">
+              <NavLink
+                to={item.to}
+                className={classNames(
+                  item.current ? 'text-white font-bold' : 'text-gray-300 hover:text-white',
+                  'rounded-md px-2 font-medium text-gray-900 block py-2'
+                )}
+                aria-current={item.current ? 'page' : undefined}
+              >
+                {item.name}
+                {item.submenus && (
+                  <span className="float-right">
+                    <svg
+                      className="inline-flex h-5 w-5 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                )}
+              </NavLink>
+            </div>
+            {item.submenus && (
+              <ul
+                className={`pl-4 transition-all ease-in duration-300 ${
+                  openSubmenu === idx ? "opacity-100 max-h-96" : "opacity-0 max-h-0 overflow-hidden"
+                }`}
+              >
                 {item.submenus.map((submenu, subIdx) => (
-                  <NavLink
-                    key={subIdx}
-                    to={submenu.to}
-                    className="block px-4 py-2 text-md hover:bg-gray-200"
-                  >
-                    {submenu.name}
-                  </NavLink>
+                  <li key={subIdx} className="mb-1">
+                    <NavLink
+                      to={submenu.to}
+                      className="text-md text-gray-900 hover:text-white block py-2 px-4 rounded-md"
+                    >
+                      {submenu.name}
+                    </NavLink>
+                  </li>
                 ))}
               </ul>
             )}

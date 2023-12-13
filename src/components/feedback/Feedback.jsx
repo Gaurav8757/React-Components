@@ -6,10 +6,10 @@ const Feedback = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [query, setQuery] = useState("");
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form data submitted:", { email, mobile, query });
+        // console.log("Form data submitted:", { email, mobile, query });
         setEmail("");
         setMobile("");
         setQuery("");

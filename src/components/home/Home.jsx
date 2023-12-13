@@ -1,3 +1,4 @@
+// import { useState } from "react";
 import HomeHeading from "../homeComponets/HomeHeading";
 import HomeSection from "../homeComponets/HomeSection";
 import Buyalso from "../homeComponets/Buyalso";
@@ -178,6 +179,7 @@ const homethirdslider = [
 ]
 
 const Home = () => {
+   
     return (<>
         {/* <h1>HomePage</h1> */}
         <HomeHeading />

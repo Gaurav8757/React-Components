@@ -1,11 +1,13 @@
+// import { useState } from "react";
 import Footers from "../footer/Footers.jsx";
 import Footer from "../footer/Footer2.jsx";
 import PaymentFooter from "../footer/PaymentFooter.jsx";
-import Navbar from "../navbar/Navbar.jsx"
+import Navbar from "../navbar/Navbar.jsx";
+// import Sidebar from "../navbar/Sidebar.jsx";
 import './App.css'
 import { Outlet } from "react-router-dom"
 function App() {
-
+ 
   const navigation = [
     { name: 'Home', to: '/', current: true },
     {
@@ -54,7 +56,8 @@ function App() {
 
   return (
     <>
-      <Navbar navigation = {navigation}/>
+      <Navbar navigation = {navigation} />
+   
       <Outlet/>
       <Footers/>
       <Footer footer = {navigation}/>
