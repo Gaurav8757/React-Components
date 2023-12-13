@@ -1,8 +1,8 @@
-// Inside the component, import React and necessary styles
+
 import { BsUmbrella, BsShieldFillCheck, BsShieldFillPlus } from "react-icons/bs";
 import { TbHeartHandshake, TbMoneybag } from "react-icons/tb";
 import { NavLink } from "react-router-dom";
-const Footer1 = () => {
+const Footers = () => {
     return (
 
         <section className="bg-white dark:bg-gray-500 ">
@@ -148,4 +148,4 @@ const Footer1 = () => {
     );
 };
 
-export default Footer1;
+export default Footers;
