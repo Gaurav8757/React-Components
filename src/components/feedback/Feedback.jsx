@@ -29,9 +29,9 @@ const Feedback = () => {
             <div className="relative  md:w-1/3 border-2  rounded-xl shadow-xl text-xl ">
                     <form >
                     <p className="text-2xl font-semibold">Your Opinion</p>
-                        <div className="space-y-2 p-4">
+                        <div className="space-y-2 p-4 text-start ">
                         
-                                <label className="text-sm ">Name</label>
+                                <label className="text-sm mx-1 ">Name</label>
                                 <input
                                     className="bg-gray-50 border border-gray-300  
                                     text-sm rounded-lg focus:border-blue-500 
@@ -43,7 +43,7 @@ const Feedback = () => {
                                 />
                            
                            
-                            <label className="text-sm">Email Address*</label>
+                            <label className="text-sm mx-1 ">Email Address*</label>
                            
                             <input className="bg-gray-50 border border-gray-300  
                                         text-sm rounded-lg focus:border-blue-500 
@@ -53,7 +53,7 @@ const Feedback = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="abc@geeksforgeeks.org" />
                             <br></br>
-                            <label className="text-sm">Contact No.</label>
+                            <label className="text-sm mx-1 ">Contact No.</label>
                             <br></br>
                             <input className="bg-gray-50 border border-gray-300 
                                         text-sm rounded-lg focus:border-blue-500  
@@ -63,7 +63,7 @@ const Feedback = () => {
                                 onChange={(e) => setMobile(e.target.value)}
                                 placeholder="+1324567890" />
                             <br></br>
-                            <label className="text-sm">
+                            <label className="text-sm mx-1 ">
                                 Drop Your Feedback
                             </label>
                             <br></br>
@@ -79,7 +79,7 @@ const Feedback = () => {
                                 placeholder="Max Allowed Characters: 200">
                             </textarea>
                            
-                            <label className="text-sm">Upload Image</label>
+                            <label className="text-sm mx-1 ">Upload Image</label>
               <input
                 className="bg-gray-50 border   border-gray-300 text-sm rounded-lg focus:border-blue-500 w-full p-1"
                 type="file"

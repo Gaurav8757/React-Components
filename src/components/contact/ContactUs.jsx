@@ -40,8 +40,8 @@ const ContactUs = () => {
                 <div className="relative  md:w-1/3 border-2  rounded-xl shadow-xl text-xl ">
                     <form >
                     <p className="text-2xl font-semibold">Contact Us</p>
-                        <div className="space-y-2 p-4">
-                            <label className="text-sm">Email Address*</label>
+                        <div className="space-y-2 text-start p-4">
+                            <label className="text-sm mx-1 ">Email Address*</label>
                             <br></br>
                             <input className="bg-gray-50 border border-gray-300  
                                         text-sm rounded-lg focus:border-blue-500 
@@ -51,7 +51,7 @@ const ContactUs = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="abc@geeksforgeeks.org" />
                             <br></br>
-                            <label className="text-sm">Contact No.</label>
+                            <label className="text-sm mx-1 ">Contact No.</label>
                             <br></br>
                             <input className="bg-gray-50 border border-gray-300 
                                         text-sm rounded-lg focus:border-blue-500  
@@ -61,7 +61,7 @@ const ContactUs = () => {
                                 onChange={(e) => setMobile(e.target.value)}
                                 placeholder="+1324567890" />
                             <br></br>
-                            <label className="text-sm">
+                            <label className="text-sm mx-1 ">
                                 Drop Your Query
                             </label>
                             <br></br>
