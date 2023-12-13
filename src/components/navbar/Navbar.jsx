@@ -47,18 +47,19 @@ export default function Navbar({navigation}) {
               <div className="hidden sm:ml-6 items-center md:block py-4">
                 <div className="flex lg:space-x-1  xl:space-x-3 ">
                   {navigation.map((item, idx) => (
-                    <div key={idx} className="relative group">
+                    <div key={idx} className="relative group">{console.log(item.current)}
                       <NavLink
                         to={item.to}
-                        className={classNames(
+                        className={classNames( 
                           item.current ? 'bg-blue-700 text-white font-bold ' : 'text-gray-300 hover:bg-blue-600 hover:text-white',
                           'rounded-md px-2 py-2  font-medium text-gray-900'
                         )}
+                        
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
                         
-                        {item.submenus && (
+                        {item.name && item.current  && (
                           <svg
                             className="inline-flex h-5 w-5 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
                             viewBox="0 0 20 20"

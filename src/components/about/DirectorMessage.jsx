@@ -2,7 +2,15 @@ import { useState } from "react";
 const DirectorMessage = () => {
     const [topic, setTopic] = useState("");
     const [query, setQuery] = useState("");
-
+    const handleSubmit = (e)=>{
+        e.preventDefault(); // Prevents the form from submitting in the default way
+        // Perform your desired actions with the form data here
+        console.log("Form data submitted:", { topic, query });
+        // You can add additional logic here, such as sending data to an API, etc.
+        setTopic("");
+        
+        setQuery("");
+    }
 
     return (
         <section className="container-fluid relative bg-slate-500">
@@ -15,7 +23,7 @@ const DirectorMessage = () => {
                     <label htmlFor="message" className="block mb-2 text-md font-medium text-gray-900 ">Your message</label>
                     <textarea id="message" rows="4" value={query} onChange={(e)=> setQuery(e.target.value)}  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a messages..."></textarea>
                     <br></br>
-                    <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br f shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Submit</button>
+                    <button type="button" onClick={handleSubmit} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br f shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Submit</button>
                 </form>
             </div>
         </section>
