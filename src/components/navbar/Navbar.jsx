@@ -45,7 +45,7 @@ export default function Navbar({navigation}) {
               <Link to="/" className="flex flex-shrink-0 items-center">
                 <img
                   className="h-16 w-auto   rounded-lg"
-                  src="public/cname.png"
+                  src="/cname.png"
                   alt="Company"
                 />
               </Link>

@@ -7,12 +7,12 @@ const PaymentFooter = () => {
                     Payment Methods
                     {/* sub Childs */}
                     <div className="flex flex-wrap  justify-center mt-5">
-                        <img src="public/ae.jpg" alt="p1" className="w-20 h-9 rounded-md mb-2 mr-2" />
-                        <img src="public/visa.jpg" alt="p2" className="w-20 h-9 rounded-md mb-2 mr-2" />
-                        <img src="public/rupay.jpg" alt="p3" className="w-20 h-9 rounded-md mb-2 mr-2" />
-                        <img src="public/paytm.jpg" alt="p4" className="w-20 h-9 rounded-md mb-2 mr-2" />
-                        <img src="public/master.jpg" alt="p5" className="w-20 h-9 rounded-md mb-2 mr-2" />
-                        <img src="public/netbanking.jpg" alt="p6" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/ae.jpg" alt="p1" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/visa.jpg" alt="p2" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/rupay.jpg" alt="p3" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/paytm.jpg" alt="p4" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/master.jpg" alt="p5" className="w-20 h-9 rounded-md mb-2 mr-2" />
+                        <img src="/netbanking.jpg" alt="p6" className="w-20 h-9 rounded-md mb-2 mr-2" />
                     </div>
                 </div>
                 {/* 2ND PART */}
@@ -20,7 +20,7 @@ const PaymentFooter = () => {
                     Secure With
                     {/* sub Childs */}
                     <div className="flex w-auto justify-center mt-4">
-                        <img src="public/pcidss.webp" alt="p1" className="w-20 h-9 rounded-md" />
+                        <img src="/pcidss.webp" alt="p1" className="w-20 h-9 rounded-md" />
                     </div>
                 </div>
             </div>
