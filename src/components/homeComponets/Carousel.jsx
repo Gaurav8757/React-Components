@@ -9,7 +9,7 @@ const Carousel = () => {
         {/* Item 1 */}
         <NavLink to="#" className="hidden duration-1000 ease-in-out" data-carousel-item>
           <img
-            src="public/term_crore_desktop.avif"
+            src="/term_crore_desktop.avif"
             alt="First Slide"
             className="absolute block w-full rounded-sm -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           />
@@ -17,7 +17,7 @@ const Carousel = () => {
         {/* Item 2 */}
         <NavLink to="#" className="hidden duration-1000 ease-in-out" data-carousel-item>
           <img
-            src="public/tata-aia-fund_desktop.avif"
+            src="/tata-aia-fund_desktop.avif"
             alt="Second Slide"
             className="absolute block w-full rounded-sm -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           />
@@ -25,7 +25,7 @@ const Carousel = () => {
         {/* Item 3 */}
         <NavLink to="#" className="hidden duration-1000 ease-in-out lazy" data-carousel-item>
           <img
-            src="public/health_cb_hp_emi.avif"
+            src="/health_cb_hp_emi.avif"
             alt="Third Slide"
             className="absolute block w-full rounded-sm -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           />

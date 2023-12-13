@@ -18,6 +18,7 @@ import Proposal from "./components/downloads/Proposal.jsx";
 import ClaimForm from "./components/downloads/ClaimForm.jsx";
 import ServiceClaim from "./components/service-request/ServiceClaim.jsx";
 import Branch from "./components/branch/Branch.jsx";
+import TrackRequest from "./components/track-request/TrackRequest.jsx";
 import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
 const router = createBrowserRouter(
@@ -43,6 +44,7 @@ const router = createBrowserRouter(
       {/* Contact us */}
       <Route path="/contactus" element={<ContactUs />} />
       <Route path="/feedback" element={<Feedback/>} />
+      <Route path="/track-request" element={<TrackRequest/>} />
 
     </Route>
 

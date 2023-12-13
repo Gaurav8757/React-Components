@@ -11,64 +11,64 @@ import FourthCarousel from "../homeComponets/FourthCarousel";
 import OurPartners from "../homeComponets/OurPartners";
 let homesection = [{
     title: "Term Life Insurance",
-    images: "public/umbrella.png",
+    images: "/umbrella.png",
 },
 {
     title: "Health Insurance",
-    images: "public/heart.png",
+    images: "/heart.png",
 },
 
 {
     title: "Investment Plans",
-    images: "public/invest.png",
+    images: "/invest.png",
 },
 {
     title: "Car Insurance",
-    images: "public/car.png",
+    images: "/car.png",
 },
 {
     title: "2 Wheeler Insurance",
-    images: "public/motorcycle.png",
+    images: "/motorcycle.png",
 },
 
 
 {
     title: "Family Health Insurance",
-    images: "public/family.png",
+    images: "/family.png",
 },
 {
     title: "Travel Insurance",
-    images: "public/flight.png",
+    images: "/flight.png",
 },
 
 {
     title: "Term Insurance (Women)",
-    images: "public/superwoman.png",
+    images: "/superwoman.png",
 },
 {
     title: "Free of Cost Term Plan",
-    images: "public/money.png",
+    images: "/money.png",
 },
 {
     title: "Guaranteed Return Plans",
-    images: "public/money-bag.png",
+    images: "/money-bag.png",
 },
 
 {
     title: "Child Savings Plans",
-    images: "public/childsave.png",
+    images: "/childsave.png",
 },
 {
     title: "Retirement Plans",
-    images: "public/old-man.png",
+    images: "/old-man.png",
 },
 {
     title: "Employee Group Health Insurance",
-    images: "public/group.png",
+    images: "/group.png",
 },
 {
     title: "Home Insurance",
-    images: "public/home.png",
+    images: "/home.png",
 }]
 
 // buyalso
@@ -140,41 +140,41 @@ const listOfInsurance = [
 
 const homesecondslider = [
     {
-        img: "public/amritkaal.avif"
+        img: "/amritkaal.avif"
     }, 
     {
-        img: "public/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif"
     },
     {
-        img: "public/amritkaal.avif"
+        img: "/amritkaal.avif"
     }, 
     {
-        img: "public/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif"
     },
     {
-        img: "public/amritkaal.avif"
+        img: "/amritkaal.avif"
     }, 
     {
-        img: "public/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif"
     }
 ]
 
 
 const homethirdslider = [
     {
-        img: "public/banner.avif"
+        img: "/banner.avif"
     }, 
     {
-        img: "public/beware-of-fraudsters.avif"
+        img: "/beware-of-fraudsters.avif"
     },
     {
-        img: "public/fraud_detection_policy.avif"
+        img: "/fraud_detection_policy.avif"
     }, 
     {
-        img: "public/homepage-g20-banner.avif"
+        img: "/homepage-g20-banner.avif"
     }, 
     {
-        img: "public/pbaskci_banner_1.avif"
+        img: "/pbaskci_banner_1.avif"
     }
 ]
 
