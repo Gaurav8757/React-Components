@@ -28,7 +28,7 @@ const HomeSection6 = () => {
                 {/* [part-2]  */}
                 <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 w-auto sm:w-4/5 md:w-3/4 lg:w-2/3 justify-items-center md:justify-items-start">
                     {/* IMG DIV */}
-                    <img src="/help.avif" alt="img" className="mt-4 md:mt-0" />
+                    <img src="/help.avif" alt="img" className=" md:mt-0 sm:mt-4  mt-20" />
                 </div>
             </div>
         </section>

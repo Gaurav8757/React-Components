@@ -10,7 +10,7 @@ const AdvantageModals = () => {
             >
                 <span className="relative text-xl  my-2 ">
                     Know more
-                    <svg width="50" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-14 -ml-2">
+                    <svg width="50" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
             <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="2" />
           </svg>
                 </span>

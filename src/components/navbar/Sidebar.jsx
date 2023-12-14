@@ -23,7 +23,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
   // Off-canvas Sidebar
   return (
     <aside
-      className={`absolute inset-y-20 w-64 z-50 bg-gray-300 h-full transform transition-transform md:hidden ${
+      className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-teal-400 h-full transform transition-transform md:hidden ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -36,7 +36,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
               <NavLink
                 to={item.to}
                 className={classNames(
-                  item.current ? 'text-white font-bold' : 'text-gray-300 hover:text-white',
+                  item.current ? 'bg-gradient-to-r from-orange-700 to-rose-800 bg-clip-text text-transparent font-bold' : 'text-gray-300 hover:text-white',
                   'rounded-md px-2 font-medium text-gray-900 block py-2'
                 )}
                 aria-current={item.current ? 'page' : undefined}

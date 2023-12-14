@@ -23,10 +23,10 @@ const HomeSection5 = () => {
           <div className="border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-4 w-3/4 mx-auto rounded-full  object-cover" src="/guarantee.svg" alt="image" />
             <div className="text-center">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+              <h5 className="text-lg font-semibold tracking-tight text-gray-900">
                 One of the best Prices
               </h5>
-              <span className="text-lg text-gray-900">Guaranteed</span>
+              <span className="text-base text-gray-900">Guaranteed</span>
             </div>
           </div>
 
@@ -34,10 +34,10 @@ const HomeSection5 = () => {
           <div className="border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-4 rounded-t-lg object-cover w-3/4 mx-auto" src="/customers.svg" alt="image" />
             <div className="text-center my-5">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+              <h5 className="text-lg font-semibold tracking-tight text-gray-900">
                 Unbiased Advice
               </h5>
-              <span className="text-md text-gray-900">Keeping customers first</span>
+              <span className="text-base text-gray-900">Keeping customers first</span>
             </div>
           </div>
 
@@ -45,10 +45,10 @@ const HomeSection5 = () => {
           <div className="border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-4  object-cover w-3/4 mx-auto rounded-full" src="/reliable.jpg" alt="image" />
             <div className="text-center">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+              <h5 className="text-lg font-semibold tracking-tight text-gray-900">
                 100% Reliable
               </h5>
-              <span className="text-md text-gray-900">Regulated by IRDAI</span>
+              <span className="text-base text-gray-900">Regulated by IRDAI</span>
             </div>
           </div>
 
@@ -56,10 +56,10 @@ const HomeSection5 = () => {
           <div className="bg-transparent border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-4 rounded-t-lg object-cover" src="/claim-support.svg" alt="image" />
             <div className="text-center my-5">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+              <h5 className="text-lg font-semibold tracking-tight text-gray-900">
                 Claims Support
               </h5>
-              <span className="text-md text-gray-900">Made stress-free</span>
+              <span className="text-base text-gray-900">Made stress-free</span>
             </div>
           </div>
 
@@ -67,10 +67,10 @@ const HomeSection5 = () => {
           <div className="bg-transparent border border-gray-200 rounded-md shadow dark:border-gray-700 transition-transform transform hover:translate-y-[-10px] hover:shadow-2xl hover:shadow-gray-900">
             <img className="p-4 rounded-t-lg object-cover w-3/4 mx-auto" src="/helped.webp" alt="image" />
             <div className="text-center">
-              <h5 className="text-xl font-semibold tracking-tight text-gray-900">
+              <h5 className="text-base font-semibold tracking-tight text-gray-900">
                 Happy to Help
               </h5>
-              <span className="text-md text-gray-900">Every day of the week</span>
+              <span className="text-base text-gray-900">Every day of the week</span>
             </div>
           </div>
         </div>

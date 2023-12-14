@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import Carousel from './Carousel';
 import { useEffect, useRef } from 'react';
-const HomeHeading = () => {
+const HomeHeading = ({carousel}) => {
 
 
     const fullText = 'Best Insurance';
@@ -38,7 +39,7 @@ const HomeHeading = () => {
         <div className="container-fluid relative bg-gradient-to-r from-indigo-500 to-cyan-100 " >
             <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-gradient-to-r from-indigo-500 to-cyan-100  ">
                 {/* part-1 */}
-                <div className=" col m-4 -translate-x-5 hidden md:block relative ">
+                <div className=" col ml-4  hidden md:block relative  ">
                     <span className="text-2xl  sm:text-5xl   flex  text-start bg-gradient-to-r from-red-100 to-slate-100 font-normal bg-clip-text text-transparent" style={{lineHeight:"2em"}}>
                         Let&apos;s find you <br /></span>
                     <span className="text-2xl sm:text-5xl  flex font-thin text-start text-white"> the&nbsp;
@@ -49,7 +50,7 @@ const HomeHeading = () => {
                         <span className="text-red-500 w-2/3 text-xl hover:text-green-300">Quick, easy & hassle free</span>
                     </div>
                 </div>
-<Carousel/>
+<Carousel carousel = {carousel}/>
             </div>
 
         </div>

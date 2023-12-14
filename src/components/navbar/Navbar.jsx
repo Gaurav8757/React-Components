@@ -23,7 +23,7 @@ export default function Navbar({navigation}) {
   return (
    <>
       {/* Navbar */}
-      <nav className="bg-gradient-to-r fbg-gradient-to-r from-slate-300 to-slate-800">
+      <nav className="bg-gradient-to-r fbg-gradient-to-r from-slate-200 to-slate-700">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
@@ -80,12 +80,12 @@ export default function Navbar({navigation}) {
                         )}
                       </NavLink>
                       {item.submenus && (
-                        <div className="absolute hidden z-20 bg-gray-100 text-gray-900 pt-4 mt-1 space-y-2 rounded-md group-hover:block w-40">
+                        <div className="absolute hidden z-20 bg-gray-200 text-gray-900 pt-4 mt-1 space-y-2 rounded-md group-hover:block w-40">
                           {item.submenus.map((submenu, idx) => (
                             <NavLink
                               key={idx}
                               to={submenu.to}
-                              className="block px-2 py-2 text-md hover:bg-gray-200 "
+                              className="block px-2 py-2 text-md hover:bg-cyan-400 "
                             >
                               {submenu.name}
                             
