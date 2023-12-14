@@ -3,8 +3,8 @@ function Companies() {
     <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
       <div className="container-fluid ml-2 mr-2 pb-4 pt-4 bg-gradient-to-r from-indigo-400 to-cyan-400">
         <h1 className="text-3xl font-semibold mb-8">About Us</h1>
-        <div className="flex flex-col-reverse lg:flex-row sm:flex-col-reverse">
-          <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0">
+        <div className="flex flex-col lg:flex-row ">
+          <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
             <img
               src="/logo.png" // Add the actual image source
               alt="company img"
