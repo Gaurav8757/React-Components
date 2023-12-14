@@ -23,7 +23,7 @@ export default function Navbar({navigation}) {
   return (
    <>
       {/* Navbar */}
-      <nav className="bg-gray-100">
+      <nav className="bg-gradient-to-r fbg-gradient-to-r from-slate-300 to-slate-800">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
@@ -52,11 +52,11 @@ export default function Navbar({navigation}) {
               <div className="hidden sm:ml-6 items-center md:block py-4">
                 <div className="flex lg:space-x-1  xl:space-x-3 ">
                   {navigation.map((item, idx) => (
-                    <div key={idx} className="relative group">{console.log(item.current)}
+                    <div key={idx} className="relative group ">
                       <NavLink
                         to={item.to}
                         className={classNames( 
-                          item.current ? 'bg-blue-700 text-white font-bold ' : 'text-gray-300 hover:bg-blue-600 hover:text-white',
+                          item.current ? 'bg-blue-700 text-white font-bold  ' : 'bg-gradient-to-r from-slate-300 via-slate-100 to-slate-200 bg-clip-text text-transparent  hover:bg-blue-600 hover:text-#6ee7b7',
                           'rounded-md px-2 py-2  font-medium text-gray-900'
                         )}
                         
@@ -66,7 +66,7 @@ export default function Navbar({navigation}) {
                         
                         { item.submenus  && (
                           <svg
-                            className="inline-flex h-5 w-5 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
+                            className="inline-flex h-5 w-6 text-gray-300 group-hover:text-white transition-all ease-in duration-75"
                             viewBox="0 0 20 20"
                             fill="currentColor"
                             aria-hidden="true"

@@ -5,9 +5,9 @@ import { NavLink } from "react-router-dom";
 const Footers = () => {
     return (
 
-        <section className="bg-white dark:bg-gray-500 ">
-            <h1 className="dark:text-slate-300 text-2xl xs:text-xl sm:text-2xl md:text-3xl xl:text-3xl text-dark font-bold bg-slate-100 dark:bg-black  p-4 ml-2 mr-2" >More Products</h1>
-            <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2 dark:text-gray-300 text-black bg-slate-200 dark:bg-black">
+        <section className="bg-gradient-to-r from-teal-600 to-black ">
+            <h1 className="dark:text-slate-300 text-2xl xs:text-xl sm:text-2xl md:text-3xl xl:text-3xl text-dark font-bold bg-gradient-to-r from-teal-600 to-black p-4 ml-2 mr-2" >More Products</h1>
+            <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2 dark:text-gray-300 text-black bg-gradient-to-r from-teal-600 to-black ">
                 <div>
 
                     <BsUmbrella className="inline-block m-2" />
@@ -123,7 +123,7 @@ const Footers = () => {
             </div>
 
 
-            <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs dark:text-gray-400 text-black bg-slate-200  dark:bg-black">
+            <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs dark:text-white text-black bg-gradient-to-r from-teal-600 to-black">
                 *Standard Plans Terms and Conditions apply
                 <br/>
                 +For insurance plans that do not require inspection of your car

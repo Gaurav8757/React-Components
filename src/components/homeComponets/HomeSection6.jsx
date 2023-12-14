@@ -1,7 +1,7 @@
 const HomeSection6 = () => {
     return (
-        <section className="container-fluid flex flex-col md:flex-row bg-gray-500">
-            <div className="flex flex-col md:flex-row ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-slate-100">
+        <section className="container-fluid flex flex-col md:flex-row bg-gradient-to-r from-teal-400 to-indigo-400">
+            <div className="flex flex-col md:flex-row ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-gradient-to-r from-teal-400 to-indigo-400">
                 <div className="col md:w-2/3">
                     <div className="text-3xl mx-10 font-medium">Have a question? Here to help.
                         <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">

@@ -1,7 +1,7 @@
 
 const HomeSection4 = () => {
     return (
-        <section className="container-fluid bg-gray-500">
+        <section className="container-fluid bg-gradient-to-r from-slate-400 to-slate-400">
 
             <div className="container-fluid  ml-2  mr-2 p-5 mx-auto flex leading-relaxed flex-col md:flex-row justify-around items-center bg-cover bg-repeat brightness-100  contrast-125" style={{ backgroundImage: "url(/bg1.jpg)" }}>
 

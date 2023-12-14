@@ -1,6 +1,6 @@
 const PaymentFooter = () => {
     return (
-        <section className="bg-white dark:bg-gray-500">
+        <section className="bg-white dark:bg-black">
             <div className="flex flex-col sm:flex-row justify-between text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl ml-2 mr-2 dark:text-gray-300 text-black bg-slate-200 dark:bg-black">
                 {/* 1ST PART having 2 childs */}
                 <div className="text-start dark:text-slate-300 text-2xl xs:text-xl sm:text-2xl md:text-2xl xl:text-2xl text-dark font-bold bg-slate-100 dark:bg-black p-4 ml-2 mr-2">

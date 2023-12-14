@@ -6,10 +6,13 @@ const AdvantageModals = () => {
                 data-modal-target="static-modal1"
                 data-modal-toggle="static-modal1"
                 type="button"
-                className="relative inline-flex items-center justify-center sm:text-md text-lg overflow-hidden font-medium text-blue-700 rounded-full group bg-gradient-to-br bg-slate-100"
+                className="relative inline-flex items-center justify-center sm:text-md text-lg overflow-hidden font-medium text-blue-800 rounded-full "
             >
-                <span className="relative text-xl  my-2 text-blue-700 font-medium bg-white dark:bg-gray-100">
+                <span className="relative text-xl  my-2 ">
                     Know more
+                    <svg width="50" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-14 -ml-2">
+            <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="2" />
+          </svg>
                 </span>
             </button>
 
@@ -23,7 +26,7 @@ const AdvantageModals = () => {
             >
                 <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto">
                     {/* <!-- Modal content --> */}
-                    <div className="relative bg-white rounded-lg shadow dark:bg-slate-100">
+                    <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
                         {/* <!-- Modal header --> */}
                         <div className="flex items-center justify-between p-2 md:p-3 rounded-t dark:border-gray-600">
                             <h3 className="text-2xl font-semibold text-gray-800 dark:text-black">
@@ -43,7 +46,7 @@ const AdvantageModals = () => {
                                     viewBox="0 0 14 14"
                                 >
                                     <path
-                                        stroke="currentColor"
+                                        stroke="red"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
                                         strokeWidth="2"
@@ -54,7 +57,7 @@ const AdvantageModals = () => {
                             </button>
                         </div>
                         {/* <!-- Modal body --> */}
-                        <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal max-h-auto text-justify   overflow-y-auto bg-gray-100">
+                        <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal max-h-auto text-justify   overflow-y-auto bg-gradient-to-r from-blue-400 to-cyan-300">
                           
                             <p className="overflow-y-auto  pl-10 pr-10 pb-10">
                                 Based out of Gurgaon, Haryana, ELLEDOM IMF PVT LTD is an insurance broker approved by IRDA of India. We offer an online platform for insurance buyers where they can easily compare different insurance policies such as car insurance, life insurance, two-wheeler insurance, term insurance, pension plans etc. They can make an informed choice in a matter of a single click that too from the comfort of their home.

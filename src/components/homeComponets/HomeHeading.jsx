@@ -35,18 +35,18 @@ const HomeHeading = () => {
         return () => clearInterval(timer);
     }, [fullText]);
     return <>
-        <div className="container-fluid relative bg-slate-500 " >
-            <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-slate-100  ">
+        <div className="container-fluid relative bg-gradient-to-r from-indigo-500 to-cyan-100 " >
+            <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-gradient-to-r from-indigo-500 to-cyan-100  ">
                 {/* part-1 */}
                 <div className=" col m-4 -translate-x-5 hidden md:block relative ">
-                    <span className="text-2xl  sm:text-5xl   flex font-thin text-start" style={{lineHeight:"2em"}}>
+                    <span className="text-2xl  sm:text-5xl   flex  text-start bg-gradient-to-r from-red-100 to-slate-100 font-normal bg-clip-text text-transparent" style={{lineHeight:"2em"}}>
                         Let&apos;s find you <br /></span>
-                    <span className="text-2xl sm:text-5xl  flex font-thin text-start"> the&nbsp;
-                        <b className="font-normal" ref={textRef}></b>
+                    <span className="text-2xl sm:text-5xl  flex font-thin text-start text-white"> the&nbsp;
+                        <b className="font-normal bg-gradient-to-r from-red-900 to-slate-50  bg-clip-text text-transparent" ref={textRef}></b>
                     </span>
                     <div className="flex row container-fluid  lg:col text-md md:text-lg sm:text-xl font-arial  p-5">
-                        <span className="text-green-600 hover:text-green-400 w-2/3">50+ insurers with one of the best prices</span>
-                        <span className="text-blue-500 w-2/3 ">Quick, easy & hassle free</span>
+                        <span className="bg-gradient-to-r from-yellow-500 to-orange-300 bg-clip-text text-transparent font-medium  hover:text-green-300 text-xl w-2/3">50+ insurers with one of the best prices</span>
+                        <span className="text-red-500 w-2/3 text-xl hover:text-green-300">Quick, easy & hassle free</span>
                     </div>
                 </div>
 <Carousel/>

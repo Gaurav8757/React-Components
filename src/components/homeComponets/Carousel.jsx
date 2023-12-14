@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const Carousel = () => {
   return (
-    <div id="default-carousel" className="relative w-full md:w-2/5 mr-5 sm:p-2" data-carousel="slide">
+    <div id="default-carousel" className="relative w-full md:w-2/5 mr-5 sm:p-2 sm:items-center " data-carousel="slide">
       {/* Carousel wrapper */}
       <div className="relative  h-60 overflow-hidden rounded-lg md:h-96">
         {/* Item 1 */}

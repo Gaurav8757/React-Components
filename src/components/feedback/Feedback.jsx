@@ -24,9 +24,9 @@ const Feedback = () => {
 
     return (
 
-        <section className="container-fluid relative bg-slate-500">
-            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 pb-4 bg-slate-100">
-            <div className="relative  md:w-1/3 border-2  rounded-xl shadow-xl text-xl ">
+        <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
+            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 p-10 bg-gradient-to-r from-indigo-400 to-cyan-400">
+            <div className="relative  md:w-1/3  rounded-xl shadow-xl text-xl ">
                     <form >
                     <p className="text-2xl font-semibold">Your Opinion</p>
                         <div className="space-y-2 p-4 text-start ">
