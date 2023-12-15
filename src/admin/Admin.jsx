@@ -71,7 +71,7 @@ function Admin() {
              <div>
               <label
                 htmlFor="email"
-                className="block mb-3 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-3 text-sm text-start font-medium text-gray-900 dark:text-white"
               >
                 Your email
               </label>
@@ -93,8 +93,7 @@ function Admin() {
             <div>
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
+                className="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">
                 Your password
               </label>
               <input
