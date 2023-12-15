@@ -189,6 +189,32 @@ const headingSlider = [
         img: "/term_crore_desktop.avif"
     }
 ]
+
+const Ourpartners = [{
+    img: "/1.png"
+},{
+    img: "/2.jpg"
+},{
+    img: "/3.jpeg"
+},{
+    img: "/4.png"
+},{
+    img: "/5.svg"
+},{
+    img: "/6.png"
+},{
+    img: "/7.webp"
+},{
+    img: "/8.png"
+},{
+    img: "/9.png"
+},{
+    img: "/10.png"
+},
+]
+
+
+
 const Home = () => {
    
     return (<>
@@ -202,7 +228,7 @@ const Home = () => {
         <HomeSection5/>
         <HomeSection6/>
         <FourthCarousel/>
-        <OurPartners/>
+        <OurPartners Ourpartners = {Ourpartners}/>
     </>
     )
 }

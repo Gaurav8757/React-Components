@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 // import { NavLink } from 'react-router-dom';
 
 const Carousel = ({carousel}) => {
-  console.log(carousel);
+  // console.log(carousel);
   return (
     <section className="container-fluid  max-w-2xl">
       <Swiper
