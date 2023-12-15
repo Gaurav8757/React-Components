@@ -21,12 +21,16 @@ import Branch from "./components/branch/Branch.jsx";
 import TrackRequest from "./components/track-request/TrackRequest.jsx";
 import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
+import Admin from "./admin/Admin.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />} >
+    <Route path="/" element={<App />}  >
+
+      <Route path="admin" element={<Admin />} />
       {/* home */}
-       <Route path="" element={<Home/>} />
-     
+      <Route path="" element={<Home />} />
+
+
       {/* about us */}
       <Route path="/aboutus" element={<Companies />} />
       <Route path="/vision" element={<Mission />} />
@@ -43,8 +47,12 @@ const router = createBrowserRouter(
       <Route path="/complaintform" element={<ComplaintForm />} />
       {/* Contact us */}
       <Route path="/contactus" element={<ContactUs />} />
-      <Route path="/feedback" element={<Feedback/>} />
-      <Route path="/track-request" element={<TrackRequest/>} />
+      <Route path="/feedback" element={<Feedback />} />
+      <Route path="/track-request" element={<TrackRequest />} />
+
+
+      {/* admin routes */}
+
 
     </Route>
 

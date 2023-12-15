@@ -22,7 +22,7 @@ const OurPartners = ({Ourpartners}) => {
         </div>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-        spaceBetween={3}
+        spaceBetween={1}
         slidesPerView={4} // Adjust the number of slides per view based on screen size
         // navigation
         pagination={{ clickable: true }}
@@ -30,11 +30,11 @@ const OurPartners = ({Ourpartners}) => {
           delay: 4000, // Set the delay in milliseconds between slides
           disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
         }}
-        className='container-fluid   '>
+        className='container-fluid'>
         
           {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
           {Ourpartners.map((obj, idx) => (
-                        <SwiperSlide className='  rounded-2xl pl-20 pr-20' key={idx}>
+                        <SwiperSlide className='  rounded-2xl xl:pl-20 xl:pr-20 pb-10' key={idx}>
                             <NavLink to="#">
                                 <img src={obj.img} className='w-full' alt={`slide-${idx}`} />
                             </NavLink>
