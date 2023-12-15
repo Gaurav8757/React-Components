@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Companies from "./components/about/Companies.jsx";
 import Feedback from "./components/feedback/Feedback.jsx";
 import App from "./components/app/App.jsx";
@@ -53,12 +55,25 @@ const router = createBrowserRouter(
     </Route>
 
     {/* admin routes */}
-    <Route path="/admin" element={<Admin/>}  ></Route>
+    <Route path="/admin" element={<Admin/>}/>
     </>
   )
 );
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer
+      position="top-right"
+      autoClose={1500}
+      limit={9}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss={false}
+      draggable
+      pauseOnHover
+      theme="colored"
+    />
   </React.StrictMode>
 );
