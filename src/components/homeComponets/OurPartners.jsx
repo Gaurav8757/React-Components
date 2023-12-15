@@ -22,7 +22,7 @@ const OurPartners = ({Ourpartners}) => {
         </div>
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-        spaceBetween={1}
+        spaceBetween={5}
         slidesPerView={4} // Adjust the number of slides per view based on screen size
         // navigation
         pagination={{ clickable: true }}
