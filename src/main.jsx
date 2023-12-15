@@ -21,9 +21,10 @@ import Branch from "./components/branch/Branch.jsx";
 import TrackRequest from "./components/track-request/TrackRequest.jsx";
 import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
-// import Admin from "./admin/Admin.jsx";
+import Admin from "./admin/Admin.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
+    <>
     <Route path="/" element={<App />}  >
 
       {/* <Route path="admin" element={<Admin />} /> */}
@@ -49,13 +50,11 @@ const router = createBrowserRouter(
       <Route path="/contactus" element={<ContactUs />} />
       <Route path="/feedback" element={<Feedback />} />
       <Route path="/track-request" element={<TrackRequest />} />
-
-
-      {/* admin routes */}
-
-
     </Route>
 
+    {/* admin routes */}
+    <Route path="/admin" element={<Admin/>}  ></Route>
+    </>
   )
 );
 ReactDOM.createRoot(document.getElementById("root")).render(
