@@ -24,12 +24,18 @@ import TrackRequest from "./components/track-request/TrackRequest.jsx";
 import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
 import Admin from "./admin/Admin.jsx";
+// import Layout from "./admin/Layout.jsx";
+import Dashboard from "./admin/Dashboard.jsx";
+import AddBranch from "./admin/admincomponents/AddBranch.jsx";
+import AddEmployee from "./admin/admincomponents/AddEmployee.jsx";
+import AddSalary from "./admin/admincomponents/AddSalary.jsx";
+import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
+import Policy from "./admin/admincomponents/reports/Policy.jsx";
+import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
     <Route path="/" element={<App />}  >
-
-      {/* <Route path="admin" element={<Admin />} /> */}
       {/* home */}
       <Route path="" element={<Home />} />
 
@@ -56,6 +62,16 @@ const router = createBrowserRouter(
 
     {/* admin routes */}
     <Route path="/admin" element={<Admin/>}/>
+    <Route path="/dashboard" element={<Dashboard/>}>
+    <Route path="/dashboard/addbranch" element={<AddBranch/>}/>
+    <Route path="/dashboard/addemployee" element={<AddEmployee/>}/>
+    <Route path="/dashboard/addsalary" element={<AddSalary/>}/>
+    <Route path="/dashboard/generatesalary" element={<GenerateSalary/>}/>
+    <Route path="/dashboard/policy" element={<Policy/>}/>
+    <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
+      </Route>
+    
+    
     </>
   )
 );
