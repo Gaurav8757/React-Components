@@ -35,6 +35,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
             >
               <NavLink
                 to={item.to}
+                
                 className={classNames(
                   item.current ? 'bg-gradient-to-r from-orange-700 to-rose-800 bg-clip-text text-transparent font-bold' : 'text-gray-300 hover:text-white',
                   'rounded-md px-2 font-medium text-gray-900 block py-2'
