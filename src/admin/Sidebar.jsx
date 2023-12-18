@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import Logout from "./logout/Logout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -110,7 +111,8 @@ const Sidebar = () => {
                                             <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
                                      </li>
                                         <li>
-                                            <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink>
+                                          <Logout/>
+                                            {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                                      </li>
                                      
                                     </ul>
