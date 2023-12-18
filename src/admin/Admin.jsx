@@ -14,7 +14,7 @@ function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:7000/loginadmin", {
+      const response = await axios.post("https://eleedomimf.onrender.com/loginadmin", {
         mobile,
         email,
         password,

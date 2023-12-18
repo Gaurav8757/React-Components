@@ -6,10 +6,7 @@ import { NavLink } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import { NavLink } from 'react-router-dom';
-
 const OurPartners = ({Ourpartners}) => {
-//   console.log(Ourpartners);
   return (
     <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
         <div className="text-start text-black bg-gradient-to-r from-teal-500 to-indigo-400">
@@ -38,38 +35,9 @@ const OurPartners = ({Ourpartners}) => {
                             </NavLink>
                         </SwiperSlide>
                     ))}
-          {/* </div> */}
-      
-        
-         
       </Swiper></div>
      </section>
   );
 };
-
 export default OurPartners;
-
-
-
-
-
-
-
-
-
-// function OurPartners() {
-//     return (
-//         <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
-//             <div className="text-start text-black bg-slate-200">
-//                 <img src="/partner.png" className="brightness-90 contrast-125 bg-cover " alt="partners"/>
-//             </div>
-//         </section>
-//     )
-// }
-
-// export default OurPartners;
-
-
-
-
 
