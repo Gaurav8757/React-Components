@@ -1,5 +1,3 @@
-
-
 /* eslint-disable react/prop-types */
 import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -34,7 +32,7 @@ const OurPartners = ({Ourpartners}) => {
         
           {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
           {Ourpartners.map((obj, idx) => (
-                        <SwiperSlide className='  rounded-2xl xl:pl-20 xl:pr-20 pb-10' key={idx}>
+                        <SwiperSlide className='rounded-2xl xl:pl-20 xl:pr-20 pb-10' key={idx}>
                             <NavLink to="#">
                                 <img src={obj.img} className='w-full' alt={`slide-${idx}`} />
                             </NavLink>

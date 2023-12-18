@@ -83,7 +83,7 @@ const Sidebar = () => {
                             </NavLink>
                         </div>
                         <div>
-                            <span className="text-2xl text-white font-medium font-serif sm:hidden">Admin Dashboard</span>
+                            <span className="text-2xl text-white font-medium font-serif ">Admin Dashboard</span>
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ">
