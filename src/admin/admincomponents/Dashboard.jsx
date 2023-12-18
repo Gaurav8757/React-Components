@@ -2,7 +2,7 @@
 // import Sidebar from "./Sidebar";
 const Dashboard = () => {
     return (
-        <div className="p-0 sm:ml-64">
+        <div className="p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
             <div className="p-4  border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
                 {/* part 1 */}
                 <div className="grid grid-cols-3 gap-4 mb-4">

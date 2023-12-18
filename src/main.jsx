@@ -32,6 +32,7 @@ import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
+import Agent from "./branches/Agent.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -72,7 +73,7 @@ const router = createBrowserRouter(
     <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
       </Route>
     
-    
+      <Route path="/agent" element={<Agent/>}/>
     </>
   )
 );
