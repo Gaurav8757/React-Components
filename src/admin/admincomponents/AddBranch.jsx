@@ -1,7 +1,9 @@
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 function AddBranch() {
   const [branch, setBranch] = useState("");
-  const [code, setCode] = useState();
+  const [code, setCode] = useState("");
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
   const [state, setState] = useState("");
@@ -10,20 +12,52 @@ function AddBranch() {
   const [mobile, setMobile] = useState();
   const [phone, setPhone] = useState();
   const [person, setPerson] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
       e.preventDefault();
-      setEmail("");
-      setMobile();
-      setBranch("");
-      setCode();
-      setAddress("");
-      setDistrict("");
-      setState("");
-      setPincode();
-      setPhone();
-      setPerson("");
-  };
+      setLoading(true);
+      try {
+        // Make sure to replace this URL with your actual API endpoint
+        const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addbranch", {
+          concernperson: person,
+          branchname: branch,
+          branchcode: code,
+          branchemail: email,
+          branchmobile: mobile,
+          branchphone: phone,
+          branchaddress: address,
+          branchdistrict: district,
+          branchstate: state,
+          branchpincode: pincode,
+        });
+  if(response.data){
+    toast.success("Added Successfully !");
+   
+        // Reset the form and loading state on successful submission
+        setBranch("");
+        setCode("");
+        setAddress("");
+        setDistrict("");
+        setState("");
+        setPincode("");
+        setEmail("");
+        setMobile("");
+        setPhone("");
+        setPerson("");
+        setLoading(false);
+      }
+       else{
+        toast.error("Error Occurred. Try again...! ");
+       }
+      } catch (error) {
+        console.error("Error during branch registration:", error.response);
+        // setError("Error during branch registration. Please try again.");
+        setLoading(false);
+      }
+    };
+  
+  
 
 
   return (
@@ -95,8 +129,8 @@ function AddBranch() {
               <label className="text-base mx-1">Branch Code:</label>
               <input
                 className="input-style rounded-lg"
-                type="number"
-                value={code}
+                type="text"
+                value={code.toUpperCase()}
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="Enter Branch Code"
               />
@@ -150,7 +184,7 @@ function AddBranch() {
               onClick={handleSubmit}
               type="button"
             >
-              Submit
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>
