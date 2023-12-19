@@ -16,7 +16,7 @@ export default function Button() {
   if (isLoggedIn && location.pathname !== "") {
     return (
       <button
-        className="bg-red-600 text-white px-3 py-1 font-bold   hover:bg-red-400  hover:text-black  p-2 rounded-lg focus:outline-none"
+        className="text-white  bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-2 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-xs px-2 py-1  text-center mt-2 mb-2"
         onClick={handleLogout}
       >
         LOGOUT
