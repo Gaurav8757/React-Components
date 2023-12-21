@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-function AddEmployee() { 
- const [address, setAddress] = useState("");
+
+function AddEmployee() {
+  const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
   const [aadhar, setAadhar] = useState("");
   const [empid, setEmpid] = useState("");
@@ -15,13 +16,14 @@ function AddEmployee() {
   const [branch, setBranch] = useState("");
   const [joining, setJoining] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const formData = new FormData();
-       formData.append("empaadhar", aadhar);
-       formData.append("empaadharfile", aadhar.name);
+      formData.append("empaadhar", aadhar);
+      formData.append("empaadharfile", aadhar, aadhar.name);
       formData.append("empid", empid);
       formData.append("empname", empname);
       formData.append("empdob", calendar);
@@ -32,14 +34,18 @@ function AddEmployee() {
       formData.append("empbranch", branch);
       formData.append("currentempaddress", address);
       formData.append("permanentempaddress", permanentaddress);
-      formData.append("aadharno", aadharno);
-
+      formData.append("empaadharno", aadharno);
       formData.append("empdesignation", designation);
-console.log(formData);
-      // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("http://localhost:7000/dashboard/addemployee", formData);
 
-      console.log(response.data);
+      // Make sure to replace this URL with your actual API endpoint
+      const response = await axios.post("http://localhost:7000/dashboard/addemployee", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+    if(response.data){
+      toast.success("Employee added successfully!");
       // Reset the form on successful submission
       setAddress("");
       setGender("");
@@ -50,14 +56,17 @@ console.log(formData);
       setDesignation("");
       setCalendar("");
       setEmpname("");
-      setAadharno("");
+      setAadharno();
       setBranch("");
       setJoining("");
       setPermanentaddress("");
-
-      toast.success("Employee added successfully!");
-    } catch (error) {
-      console.error("Error during employee registration:", error.response);
+      setLoading(false);
+     
+    }else {
+      toast.error("Error Occurred. Try again!");
+    }
+  } catch (error) {
+    toast.success("Employee added successfully!");
       toast.error("Error during employee registration. Please try again.");
     }
   };
@@ -199,7 +208,7 @@ console.log(formData);
                 name="empid"
                 value={empid}
                 onChange={(e) => setEmpid(e.target.value)}
-                placeholder="789"
+                placeholder="s-12"
               />
             </div>
            
@@ -255,7 +264,7 @@ console.log(formData);
               onClick={handleSubmit}
               type="button"
             >
-              Submit
+              {loading ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>
