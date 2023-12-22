@@ -38,7 +38,7 @@ function AddEmployee() {
       formData.append("empdesignation", designation);
 
       // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("http://localhost:7000/dashboard/addemployee", formData, {
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addemployee", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

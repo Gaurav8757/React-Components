@@ -36,7 +36,7 @@ function AddPolicyDetails() {
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
-        "http://localhost:7000/dashboard/addpolicy",
+        "https://eleedomimf.onrender.com/dashboard/addpolicy",
         formData,
         {
           headers: {

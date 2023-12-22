@@ -10,7 +10,7 @@ function AddSalary() {
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
-    axios.get("http://localhost:7000/api/employee-list").then((response) => {
+    axios.get("https://eleedomimf.onrender.com/api/employee-list").then((response) => {
       setEmployeeList(response.data);
       
     });
@@ -21,7 +21,7 @@ function AddSalary() {
     setLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:7000/dashboard/addsalary", {
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addsalary", {
         empName: selectedEmployee,
         salmonth: monthsalary,
         saleavemonth: monthleave,
@@ -72,7 +72,7 @@ function AddSalary() {
             </select>
               </div>
               <div className="flex flex-col py-5">
-                <label className="text-base mx-1">Leave Monthly:</label>
+                <label className="text-base mx-1">Monthly Leave:</label>
                 <input
                   className="input-style rounded-lg"
                   type="number"
