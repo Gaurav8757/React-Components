@@ -10,7 +10,7 @@ function AddSalary() {
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
-    axios.get("https://eleedomimf.onrender.com/api/employee-list").then((response) => {
+    axios.get("https://eleedomimf.onrender.com/api/employee-lists").then((response) => {
       setEmployeeList(response.data);
       
     });

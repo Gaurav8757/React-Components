@@ -33,6 +33,7 @@ import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
 import Agent from "./branches/Agent.jsx";
+import ViewBranch from "./admin/admincomponents/ViewBranch.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -66,6 +67,7 @@ const router = createBrowserRouter(
     <Route path="/dashboard" element={<Layout/>}>
     <Route path="" element={<Dashboard/>}/>
     <Route path="/dashboard/addbranch" element={<AddBranch/>}/>
+    <Route path="/dashboard/viewbranch" element={<ViewBranch/>}/>
     <Route path="/dashboard/addemployee" element={<AddEmployee/>}/>
     <Route path="/dashboard/addsalary" element={<AddSalary/>}/>
     <Route path="/dashboard/generatesalary" element={<GenerateSalary/>}/>
