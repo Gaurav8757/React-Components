@@ -33,8 +33,10 @@ function AddEmployee() {
     setLoading(true);
     try {
       const formData = new FormData();
-      formData.append("empaadhar", aadhar);
-      formData.append("empaadharfile", aadhar, aadhar.name);
+      formData.append("empaadhar", "12345");
+      formData.append("empaadharfile", aadhar);
+      // formData.append("empaadhar", aadhar);
+      // formData.append("empaadharfile", aadhar, aadhar.name);
       formData.append("empid", empid);
       formData.append("empname", empname);
       formData.append("empdob", calendar);
