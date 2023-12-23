@@ -44,20 +44,20 @@ function AddEmployee() {
           "Content-Type": "multipart/form-data",
         },
       });
-
+console.log(response.data);
     if(response.data){
       toast.success("Employee added successfully!");
       // Reset the form on successful submission
       setAddress("");
       setGender("");
-      setAadhar("");
+      setAadhar(null);
       setEmpid("");
       setEmail("");
       setMobile("");
       setDesignation("");
       setCalendar("");
       setEmpname("");
-      setAadharno();
+      setAadharno("");
       setBranch("");
       setJoining("");
       setPermanentaddress("");
@@ -67,7 +67,7 @@ function AddEmployee() {
       toast.error("Error Occurred. Try again!");
     }
   } catch (error) {
-    toast.success("Employee added successfully!");
+   
       toast.error("Error during employee registration. Please try again.");
     }
   };
