@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
@@ -17,7 +17,17 @@ function AddEmployee() {
   const [branch, setBranch] = useState("");
   const [joining, setJoining] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
+  const [branchList, setBranchList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Fetch the list of employees when the component mounts
+    axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
+      setBranchList(resp.data);
+      
+    });
+  }, []);
+  // console.log(branchList);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -44,7 +54,7 @@ function AddEmployee() {
           "Content-Type": "multipart/form-data",
         },
       });
-console.log(response.data);
+
     if(response.data){
       toast.success("Employee added successfully!");
       // Reset the form on successful submission
@@ -228,18 +238,20 @@ console.log(response.data);
             <div className="flex flex-col ">
               <label className="text-base mx-1">  Branch:</label>
               <select
-                className="input-style rounded-lg"
-                type="text"
-                name="empbranch"
-                value={branch}
-                onChange={(e) => setBranch(e.target.value)}
-                placeholder="Enter Branch Name"
-              >
-                <option value="0" selected>----- Select Branch -----</option>
-                <option value="1">M</option>
-                <option value="2">F</option>
-                <option value="3">O</option>
-              </select>
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="empbranch"
+                  value={branch}
+                  onChange={(e) => setBranch(e.target.value)}
+                  placeholder="Enter Branch Name"
+                >
+                  <option value="0">----- Select Branch -----</option>
+                  {branchList.map((branchItem) => (
+                    <option key={branchItem._id} value={branchItem.branchname}>
+                      {branchItem.branchname}
+                    </option>
+                  ))}
+                </select>
             </div>
 
             <div className="flex flex-col my-5">
