@@ -15,7 +15,7 @@ function AddPolicyDetails() {
 
   useEffect(() => {
     // Fetch the list of policies when the component mounts
-    axios.get("http://localhost:7000/api/employee-list")
+    axios.get("https://eleedomimf.onrender.com/api/employee-list")
       .then((response) => {
         setPolicyList(response.data || []); // Ensure policyList is an array
       })

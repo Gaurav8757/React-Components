@@ -11,7 +11,7 @@ export default function ViewBranch() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`http://localhost:7000/api/branch-list`, {
+                .get(`https://eleedomimf.onrender.com/api/branch-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },

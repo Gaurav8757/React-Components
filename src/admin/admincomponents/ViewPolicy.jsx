@@ -11,7 +11,7 @@ export default function ViewPolicy() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`http://localhost:7000/api/policy-list`, {
+                .get(`https://eleedomimf.onrender.com/api/policy-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
