@@ -34,6 +34,10 @@ import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.j
 import Layout from "./admin/Layout.jsx";
 import Agent from "./branches/Agent.jsx";
 import ViewBranch from "./admin/admincomponents/ViewBranch.jsx";
+import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
+import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
+import ViewPolicy from "./admin/admincomponents/ViewPolicy.jsx";
+import ViewGenSalary from "./admin/admincomponents/ViewGenSalary.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -69,10 +73,14 @@ const router = createBrowserRouter(
     <Route path="/dashboard/addbranch" element={<AddBranch/>}/>
     <Route path="/dashboard/viewbranch" element={<ViewBranch/>}/>
     <Route path="/dashboard/addemployee" element={<AddEmployee/>}/>
+    <Route path="/dashboard/viewemployee" element={<ViewEmployee/>}/>
     <Route path="/dashboard/addsalary" element={<AddSalary/>}/>
+    <Route path="/dashboard/viewsalary" element={<ViewSalary/>}/>
     <Route path="/dashboard/generatesalary" element={<GenerateSalary/>}/>
+    <Route path="/dashboard/viewgeneratesalary" element={<ViewGenSalary/>}/>
     <Route path="/dashboard/policy" element={<Policy/>}/>
     <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
+    <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
       </Route>
     
       <Route path="/agent" element={<Agent/>}/>

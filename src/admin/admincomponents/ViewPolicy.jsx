@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-export default function ViewBranch() {
+export default function ViewPolicy() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -11,12 +11,13 @@ export default function ViewBranch() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`http://localhost:7000/api/branch-list`, {
+                .get(`http://localhost:7000/api/policy-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
                 })
                 .then((response) => {
+                   
                     setAPIData(response.data);
                    
                 })
@@ -28,30 +29,21 @@ export default function ViewBranch() {
 
     const setData = (data) => {
         let {
-            branchname,
-            branchaddress,
-            branchid,
-            branchcode,
-            branchemail,
-            branchmobile,
-            branchphone,
-            branchdistrict,
-            branchstate,
-            branchpincode,
-            concernperson,
-
+            addpolicytype,
+            addpolicytitle,
+            addpolicycname,
+            addpolicydesc,
+            addpolicyimage,
+            addpolicylogo
         } = data;
-        sessionStorage.setItem("branchname", branchname);
-        sessionStorage.setItem("branchid", branchid);
-        sessionStorage.setItem("branchcode", branchcode);
-        sessionStorage.setItem("branchaddress", branchaddress);
-        sessionStorage.setItem("branchemail", branchemail);
-        sessionStorage.setItem("branchmobile", branchmobile);
-        sessionStorage.setItem("concernperson", concernperson);
-        sessionStorage.setItem("branchdistrict", branchdistrict);
-        sessionStorage.setItem("branchstate ", branchstate);
-        sessionStorage.setItem("branchpincode", branchpincode);
-        sessionStorage.setItem("branchphone ", branchphone);
+       
+        sessionStorage.setItem("addpolicytype", addpolicytype);
+        sessionStorage.setItem("addpolicytitle",  addpolicytitle);
+        sessionStorage.setItem("addpolicycname", addpolicycname);
+        sessionStorage.setItem("addpolicydesc", addpolicydesc);
+        sessionStorage.setItem("addpolicyimage", addpolicyimage);
+        sessionStorage.setItem("addpolicylogo", addpolicylogo);
+     
     };
 
     // ******************** Delete Functions *************************************/
@@ -67,45 +59,35 @@ export default function ViewBranch() {
         <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto text-white"
-                    ><NavLink to = "/dashboard/addbranch" className="flex justify-end">Back</NavLink>
-                        <h1 className="flex justify-center text-4xl mb-8">All Branch Lists</h1><hr></hr>
+                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
+                    <div className="overflow-x-auto w-xl  text-white"
+                    ><NavLink to = "/dashboard/addpolicy" className="flex justify-end">Back</NavLink>
+                        <h1 className="flex justify-center text-4xl w-full mb-8">Policy Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-white">
+                                   
                                     <th scope="col" className="px-5 py-4">
-                                        Branch Code
+                                    Policy Type
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Branch Name
+                                    Policy Title
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Email ID
+                                    Description
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Mobile No.
+                                    Policy Name
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Phone No.
+                                    Image
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Concern Person
+                                    Logo
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
-                                        Address
-                                    </th>
-                                    <th scope="col" className="px-5 py-4">
-                                        Branch District
-                                    </th>
-                                    <th scope="col" className="px-5 py-4">
-                                        State
-                                    </th>
-                                    <th scope="col" className="px-5 py-4">
-                                        Pincode
-                                    </th>
+                                   
                                     <th scope="col" className="px-5 py-4">
                                         Edit
                                     </th>
@@ -116,46 +98,35 @@ export default function ViewBranch() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    // console.log(data);
+                                   
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data.branchid}
+                                            key={data._id}
                                         >
-                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchcode}
-                                            </td>
+                                          
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchname}
+                                                {data.addpolicytype}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.branchemail}
+                                                {data.addpolicytitle}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchmobile}
-                                            </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchphone}
-                                            </td>
-
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.concernperson}
+                                                {data.addpolicycname}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.branchaddress}
+                                                {data.addpolicydesc}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchdistrict}
+                                            <NavLink to= {data.addpolicyimage}>
+                                                    <img src={data.addpolicyimage} alt="img"/>
+                                                      </NavLink>
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchstate}
+                                            <NavLink to= {data.addpolicylogo}>
+                                                    <img src={data.addpolicylogo} alt="logo"/>
+                                                      </NavLink>
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchpincode}
-                                            </td>
-                                           
-
-
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <Link to="#">
                                                     <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">

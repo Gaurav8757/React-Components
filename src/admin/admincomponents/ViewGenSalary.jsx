@@ -1,57 +1,63 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-export default function ViewBranch() {
+export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`http://localhost:7000/api/branch-list`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    },
-                })
-                .then((response) => {
-                    setAPIData(response.data);
+    // useEffect(() => {
+    //     const token = sessionStorage.getItem("token");
+    //     if (!token) {
+    //         toast.error("Not Authorized yet.. Try again! ");
+    //     } else {
+    //         // The user is authenticated, so you can make your API request here.
+    //         axios
+    //             .get(`http://localhost:7000/api/employee-list`, {
+    //                 headers: {
+    //                     Authorization: `${token}`, // Send the token in the Authorization header
+    //                 },
+    //             })
+    //             .then((response) => {
+               
+    //                 setAPIData(response.data);
                    
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, [APIData]);
+    //             })
+    //             .catch((error) => {
+    //                 console.error(error);
+    //             });
+    //     }
+    // }, [APIData]);
 
     const setData = (data) => {
         let {
-            branchname,
-            branchaddress,
-            branchid,
-            branchcode,
-            branchemail,
-            branchmobile,
-            branchphone,
-            branchdistrict,
-            branchstate,
-            branchpincode,
-            concernperson,
+            empid,
+            // uniqueid,
+            empname,
+            empdob,
+            empgender,
+            empemail,
+            empmobile,
+            empjoiningdate,
+            empbranch,
+            empaadharno,
+            empaadharfile,
+            currentempaddress,
+            permanentempaddress,
+            empdesignation,
 
         } = data;
-        sessionStorage.setItem("branchname", branchname);
-        sessionStorage.setItem("branchid", branchid);
-        sessionStorage.setItem("branchcode", branchcode);
-        sessionStorage.setItem("branchaddress", branchaddress);
-        sessionStorage.setItem("branchemail", branchemail);
-        sessionStorage.setItem("branchmobile", branchmobile);
-        sessionStorage.setItem("concernperson", concernperson);
-        sessionStorage.setItem("branchdistrict", branchdistrict);
-        sessionStorage.setItem("branchstate ", branchstate);
-        sessionStorage.setItem("branchpincode", branchpincode);
-        sessionStorage.setItem("branchphone ", branchphone);
+        sessionStorage.setItem("empid", empid);
+        sessionStorage.setItem("empname", empname);
+        sessionStorage.setItem("empdob", empdob);
+        sessionStorage.setItem("empgender", empgender);
+        sessionStorage.setItem("empemail", empemail);
+        sessionStorage.setItem("empmobile", empmobile);
+        sessionStorage.setItem("empjoiningdate", empjoiningdate);
+        sessionStorage.setItem("empbranch", empbranch);
+        sessionStorage.setItem("empaadharno ", empaadharno);
+        sessionStorage.setItem("empaadharfile", empaadharfile);
+        sessionStorage.setItem("currentempaddress", currentempaddress);
+        sessionStorage.setItem("permanentempaddress", permanentempaddress);
+        sessionStorage.setItem("empdesignation", empdesignation);
     };
 
     // ******************** Delete Functions *************************************/
@@ -67,20 +73,20 @@ export default function ViewBranch() {
         <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto text-white"
-                    ><NavLink to = "/dashboard/addbranch" className="flex justify-end">Back</NavLink>
-                        <h1 className="flex justify-center text-4xl mb-8">All Branch Lists</h1><hr></hr>
+                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
+                    <div className="overflow-x-auto w-xl  text-white"
+                    ><NavLink to = "/dashboard/generatesalary" className="flex justify-end">Back</NavLink>
+                        <h1 className="flex justify-center text-4xl w-full mb-8">All Employee Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-white">
                                     <th scope="col" className="px-5 py-4">
-                                        Branch Code
+                                   Employee ID
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Branch Name
+                                    Employee Name
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Email ID
@@ -89,22 +95,31 @@ export default function ViewBranch() {
                                     Mobile No.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Phone No.
+                                    DOB.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Concern Person
+                                    Gender
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Address
+                                    Aadhar No.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Branch District
+                                        Aadhar
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        State
+                                        Joining Date
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Pincode
+                                        Branch 
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                        Current Address
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Permanent Address
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Designation
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         Edit
@@ -120,45 +135,56 @@ export default function ViewBranch() {
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data.branchid}
+                                            key={data.uniqueid}
                                         >
                                              <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchcode}
+                                                {data. empid}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchname}
+                                                {data.empname}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.branchemail}
+                                                {data.empemail}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchmobile}
+                                                {data.empmobile}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchphone}
+                                                {data.empdob}
                                             </td>
-
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.concernperson}
+                                                {data.empgender}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empaadharno}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.branchaddress}
+                                                <NavLink to= {data.empaadharfile}>
+                                                    <img src={data.empaadharfile} alt="aadhar"/>
+                                                      </NavLink>
+                                                
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchdistrict}
+                                                {data.empjoiningdate}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchstate}
-                                            </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchpincode}
+                                                {data.empbranch}
                                             </td>
                                            
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.currentempaddress}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.permanentempaddress}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empdesignation}
+                                            </td>
 
 
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <Link to="#">
-                                                    <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
+                                                    <button type="button" onClick={() => setData(data)} className="from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">
                                                         {/* <UpdateForm/> */} Edit
                                                     </button>
 
