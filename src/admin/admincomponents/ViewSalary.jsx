@@ -42,7 +42,7 @@ export default function ViewSalary() {
 
     // ******************** Delete Functions *************************************/
     const onDelete = (_id) => {
-        axios.delete(`https://eleedomimf.com/dashboard/salary-list/${_id}`).then(() => {
+        axios.delete(`https://eleedomimf.com/dashboard/${_id}`).then(() => {
             toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         });

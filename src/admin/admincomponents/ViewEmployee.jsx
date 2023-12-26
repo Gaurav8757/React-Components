@@ -62,7 +62,7 @@ export default function ViewEmployee() {
 
     // ******************** Delete Functions *************************************/
     const onDelete = (_id) => {
-        axios.delete(`https://eleedomimf.com/dashboard/employee-list/${_id}`).then(() => {
+        axios.delete(`https://eleedomimf.com/dashboard/${_id}`).then(() => {
             toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         });
