@@ -57,7 +57,7 @@ export default function ViewBranch() {
 
     // ******************** Delete Functions *************************************/
     const onDelete = (_id) => {
-        axios.delete(`http://localhost:7000/dashboard/branch-list/${_id}`).then(() => {
+        axios.delete(`https://eleedomimf.com/dashboard/branch-list/${_id}`).then(() => {
            
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
             toast.warn(`${APIData.map((data)=> data.branchname)} Branch Deleted...!`, { theme: "dark", position: "top-right" });
