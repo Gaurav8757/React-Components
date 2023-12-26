@@ -140,22 +140,28 @@ const listOfInsurance = [
 
 const homesecondslider = [
     {
-        img: "/amritkaal.avif"
+        img: "/mparivahan.webp",
+        link:"https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml"
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif",
+        link:""
     },
     {
-        img: "/amritkaal.avif"
+        img: "/amritkaal.avif",
+        link:""
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif",
+        link:""
     },
     {
-        img: "/amritkaal.avif"
+        img: "/amritkaal.avif",
+        link:""
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif"
+        img: "/how-buy-health-insurance-3.avif",
+        link:""
     }
 ]
 

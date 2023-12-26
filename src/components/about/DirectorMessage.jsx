@@ -12,7 +12,7 @@ const DirectorMessage = () => {
               <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent font-medium">(Director)</span>
               <p className="mt-4 text-justify text-gray-900">
                 Amit Kumar is registered with the Ministry of Corporate Affairs as a Director in Indian Companies. The DIN
-                (Director Identification Number) of Adarsh Kumar is 08315397.
+                (Director Identification Number) of Amit Kumar is 08315397.
               </p>
               <p className="mt-1 text-justify text-gray-900">
                 Currently, he serves as a director in 3 Companies in India. The companies he is associated with are from
