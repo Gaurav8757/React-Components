@@ -33,7 +33,7 @@ function LoginBranch() {
       }
     } catch (error) {
       console.log(error);
-      toast.warn("Incorrect UserID/Password or Admin Access Not Allowed! ");
+      toast.warn("Incorrect UserID/Password | Branch Not Accessed! ");
     }
   };
 

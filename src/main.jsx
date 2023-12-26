@@ -96,7 +96,7 @@ const router = createBrowserRouter(
       <Route path="/branches" element={<LoginBranch/>}/>
       <Route element={<BranchProtected/>}>
       <Route path="/branches/home" element={<BranchLayout/>}>
-        <Route path = "" element={<BranchDashboard/>}/>
+        <Route path = "/branches/home" element={<BranchDashboard/>}/>
         
         </Route>
         </Route>
