@@ -1,31 +1,31 @@
 import axios from "axios";
-import {  useState } from "react";
+import {  useState,useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
-    // useEffect(() => {
-    //     const token = sessionStorage.getItem("token");
-    //     if (!token) {
-    //         toast.error("Not Authorized yet.. Try again! ");
-    //     } else {
-    //         // The user is authenticated, so you can make your API request here.
-    //         axios
-    //             .get(`http://localhost:7000/api/employee-list`, {
-    //                 headers: {
-    //                     Authorization: `${token}`, // Send the token in the Authorization header
-    //                 },
-    //             })
-    //             .then((response) => {
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`http://localhost:7000/api/employee-list`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
                
-    //                 setAPIData(response.data);
+                    setAPIData(response.data);
                    
-    //             })
-    //             .catch((error) => {
-    //                 console.error(error);
-    //             });
-    //     }
-    // }, [APIData]);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [APIData]);
 
     const setData = (data) => {
         let {
@@ -61,12 +61,16 @@ export default function ViewGenPolicy() {
     };
 
     // ******************** Delete Functions *************************************/
-    const onDelete = (_id) => {
-        axios.delete(`http://localhost:7000/getuser/${_id}`).then(() => {
-            toast.warn("User Deleted!", { theme: "dark", position: "top-right" });
-            setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
-        });
-    };
+    const onGenSalaryDelete = async (_id) => {
+        try {
+          await axios.delete(`https://eleedomimf.com/dashboard/${_id}`);
+          toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
+          // Update state or perform any other necessary actions
+        } catch (error) {
+          console.error('Error deleting general salary:', error);
+        }
+      };
+      
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -191,7 +195,7 @@ export default function ViewGenPolicy() {
                                                 </Link>
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
                                     );
