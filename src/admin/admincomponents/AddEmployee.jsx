@@ -47,7 +47,7 @@ function AddEmployee() {
       formData.append("permanentempaddress", permanentaddress);
       formData.append("empaadharno", aadharno);
       formData.append("empdesignation", designation);
-console.log(formData);
+console.log(formData.values);
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addemployee", formData, {
         headers: {

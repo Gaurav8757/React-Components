@@ -38,6 +38,7 @@ import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
 import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/ViewPolicy.jsx";
 import ViewGenSalary from "./admin/admincomponents/ViewGenSalary.jsx";
+import ProtectRoute from "./admin/Protected.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -66,8 +67,11 @@ const router = createBrowserRouter(
       <Route path="/track-request" element={<TrackRequest />} />
     </Route>
 
+
+
     {/* admin routes */}
     <Route path="/admin" element={<Admin/>}/>
+    <Route element={<ProtectRoute/>}>
     <Route path="/dashboard" element={<Layout/>}>
     <Route path="" element={<Dashboard/>}/>
     <Route path="/dashboard/addbranch" element={<AddBranch/>}/>
@@ -82,7 +86,7 @@ const router = createBrowserRouter(
     <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
     <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
       </Route>
-    
+      </Route>
       <Route path="/agent" element={<Agent/>}/>
     </>
   )
