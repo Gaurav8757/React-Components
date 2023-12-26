@@ -39,6 +39,7 @@ export default function ViewBranch() {
             branchstate,
             branchpincode,
             concernperson,
+           
 
         } = data;
         sessionStorage.setItem("branchname", branchname);
@@ -56,7 +57,7 @@ export default function ViewBranch() {
 
     // ******************** Delete Functions *************************************/
     const onDelete = (_id) => {
-        axios.delete(`http://localhost:7000/getuser/${_id}`).then(() => {
+        axios.delete(`http://localhost:7000/dashboard/branch-list/${_id}`).then(() => {
             toast.warn("User Deleted!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         });
@@ -84,6 +85,9 @@ export default function ViewBranch() {
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Email ID
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Password
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Mobile No.
@@ -130,6 +134,9 @@ export default function ViewBranch() {
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
                                                 {data.branchemail}
+                                            </td>
+                                            <td className="whitespace-nowrap px4 py-4">
+                                                {data.password}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.branchmobile}
