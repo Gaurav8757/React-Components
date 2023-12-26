@@ -41,12 +41,16 @@ export default function ViewSalary() {
     };
 
     // ******************** Delete Functions *************************************/
-    const onDelete = (_id) => {
-        axios.delete(`https://eleedomimf.com/dashboard/${_id}`).then(() => {
-            toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
-            setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
-        });
-    };
+    const onDeleteEmployeeSalary = async (_id) => {
+        try {
+          await axios.delete(`https://eleedomimf.com/dashboard/${_id}`);
+          toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
+          setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+        } catch (error) {
+          console.error('Error removing employee salary:', error);
+        }
+      };
+      
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -85,7 +89,7 @@ export default function ViewSalary() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    // console.log(data);
+                                   
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -111,7 +115,7 @@ export default function ViewSalary() {
                                                 </Link>
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onDeleteEmployeeSalary(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
                                     );
