@@ -49,7 +49,7 @@ export default function ViewPolicy() {
     // ******************** Delete Functions *************************************/
     const onDelete = (_id) => {
         axios.delete(`https://eleedomimf.com/dashboard/policy-list/${_id}`).then(() => {
-            toast.warn("User Deleted!", { theme: "dark", position: "top-right" });
+            toast.warn("Policy Deleted.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         });
     };
