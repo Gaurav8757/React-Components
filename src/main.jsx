@@ -32,13 +32,18 @@ import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
-import Agent from "./branches/Agent.jsx";
+
 import ViewBranch from "./admin/admincomponents/ViewBranch.jsx";
 import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
 import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/ViewPolicy.jsx";
 import ViewGenSalary from "./admin/admincomponents/ViewGenSalary.jsx";
 import ProtectRoute from "./admin/Protected.jsx";
+import LoginBranch from "./branches/LoginBranch.jsx";
+import BranchLayout from "./branches/BranchLayout.jsx";
+import BranchDashboard from "./branches/BranchDashboard.jsx";
+import BranchProtected from "./branches/BranchProtect.jsx";
+// import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -87,7 +92,14 @@ const router = createBrowserRouter(
     <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
       </Route>
       </Route>
-      <Route path="/agent" element={<Agent/>}/>
+
+      <Route path="/branches" element={<LoginBranch/>}/>
+      <Route element={<BranchProtected/>}>
+      <Route path="/branches/home" element={<BranchLayout/>}>
+        <Route path = "" element={<BranchDashboard/>}/>
+        
+        </Route>
+        </Route>
     </>
   )
 );

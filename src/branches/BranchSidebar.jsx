@@ -1,50 +1,50 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import Logout from "./logout/Logout.jsx";
+import BranchLogout from "./BranchLogout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { TbMoneybag, TbReport } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc";
-const Sidebar = () => {
-  const dashboardRoutes = [
+const BranchSidebar = () => {
+  const dashboardRouted = [
     {
-      title: "Dashboard",
-      path: "/dashboard",
+      title: "Home",
+      path: "/branches/home",
       logo: <RxDashboard />
     },
     {
-      title: "Add Branch",
-      path: "/dashboard/addbranch",
+    //   title: "Add Branch",
+      path: "/branches",
       logo: <RiGitBranchFill />
     },
     {
-      title: "Add Employee",
-      path: "/dashboard/addemployee",
+    //   title: "Add Employee",
+      path: "/branches",
       logo: <IoPeopleOutline />
     },
     {
-      title: "Add Salary",
-      path: "/dashboard/addsalary",
+    //   title: "Add Salary",
+      path: "/branches",
       logo: <TbMoneybag />
     },
     {
-      title: "Generate Salary",
-      path: "/dashboard/generatesalary",
+    //   title: "Generate Salary",
+      path: "/branches",
       logo: <FcMoneyTransfer />
     },
     {
-      title: "Report",
-      path: "/dashboard/policy",
+    //   title: "Report",
+      path: "/branches",
       logo: <TbReport />,
       subRoutes: [
         {
-          title: "Policy",
-          path: "/dashboard/policy"
+        //   title: "Policy",
+          path: "/branches"
         },
         {
-          title: "Add Policy Details",
-          path: "/dashboard/addpolicy"
+        //   title: "Add Policy Details",
+          path: "/branches"
         }
         // Add more sub-routes as needed
       ]
@@ -65,8 +65,8 @@ const Sidebar = () => {
   const closeSubmenu = () => {
     setOpenSubmenu(null);
   };
-// set email
-const loginemail = sessionStorage.getItem("email");
+
+  const loginBranch = sessionStorage.getItem("email");
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-gradient-to-r from-indigo-700 to-cyan-600">
@@ -79,13 +79,13 @@ const loginemail = sessionStorage.getItem("email");
                   <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
               </button>
-              <NavLink to="/dashboard" className="flex ms-2 md:me-24">
+              <NavLink to="/branches" className="flex ms-2 md:me-24">
                 <img src="/logo.png " className="h-10 me-1 rounded-full" alt="Logo" />
                 <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap dark:text-white">ELEEDOM IMF</span>
               </NavLink>
             </div>
             <div>
-              <span className="text-2xl text-white font-medium font-serif ">Admin Dashboard</span>
+              <span className="text-2xl text-white font-medium font-serif ">Branch</span>
             </div>
             <div className="flex items-center">
               <div className="flex items-center ">
@@ -98,21 +98,21 @@ const loginemail = sessionStorage.getItem("email");
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <div className="px-4 py-3" role="none">
                     <p className="text-sm text-gray-900 dark:text-white" role="none">
-                      Neil Sims
+                      Name
                     </p>
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                     {loginemail}
+                     {loginBranch}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
                     <li>
-                      <NavLink to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</NavLink>
+                      <NavLink to="/branches" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Home</NavLink>
                     </li>
                     <li>
                       <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
                     </li>
                     <li>
-                      <Logout />
+                      <BranchLogout />
                       {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </li>
 
@@ -132,7 +132,7 @@ const loginemail = sessionStorage.getItem("email");
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-r from-indigo-700 to-cyan-600">
           <ul className="space-y-2 font-medium">
-            {dashboardRoutes.map((route, idx) => (
+            {dashboardRouted.map((route, idx) => (
               <li key={idx}>
                 {route.subRoutes ? (
                   // Render parent route with sub-routes
@@ -183,4 +183,4 @@ const loginemail = sessionStorage.getItem("email");
   );
 };
 
-export default Sidebar;
+export default BranchSidebar;

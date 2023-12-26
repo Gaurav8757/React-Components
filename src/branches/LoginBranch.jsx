@@ -2,37 +2,33 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
-
-
-function Admin() {
+function LoginBranch() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/loginadmin", {
-        mobile,
+      const response = await axios.post("https://eleedomimf.onrender.com/loginbranch", {
         email,
         password,
       });
-console.log(response.data.email);
+
       const token = response.data.token;
-       const emails = response.data.email;
+      
       sessionStorage.setItem("token", token);
-      sessionStorage.setItem("email", emails);
+      sessionStorage.setItem("email", email);
       navigate("/");
       // Check if the user is an admin based on your backend response
-      if (response.data.isAdmin === true) {
+      if (response.data) {
         const token = response.data.token;
         sessionStorage.getItem("token", token);
-        navigate("/dashboard");
+        navigate("/branches/home");
         toast.success("Logged In Successfully !");
       } else {
         // For non-admin users, you might want to redirect to a different page
-        navigate("/admin");
+        navigate("/branches");
         toast.error("User Not Found!");
       }
     } catch (error) {
@@ -45,18 +41,18 @@ console.log(response.data.email);
     <>
       <section className="container-fluid h-screen relative bg-gradient-to-r from-indigo-400 to-cyan-400">
         <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-20 justify-between bg-gradient-to-r from-indigo-400 to-cyan-400">
-          <div className="flex-shrink-4   px-6 md:h-full h-full py-20">
+          <div className="flex-shrink-4  ml-52  px-6 md:h-full h-full py-20">
             <img
-              src="/adminlogin-avatar.jpg"
-              className="h-1/4 w-2/5 rounded-full mx-auto "
+              src="/branches.webp"
+              className="h-full w-full rounded-full mx-auto "
               alt="Logo"
             />
-            <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-white flex justify-center">Admin Panel</div>
+            <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-white flex justify-center">Branch Login</div>
           </div>
           <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-20">
-            <div className="w-full max-w-xl p-6 space-y-14 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
+            <div className="w-full max-w-xl p-6 space-y-14 sm:p-8 bg-white rounded-lg shadow dark:bg-slate-800">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Sign in as Admin
+                Sign in as Branch
               </h2>
               <form
                 className="mt-8 space-y-6"
@@ -74,14 +70,14 @@ console.log(response.data.email);
                     type="email"
                     name="email"
                     id="email"
-                    value={mobile || email}
+                    value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);
-                      setMobile(e.target.value);
+                     
                     }}
                     autoComplete="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="name@company.com"
+                    placeholder="name@branch.com"
                     required
                   />
                 </div>
@@ -126,4 +122,4 @@ console.log(response.data.email);
   );
 }
 
-export default Admin;
+export default LoginBranch;
