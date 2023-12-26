@@ -50,7 +50,7 @@ function Admin() {
         <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-20 justify-between bg-gradient-to-r from-indigo-400 to-cyan-400">
           <div className="flex-shrink-4   px-6 md:h-full h-full py-20">
             <img
-              src="/adminlogin-avatar.avif"
+              src="/adminlogin-avatar.jpg"
               className="h-1/4 w-2/5 rounded-full mx-auto "
               alt="Logo"
             />
