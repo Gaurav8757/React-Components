@@ -29,8 +29,8 @@ const SecondCarousel = ({ homesecondslider }) => {
           {homesecondslider.map((obj, idx) => (
             <SwiperSlide className='border bg-slate-400 rounded-2xl' key={idx}>
               {/* {console.log(obj.link)} */}
-              <NavLink to= {obj.link}>
-                <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}`} />
+              <NavLink to= {obj.link} target="_blank" rel="noopener noreferrer">
+                <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}` } />
               </NavLink>
             </SwiperSlide>
           ))}
