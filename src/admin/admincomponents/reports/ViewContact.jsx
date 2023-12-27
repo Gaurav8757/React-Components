@@ -78,9 +78,9 @@ const ViewContact = () => {
                     className="border-b dark:border-neutral-200 text-sm font-medium"
                     key={contact._id}
                   >
-                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_email}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_mobile}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_query}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_email}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_mobile}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_query}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
                         <button
