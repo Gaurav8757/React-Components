@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ViewFeedback = () => {
@@ -85,7 +85,19 @@ const ViewFeedback = () => {
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_email}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_mobile}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_query}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_upload}</td>
+
+                    <td className="whitespace-nowrap px-4 py-4">
+                    {feedback.feedbackuser_upload && (
+                        <NavLink
+                          to={`https://eleedomimf.onrender.com${feedback.feedbackuser_upload}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View File
+                        </NavLink>
+                      )}
+                        
+                        </td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
                         <button
