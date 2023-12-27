@@ -46,6 +46,7 @@ import BranchProtected from "./branches/BranchProtect.jsx";
 import ViewClaim from "./admin/admincomponents/reports/ViewClaim.jsx";
 import ViewComplaint from "./admin/admincomponents/reports/ViewComplaint.jsx";
 import ViewContact from "./admin/admincomponents/reports/ViewContact.jsx";
+import ViewFeedback from "./admin/admincomponents/reports/ViewFeedback.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -95,6 +96,7 @@ const router = createBrowserRouter(
     <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
     <Route path="/dashboard/viewclaim" element = {<ViewClaim/>}/>
     <Route path="/dashboard/viewcomplaint" element = {<ViewComplaint/>}/>
+    <Route path="/dashboard/viewfeedback" element = {<ViewFeedback/>}/>
     <Route path="/dashboard/viewcontact" element = {<ViewContact/>}/>
       </Route>
       </Route>

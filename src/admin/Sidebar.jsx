@@ -51,6 +51,10 @@ const Sidebar = () => {
           path: "/dashboard/viewclaim"
         },
         {
+          title: "View All Feedback's",
+          path: "/dashboard/viewfeedback"
+        },
+        {
           title: "View All Complaint's",
           path: "/dashboard/viewcomplaint"
         },
