@@ -43,6 +43,7 @@ import LoginBranch from "./branches/LoginBranch.jsx";
 import BranchLayout from "./branches/BranchLayout.jsx";
 import BranchDashboard from "./branches/BranchDashboard.jsx";
 import BranchProtected from "./branches/BranchProtect.jsx";
+import ViewClaim from "./admin/admincomponents/reports/ViewClaim.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -90,6 +91,7 @@ const router = createBrowserRouter(
     <Route path="/dashboard/policy" element={<Policy/>}/>
     <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
     <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
+    <Route path="/dashboard/viewclaim" element = {<ViewClaim/>}/>
       </Route>
       </Route>
 
