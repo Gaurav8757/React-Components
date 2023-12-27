@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import Sidebar from './Sidebar';
 import { useState } from 'react';
-import { Menu} from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 function classNames(...classes) {
   // console.log(classes.filter(Boolean).join(' '));
@@ -23,13 +22,13 @@ export default function Navbar({navigation}) {
   return (
    <>
       {/* Navbar */}
-      <nav className="bg-gradient-to-r fbg-gradient-to-r from-slate-200 to-slate-700">
+      <nav className="bg-gradient-to-bl from-green-600 to-teal-800">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
               {/* Mobile menu button*/}
               <button
-                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-500 hover:bg-blue-200 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200"
+                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-200 hover:bg-green-200 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200"
                 onClick={toggleSidebar}
               >
                 <span className="absolute -inset-0.5" />
@@ -41,22 +40,19 @@ export default function Navbar({navigation}) {
                 )}
               </button>
             </div>
-            <div className="flex flex-1 items-center justify-evenly sm:items-stretch md:justify-between">
-              <Link to="/" className="flex flex-shrink-0 items-center">
-                <img
-                  className="h-16 w-auto   rounded-lg"
-                  src="/cname.png"
-                  alt="Company"
-                />
-              </Link>
-              <div className="hidden sm:ml-6 items-center md:block py-4">
-                <div className="flex lg:space-x-1  xl:space-x-3 ">
+            <div className="flex flex-1 items-center sm:justify-center justify-evenly sm:items-stretch md:justify-between">
+            <NavLink to="/" className="flex ms-4 md:me-2  items-center">
+                <img src="/logo.png " className="h-20  rounded-full mx-2" alt="Logo" />
+                <span className="self-center text-3xl font-semibold sm:text-2xl whitespace-nowrap font-sans dark:text-white">ELEEDOM IMF</span>
+              </NavLink>
+              <div className="hidden sm:ml-2 items-center lg:block py-10">
+                <div className="flex lg:space-x-1  xl:space-x-2 ">
                   {navigation.map((item, idx) => (
-                    <div key={idx} className="relative group ">
+                    <div key={idx} className="relative group text-lg">
                       <NavLink
                         to={item.to}
                         className={classNames( 
-                          item.current ? 'bg-blue-700 text-white font-bold  ' : 'bg-gradient-to-r from-slate-300 via-slate-100 to-slate-200 bg-clip-text text-transparent  hover:bg-blue-600 hover:text-#6ee7b7',
+                          item.current ? 'bg-blue-700 text-white font-bolder  ' : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent  hover:bg-blue-600 hover:text-#6ee7b7',
                           'rounded-md px-2 py-2  font-medium text-gray-900'
                         )}
                         
@@ -100,18 +96,6 @@ export default function Navbar({navigation}) {
 
               <div className="absolute inset-y-0 right-0 z-40 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-4">
-                  <div>
-
-                    <button className="relative inline-flex items-center justify-end p-0.5 mb-1 me-1 overflow-hidden text-md font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-black  dark:text-white focus:ring-2 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                      <span className="relative px-3 py-1 sm:px-3 sm:py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Sign In
-                      </span>
-                    </button>
-
-                  </div>
-                 
-                </Menu>
               </div>
             </div>
           </div>

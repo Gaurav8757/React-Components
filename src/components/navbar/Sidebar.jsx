@@ -46,7 +46,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                 {item.submenus && (
                   <span className="float-right">
                     <svg
-                      className="inline-flex h-5 w-5 text-gray-600 group-hover:text-white transition-all ease-in duration-75"
+                      className="inline-flex h-5 w-5 text-gray-900 group-hover:text-white transition-all ease-in duration-75"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       aria-hidden="true"
