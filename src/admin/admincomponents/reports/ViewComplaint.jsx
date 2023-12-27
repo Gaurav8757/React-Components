@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ViewComplaint = () => {
@@ -45,9 +45,9 @@ const ViewComplaint = () => {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-indigo-400 to-cyan-400">
         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
           <div className="overflow-x-auto w-xl text-white">
-            <NavLink to="/dashboard/addemployee" className="flex justify-end">
+            {/* <NavLink to="/dashboard/addemployee" className="flex justify-end">
               Back
-            </NavLink>
+            </NavLink> */}
             <h1 className="flex justify-center text-4xl w-full mb-8">All Complaint&apos;s List</h1>
             <hr />
           </div>
