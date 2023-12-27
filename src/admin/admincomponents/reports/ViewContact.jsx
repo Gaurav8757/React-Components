@@ -73,16 +73,14 @@ const ViewContact = () => {
                 </tr>
               </thead>
               <tbody>
-                {contacts.map((complaint) => (
+                {contacts.map((contact) => (
                   <tr
                     className="border-b dark:border-neutral-200 text-sm font-medium"
-                    key={complaint._id}
+                    key={contact._id}
                   >
-                    
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_email}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_mobile}</td>
-                  
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_query}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_email}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_mobile}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{contact.contact_query}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
                         <button
@@ -97,7 +95,7 @@ const ViewContact = () => {
                     <td className="whitespace-nowrap px-4 py-4">
                       <button
                         type="button"
-                        onClick={() => onDeleteComplaint(complaint._id)}
+                        onClick={() => onDeleteComplaint(contact._id)}
                         className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
                       >
                         Delete
