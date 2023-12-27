@@ -1,16 +1,36 @@
 import { useState } from "react";
-
+import axios from "axios";
+import {toast} from "react-toastify";
 const ContactUs = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [query, setQuery] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log("Form data submitted:", { email, mobile, query });
+        try {
+            const response = await axios.post('https://eleedomimf.onrender.com/users/contactus', {
+                usercontact_email: email,
+                usercontact_mobile: mobile,
+                feedbackuser_query: query,
+            });
+    //   console.log(response.data);
+            if (response.data) {
+                toast.success("Submitted successfully!");
+              // Reset form fields if needed
+            } else {
+                toast.error("Failed to Contact..!");
+            //   console.error('Failed to submit Complaint');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+
+          }
+        
         setEmail("");
         setMobile("");
         setQuery("");
+    
     };
 
     return (
