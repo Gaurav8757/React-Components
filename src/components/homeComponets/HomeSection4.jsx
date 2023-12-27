@@ -18,13 +18,13 @@ const HomeSection4 = () => {
                 <div className="md:w-1/4 grid grid-cols-2 md:grid-cols-1  lg:grid-cols-2  gap-4  mt-10  text-start  items-center">
                     <div className="shadow-2xl transition transform hover:-translate-y-2 hover:-translate-x-2  hover:shadow-none p-4 rounded-lg border-blue-800 bg-slate-100 border-l-4 ">
                         <img className="w-10" src="/confetti.png"/>
-                        <p className="text-2xl text-blue-800 font-semibold pb-3">Over 9 million</p>
+                        <p className="text-2xl text-blue-800 font-semibold pb-3">1 million+</p>
                         <p className="">customers trust us &amp; have bought their insurance on ELLEDOM IMF PVT LTD</p>
                     </div>
                     {/* 2nd */}
                     <div className="shadow-2xl transition transform hover:-translate-y-2 hover:translate-x-2 hover:shadow-none p-4 rounded-lg shadow-white border-sky-400 bg-slate-100  border-l-4">
                     <img className="w-10" src="/search.png"/>
-                        <p className="text-2xl text-sky-400 font-semibold pb-3">50+ insurers</p>
+                        <p className="text-2xl text-sky-400 font-semibold pb-3">350+ insurers</p>
                         <p className="">partnered with us so that you can compare easily &amp; transparently</p> 
                     </div>
                     {/* 3rd */}
