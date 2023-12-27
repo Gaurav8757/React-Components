@@ -47,8 +47,16 @@ const Sidebar = () => {
           path: "/dashboard/addpolicy"
         },
         {
-          title: "View All Claims",
+          title: "View All Claim's",
           path: "/dashboard/viewclaim"
+        },
+        {
+          title: "View All Complaint's",
+          path: "/dashboard/viewcomplaint"
+        },
+        {
+          title: "View All Contact's",
+          path: "/dashboard/viewcontact"
         }
         // Add more sub-routes as needed
       ]
