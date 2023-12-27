@@ -164,6 +164,7 @@ export default function ViewGenPolicy() {
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
                                                 <NavLink to= {data.empaadharfile}>
+                                                {/* <iframe src={data.empaadharfile} width="100%" height="100%" /> */}
                                                     <img src={data.empaadharfile} alt="aadhar"/>
                                                       </NavLink>
                                                 

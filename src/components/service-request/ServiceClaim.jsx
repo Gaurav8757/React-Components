@@ -1,18 +1,42 @@
 import { useState } from "react";
-
+import axios from "axios";
+import {toast} from "react-toastify";
 const ServiceClaim = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [claim, setClaim] = useState("");
     const [name, setName] = useState("");
     const [policy, setPolicy] = useState("");
-    const [date, setDate] = useState();
+    const [dated, setDate] = useState();
     const [dates, setDates] = useState("");
     const [time, setTime] = useState("");
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        try {
+            const response = await axios.post('https://eleedomimf.onrender.com/users/claim', {
+              userclaim_name: name,
+              userclaim_email: email,
+              userclaim_mobile: mobile,
+              userclaim_insurance_name: claim,
+              userclaim_policyno: policy,
+              userclaim_date: new Date(dates + 'T' + time),
+              userclaim_time: time,
+              userclaim_policyexp: new Date(dated),
+            });
+      console.log(response.data);
+            if (response.data) {
+                toast.success("Claim submitted successfully");
+              // Reset form fields if needed
+            } else {
+                toast.error("Claim submitted successfully");
+              console.error('Failed to submit claim');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+
         setEmail("");
         setMobile("");
         setClaim("");
@@ -112,7 +136,7 @@ const ServiceClaim = () => {
                                 <input
                                     className="input-style rounded-lg"
                                     type="date"
-                                    value={date}
+                                    value={dated}
                                     onChange={(e) => setDate(e.target.value)}
 
                                 />
