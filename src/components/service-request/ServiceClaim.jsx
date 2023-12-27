@@ -25,7 +25,7 @@ const ServiceClaim = () => {
               userclaim_time: time,
               userclaim_policyexp: new Date(dated),
             });
-      console.log(response.data);
+    //   console.log(response.data);
             if (response.data) {
                 toast.success("Claim submitted successfully");
               // Reset form fields if needed

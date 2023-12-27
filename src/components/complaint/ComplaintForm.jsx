@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios"; 
+import {toast} from "react-toastify";
 const ComplaintForm = () => {
     const [nature, setNature] = useState("");
     const [email, setEmail] = useState("");
@@ -7,14 +9,36 @@ const ComplaintForm = () => {
     const [name, setName] = useState("");
     const [query, setQuery] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        try {
+            const response = await axios.post('https://eleedomimf.onrender.com/users/complaint', {
+                complaint_name: nature,
+                complaint_email: email,
+                complaint_mobile: mobile,
+                complaint_subject: subject,
+                complaint_query: query,
+            });
+    //   console.log(response.data);
+            if (response.data) {
+                toast.success("Complaint submitted successfully!");
+              // Reset form fields if needed
+            } else {
+                toast.error("Failed to submit Complaint.");
+            //   console.error('Failed to submit Complaint');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+
+          }
+        setNature("");
         setEmail("");
         setMobile("");
         setSubject("");
         setName("");
         setQuery("");
     };
+
     return (
         <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
             <div className="container-fluid flex justify-center ml-2 mr-2 pb-4 bg-gradient-to-r from-indigo-400 to-cyan-400">
