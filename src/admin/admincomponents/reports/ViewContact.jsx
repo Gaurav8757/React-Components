@@ -78,10 +78,10 @@ const ViewContact = () => {
                     className="border-b dark:border-neutral-200 text-sm font-medium"
                     key={complaint._id}
                   >
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_name}</td>
+                    
                     <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_email}</td>
                     <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_mobile}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_subject}</td>
+                  
                     <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_query}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
