@@ -27,7 +27,7 @@ const Footers = () => {
                             Term Insurance Calculator
                             </li>
                             <li>
-                            1 Crore Term Insurance
+                            Child Saving Plans
                             </li>
                         </ul>
                     </NavLink></div>
@@ -42,9 +42,7 @@ const Footers = () => {
                             <li>
                             Health Insurance
                             </li>
-                            <li>
-                            1 Cr Health Cover
-                            </li>
+                            
                             <li>
                             Family Health Insurance
                             </li>

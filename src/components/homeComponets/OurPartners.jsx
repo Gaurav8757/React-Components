@@ -10,28 +10,28 @@ import 'swiper/css/pagination';
 const OurPartners = ({ general ,health }) => {
   return (
     <>
-      <main className='block xs:block sm:flex md:flex lg:flex xl:flex xl:w-1/2'>
-        <section className="container w-full xs:max-w-xl sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-full bg-gradient-to-r from-teal-500 to-teal-500">
-          <div className="text-start text-black bg-gradient-to-r from-teal-500 ">
-            <div className="text-3xl mx-14 py-5 font-medium">Health
-              <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
+      <main className='container-fluid'>
+        <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
+          <div className="text-start text-black bg-gradient-to-r from-teal-500  ">
+            <div className="text-3xl mx-12 py-5 font-medium">Health
+              <svg width="60" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
                 <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
               </svg>
             </div>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, Autoplay]}
               spaceBetween={0}
-              slidesPerView={2}
+              slidesPerView={4}
               pagination={{ clickable: true }}
               autoplay={{
                 delay: 4000,
                 disableOnInteraction: false,
               }}
-              className='container '>
+              className='container-fluid '>
               {health.map((obj, idx) => (
-                <SwiperSlide className='rounded-2xl xl:pl-10 xl:pr-10 pb-10' key={idx}>
+                <SwiperSlide className='rounded-2xl pl-1 sm:pl-5 lg:pl-10 xl:pl-10 pr-1 sm:pr-5 lg:pr-10 xl:pr-20 pb-10' key={idx}>
                   <NavLink to="#">
-                    <img src={obj.img} className='w-full' alt={`slide-${idx}`} />
+                    <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}`} />
                   </NavLink>
                 </SwiperSlide>
               ))}
@@ -39,17 +39,17 @@ const OurPartners = ({ general ,health }) => {
           </div>
         </section>
 
-        <section className="container-fluid w-full xs:max-w-xl sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-full bg-gradient-to-r from-teal-500 to-indigo-400">
-          <div className="text-start text-black bg-gradient-to-r from-teal-500 to-indigo-400">
-            <div className="text-3xl mx-14 py-5 font-medium">General Insurance
-              <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
+        <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
+          <div className="text-start text-black bg-gradient-to-r from-teal-500 to-black">
+            <div className="text-3xl mx-10 py-5 font-medium">General Insurance
+              <svg width="60" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
                 <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
               </svg>
             </div>
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, Autoplay]}
               spaceBetween={0}
-              slidesPerView={2}
+              slidesPerView={4}
               pagination={{ clickable: true }}
               autoplay={{
                 delay: 4000,
@@ -57,9 +57,9 @@ const OurPartners = ({ general ,health }) => {
               }}
               className='container-fluid'>
               {general.map((obj, idx) => (
-                <SwiperSlide className='rounded-2xl xl:pl-10 xl:pr-10 pb-10' key={idx}>
+                <SwiperSlide className=' pl-1 sm:pl-5  xl:pl-10  pr-1 sm:pr-5 lg:pl-10  xl:pr-20 lg:pr-10 pb-10' key={idx}>
                   <NavLink to="#">
-                    <img src={obj.img} className='w-full' alt={`slide-${idx}`} />
+                    <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}`} />
                   </NavLink>
                 </SwiperSlide>
               ))}

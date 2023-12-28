@@ -10,66 +10,67 @@ import HomeSection6 from "../homeComponets/HomeSection6";
 import FourthCarousel from "../homeComponets/FourthCarousel";
 import OurPartners from "../homeComponets/OurPartners";
 let homesection = [{
-    title: "Term Life Insurance",
-    images: "/umbrella.png",
-},
-{
     title: "Health Insurance",
-    images: "/heart.png",
+    images: "/health.png",
+},
+{
+    title: "Motor Insurance",
+    images: "/Motor-Insurance.png",
 },
 
 {
-    title: "Investment Plans",
-    images: "/invest.png",
+    title: "Non-motor Insurance",
+    images: "/nonmotor.png",
 },
-{
-    title: "Car Insurance",
-    images: "/car.png",
-},
-{
-    title: "2 Wheeler Insurance",
-    images: "/motorcycle.png",
-},
+// {
+//     title: "Car Insurance",
+//     images: "/car.png",
+// },
+// {
+//     title: "2 Wheeler Insurance",
+//     images: "/motorcycle.png",
+// },
 
 
-{
-    title: "Family Health Insurance",
-    images: "/family.png",
-},
-{
-    title: "Travel Insurance",
-    images: "/flight.png",
-},
+// {
+//     title: "Family Health Insurance",
+//     images: "/family.png",
+// },
+// {
+//     title: "Travel Insurance",
+//     images: "/flight.png",
+// },
 
-{
-    title: "Term Insurance (Women)",
-    images: "/superwoman.png",
-},
-{
-    title: "Free of Cost Term Plan",
-    images: "/money.png",
-},
-{
-    title: "Guaranteed Return Plans",
-    images: "/money-bag.png",
-},
+// {
+//     title: "Term Insurance (Women)",
+//     images: "/superwoman.png",
+// },
+// {
+//     title: "Free of Cost Term Plan",
+//     images: "/money.png",
+// },
+// {
+//     title: "Guaranteed Return Plans",
+//     images: "/money-bag.png",
+// },
 
-{
-    title: "Child Savings Plans",
-    images: "/childsave.png",
-},
-{
-    title: "Retirement Plans",
-    images: "/old-man.png",
-},
-{
-    title: "Employee Group Health Insurance",
-    images: "/group.png",
-},
-{
-    title: "Home Insurance",
-    images: "/home.png",
-}]
+// {
+//     title: "Child Savings Plans",
+//     images: "/childsave.png",
+// },
+// {
+//     title: "Retirement Plans",
+//     images: "/old-man.png",
+// },
+// {
+//     title: "Employee Group Health Insurance",
+//     images: "/group.png",
+// },
+// {
+//     title: "Home Insurance",
+//     images: "/home.png",
+// }
+]
 
 // buyalso
 const buyalso = [{
