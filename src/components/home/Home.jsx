@@ -39,10 +39,6 @@ let homesection = [
       links: "/nonmotorinsurance",
     },
   
-  
-//     title: "Travel Insurance",
-//     images: "/flight.png",
-// },
 // {
 //     title: "Term Insurance (Women)",
 //     images: "/superwoman.png",
@@ -59,9 +55,7 @@ let homesection = [
 //     title: "Retirement Plans",
 //     images: "/old-man.png",
 // },
-//     title: "Home Insurance",
-//     images: "/home.png",
-// }
+
 ]
 
 // buyalso
