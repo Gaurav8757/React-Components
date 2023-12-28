@@ -12,15 +12,18 @@ import OurPartners from "../homeComponets/OurPartners";
 let homesection = [{
     title: "Health Insurance",
     images: "/health.png",
+    links: "/healthinsurance"
 },
 {
     title: "Motor Insurance",
     images: "/Motor-Insurance.png",
+    links: "/motorinsurance"
 },
 
 {
     title: "Non-motor Insurance",
     images: "/nonmotor.png",
+    links: "/nonmotorinsurance"
 },
 // {
 //     title: "Car Insurance",
@@ -237,7 +240,7 @@ const general = [{
 const Home = () => {
    
     return (<>
-        {/* <h1>HomePage</h1> */}
+        
         <HomeHeading  carousel = {headingSlider}/>
         <HomeSection homesection={homesection} modal={listOfInsurance} />
         <Buyalso buyalso={buyalso} />
@@ -248,6 +251,7 @@ const Home = () => {
         <HomeSection6/>
         <FourthCarousel/>
         <OurPartners general= {general} health = {Health}/>
+        
     </>
     )
 }

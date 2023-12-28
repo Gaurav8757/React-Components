@@ -47,67 +47,72 @@ import ViewClaim from "./admin/admincomponents/reports/ViewClaim.jsx";
 import ViewComplaint from "./admin/admincomponents/reports/ViewComplaint.jsx";
 import ViewContact from "./admin/admincomponents/reports/ViewContact.jsx";
 import ViewFeedback from "./admin/admincomponents/reports/ViewFeedback.jsx";
+import HealthInsurance from "./components/homeComponets/HealthInsurance.jsx";
+import MotorInsurance from "./components/homeComponets/MotorInsurance.jsx";
+import NonMotorInsurance from "./components/homeComponets/NonMotorInsurance.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    <Route path="/" element={<App />}  >
-      {/* home */}
-      <Route path="" element={<Home />} />
-
-
-      {/* about us */}
-      <Route path="/aboutus" element={<Companies />} />
-      <Route path="/vision" element={<Mission />} />
-      <Route path="/messages" element={<DirectorMessage />} />
-      {/* downloads */}
-      <Route path="/claimform" element={<ClaimForm />} />
-      <Route path="/proposal" element={<Proposal />} />
-      <Route path="/brochures" element={<Brochure />} />
-      {/* SERVICE */}
-      <Route path="/serviceclaim" element={<ServiceClaim />} />
-      {/* Branch */}
-      <Route path="/branch" element={<Branch />} />
-      {/* complaint */}
-      <Route path="/complaintform" element={<ComplaintForm />} />
-      {/* Contact us */}
-      <Route path="/contactus" element={<ContactUs />} />
-      <Route path="/feedback" element={<Feedback />} />
-      <Route path="/track-request" element={<TrackRequest />} />
-    </Route>
-
-
-
-    {/* admin routes */}
-    <Route path="/admin" element={<Admin/>}/>
-    <Route element={<ProtectRoute/>}>
-    <Route path="/dashboard" element={<Layout/>}>
-    <Route path="" element={<Dashboard/>}/>
-    <Route path="/dashboard/addbranch" element={<AddBranch/>}/>
-    <Route path="/dashboard/viewbranch" element={<ViewBranch/>}/>
-    <Route path="/dashboard/addemployee" element={<AddEmployee/>}/>
-    <Route path="/dashboard/viewemployee" element={<ViewEmployee/>}/>
-    <Route path="/dashboard/addsalary" element={<AddSalary/>}/>
-    <Route path="/dashboard/viewsalary" element={<ViewSalary/>}/>
-    <Route path="/dashboard/generatesalary" element={<GenerateSalary/>}/>
-    <Route path="/dashboard/viewgeneratesalary" element={<ViewGenSalary/>}/>
-    <Route path="/dashboard/policy" element={<Policy/>}/>
-    <Route path="/dashboard/addpolicy" element={<AddPolicyDetails/>}/>
-    <Route path="/dashboard/viewpolicy" element={<ViewPolicy/>}/>
-    <Route path="/dashboard/viewclaim" element = {<ViewClaim/>}/>
-    <Route path="/dashboard/viewcomplaint" element = {<ViewComplaint/>}/>
-    <Route path="/dashboard/viewfeedback" element = {<ViewFeedback/>}/>
-    <Route path="/dashboard/viewcontact" element = {<ViewContact/>}/>
-      </Route>
+      <Route path="/" element={<App />}  >
+        {/* home */}
+        <Route path="" element={<Home />} />
+          {/* health insurance */}
+        <Route path="/healthinsurance" element={<HealthInsurance />} />
+        <Route path="/motorinsurance" element={<MotorInsurance />} />
+        <Route path="/nonmotorinsurance" element={<NonMotorInsurance />} />
+        {/* about us */}
+        <Route path="/aboutus" element={<Companies />} />
+        <Route path="/vision" element={<Mission />} />
+        <Route path="/messages" element={<DirectorMessage />} />
+        {/* downloads */}
+        <Route path="/claimform" element={<ClaimForm />} />
+        <Route path="/proposal" element={<Proposal />} />
+        <Route path="/brochures" element={<Brochure />} />
+        {/* SERVICE */}
+        <Route path="/serviceclaim" element={<ServiceClaim />} />
+        {/* Branch */}
+        <Route path="/branch" element={<Branch />} />
+        {/* complaint */}
+        <Route path="/complaintform" element={<ComplaintForm />} />
+        {/* Contact us */}
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path="/track-request" element={<TrackRequest />} />
       </Route>
 
-      <Route path="/branches" element={<LoginBranch/>}/>
-      <Route element={<BranchProtected/>}>
-      <Route path="/branches/home" element={<BranchLayout/>}>
-        <Route path = "/branches/home" element={<BranchDashboard/>}/>
-        
+
+
+      {/* admin routes */}
+      <Route path="/admin" element={<Admin />} />
+      <Route element={<ProtectRoute />}>
+        <Route path="/dashboard" element={<Layout />}>
+          <Route path="" element={<Dashboard />} />
+          <Route path="/dashboard/addbranch" element={<AddBranch />} />
+          <Route path="/dashboard/viewbranch" element={<ViewBranch />} />
+          <Route path="/dashboard/addemployee" element={<AddEmployee />} />
+          <Route path="/dashboard/viewemployee" element={<ViewEmployee />} />
+          <Route path="/dashboard/addsalary" element={<AddSalary />} />
+          <Route path="/dashboard/viewsalary" element={<ViewSalary />} />
+          <Route path="/dashboard/generatesalary" element={<GenerateSalary />} />
+          <Route path="/dashboard/viewgeneratesalary" element={<ViewGenSalary />} />
+          <Route path="/dashboard/policy" element={<Policy />} />
+          <Route path="/dashboard/addpolicy" element={<AddPolicyDetails />} />
+          <Route path="/dashboard/viewpolicy" element={<ViewPolicy />} />
+          <Route path="/dashboard/viewclaim" element={<ViewClaim />} />
+          <Route path="/dashboard/viewcomplaint" element={<ViewComplaint />} />
+          <Route path="/dashboard/viewfeedback" element={<ViewFeedback />} />
+          <Route path="/dashboard/viewcontact" element={<ViewContact />} />
         </Route>
+      </Route>
+
+      <Route path="/branches" element={<LoginBranch />} />
+      <Route element={<BranchProtected />}>
+        <Route path="/branches/home" element={<BranchLayout />}>
+          <Route path="/branches/home" element={<BranchDashboard />} />
+
         </Route>
+      </Route>
     </>
   )
 );
