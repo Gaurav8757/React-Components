@@ -43,7 +43,7 @@ export default function ViewSalary() {
     // ******************** Delete Functions *************************************/
     const onDeleteEmployeeSalary = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.com/dashboard/${_id}`);
+          await axios.delete(`https://eleedomimf.onrender.com/dashboard/api/${_id}`);
           toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
