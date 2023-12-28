@@ -17,7 +17,7 @@ export default function ViewSalary() {
                     },
                 })
                 .then((response) => {
-                    console.log(response.data);
+                   
                     setAPIData(response.data);
                    
                 })
