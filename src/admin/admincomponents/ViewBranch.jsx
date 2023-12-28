@@ -21,6 +21,7 @@ export default function ViewBranch() {
                    
                 })
                 .catch((error) => {
+
                     console.error(error);
                 });
         }
@@ -28,6 +29,7 @@ export default function ViewBranch() {
 
     const setData = (data) => {
         let {
+        
             branchname,
             branchaddress,
             branchid,
@@ -124,7 +126,6 @@ export default function ViewBranch() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    // console.log(data);
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
