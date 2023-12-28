@@ -196,26 +196,35 @@ const headingSlider = [
     }
 ]
 
-const Ourpartners = [{
-    img: "/1.png"
+
+const Health = [{
+    img: "/h3.png"
+},{
+    img: "/h2.png"
+},
+{
+    img: "/h1.png"
+}]
+
+
+const general = [{
+    img: "/7.png"
 },{
     img: "/2.png"
 },{
     img: "/3.png"
 },{
     img: "/4.png"
-},{
+},
+{
     img: "/5.png"
 },{
     img: "/6.png"
 },{
-    img: "/7.png"
-},
-{
-    img: "/8.png"
-},{
-    img: "/9.png"
+    img: "/1.png"
 }
+
+
 ]
 
 
@@ -233,7 +242,7 @@ const Home = () => {
         <HomeSection5/>
         <HomeSection6/>
         <FourthCarousel/>
-        <OurPartners Ourpartners = {Ourpartners}/>
+        <OurPartners general= {general} health = {Health}/>
     </>
     )
 }
