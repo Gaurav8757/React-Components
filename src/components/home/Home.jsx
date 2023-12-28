@@ -9,41 +9,40 @@ import HomeSection5 from "../homeComponets/HomeSection5";
 import HomeSection6 from "../homeComponets/HomeSection6";
 import FourthCarousel from "../homeComponets/FourthCarousel";
 import OurPartners from "../homeComponets/OurPartners";
-let homesection = [{
-    title: "Health Insurance",
-    images: "/health.png",
-    links: "/healthinsurance"
-},
-{
-    title: "Motor Insurance",
-    images: "/Motor-Insurance.png",
-    links: "/motorinsurance"
-},
-
-{
-    title: "Non-motor Insurance",
-    images: "/nonmotor.png",
-    links: "/nonmotorinsurance"
-},
-// {
-//     title: "Car Insurance",
-//     images: "/car.png",
-// },
-// {
-//     title: "2 Wheeler Insurance",
-//     images: "/motorcycle.png",
-// },
-
-
-// {
-//     title: "Family Health Insurance",
-//     images: "/family.png",
-// },
-// {
+let homesection = [
+    {
+      title: "Health Insurance",
+      images: "/health.png",
+      links: "/healthinsurance",
+      subItems: [
+        {
+          subtitle: "Employee Group Health Insurance",
+          image: "/group.png",
+          link: "/grouphealthinsurance",
+        },
+        {
+          subtitle: "Family Health Insurance",
+          image: "/family.png",
+          link: "/familyhealthinsurance",
+        },
+        // Add more subItems as needed
+      ],
+    },
+    {
+      title: "Motor Insurance",
+      images: "/Motor-Insurance.png",
+      links: "/motorinsurance",
+    },
+    {
+      title: "Non-motor Insurance",
+      images: "/nonmotor.png",
+      links: "/nonmotorinsurance",
+    },
+  
+  
 //     title: "Travel Insurance",
 //     images: "/flight.png",
 // },
-
 // {
 //     title: "Term Insurance (Women)",
 //     images: "/superwoman.png",
@@ -56,20 +55,10 @@ let homesection = [{
 //     title: "Guaranteed Return Plans",
 //     images: "/money-bag.png",
 // },
-
-// {
-//     title: "Child Savings Plans",
-//     images: "/childsave.png",
-// },
 // {
 //     title: "Retirement Plans",
 //     images: "/old-man.png",
 // },
-// {
-//     title: "Employee Group Health Insurance",
-//     images: "/group.png",
-// },
-// {
 //     title: "Home Insurance",
 //     images: "/home.png",
 // }
