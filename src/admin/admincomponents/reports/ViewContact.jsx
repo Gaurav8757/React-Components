@@ -29,7 +29,7 @@ const ViewContact = () => {
 
   const onDeleteComplaint = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/viewcontact/${_id}`);
+      await axios.delete(`https://eleedomimf.onrender.com/users/deletecontact/${_id}`);
       toast.warn("Contact is Deleted.....!", {
         theme: "dark",
         position: "top-right",
