@@ -12,7 +12,7 @@ const ContactUs = () => {
             const response = await axios.post('https://eleedomimf.onrender.com/users/contactus', {
                 usercontact_email: email,
                 usercontact_mobile: mobile,
-                feedbackuser_query: query,
+                usercontact_query: query,
             });
     //   console.log(response.data);
             if (response.data) {
@@ -67,7 +67,7 @@ const ContactUs = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="abc@geeksforgeeks.org" />
+                                placeholder="abc@gmail.com" />
                             <br></br>
                             <label className="text-sm mx-1 ">Contact No.</label>
                             <br></br>
