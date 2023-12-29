@@ -75,7 +75,7 @@ let homesection = [
 ]
 
 function AddCompanies() {
-   
+
   const [insList, setInsList] = useState("");
   const [category, setCategory] = useState("");
   const [establishment, setEstablishment] = useState("");
@@ -103,29 +103,33 @@ function AddCompanies() {
         formData.append("cfiles", files);
       }
 
-       // Send a POST request using Axios
-       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData);
+      // Send a POST request using Axios
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-       // Check the response status
-       if (response.status === 201) {
-         // Handle success, you may want to redirect or show a success message
-         toast.success("Company Added Successfully!");
-         // Reset the form fields
-         setInsList("");
-         setCategory("");
-         setEstablishment("");
-         setCname("");
-         setFiles(null);
-       } else {
-         // Handle errors
-         toast.error(`Error Occurred: ${response.data.message}`);
-       }
-     } catch (error) {
-       // Handle unexpected errors
-       setLoading(false);
-       toast.error("Error Occurred...! Please try again.");
-     }
-   };
+      // Check the response status
+      if (response.status === 201) {
+        // Handle success, you may want to redirect or show a success message
+        toast.success("Company Added Successfully!");
+        // Reset the form fields
+        setInsList("");
+        setCategory("");
+        setEstablishment("");
+        setCname("");
+        setFiles(null);
+      } else {
+        // Handle errors
+        toast.error(`Error Occurred: ${response.data.message}`);
+      }
+    } catch (error) {
+      // Handle unexpected errors
+      setLoading(false);
+      toast.error("Error Occurred...! Please try again.");
+    }
+  };
 
 
   return (
@@ -179,7 +183,7 @@ function AddCompanies() {
                 />
               </div>
             </div>
-{/* part-2 */}
+            {/* part-2 */}
             <div className="w-full lg:w-1/2 p-2 text-start">
               <div className="flex flex-col ">
                 <label className="text-base mx-1">Category:</label>
