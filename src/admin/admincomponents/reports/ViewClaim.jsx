@@ -29,7 +29,7 @@ const ViewClaim = () => {
 
   const onDeleteClaim = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com//users/deleteclaim/${_id}`);
+      await axios.delete(`https://eleedomimf.onrender.com/users/deleteclaim/${_id}`);
       toast.warn("Claim Deleted.....!", {
         theme: "dark",
         position: "top-right",
