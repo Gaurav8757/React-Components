@@ -29,7 +29,7 @@ const ViewComplaint = () => {
 
   const onDeleteComplaint = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/complaint/${_id}`);
+      await axios.delete(`https://eleedomimf.onrender.com/deletecomplaint/${_id}`);
       toast.warn("Complaint Deleted.....!", {
         theme: "dark",
         position: "top-right",
