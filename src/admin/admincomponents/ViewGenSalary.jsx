@@ -63,7 +63,7 @@ export default function ViewGenPolicy() {
     // ******************** Delete Functions *************************************/
     const onGenSalaryDelete = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/dashboard/api/${_id}`);
+          await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
           toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
           // Update state or perform any other necessary actions
         } catch (error) {
