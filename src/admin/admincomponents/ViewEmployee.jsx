@@ -63,7 +63,7 @@ export default function ViewEmployee() {
     // ******************** Delete Functions *************************************/
     const onDeleteEmployee = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/dashboard/api/${_id}`);
+          await axios.delete(`https://eleedomimf.onrender.com/emp/api/${_id}`);
           toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
