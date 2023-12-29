@@ -13,7 +13,7 @@ function MotorInsurance() {
         link: "/twowheelinsurance",
       },
       {
-        subtitle: "Commerical Vehicle",
+        subtitle: "Commerical Vehicle Insurance",
         image: "/tempo.png",
         link: "/commercialinsurance",
       },

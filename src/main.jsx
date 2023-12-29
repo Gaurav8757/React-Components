@@ -50,6 +50,7 @@ import ViewFeedback from "./admin/admincomponents/reports/ViewFeedback.jsx";
 import HealthInsurance from "./components/homeComponets/HealthInsurance.jsx";
 import MotorInsurance from "./components/homeComponets/MotorInsurance.jsx";
 import NonMotorInsurance from "./components/homeComponets/NonMotorInsurance.jsx";
+import AddCompanies from "./admin/admincomponents/AddCompanies.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -88,6 +89,7 @@ const router = createBrowserRouter(
       <Route element={<ProtectRoute />}>
         <Route path="/dashboard" element={<Layout />}>
           <Route path="" element={<Dashboard />} />
+          <Route path="/dashboard/addcompanies" element={<AddCompanies />} />
           <Route path="/dashboard/addbranch" element={<AddBranch />} />
           <Route path="/dashboard/viewbranch" element={<ViewBranch />} />
           <Route path="/dashboard/addemployee" element={<AddEmployee />} />

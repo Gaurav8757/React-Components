@@ -5,6 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { TbMoneybag, TbReport } from "react-icons/tb";
+import { FaRegBuilding } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
 const Sidebar = () => {
   const dashboardRoutes = [
@@ -12,6 +13,11 @@ const Sidebar = () => {
       title: "Dashboard",
       path: "/dashboard",
       logo: <RxDashboard />
+    },
+    {
+      title: "Add Company",
+      path: "/dashboard/addcompanies",
+      logo: <FaRegBuilding />
     },
     {
       title: "Add Branch",

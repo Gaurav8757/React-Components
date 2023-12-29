@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const OurPartners = ({ general ,health }) => {
+const OurPartners = ({ general, health }) => {
   return (
     <>
       <main className='container-fluid'>
@@ -31,7 +31,7 @@ const OurPartners = ({ general ,health }) => {
               {health.map((obj, idx) => (
                 <SwiperSlide className='rounded-2xl pl-1 sm:pl-5 lg:pl-10 xl:pl-10 pr-1 sm:pr-5 lg:pr-10 xl:pr-20 pb-10' key={idx}>
                   <NavLink to="#">
-                    <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}`} />
+                    <img src={obj.img} className='w-full rounded-xl' alt={`slide-${idx}`} />
                   </NavLink>
                 </SwiperSlide>
               ))}
@@ -59,7 +59,7 @@ const OurPartners = ({ general ,health }) => {
               {general.map((obj, idx) => (
                 <SwiperSlide className=' pl-1 sm:pl-5  xl:pl-10  pr-1 sm:pr-5 lg:pl-10  xl:pr-20 lg:pr-10 pb-10' key={idx}>
                   <NavLink to="#">
-                    <img src={obj.img} className='w-full rounded-2xl' alt={`slide-${idx}`} />
+                    <img src={obj.img} className='w-full rounded-xl' alt={`slide-${idx}`} />
                   </NavLink>
                 </SwiperSlide>
               ))}
