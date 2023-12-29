@@ -15,4 +15,4 @@ Coming Soon
   )
 }
 
-export default Policy
+export default Policy;

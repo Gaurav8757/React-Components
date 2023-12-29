@@ -29,7 +29,7 @@ const ViewFeedback = () => {
 
   const onDeleteFeedback = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/deletefeedback/${_id}`);
+      await axios.delete(`https://eleedomimf.onrender.com//users/deletefeedback/${_id}`);
       toast.warn("Feedback is Deleted.....!", {
         theme: "dark",
         position: "top-right",
