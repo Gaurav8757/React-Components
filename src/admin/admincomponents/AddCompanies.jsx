@@ -127,7 +127,7 @@ function AddCompanies() {
     } catch (error) {
       // Handle unexpected errors
       setLoading(false);
-      toast.error("Error Occurred...! Please try again.");
+      toast.error(`Error Occurred...! ${error}`);
     }
   };
 
