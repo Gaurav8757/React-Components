@@ -99,15 +99,15 @@ function AddCompanies() {
       formData.append("comp_category", category);
       formData.append("comp_establishment", establishment);
       formData.append("comp_cname", cname);
-      if (files) {
+      // if (files) {
         formData.append("comp_cfiles", files);
-      }
+      // }
 
       // Send a POST request using Axios
       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
       });
 
       // Check the response status
@@ -133,12 +133,11 @@ function AddCompanies() {
 
 
   return (
-    // <HomesectionContext.Consumer>
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
       <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
         <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-gradient-to-r from-indigo-300 to-cyan-400">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Companies</h1>
-          <form className="flex flex-wrap">
+          <form className="flex flex-wrap" method="post" encType="multipart/form-data">
             <div className="w-full lg:w-1/2 p-2 text-start">
 
               <div className="flex flex-col ">
@@ -237,7 +236,6 @@ function AddCompanies() {
         </div>
       </div>
     </section>
-    // </HomesectionContext.Consumer>
   );
 }
 export default AddCompanies;
