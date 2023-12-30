@@ -1,26 +1,27 @@
+import HealthForm from "./ViewForm/HealthForm.jsx";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
-import HealthForm from "./ViewForm/HealthForm";
+
 function HealthPage() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
-          axios
+        axios
             .get(`https://eleedomimf.onrender.com/api/company/health-list`)
             .then((response) => {
-              setAPIData(response.data);
-              
+                setAPIData(response.data);
+
             })
             .catch((error) => {
-                toast.error(`No Data Found!`, {theme:"dark"})
-              console.error(error);
+                toast.error(`No Data Found!`, { theme: "dark" })
+                console.error(error);
             });
         // }
-      }, []);
+    }, []);
 
-  return (
-    <section className="container-fluid relative  h-screen p-0  bg-gradient-to-r from-indigo-400 to-cyan-400">
+    return (
+        <section className="container-fluid relative  h-screen p-0  bg-gradient-to-r from-indigo-400 to-cyan-400">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
 
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
@@ -35,12 +36,12 @@ function HealthPage() {
                                     <th scope="col" className="px-5 py-4">
                                         Company Name
                                     </th>
-                                   
+
                                     <th scope="col" className="px-5 py-4">
                                         Files
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        
+
                                     </th>
                                 </tr>
                             </thead>
@@ -54,7 +55,7 @@ function HealthPage() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.comp_cname}
                                             </td>
-                                           
+
                                             <td className="whitespace-nowrap px4 py-4">
                                                 <NavLink to={`https://eleedomimf.com${data.comp_cfiles}`}>
                                                     <img src={data.comp_cfiles} alt="files" />
@@ -62,26 +63,22 @@ function HealthPage() {
 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {/* <NavLink to="#"> */}
-                                                    {/* <button type="button"  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 "> */}
-                                                        <HealthForm/>
-                                                    {/* </button> */}
-
-                                                {/* </NavLink> */}
+                                            <HealthForm />
                                             </td>
-                                           
+
                                         </tr>
                                     );
                                 })}
                             </tbody>
                         </table>
+                        {/* <div><HealthForm /></div> */}
                     </div>
                 </div>
             </div>
             {/* </div> */}
         </section>
     );
-  
+
 }
 
 export default HealthPage;
