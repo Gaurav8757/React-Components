@@ -95,12 +95,12 @@ function AddCompanies() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("insurance", insList);
-      formData.append("category", category);
-      formData.append("establishment", establishment);
-      formData.append("cname", cname);
+      formData.append("comp_insurance", insList);
+      formData.append("comp_category", category);
+      formData.append("comp_establishment", establishment);
+      formData.append("comp_cname", cname);
       if (files) {
-        formData.append("cfiles", files);
+        formData.append("comp_cfiles", files);
       }
 
       // Send a POST request using Axios
@@ -111,7 +111,7 @@ function AddCompanies() {
       });
 
       // Check the response status
-      if (response.status === 201) {
+      if (response.data) {
         // Handle success, you may want to redirect or show a success message
         toast.success("Company Added Successfully!");
         // Reset the form fields
