@@ -52,6 +52,9 @@ import MotorInsurance from "./components/homeComponets/MotorInsurance.jsx";
 import NonMotorInsurance from "./components/homeComponets/NonMotorInsurance.jsx";
 import AddCompanies from "./admin/admincomponents/AddCompanies.jsx";
 import ViewCompany from "./admin/admincomponents/reports/ViewCompany.jsx";
+import HealthPage from "./components/homeComponets/HealthPage.jsx";
+import MotorPage from "./components/homeComponets/MotorPage.jsx";
+import NonMotorPage from "./components/homeComponets/NonMotorPage.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,8 +64,22 @@ const router = createBrowserRouter(
         <Route path="" element={<Home />} />
           {/* health insurance */}
         <Route path="/healthinsurance" element={<HealthInsurance />} />
+        <Route path="/healthinsurance/health" element={<HealthPage />} />
+        
+
         <Route path="/motorinsurance" element={<MotorInsurance />} />
+        <Route path="/motorinsurance/car" element={<MotorPage />} />
+
+       
         <Route path="/nonmotorinsurance" element={<NonMotorInsurance />} />
+        <Route path="/nonmotorinsurance/travel" element={<NonMotorPage />} />
+      
+
+
+
+        
+          
+          
         {/* about us */}
         <Route path="/aboutus" element={<Companies />} />
         <Route path="/vision" element={<Mission />} />
