@@ -7,13 +7,13 @@ function HealthPage() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
           axios
-            .get(`https://eleedomimf.onrender.com/api/health-list`)
+            .get(`https://eleedomimf.onrender.com/api/company/health-list`)
             .then((response) => {
               setAPIData(response.data);
               
             })
             .catch((error) => {
-                toast.error(`Error Occurred!" ${error}`)
+                toast.error(`No Data Found!`)
               console.error(error);
             });
         // }
