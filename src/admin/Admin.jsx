@@ -18,7 +18,7 @@ function Admin() {
         email,
         password,
       });
-console.log(response.data.email);
+// console.log(response.data.email);
       const token = response.data.token;
        const emails = response.data.email;
       sessionStorage.setItem("token", token);

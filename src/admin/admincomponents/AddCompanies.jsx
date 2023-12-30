@@ -105,9 +105,9 @@ function AddCompanies() {
 
       // Send a POST request using Axios
       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData, {
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       // Check the response status
