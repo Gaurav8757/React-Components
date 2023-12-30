@@ -13,7 +13,7 @@ function HealthPage() {
               
             })
             .catch((error) => {
-                toast.error(`No Data Found!`)
+                toast.error(`No Data Found!`, {theme:"dark"})
               console.error(error);
             });
         // }
