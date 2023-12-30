@@ -6,24 +6,17 @@ import axios from "axios";
 function HealthPage() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
-    
-        if (!token) {
-          toast.error("Not Authorized yet.. Try again!");
-        } else {
           axios
-            .get(`https://eleedomimf.onrender.com/api/company-list`, {
-              headers: {
-                Authorization: `${token}`,
-              },
-            })
+            .get(`https://eleedomimf.onrender.com/api/company-list`)
             .then((response) => {
               setAPIData(response.data);
+              
             })
             .catch((error) => {
+                toast.error(`Error Occurred!" ${error}`)
               console.error(error);
             });
-        }
+        // }
       }, []);
 
   return (
