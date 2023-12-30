@@ -96,12 +96,12 @@ function AddCompanies() {
     try {
       const formData = new FormData();
       formData.append("comp_insurance", insList);
-      formData.append("comp_category", category);
+      formData.append("comp_categories", category);
       formData.append("comp_establishment", establishment);
       formData.append("comp_cname", cname);
-      // if (files) {
+      if (files) {
         formData.append("comp_cfiles", files);
-      // }
+      }
 
       // Send a POST request using Axios
       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData, {
@@ -189,7 +189,7 @@ function AddCompanies() {
                 <select
                   className="input-style rounded-lg"
                   type="text"
-                  name="comp_category"
+                  name="comp_categories"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
