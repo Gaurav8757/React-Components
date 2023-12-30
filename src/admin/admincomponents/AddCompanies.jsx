@@ -165,7 +165,7 @@ function AddCompanies() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  name="cname"
+                  name="comp_cname"
                   value={cname}
                   onChange={(e) => setCname(e.target.value)}
                   placeholder="Enter Description"
@@ -177,7 +177,7 @@ function AddCompanies() {
                 <input
                   className="input-style rounded-lg"
                   type="date"
-                  name="establishment"
+                  name="comp_establishment"
                   value={establishment}
                   onChange={(e) => setEstablishment(e.target.value)}
                 />
@@ -190,7 +190,7 @@ function AddCompanies() {
                 <select
                   className="input-style rounded-lg"
                   type="text"
-                  name="category"
+                  name="comp_category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
@@ -214,8 +214,8 @@ function AddCompanies() {
                 <input
                   className="input-style border w-full h-12 items-center rounded-lg"
                   type="file"
-                  name="files"
-                  accept="image/*"
+                  name="comp_cfiles"
+                  accept="/*"
                   onChange={(e) => setFiles(e.target.files[0])}
                 />
               </div>
