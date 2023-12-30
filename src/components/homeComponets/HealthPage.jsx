@@ -7,7 +7,7 @@ function HealthPage() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
           axios
-            .get(`https://eleedomimf.onrender.com/api/company-list`)
+            .get(`https://eleedomimf.onrender.com/api/health-list`)
             .then((response) => {
               setAPIData(response.data);
               
@@ -40,7 +40,7 @@ function HealthPage() {
                                         Files
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Forms
+                                        
                                     </th>
                                 </tr>
                             </thead>
