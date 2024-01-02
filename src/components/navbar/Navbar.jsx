@@ -42,7 +42,7 @@ export default function Navbar({navigation}) {
             </div>
             <div className="flex flex-1 items-center sm:justify-center justify-evenly sm:items-stretch md:justify-between">
             <NavLink to="/" className="flex ms-4 md:me-2  items-center">
-                <img src="/logo.png " className=" h-16  xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20 rounded-full mx-2" alt="Logo" />
+                <img src="/logo.jpg " className=" h-16  xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20  mx-2 w-28 sm:w-28 md:w-28 lg:w-32 xl:w-32 " alt="Logo" />
                 <span className="self-center xs:text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold  whitespace-nowrap font-sans dark:text-white">ELEEDOM IMF</span>
               </NavLink>
               <div className="hidden sm:ml-2 items-center lg:block py-10">
