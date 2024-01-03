@@ -14,16 +14,15 @@ function LoginBranch() {
         email,
         password,
       });
-console.log(response.data);
+
+      console.log(response.data);
       const token = response.data.token;
       
       sessionStorage.setItem("token", token);
-      sessionStorage.setItem("email", email);
-      navigate("/");
+      sessionStorage.setItem("branchemail", email);
+
       // Check if the user is an admin based on your backend response
-      if (response.data) {
-        const token = response.data.token;
-        sessionStorage.getItem("token", token);
+      if (response.data.isAdmin) {
         navigate("/branches/home");
         toast.success("Logged In Successfully !");
       } else {
@@ -36,6 +35,7 @@ console.log(response.data);
       toast.warn("Incorrect UserID/Password | Branch Not Accessed! ");
     }
   };
+
 
   return (
     <>
