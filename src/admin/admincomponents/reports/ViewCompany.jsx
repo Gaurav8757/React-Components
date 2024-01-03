@@ -111,7 +111,7 @@ export default function ViewCompany() {
                                                 {data.establishment}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                <NavLink to={`https://eleedomimf.com${data.cfiles}`}>
+                                                <NavLink to={`https://eleedomimf.onrender.com${data.cfiles}`}>
                                                     <img src={data.cfiles} alt="aadhar" />
                                                 </NavLink>
 
