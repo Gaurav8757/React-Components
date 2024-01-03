@@ -27,7 +27,7 @@ function LoginBranch() {
       sessionStorage.setItem("branchemail", email);
 
       // Check if the user is an admin based on your backend response
-      if (response.data.isAdmin) {
+      if (response.data) {
         navigate("/branches/home");
         toast.success("Logged In Successfully !");
       } else {
