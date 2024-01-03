@@ -127,7 +127,7 @@ const listOfInsurance = [
 
 const homesecondslider = [
     {
-        img: "/mparivahan.webp",
+        img: "/mparivahan.png",
         link:"https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml"
     }, 
     {
