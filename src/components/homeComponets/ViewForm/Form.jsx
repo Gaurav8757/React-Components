@@ -2,13 +2,13 @@
 /* eslint-disable react/prop-types */
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-const HealthForm = () => {
+const Form = () => {
     const [showModal, setShowModal] = useState(false);
   return (
     <>
       <button
         className="bg-blue-200 text-black active:bg-blue-500 
-      font-bold px-4 py-2 rounded shadow  outline-none focus:outline-none mr-1 mb-1 transition-transform transform hover:translate-y-[-2px] hover:shadow-2xl"
+      font-bold px-4 py-2 rounded shadow  outline-none focus:outline-none mr-1 mb-1 transition-transform transform hover:translate-y-[-3px] hover:shadow-2xl"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -75,4 +75,4 @@ const HealthForm = () => {
     </>
   );
 };
-export default HealthForm;
+export default Form;

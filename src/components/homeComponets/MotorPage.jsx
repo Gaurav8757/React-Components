@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Form from "./ViewForm/Form.jsx";
 import { NavLink } from "react-router-dom";
 import {toast} from "react-toastify";
 import axios from "axios";
@@ -17,12 +18,6 @@ function MotorPage() {
             });
         // }
       }, []);
-
-
-
-
-
-
 
   return (
     <section className="container-fluid relative  h-screen p-0  bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -67,12 +62,9 @@ function MotorPage() {
 
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-4">
-                                        <NavLink to="#">
-                                            <button type="button"  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                {/* <UpdateForm/> */} Fill Form
-                                            </button>
-
-                                        </NavLink>
+                                        {/* <NavLink to="#"> */}
+                                        <Form className="whitespace-nowrap px-4 py-4" />
+                                        {/* </NavLink> */}
                                     </td>
                                    
                                 </tr>

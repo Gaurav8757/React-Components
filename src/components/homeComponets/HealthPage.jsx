@@ -1,4 +1,4 @@
-import HealthForm from "./ViewForm/HealthForm.jsx";
+import Form from "./ViewForm/Form.jsx";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -67,7 +67,7 @@ function HealthPage() {
                                                 </td>
                                                 <td className="whitespace-nowrap px-4 py-4">
 
-                                                    <HealthForm className="whitespace-nowrap px-4 py-4" />
+                                                    <Form className="whitespace-nowrap px-4 py-4" />
                                                 </td>
 
                                             </tr>
