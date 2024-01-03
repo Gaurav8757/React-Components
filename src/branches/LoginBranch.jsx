@@ -4,27 +4,22 @@ import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 function LoginBranch() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [branchemail, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
-        email,
+        branchemail,
         password,
-        
-          headers: {
-            Authorization: `Bearer ${token}`,
-          
-        }
       });
 
       console.log(response.data);
       const token = response.data.token;
       
       sessionStorage.setItem("token", token);
-      sessionStorage.setItem("branchemail", email);
+      sessionStorage.setItem("branchemail", branchemail);
 
       // Check if the user is an admin based on your backend response
       if (response.data) {
@@ -75,7 +70,7 @@ function LoginBranch() {
                     type="email"
                     name="email"
                     id="email"
-                    value={email}
+                    value={branchemail}
                     onChange={(e) => {
                       setEmail(e.target.value);
                      
