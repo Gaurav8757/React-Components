@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewBranch() {
     const [APIData, setAPIData] = useState([]);
@@ -76,7 +77,7 @@ export default function ViewBranch() {
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto text-white"
-                    ><NavLink to = "/dashboard/addbranch" className="flex justify-end">Back</NavLink>
+                    ><NavLink to = "/dashboard/addbranch" className="flex justify-end"><TiArrowBack size={30}/></NavLink>
                         <h1 className="flex justify-center text-4xl mb-8">All Branch Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
