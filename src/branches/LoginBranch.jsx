@@ -10,7 +10,7 @@ function LoginBranch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/loginbranch", {
+      const response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
         email,
         password,
       });
