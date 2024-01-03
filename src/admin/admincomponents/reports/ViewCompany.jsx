@@ -11,13 +11,13 @@ export default function ViewCompany() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/company-list`, {
+                .get(`https://eleedomimf.onrender.com/api/company/company-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
                 })
                 .then((response) => {
-
+console.log(response.data);
                     setAPIData(response.data);
 
                 })
@@ -60,7 +60,7 @@ export default function ViewCompany() {
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white"
-                    ><NavLink to="/dashboard/addcompanies" className="flex justify-end">Back</NavLink>
+                    ><NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700">Back</NavLink>
                         <h1 className="flex justify-center text-4xl w-full mb-8">All Company Lists</h1><hr></hr>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
