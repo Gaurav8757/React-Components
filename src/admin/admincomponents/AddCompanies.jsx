@@ -10,6 +10,11 @@ let homesection = [
     links: "/healthinsurance",
     subItems: [
       {
+        subtitle: "Health Insurance",
+        image: "/heart.png",
+        link: "/healthinsurance",
+      },
+      {
         subtitle: "Employee Group Health Insurance",
         image: "/group.png",
         link: "/grouphealthinsurance",
