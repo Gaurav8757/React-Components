@@ -66,7 +66,7 @@ const BranchSidebar = () => {
     setOpenSubmenu(null);
   };
 
-  const loginBranch = sessionStorage.getItem("email");
+  const loginBranch = sessionStorage.getItem("branchemail");
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-gradient-to-r from-indigo-700 to-cyan-600">

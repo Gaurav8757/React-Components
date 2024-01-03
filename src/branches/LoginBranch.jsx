@@ -15,7 +15,7 @@ function LoginBranch() {
         password,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
       const token = response.data.token;
       
       sessionStorage.setItem("token", token);
