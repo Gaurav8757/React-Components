@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewCompany() {
     const [APIData, setAPIData] = useState([]);
@@ -36,7 +37,7 @@ console.log(response.data);
             cfiles,
         } = data;
         sessionStorage.setItem("comp_insurance", insurance);
-        sessionStorage.setItem("comp_category", category);
+        sessionStorage.setItem("comp_categories", category);
         sessionStorage.setItem("comp_establishment", establishment);
         sessionStorage.setItem("comp_cname", cname);
         sessionStorage.setItem("comp_cfiles", cfiles);
@@ -60,7 +61,7 @@ console.log(response.data);
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white"
-                    ><NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700">Back</NavLink>
+                    ><NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 "><TiArrowBack/></NavLink>
                         <h1 className="flex justify-center text-4xl w-full mb-8">All Company Lists</h1><hr></hr>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
@@ -93,22 +94,22 @@ console.log(response.data);
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-
+console.log(data);
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.cname}
+                                                {data.comp_cname}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.insurance}
+                                                {data.comp_insurance}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.category}
+                                                {data.comp_categories}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.establishment}
+                                                {data.comp_establishment}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
                                                 <NavLink to={`https://eleedomimf.onrender.com${data.cfiles}`}>
