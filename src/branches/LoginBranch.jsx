@@ -13,6 +13,11 @@ function LoginBranch() {
       const response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
         email,
         password,
+        
+          headers: {
+            Authorization: `Bearer ${token}`,
+          
+        }
       });
 
       console.log(response.data);
