@@ -112,7 +112,7 @@ console.log(data);
                                                 {data.comp_establishment}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                <NavLink to={`https://www.eleedomimf.com${data.comp_cfiles}`}>
+                                                <NavLink to={`https://www.eleedomimf.onrender.com${data.comp_cfiles}`}>
                                                     <img src={data.comp_cfiles} alt="file" />
                                                 </NavLink>
 
