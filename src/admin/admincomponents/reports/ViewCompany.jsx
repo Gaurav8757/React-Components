@@ -35,15 +35,15 @@ export default function ViewCompany() {
             cname,
             cfiles,
         } = data;
-        sessionStorage.setItem("insurance", insurance);
-        sessionStorage.setItem("category", category);
-        sessionStorage.setItem("establishment", establishment);
-        sessionStorage.setItem("cname", cname);
-        sessionStorage.setItem("cfiles", cfiles);
+        sessionStorage.setItem("comp_insurance", insurance);
+        sessionStorage.setItem("comp_category", category);
+        sessionStorage.setItem("comp_establishment", establishment);
+        sessionStorage.setItem("comp_cname", cname);
+        sessionStorage.setItem("comp_cfiles", cfiles);
     };
 
     // ******************** Delete Functions *************************************/
-    const onDeleteEmployee = async (_id) => {
+    const onDeleteCompany = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/company/api/${_id}`);
             toast.warn("Company Removed.....!", { theme: "dark", position: "top-right" });
@@ -112,7 +112,7 @@ export default function ViewCompany() {
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
                                                 <NavLink to={`https://eleedomimf.onrender.com${data.cfiles}`}>
-                                                    <img src={data.cfiles} alt="aadhar" />
+                                                    <img src={data.cfiles} alt="file" />
                                                 </NavLink>
 
                                             </td>
@@ -125,7 +125,7 @@ export default function ViewCompany() {
                                                 </Link>
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDeleteEmployee(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onDeleteCompany(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
                                     );
