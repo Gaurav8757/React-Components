@@ -27,24 +27,27 @@ const ViewFeedback = () => {
     }
   }, []);
 
+
+
+  // update function
   const handleToggleFeedback = async (_id, currentStatus) => {
     try {
       // Toggle the current status (true to false or false to true)
       const newStatus = !currentStatus;
-  
+
       // Update the feedback status in the database
       await axios.patch(`https://eleedomimf.onrender.com/users/updatefeedbackstatus/${_id}`, {
         feedbackuser_status: newStatus,
       });
-  
+
       // Update the feedbackList state to reflect the change
       setFeedbackList((prevData) =>
         prevData.map((feedback) =>
           feedback._id === _id ? { ...feedback, feedbackuser_status: newStatus } : feedback
         )
       );
-  
-      toast.success(`Feedback status updated to ${newStatus ? true : false}`, {
+
+      toast.success(`Feedback status updated to ${newStatus ? "Active" : "Inactive"}`, {
         theme: "dark",
         position: "top-right",
       });
@@ -52,8 +55,8 @@ const ViewFeedback = () => {
       console.error("Error toggling feedback status:", error);
     }
   };
-  
 
+  // delete function
   const onDeleteFeedback = async (_id) => {
     try {
       await axios.delete(`https://eleedomimf.onrender.com/users/deletefeedback/${_id}`);
@@ -66,7 +69,7 @@ const ViewFeedback = () => {
       console.error("Error deleting feedback:", error);
     }
   };
-  
+
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -103,20 +106,21 @@ const ViewFeedback = () => {
                   <th scope="col" className="px-5 py-4">
                     Delete
                   </th>
-                 
+
                 </tr>
               </thead>
               <tbody>
-                {feedbackList.map((feedback) => (
+                {feedbackList.length > 0 ? (
+                feedbackList.map((feedback) => (
                   <tr
                     className="border-b dark:border-neutral-200 text-sm font-medium"
                     key={feedback._id}
                   >
-                    
+
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_name}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_email}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_mobile}</td>
-                    
+
                     <td className="whitespace-wrap px-4 py-4 flex justify-center"><div className=" w-80 text-justify  overflow-y-auto overflow-x-auto">{feedback.feedbackuser_query}</div></td>
 
                     <td className="whitespace-nowrap px-4 py-4">
@@ -131,7 +135,7 @@ const ViewFeedback = () => {
                       )}
 
                     </td>
-                   
+
                     <td className="whitespace-nowrap px-4 py-4 ">
                       <label className="relative inline-flex items-center justify-center me-5 cursor-pointer">
                         <input type="checkbox" value="" className="sr-only peer" onClick={() => handleToggleFeedback(feedback._id, feedback.feedbackuser_status)} />
@@ -139,7 +143,7 @@ const ViewFeedback = () => {
                         <span className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
                       </label>
                     </td>
-                    
+
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
                         <button
@@ -160,9 +164,13 @@ const ViewFeedback = () => {
                         Delete
                       </button>
                     </td>
-                    
+
                   </tr>
-                ))}
+                ))):(<tr>
+                  <td colSpan="8" className="text-center pt-40 text-2xl font-semibold py-4 text-gray-900 dark:text-gray-00">
+                    No feedback available.
+                  </td>
+                </tr>)}
               </tbody>
             </table>
           </div>

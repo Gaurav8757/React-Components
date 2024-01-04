@@ -23,7 +23,7 @@ const Feedback = () => {
     axios
       .get(`https://eleedomimf.onrender.com/users/viewfeedback`)
       .then((response) => {
-console.log(response.data);
+// console.log(response.data);
         setAPIData(response.data);
 
       })
@@ -95,7 +95,9 @@ console.log(response.data);
             className='flex  max-h-screen justify-center  w-auto mt-5 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-3/4 sm:text-lg md:text-lg xl:2xl text-md'>
             
             
-            {APIData.map((obj) => (
+            {APIData.length > 0 ?(
+            
+            APIData.map((obj) => (
             
             <SwiperSlide key={obj._id}>
               <div className="w-full  max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800">
@@ -109,13 +111,13 @@ console.log(response.data);
                 </div>
               </div>
             </SwiperSlide>
-            ))}
-
-           
+            ))):(
+              <div className="text-start w-full  max-w-xl ">
+                No Any Feedback Available
+              </div>
+            )}
           </Swiper>
         </div>
-        {/* </div> */}
-
         {/* part-2 */}
 
         <div className="relative md:w-1/3 rounded-xl shadow-xl text-xl container-fluid">
