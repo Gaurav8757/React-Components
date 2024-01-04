@@ -1,5 +1,6 @@
 import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -7,6 +8,11 @@ import 'swiper/css/pagination';
 // import { NavLink } from 'react-router-dom';
 
 const FourthCarousel = () => {
+
+
+
+
+
     return (
         <section className="container-fluid  bg-gradient-to-r from-cyan-400 to-indigo-400">
             <div className=" ml-2 mr-2 pt-10 p-2 pb-5 text-start  bg-gradient-to-r from-cyan-400 to-indigo-400">
