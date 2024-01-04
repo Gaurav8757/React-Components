@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 
 const ViewFeedback = () => {
   const [feedbackList, setFeedbackList] = useState([]);
-  const [showFeedback, setShowFeedback] = useState(false);
   useEffect(() => {
     const token = sessionStorage.getItem("token");
 
@@ -19,7 +18,7 @@ const ViewFeedback = () => {
           },
         })
         .then((response) => {
-          console.log(response.data.feedbackuser_status);
+          // console.log(response.data.feedbackuser_status.toString());
           setFeedbackList(response.data);
         })
         .catch((error) => {
@@ -28,9 +27,32 @@ const ViewFeedback = () => {
     }
   }, []);
 
-  const toggleFeedback = () => {
-    setShowFeedback(!showFeedback);
+  const handleToggleFeedback = async (_id, currentStatus) => {
+    try {
+      // Toggle the current status (true to false or false to true)
+      const newStatus = !currentStatus;
+  
+      // Update the feedback status in the database
+      await axios.patch(`https://eleedomimf.onrender.com/users/updatefeedbackstatus/${_id}`, {
+        feedbackuser_status: newStatus,
+      });
+  
+      // Update the feedbackList state to reflect the change
+      setFeedbackList((prevData) =>
+        prevData.map((feedback) =>
+          feedback._id === _id ? { ...feedback, feedbackuser_status: newStatus } : feedback
+        )
+      );
+  
+      toast.success(`Feedback status updated to ${newStatus ? true : false}`, {
+        theme: "dark",
+        position: "top-right",
+      });
+    } catch (error) {
+      console.error("Error toggling feedback status:", error);
+    }
   };
+  
 
   const onDeleteFeedback = async (_id) => {
     try {
@@ -94,7 +116,7 @@ const ViewFeedback = () => {
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_name}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_email}</td>
                     <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_mobile}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_status}</td>
+                    
                     <td className="whitespace-wrap px-4 py-4 flex justify-center"><div className=" w-80 text-justify  overflow-y-auto overflow-x-auto">{feedback.feedbackuser_query}</div></td>
 
                     <td className="whitespace-nowrap px-4 py-4">
@@ -109,10 +131,10 @@ const ViewFeedback = () => {
                       )}
 
                     </td>
-
+                   
                     <td className="whitespace-nowrap px-4 py-4 ">
                       <label className="relative inline-flex items-center justify-center me-5 cursor-pointer">
-                        <input type="checkbox" value="" className="sr-only peer" onClick={toggleFeedback} />
+                        <input type="checkbox" value="" className="sr-only peer" onClick={() => handleToggleFeedback(feedback._id, feedback.feedbackuser_status)} />
                         <div className="w-10 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-1 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.22 after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
                         <span className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
                       </label>
