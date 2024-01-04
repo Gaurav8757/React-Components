@@ -225,7 +225,7 @@ const Home = () => {
     return (<>
         
         <HomeHeading  carousel = {headingSlider}/>
-        <HomeSection homesection={homesection} modal={listOfInsurance} />
+        <HomeSection homesection={homesection} modal={listOfInsurance} homesecondslider={homesecondslider}/>
         <Buyalso buyalso={buyalso} />
         <SecondCarousel homesecondslider={homesecondslider} />
         <HomeSection4/>

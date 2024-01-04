@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 import { Link, NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
@@ -112,6 +113,7 @@ console.log(data);
                                                 {data.comp_establishment}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
+                                                
                                                 <NavLink to={`https://www.eleedomimf.onrender.com${data.comp_cfiles}`}>
                                                     <img src={data.comp_cfiles} alt="file" />
                                                 </NavLink>

@@ -45,8 +45,8 @@ function App() {
         // Add more submenus as needed
       ],
     },
-    { name: 'Complaint Form', to: '/complaintform', current: false },
-    { name: 'Feedback Form', to: '/feedback', current: false },
+    { name: 'Complaint', to: '/complaintform', current: false },
+    { name: 'Feedback', to: '/feedback', current: false },
     { name: 'Contact Us', to: '/contactus', current: false },
     
     

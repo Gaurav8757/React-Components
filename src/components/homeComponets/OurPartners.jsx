@@ -13,7 +13,7 @@ const OurPartners = ({ general, health }) => {
       <main className='container-fluid'>
         <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
           <div className="text-start text-black bg-gradient-to-r from-teal-500  ">
-            <div className="text-3xl mx-12 py-5 font-medium">Health
+            <div className="text-3xl mx-12 py-5 font-medium">Life Insurance
               <svg width="60" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
                 <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
               </svg>

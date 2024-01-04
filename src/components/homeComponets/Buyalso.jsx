@@ -23,6 +23,7 @@ const Buyalso = ({ buyalso }) => {
                     ))
                 }
             </div>
+           
 
 
 
