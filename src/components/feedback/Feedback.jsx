@@ -21,9 +21,9 @@ const Feedback = () => {
 
   useEffect(() => {
     axios
-      .get(`https://eleedomimf.onrender.com/users/viewfeedback`)
+      .get(`https://eleedomimf.onrender.com/users/activeusers`)
       .then((response) => {
-// console.log(response.data);
+        // console.log(response.data);
         setAPIData(response.data);
 
       })
