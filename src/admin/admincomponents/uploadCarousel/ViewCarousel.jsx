@@ -47,8 +47,9 @@ function ViewCarousel() {
     const onDeleteCarousel = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/users/first/deletecarousel/${_id}`);
-            toast.warn("Carousel Removed.....!", { theme: "dark", position: "top-right" });
+            
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+            toast.warn("Carousel Removed.....!", { theme: "dark", position: "top-right" });
         } catch (error) {
             toast.error(`Error in Removing Carousel ${error}`)
             console.error('Error deleting Carousel:', error);
