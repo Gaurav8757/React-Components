@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 import Carousel from './Carousel';
 import { useEffect, useRef } from 'react';
-const HomeHeading = ({carousel}) => {
-
-
+const HomeHeading = () => {
     const fullText = 'Best Insurance';
     const typingSpeed = 150; // Adjust the typing speed
     const pauseBeforeRemove = 1500; // 2 seconds pause before starting removal
     const removalSpeed = 200; // Adjust the removal speed
-
     const textRef = useRef(null);
     const indexRef = useRef(0);
     const isDeletingRef = useRef(false);
@@ -50,7 +47,7 @@ const HomeHeading = ({carousel}) => {
                         <span className="text-red-500 w-2/3 text-xl hover:text-green-300">Quick, easy & hassle free</span>
                     </div>
                 </div>
-<Carousel carousel = {carousel}/>
+<Carousel/>
             </div>
 
         </div>

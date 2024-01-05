@@ -1,15 +1,30 @@
 /* eslint-disable react/prop-types */
 import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import { NavLink } from 'react-router-dom';
 
-const Carousel = ({carousel}) => {
-  // console.log(carousel);
+const Carousel = () => {
+  const [APIData, setAPIData] = useState([]);
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    axios
+      .get(`https://eleedomimf.onrender.com/users/first/view`)
+      .then((response) => {
+        // console.log(response.data);
+        setAPIData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    [APIData];
+  })
+
   return (
     <section className="container-fluid  max-w-2xl">
       <Swiper
@@ -23,21 +38,17 @@ const Carousel = ({carousel}) => {
           disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
         }}
         className='container-fluid   items-center mb-5   w-1/2 mt-5 xs:w-1/3 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-full'>
-        
-          {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
-          {carousel.map((obj, idx) => (
-                        <SwiperSlide className='  rounded-2xl ' key={idx}>
-                            <NavLink to="#">
-                                <img src={obj.img} className='w-full' alt={`slide-${idx}`} />
-                            </NavLink>
-                        </SwiperSlide>
-                    ))}
-          {/* </div> */}
-      
-        
-         
+        {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
+        {APIData.map((obj, idx) => (
+          <SwiperSlide className='  rounded-2xl ' key={idx}>
+            <NavLink to="#">
+              <img src={obj.usercarousel_upload} className='w-full' alt={`slide-${idx}`} />
+            </NavLink>
+          </SwiperSlide>
+        ))}
+        {/* </div> */}
       </Swiper>
-     </section>
+    </section>
   );
 };
 
