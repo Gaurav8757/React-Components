@@ -31,7 +31,7 @@ const Form = ({ companyName, setShowModal }) => {
 
     try {
       // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("https://eleedomimf.onrender.com/users/userDetails", {
+      const response = await axios.post("https://eleedomimf.onrender.com/users/userdetails", {
         h_cname: companyName,
         h_name: name,
         h_email: email,
