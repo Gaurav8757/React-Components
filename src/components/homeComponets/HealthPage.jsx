@@ -50,7 +50,6 @@ function HealthPage() {
                                 </thead>
                                 <tbody>
                                     {APIData.map((data) => {
-
                                         return (
                                             <tr
                                                 className="border-b dark:border-neutral-200 text-sm font-medium"

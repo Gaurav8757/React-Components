@@ -1,9 +1,68 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 const Form = () => {
-    const [showModal, setShowModal] = useState(false);
+  const [APIData, setAPIData] = useState([]);
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState();
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [cname, setCname] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`https://eleedomimf.onrender.com/api/company/health-list`)
+      .then((response) => {
+        setAPIData(response.data);
+        console.log(response.data)
+
+      })
+      .catch((error) => {
+        toast.error(`No Data Found!`, { theme: "dark" })
+        console.error(error);
+      });
+    // }
+  }, []);
+
+
+
+
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      // Make sure to replace this URL with your actual API endpoint
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addbranch", {
+
+        branchemail: email,
+        branchmobile: mobile,
+        branchaddress: address,
+      });
+      if (response.data) {
+        toast.success("Added Successfully !");
+
+        // Reset the form and loading state on successful submission
+        setName("");
+        setAddress("");
+        setEmail("");
+        setMobile("");
+        setLoading(false);
+      }
+      else {
+        toast.error("Error Occurred. Try again...! ");
+      }
+    } catch (error) {
+      console.error("Error during  registration:", error.response);
+      // setError("Error during branch registration. Please try again.");
+      setLoading(false);
+    }
+  };
   return (
     <>
       <button
@@ -27,42 +86,61 @@ const Form = () => {
                     onClick={() => setShowModal(false)}
                   >
                     <span className="text-red-500 opacity-7 h-6 w-6 text-xl block  py-0 rounded-full transition duration-0 hover:duration-150">
-                      <IoMdClose  size={30}/>
+                      <IoMdClose size={30} />
                     </span>
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto text-start bg-gradient-to-r from-teal-700 to-cyan-800">
-                  <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full bg-gradient-to-t from-green-600  to-teal-400">
-                    <label className="block text-black text-base font-bold mb-1">
-                      First Name
-                    </label>
-                    <input className="shadow appearance-none border rounded w-full py-2  px-1 mb-4 text-black" />
+                  <form  className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full bg-gradient-to-t from-green-600  to-teal-400">
+                    <div className="flex justify-between">
+                      <label className="inline text-black text-base font-bold mb-1">
+                        Name:
+                      </label>
+                      <label className="inline  mx-24 text-black text-base font-bold mb-1">
+                        Company Name:
+                      </label></div>
+                    <div className="flex ">
+                      {/* name */}
+                      <input type="text" value={name}
+                        onChange={(e) => setName(e.target.value)} className="shadow appearance-none  border rounded w-full py-2  px-1 mb-4 text-black" />
+                      {/* company name */}
+                      <select type="text" value={cname}
+                        onChange={(e) => setCname(e.target.value)} className="shadow appearance-none ml-4 border rounded w-full py-2  px-1 mb-4 text-black" >
+                        <option className="disabled">---- Select Company ----</option>
+                        {APIData.map((health) => (
+                          <option key={health._id} value={health.comp_cname} className="text-base" >
+                            {health.comp_cname}
+                          </option>
+                        ))}
+
+                      </select>
+                    </div>
                     <label className="block text-black text-base  font-bold mb-1">
-                      Last Name
+                      Mobile:
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 mb-4 text-black" />
+                    <input type="number" value={mobile}
+                      onChange={(e) => setMobile(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 mb-4 text-black" />
                     <label className="block text-black text-base  font-bold mb-1">
-                      Address
+                      Email:
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1  mb-4 text-black" />
+                    <input type="email" value={email}
+                      onChange={(e) => setEmail(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 mb-4 text-black" />
                     <label className="block text-black text-base  font-bold mb-1">
-                      City
+                      Address<span className="font-thin text-white"> (Optional)</span>
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-1 mb-4 text-black" />
+                    <textarea value={address}
+                      onChange={(e) => setAddress(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1  mb-4 text-black" />
+
                   </form>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  {/* <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button> */}
                   <button
                     className="text-white bg-green-500  active:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={async () => {
+                      await handleSubmit();
+                      setShowModal(false);
+                  }}
                   >
                     Submit
                   </button>
@@ -71,7 +149,7 @@ const Form = () => {
             </div>
           </div>
         </>
-      ) : null}
+      ) : loading}
     </>
   );
 };
