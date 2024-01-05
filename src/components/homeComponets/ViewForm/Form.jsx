@@ -13,18 +13,6 @@ const Form = ({ companyName, setShowModal }) => {
   const [address, setAddress] = useState("");
  
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`https://eleedomimf.onrender.com/api/company/health-list`)
-  //     .then((response) => {
-  //       // console.log(response.data);
-  //       // setAPIData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [companyName]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
    

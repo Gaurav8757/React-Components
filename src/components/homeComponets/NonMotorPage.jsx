@@ -5,6 +5,7 @@ import {toast} from "react-toastify";
 import axios from "axios";
 function NonMotorPage() {
     const [APIData, setAPIData] = useState([]);
+    const [selectedCompanyName, setSelectedCompanyName] = useState("");
     useEffect(() => {
           axios
             .get(`https://eleedomimf.onrender.com/api/company/nonmotor-list`)
@@ -18,8 +19,13 @@ function NonMotorPage() {
             });
         // }
       }, []);
-console.log(APIData);
+
+      const handleCompanySelection = (companyName) => {
+        setSelectedCompanyName(companyName);
+    };
+
   return (
+    <>
     <section className="container-fluid relative  h-screen p-0  bg-gradient-to-r from-indigo-400 to-cyan-400">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
 
@@ -62,13 +68,13 @@ console.log(APIData);
 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {/* <NavLink to="#">
-                                                    <button type="button"  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                        Fill Form
+                                            <button
+                                                        onClick={() => handleCompanySelection(data.comp_cname)}
+                                                        className="text-white bg-blue-700 active:bg-green-700 font-bold px-4 py-2 rounded shadow outline-none focus:outline-none mr-1 mb-1 transition-transform transform hover:translate-y-[-3px] hover:shadow-2xl"
+                                                        type="button"
+                                                    >
+                                                        Fill Details
                                                     </button>
-
-                                                </NavLink> */}
-                                                 <Form className="whitespace-nowrap px-4 py-4" />
                                             </td>
                                            
                                         </tr>
@@ -81,6 +87,13 @@ console.log(APIData);
             </div>
             {/* </div> */}
         </section>
+{selectedCompanyName && (
+    <Form
+        companyName={selectedCompanyName}
+        setShowModal={() => setSelectedCompanyName("")}
+    />
+)}
+</>
     );
   
 }
