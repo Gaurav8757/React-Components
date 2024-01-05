@@ -111,9 +111,11 @@ const Form = () => {
                           <option key={health._id} value={health.comp_cname} className="text-base" >
                             {health.comp_cname}
                           </option>
+                          
                         ))}
 
                       </select>
+                      
                     </div>
                     <label className="block text-black text-base  font-bold mb-1">
                       Mobile:

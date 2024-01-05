@@ -16,7 +16,7 @@ const Carousel = () => {
     axios
       .get(`https://eleedomimf.onrender.com/users/first/view`)
       .then((response) => {
-        // console.log(response.data);
+         console.log(response.data);
         setAPIData(response.data);
       })
       .catch((error) => {
