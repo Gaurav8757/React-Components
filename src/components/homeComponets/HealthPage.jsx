@@ -11,9 +11,10 @@ function HealthPage() {
 
   useEffect(() => {
     axios
-      .get(`https://eleedomimf.onrender.com/api/company/health-list`)
+      .get(`https://eleedomimf.onrender.com/api/company/motor-list`)
       .then((response) => {
         setAPIData(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         toast.error(`No Data Found!`, { theme: "dark" });
