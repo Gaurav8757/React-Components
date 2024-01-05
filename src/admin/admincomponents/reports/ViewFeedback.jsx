@@ -18,7 +18,6 @@ const ViewFeedback = () => {
           },
         })
         .then((response) => {
-          // console.log(response.data.feedbackuser_status.toString());
           setFeedbackList(response.data);
         })
         .catch((error) => {

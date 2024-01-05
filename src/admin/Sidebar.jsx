@@ -7,42 +7,48 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { TbMoneybag, TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
+import { FaImages } from "react-icons/fa";
 const Sidebar = () => {
   const dashboardRoutes = [
     {
       title: "Dashboard",
       path: "/dashboard",
-      logo: <RxDashboard />
+      logo: <RxDashboard size={24}/>
     },
     {
       title: "Add Company",
       path: "/dashboard/addcompanies",
-      logo: <FaRegBuilding />
+      logo: <FaRegBuilding size={24}/>
     },
     {
       title: "Add Branch",
       path: "/dashboard/addbranch",
-      logo: <RiGitBranchFill />
+      logo: <RiGitBranchFill size={24}/>
     },
     {
       title: "Add Employee",
       path: "/dashboard/addemployee",
-      logo: <IoPeopleOutline />
+      logo: <IoPeopleOutline size={24}/>
     },
     {
       title: "Add Salary",
       path: "/dashboard/addsalary",
-      logo: <TbMoneybag />
+      logo: <TbMoneybag size={24}/>
+    },
+    {
+      title: "Add Carousel",
+      path: "/dashboard/addcarousel",
+      logo: <FaImages size={24}/>
     },
     {
       title: "Generate Salary",
       path: "/dashboard/generatesalary",
-      logo: <FcMoneyTransfer />
+      logo: <FcMoneyTransfer size={24}/>
     },
     {
       title: "Report",
       path: "/dashboard/policy",
-      logo: <TbReport />,
+      logo: <TbReport size={24}/>,
       subRoutes: [
         {
           title: "Policy",
@@ -152,7 +158,7 @@ const loginemail = sessionStorage.getItem("email");
         className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-indigo-700 to-cyan-600 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-r from-indigo-700 to-cyan-600">
+        <div className="h-full px-4 pb-4 overflow-y-auto bg-gradient-to-r from-indigo-700 to-cyan-600">
           <ul className="space-y-2 font-medium">
             {dashboardRoutes.map((route, idx) => (
               <li key={idx}>
