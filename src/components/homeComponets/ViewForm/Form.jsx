@@ -57,10 +57,6 @@ const Form = ({ companyName, setShowModal }) => {
     } catch (error) {
       console.error("Error during registration:", error.response);
      
-    }finally {
-      
-      // Close the modal
-      setShowModal(false);
     }
   };
 
