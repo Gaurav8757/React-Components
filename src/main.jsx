@@ -56,6 +56,7 @@ import HealthPage from "./components/homeComponets/HealthPage.jsx";
 import MotorPage from "./components/homeComponets/MotorPage.jsx";
 import NonMotorPage from "./components/homeComponets/NonMotorPage.jsx";
 import UserCarousel from "./admin/admincomponents/uploadCarousel/UserCarousel.jsx";
+import ViewCarousel from "./admin/admincomponents/uploadCarousel/ViewCarousel.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -126,6 +127,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewfeedback" element={<ViewFeedback />} />
           <Route path="/dashboard/viewcontact" element={<ViewContact />} />
           <Route path="/dashboard/addcarousel" element={<UserCarousel />} />
+          <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />
         </Route>
       </Route>
 

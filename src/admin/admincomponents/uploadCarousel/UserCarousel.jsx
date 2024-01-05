@@ -29,9 +29,8 @@ function UserCarousel() {
 
             // Check the response status
             if (response.data) {
-console.log(response.data);
                 // Handle success, you may want to redirect or show a success message
-                toast.success(`${response.data.title} Uploaded Successfully!`);
+                toast.success(`${response.data.message.newCarousel.usercarousel_title} Added Successfully!`);
                 // Reset the form fields
 
             } else {
