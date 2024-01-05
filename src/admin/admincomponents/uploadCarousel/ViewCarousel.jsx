@@ -50,7 +50,7 @@ function ViewCarousel() {
             toast.warn("Carousel Removed.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
-            toast.error(`Error!! RemovE Carousel ${error}`)
+            toast.error(`Error in Removing Carousel ${error}`)
             console.error('Error deleting Carousel:', error);
         }
     };
