@@ -171,17 +171,6 @@ const homethirdslider = [
     }
 ]
 
-const headingSlider = [
-    {
-        img: "/tata-aia-fund_desktop.avif"
-    },
-    {
-        img: "/health_cb_hp_emi.avif"
-    },
-    {
-        img: "/term_crore_desktop.avif"
-    }
-]
 
 
 const Health = [{
@@ -224,7 +213,7 @@ const Home = () => {
    
     return (<>
         
-        <HomeHeading  carousel = {headingSlider}/>
+        <HomeHeading/>
         <HomeSection homesection={homesection} modal={listOfInsurance} homesecondslider={homesecondslider}/>
         <Buyalso buyalso={buyalso} />
         <SecondCarousel homesecondslider={homesecondslider} />
