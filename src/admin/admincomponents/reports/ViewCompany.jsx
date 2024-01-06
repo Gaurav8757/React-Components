@@ -6,6 +6,7 @@ import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewCompany() {
     const [APIData, setAPIData] = useState([]);
+    const [search, setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -63,8 +64,16 @@ console.log(response.data);
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white"
                     ><NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 "><TiArrowBack size={30}/></NavLink>
-                        <h1 className="flex justify-center text-4xl w-full mb-8">All Company Lists</h1><hr></hr>
+                        <h1 className="flex justify-center text-4xl w-full mb-8">All Company Lists</h1>
+                          {/* search */}
+                     <form className="flex justify-end">
+                            <label className=" my-0  mb-2 text-2xl font-medium text-gray-900" > Filter:</label>
+                            <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-40 p-3 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-100 dark:border-gray-600 dark:placeholder-blue-700  dark:focus:ring-blue-500 dark:focus:border-blue-500  appearance-none py-2 px-1 mb-4 ml-4" placeholder="Search Category" />
+                        </form>
+                        
+                        <hr></hr>
                     </div>
+                   
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
@@ -94,8 +103,13 @@ console.log(response.data);
                                 </tr>
                             </thead>
                             <tbody>
-                                {APIData.map((data) => {
-console.log(data);
+                                {APIData.filter((data) => {
+                                    const searchLower = search.toLowerCase();
+                                    const cnameLower = data.comp_insurance.toLowerCase();
+                                    return searchLower === '' ? true : cnameLower.includes(searchLower);
+                                    // return search.toLowerCase() === '' ? data : data.h_cname.toLowerCase().includes(search)
+                                }).map((data) => {
+
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
