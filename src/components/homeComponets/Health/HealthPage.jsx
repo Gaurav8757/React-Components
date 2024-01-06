@@ -13,7 +13,7 @@ function HealthPage() {
     axios
       .get(`https://eleedomimf.onrender.com/api/company/health-list`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setAPIData(response.data);
       })
       .catch((error) => {
