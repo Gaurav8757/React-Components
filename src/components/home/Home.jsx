@@ -135,19 +135,19 @@ const homesecondslider = [
         link:"https://echallan.parivahan.gov.in/index/accused-challan"
     },
     {
-        img: "/amritkaal.avif",
+        img: "/carousel1.jpg",
         link:""
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif",
+        img: "/carousel2.jpg",
         link:""
     },
     {
-        img: "/amritkaal.avif",
+        img: "/carousel1.jpg",
         link:""
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif",
+        img: "/carousel2.jpg",
         link:""
     }
 ]
