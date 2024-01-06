@@ -18,7 +18,7 @@ function ViewUserFillCompany() {
                     },
                 })
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setAPIData(response.data);
 
                 })
@@ -47,7 +47,7 @@ function ViewUserFillCompany() {
     };
 
     // ******************** Delete Functions *************************************/
-    const onDeleteEmployeeSalary = async (_id) => {
+    const onDeleteCustomerDetails = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/users/delete/userdetails/${_id}`);
             toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
@@ -131,7 +131,7 @@ function ViewUserFillCompany() {
                                                 </Link>
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDeleteEmployeeSalary(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onDeleteCustomerDetails(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
                                     );
