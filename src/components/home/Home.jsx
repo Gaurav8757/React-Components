@@ -143,11 +143,11 @@ const homesecondslider = [
         link:""
     },
     {
-        img: "/carousel1.jpg",
+        img: "/carousel3.jpg",
         link:""
     }, 
     {
-        img: "/carousel2.jpg",
+        img: "/carousel4.jpg",
         link:""
     }
 ]

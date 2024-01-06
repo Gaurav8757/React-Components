@@ -8,6 +8,7 @@ import { TbMoneybag, TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
+import { IoMdArrowDropright } from "react-icons/io";
 const Sidebar = () => {
   const dashboardRoutes = [
     {
@@ -52,31 +53,38 @@ const Sidebar = () => {
       subRoutes: [
         {
           title: "Policy",
-          path: "/dashboard/policy"
+          path: "/dashboard/policy",
+          dash:""
         },
         {
           title: "Add Policy Details",
-          path: "/dashboard/addpolicy"
+          path: "/dashboard/addpolicy",
+          dash:""
         },
         {
           title: "View All Claim's",
-          path: "/dashboard/viewclaim"
+          path: "/dashboard/viewclaim",
+          dash:""
         },
         {
           title: "View All Feedback's",
-          path: "/dashboard/viewfeedback"
+          path: "/dashboard/viewfeedback",
+          dash:""
         },
         {
           title: "View All Complaint's",
-          path: "/dashboard/viewcomplaint"
+          path: "/dashboard/viewcomplaint",
+          dash:""
         },
         {
           title: "View All Contact's",
-          path: "/dashboard/viewcontact"
+          path: "/dashboard/viewcontact",
+          dash:""
         },
         {
           title: "View All User's List",
-          path: "/dashboard/viewfilledform"
+          path: "/dashboard/viewfilledform",
+          dash:""
         }
         // Add more sub-routes as needed
       ]
@@ -180,15 +188,15 @@ const loginemail = sessionStorage.getItem("email");
                     <ul
                       onClick={() => toggleSubmenu(idx)}
                       onMouseLeave={closeSubmenu}
-                      className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-1/2 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}
+                      className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}
                     >
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="block p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                            className="flex p-2 text-white text-start mx-3 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
                           >
-                            {subRoute.title}
+                           {<IoMdArrowDropright size={30}/>} {subRoute.title}
                           </NavLink>
                         </li>
                       ))}
