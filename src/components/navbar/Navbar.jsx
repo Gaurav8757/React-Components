@@ -22,7 +22,7 @@ export default function Navbar({ navigation }) {
   return (
     <>
       {/* Navbar */}
-      <nav className="bg-gradient-to-bl from-green-600 to-teal-800">
+      <nav className="bg-black">
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
@@ -55,7 +55,7 @@ export default function Navbar({ navigation }) {
                         className={({ isActive }) =>
                           classNames(
                             isActive
-                              ? 'bg-green-400 text-black font-bolder'
+                              ? 'bg-slate-600 text-white font-bolder'
                               : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 hover:text-#6ee7b7',
                             'rounded-md px-2 py-2 font-medium text-gray-900'
                           )

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 function ViewUserFillCompany() {
     const [APIData, setAPIData] = useState([]);
+    // const [search , setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -50,7 +51,7 @@ function ViewUserFillCompany() {
     const onDeleteCustomerDetails = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/users/delete/userdetails/${_id}`);
-            toast.warn("Employee Salary Removed!", { theme: "dark", position: "top-right" });
+            toast.success("Customer Details Removed Successfully..!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
             console.error('Error removing employee salary:', error);

@@ -33,8 +33,8 @@ const HomeHeading = () => {
         return () => clearInterval(timer);
     }, [fullText]);
     return <>
-        <div className="container-fluid relative bg-gradient-to-r from-indigo-500 to-cyan-100 " >
-            <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-gradient-to-r from-indigo-500 to-cyan-100  ">
+        <div className="container-fluid relative bg-gradient-to-r from-indigo-700 to-cyan-400 " >
+            <div className="container-fluid  flex justify-around items-center ml-2 mr-2   bg-gradient-to-r from-indigo-700 to-cyan-400  ">
                 {/* part-1 */}
                 <div className=" col ml-4  hidden md:block relative  ">
                     <span className="text-2xl  sm:text-5xl   flex  text-start bg-gradient-to-r from-red-100 to-slate-100 font-normal bg-clip-text text-transparent" style={{lineHeight:"2em"}}>

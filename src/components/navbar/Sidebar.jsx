@@ -11,8 +11,6 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
 //   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
-  
-
   // Function to toggle the submenu
   const toggleSubmenu = (idx) => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
