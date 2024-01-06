@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Form from "./ViewForm/Form.jsx"
-
-function HealthPage() {
+import Form from "../ViewForm/Form.jsx";
+function FamilyHealthPage() {
   const [APIData, setAPIData] = useState([]);
   const [selectedCompanyName, setSelectedCompanyName] = useState("");
 
@@ -31,7 +30,7 @@ function HealthPage() {
         <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-indigo-400 to-cyan-400">
           <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
             <div className="overflow-x-auto w-xl text-white">
-              <h1 className="flex justify-center text-4xl w-full mb-8">Health Insurance</h1>
+              <h1 className="flex justify-center text-4xl w-full mb-8">Family Health Insurance</h1>
               <hr />
             </div>
             <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
@@ -90,4 +89,16 @@ function HealthPage() {
   );
 }
 
-export default HealthPage;
+
+
+
+
+
+
+
+
+
+
+
+
+export default FamilyHealthPage;

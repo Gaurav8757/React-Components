@@ -14,13 +14,13 @@ function HealthInsurance() {
         subtitle: "Family Health Insurance",
         image: "/family.png",
         link: "/familyhealthinsurance",
-        sublink: "/healthinsurance/healthpage2"
+        sublink: "/healthinsurance/health2"
       },
       {
         subtitle: "Employee Group Health Insurance",
         image: "/group.png",
         link: "/grouphealthinsurance",
-        sublink: "/healthinsurance/healthpage3"
+        sublink: "/healthinsurance/health3"
       },
   ]
 

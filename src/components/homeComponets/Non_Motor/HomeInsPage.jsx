@@ -1,14 +1,14 @@
+import Form from "../ViewForm/Form";
 import { useState, useEffect } from "react";
-import Form from "./ViewForm/Form.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-function MotorPage() {
+function HomeInsPage() {
     const [APIData, setAPIData] = useState([]);
     const [selectedCompanyName, setSelectedCompanyName] = useState("");
     useEffect(() => {
         axios
-            .get(`https://eleedomimf.onrender.com/api/company/motor-list`)
+            .get(`https://eleedomimf.onrender.com/api/company/nonmotor-list`)
             .then((response) => {
                 setAPIData(response.data);
 
@@ -23,6 +23,7 @@ function MotorPage() {
     const handleCompanySelection = (companyName) => {
         setSelectedCompanyName(companyName);
     };
+
     return (
         <>
             <section className="container-fluid relative  h-screen p-0  bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -31,7 +32,7 @@ function MotorPage() {
                     {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                         <div className="overflow-x-auto w-xl  text-white">
-                            <h1 className="flex justify-center text-4xl w-full mb-8">Motor Insurance</h1><hr></hr>
+                            <h1 className="flex justify-center text-4xl w-full mb-8">Home Insurance</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                             <table className="min-w-full text-center text-sm font-light ">
@@ -74,7 +75,6 @@ function MotorPage() {
                                                     >
                                                         Fill Details
                                                     </button>
-
                                                 </td>
 
                                             </tr>
@@ -94,7 +94,8 @@ function MotorPage() {
                 />
             )}
         </>
-    )
+    );
+
 }
 
-export default MotorPage
+export default HomeInsPage

@@ -5,24 +5,24 @@ function NonMotorInsurance() {
       subtitle: "Travel Insurance",
       image: "/flight.png",
       link: "/travelinsurance",
-      sublink: "/nonmotorinsurance/travel"
+      sublink: "/nonmotorinsurance/travelins"
     },
     {
       subtitle: "Home Insurance",
       image: "/home.png",
       link: "/homeinsurance",
-      sublink: "/nonmotorinsurance/travel1"
+      sublink: "/nonmotorinsurance/homeins"
     },
     {
       subtitle: "Business Insurance",
       image: "/money.png",
       link: "/businessinsurance",
-      sublink: "/nonmotorinsurance/travel2"
+      sublink: "/nonmotorinsurance/businessins"
     }, {
       subtitle: "Marine Insurance",
       image: "/marine.png",
       link: "/marineinsurance",
-      sublink: "/nonmotorinsurance/travel3"
+      sublink: "/nonmotorinsurance/marineins"
     },
   ]
 

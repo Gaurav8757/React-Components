@@ -1,4 +1,4 @@
-import Form from "./ViewForm/Form";
+import Form from "../ViewForm/Form";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {toast} from "react-toastify";
@@ -32,7 +32,7 @@ function NonMotorPage() {
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white">
-                        <h1 className="flex justify-center text-4xl w-full mb-8">Non-Motor Insurance</h1><hr></hr>
+                        <h1 className="flex justify-center text-4xl w-full mb-8">Travel Insurance</h1><hr></hr>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">

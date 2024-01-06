@@ -12,13 +12,13 @@ function MotorInsurance() {
         subtitle: "2 Wheeler Insurance",
         image: "/motorcycle.png",
         link: "/twowheelinsurance",
-        sublink: "/motorinsurance/motorpage1"
+        sublink: "/motorinsurance/twowheeler"
       },
       {
         subtitle: "Commerical Vehicle Insurance",
         image: "/tempo.png",
         link: "/commercialinsurance",
-        sublink: "/motorinsurance/motorpage2"
+        sublink: "/motorinsurance/commervehicle"
       },
   ]
 

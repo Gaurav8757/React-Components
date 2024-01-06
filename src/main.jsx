@@ -52,12 +52,19 @@ import MotorInsurance from "./components/homeComponets/MotorInsurance.jsx";
 import NonMotorInsurance from "./components/homeComponets/NonMotorInsurance.jsx";
 import AddCompanies from "./admin/admincomponents/AddCompanies.jsx";
 import ViewCompany from "./admin/admincomponents/reports/ViewCompany.jsx";
-import HealthPage from "./components/homeComponets/HealthPage.jsx";
-import MotorPage from "./components/homeComponets/MotorPage.jsx";
-import NonMotorPage from "./components/homeComponets/NonMotorPage.jsx";
+import HealthPage from "../src/components/homeComponets/Health/HealthPage.jsx";
+import MotorPage from "../src/components/homeComponets/Motor/MotorPage.jsx";
+import NonMotorPage from "./components/homeComponets/Non_Motor/NonMotorPage.jsx";
 import UserCarousel from "./admin/admincomponents/uploadCarousel/UserCarousel.jsx";
 import ViewCarousel from "./admin/admincomponents/uploadCarousel/ViewCarousel.jsx";
 import ViewUserFillCompany from "./admin/admincomponents/reports/ViewUserFillCompany.jsx";
+import FamilyHealthPage from "./components/homeComponets/Health/FamilyHealthPage.jsx";
+import EmpHealthPage from "./components/homeComponets/Health/EmpHealthPage.jsx";
+import TwoWheeler from "./components/homeComponets/Motor/TwoWheeler.jsx";
+import CommercialVehicle from "./components/homeComponets/Motor/CommercialVehicle.jsx";
+import HomeInsPage from "./components/homeComponets/Non_Motor/HomeInsPage.jsx";
+import BusinessInsPage from "./components/homeComponets/Non_Motor/BusinessInsPage.jsx";
+import MarineInsPage from "./components/homeComponets/Non_Motor/MarineInsPage.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,17 +75,21 @@ const router = createBrowserRouter(
           {/* health insurance */}
         <Route path="/healthinsurance" element={<HealthInsurance />} />
         <Route path="/healthinsurance/health" element={<HealthPage />} />
-        
+        <Route path="/healthinsurance/health2" element={<FamilyHealthPage />} />
+        <Route path="/healthinsurance/health3" element={<EmpHealthPage />} />
 
+{/* motor */}
         <Route path="/motorinsurance" element={<MotorInsurance />} />
         <Route path="/motorinsurance/car" element={<MotorPage />} />
+        <Route path="/motorinsurance/twowheeler" element={<TwoWheeler />} />
+        <Route path="/motorinsurance/commervehicle" element={<CommercialVehicle />} />
 
-       
+       {/* non-motor */}
         <Route path="/nonmotorinsurance" element={<NonMotorInsurance />} />
-        <Route path="/nonmotorinsurance/travel" element={<NonMotorPage />} />
-      
-
-
+        <Route path="/nonmotorinsurance/travelins" element={<NonMotorPage />} />
+        <Route path="/nonmotorinsurance/homeins" element={<HomeInsPage />} />
+        <Route path="/nonmotorinsurance/businessins" element={<BusinessInsPage />} />
+        <Route path="/nonmotorinsurance/marineins" element={<MarineInsPage />} />
 
         
           

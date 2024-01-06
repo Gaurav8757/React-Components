@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 function ViewUserFillCompany() {
     const [APIData, setAPIData] = useState([]);
-    const [search , setSearch] = useState("");
+    const [search, setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -21,7 +21,6 @@ function ViewUserFillCompany() {
                 .then((response) => {
                     // console.log(response.data);
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
@@ -37,14 +36,11 @@ function ViewUserFillCompany() {
             h_cname,
             h_address
         } = data;
-
-
         sessionStorage.setItem("h_name", h_name);
         sessionStorage.setItem("h_email", h_email);
         sessionStorage.setItem("h_mobile", h_mobile);
         sessionStorage.setItem("h_cname", h_cname);
         sessionStorage.setItem("h_address", h_address);
-
     };
 
     // ******************** Delete Functions *************************************/
@@ -58,34 +54,26 @@ function ViewUserFillCompany() {
         }
     };
 
-
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
-
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white"
                     ><NavLink to="/dashboard/addsalary" className="flex justify-end">Back</NavLink>
-                        <h1 className="flex justify-center text-4xl w-full mb-8">View Form Filled by Customer&apos;s</h1> 
+                        <h1 className="flex justify-center text-4xl w-full mb-8">View Form Filled by Customer&apos;s</h1>
                         {/* search */}
-
-                        
-
-
                         <form className="flex justify-end">
-                       <label className=" my-0  mb-2 text-2xl font-medium text-gray-900" > Filter:</label>
-                        <input type="search" onChange={(e)=> setSearch(e.target.value)} className="shadow input-style w-40 p-3 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-100 dark:border-gray-600 dark:placeholder-blue-700  dark:focus:ring-blue-500 dark:focus:border-blue-500  appearance-none py-2 px-1 mb-4 ml-4" placeholder="Search Customer's"/>
-                    </form>
-
-                    <hr></hr>
+                            <label className=" my-0  mb-2 text-2xl font-medium text-gray-900" > Filter:</label>
+                            <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-40 p-3 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-100 dark:border-gray-600 dark:placeholder-blue-700  dark:focus:ring-blue-500 dark:focus:border-blue-500  appearance-none py-2 px-1 mb-4 ml-4" placeholder="Search Customer's" />
+                        </form>
+                        <hr></hr>
                     </div>
-                   
+
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-white">
-
                                     <th scope="col" className="px-5 py-4">
                                         Company Name
                                     </th>
@@ -111,19 +99,16 @@ function ViewUserFillCompany() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {APIData.filter((data)=>{
-                                     const searchLower = search.toLowerCase();
-                                     const cnameLower = data.h_cname.toLowerCase();
-                                     return searchLower === '' ? true : cnameLower.includes(searchLower);
+                                {APIData.filter((data) => {
+                                    const searchLower = search.toLowerCase();
+                                    const cnameLower = data.h_cname.toLowerCase();
+                                    return searchLower === '' ? true : cnameLower.includes(searchLower);
                                     // return search.toLowerCase() === '' ? data : data.h_cname.toLowerCase().includes(search)
                                 }).map((data) => {
-
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data._id}
-                                        >
-
+                                            key={data._id}>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.h_cname}
                                             </td>
@@ -139,7 +124,6 @@ function ViewUserFillCompany() {
                                             <td className="whitespace-wrap px-4 py-4 text-center">
                                                 {data.h_address}
                                             </td>
-
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <Link to="#">
                                                     <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">

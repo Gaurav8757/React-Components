@@ -131,8 +131,8 @@ const homesecondslider = [
         link:"https://vahan.parivahan.gov.in/nrservices/faces/user/citizen/citizenlogin.xhtml"
     }, 
     {
-        img: "/how-buy-health-insurance-3.avif",
-        link:""
+        img: "/chalan.jpg",
+        link:"https://echallan.parivahan.gov.in/index/accused-challan"
     },
     {
         img: "/amritkaal.avif",
