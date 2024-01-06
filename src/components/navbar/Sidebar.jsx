@@ -21,11 +21,11 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
   // Off-canvas Sidebar
   return (
     <aside
-      className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-teal-400 h-full transform transition-transform md:hidden ${
+      className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-teal-500 h-full transform transition-transform md:hidden ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="w-auto text-start mx-4 list-none m-0 p-0">
+      <div className="w-auto text-start text-lg mx-4 list-none m-0 p-0">
         {navigation.map((item, idx) => (
           <div key={idx} className="relative group">
             <div
@@ -35,7 +35,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                 to={item.to}
                 
                 className={classNames(
-                  item.current ? 'bg-gradient-to-r from-orange-700 to-rose-800 bg-clip-text text-transparent font-bold' : 'text-gray-300 hover:text-white',
+                  item.current ? 'bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent text-xl font-bold' : 'text-gray-300 hover:text-white',
                   'rounded-md px-2 font-medium text-gray-900 block py-2'
                 )}
                 aria-current={item.current ? 'page' : undefined}
@@ -69,7 +69,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                   <li key={subIdx} className="mb-1">
                     <NavLink
                       to={submenu.to}
-                      className="text-md text-gray-900 hover:text-white block py-2 px-4 rounded-md"
+                      className="text-lg text-gray-900 hover:text-white block py-2 px-4 rounded-md"
                     >
                       {submenu.name}
                     </NavLink>
