@@ -13,6 +13,7 @@ function HealthPage() {
     axios
       .get(`https://eleedomimf.onrender.com/api/company/health-list`)
       .then((response) => {
+        console.log(response.data);
         setAPIData(response.data);
       })
       .catch((error) => {
@@ -50,7 +51,10 @@ function HealthPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {APIData.map((data) => {
+                  {APIData.filter((data)=>{
+                  return data.comp_categories === 'Family Health Insurance';
+                  })
+                  .map((data) => {
                     return (
                       <tr
                         className="border-b dark:border-neutral-200 text-sm font-medium"
