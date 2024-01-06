@@ -10,7 +10,7 @@ function NonMotorPage() {
           axios
             .get(`https://eleedomimf.onrender.com/api/company/nonmotor-list`)
             .then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
               setAPIData(response.data);
               
             })
