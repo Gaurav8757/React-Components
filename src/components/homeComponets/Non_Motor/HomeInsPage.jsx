@@ -10,6 +10,7 @@ function HomeInsPage() {
         axios
             .get(`https://eleedomimf.onrender.com/api/company/nonmotor-list`)
             .then((response) => {
+                console.log(response.data);
                 setAPIData(response.data);
 
             })
@@ -51,7 +52,9 @@ function HomeInsPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {APIData.map((data) => {
+                                    {APIData.filter((data) => {
+                                        return data.comp_categories === '';
+                                    }).map((data) => {
 
                                         return (
                                             <tr

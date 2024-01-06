@@ -10,6 +10,7 @@ function TwoWheeler() {
         axios
             .get(`https://eleedomimf.onrender.com/api/company/motor-list`)
             .then((response) => {
+                // console.log(response.data);
                 setAPIData(response.data);
 
             })
