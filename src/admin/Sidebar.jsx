@@ -180,7 +180,7 @@ const loginemail = sessionStorage.getItem("email");
                     <ul
                       onClick={() => toggleSubmenu(idx)}
                       onMouseLeave={closeSubmenu}
-                      className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-1/2" : "opacity-0 max-h-0 overflow-hidden"}`}
+                      className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-1/2 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}
                     >
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
