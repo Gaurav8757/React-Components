@@ -50,7 +50,10 @@ function CommercialVehicle() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {APIData.map((data) => {
+                                        {APIData.filter((data)=>{
+                  return data.comp_categories === 'Commercial Vehicle Insurance';
+                  })
+                                        .map((data) => {
     
                                             return (
                                                 <tr

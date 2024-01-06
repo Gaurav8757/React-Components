@@ -52,7 +52,7 @@ function HealthPage() {
                 </thead>
                 <tbody>
                   {APIData.filter((data)=>{
-                  return data.comp_categories === 'Family Health Insurance';
+                  return data.comp_categories === 'Health Insurance';
                   })
                   .map((data) => {
                     return (

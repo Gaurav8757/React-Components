@@ -49,7 +49,10 @@ function FamilyHealthPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {APIData.map((data) => {
+                  {APIData.filter((data)=>{
+                  return data.comp_categories === 'Family Health Insurance';
+                  })
+                  .map((data) => {
                     return (
                       <tr
                         className="border-b dark:border-neutral-200 text-sm font-medium"

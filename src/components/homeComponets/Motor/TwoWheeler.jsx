@@ -50,7 +50,10 @@ function TwoWheeler() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {APIData.map((data) => {
+                                        {APIData.filter((data)=>{
+                  return data.comp_categories === '2 Wheeler Insurance';
+                  })
+                                        .map((data) => {
     
                                             return (
                                                 <tr
