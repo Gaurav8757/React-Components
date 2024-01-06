@@ -73,6 +73,10 @@ const Sidebar = () => {
         {
           title: "View All Contact's",
           path: "/dashboard/viewcontact"
+        },
+        {
+          title: "View All User's List",
+          path: "/dashboard/viewfilledform"
         }
         // Add more sub-routes as needed
       ]
