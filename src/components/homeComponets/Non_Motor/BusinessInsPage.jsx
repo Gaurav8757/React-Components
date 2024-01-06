@@ -52,7 +52,9 @@ function BusinessInsPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {APIData.map((data) => {
+                                    {APIData.filter((data) => {
+                                        return data.comp_categories === 'Business Insurance';
+                                    }).map((data) => {
 
                                         return (
                                             <tr

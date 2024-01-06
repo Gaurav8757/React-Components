@@ -53,7 +53,7 @@ function NonMotorPage() {
                             </thead>
                             <tbody>
                                 {APIData.filter((data) => {
-                                        return data.comp_categories === '';
+                                        return data.comp_categories === 'Travel Insurance';
                                     }).map((data) => {
 
                                     return (

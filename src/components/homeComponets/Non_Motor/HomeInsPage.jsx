@@ -53,7 +53,7 @@ function HomeInsPage() {
                                 </thead>
                                 <tbody>
                                     {APIData.filter((data) => {
-                                        return data.comp_categories === '';
+                                        return data.comp_categories === 'Home Insurance';
                                     }).map((data) => {
 
                                         return (
