@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 function ViewUserFillCompany() {
     const [APIData, setAPIData] = useState([]);
-    // const [search , setSearch] = useState("");
+    const [search , setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -67,8 +67,20 @@ function ViewUserFillCompany() {
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-white"
                     ><NavLink to="/dashboard/addsalary" className="flex justify-end">Back</NavLink>
-                        <h1 className="flex justify-center text-4xl w-full mb-8">View Form Filled by Customer&apos;s</h1><hr></hr>
+                        <h1 className="flex justify-center text-4xl w-full mb-8">View Form Filled by Customer&apos;s</h1> 
+                        {/* search */}
+
+                        
+
+
+                        <form className="flex justify-end">
+                       <label className=" my-0  mb-2 text-2xl font-medium text-gray-900" > Filter:</label>
+                        <input type="search" onChange={(e)=> setSearch(e.target.value)} className="shadow input-style w-40 p-3 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-100 dark:border-gray-600 dark:placeholder-blue-700  dark:focus:ring-blue-500 dark:focus:border-blue-500  appearance-none py-2 px-1 mb-4 ml-4" placeholder="Search Customer's"/>
+                    </form>
+
+                    <hr></hr>
                     </div>
+                   
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
@@ -99,7 +111,12 @@ function ViewUserFillCompany() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {APIData.map((data) => {
+                                {APIData.filter((data)=>{
+                                     const searchLower = search.toLowerCase();
+                                     const cnameLower = data.h_cname.toLowerCase();
+                                     return searchLower === '' ? true : cnameLower.includes(searchLower);
+                                    // return search.toLowerCase() === '' ? data : data.h_cname.toLowerCase().includes(search)
+                                }).map((data) => {
 
                                     return (
                                         <tr
