@@ -172,7 +172,7 @@ const loginemail = sessionStorage.getItem("email");
                     <NavLink
                       to={route.path}
                       onClick={() => toggleSubmenu(idx)}
-                      className={`flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
+                      className={`flex items-center p-2 text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-10">{route.title}</span>
