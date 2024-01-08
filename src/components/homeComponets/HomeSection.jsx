@@ -23,7 +23,7 @@ const HomeSection = ({ homesection }) => {
           <span className="text-2xl font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
           <div className="relative inline-block mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
-            <input type="text" className="w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto  text-center text-3xl font-bold rounded-lg " placeholder="DL 01 AB14XXX"/>
+            <input type="text" className="w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto  text-center text-3xl font-bold rounded-lg " placeholder="BR 01 AB14XXX"/>
             <img
     src="/flag.webp"
     alt="flag"
