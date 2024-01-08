@@ -35,7 +35,7 @@ const HomeSection = ({ homesection }) => {
               value={vehicleNumber.toUpperCase()}
               onChange={(e) => setVehicleNumber(e.target.value)}
               onBlur={validateVehicleNumber}
-              placeholder="BR 01 AB14XXX" />
+              placeholder="BR 00 AB 1XXX" />
             <img
               src="/flag.webp"
               alt="flag"
