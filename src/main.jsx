@@ -65,6 +65,7 @@ import CommercialVehicle from "./components/homeComponets/Motor/CommercialVehicl
 import HomeInsPage from "./components/homeComponets/Non_Motor/HomeInsPage.jsx";
 import BusinessInsPage from "./components/homeComponets/Non_Motor/BusinessInsPage.jsx";
 import MarineInsPage from "./components/homeComponets/Non_Motor/MarineInsPage.jsx";
+import ChallanView from "./components/homeComponets/viewChallan/ChallanView.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -112,6 +113,8 @@ const router = createBrowserRouter(
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/track-request" element={<TrackRequest />} />
+        {/* challans */}
+        <Route path="/challans" element={<ChallanView />} />
       </Route>
 
 
