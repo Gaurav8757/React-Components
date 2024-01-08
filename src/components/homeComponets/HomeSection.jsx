@@ -15,8 +15,8 @@ const HomeSection = ({ homesection }) => {
   };
 
   return (
-    <section className="container-fluid flex justify-between bg-slate-100">
-      <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-3/4 pb-0 ml-2 mr-2  bg-slate-100">
+    <section className="container-fluid flex justify-between   bg-slate-100">
+      <div className="grid grid-cols-3 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-3/4 pb-0 ml-2 mr-2  bg-slate-100">
         {homesection.map((item, index) => (
           <NavLink key={index} to={item.links} className="text-center transition-transform transform hover:translate-y-[-15px] hover:shadow-2xl  shadow-slate-900/50   p-2 w-auto sm:w-72 rounded-lg mx-10 mt-8">
 
@@ -28,7 +28,7 @@ const HomeSection = ({ homesection }) => {
         ))}
       </div>
       {/* part-2 */}
-      <div className="container-fluid w-1/3 bg-slate-100 flex justify-center items-center">
+      <div className="container-fluid  w-1/3 bg-slate-100 flex justify-center items-center">
         <div className="bg-slate-100  text-start w-11/12 h-4/5 rounded-md">
           <span className="text-2xl mx-5 font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
@@ -57,9 +57,9 @@ const HomeSection = ({ homesection }) => {
 
           </div>
           {/* button */}
-         <div className="flex  justify-center mt-10 items-center">
-         <ChallanModal/>
-         </div>
+          <div className="flex  justify-center mt-10 items-center">
+            <ChallanModal />
+          </div>
 
         </div>
       </div>

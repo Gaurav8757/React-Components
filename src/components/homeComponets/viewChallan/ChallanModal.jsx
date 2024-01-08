@@ -1,5 +1,40 @@
 import { RxCross2 } from "react-icons/rx";
+import { useState, useEffect } from "react";
 function ChallanModal() {
+    const [showOtpInput, setShowOtpInput] = useState(false);
+    const [timer, setTimer] = useState(30);
+
+    const startTimer = () => {
+        setShowOtpInput(true);
+        setTimer(30);
+    };
+
+    useEffect(() => {
+        let interval;
+        if (showOtpInput && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+            }, 1000);
+        } else if (timer === 0) {
+            setShowOtpInput(false);
+        }
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [showOtpInput, timer]);
+
+    const handleOtpInputChange = () => {
+        // Handle OTP input change
+    };
+
+    const handleSubmit = () => {
+        // Handle OTP submission
+    };
+
+
+
+
     return (
         <>
             {/* <NavLink to="/challans" className="flex  justify-center mt-10 items-center"> */}
@@ -15,32 +50,79 @@ function ChallanModal() {
                 aria-hidden="true"
                 className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 inset-0 z-50 justify-center items-center w-full h-full bg-black bg-opacity-50"
             >
-              
-                        {/* <!-- Modal body --> */}
-                        <section className="p-4 md:p-3 relative scroll-smooth w-full max-w-5xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify  rounded-md  overflow-y-auto bg-gradient-to-r from-slate-200 to-slate-300">
-                        <RxCross2 size={30} className="transition duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal1"/>
-                            <p className="overflow-y-auto  pl-10 pr-10 pb-10">
-                                Based out of Gurgaon, Haryana, ELLEDOM IMF PVT LTD is an insurance broker approved by IRDA of India. We offer an online platform for insurance buyers where they can easily compare different insurance policies such as car insurance, life insurance, two-wheeler insurance, term insurance, pension plans etc. They can make an informed choice in a matter of a single click that too from the comfort of their home.
+                {/* <!-- Modal body --> */}
 
-                                As the insurance sector has taken proactive measures upon the outbreak of COVID-19, ELLEDOM IMF PVT LTD is also offering Coronavirus term insurance and coronavirus health insurance.
+                <section className="p-2 md:p-5 relative scroll-smooth w-full max-w-xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify  rounded-md  overflow-y-auto border bg-gradient-to-l from-slate-00 ">
+                    <div className="flex justify-end items-end">
+                        <RxCross2 size={30} className="transition  text-slate-200 duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal1" /></div>
+                    {/* < className="bg-white dark:bg-gray-900"> */}
+                    <div className="max-w-xl px-4 py-4 mx-1 lg:py-2">
+                        <h2 className="mb-4 text-xl font-bold text-gray-300 "><b>Login</b> to Continue</h2>
+                        <form action="#" onSubmit={handleSubmit}>
+                            <div className="grid  gap-4 mb-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 sm:mb-5">
+                                <div className="w-62">
+                                    <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile Number</label>
+                                    <input type="number" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="Apple iMac 27&ldquo;" placeholder="+91 900 999 9999" required="" />
+                                </div>
+                                <div className="mt-7 ml-1 ">
+                                    <button type="button" onClick={startTimer} className="text-green-600 inline-flex items-center hover:text-white border border-green-600 hover:bg-green-600 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900">
+                                        Get OTP
+                                    </button></div>
 
-                                Moreover, as per the IRDAI regulations, all the health and general insurers are now offering two specific products namely, Corona Kavach Policy and Corona Rakshak Policy. The policies cover COVID-19 hospitalization, home treatment, Ayush treatment along with the cost of PPE kits, and other expensive consumable items.
-
-                                This year IRDAI has also introduced another standard health insurance policy for people who cannot afford to pay higher premiums. They can buy Arogya Sanjeevani Policy from ELLEDOM IMF PVT LTD.com
-
-                                And for the lower-income groups, we also provide PMJAY or Ayushman Bharat Yojana scheme on our platform, which is a big initiative by our PM Narendra Modi to provide insurance to the needy in both rural and urban India.
-
-                                By comparing insurance plans online, the applicants can avail easy and free access to the availability of information. We have tied up with 50+ insurance companies in India to offer a myriad of options. By making smart use of the latest technology, ELLEDOM IMF PVT LTD makes insurance buying/ process smooth for insurance buyers.
-
-                                What&amp;s more?
-
-                            </p>
-                            <div className="flex overflow-y-auto  pl-10 pr-10 pb-10">
-                                HELLO
                             </div>
-                        </section>
-                    </div>
+
+                        </form>
+                        {showOtpInput && (
+                            <form action="#" onSubmit={handleSubmit}>
+                                <div className="grid gap-4 mb-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 sm:mb-5">
+                                    <div className="col-span-1">
+                                        <label
+                                            htmlFor="otp"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Enter OTP
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="otp"
+                                            id="otp"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            onChange={handleOtpInputChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="mt-7">
+                                        <button
+                                            type="submit"
+                                            className="text-green-600 inline-flex items-center hover:text-white border border-green-600 hover:bg-green-600 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
+                                        >
+                                            Verify OTP
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        )}
+
+
+                {timer ? (
+                   <div className="text-white text-sm">
+                   Resend OTP in {timer} seconds
+               </div>
+                ) : (
+                    <div className="text-white text-sm">
+                    Resend OTP 
+                </div>
+                )}
+              
             
+                       
+                    </div>
+
+
+                </section>
+            </div>
+
         </>
     );
 }
