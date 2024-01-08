@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 // import ChallanView from "./viewChallan/ChallanView";
 const HomeSection = ({ homesection }) => {
   const [vehicleNumber, setVehicleNumber] = useState('');
@@ -41,9 +43,14 @@ const HomeSection = ({ homesection }) => {
               alt="flag"
               className="w-8 h-7 absolute left-1 top-4 hidden sm:hidden md:hidden lg:block xl:block"
             />
-             {!isValid && (
-        <p className="text-red-500 text-sm mt-1">Invalid vehicle number format</p>
-      )}
+
+            {isValid ? (
+              <IoCheckmarkDoneOutline size={30} className="absolute right-2 top-3 text-green-500" />
+            ) : (
+              <MdErrorOutline size={30} className="absolute right-2 top-3 text-red-500" />
+            )}
+
+
           </div>
           {/* button */}
           <NavLink to="/challans" className="flex  justify-center mt-10 items-center">
