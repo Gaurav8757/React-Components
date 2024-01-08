@@ -69,8 +69,8 @@ const Feedback = () => {
   };
 
   return (
-    <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
-      <div className="container-fluid  mx-auto md:flex md:justify-around ml-2 mr-2 p-10 bg-gradient-to-r from-indigo-400 to-cyan-400">
+    <section className="container-fluid relative bg-white">
+      <div className="container-fluid  mx-auto md:flex md:justify-around ml-2 mr-2 p-10 bg-white">
 
         {/* <div className=""> */}
         <div className="container-fluid w-auto sm:w-auto md:w-1/2 lg:w-1/2 xl:w-1/3">
@@ -99,8 +99,8 @@ const Feedback = () => {
             
             APIData.map((obj) => (
             
-            <SwiperSlide key={obj._id}>
-              <div className="w-full  max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800">
+            <SwiperSlide key={obj._id} >
+              <div className="w-full  max-w-md  border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
                 <div className=" text-center px-4 p-2">
                   <h1 className=' text-xl font-medium text-blue-700'>
                    {obj.feedbackuser_name}
@@ -124,7 +124,7 @@ const Feedback = () => {
         </div>
         {/* part-2 */}
 
-        <div className="relative md:w-1/3 rounded-xl shadow-xl text-xl container-fluid">
+        <div className="relative md:w-1/3 rounded-xl shadow-xl text-xl container-fluid bg-gradient-to-r from-gray-300 to-slate-300">
           <form>
             <p className="text-2xl font-semibold">Your Opinion</p>
             <div className="space-y-2 p-4 text-start">

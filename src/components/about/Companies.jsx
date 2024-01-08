@@ -1,7 +1,7 @@
 function Companies() {
   return (
-    <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
-      <div className="container-fluid ml-2 mr-2 pb-4 pt-10 bg-gradient-to-r from-indigo-400 to-cyan-400">
+    <section className="container-fluid relative bg-white">
+      <div className="container-fluid  pb-4 pt-10 bg-gradient-to-b from-white to-slate-100">
         {/* part - 1 */}
         <div className="flex flex-col lg:flex-row ">
           <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
@@ -14,7 +14,7 @@ function Companies() {
 
           <div className="w-full lg:w-1/2 max-w-5xl mb-5 mt-16 lg:mr-10 rounded-lg  dark:border-gray-100">
 
-            <div className="text-2xl text-gray-200 font-semibold">
+            <div className="text-2xl text-blue-700 font-semibold">
               Welcome to Eleedom IMF PVT. LTD. - Your Trusted Insurance Partner
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
@@ -36,7 +36,7 @@ function Companies() {
 
           <div className="w-full lg:w-1/2  max-w-5xl mb-5 mt-10 lg:mr-10 rounded-lg  dark:border-gray-100">
 
-            <div className="text-2xl text-gray-200 font-semibold">
+            <div className="text-2xl text-blue-700 font-semibold">
               Our Journey
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
@@ -57,7 +57,7 @@ function Companies() {
 
           <div className="w-full lg:w-1/2  max-w-5xl mb-5 mt-10 lg:mr-10 rounded-lg  dark:border-gray-100">
 
-            <div className="text-2xl text-gray-200 font-semibold">
+            <div className="text-2xl text-blue-700 font-semibold">
               Leading the Way
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
@@ -66,28 +66,10 @@ function Companies() {
           </div>
         </div>
         {/* part-4 */}
-        <div className="text-2xl mt-32 mb-12 w-full text-white flex-nowrap">Why Choose Eleedom IMF PVT. LTD.</div>
-        {/* <div className="flex flex-col lg:flex-row mt-20">
-
-          <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
-            <img
-              src="/logo.png" // Add the actual image source
-              alt="company img"
-              className="w-1/2 sm:w-1/2 md:w-1/2 max-w-5xl mx-auto me-auto lg:w-1/2 xl:w-1/3 h-auto rounded-full items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
-            />
-          </div>
-
-          <div className="w-full lg:w-1/2  max-w-5xl mb-5 mt-10 lg:mr-10 rounded-lg  dark:border-gray-100">
-
-            <div className="text-2xl text-gray-200 font-semibold">
-              Leading the Way
-            </div>
-            <div className="w-full flex items-center justify-center  text-justify">
-              <p className=" text-xl mt-5 mx-20">For the past five years, we have proudly held the title of the leading insurance agent in our region. This achievement is a testament to our unwavering dedication to our clients and our passion for safeguarding what matters most to them.</p>
-            </div>
-          </div>
-        </div> */}
-<div className="flex justify-center">
+        <div className="bg-gradient-to-b from-slate-100 to-slate-200">
+        <div className="text-2xl mt-32 mb-12 w-full text-blue-700 flex-nowrap font-semibold ">Why Choose Eleedom IMF PVT. LTD.</div>
+        
+<div className="flex justify-center ">
         <ol className="text-xl text-justify w-3/4 leading-relaxed">
           <li>
           <b>1. Experience:</b> With over a decade of experience, we bring a wealth of knowledge to the table, ensuring you receive expert advice and tailored solutions.
@@ -100,8 +82,9 @@ function Companies() {
           </li>
         </ol>
         </div>
-
-        <div className="text-2xl mt-10  mb-8 w-full text-white flex-nowrap">Our Services</div>
+</div>
+<div className="bg-gradient-to-b from-slate-100 to-slate-200">
+        <div className="text-2xl mt-10  mb-8 w-full text-blue-700 flex-nowrap font-semibold">Our Services</div>
         <div className="flex justify-center">
         <ol className="text-xl text-justify w-3/4 leading-relaxed">
           <li>
@@ -113,16 +96,16 @@ function Companies() {
           <li><b>
           3. Business Insurance:</b> We understand the complexities of running a business. Our business insurance plans are designed to mitigate risks and support your growth.
           </li>
-        </ol></div>
-
-        <div className="text-2xl mt-10  mb-8 w-full text-white flex-nowrap">Join Us in Securing Your Future</div>
+        </ol></div></div>
+        <div className="bg-gradient-to-b from-slate-100 to-slate-200">
+        <div className="text-2xl mt-10  mb-8 w-full text-blue-700 flex-nowrap font-semibold">Join Us in Securing Your Future</div>
         <div className="flex justify-center ">
         <ol className="text-xl text-justify w-3/4 leading-relaxed">
         Whether you&apos;re an individual looking for personal protection or a business seeking comprehensive coverage, Eleedom IMF PVT LTD is here for you. Explore our website to discover the perfect insurance solution for your needs.
 Partner with us for a secure and prosperous future.
 </ol>
         </div>
-
+</div>
       </div>
       
     </section>

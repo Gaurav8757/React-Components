@@ -49,9 +49,9 @@ const ServiceClaim = () => {
     };
 
     return (
-        <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
-            <div className="container-fluid flex justify-center ml-2 mr-2 pb-4 bg-gradient-to-r from-indigo-400 to-cyan-400">
-                <div className="relative w-full lg:w-1/2  p-6 lg:p-14 rounded-xl shadow-xl text-2xl  items-center mt-4 bg-gradient-to-r from-indigo-300 to-cyan-400">
+        <section className="container-fluid relative bg-white">
+            <div className="container-fluid flex justify-center ml-2 mr-2 pb-4 bg-gradient-to-t from-white to-slate-100">
+                <div className="relative w-full lg:w-1/2  p-6 lg:p-14 rounded-xl shadow-xl text-2xl  items-center mt-4 bg-gradient-to-r from-gray-300 to-slate-300">
                     <form className="">
                         <p className="text-3xl font-semibold mb-4 ">Claim Form</p>
                         <div className="text-start   space-y-4 ">

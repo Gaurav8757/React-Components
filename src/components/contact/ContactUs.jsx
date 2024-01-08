@@ -1,12 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 const ContactUs = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [query, setQuery] = useState("");
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('https://eleedomimf.onrender.com/users/contactus', {
@@ -14,32 +14,32 @@ const ContactUs = () => {
                 usercontact_mobile: mobile,
                 usercontact_query: query,
             });
-    //   console.log(response.data);
+            //   console.log(response.data);
             if (response.data) {
                 toast.success("Submitted successfully!");
-              // Reset form fields if needed
+                // Reset form fields if needed
             } else {
                 toast.error("Failed to Contact..!");
-            //   console.error('Failed to submit Complaint');
+                //   console.error('Failed to submit Complaint');
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error:', error);
 
-          }
-        
+        }
+
         setEmail("");
         setMobile("");
         setQuery("");
-    
+
     };
 
     return (
-        <section className="container-fluid relative bg-gradient-to-r from-indigo-400 to-cyan-400">
-            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 pt-20 pb-20 bg-gradient-to-r from-indigo-400 to-cyan-400">
-          
-                <div className="md:w-1/3 w-auto  rounded-md md:h-auto p-4  m-5 mx-5  bbg-gradient-to-r from-indigo-400 to-cyan-400 shadow-2xl mb-4 md:mb-0">
-                    <h5 className="text-2xl font-bold bg-gradient-to-r from-teal-900 to-emerald-900 bg-clip-text text-transparent ">Reach Us At</h5>
-                    <ul className="text-white ">
+        <section className="container-fluid relative bg-white">
+            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 pt-20 pb-20 bg-white">
+
+                <div className="md:w-1/3 w-auto  rounded-md md:h-auto p-4  m-5 mx-5  bg-gradient-to-r from-slate-200 to-slate-300 shadow-xl mb-4 md:mb-0">
+                    <h5 className="text-2xl font-bold bg-gradient-to-r from-teal-500 to-emerald-700 bg-clip-text text-transparent ">Reach Us At</h5>
+                    <ul className=" ">
                         <li className="mt-2">
                             <i className="fa fa-phone mr-2"></i>+91-mob
                         </li>
@@ -55,9 +55,9 @@ const ContactUs = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="relative  md:w-1/3 bg-gradient-to-r mx-5 from-indigo-400 to-cyan-400 rounded-xl shadow-2xl text-xl ">
+                <div className="relative  md:w-1/3  mx-5 bg-gradient-to-b from-slate-200 to-slate-300 rounded-xl shadow-xl text-xl ">
                     <form >
-                    <p className="text-2xl font-bold bg-gradient-to-r pt-8 from-teal-900 to-emerald-900 bg-clip-text text-transparent">Contact Us</p>
+                        <p className="text-2xl font-bold bg-gradient-to-r pt-8 from-teal-500 to-emerald-700 bg-clip-text text-transparent">Contact Us</p>
                         <div className="space-y-2 text-start p-4">
                             <label className="text-sm mx-1 ">Email Address*</label>
                             <br></br>
@@ -107,7 +107,7 @@ const ContactUs = () => {
                 </div>
 
 
-                <div className="md:w-1/3 rounded-md h-3/2 bg-slate-300 m-3 border-sky-200">
+                <div className="md:w-1/3 rounded-md h-3/2 bg-slate-300 m-3 border-sky-200 shadow-xl">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.7123598999196!2d85.04531387524924!3d25.614472677444645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed572733094417%3A0xb3b4bcea04b2a04!2sLalji%20Tower!5e0!3m2!1sen!2sin!4v1702376205500!5m2!1sen!2sin"
                         className="w-full h-full border-0 rounded-md"
