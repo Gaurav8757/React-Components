@@ -7,7 +7,7 @@ import { MdErrorOutline } from "react-icons/md";
 const HomeSection = ({ homesection }) => {
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
-
+  const [isFocused, setIsFocused] = useState(false);
   const validateVehicleNumber = () => {
     const regex = /^[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{2}[ ][0-9]{4}$/;
     setIsValid(regex.test(vehicleNumber));
@@ -37,19 +37,22 @@ const HomeSection = ({ homesection }) => {
               value={vehicleNumber.toUpperCase()}
               onChange={(e) => setVehicleNumber(e.target.value)}
               onBlur={validateVehicleNumber}
+              onFocus={() => setIsFocused(true)}
               placeholder="BR 00 AB 1XXX" />
             <img
               src="/flag.webp"
               alt="flag"
               className="w-8 h-7 absolute left-1 top-4 hidden sm:hidden md:hidden lg:block xl:block"
             />
-
-            {isValid ? (
-              <IoCheckmarkDoneOutline size={30} className="absolute right-2 top-3 text-green-500" />
-            ) : (
-              <MdErrorOutline size={30}  className="absolute right-2 top-3 text-red-500" />
+            {isFocused && (
+              <>
+                {isValid ? (
+                  <IoCheckmarkDoneOutline size={30} className="absolute right-2 top-3 text-green-500" />
+                ) : (
+                  <MdErrorOutline size={30} className="absolute right-2 top-3 text-red-500" />
+                )}
+              </>
             )}
-
 
           </div>
           {/* button */}
