@@ -22,8 +22,8 @@ const FourthCarousel = () => {
     }, [APIData]);
 
     return (
-        <section className="container-fluid  bg-gradient-to-r from-cyan-400 to-indigo-400">
-            <div className=" ml-2 mr-2 pt-10 p-2 pb-5 text-start  bg-gradient-to-r from-cyan-400 to-indigo-400">
+        <section className="container-fluid  bg-gradient-to-r from-white to-slate-100">
+            <div className=" ml-2 mr-2 pt-10 p-2 pb-5 text-start  bg-gradient-to-r from-white to-slate-100">
                 <div className="col">
                     <div className="text-3xl mx-10 font-medium">What Our Customers
                         Are Saying

@@ -1,15 +1,15 @@
 import AdvantageModals from "./AdvantageModals";
 const HomeSection5 = () => {
   return (
-    <section className="container-fluid bg-gradient-to-r from-teal-400 to-cyan-400">
-      <div className="col ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-gradient-to-r from-teal-400 to-cyan-400">
+    <section className="container-fluid bg-gradient-to-r from-white to-slate-50">
+      <div className="col ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-gradient-to-r from-white to-slate-50">
         <div className="text-3xl mx-10 font-medium">ELEEDOM IMF Advantage
           <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
             <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
           </svg>
         </div>
         {/* p2 start working from here */}
-        <div className="container w-4/5 sm:w-3/2 md:w-2/3 lg:w-2/3  text-justify text-xl mx-10">
+        <div className="container w-4/5 sm:w-3/2 md:w-2/3 lg:w-3/4  text-justify text-xl mx-10">
           <p>When you buy insurance from us, you get more than just financial safety. You also get
             our promise of simplifying complex insurance terms and conditions, quick stress-free claims,
             instant quotes from top insurers and being present for you in the toughest of times.</p>

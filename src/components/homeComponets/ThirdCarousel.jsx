@@ -11,8 +11,8 @@ import { NavLink } from 'react-router-dom';
 
 const ThirdCarousel = ({ homethirdslider }) => {
     return (
-        <section className="container-fluid bg-gradient-to-r from-slate-400 to-cyan-400">
-            <div className='pt-10 ml-2 mr-2 pb-8 items-center bg-gradient-to-r from-slate-400 to-cyan-400'>
+        <section className="container-fluid bg-slate-100">
+            <div className='pt-10 ml-2 mr-2 pb-8 items-center bg-slate-100'>
                 <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination, Scrollbar, Autoplay]}

@@ -6,11 +6,11 @@ const AdvantageModals = () => {
                 data-modal-target="static-modal1"
                 data-modal-toggle="static-modal1"
                 type="button"
-                className="relative inline-flex items-center justify-center sm:text-md text-lg overflow-hidden font-medium text-blue-800 rounded-full "
+                className="relative inline-flex items-center justify-center sm:text-md text-lg overflow-hidden font-medium text-blue-500 rounded-full "
             >
-                <span className="relative text-xl  my-2 ">
+                <span className="relative text-lg w-24 my-1 ">
                     Know more
-                    <svg width="50" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
+                    <svg width="30" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-14 -ml-2">
             <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="2" />
           </svg>
                 </span>

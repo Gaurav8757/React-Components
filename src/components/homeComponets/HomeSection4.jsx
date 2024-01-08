@@ -1,9 +1,9 @@
 
 const HomeSection4 = () => {
     return (
-        <section className="container-fluid bg-gradient-to-r from-slate-400 to-slate-400">
+        <section className="container-fluid bg-gradient-to-r from-slate-200 to-slate-100">
 
-            <div className="container-fluid  ml-2  mr-2 p-5 mx-auto flex leading-relaxed flex-col md:flex-row justify-around items-center bg-cover bg-repeat brightness-100  contrast-125" style={{ backgroundImage: "url(/bg1.jpg)" }}>
+            <div className="container-fluid   p-5 mx-auto flex leading-relaxed flex-col md:flex-row justify-around items-center bg-cover bg-repeat brightness-100  contrast-125" style={{ backgroundImage: "url(/bg1.jpg)" }}>
 
                 <div className="md:w-1/2 text-start sm:text-4xl text-3xl   justify-center md:text-start ">
                     <p className=" font-thin leading-snug">What makes</p>
