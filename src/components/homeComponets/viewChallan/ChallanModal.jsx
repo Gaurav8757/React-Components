@@ -17,7 +17,7 @@ function ChallanModal() {
             >
               
                         {/* <!-- Modal body --> */}
-                        <section className="p-4 md:p-3 relative scroll-smooth w-full max-w-6xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify   overflow-y-auto bg-gradient-to-r from-blue-400 to-cyan-300">
+                        <section className="p-4 md:p-3 relative scroll-smooth w-full max-w-5xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify  rounded-md  overflow-y-auto bg-gradient-to-r from-slate-200 to-slate-300">
                         <RxCross2 size={30} className="transition duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal1"/>
                             <p className="overflow-y-auto  pl-10 pr-10 pb-10">
                                 Based out of Gurgaon, Haryana, ELLEDOM IMF PVT LTD is an insurance broker approved by IRDA of India. We offer an online platform for insurance buyers where they can easily compare different insurance policies such as car insurance, life insurance, two-wheeler insurance, term insurance, pension plans etc. They can make an informed choice in a matter of a single click that too from the comfort of their home.
