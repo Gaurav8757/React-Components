@@ -47,7 +47,7 @@ const HomeSection = ({ homesection }) => {
             {isValid ? (
               <IoCheckmarkDoneOutline size={30} className="absolute right-2 top-3 text-green-500" />
             ) : (
-              <MdErrorOutline size={30} className="absolute right-2 top-3 text-red-500" />
+              <MdErrorOutline size={30}  className="absolute right-2 top-3 text-red-500" />
             )}
 
 
