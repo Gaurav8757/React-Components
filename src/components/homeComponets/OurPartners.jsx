@@ -11,8 +11,8 @@ const OurPartners = ({ general, health }) => {
   return (
     <>
       <main className='container-fluid'>
-        <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
-          <div className="text-start text-black bg-gradient-to-r from-teal-500  ">
+        <section className="container-fluid  bg-white">
+          <div className="text-start text-black bg-gradient-to-r from-slate-100  to-slate-200">
             <div className="text-3xl mx-12 py-5 font-medium">Life Insurance
               <svg width="60" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
                 <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
@@ -39,8 +39,8 @@ const OurPartners = ({ general, health }) => {
           </div>
         </section>
 
-        <section className="container-fluid  bg-gradient-to-r from-teal-500 to-indigo-400">
-          <div className="text-start text-black bg-gradient-to-r from-teal-500 to-black">
+        <section className="container-fluid  bg-gradient-to-r from-slate-100  to-slate-200">
+          <div className="text-start text-black bg-gradient-to-r from-slate-200  to-slate-100">
             <div className="text-3xl mx-10 py-5 font-medium">General Insurance
               <svg width="60" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
                 <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />

@@ -5,16 +5,16 @@ import { NavLink } from "react-router-dom";
 const Footers = () => {
     return (
 
-        <section className="bg-gradient-to-r from-teal-600 to-black ">
-            <h1 className="dark:text-slate-300 text-2xl xs:text-xl sm:text-2xl md:text-3xl xl:text-3xl text-dark font-bold bg-gradient-to-r from-teal-600 to-black p-4 ml-2 mr-2" >More Products</h1>
-            <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2 dark:text-gray-300 text-black bg-gradient-to-r from-teal-600 to-black ">
+        <section className="bg-gradient-to-r from-white to-slate-100 ">
+            <h1 className=" text-slate-600 text-2xl xs:text-xl sm:text-2xl md:text-3xl xl:text-3xl text-dark font-bold bg-gradient-to-r from-white to-slate-100 p-4 ml-2 mr-2" >More Products</h1>
+            <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2  text-black bg-gradient-to-r from-white to-slate-100 ">
                 <div>
 
-                    <BsUmbrella className="inline-block m-2" />
+                    <BsUmbrella size={25} className="inline-block m-2" />
                     <NavLink className="leading-10">
                         Life Insurance
-
-                        <ul>
+                        <BsUmbrella size={25} className="inline-block m-2" />
+                        <ul className="text-blue-600">
                             <li>
                             Life Insurance
 
@@ -30,15 +30,17 @@ const Footers = () => {
                             Child Saving Plans
                             </li>
                         </ul>
-                    </NavLink></div>
+                    </NavLink>
+                   
+                    </div>
+                    
 
 
-
-                <div ><TbHeartHandshake className="inline-block m-2 " />
+                <div ><TbHeartHandshake size={25}  className="inline-block m-2 " />
                     <NavLink className="leading-10">
                         Health Insurance
-
-                        <ul>
+                        <TbHeartHandshake size={25}  className="inline-block m-2 " />
+                        <ul className="text-blue-600">
                             <li>
                             Health Insurance
                             </li>
@@ -54,11 +56,11 @@ const Footers = () => {
                 </div>
 
 
-                <div><TbMoneybag className="inline-block m-2" />
+                <div><TbMoneybag size={25}  className="inline-block m-2" />
                     <NavLink className="leading-10">
                         Investment
-
-                        <ul>
+                        <TbMoneybag size={25}  className="inline-block m-2" />
+                        <ul className="text-blue-600">
                             <li>
                             Investment Plans
                             </li>
@@ -76,11 +78,11 @@ const Footers = () => {
                 </div>
 
 
-                <div><BsShieldFillCheck className="inline-block m-2" />
-                    <NavLink className="leading-10">
+                <div><BsShieldFillCheck size={25}  className="inline-block m-2" />
+                    <NavLink className="leading-10 ">
                         General Insurance
-
-                        <ul>
+                        <BsShieldFillCheck size={25}  className="inline-block m-2" />
+                        <ul className="text-blue-600">
                             <li>
                             Car Insurance
                             </li>
@@ -98,11 +100,11 @@ const Footers = () => {
                 </div>
 
 
-                <div><BsShieldFillPlus className="inline-block m-2 " />
+                <div ><BsShieldFillPlus size={25}  className="inline-block m-2 " />
                     <NavLink className="leading-10">
                         Other Insurance
-
-                        <ul>
+                        <BsShieldFillPlus size={25}  className="inline-block m-2 " />
+                        <ul className="text-blue-600">
                             <li>
                             Group Health Insurance
                             </li>
@@ -121,7 +123,7 @@ const Footers = () => {
             </div>
 
 
-            <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs dark:text-white text-black bg-gradient-to-r from-teal-600 to-black">
+            <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs  text-black bg-gradient-to-r from-slate-50 to-slate-50">
                 *Standard Plans Terms and Conditions apply
                 <br/>
                 +For insurance plans that do not require inspection of your car
