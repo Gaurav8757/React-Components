@@ -7,7 +7,7 @@ const HomeSection = ({ homesection }) => {
   const [isValid, setIsValid] = useState(true);
 
   const validateVehicleNumber = () => {
-    const regex = /^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$/;
+    const regex = /^[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{2}[ ][0-9]{4}$/;
     setIsValid(regex.test(vehicleNumber));
   };
 
@@ -30,7 +30,7 @@ const HomeSection = ({ homesection }) => {
           <span className="text-2xl font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
           <div className="relative inline-block mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
-            <input type="text" className={`w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto text-center text-3xl font-bold rounded-lg ${isValid ? 'border-green-500' : 'border-red-500'
+            <input type="text" className={`w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto text-center text-3xl font-bold rounded-lg  ${isValid ? 'border-green-500' : 'border-red-500'
               }`}
               value={vehicleNumber.toUpperCase()}
               onChange={(e) => setVehicleNumber(e.target.value)}
@@ -39,7 +39,7 @@ const HomeSection = ({ homesection }) => {
             <img
               src="/flag.webp"
               alt="flag"
-              className="w-8 h-7 absolute left-1 top-4"
+              className="w-8 h-7 absolute left-1 top-4 hidden sm:hidden md:hidden lg:block xl:block"
             />
              {!isValid && (
         <p className="text-red-500 text-sm mt-1">Invalid vehicle number format</p>
