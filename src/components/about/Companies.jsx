@@ -26,7 +26,7 @@ function Companies() {
         {/* part-2 */}
         <div className="flex flex-col lg:flex-row ">
           <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
-           Update UI on Monday
+           {/* Update UI on Monday */}
             {/* <img
               src="/logo.png" // Add the actual image source
               alt="company img"
