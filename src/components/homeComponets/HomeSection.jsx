@@ -25,7 +25,7 @@ const HomeSection = ({ homesection }) => {
           <div className="relative inline-block mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
             <input type="text" className="w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto  text-center text-3xl font-bold rounded-lg " placeholder="DL 01 AB14XXX"/>
             <img
-    src="public/flag.webp"
+    src="/flag.webp"
     alt="flag"
     className="w-8 h-7 absolute left-1 top-4"
   />
