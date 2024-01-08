@@ -1,9 +1,16 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 // import ChallanView from "./viewChallan/ChallanView";
 const HomeSection = ({ homesection }) => {
-  // console.log(homesection);
-  //here to pass modal props
+  const [vehicleNumber, setVehicleNumber] = useState('');
+  const [isValid, setIsValid] = useState(true);
+
+  const validateVehicleNumber = () => {
+    const regex = /^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$/;
+    setIsValid(regex.test(vehicleNumber));
+  };
+
   return (
     <section className="container-fluid flex justify-between bg-gradient-to-r from-indigo-400 to-cyan-400">
       <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-3/4 pb-0 ml-2 mr-2  bg-gradient-to-r from-indigo-400 to-cyan-400">
@@ -23,19 +30,27 @@ const HomeSection = ({ homesection }) => {
           <span className="text-2xl font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
           <div className="relative inline-block mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
-            <input type="text" className="w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto  text-center text-3xl font-bold rounded-lg " placeholder="BR 01 AB14XXX"/>
+            <input type="text" className={`w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto text-center text-3xl font-bold rounded-lg ${isValid ? 'border-green-500' : 'border-red-500'
+              }`}
+              value={vehicleNumber.toUpperCase()}
+              onChange={(e) => setVehicleNumber(e.target.value)}
+              onBlur={validateVehicleNumber}
+              placeholder="BR 01 AB14XXX" />
             <img
-    src="/flag.webp"
-    alt="flag"
-    className="w-8 h-7 absolute left-1 top-4"
-  />
+              src="/flag.webp"
+              alt="flag"
+              className="w-8 h-7 absolute left-1 top-4"
+            />
+             {!isValid && (
+        <p className="text-red-500 text-sm mt-1">Invalid vehicle number format</p>
+      )}
           </div>
           {/* button */}
-          <NavLink to= "/challans" className="flex  justify-center mt-10 items-center">
-          <button type="button" className=" text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-xl hover:text-black
+          <NavLink to="/challans" className="flex  justify-center mt-10 items-center">
+            <button type="button" className=" text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-xl hover:text-black
            px-6 sm:px-8 w-32 sm:w-32 md:w-52 lg:w-80 xl:w-96 py-2.5 text-center me-2 mb-2">View Challans</button>
           </NavLink>
-        
+
         </div>
       </div>
     </section>
