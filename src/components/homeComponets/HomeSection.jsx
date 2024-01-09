@@ -30,12 +30,12 @@ const HomeSection = ({ homesection }) => {
       </div>
       {/* part-2 ui update bcha hai*/}
       {/*  */}
-      <div className="container-fluid  w-1/3  bg-slate-100 flex border border-gray-300	 justify-center items-center">
+      <div className="container-fluid  w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/3  bg-slate-100 flex border border-gray-300	 justify-center items-center">
         <div className="bg-slate-100  text-start w-11/12 h-4/5 rounded-md">
           <span className="text-2xl mx-5 font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
-          <div className="relative inline-block mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
-            <input type="text" className={`w-32 sm:w-32 md:w-52 lg:w-80 xl:w-auto text-center text-3xl font-bold rounded-lg  ${isValid ? 'border-green-500' : 'border-red-500'
+          <div className="relative flex mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
+            <input type="text" className={`w-full sm:w-full md:w-full lg:w-full xl:w-auto text-center flex justify-center text-3xl font-bold rounded-lg  ${isValid ? 'border-green-500' : 'border-red-500'
               }`}
               value={vehicleNumber.toUpperCase()}
               onChange={(e) => setVehicleNumber(e.target.value)}
