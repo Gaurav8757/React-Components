@@ -28,7 +28,7 @@ const HomeSection = ({ homesection }) => {
         ))}
       </div>
       {/* part-2 */}
-      <div className="container-fluid  w-1/3 bg-slate-100 flex justify-center items-center">
+      <div className="container-fluid  w-1/3 bg-slate-100 flex border border-gray-300	 justify-center items-center">
         <div className="bg-slate-100  text-start w-11/12 h-4/5 rounded-md">
           <span className="text-2xl mx-5 font-semibold block">Enter Vehicle Number:</span>
           {/* input */}
@@ -57,9 +57,14 @@ const HomeSection = ({ homesection }) => {
 
           </div>
           {/* button */}
-          <div className="flex  justify-center mt-10 items-center">
-            <ChallanModal />
-          </div>
+          {/* {isFocused && */}
+          
+          <div className="flex justify-center mt-10 items-center">
+          <ChallanModal />
+        </div>
+          
+          {/* } */}
+         
 
         </div>
       </div>
