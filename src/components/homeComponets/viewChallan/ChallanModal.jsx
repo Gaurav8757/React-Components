@@ -58,7 +58,7 @@ function ChallanModal() {
             {/* <NavLink to="/challans" className="flex  justify-center mt-10 items-center"> */}
             <button type="button" data-modal-target="static-modal33"
                 data-modal-toggle="static-modal33" className=" text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-xl hover:text-black
-           px-6 sm:px-8 w-32 sm:w-32 md:w-52 lg:w-80 xl:w-96 py-2.5 text-center me-2 mb-2">View Challans</button>
+           px-6 sm:px-8 w-auto sm:w-auto md:w-52 lg:w-80 xl:w-96 py-2.5 text-center me-2 mb-2">View Challans</button>
             {/* </NavLink> */}
             {/* <!-- Main modal --> */}
             <div
