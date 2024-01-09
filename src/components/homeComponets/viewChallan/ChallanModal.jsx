@@ -1,12 +1,28 @@
 import { RxCross2 } from "react-icons/rx";
 import { useState, useEffect } from "react";
+// import { NavLink } from "react-router-dom";
 function ChallanModal() {
     const [showOtpInput, setShowOtpInput] = useState(false);
     const [timer, setTimer] = useState(30);
-
+    const [mobileNumber, setMobileNumber] = useState("");
+    const [otp, setOtp] = useState("");
+    const [isGetOtpActive, setIsGetOtpActive] = useState(false);
+    // console otp
+    console.log(otp);
     const startTimer = () => {
         setShowOtpInput(true);
         setTimer(30);
+    };
+
+    const handleMobileNumberChange = (e) => {
+        const inputMobileNumber = e.target.value;
+        setMobileNumber(inputMobileNumber);
+
+        if (inputMobileNumber.length === 10) {
+            setIsGetOtpActive(true);
+        } else {
+            setIsGetOtpActive(false);
+        }
     };
 
     useEffect(() => {
@@ -24,12 +40,14 @@ function ChallanModal() {
         };
     }, [showOtpInput, timer]);
 
-    const handleOtpInputChange = () => {
-        // Handle OTP input change
+    const handleOtpInputChange = (e) => {
+        setOtp(e.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         // Handle OTP submission
+        // You can use the 'otp' state to handle the submitted OTP
     };
 
 
@@ -53,29 +71,53 @@ function ChallanModal() {
 
                 {/* <!-- Modal body --> */}
 
-                <section className="p-2 md:p-5 relative scroll-smooth w-full max-w-xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify  rounded-md  overflow-y-auto border bg-gradient-to-l from-slate-00 ">
-                    <div className="flex justify-end items-end">
-                        <RxCross2 size={30} className="transition  text-slate-200 duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal33" /></div>
-                    {/* < className="bg-white dark:bg-gray-900"> */}
-                    <div className="max-w-xl px-4 py-4 mx-1 lg:py-2">
-                        <h2 className="mb-4 text-xl font-bold text-gray-300 "><b>Login</b> to Continue</h2>
+                <section className="p-0  flex relative scroll-smooth w-full max-w-5xl h-96 max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify rounded-md overflow-y-auto border bg-gradient-to-l from-slate-00">
+                    {/* image body */}
+                    <div className="container-fluid w-1/2 hidden sm:block md:block lg:block xl:block">
+                        <img src="/challancut.avif" alt="chalan" className="object-fill w-full  h-full  shadow-xl dark:shadow-gray-800" />
+                    </div>
+                   {/* input body */}
+                    <div className="max-w-7xl  mt-4  mx-12">
+                        <h2 className="mb-4 text-xl font-bold text-gray-300 ">
+                            <b>Login</b> to Continue
+                        </h2>
                         <form action="#" onSubmit={handleSubmit}>
-                            <div className="grid  gap-4 mb-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 sm:mb-5">
+                            <div className="grid gap-4 mb-4 sm:grid-cols-2 grid-cols-2 sm:gap-6 sm:mb-5">
                                 <div className="w-62">
-                                    <label htmlFor="number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile Number</label>
-                                    <input type="number" name="number" id="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="Apple iMac 27&ldquo;" placeholder="+91 900 999 9999" required="" />
+                                    <label
+                                        htmlFor="number"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Mobile Number
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="number"
+                                        id="number"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="+91 900 999 9999"
+                                        value={mobileNumber}
+                                        onChange={handleMobileNumberChange}
+                                        required
+                                    />
                                 </div>
                                 <div className="mt-7 ml-1 ">
-                                    <button type="button" onClick={startTimer} className="text-green-600 inline-flex items-center hover:text-white border border-green-600 hover:bg-green-600 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900">
+                                    <button
+                                        type="button"
+                                        onClick={startTimer}
+                                        className={`text-green-600 inline-flex items-center hover:text-white border border-green-600 hover:bg-green-600 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900 ${isGetOtpActive ? "" : "cursor-not-allowed opacity-50"
+                                            }`}
+                                        disabled={!isGetOtpActive}
+                                    >
                                         Get OTP
-                                    </button></div>
-
+                                    </button>
+                                </div>
                             </div>
-
                         </form>
+
                         {showOtpInput && (
                             <form action="#" onSubmit={handleSubmit}>
-                                <div className="grid gap-4 mb-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 sm:mb-5">
+                                <div className="grid gap-4 mb-4 sm:grid-cols-2 grid-cols-2 sm:gap-4 sm:mb-5">
                                     <div className="col-span-1">
                                         <label
                                             htmlFor="otp"
@@ -102,25 +144,26 @@ function ChallanModal() {
                                     </div>
                                 </div>
                             </form>
-
                         )}
 
-
-                {timer ? (
-                   <div className="text-white text-sm">
-                   Resend OTP in {timer} seconds
-               </div>
-                ) : (
-                    <div className="text-white text-sm">
-                    Resend OTP 
-                </div>
-                )}
-              
-            
-                       
+                        {timer && showOtpInput ? (
+                            <div className="text-white text-sm">
+                                Resend OTP in {timer} seconds
+                            </div>
+                        ) : (
+                            <button onClick={!showOtpInput && !timer ? isGetOtpActive && startTimer : null} className="text-white text-sm">Resend OTP</button>
+                        )}
                     </div>
 
-
+                    
+                    {/* cut button */}
+                    <div className="mt-3 mr-4">
+                        <RxCross2
+                            size={30}
+                            className="transition  text-slate-200 duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end"
+                            data-modal-hide="static-modal33"
+                        />
+                    </div>
                 </section>
             </div>
 

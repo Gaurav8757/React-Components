@@ -66,6 +66,7 @@ import HomeInsPage from "./components/homeComponets/Non_Motor/HomeInsPage.jsx";
 import BusinessInsPage from "./components/homeComponets/Non_Motor/BusinessInsPage.jsx";
 import MarineInsPage from "./components/homeComponets/Non_Motor/MarineInsPage.jsx";
 import ChallanView from "./components/homeComponets/viewChallan/ChallanView.jsx";
+import Careers from "./components/careers/Careers.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -73,28 +74,28 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}  >
         {/* home */}
         <Route path="" element={<Home />} />
-          {/* health insurance */}
+        {/* health insurance */}
         <Route path="/healthinsurance" element={<HealthInsurance />} />
         <Route path="/healthinsurance/health" element={<HealthPage />} />
         <Route path="/healthinsurance/health2" element={<FamilyHealthPage />} />
         <Route path="/healthinsurance/health3" element={<EmpHealthPage />} />
 
-{/* motor */}
+        {/* motor */}
         <Route path="/motorinsurance" element={<MotorInsurance />} />
         <Route path="/motorinsurance/car" element={<MotorPage />} />
         <Route path="/motorinsurance/twowheeler" element={<TwoWheeler />} />
         <Route path="/motorinsurance/commervehicle" element={<CommercialVehicle />} />
 
-       {/* non-motor */}
+        {/* non-motor */}
         <Route path="/nonmotorinsurance" element={<NonMotorInsurance />} />
         <Route path="/nonmotorinsurance/travelins" element={<NonMotorPage />} />
         <Route path="/nonmotorinsurance/homeins" element={<HomeInsPage />} />
         <Route path="/nonmotorinsurance/businessins" element={<BusinessInsPage />} />
         <Route path="/nonmotorinsurance/marineins" element={<MarineInsPage />} />
 
-        
-          
-          
+
+
+
         {/* about us */}
         <Route path="/aboutus" element={<Companies />} />
         <Route path="/vision" element={<Mission />} />
@@ -111,6 +112,7 @@ const router = createBrowserRouter(
         <Route path="/complaintform" element={<ComplaintForm />} />
         {/* Contact us */}
         <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/careers" element={<Careers />} />
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/track-request" element={<TrackRequest />} />
         {/* challans */}
