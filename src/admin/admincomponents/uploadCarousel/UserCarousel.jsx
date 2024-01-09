@@ -16,10 +16,14 @@ function UserCarousel() {
             formData.append("usercarousel_title", title);
             formData.append("usercarousel_link", link);
             formData.append("usercarousel_desc", desc);
+            const datas = new FormData();
+
             if (image) {
-                formData.append("usercarousel_upload", image);
+                datas.append("usercarousel_upload", image);
             }
 
+
+           
             // Send a POST request using Axios
             const response = await axios.post("https://eleedomimf.onrender.com/users/first/carousel", formData, {
                 headers: {

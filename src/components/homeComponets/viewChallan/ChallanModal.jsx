@@ -38,23 +38,24 @@ function ChallanModal() {
     return (
         <>
             {/* <NavLink to="/challans" className="flex  justify-center mt-10 items-center"> */}
-            <button type="button" data-modal-target="static-modal1"
-                data-modal-toggle="static-modal1" className=" text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-xl hover:text-black
+            <button type="button" data-modal-target="static-modal33"
+                data-modal-toggle="static-modal33" className=" text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-xl hover:text-black
            px-6 sm:px-8 w-32 sm:w-32 md:w-52 lg:w-80 xl:w-96 py-2.5 text-center me-2 mb-2">View Challans</button>
             {/* </NavLink> */}
             {/* <!-- Main modal --> */}
             <div
-                id="static-modal1"
+                id="static-modal33"
                 data-modal-backdrop="static"
                 tabIndex="-1"
                 aria-hidden="true"
                 className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 inset-0 z-50 justify-center items-center w-full h-full bg-black bg-opacity-50"
             >
+
                 {/* <!-- Modal body --> */}
 
                 <section className="p-2 md:p-5 relative scroll-smooth w-full max-w-xl max-h-5xl mx-auto hs-scroll-inside-viewport-modal max-h-auto text-justify  rounded-md  overflow-y-auto border bg-gradient-to-l from-slate-00 ">
                     <div className="flex justify-end items-end">
-                        <RxCross2 size={30} className="transition  text-slate-200 duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal1" /></div>
+                        <RxCross2 size={30} className="transition  text-slate-200 duration-500 ase-in-out cursor-pointer text-end   inline-flex justify-end" data-modal-hide="static-modal33" /></div>
                     {/* < className="bg-white dark:bg-gray-900"> */}
                     <div className="max-w-xl px-4 py-4 mx-1 lg:py-2">
                         <h2 className="mb-4 text-xl font-bold text-gray-300 "><b>Login</b> to Continue</h2>

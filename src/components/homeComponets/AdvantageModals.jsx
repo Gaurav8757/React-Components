@@ -57,7 +57,7 @@ const AdvantageModals = () => {
                             </button>
                         </div>
                         {/* <!-- Modal body --> */}
-                        <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal max-h-auto text-justify   overflow-y-auto bg-gradient-to-r from-blue-400 to-cyan-300">
+                        <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal max-h-auto text-justify   overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
                           
                             <p className="overflow-y-auto  pl-10 pr-10 pb-10">
                                 Based out of Gurgaon, Haryana, ELLEDOM IMF PVT LTD is an insurance broker approved by IRDA of India. We offer an online platform for insurance buyers where they can easily compare different insurance policies such as car insurance, life insurance, two-wheeler insurance, term insurance, pension plans etc. They can make an informed choice in a matter of a single click that too from the comfort of their home.

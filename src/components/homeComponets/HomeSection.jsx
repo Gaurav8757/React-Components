@@ -13,6 +13,7 @@ const HomeSection = ({ homesection }) => {
     const regex = /^[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{2}[ ][0-9]{4}$/;
     setIsValid(regex.test(vehicleNumber));
   };
+  
 
   return (
     <section className="container-fluid flex justify-between   bg-slate-100">
@@ -60,7 +61,8 @@ const HomeSection = ({ homesection }) => {
           {/* {isFocused && */}
           
           <div className="flex justify-center mt-10 items-center">
-          <ChallanModal />
+        <ChallanModal />  
+         
         </div>
           
           {/* } */}
