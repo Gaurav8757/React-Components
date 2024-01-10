@@ -53,24 +53,73 @@ function MasterForm() {
   const [companyPayout, setCompanyPayout] = useState('');
   const [profitLoss, setProfitLoss] = useState('');
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     // Handle form submission logic here
     e.preventDefault();
     try {
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post("https://eleedomimf.onrender.com/alldetails/adddata", {
-       
+        entryDate,
+        company,
+        category,
+        segment,
+        sourcing,
+        policyNo,
+        insuredName,
+        contactNo,
+        vehRegNo,
+        policyStartDate,
+        policyEndDate,
+        odExpiry,
+        tpExpiry,
+        idv,
+        bodyType,
+        makeModel,
+        mfgYear,
+        registrationDate,
+        vehicleAge,
+        fuel,
+        gvw,
+        cc,
+        engNo,
+        chsNo,
+        policyType,
+        productCode,
+        odPremium,
+        liabilityPremium,
+        netPremium,
+        finalEntryFields,
+        odDiscount,
+        ncb,
+        advisorName,
+        subAdvisor,
+        policyMadeBy,
+        branch,
+        payoutOn,
+        advisorPayout,
+        policyPaymentMode,
+        paymentDoneBy,
+        chqNoRefNo,
+        bankName,
+        chqPaymentDate,
+        chqStatus,
+        advisorPayableAmount,
+        branchPayout,
+        branchPayableAmount,
+        companyPayout,
+        profitLoss,
+        
       });
-if(response.data){
-  toast.success("Added Successfully !");
- console.log(response.data);
-      // Reset the form and loading state on successful submission
-     
-      // setLoading(false);
-    }
-     else{
-      toast.error("Error Occurred. Try again...! ");
-     }
+      if (response.data) {
+        toast.success("Data Added Successfully !");
+        console.log(response.data);
+        // Reset the form and loading state on successful submission
+
+        // setLoading(false);
+      }
+      else {
+        toast.error("Error Occurred. Try again...! ");
+      }
     } catch (error) {
       console.error("Error during branch registration:", error.response);
       // setError("Error during branch registration. Please try again.");
@@ -93,6 +142,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="entryDate"
                   value={entryDate}
                   onChange={(e) => setEntryDate(e.target.value)}
                   placeholder="Select Entry Date"
@@ -103,16 +153,17 @@ if(response.data){
                 <label className="text-base mx-1">Segment:</label>
                 <select
                   className="input-style rounded-lg"
+                  name="segment"
                   value={segment}
                   onChange={(e) => setSegment(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Segment ---</option>
                   <option value="C V">C V</option>
-    <option value="PVT-CAR">PVT-CAR</option>
-    <option value="TW">TW</option>
-    <option value="HEALTH">HEALTH</option>
-    <option value="NON-MOTOR">NON-MOTOR</option>
-    <option value="LIFE">LIFE</option>
+                  <option value="PVT-CAR">PVT-CAR</option>
+                  <option value="TW">TW</option>
+                  <option value="HEALTH">HEALTH</option>
+                  <option value="NON-MOTOR">NON-MOTOR</option>
+                  <option value="LIFE">LIFE</option>
                 </select>
               </div>
               {/* FIELD - 7 */}
@@ -121,6 +172,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="insuredName"
                   value={insuredName}
                   onChange={(e) => setInsuredName(e.target.value)}
                   placeholder="Enter Insured Name"
@@ -132,6 +184,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="policyStartDate"
                   value={policyStartDate}
                   onChange={(e) => setPolicyStartDate(e.target.value)}
                   placeholder="Select Policy Start Date"
@@ -143,9 +196,11 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="tpExpiry"
                   value={tpExpiry}
                   onChange={(e) => setTpExpiry(e.target.value)}
                   placeholder="Select TP Expiry"
+                  min="2025-01-01"
                 />
               </div>
               {/* FIELD - 16 */}
@@ -154,6 +209,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="makeModel"
                   value={makeModel}
                   onChange={(e) => setMakeModel(e.target.value)}
                   placeholder="Enter Make & Model"
@@ -165,6 +221,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="vehicleAge"
                   value={vehicleAge}
                   onChange={(e) => setVehicleAge(e.target.value)}
                   placeholder="Enter Vehicle Age"
@@ -176,6 +233,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="cc"
                   value={cc}
                   onChange={(e) => setCc(e.target.value)}
                   placeholder="Enter CC"
@@ -187,6 +245,7 @@ if(response.data){
                 <select
                   className="input-style rounded-lg"
                   value={policyType}
+                  name="policyType"
                   onChange={(e) => setPolicyType(e.target.value)}
                 ><option className="w-1" value="" disabled>--- Select Policy Type ---</option>
                   <option value="COMP">COMP</option>
@@ -202,6 +261,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="liabilityPremium"
                   value={liabilityPremium}
                   onChange={(e) => setLiabilityPremium(e.target.value)}
                   placeholder="Enter Liability Premium"
@@ -213,6 +273,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="odDiscount"
                   value={odDiscount}
                   onChange={(e) => setOdDiscount(e.target.value)}
                   placeholder="Enter OD Discount"
@@ -224,6 +285,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="subAdvisor"
                   value={subAdvisor}
                   onChange={(e) => setSubAdvisor(e.target.value)}
                   placeholder="Enter Sub Advisor"
@@ -250,6 +312,7 @@ if(response.data){
                 <label className="text-base mx-1">Payment Done By:</label>
                 <select
                   className="input-style rounded-lg"
+                  name="paymentDoneBy"
                   value={paymentDoneBy}
                   onChange={(e) => setPaymentDoneBy(e.target.value)}
                 >
@@ -267,6 +330,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="chqPaymentDate"
                   value={chqPaymentDate}
                   onChange={(e) => setChqPaymentDate(e.target.value)}
                   placeholder="Select CHQ / Payment Date"
@@ -278,6 +342,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="branchPayout"
                   value={branchPayout}
                   onChange={(e) => setBranchPayout(e.target.value)}
                   placeholder="Enter Branch Payout"
@@ -289,6 +354,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="profitLoss"
                   value={profitLoss}
                   onChange={(e) => setProfitLoss(e.target.value)}
                   placeholder="Enter Profit/Loss"
@@ -320,9 +386,10 @@ if(response.data){
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Company Name:</label>
                 <select
-                  id="insuranceCompanies" name="insuranceCompanies"
+                  id="company" name="company"
                   className="input-style  rounded-lg"
                   value={company}
+                  
                   onChange={(e) => setCompany(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Company ---</option>
@@ -349,12 +416,13 @@ if(response.data){
                 <select
                   className="input-style rounded-lg"
                   value={sourcing}
+                  name="sourcing"
                   onChange={(e) => setSourcing(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
                   <option value="NEW">NEW</option>
-    <option value="RENEWAL">RENEWAL</option>
-    <option value="ROLL OVER">ROLL OVER</option>
+                  <option value="RENEWAL">RENEWAL</option>
+                  <option value="ROLL OVER">ROLL OVER</option>
                 </select>
               </div>
               {/* FIELD - 8 */}
@@ -364,6 +432,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={contactNo}
+                  name="contactNo"
                   onChange={(e) => setContactNo(e.target.value)}
                   placeholder="Enter Contact No"
                 />
@@ -374,6 +443,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="policyEndDate"
                   value={policyEndDate}
                   onChange={(e) => setPolicyEndDate(e.target.value)}
                   placeholder="Select Policy End Date"
@@ -385,6 +455,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="idv"
                   value={idv}
                   onChange={(e) => setIdv(e.target.value)}
                   placeholder="Enter IDV"
@@ -396,6 +467,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="mfgYear"
                   value={mfgYear}
                   onChange={(e) => setMfgYear(e.target.value)}
                   placeholder="Enter Manufacturing Year"
@@ -407,6 +479,7 @@ if(response.data){
                 <select
                   className="input-style rounded-lg"
                   value={fuel}
+                  name="fuel"
                   onChange={(e) => setFuel(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Fuel Type ---</option>
@@ -422,6 +495,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="engNo"
                   value={engNo}
                   onChange={(e) => setEngNo(e.target.value)}
                   placeholder="Enter Engine No"
@@ -434,6 +508,7 @@ if(response.data){
                   id="productCode" name="productCode"
                   className="input-style rounded-lg"
                   value={productCode}
+                  
                   onChange={(e) => setProductCode(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Product Code ---</option>
@@ -474,6 +549,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="netPremium"
                   value={netPremium}
                   onChange={(e) => setNetPremium(e.target.value)}
                   placeholder="Enter Net Premium"
@@ -485,6 +561,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="ncb"
                   value={ncb}
                   onChange={(e) => setNcb(e.target.value)}
                   placeholder="Enter NCB"
@@ -515,6 +592,7 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="text"
+                  name="advisorPayout"
                   value={advisorPayout}
                   onChange={(e) => setAdvisorPayout(e.target.value)}
                   placeholder="Enter Advisor Payout"
@@ -527,6 +605,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={chqNoRefNo}
+                  name="chqNoRefNo"
                   onChange={(e) => setChqNoRefNo(e.target.value)}
                   placeholder="Enter CHQ No / Ref No."
                 />
@@ -537,6 +616,7 @@ if(response.data){
                 <select
                   className="input-style rounded-lg"
                   value={chqStatus}
+                  name="chqStatus"
                   onChange={(e) => setChqStatus(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
@@ -554,6 +634,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={branchPayableAmount}
+                  name="branchPayableAmount"
                   onChange={(e) => setBranchPayableAmount(e.target.value)}
                   placeholder="Enter Branch Payable Amount"
                 />
@@ -576,10 +657,11 @@ if(response.data){
                 <select
                   className="input-style rounded-lg"
                   value={category}
+                  name="category"
                   onChange={(e) => setCategory(e.target.value)}
                 > <option className="w-1" value="" disabled>--- Select Category ---</option>
                   <option value="GIC">GIC</option>
-    <option value="LIFE">LIFE</option>
+                  <option value="LIFE">LIFE</option>
                 </select>
               </div>
               {/* FIELD - 6 */}
@@ -589,6 +671,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={policyNo}
+                  name="policyNo"
                   onChange={(e) => setPolicyNo(e.target.value)}
                   placeholder="Enter Policy No"
                 />
@@ -600,6 +683,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={vehRegNo}
+                  name="vehRegNo"
                   onChange={(e) => setVehRegNo(e.target.value)}
                   placeholder="Enter Vehicle Reg No"
                 />
@@ -610,9 +694,11 @@ if(response.data){
                 <input
                   className="input-style rounded-lg"
                   type="date"
+                  name="odExpiry"
                   value={odExpiry}
                   onChange={(e) => setOdExpiry(e.target.value)}
                   placeholder="Select OD Expiry"
+                  min="2025-01-01"
                 />
               </div>
               {/* FIELD - 15 */}
@@ -622,6 +708,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={bodyType}
+                  name="bodyType"
                   onChange={(e) => setBodyType(e.target.value)}
                   placeholder="Enter Body Type"
                 />
@@ -633,6 +720,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="date"
                   value={registrationDate}
+                  name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
                   placeholder="Select Registration Date"
                 />
@@ -644,6 +732,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={gvw}
+                  name="gvw"
                   onChange={(e) => setGvw(e.target.value)}
                   placeholder="Enter GVW"
                 />
@@ -655,6 +744,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={chsNo}
+                  name="chsNo"
                   onChange={(e) => setChsNo(e.target.value)}
                   placeholder="Enter Chassis No"
                 />
@@ -666,17 +756,20 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={odPremium}
+                  name="odPremium"
                   onChange={(e) => setOdPremium(e.target.value)}
                   placeholder="Enter OD Premium"
+
                 />
               </div>
               {/* FIELD - 30 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Final Entry Fields:</label>
+                <label className="text-base mx-1">Final:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
                   value={finalEntryFields}
+                  name="finalEntryFields"
                   onChange={(e) => setFinalEntryFields(e.target.value)}
                   placeholder="Enter Final Entry Fields"
                 />
@@ -688,6 +781,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={advisorName}
+                  name="advisorName"
                   onChange={(e) => setAdvisorName(e.target.value)}
                   placeholder="Enter Advisor Name"
                 />
@@ -761,6 +855,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={advisorPayableAmount}
+                  name="advisorPayableAmount"
                   onChange={(e) => setAdvisorPayableAmount(e.target.value)}
                   placeholder="Enter Advisor Payable Amount"
                 />
@@ -772,6 +867,7 @@ if(response.data){
                   className="input-style rounded-lg"
                   type="text"
                   value={companyPayout}
+                  name="companyPayout"
                   onChange={(e) => setCompanyPayout(e.target.value)}
                   placeholder="Enter Company Payout"
                 />
