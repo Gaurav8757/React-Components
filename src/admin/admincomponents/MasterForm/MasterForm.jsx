@@ -1,5 +1,6 @@
 import { useState } from "react";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 function MasterForm() {
   const [entryDate, setEntryDate] = useState('');
@@ -52,8 +53,29 @@ function MasterForm() {
   const [companyPayout, setCompanyPayout] = useState('');
   const [profitLoss, setProfitLoss] = useState('');
 
-  const handleSubmit = () => {
+  const handleSubmit = async(e) => {
     // Handle form submission logic here
+    e.preventDefault();
+    try {
+      // Make sure to replace this URL with your actual API endpoint
+      const response = await axios.post("https://eleedomimf.onrender.com/alldetails/adddata", {
+       
+      });
+if(response.data){
+  toast.success("Added Successfully !");
+ console.log(response.data);
+      // Reset the form and loading state on successful submission
+     
+      // setLoading(false);
+    }
+     else{
+      toast.error("Error Occurred. Try again...! ");
+     }
+    } catch (error) {
+      console.error("Error during branch registration:", error.response);
+      // setError("Error during branch registration. Please try again.");
+      // setLoading(false);
+    }
   };
 
 
