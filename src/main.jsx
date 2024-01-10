@@ -67,6 +67,8 @@ import BusinessInsPage from "./components/homeComponets/Non_Motor/BusinessInsPag
 import MarineInsPage from "./components/homeComponets/Non_Motor/MarineInsPage.jsx";
 import ChallanView from "./components/homeComponets/viewChallan/ChallanView.jsx";
 import Careers from "./components/careers/Careers.jsx";
+import MasterForm from "./admin/admincomponents/MasterForm/MasterForm.jsx";
+import ViewMasterForm from "./admin/admincomponents/MasterForm/ViewMasterForm.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -146,6 +148,8 @@ const router = createBrowserRouter(
           <Route path="/dashboard/addcarousel" element={<UserCarousel />} />
           <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />/dashboard/viewfilledform
           <Route path="/dashboard/viewfilledform" element={<ViewUserFillCompany />} />
+          <Route path="/dashboard/masterform" element={<MasterForm />} />
+          <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
         </Route>
       </Route>
 

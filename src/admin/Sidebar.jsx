@@ -9,6 +9,7 @@ import { FaRegBuilding } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
+import { FcViewDetails } from "react-icons/fc";
 const Sidebar = () => {
   const dashboardRoutes = [
     {
@@ -40,6 +41,11 @@ const Sidebar = () => {
       title: "Add Carousel",
       path: "/dashboard/addcarousel",
       logo: <FaImages size={24}/>
+    },
+    {
+      title: "Add All Details",
+      path: "/dashboard/masterform",
+      logo: < FcViewDetails size={24}/>
     },
     {
       title: "Generate Salary",
