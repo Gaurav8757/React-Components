@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 function MasterForm() {
   const [entryDate, setEntryDate] = useState('');
@@ -84,8 +84,13 @@ function MasterForm() {
                   value={segment}
                   onChange={(e) => setSegment(e.target.value)}
                 >
-                  <option value="segment1">Segment 1</option>
-                  <option value="segment2">Segment 2</option>
+                  <option className="w-1" value="" disabled>--- Select Segment ---</option>
+                  <option value="C V">C V</option>
+    <option value="PVT-CAR">PVT-CAR</option>
+    <option value="TW">TW</option>
+    <option value="HEALTH">HEALTH</option>
+    <option value="NON-MOTOR">NON-MOTOR</option>
+    <option value="LIFE">LIFE</option>
                 </select>
               </div>
               {/* FIELD - 7 */}
@@ -324,7 +329,10 @@ function MasterForm() {
                   value={sourcing}
                   onChange={(e) => setSourcing(e.target.value)}
                 >
-                  {/* Add sourcing options */}
+                  <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
+                  <option value="NEW">NEW</option>
+    <option value="RENEWAL">RENEWAL</option>
+    <option value="ROLL OVER">ROLL OVER</option>
                 </select>
               </div>
               {/* FIELD - 8 */}
@@ -547,10 +555,9 @@ function MasterForm() {
                   className="input-style rounded-lg"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="category1">Category 1</option>
-                  <option value="category2">Category 2</option>
-                  {/* Add more category options */}
+                > <option className="w-1" value="" disabled>--- Select Category ---</option>
+                  <option value="GIC">GIC</option>
+    <option value="LIFE">LIFE</option>
                 </select>
               </div>
               {/* FIELD - 6 */}
