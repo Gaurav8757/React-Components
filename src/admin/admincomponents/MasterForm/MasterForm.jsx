@@ -312,8 +312,9 @@ function MasterForm() {
                 <label className="text-base mx-1">Payment Done By:</label>
                 <select
                   className="input-style rounded-lg"
-                  name="paymentDoneBy"
+                  
                   value={paymentDoneBy}
+                  name="paymentDoneBy"
                   onChange={(e) => setPaymentDoneBy(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Payment Done By ---</option>
@@ -806,9 +807,10 @@ function MasterForm() {
                 <label className="text-base mx-1">Policy Payment Mode:</label>
                 <select
                   id="policyPaymentMode"
-                  name="policyPaymentMode"
+                  
                   className="input-style rounded-lg"
                   value={policyPaymentMode}
+                  name="policyPaymentMode"
                   onChange={(e) => setPolicyPaymentMode(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
