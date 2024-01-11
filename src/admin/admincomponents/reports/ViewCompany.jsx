@@ -20,7 +20,7 @@ export default function ViewCompany() {
                     },
                 })
                 .then((response) => {
-console.log(response.data);
+// console.log(response.data);
                     setAPIData(response.data);
 
                 })

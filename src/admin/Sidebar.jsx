@@ -115,7 +115,7 @@ const Sidebar = () => {
 const loginemail = sessionStorage.getItem("email");
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-gradient-to-r from-black to-cyan-700">
+      <nav className="fixed top-0 z-50 w-full  bg-gradient-to-r from-black to-cyan-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
