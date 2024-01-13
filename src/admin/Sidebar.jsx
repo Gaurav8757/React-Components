@@ -115,7 +115,7 @@ const Sidebar = () => {
 const loginemail = sessionStorage.getItem("email");
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full  bg-gradient-to-r from-black to-cyan-700">
+      <nav className="fixed top-0 z-50 w-full  bg-black">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -173,10 +173,10 @@ const loginemail = sessionStorage.getItem("email");
       {/* aside bar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-black to-cyan-600 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-black to-slate-500 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-4 pb-4 overflow-y-auto bg-gradient-to-r from-black to-cyan-600">
+        <div className="h-full px-4 pb-4 overflow-y-auto bg-gradient-to-r from-black to-slate-500">
           <ul className="space-y-2 font-medium">
             {dashboardRoutes.map((route, idx) => (
               <li key={idx}>
@@ -222,7 +222,7 @@ const loginemail = sessionStorage.getItem("email");
       </aside>
 
 
-      <main className="mt-16 bg-gradient-to-r from-black to-cyan-600">
+      <main className="mt-16 bg-white">
         {/* ALL PAGES RENDER HERE */}
       </main>
     </>

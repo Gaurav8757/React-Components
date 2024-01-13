@@ -1,6 +1,7 @@
 import axios from "axios";
 import {  useState,useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
@@ -73,19 +74,19 @@ export default function ViewGenPolicy() {
       
 
     return (
-        <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
-        <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-gradient-to-r from-indigo-400 to-cyan-400">
+        <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
+        <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-white"
-                    ><NavLink to = "/dashboard/generatesalary" className="flex justify-end">Back</NavLink>
+                    <div className="overflow-x-auto w-xl  text-blue-500"
+                    ><NavLink to = "/dashboard/generatesalary" className="flex justify-end text-red-700"> <TiArrowBack size={30}  /></NavLink>
                         <h1 className="flex justify-center text-4xl w-full mb-8"> Employee Generate Salary Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-white">
+                                <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
                                    Employee ID
                                     </th>

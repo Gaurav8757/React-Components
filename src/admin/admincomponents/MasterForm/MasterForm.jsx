@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
@@ -52,6 +52,54 @@ function MasterForm() {
   const [branchPayableAmount, setBranchPayableAmount] = useState('');
   const [companyPayout, setCompanyPayout] = useState('');
   const [profitLoss, setProfitLoss] = useState('');
+
+  // Function to update netPremium when odPremium or liabilityPremium changes
+  const updateNetPremium = () => {
+    const odPremiumValue = parseFloat(odPremium) || 0;
+    const liabilityPremiumValue = parseFloat(liabilityPremium) || 0;
+    // Calculate netPremium by adding odPremium and liabilityPremium
+    const newNetPremium = odPremiumValue + liabilityPremiumValue;
+    // Set the updated netPremium value directly
+    setNetPremium(newNetPremium);
+  };
+
+  // Calculate the last day of the previous month
+  const getLastDayOfPreviousMonth = () => {
+    const today = new Date();
+    // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
+    return today.toISOString().split('T')[0];
+  };
+  //  VEHICLE AGE CALCULATED
+  const calculateAge = () => {
+    const today = new Date();
+    const birthdateDate = new Date(registrationDate);
+
+    if (isNaN(birthdateDate.getTime())) {
+      // Handle the case where the date is invalid
+      console.error('Invalid date format for registrationDate:', registrationDate);
+      return;
+    }
+
+    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+    let ageMonths = today.getMonth() - birthdateDate.getMonth();
+    let ageDays = today.getDate() - birthdateDate.getDate();
+
+    if (ageDays < 0) {
+      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      ageDays = lastDayOfPreviousMonth + ageDays;
+      ageMonths--;
+    }
+
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths = 12 + ageMonths;
+    }
+    setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
+  };
+
+  useEffect(() => {
+    calculateAge();
+  },);
 
   const handleSubmit = async (e) => {
     // Handle form submission logic here
@@ -108,30 +156,23 @@ function MasterForm() {
         branchPayableAmount,
         companyPayout,
         profitLoss,
-        
+
       });
       if (response.data) {
         toast.success("Data Added Successfully !");
-        console.log(response.data);
-        // Reset the form and loading state on successful submission
-
-        // setLoading(false);
       }
       else {
         toast.error("Error Occurred. Try again...! ");
       }
     } catch (error) {
       console.error("Error during branch registration:", error.response);
-      // setError("Error during branch registration. Please try again.");
-      // setLoading(false);
     }
   };
 
-
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-indigo-400 to-cyan-400">
-        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-gradient-to-r from-indigo-300 to-cyan-400">
+    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
+      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add All Detail&apos;s </h1>
           <form className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
             {/* PART-1 */}
@@ -223,8 +264,8 @@ function MasterForm() {
                   type="text"
                   name="vehicleAge"
                   value={vehicleAge}
-                  onChange={(e) => setVehicleAge(e.target.value)}
-                  placeholder="Enter Vehicle Age"
+                  placeholder="Vehicle Age "
+                  readOnly
                 />
               </div>
               {/* FIELD - 22 */}
@@ -260,11 +301,12 @@ function MasterForm() {
                 <label className="text-base mx-1">Liability Premium:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   name="liabilityPremium"
                   value={liabilityPremium}
                   onChange={(e) => setLiabilityPremium(e.target.value)}
                   placeholder="Enter Liability Premium"
+                  onBlur={updateNetPremium}
                 />
               </div>
               {/* FIELD - 31 */}
@@ -312,7 +354,7 @@ function MasterForm() {
                 <label className="text-base mx-1">Payment Done By:</label>
                 <select
                   className="input-style rounded-lg"
-                  
+
                   value={paymentDoneBy}
                   name="paymentDoneBy"
                   onChange={(e) => setPaymentDoneBy(e.target.value)}
@@ -390,7 +432,7 @@ function MasterForm() {
                   id="company" name="company"
                   className="input-style  rounded-lg"
                   value={company}
-                  
+
                   onChange={(e) => setCompany(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Company ---</option>
@@ -509,7 +551,6 @@ function MasterForm() {
                   id="productCode" name="productCode"
                   className="input-style rounded-lg"
                   value={productCode}
-                  
                   onChange={(e) => setProductCode(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Product Code ---</option>
@@ -549,11 +590,12 @@ function MasterForm() {
                 <label className="text-base mx-1">Net Premium:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   name="netPremium"
                   value={netPremium}
-                  onChange={(e) => setNetPremium(e.target.value)}
-                  placeholder="Enter Net Premium"
+                  // onChange={(e) => setNetPremium(e.target.value)}
+                  placeholder="Your Net Premium"
+                  readOnly
                 />
               </div>
               {/* FIELD - 32 */}
@@ -724,6 +766,8 @@ function MasterForm() {
                   name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
                   placeholder="Select Registration Date"
+                  min="1950-01-01"
+                  max={getLastDayOfPreviousMonth()}
                 />
               </div>
               {/* FIELD - 21 */}
@@ -755,12 +799,12 @@ function MasterForm() {
                 <label className="text-base mx-1">OD Premium:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   value={odPremium}
                   name="odPremium"
                   onChange={(e) => setOdPremium(e.target.value)}
                   placeholder="Enter OD Premium"
-
+                  onBlur={updateNetPremium}
                 />
               </div>
               {/* FIELD - 30 */}
@@ -772,7 +816,7 @@ function MasterForm() {
                   value={finalEntryFields}
                   name="finalEntryFields"
                   onChange={(e) => setFinalEntryFields(e.target.value)}
-                  placeholder="Enter Final Entry Fields"
+                  placeholder=" Final with taxes"
                 />
               </div>
               {/* FIELD - 33 */}
@@ -807,7 +851,7 @@ function MasterForm() {
                 <label className="text-base mx-1">Policy Payment Mode:</label>
                 <select
                   id="policyPaymentMode"
-                  
+
                   className="input-style rounded-lg"
                   value={policyPaymentMode}
                   name="policyPaymentMode"
@@ -888,8 +932,8 @@ function MasterForm() {
 
               <NavLink to="/dashboard/viewmasterform"
                 className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
-                
-                
+
+
               >
                 View
               </NavLink>

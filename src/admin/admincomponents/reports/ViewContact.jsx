@@ -41,20 +41,20 @@ const ViewContact = () => {
   };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-indigo-400 to-cyan-400">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-indigo-400 to-cyan-400">
+    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-slate-200 to-slate-200">
+      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto w-xl text-white">
+          <div className="overflow-x-auto w-xl text-blue-500">
             {/* <NavLink to="/dashboard/addemployee" className="flex justify-end">
               Back
             </NavLink> */}
-            <h1 className="flex justify-center text-4xl w-full mb-8">All Contact&apos;s List</h1>
+            <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">All Contact&apos;s List</h1>
             <hr />
           </div>
           <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
             <table className="min-w-full text-center text-sm font-light">
               <thead className="border-b font-medium dark:border-neutral-500">
-                <tr className="text-white">
+                <tr className="text-blue-700">
                   <th scope="col" className="px-5 py-4">
                     Email
                   </th>

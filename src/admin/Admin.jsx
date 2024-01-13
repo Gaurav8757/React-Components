@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function Admin() {
@@ -43,18 +43,18 @@ function Admin() {
 
   return (
     <>
-      <section className="container-fluid h-screen relative bg-gradient-to-r from-black to-cyan-600">
-        <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-20 justify-between  bg-gradient-to-r from-black to-cyan-600">
-          <div className="flex-shrink-4   px-6 md:h-full h-full py-20">
+      <section className="container-fluid h-screen relative bg-slate-200">
+        <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-20 justify-between bg-slate-200">
+          <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
             <img
               src="/adminlogin-avatar.jpg"
               className="h-1/4 w-2/5 rounded-full mx-auto "
               alt="Logo"
             />
-            <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-white flex justify-center">Admin Panel</div>
+            <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-blue-400 flex justify-center">Admin Panel</div>
           </div>
           <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-20">
-            <div className="w-full max-w-xl p-6 space-y-14 sm:p-8 bg-white rounded-lg shadow bg-gradient-to-l from-black to-cyan-600">
+            <div className="w-full max-w-xl p-6 space-y-14 sm:p-8  rounded-lg shadow bg-slate-900 ">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Sign in as Admin
               </h2>
@@ -104,16 +104,16 @@ function Admin() {
                   />
                 </div>
                 <div className="flex items-start">
-                  <NavLink
+                  {/* <NavLink
                     to="#"
                     className="ml-auto text-sm text-red-200 hover:underline dark:text-red-500"
                   >
                     Lost Password?
-                  </NavLink>
+                  </NavLink> */}
                 </div>
                 <button
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-900 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-600 focus-visible:ring-opacity-50"
+                  className="w-full flex justify-center py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 focus:ring-1 focus:ring-blue-900 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
                 >
                   Sign In
                 </button>
