@@ -96,7 +96,7 @@ function ViewCarousel() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                   
+                                    
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -113,8 +113,9 @@ function ViewCarousel() {
                                            
                                             <td className="whitespace-nowrap px4 py-4">
 
-                                                <NavLink to={`${data.usercarousel_upload}`}>
-                                                    <img src={data.usercarousel_upload} alt="file" />
+                                                <NavLink to={`${data.usercarousel_upload}`} target="_blank">
+                                                    <img src={`${data.usercarousel_upload}`} alt="file"  /> 
+                                                   
                                                 </NavLink>
 
                                             </td>
