@@ -21,20 +21,21 @@ function AddEmployee() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetch the list of employees when the component mounts
+    // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
       setBranchList(resp.data);
-      
     });
   }, []);
-  // console.log(branchList);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       const formData = new FormData();
-      formData.append("empaadhar", aadhar);
-      formData.append("empaadharfile",  aadhar.name);
+      // formData.append("empaadhar", aadhar);
+      formData.append("empaadharfile", aadhar);
       formData.append("empid", empid);
       formData.append("empname", empname);
       formData.append("empdob", calendar);
@@ -47,41 +48,42 @@ function AddEmployee() {
       formData.append("permanentempaddress", permanentaddress);
       formData.append("empaadharno", aadharno);
       formData.append("empdesignation", designation);
-console.log(formData.values);
-      // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addemployee", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
 
-    if(response.data){
-      toast.success("Employee added successfully!");
-      // Reset the form on successful submission
-      setAddress("");
-      setGender("");
-      setAadhar(null);
-      setEmpid("");
-      setEmail("");
-      setMobile("");
-      setDesignation("");
-      setCalendar("");
-      setEmpname("");
-      setAadharno("");
-      setBranch("");
-      setJoining("");
-      setPermanentaddress("");
-      setLoading(false);
-     
-    }else {
-      toast.error("Error Occurred. Try again!");
-    }
-  } catch (error) {
-   
+      // Make sure to replace this URL with your actual API endpoint
+      const response = await axios.post(
+        "https://eleedomimf.onrender.com/dashboard/addemployee",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      if (response.data) {
+        toast.success("Employee added successfully!");
+        // Reset the form on successful submission
+        setAddress("");
+        setGender("");
+        setAadhar("");
+        setEmpid("");
+        setEmail("");
+        setMobile("");
+        setDesignation("");
+        setCalendar("");
+        setEmpname("");
+        setAadharno("");
+        setBranch("");
+        setJoining("");
+        setPermanentaddress("");
+        setLoading(false);
+      } else {
+        toast.error("Error Occurred. Try again!");
+      }
+    } catch (error) {
       toast.error("Error during employee registration. Please try again.");
     }
   };
-  
   
   return (
      <section className="container-fluid relative p-0 sm:ml-64 bg-white">

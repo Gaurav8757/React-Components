@@ -104,7 +104,7 @@ function UserCarousel() {
                                     className="input-style border w-full h-12 items-center rounded-lg"
                                     type="file"
                                     name="usercarousel_upload"
-                                    accept="/images*"
+                                    accept="/images"
                                     onChange={(e) => setImages(e.target.files[0])}
                                 />
                             </div>
