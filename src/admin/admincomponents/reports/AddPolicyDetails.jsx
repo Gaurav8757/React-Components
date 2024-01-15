@@ -28,8 +28,8 @@ function AddPolicyDetails() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("addpolicyimage", images, images.name);
-      formData.append("addpolicylogo", logos, logos.name);
+      formData.append("addpolicyimage", images);
+      formData.append("addpolicylogo", logos);
       formData.append("addpolicytype", policytype);
       formData.append("addpolicytitle", title);
       formData.append("addpolicydesc", description);
