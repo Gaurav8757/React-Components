@@ -16,11 +16,10 @@ function UserCarousel() {
             formData.append("usercarousel_title", title);
             formData.append("usercarousel_link", link);
             formData.append("usercarousel_desc", desc);
-            const datas = new FormData();
+            formData.append("usercarousel_upload", image)
+            // const datas = new FormData();
 
-            if (image) {
-                datas.append("usercarousel_upload", image);
-            }
+          
 
 
            
@@ -104,7 +103,7 @@ function UserCarousel() {
                                     className="input-style border w-full h-12 items-center rounded-lg"
                                     type="file"
                                     name="usercarousel_upload"
-                                    accept="/images"
+                                    accept="images/*"
                                     onChange={(e) => setImages(e.target.files[0])}
                                 />
                             </div>
