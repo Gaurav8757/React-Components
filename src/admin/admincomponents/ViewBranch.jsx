@@ -158,7 +158,7 @@ export default function ViewBranch() {
                                                 {data.branchstate}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchpincode}
+                                                {data.branchpincode} 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <Link to="#">

@@ -113,7 +113,7 @@ function ViewCarousel() {
                                            
                                             <td className="whitespace-nowrap px4 py-4">
 
-                                                <NavLink to={`https://www.eleedomimf.onrender.com${data.usercarousel_upload}`}>
+                                                <NavLink to={`${data.usercarousel_upload}`}>
                                                     <img src={data.usercarousel_upload} alt="file" />
                                                 </NavLink>
 
