@@ -15,10 +15,7 @@ export default function Navbar({ navigation }) {
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
-  // Function to toggle the submenu
-  // const toggleSubmenu = (idx) => {
-  //   setOpenSubmenu(openSubmenu === idx ? null : idx);
-  // };
+
   return (
     <>
       {/* Navbar */}

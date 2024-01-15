@@ -13,13 +13,13 @@ const HomeSection = ({ homesection }) => {
     const regex = /^[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{2}[ ][0-9]{4}$/;
     setIsValid(regex.test(vehicleNumber));
   };
-  
+
 
   return (
-    <section className="container-fluid flex flex-col lg:flex-row justify-between  sm:w-full    bg-slate-100">
-      <div className="grid grid-cols-3 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-full sm:w-full  md:w-full lg:w-full pb-0  bg-slate-100">
+    <section className="container-fluid flex flex-col lg:flex-row justify-between  sm:w-full     bg-slate-100">
+      <div className="grid grid-cols-3 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-full sm:w-full  md:w-full lg:w-full xl:w-full pb-0  bg-slate-100">
         {homesection.map((item, index) => (
-          <NavLink key={index} to={item.links} className="text-center transition-transform transform hover:translate-y-[-15px] hover:shadow-2xl  shadow-slate-900/50   p-2 w-auto sm:w-40 rounded-lg mx-10 mt-8">
+          <NavLink key={index} to={item.links} className="text-center transition-transform transform hover:translate-y-[-15px] hover:shadow-2xl  shadow-slate-900/50   p-2  sm:w-64 w-40  rounded-lg mx-10 mt-8">
 
             <img src={item.images} alt={item.name} className="w-full h-auto" />
             <h5 className=" text-xl font-semibold tracking-tight align-text-bottom my-2 text-gray-900">
@@ -29,7 +29,7 @@ const HomeSection = ({ homesection }) => {
         ))}
       </div>
       {/* part-2 ui update bcha hai*/}
-     
+
       <div className="container-fluid  w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/3 bg-slate-100 flex border border-gray-300	 justify-center items-center">
         <div className="bg-slate-100  text-start w-11/12 h-4/5 rounded-md">
           <span className="text-2xl mx-5 font-semibold block">Enter Vehicle Number:</span>
@@ -59,8 +59,8 @@ const HomeSection = ({ homesection }) => {
 
           </div>
           <div className="flex justify-center mt-10 items-center">
-        <ChallanModal />  
-        </div>
+            <ChallanModal />
+          </div>
         </div>
       </div>
     </section>
