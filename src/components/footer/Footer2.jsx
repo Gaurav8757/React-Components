@@ -10,16 +10,19 @@ const Footer2 = ({ footer }) => {
                 <div className="py-4 bg-gray-100 bg-gradient-to-r from-slate-200  to-slate-200 md:flex md:items-center md:justify-center">
 
                     {footer.map((item, idx) => (
-                        <div key={idx} className="relative group">
+                        <div key={idx} className="">
                             <NavLink
                                 to={item.to}
-                                className="first-line:bg-blue-700  text-gray-900  hover:text-blue-700 rounded-md p-10  font-medium">
+                                className="first-line:bg-blue-700  text-gray-900  hover:text-blue-700 rounded-md p-5  font-medium">
                                 {item.name}
                             </NavLink>
                         </div>
                     ))}
 
                 </div>
+
+
+
                 <div className="px-4 py-2  bg-gradient-to-r from-slate-200  to-slate-200   md:flex md:items-center md:justify-between">
                     <span className="text-sm text-black  sm:text-center">© 2023 <NavLink to="#">Eleedom Imf Private Limited</NavLink>.  All Rights Reserved.
                     </span>

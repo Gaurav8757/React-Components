@@ -26,7 +26,7 @@ const Carousel = () => {
   })
 
   return (
-    <section className="container-fluid  max-w-2xl">
+    <section className="container-fluid   max-w-lg">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         spaceBetween={5}

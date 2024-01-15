@@ -23,9 +23,9 @@ const FourthCarousel = () => {
 
     return (
         <section className="container-fluid  bg-gradient-to-r from-white to-slate-100">
-            <div className="pt-10 p-2 pb-5 text-start  bg-gradient-to-r from-white to-slate-100">
+            <div className="pt-10 p-2 pb-4 text-start  bg-gradient-to-r from-white to-slate-100">
                 <div className="col">
-                    <div className="text-3xl mx-8 font-medium">What Our Customers
+                    <div className="text-3xl mx-6 font-medium">What Our Customers
                         Are Saying
                         <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-10 -ml-3">
                             <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
@@ -33,7 +33,7 @@ const FourthCarousel = () => {
                     </div>
                     <Swiper
                         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-                        spaceBetween={5}
+                        spaceBetween={2}
                         slidesPerView={3} // Adjust the number of slides per view based on screen size
                         // navigation
                         pagination={{ clickable: true }}
@@ -41,11 +41,11 @@ const FourthCarousel = () => {
                             delay: 4000, // Set the delay in milliseconds between slides
                             disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
                         }}
-                        className='flex justify-center items-center m-auto max-w-full  w-full mt-5 ml-10 sm:w-4/6 md:w-3/4 lg:w-2/3 xl:w-full sm:text-lg md:text-lg xl:2xl text-md'>
+                        className='flex justify-center items-center   w-11/12 mt-5   sm:w-full md:w-11/12 lg:w-11/12 xl:11/12 sm:text-lg md:text-lg xl:2xl text-md'>
                         {APIData.length > 0 ? (
                             APIData.map((obj) => (
                                 <SwiperSlide key={obj._id}>
-                                    <div className="w-full max-w-md  border rounded-md shadow  border-teal-800">
+                                    <div className="w-full max-w-md    border rounded-md shadow  border-teal-800">
                                         <div className=" text-center px-4 p-2">
                                             <h1 className=' text-xl font-medium text-blue-700'>
                                                 {obj.feedbackuser_name}

@@ -46,7 +46,7 @@ export default function Navbar({ navigation }) {
                 <span className="self-center xs:text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold  whitespace-nowrap font-sans dark:text-white">ELEEDOM IMF</span>
               </NavLink>
 
-              <div className="hidden sm:ml-2 items-center lg:block py-10">
+              <div className="hidden sm:ml-2  items-center lg:block py-10">
                 <div className="flex lg:space-x-1  xl:space-x-2 ">
                   {navigation.map((item, idx) => (
                     <div key={idx} className="relative group text-lg">
