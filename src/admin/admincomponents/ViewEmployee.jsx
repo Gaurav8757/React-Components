@@ -163,7 +163,7 @@ export default function ViewEmployee() {
                                                 {data.empaadharno}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                <NavLink to= {`https://eleedomimf.com${data.empaadharfile}`}>
+                                                <NavLink to= {data.empaadharfile}>
                                                     <img src={data.empaadharfile} alt="aadhar"/>
                                                       </NavLink>
                                                 

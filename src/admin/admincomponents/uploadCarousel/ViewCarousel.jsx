@@ -107,12 +107,12 @@ function ViewCarousel() {
                                             <td className="whitespace-wrap px-4 py-4 text-justify">
                                                 {data.usercarousel_desc}
                                             </td>
-                                            <td className="whitespace-wrap px-4 py-4 text-center">
+                                            <td className="whitespace-wrap py-4 text-center">
                                                 {data.usercarousel_link}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4 justify-center flex">
-                                                <img src={data.usercarousel_upload} className="w-1/2 " alt="file" />
+                                            <td className="whitespace-nowrap  py-4 justify-center flex">
+                                                <img src={data.usercarousel_upload} className="w-1/3 " alt="file" />
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">
