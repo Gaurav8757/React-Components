@@ -11,32 +11,32 @@ const BranchSidebar = () => {
     {
       title: "Home",
       path: "/branches/home",
-      logo: <RxDashboard />
+      logo: <RxDashboard size={25} />
     },
     {
-    //   title: "Add Branch",
-      path: "/branches",
-      logo: <RiGitBranchFill />
+       title: "View Insurance",
+      path: "/branches/home/viewinsurance",
+      logo: <RiGitBranchFill size={25} />
     },
     {
     //   title: "Add Employee",
       path: "/branches",
-      logo: <IoPeopleOutline />
+      logo: <IoPeopleOutline size={25} />
     },
     {
     //   title: "Add Salary",
       path: "/branches",
-      logo: <TbMoneybag />
+      logo: <TbMoneybag size={25} />
     },
     {
     //   title: "Generate Salary",
       path: "/branches",
-      logo: <FcMoneyTransfer />
+      logo: <FcMoneyTransfer size={25} />
     },
     {
     //   title: "Report",
       path: "/branches",
-      logo: <TbReport />,
+      logo: <TbReport size={25} />,
       subRoutes: [
         {
         //   title: "Policy",
@@ -69,7 +69,7 @@ const BranchSidebar = () => {
   const loginBranch = sessionStorage.getItem("branchemail");
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-gradient-to-r from-indigo-700 to-cyan-600">
+      <nav className="fixed top-0 z-50 w-full bg-black">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
@@ -127,10 +127,10 @@ const BranchSidebar = () => {
       {/* aside bar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-indigo-700 to-cyan-600 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-black to-slate-500 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-r from-indigo-700 to-cyan-600">
+        <div className="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-r from-black to-slate-500">
           <ul className="space-y-2 font-medium">
             {dashboardRouted.map((route, idx) => (
               <li key={idx}>

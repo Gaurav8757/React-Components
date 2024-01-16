@@ -148,7 +148,6 @@ function MasterForm() {
 
   const handlePolicyStartDateChange = (e) => {
     const startDate = e.target.value;
-
     // Update odExpiry by adding 1 year to the selected policyStartDate
     const odExpiryDate = new Date(startDate);
     odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
