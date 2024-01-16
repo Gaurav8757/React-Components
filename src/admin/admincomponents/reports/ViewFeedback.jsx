@@ -125,7 +125,7 @@ const ViewFeedback = () => {
                     <td className="whitespace-nowrap px-4 py-4">
                       {feedback.feedbackuser_upload && (
                         <NavLink
-                          to={`https://eleedomimf.onrender.com${feedback.feedbackuser_upload}`}
+                          to={feedback.feedbackuser_upload}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
