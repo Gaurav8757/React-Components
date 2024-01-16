@@ -112,7 +112,7 @@ function ViewCarousel() {
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4 justify-center flex">
-                                                <img src={`https://eleedomimf.onrender.com${data.usercarousel_upload}`} className="w-1/2 " alt="file" />
+                                                <img src={data.usercarousel_upload} className="w-1/2 " alt="file" />
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">

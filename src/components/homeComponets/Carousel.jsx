@@ -42,7 +42,7 @@ const Carousel = () => {
         {APIData.map((obj, idx) => (
           <SwiperSlide className='  rounded-2xl ' key={idx}>
             <NavLink to="#">
-              <img src={`https://eleedomimf.onrender.com${obj.usercarousel_upload}`} className='w-full' alt={`slide-${idx}`} />
+              <img src={obj.usercarousel_upload} className='w-full' alt={`slide-${idx}`} />
             </NavLink>
           </SwiperSlide>
         ))}
