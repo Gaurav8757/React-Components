@@ -146,6 +146,29 @@ function MasterForm() {
   };
 
 
+  const handlePolicyStartDateChange = (e) => {
+    const startDate = e.target.value;
+
+    // Update odExpiry by adding 1 year to the selected policyStartDate
+    const odExpiryDate = new Date(startDate);
+    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
+    setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
+
+    // Update policyEndDate by adding 1 year to the selected policyStartDate
+    const policyEndDateValue = new Date(startDate);
+    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
+    setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
+
+     // Update TP Expiry by adding 1 year to the selected policyStartDate
+     const tpExpiryDate = new Date(startDate);
+     tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
+     setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
+    // Set the selected policyStartDate
+    setPolicyStartDate(startDate);
+  };
+
+
+
  // Handle form submission logic here
   const handleSubmit = async (e) => {
    
@@ -275,7 +298,7 @@ function MasterForm() {
                   type="date"
                   name="policyStartDate"
                   value={policyStartDate}
-                  onChange={(e) => setPolicyStartDate(e.target.value)}
+                  onChange={handlePolicyStartDateChange}
                   placeholder="Select Policy Start Date"
                 />
               </div>
@@ -288,7 +311,7 @@ function MasterForm() {
                   name="tpExpiry"
                   value={tpExpiry}
                   onChange={(e) => setTpExpiry(e.target.value)}
-                  placeholder="Select TP Expiry"
+                  placeholder="TP Expiry"
                   min="2025-01-01"
                 />
               </div>
