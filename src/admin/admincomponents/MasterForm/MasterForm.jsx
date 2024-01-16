@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { POLICY_TYPES } from "./master";
 import { NavLink } from "react-router-dom";
 function MasterForm() {
   const [entryDate, setEntryDate] = useState('');
@@ -33,6 +34,7 @@ function MasterForm() {
   const [liabilityPremium, setLiabilityPremium] = useState('');
   const [netPremium, setNetPremium] = useState('');
   const [finalEntryFields, setFinalEntryFields] = useState('');
+  const [taxes, setTaxes] = useState('');
   const [odDiscount, setOdDiscount] = useState('');
   const [ncb, setNcb] = useState('');
   const [advisorName, setAdvisorName] = useState('');
@@ -40,7 +42,7 @@ function MasterForm() {
   const [policyMadeBy, setPolicyMadeBy] = useState('');
   const [branch, setBranch] = useState('');
   const [payoutOn, setPayoutOn] = useState('');
-  const [advisorPayout, setAdvisorPayout] = useState('');
+  const [calculationType, setCalculationType] = useState('');
   const [policyPaymentMode, setPolicyPaymentMode] = useState('');
   const [paymentDoneBy, setPaymentDoneBy] = useState('');
   const [chqNoRefNo, setChqNoRefNo] = useState('');
@@ -101,8 +103,52 @@ function MasterForm() {
     calculateAge();
   },);
 
+  // calculate taxes with netPremium
+  const calculateFinalAmount = () => {
+    const netPremiumValue = parseFloat(netPremium) || 0;
+    const taxesValue = parseFloat(taxes) || 0;
+
+    const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
+
+    setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
+  };
+
+  // calculate branch payable amount
+  const calculateBranchPayableAmount = () => {
+    const netPremiumValue = parseFloat(netPremium) || 0;
+    const branchPayoutValue = parseFloat(branchPayout) || 0;
+
+    const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
+
+    setBranchPayableAmount(branchPayableAmountValue.toFixed(2)); // Assuming you want to display the amount with two decimal places
+  };
+
+
+  //calculation  profit/loss 
+  const calculateProfitLoss = () => {
+    const companyPayoutValue = parseFloat(companyPayout) || 0;
+    const branchPayoutValue = parseFloat(branchPayout) || 0;
+    const profitLossValue = companyPayoutValue - branchPayoutValue;
+
+    setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
+  };
+
+
+  // final amount set
+  const handleNetPremiumBlur = () => {
+    if (calculationType === 'finalAmount') {
+      calculateFinalAmount();
+    } else if (calculationType === 'branchPayableAmount') {
+      calculateBranchPayableAmount();
+    }
+    // Reset the calculation type after performing the calculation
+    setCalculationType('');
+  };
+
+
+ // Handle form submission logic here
   const handleSubmit = async (e) => {
-    // Handle form submission logic here
+   
     e.preventDefault();
     try {
       // Make sure to replace this URL with your actual API endpoint
@@ -144,7 +190,7 @@ function MasterForm() {
         policyMadeBy,
         branch,
         payoutOn,
-        advisorPayout,
+        taxes,
         policyPaymentMode,
         paymentDoneBy,
         chqNoRefNo,
@@ -169,12 +215,14 @@ function MasterForm() {
     }
   };
 
+
+
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add All Detail&apos;s </h1>
-          <form className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
+          <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
             {/* PART-1 */}
             <div className="p-2 text-start">
               {/* FIELD - 1 */}
@@ -289,66 +337,91 @@ function MasterForm() {
                   name="policyType"
                   onChange={(e) => setPolicyType(e.target.value)}
                 ><option className="w-1" value="" disabled>--- Select Policy Type ---</option>
-                  <option value="COMP">COMP</option>
-                  <option value="SAOD">SAOD</option>
-                  <option value="SATP">SATP</option>
-                  <option value="LIABILITY">LIABILITY</option>
-                  {/* Add more policy type options */}
+                  {/* POLICY TYPES */}
+                  {Object.keys(POLICY_TYPES).map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
                 </select>
               </div>
               {/* FIELD - 28 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Liability Premium:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  name="liabilityPremium"
-                  value={liabilityPremium}
-                  onChange={(e) => setLiabilityPremium(e.target.value)}
-                  placeholder="Enter Liability Premium"
-                  onBlur={updateNetPremium}
-                />
-              </div>
+              {
+                policyType === "SAOD" ? (<div className="flex flex-col my-5">
+                  <label className="text-base mx-1">Liability Premium:</label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    name="liabilityPremium"
+                    value={liabilityPremium}
+                    onChange={(e) => setLiabilityPremium(e.target.value)}
+                    placeholder="Disabled"
+                    onBlur={updateNetPremium}
+                    disabled
+                  />
+                </div>)
+                  : (<div className="flex flex-col my-5">
+                    <label className="text-base mx-1">Liability Premium:</label>
+                    <input
+                      className="input-style rounded-lg"
+                      type="number"
+                      name="liabilityPremium"
+                      value={liabilityPremium}
+                      onChange={(e) => setLiabilityPremium(e.target.value)}
+                      placeholder="Enter Liability Premium"
+                      onBlur={updateNetPremium}
+                    />
+                  </div>)
+              }
+
+
               {/* FIELD - 31 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">OD Discount:</label>
+                <label className="text-base mx-1">Final Amount:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  name="odDiscount"
-                  value={odDiscount}
-                  onChange={(e) => setOdDiscount(e.target.value)}
-                  placeholder="Enter OD Discount"
+                  value={finalEntryFields}
+                  name="finalEntryFields"
+                  onChange={(e) => setFinalEntryFields(e.target.value)}
+                  placeholder=" Final Amount"
+                  readOnly
                 />
               </div>
+
+
               {/* FIELD - 34*/}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Sub Advisor:</label>
+                <label className="text-base mx-1">Advisor Name:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  name="subAdvisor"
-                  value={subAdvisor}
-                  onChange={(e) => setSubAdvisor(e.target.value)}
-                  placeholder="Enter Sub Advisor"
+                  value={advisorName}
+                  name="advisorName"
+                  onChange={(e) => setAdvisorName(e.target.value)}
+                  placeholder="Enter Advisor Name"
                 />
               </div>
+
+
               {/* FIELD - 37 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Payout On:</label>
+                <label className="text-base mx-1">Policy Made By:</label>
                 <select
-                  id="payoutOn"
-                  name="payoutOn"
+                  id="policyMadeBy"
+                  name="policyMadeBy"
                   className="input-style rounded-lg"
-                  value={payoutOn}
-                  onChange={(e) => setPayoutOn(e.target.value)}
+                  value={policyMadeBy}
+                  onChange={(e) => setPolicyMadeBy(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Payout on ---</option>
-                  <option value="NET">NET</option>
-                  <option value="OD">OD</option>
-                  <option value="LIABILITY">LIABILITY</option>
+                  <option className="w-1" value="" disabled>--- Policy Made By ---</option>
+                  <option value="RAHUL KUMAR">RAHUL KUMAR</option>
+                  <option value="CHOTU KUMAR">CHOTU KUMAR</option>
+                  <option value="HARSH KUMAR">HARSH KUMAR</option>
+                  <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
+                  <option value="SAMRIN NAZ">SAMRIN NAZ</option>
+                  <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
                 </select>
               </div>
+
               {/* FIELD - 40 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Payment Done By:</label>
@@ -384,23 +457,29 @@ function MasterForm() {
                 <label className="text-base mx-1">Branch Payout:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   name="branchPayout"
                   value={branchPayout}
                   onChange={(e) => setBranchPayout(e.target.value)}
+                  onBlur={() => {
+   
+                    calculateBranchPayableAmount();
+                    calculateProfitLoss();
+                  }}
                   placeholder="Enter Branch Payout"
                 />
               </div>
               {/* FIELD - 49 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Profit/Loss:</label>
+                <label className="text-base mx-1">Profit/Loss Amount:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
                   name="profitLoss"
                   value={profitLoss}
                   onChange={(e) => setProfitLoss(e.target.value)}
-                  placeholder="Enter Profit/Loss"
+                  placeholder="Profit/Loss Amount"
+                  readOnly
                 />
               </div>
             </div>
@@ -408,23 +487,8 @@ function MasterForm() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             {/* PART-2 */}
-            <div className="p-2 my-1 text-start">
+            <div className="p-2 text-start">
               {/* FIELD - 2 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Company Name:</label>
@@ -554,35 +618,13 @@ function MasterForm() {
                   onChange={(e) => setProductCode(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Product Code ---</option>
-                  <option value="GCCV<2.5">{`GCCV < 2.5`}</option>
-                  <option value="GCCV2.5><3.5">{`GCCV 2.5 >< 3.5`}</option>
-                  <option value="GCCV 3.5><7.5">{`GCCV 3.5 >< 7.5`}</option>
-                  <option value="GCCV 7.5><12">{`GCCV 7.5 >< 12`}</option>
-                  <option value="GCCV 12><20">{`GCCV 12 >< 20`}</option>
-                  <option value="GCCV 20><45">{`GCCV 20 >< 45`}</option>
-                  <option value="GCCV 20><43">{`GCCV 20 >< 43`}</option>
-                  <option value="GCCV >43">{`GCCV > 43`}</option>
-                  <option value="GCCV >45">{`GCCV > 45`}</option>
-                  <option value="MISS-D">{`MISS-D`}</option>
-                  <option value="SCHOOL BUS">{`SCHOOL BUS`}</option>
-                  <option value="ROUTE BUS">{`ROUTE BUS`}</option>
-                  <option value="TRACTOR">{`TRACTOR`}</option>
-                  <option value="TRAILER">{`TRAILER`}</option>
-                  <option value="TAXI">{`TAXI`}</option>
-                  <option value="PCV-3">{`PCV-3`}</option>
-                  <option value="GCV-3">{`GCV-3`}</option>
-                  <option value="PVT-CAR">{`PVT-CAR`}</option>
-                  <option value="TW">{`TW`}</option>
-                  <option value="SCOOTER">{`SCOOTER`}</option>
-                  <option value="HEALTH">{`HEALTH`}</option>
-                  <option value="NAME TRANSFER">{`NAME TRANSFER`}</option>
-                  <option value="INDORSEMENT">{`INDORSEMENT`}</option>
-                  <option value="SME">{`SME`}</option>
-                  <option value="W C">{`W C`}</option>
-                  <option value="TRANSIT">{`TRANSIT`}</option>
-                  <option value="CAR">{`CAR`}</option>
-                  <option value="CPM">{`CPM`}</option>
-                  <option value="CPA">{`CPA`}</option>
+                  {policyType &&
+                    POLICY_TYPES[policyType].transactions.map((transaction) => (
+                      <option key={transaction} value={transaction}>
+                        {transaction}
+                      </option>
+                    ))}
+
                 </select>
               </div>
               {/* FIELD - 29 */}
@@ -593,53 +635,54 @@ function MasterForm() {
                   type="number"
                   name="netPremium"
                   value={netPremium}
-                  // onChange={(e) => setNetPremium(e.target.value)}
-                  placeholder="Your Net Premium"
+                  onBlur={handleNetPremiumBlur}
+                  placeholder="Net Premium"
                   readOnly
                 />
               </div>
               {/* FIELD - 32 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">NCB:</label>
+                <label className="text-base mx-1">OD Discount% :</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  name="ncb"
-                  value={ncb}
-                  onChange={(e) => setNcb(e.target.value)}
-                  placeholder="Enter NCB"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount"
                 />
               </div>
+
+
               {/* FIELD - 35 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy Made By:</label>
-                <select
-                  id="policyMadeBy"
-                  name="policyMadeBy"
-                  className="input-style rounded-lg"
-                  value={policyMadeBy}
-                  onChange={(e) => setPolicyMadeBy(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Policy Made By ---</option>
-                  <option value="RAHUL KUMAR">RAHUL KUMAR</option>
-                  <option value="CHOTU KUMAR">CHOTU KUMAR</option>
-                  <option value="HARSH KUMAR">HARSH KUMAR</option>
-                  <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
-                  <option value="SAMRIN NAZ">SAMRIN NAZ</option>
-                  <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
-                </select>
-              </div>
-              {/* FIELD - 38 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Advisor Payout:</label>
+                <label className="text-base mx-1">Sub Advisor:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  name="advisorPayout"
-                  value={advisorPayout}
-                  onChange={(e) => setAdvisorPayout(e.target.value)}
-                  placeholder="Enter Advisor Payout"
+                  name="subAdvisor"
+                  value={subAdvisor}
+                  onChange={(e) => setSubAdvisor(e.target.value)}
+                  placeholder="Enter Sub Advisor"
                 />
+              </div>
+
+
+              {/* FIELD - 38 */}
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Payout On:</label>
+                <select
+                  id="payoutOn"
+                  name="payoutOn"
+                  className="input-style rounded-lg"
+                  value={payoutOn}
+                  onChange={(e) => setPayoutOn(e.target.value)}
+                >
+                  <option className="w-1" value="" disabled>--- Select Payout on ---</option>
+                  <option value="NET">NET</option>
+                  <option value="OD">OD</option>
+                  <option value="LIABILITY">LIABILITY</option>
+                </select>
               </div>
               {/* FIELD - 41 */}
               <div className="flex flex-col my-5">
@@ -679,7 +722,8 @@ function MasterForm() {
                   value={branchPayableAmount}
                   name="branchPayableAmount"
                   onChange={(e) => setBranchPayableAmount(e.target.value)}
-                  placeholder="Enter Branch Payable Amount"
+                  placeholder="Branch Payable Amount"
+                  readOnly
                 />
               </div>
             </div>
@@ -772,7 +816,7 @@ function MasterForm() {
               </div>
               {/* FIELD - 21 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">GVW:</label>
+                <label className="text-base mx-1">GVW (kg):</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -795,42 +839,62 @@ function MasterForm() {
                 />
               </div>
               {/* FIELD - 27 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">OD Premium:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  value={odPremium}
-                  name="odPremium"
-                  onChange={(e) => setOdPremium(e.target.value)}
-                  placeholder="Enter OD Premium"
-                  onBlur={updateNetPremium}
-                />
-              </div>
+              {
+                policyType === "SATP" ? (<div className="flex flex-col my-5">
+                  <label className="text-base mx-1">OD Premium:</label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    value={odPremium}
+                    name="odPremium"
+                    onChange={(e) => setOdPremium(e.target.value)}
+                    placeholder="Disabled"
+                    onBlur={updateNetPremium}
+                    disabled
+                  />
+                </div>) : (<div className="flex flex-col my-5">
+                  <label className="text-base mx-1">OD Premium:</label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    value={odPremium}
+                    name="odPremium"
+                    onChange={(e) => setOdPremium(e.target.value)}
+                    placeholder="Enter OD Premium"
+                    onBlur={updateNetPremium}
+
+                  />
+                </div>)
+              }
+
               {/* FIELD - 30 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Final:</label>
+                <label className="text-base mx-1">GST% :</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={finalEntryFields}
+                  value={taxes}
                   name="finalEntryFields"
-                  onChange={(e) => setFinalEntryFields(e.target.value)}
-                  placeholder=" Final with taxes"
+                  onChange={(e) => setTaxes(e.target.value)}
+                  onBlur={calculateFinalAmount}
+                  placeholder="GST"
                 />
               </div>
+
               {/* FIELD - 33 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Advisor Name:</label>
+                <label className="text-base mx-1">NCB% :</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={advisorName}
-                  name="advisorName"
-                  onChange={(e) => setAdvisorName(e.target.value)}
-                  placeholder="Enter Advisor Name"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                  placeholder="Enter NCB"
                 />
               </div>
+
+
               {/* FIELD - 36 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Branch:</label>
@@ -899,11 +963,11 @@ function MasterForm() {
                 <label className="text-base mx-1">Advisor Payable Amount:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   value={advisorPayableAmount}
                   name="advisorPayableAmount"
                   onChange={(e) => setAdvisorPayableAmount(e.target.value)}
-                  placeholder="Enter Advisor Payable Amount"
+                  placeholder="Advisor Payable Amount"
                 />
               </div>
               {/* FIELD - 48 */}
@@ -911,10 +975,11 @@ function MasterForm() {
                 <label className="text-base mx-1">Company Payout:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="text"
+                  type="number"
                   value={companyPayout}
                   name="companyPayout"
                   onChange={(e) => setCompanyPayout(e.target.value)}
+                  onBlur={calculateProfitLoss}
                   placeholder="Enter Company Payout"
                 />
               </div>
@@ -932,8 +997,6 @@ function MasterForm() {
 
               <NavLink to="/dashboard/viewmasterform"
                 className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
-
-
               >
                 View
               </NavLink>
