@@ -47,7 +47,7 @@ function ViewCarousel() {
     const onDeleteCarousel = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/users/first/deletecarousel/${_id}`);
-            
+
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
             toast.warn("Carousel Removed.....!", { theme: "dark", position: "top-right" });
         } catch (error) {
@@ -82,7 +82,7 @@ function ViewCarousel() {
                                     <th scope="col" className="px-5 py-4">
                                         Links
                                     </th>
-                                   
+
                                     <th scope="col" className="px-5 py-4">
                                         Images
                                     </th>
@@ -96,7 +96,7 @@ function ViewCarousel() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    
+
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -110,15 +110,11 @@ function ViewCarousel() {
                                             <td className="whitespace-wrap px-4 py-4 text-center">
                                                 {data.usercarousel_link}
                                             </td>
-                                           
+
                                             <td className="whitespace-nowrap px4 py-4">
-
-                                                <NavLink to={`${data.usercarousel_upload}`} target="_blank">
-                                                    <img src={`${data.usercarousel_upload}`} alt="file"  /> 
-                                                   
-                                                </NavLink>
-
+                                                <img src={`https://eleedomimf.onrender.com${data.usercarousel_upload}`} alt="file" />
                                             </td>
+                                            
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <Link to="#">
                                                     <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
