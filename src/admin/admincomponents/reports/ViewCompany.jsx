@@ -128,9 +128,9 @@ export default function ViewCompany() {
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
                                                 
-                                                {/* <NavLink to={`https://www.eleedomimf.onrender.com${data.comp_cfiles}`}> */}
-                                                    <img src={data.comp_cfiles} alt="file" />
-                                                {/* </NavLink> */}
+                                                <NavLink to={`https://www.eleedomimf.onrender.com${data.comp_cfiles}`}>
+                                                    {/* <img src={data.comp_cfiles} alt="file" /> */}
+                                                </NavLink>
 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
