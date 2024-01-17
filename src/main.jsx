@@ -32,7 +32,6 @@ import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
-
 import ViewBranch from "./admin/admincomponents/ViewBranch.jsx";
 import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
 import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
@@ -74,8 +73,8 @@ import LoginAdvisor from "./advisor/LoginAdvisor.jsx";
 import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
 import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
-
 import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
+import ViewAdvisor from "./admin/admincomponents/ViewAdvisor.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -158,26 +157,26 @@ const router = createBrowserRouter(
           <Route path="/dashboard/masterform" element={<MasterForm />} />
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
           <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
+          <Route path="/dashboard/viewadvisor" element={<ViewAdvisor />} />
         </Route>
       </Route>
 
+{/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginBranch />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
-
         </Route>
       </Route>
 
-{/* advisor routes */}
-<Route path="/advisor" element= {<LoginAdvisor/>}/>
-<Route element={<ProtectedAdvisor />}>
-<Route path="/advisor/home" element={<LayoutAdvisor />}>
-<Route path="/advisor/home/viewinsurance" element={<InsuranceLists/>} />
-
-</Route>
-  </Route>
+      {/* advisor routes */}
+      <Route path="/advisor" element={<LoginAdvisor />} />
+      <Route element={<ProtectedAdvisor />}>
+        <Route path="/advisor/home" element={<LayoutAdvisor />}>
+          <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
+        </Route>
+      </Route>
 
 
 

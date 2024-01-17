@@ -23,8 +23,8 @@ function AddAdvisor() {
           advisorpassword: password
         });
 
-  if(response.data){
-    toast.success("Added Successfully !");
+  if(response.data.status){
+    toast.success(`${response.data.status}`);
         // Reset the form and loading state on successful submission
         setEmail("");
         setMobile("");
@@ -108,7 +108,7 @@ function AddAdvisor() {
               {loading ? "Submitting..." : "Submit"}
             </button>
 
-            <NavLink to="/dashboard/viewbranch" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2">
+            <NavLink to="/dashboard/viewadvisor" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2">
               {/* <ViewBranch/> */}
               View
               </NavLink>
