@@ -93,10 +93,8 @@ import { TiArrowBack } from "react-icons/ti";
                                 {APIData.map((data) => {
                                    
                                     return (
-                                        <tr
-                                            className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data._id}
-                                        >
+                                        <tr  key={data._id}
+                                            className="border-b dark:border-neutral-200 text-sm font-medium">
                                           
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.advisorname}
