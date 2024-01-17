@@ -50,8 +50,8 @@ import ViewFeedback from "./admin/admincomponents/reports/ViewFeedback.jsx";
 import HealthInsurance from "./components/homeComponets/HealthInsurance.jsx";
 import MotorInsurance from "./components/homeComponets/MotorInsurance.jsx";
 import NonMotorInsurance from "./components/homeComponets/NonMotorInsurance.jsx";
-import AddCompanies from "./admin/admincomponents/AddCompanies.jsx";
-import ViewCompany from "./admin/admincomponents/reports/ViewCompany.jsx";
+import AddCompanies from "./admin/admincomponents/company/AddCompanies.jsx";
+import ViewCompany from "./admin/admincomponents/company/ViewCompany.jsx";
 import HealthPage from "../src/components/homeComponets/Health/HealthPage.jsx";
 import MotorPage from "../src/components/homeComponets/Motor/MotorPage.jsx";
 import NonMotorPage from "./components/homeComponets/Non_Motor/NonMotorPage.jsx";
@@ -70,6 +70,9 @@ import Careers from "./components/careers/Careers.jsx";
 import MasterForm from "./admin/admincomponents/MasterForm/MasterForm.jsx";
 import ViewMasterForm from "./admin/admincomponents/MasterForm/ViewMasterForm.jsx";
 import MasterView from "./branches/showInsuranceData/MasterView.jsx";
+import LoginAdvisor from "./advisor/LoginAdvisor.jsx";
+import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
+import DashboardAdvisor from "./advisor/DashboardAdvisor.jsx";
 // import BranchSidebar from "./branches/BranchSidebar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -162,6 +165,20 @@ const router = createBrowserRouter(
 
         </Route>
       </Route>
+
+{/* advisor routes */}
+<Route path="/advisor" element= {<LoginAdvisor/>}/>
+<Route element={<ProtectedAdvisor />}>
+
+<Route path="/advisor/home" element={<DashboardAdvisor/>} />
+
+
+
+  </Route>
+
+
+
+
     </>
   )
 );

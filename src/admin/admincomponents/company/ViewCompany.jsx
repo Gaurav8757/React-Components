@@ -1,11 +1,12 @@
+import UpdateCompanyModal from "./updateCompany";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewCompany() {
     const [APIData, setAPIData] = useState([]);
+   
     const [search, setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -20,9 +21,7 @@ export default function ViewCompany() {
                     },
                 })
                 .then((response) => {
-// console.log(response.data);
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
@@ -111,9 +110,9 @@ export default function ViewCompany() {
                                 }).map((data) => {
 
                                     return (
-                                        <tr
-                                            className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data._id}>
+                                        <tr  key={data._id}
+                                            className="border-b dark:border-neutral-200 text-sm font-medium">
+                                                
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.comp_cname}
                                             </td>
@@ -134,13 +133,14 @@ export default function ViewCompany() {
 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <Link to="#">
+                                                
                                                     <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                        {/* <UpdateForm/> */} Edit
+                                                    <UpdateCompanyModal/>
                                                     </button>
 
-                                                </Link>
+                                               
                                             </td>
+                                        
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteCompany(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
@@ -152,7 +152,7 @@ export default function ViewCompany() {
                     </div>
                 </div>
             </div>
-            {/* </div> */}
+            
         </section>
     );
 }

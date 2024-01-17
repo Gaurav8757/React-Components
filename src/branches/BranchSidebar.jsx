@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import BranchLogout from "./BranchLogout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import { IoPeopleOutline } from "react-icons/io5";
-import { TbMoneybag, TbReport } from "react-icons/tb";
-import { FcMoneyTransfer } from "react-icons/fc";
+// import { IoPeopleOutline } from "react-icons/io5";
+// import { TbMoneybag, TbReport } from "react-icons/tb";
+// import { FcMoneyTransfer } from "react-icons/fc"; 
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -21,22 +21,22 @@ const BranchSidebar = () => {
     {
     //   title: "Add Employee",
       path: "/branches",
-      logo: <IoPeopleOutline size={25} />
+      // logo: <IoPeopleOutline size={25} />
     },
     {
     //   title: "Add Salary",
       path: "/branches",
-      logo: <TbMoneybag size={25} />
+      // logo: <TbMoneybag size={25} />
     },
     {
     //   title: "Generate Salary",
       path: "/branches",
-      logo: <FcMoneyTransfer size={25} />
+      // logo: <FcMoneyTransfer size={25} />
     },
     {
     //   title: "Report",
       path: "/branches",
-      logo: <TbReport size={25} />,
+      // logo: <TbReport size={25} />,
       subRoutes: [
         {
         //   title: "Policy",
