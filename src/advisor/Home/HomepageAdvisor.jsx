@@ -1,6 +1,6 @@
 
 
-function Homepage() {
+function HomepageAdvisor() {
   return (
     <div className="p-0 sm:ml-64 bg-white">
     <div className="p-4 rounded-lg  mt-14">
@@ -108,4 +108,4 @@ function Homepage() {
   )
 }
 
-export default Homepage;
+export default HomepageAdvisor;

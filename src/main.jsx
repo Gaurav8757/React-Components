@@ -75,6 +75,7 @@ import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
 import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
 import ViewAdvisor from "./admin/admincomponents/ViewAdvisor.jsx";
+import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -174,6 +175,7 @@ const router = createBrowserRouter(
       <Route path="/advisor" element={<LoginAdvisor />} />
       <Route element={<ProtectedAdvisor />}>
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
+        <Route path="/advisor/home" element={<HomepageAdvisor />}/>
           <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
         </Route>
       </Route>
