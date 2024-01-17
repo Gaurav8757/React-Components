@@ -153,7 +153,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewfeedback" element={<ViewFeedback />} />
           <Route path="/dashboard/viewcontact" element={<ViewContact />} />
           <Route path="/dashboard/addcarousel" element={<UserCarousel />} />
-          <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />/dashboard/viewfilledform
+          <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />
           <Route path="/dashboard/viewfilledform" element={<ViewUserFillCompany />} />
           <Route path="/dashboard/masterform" element={<MasterForm />} />
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
