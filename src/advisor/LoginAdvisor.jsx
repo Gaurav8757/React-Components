@@ -25,11 +25,11 @@ function LoginAdvisor() {
     
           // Check if the user is an admin based on your backend response
           if (response.data) {
-            navigate("/branches/home");
+            navigate("/advisor/home");
             toast.success("Logged In Successfully !");
           } else {
             // For non-admin users, you might want to redirect to a different page
-            navigate("/branches");
+            navigate("/advisor");
             toast.error("User Not Found!");
           }
         } catch (error) {
