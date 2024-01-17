@@ -72,10 +72,10 @@ import ViewMasterForm from "./admin/admincomponents/MasterForm/ViewMasterForm.js
 import MasterView from "./branches/showInsuranceData/MasterView.jsx";
 import LoginAdvisor from "./advisor/LoginAdvisor.jsx";
 import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
-import DashboardAdvisor from "./advisor/DashboardAdvisor.jsx";
 import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
-// import BranchSidebar from "./branches/BranchSidebar.jsx";
+import Homepage from "./advisor/Home/homepage.jsx";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -172,7 +172,7 @@ const router = createBrowserRouter(
 <Route path="/advisor" element= {<LoginAdvisor/>}/>
 <Route element={<ProtectedAdvisor />}>
 <Route path="/advisor/home" element={<LayoutAdvisor />}>
-<Route path="/advisor/home" element={<DashboardAdvisor/>} />
+<Route path="/advisor/home" element={<Homepage/>} />
 <Route path="/advisor/home/viewinsurance" element={<InsuranceLists/>} />
 
 </Route>
