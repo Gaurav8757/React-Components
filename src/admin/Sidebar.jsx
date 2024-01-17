@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { IoIosPeople } from "react-icons/io";
 import Logout from "./logout/Logout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
@@ -31,6 +32,11 @@ const Sidebar = () => {
       title: "Add Employee",
       path: "/dashboard/addemployee",
       logo: <IoPeopleOutline size={24}/>
+    },
+    {
+      title: "Add Advisor",
+      path: "/dashboard/addAdvisor",
+      logo: < IoIosPeople size={24}/>
     },
     {
       title: "Add Salary",

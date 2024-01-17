@@ -75,6 +75,7 @@ import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
 import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
 import Homepage from "./advisor/Home/homepage.jsx";
+import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -156,6 +157,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewfilledform" element={<ViewUserFillCompany />} />
           <Route path="/dashboard/masterform" element={<MasterForm />} />
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
+          <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
         </Route>
       </Route>
 
