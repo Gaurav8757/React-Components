@@ -241,6 +241,7 @@ function AddCompanies() {
           </form>
         </div>
       </div>
+      
     </section>
   );
 }
