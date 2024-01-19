@@ -1,6 +1,6 @@
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
-import { POLICY_TYPES } from "./master";
+import { POLICY_TYPES } from "./master.jsx";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -60,7 +60,7 @@ function UpdateMaster() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState("");
  
-  useEffect(() => {
+//   useEffect(() => {
     setId(localStorage.getItem("_id"));
     setEntryDate(localStorage.getItem("entryDate"));
     setCompany(localStorage.getItem("company"));
@@ -112,7 +112,7 @@ function UpdateMaster() {
     setBranchPayableAmount(localStorage.getItem("branchPayableAmount"));
     setCompanyPayout(localStorage.getItem("companyPayout"));
     setProfitLoss(localStorage.getItem("profitLoss"));
-}, []);
+// }, []);
 
 
   // OPEN MODAL
@@ -257,7 +257,7 @@ function UpdateMaster() {
   const handleSubmit = async () => {
     try {
       // Use the selected category ID in the patch method
-      await axios.patch(`https://eleedomimf.onrender.com/alldetails/updatedata/${id}`,).then((resp) => {
+      await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${id}`,).then((resp) => {
       
         const updatedMaster = resp.data;
        
