@@ -28,6 +28,29 @@ const ViewContact = () => {
     }
   }, []);
 
+  // refreshing page after updating data
+  const onUpdateContact = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/users/viewcontact`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        setContacts(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated contact data:", error);
+    }
+  };
   
 
   const onDeleteComplaint = async (_id) => {
@@ -85,7 +108,7 @@ const ViewContact = () => {
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
                         
-                          <UpdateContact data = {contact} />
+                          <UpdateContact data = {contact} onUpdate={onUpdateContact} />
                        
                       </Link>
                     </td>

@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { CgCloseR } from "react-icons/cg";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 
-function UpdateContact({ data }) {
-    
+function UpdateContact({ data, onUpdate}) {  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [contactData, setContactData] = useState({
@@ -13,10 +12,13 @@ function UpdateContact({ data }) {
         usercontact_mobile: "",
         usercontact_query: "",
     });
+
+
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
     };
+
 
     // CLOSE MODAL
     const closeModal = () => {
@@ -27,6 +29,8 @@ function UpdateContact({ data }) {
         setContactData(data);
     }, [data]);
 
+
+
     // handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -35,6 +39,9 @@ function UpdateContact({ data }) {
             [name]: value,
         }));
     };
+
+
+
  // API call to update contact
  const updateContactAPI = async () => {
     try {
@@ -45,11 +52,13 @@ function UpdateContact({ data }) {
         `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
         contactData
       );
-      setContactData(response.data);
-
+    
+toast.success(`${response.data.status}`)
       // Close the modal after successful update
       closeModal();
+      onUpdate(); 
     } catch (error) {
+     toast.error(`${error}`)
       console.error("Error updating contact:", error);
     } finally {
       setLoading(false);
