@@ -5,7 +5,7 @@ import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 
 function UpdateContact({ data }) {
-    console.log(data);
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [contactData, setContactData] = useState({
@@ -45,7 +45,7 @@ function UpdateContact({ data }) {
         `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
         contactData
       );
-      console.log("Update Contact API Response:", response.data);
+      setContactData(response.data);
 
       // Close the modal after successful update
       closeModal();
@@ -55,8 +55,6 @@ function UpdateContact({ data }) {
       setLoading(false);
     }
   };
-
-
 
 
     
@@ -130,7 +128,7 @@ function UpdateContact({ data }) {
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="number"
-                                                name="comp_establishment"
+                                                name="usercontact_mobile"
                                                 value={contactData.usercontact_mobile}
                                                 onChange={handleInputChange}
                                             />
