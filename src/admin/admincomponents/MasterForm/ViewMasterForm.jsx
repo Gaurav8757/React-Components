@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import UpdateMaster from "./UpdateMaster.jsx";
 import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import {toast} from "react-toastify";
+
 function ViewMasterForm() {
 
   const [allDetailsData, setAllDetailsData] = useState([]);
@@ -11,17 +12,35 @@ function ViewMasterForm() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          toast.error("Not Authorized yet.. Try again! ");
+        } else {
+          // The user is authenticated, so you can make your API request here.
         const response = await axios.get(
           "https://eleedomimf.onrender.com/alldetails/viewdata"
         );
+
         setAllDetailsData(response.data);
-      } catch (error) {
+     } } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
+
+  const setData = (data) => {
+    // Loop through the properties of the data object and store each property in localStorage
+    Object.keys(data).forEach((key) => {
+      localStorage.setItem(key, data[key]);
+    });
+    // Optionally, you can log a message to the console
+    console.log("Data stored in localStorage:", data);
+    // Add any additional logic you need for handling the data
+  };
+  
+
 // delete function
   const onDeleteAllData = async (_id) => {
     try {
@@ -163,12 +182,11 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-4 py-4">{data.companyPayout}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.profitLoss}</td>
                     <td className="whitespace-nowrap px-4 py-4">
-                      <Link to="#">
-                        <button type="button"  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                          {/* <UpdateForm/> onClick={() => setData(data)}*/} Edit
-                        </button>
-
-                      </Link>
+                      <NavLink to="#">
+                       <button onClick={() => setData(data)}>
+                          <UpdateMaster />  
+                          </button>
+                      </NavLink>
                     </td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <button type="button" onClick={() => onDeleteAllData(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>

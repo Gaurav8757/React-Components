@@ -76,6 +76,7 @@ import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
 import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
 import ViewAdvisor from "./admin/admincomponents/ViewAdvisor.jsx";
 import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
+import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -156,6 +157,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />
           <Route path="/dashboard/viewfilledform" element={<ViewUserFillCompany />} />
           <Route path="/dashboard/masterform" element={<MasterForm />} />
+          <Route path="/dashboard/updatemasterform" element={<UpdateMaster />} />
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
           <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
           <Route path="/dashboard/viewadvisor" element={<ViewAdvisor />} />

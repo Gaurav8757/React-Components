@@ -136,8 +136,8 @@ export default function ViewCompany() {
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 
-                                                    <button type="button" onClick={() => setData(data)} >
-                                                    <UpdateCompanyModal />
+                                                    <button type="button">
+                                                    <UpdateCompanyModal onClick={() => setData(data)} />
                                                     </button>
 
                                             </td>
