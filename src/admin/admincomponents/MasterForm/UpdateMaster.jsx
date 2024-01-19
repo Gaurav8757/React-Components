@@ -112,7 +112,7 @@ function UpdateMaster() {
     setBranchPayableAmount(localStorage.getItem("branchPayableAmount"));
     setCompanyPayout(localStorage.getItem("companyPayout"));
     setProfitLoss(localStorage.getItem("profitLoss"));
-}, []);
+}, [id]);
 
 
   // OPEN MODAL
@@ -124,22 +124,9 @@ function UpdateMaster() {
   // CLOSE MODAL
   const closeModal = () => {
     setIsModalOpen(false);
-    // localStorage.clear();
+    localStorage.clear();
   };
 
- 
-
-
-
-
-
-
-
-
-
-  
-  
-  
 
  // Function to update netPremium when odPremium or liabilityPremium changes
  const updateNetPremium = () => {
@@ -162,9 +149,9 @@ function UpdateMaster() {
     const today = new Date();
     const birthdateDate = new Date(registrationDate);
 
-    if (isNaN(birthdateDate.getTime())) {
+    if ((birthdateDate.getTime())) {
       // Handle the case where the date is invalid
-      console.error('Invalid date format for registrationDate:', registrationDate);
+      console.error('Invalid date format for registrationDate');
       return;
     }
 
@@ -811,12 +798,19 @@ function UpdateMaster() {
                   value={productCode}
                   onChange={(e) => setProductCode(e.target.value)}>
                   <option className="w-1" value="" disabled>--- Select Product Code ---</option>
-                  {policyType &&
+                  {/* {policyType &&
                     POLICY_TYPES[policyType].transactions.map((transaction) => (
+                       console.log(policyType),
                       <option key={transaction} value={transaction}>
                         {transaction}
+
                       </option>
-                    ))}
+                     
+                    ))} */}
+{
+    console.log(POLICY_TYPES)
+}
+
                 </select>
               </div>
               {/* FIELD - 29 */}

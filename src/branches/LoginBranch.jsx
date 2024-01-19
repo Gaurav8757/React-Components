@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 function LoginBranch() {
   const navigate = useNavigate();
   const [branchemail, setEmail] = useState("");
@@ -99,13 +99,13 @@ function LoginBranch() {
                     required
                   />
                 </div>
-                <div className="flex items-start">
-                  {/* <NavLink
-                    to="#"
-                    className="ml-auto text-sm text-red-200 hover:underline dark:text-red-500"
+                <div className="text-end text-red-700 font-semibold hover:text-red-500">
+                  <NavLink
+                    to="/branches/forget"
+                    className="ml-auto text-sm "
                   >
-                    Lost Password?
-                  </NavLink> */}
+                   Forgot Password
+                  </NavLink>
                 </div>
                 <button
                   type="submit"

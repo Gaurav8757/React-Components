@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 function LoginAdvisor() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -43,22 +43,22 @@ function LoginAdvisor() {
   return (
     <>
     <section className="container-fluid h-screen relative bg-white">
-      <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-20 justify-between bg-white">
-        <div className="flex-shrink-4  mx-80 px-6 md:h-full h-full py-20">
+      <div className="container-fluid pt-10 flex flex-col md:flex-row items-center  mt-10 pb-20 justify-between bg-white">
+        <div className="flex-shrink-2  mx-20  md:h-full h-full py-20">
           <img
-            src="/branches.webp"
-            className="h-full w-full rounded-full mx-auto "
+            src="/advisor.webp"
+            className="h-full w-full rounded-lg mx-auto "
             alt="Logo"
           />
-          <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-black flex justify-center">Advisor Login</div>
+          <div className="text-4xl font-bold  w-64 mx-auto  text-black flex justify-center  ">Advisor Login</div>
         </div>
-        <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-20">
-          <div className="w-full max-w-xl p-6 space-y-14 sm:p-8 bg-white rounded-lg shadow bg-gradient-to-l from-slate-800 to-slate-900">
+        <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full -mt-10  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-10">
+          <div className="w-full max-w-xl p-6 space-y-20 sm:p-8 bg-white rounded-lg shadow bg-gradient-to-l from-slate-800 to-slate-900">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               Sign in as Advisor
             </h2>
             <form
-              className="mt-8 space-y-6"
+              className="mt-0 space-y-6"
               method="POST"
               onSubmit={(e) => handleSubmit(e)}
             >
@@ -103,8 +103,10 @@ function LoginAdvisor() {
                   required
                 />
               </div>
-              <div className="flex items-start">
-             
+              <div className=" text-end text-red-700 font-semibold hover:text-red-500">
+             <NavLink to = "/advisor/forget">
+              Forgot Password
+             </NavLink>
               </div>
               <button
                 type="submit"

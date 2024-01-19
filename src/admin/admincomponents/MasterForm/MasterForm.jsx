@@ -78,7 +78,7 @@ function MasterForm() {
 
     if (isNaN(birthdateDate.getTime())) {
       // Handle the case where the date is invalid
-      console.error('Invalid date format for registrationDate:', registrationDate);
+      console.error('Invalid date format for registrationDate');
       return;
     }
 

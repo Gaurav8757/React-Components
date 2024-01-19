@@ -183,9 +183,9 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-4 py-4">{data.profitLoss}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <NavLink to="#">
-                       <button onClick={() => setData(data)}>
-                          <UpdateMaster />  
-                          </button>
+                       
+                          <UpdateMaster onClick={() => setData(data)} />  
+                         
                       </NavLink>
                     </td>
                     <td className="whitespace-nowrap px-4 py-4">

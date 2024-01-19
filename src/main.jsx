@@ -77,6 +77,8 @@ import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
 import ViewAdvisor from "./admin/admincomponents/ViewAdvisor.jsx";
 import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
+import ForgotPassword from "./advisor/ForgotPassword.jsx";
+import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -166,6 +168,7 @@ const router = createBrowserRouter(
 
 {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginBranch />} />
+      <Route path="/branches/forget" element={<ForgetPassBranch/>} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
@@ -175,6 +178,7 @@ const router = createBrowserRouter(
 
       {/* advisor routes */}
       <Route path="/advisor" element={<LoginAdvisor />} />
+      <Route path="/advisor/forget" element={<ForgotPassword />} />
       <Route element={<ProtectedAdvisor />}>
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
         <Route path="/advisor/home" element={<HomepageAdvisor />}/>
