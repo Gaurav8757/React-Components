@@ -1,4 +1,5 @@
 import axios from "axios";
+import UpdateContact from "./UpdateContact.jsx";
 import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
 import { toast } from "react-toastify";
@@ -27,6 +28,8 @@ const ViewContact = () => {
     }
   }, []);
 
+  
+
   const onDeleteComplaint = async (_id) => {
     try {
       await axios.delete(`https://eleedomimf.onrender.com/users/deletecontact/${_id}`);
@@ -45,9 +48,7 @@ const ViewContact = () => {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
           <div className="overflow-x-auto w-xl text-blue-500">
-            {/* <NavLink to="/dashboard/addemployee" className="flex justify-end">
-              Back
-            </NavLink> */}
+           
             <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">All Contact&apos;s List</h1>
             <hr />
           </div>
@@ -83,13 +84,9 @@ const ViewContact = () => {
                     <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_query}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <Link to="#">
-                        <button
-                          type="button"
-                          onClick={() => console.log("Edit clicked")}
-                          className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 "
-                        >
-                          Edit
-                        </button>
+                        
+                          <UpdateContact data = {contact} />
+                       
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-4 py-4">
