@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 
+
 function UpdateMaster() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -60,7 +61,7 @@ function UpdateMaster() {
   const [id, setId] = useState("");
  
   useEffect(() => {
-    setId(localStorage.getItem("_id"))
+    setId(localStorage.getItem("_id"));
     setEntryDate(localStorage.getItem("entryDate"));
     setCompany(localStorage.getItem("company"));
     setCategory(localStorage.getItem("category"));
@@ -123,7 +124,7 @@ function UpdateMaster() {
   // CLOSE MODAL
   const closeModal = () => {
     setIsModalOpen(false);
-    localStorage.clear();
+    // localStorage.clear();
   };
 
  
@@ -252,13 +253,71 @@ function UpdateMaster() {
   };
 
 
-
+  
   const handleSubmit = async () => {
     try {
       // Use the selected category ID in the patch method
       await axios.patch(`https://eleedomimf.onrender.com/alldetails/updatedata/${id}`,).then((resp) => {
-        console.log(resp.data);
-        toast.success(`${resp.data.status}`)
+      
+        const updatedMaster = resp.data;
+       
+       
+
+            localStorage.setItem("entryDate", updatedMaster.entryDate);
+            localStorage.setItem("company", updatedMaster.company);
+            localStorage.setItem("category", updatedMaster.category);
+            localStorage.setItem("segment", updatedMaster.segment);
+            localStorage.setItem("sourcing", updatedMaster.sourcing);
+            localStorage.setItem("policyNo", updatedMaster.policyNo);
+            localStorage.setItem("insuredName", updatedMaster.insuredName);
+            localStorage.setItem("contactNo", updatedMaster.contactNo);
+            localStorage.setItem("vehRegNo", updatedMaster.vehRegNo);
+            localStorage.setItem("policyStartDate", updatedMaster.policyStartDate);
+            localStorage.setItem("policyEndDate", updatedMaster.policyEndDate);
+            localStorage.setItem("odExpiry", updatedMaster.odExpiry);
+            localStorage.setItem("tpExpiry", updatedMaster.tpExpiry);
+            localStorage.setItem("idv", updatedMaster.idv);
+            localStorage.setItem("bodyType", updatedMaster.bodyType);
+            localStorage.setItem("makeModel", updatedMaster.makeModel);
+            localStorage.setItem("mfgYear", updatedMaster.mfgYear);
+            localStorage.setItem("registrationDate", updatedMaster.registrationDate);
+            localStorage.setItem("vehicleAge", updatedMaster.vehicleAge);
+            localStorage.setItem("fuel", updatedMaster.fuel);
+            localStorage.setItem("gvw", updatedMaster.gvw);
+            localStorage.setItem("cc", updatedMaster.cc);
+            localStorage.setItem("engNo", updatedMaster.engNo);
+            localStorage.setItem("chsNo", updatedMaster.chsNo);
+            localStorage.setItem("policyType", updatedMaster.policyType);
+            localStorage.setItem("productCode", updatedMaster.productCode);
+            localStorage.setItem("odPremium", updatedMaster.odPremium);
+            localStorage.setItem("liabilityPremium", updatedMaster.liabilityPremium);
+            localStorage.setItem("netPremium", updatedMaster.netPremium);
+            localStorage.setItem("finalEntryFields", updatedMaster.finalEntryFields);
+            localStorage.setItem("taxes", updatedMaster.taxes);
+            localStorage.setItem("odDiscount", updatedMaster.odDiscount);
+            localStorage.setItem("ncb", updatedMaster.ncb);
+            localStorage.setItem("advisorName", updatedMaster.advisorName);
+            localStorage.setItem("subAdvisor", updatedMaster.subAdvisor);
+            localStorage.setItem("policyMadeBy", updatedMaster.policyMadeBy);
+            localStorage.setItem("branch", updatedMaster.branch);
+            localStorage.setItem("payoutOn", updatedMaster.payoutOn);
+            localStorage.setItem("calculationType", updatedMaster.calculationType);
+            localStorage.setItem("policyPaymentMode", updatedMaster.policyPaymentMode);
+            localStorage.setItem("paymentDoneBy", updatedMaster.paymentDoneBy);
+            localStorage.setItem("chqNoRefNo", updatedMaster.chqNoRefNo);
+            localStorage.setItem("bankName", updatedMaster.bankName);
+            localStorage.setItem("chqPaymentDate", updatedMaster.chqPaymentDate);
+            localStorage.setItem("chqStatus", updatedMaster.chqStatus);
+            localStorage.setItem("advisorPayableAmount", updatedMaster.advisorPayableAmount);
+            localStorage.setItem("branchPayout", updatedMaster.branchPayout);
+            localStorage.setItem("branchPayableAmount", updatedMaster.branchPayableAmount);
+            localStorage.setItem("companyPayout", updatedMaster.companyPayout);
+            localStorage.setItem("profitLoss", updatedMaster.profitLoss);
+            toast.success(`${resp.data.status}`);
+            console.log(resp.data);
+            console.log(updatedMaster);
+
+
       }).catch((error) => {
         console.error(error);
       });
