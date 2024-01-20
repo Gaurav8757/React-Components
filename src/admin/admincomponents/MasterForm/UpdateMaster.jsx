@@ -208,6 +208,12 @@ function UpdateMaster({ insurance, onUpdate }) {
   //   }));
   // };
 
+  
+  // show all data inside input tag
+  useEffect(() => {
+    setAllDetails(insurance);
+  }, [insurance]);
+
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -217,10 +223,6 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-  // show all data inside input tag
-  useEffect(() => {
-    setAllDetails(insurance);
-  }, [insurance]);
 
 
   const updateInsuranceAPI = async () => {
