@@ -45,7 +45,7 @@ function ViewMasterForm() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/users/viewdata`,
+          `https://eleedomimf.onrender.com/alldetails/viewdata`,
           {
             headers: {
               Authorization: `${token}`,
