@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { CgCloseR } from "react-icons/cg";
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 let homesection = [
@@ -118,10 +117,11 @@ function UpdateCompanyModal({ datas, onUpdate }) {
       }));
     }
   };
+
   // show all data inside input tag
-  useEffect(() => {
-    setCompanyData(datas);
-  }, [datas]);
+  // useEffect(() => {
+  //   setCompanyData(datas);
+  // }, [datas]);
 
 
 
