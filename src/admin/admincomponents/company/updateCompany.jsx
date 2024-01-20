@@ -103,183 +103,193 @@ function UpdateCompanyModal({ datas, onUpdate }) {
 
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCompanyData((prevData) => ({
+    const { name, value,files } = e.target;
+    if (name === 'comp_cfiles' && files && files.length > 0) {
+      // If it's a file input, handle it separately
+      setCompanyData((prevData) => ({
+        ...prevData,
+        [name]: files[0],  // Set the file directly
+      }));
+    }
+    
+    else {
+      setCompanyData((prevData) => ({
         ...prevData,
         [name]: value,
-    }));
-};
-  
-
-  // show all data inside input tag
-  useEffect(() => {
-    setCompanyData(datas);
-  }, [datas]);
-
-
-
-  const updateCompanyData = async () => {
-    // e.preventDefault();
-    try {
-      setLoading(true);
-      const formData = new FormData();
-
-      // Append all fields to FormData
-      Object.entries(companyData).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-      // Use the selected category ID in the patch method
-      const resp = await axios.patch(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(resp.data);
-      toast.success(`${resp.data.status}`)
-      closeModal(); // Close the modal after successful submissi
-      onUpdate();
-    } catch (error) {
-      console.error("Error updating company:", error);
-    } finally {
-      setLoading(false);
+      }));
     }
-  };
+  }
 
-  return (
-    <>
-      {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-        Edit
-      </button>
 
-      {/* <!-- Main modal --> */}
-      {isModalOpen && (
-        <div
-          id="static-modal"
-          data-modal-backdrop="static"
-          tabIndex="-1"
-          aria-hidden="true"
-          className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
-          <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
-            {/* <!-- Modal content --> */}
-            <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
-              {/* <!-- Modal header --> */}
-              <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                  Update Company
-                </h3>
-                <button
-                  onClick={closeModal}
-                  type="button"
-                  className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
-                  <CgCloseR size={25} />
-                </button>
-              </div>
+    // show all data inside input tag
+    useEffect(() => {
+      setCompanyData(datas);
+    }, [datas]);
 
 
 
-              {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                <form className="flex flex-wrap" method="post" encType="multipart/form-data">
-                  <div className="w-full lg:w-1/2 p-2 text-start">
+    const updateCompanyData = async () => {
+      // e.preventDefault();
+      try {
+        setLoading(true);
+        const formData = new FormData();
 
-                    <div className="flex flex-col ">
-                      <label className="text-base mx-1">Insurance Type:</label>
-                      <select
-                        className="input-style rounded-lg"
-                        type="text"
-                        name="comp_insurance"
-                        value={companyData.comp_insurance}
-                        onChange={handleInputChange}
-                      >
-                        <option value="" disabled>
-                          ----- Select Insurance Type-----
-                        </option>
-                        {homesection.map((ins, idx) => (
-                          <option key={idx}>
-                            {ins.title}
+        // Append all fields to FormData
+        Object.entries(companyData).forEach(([key, value]) => {
+          formData.append(key, value);
+        });
+        // Use the selected category ID in the patch method
+        const resp = await axios.patch(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(resp.data);
+        toast.success(`${resp.data.status}`)
+        closeModal(); // Close the modal after successful submissi
+        onUpdate();
+      } catch (error) {
+        console.error("Error updating company:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    return (
+      <>
+        {/* <!-- Modal toggle --> */}
+        <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
+          Edit
+        </button>
+
+        {/* <!-- Main modal --> */}
+        {isModalOpen && (
+          <div
+            id="static-modal"
+            data-modal-backdrop="static"
+            tabIndex="-1"
+            aria-hidden="true"
+            className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+            <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
+              {/* <!-- Modal content --> */}
+              <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                {/* <!-- Modal header --> */}
+                <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                    Update Company
+                  </h3>
+                  <button
+                    onClick={closeModal}
+                    type="button"
+                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                    <CgCloseR size={25} />
+                  </button>
+                </div>
+
+
+
+                {/* <!-- Modal body --> */}
+                <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
+                  <form className="flex flex-wrap" method="post" encType="multipart/form-data">
+                    <div className="w-full lg:w-1/2 p-2 text-start">
+
+                      <div className="flex flex-col ">
+                        <label className="text-base mx-1">Insurance Type:</label>
+                        <select
+                          className="input-style rounded-lg"
+                          type="text"
+                          name="comp_insurance"
+                          value={companyData.comp_insurance}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            ----- Select Insurance Type-----
                           </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="flex flex-col my-5">
-                      <label className="text-base mx-1">Company Name:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        name="comp_cname"
-                        value={companyData.comp_cname}
-                        onChange={handleInputChange}
-                        placeholder="Enter Company Name"
+                          {homesection.map((ins, idx) => (
+                            <option key={idx}>
+                              {ins.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex flex-col my-5">
+                        <label className="text-base mx-1">Company Name:</label>
+                        <input
+                          className="input-style rounded-lg"
+                          type="text"
+                          name="comp_cname"
+                          value={companyData.comp_cname}
+                          onChange={handleInputChange}
+                          placeholder="Enter Company Name"
 
-                      />
+                        />
+                      </div>
+
+                      <div className="flex flex-col my-5">
+                        <label className="text-base mx-1">Establishment Year:</label>
+                        <input
+                          className="input-style rounded-lg"
+                          type="date"
+                          name="comp_establishment"
+                          value={companyData.comp_establishment}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    </div>
+                    {/* part-2 */}
+                    <div className="w-full lg:w-1/2 p-2 text-start">
+                      <div className="flex flex-col ">
+                        <label className="text-base mx-1">Category:</label>
+                        <select
+                          className="input-style rounded-lg"
+                          type="text"
+                          name="comp_categories"
+                          value={companyData.comp_categories}
+                          onChange={handleInputChange}
+                        >
+                          <option value="" disabled>
+                            ----- Select Category -----
+                          </option>
+                          {/* Map categories based on selected insurance type */}
+                          {companyData.comp_insurance &&
+                            homesection
+                              .find((ins) => ins.title === datas.comp_insurance)
+                              ?.subItems.map((subItem, idx) => (
+                                <option key={idx} value={subItem.subtitle}>
+                                  {subItem.subtitle}
+                                </option>
+                              ))}
+                        </select>
+                      </div>
+
+                      <div className="flex flex-col my-5">
+                        <label className="text-base mx-1">Plan:</label>
+                        <input
+                          className="input-style border w-full h-10 items-center rounded-lg"
+                          type="file"
+                          name="comp_cfiles"
+                          accept="/*"
+                          onChange={handleInputChange}
+                        />
+                      </div>
                     </div>
 
-                    <div className="flex flex-col my-5">
-                      <label className="text-base mx-1">Establishment Year:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        name="comp_establishment"
-                        value={companyData.comp_establishment}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  {/* part-2 */}
-                  <div className="w-full lg:w-1/2 p-2 text-start">
-                    <div className="flex flex-col ">
-                      <label className="text-base mx-1">Category:</label>
-                      <select
-                        className="input-style rounded-lg"
-                        type="text"
-                        name="comp_categories"
-                        value={companyData.comp_categories}
-                        onChange={handleInputChange}
+                    <div className="w-full flex justify-center p-2">
+                      <button
+                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                        onClick={updateCompanyData}
+                        type="button"
                       >
-                        <option value="" disabled>
-                          ----- Select Category -----
-                        </option>
-                        {/* Map categories based on selected insurance type */}
-                        {/* {companyData.comp_insurance &&
-                          homesection
-                            .find((ins) => ins.title === datas.comp_insurance)
-                            ?.subItems.map((subItem, idx) => (
-                              <option key={idx} value={subItem.subtitle}>
-                                {subItem.subtitle}
-                              </option>
-                            ))} */}
-                      </select>
+                        {loading ? "Submitting..." : "Submit"}
+                      </button>
                     </div>
-
-                    <div className="flex flex-col my-5">
-                      <label className="text-base mx-1">Plan:</label>
-                      <input
-                        className="input-style border w-full h-10 items-center rounded-lg"
-                        type="file"
-                        name="comp_cfiles"
-                        accept="/*"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="w-full flex justify-center p-2">
-                    <button
-                      className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
-                      onClick={updateCompanyData}
-                      type="button"
-                    >
-                      {loading ? "Submitting..." : "Submit"}
-                    </button>
-                  </div>
-                </form>
-              </section>
+                  </form>
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </>
-  );
-}
-export default UpdateCompanyModal;
+        )}
+      </>
+    );
+  }
+  export default UpdateCompanyModal;

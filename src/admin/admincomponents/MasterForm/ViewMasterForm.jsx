@@ -9,9 +9,10 @@ function ViewMasterForm() {
   const [allDetailsData, setAllDetailsData] = useState([]);
 
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
     const fetchData = async () => {
       try {
-        const token = sessionStorage.getItem("token");
+       
         if (!token) {
           toast.error("Not Authorized yet.. Try again! ");
         } else {
@@ -44,7 +45,7 @@ function ViewMasterForm() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/users/viewcontact`,
+          `https://eleedomimf.onrender.com/users/viewdata`,
           {
             headers: {
               Authorization: `${token}`,
