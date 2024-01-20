@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import UpdateMaster from "./UpdateMaster.jsx";
 import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function ViewMasterForm() {
-
   const [allDetailsData, setAllDetailsData] = useState([]);
 
   useEffect(() => {
@@ -17,12 +16,18 @@ function ViewMasterForm() {
           toast.error("Not Authorized yet.. Try again! ");
         } else {
           // The user is authenticated, so you can make your API request here.
-        const response = await axios.get(
-          "https://eleedomimf.onrender.com/alldetails/viewdata"
-        );
+          const response = await axios.get(
+            "https://eleedomimf.onrender.com/alldetails/viewdata", {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
 
-        setAllDetailsData(response.data);
-     } } catch (error) {
+          )
+
+          setAllDetailsData(response.data);
+        }
+      } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
@@ -30,18 +35,31 @@ function ViewMasterForm() {
     fetchData();
   }, []);
 
-  const setData = (data) => {
-    // Loop through the properties of the data object and store each property in localStorage
-    Object.keys(data).forEach((key) => {
-      localStorage.setItem(key, data[key]);
-    });
-    // Optionally, you can log a message to the console
-    console.log("Data stored in localStorage:", data);
-    // Add any additional logic you need for handling the data
-  };
-  
+   // refreshing page after updating data
+   const onUpdateInsurance = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
 
-// delete function
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/users/viewcontact`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        setAllDetailsData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated insurance data:", error);
+    }
+  };
+
+  // delete function
   const onDeleteAllData = async (_id) => {
     try {
       await axios.delete(`https://eleedomimf.onrender.com/alldetails/deletedata/${_id}`);
@@ -183,9 +201,7 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-4 py-4">{data.profitLoss}</td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <NavLink to="#">
-                       
-                          <UpdateMaster onClick={() => setData(data)} />  
-                         
+                        <UpdateMaster insurance = {data} onUpdate = {onUpdateInsurance} />
                       </NavLink>
                     </td>
                     <td className="whitespace-nowrap px-4 py-4">

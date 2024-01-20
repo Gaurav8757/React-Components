@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { POLICY_TYPES } from "./master.jsx";
@@ -6,136 +7,81 @@ import axios from "axios";
 
 
 
-function UpdateMaster() {
-    const [entryDate, setEntryDate] = useState('');
-    const [company, setCompany] = useState('');
-    const [category, setCategory] = useState('');
-    const [segment, setSegment] = useState('');
-    const [sourcing, setSourcing] = useState('');
-    const [policyNo, setPolicyNo] = useState('');
-    const [insuredName, setInsuredName] = useState('');
-    const [contactNo, setContactNo] = useState('');
-    const [vehRegNo, setVehRegNo] = useState('');
-    const [policyStartDate, setPolicyStartDate] = useState('');
-    const [policyEndDate, setPolicyEndDate] = useState('');
-    const [odExpiry, setOdExpiry] = useState('');
-    const [tpExpiry, setTpExpiry] = useState('');
-    const [idv, setIdv] = useState('');
-    const [bodyType, setBodyType] = useState('');
-    const [makeModel, setMakeModel] = useState('');
-    const [mfgYear, setMfgYear] = useState('');
-    const [registrationDate, setRegistrationDate] = useState('');
-    const [vehicleAge, setVehicleAge] = useState('');
-    const [fuel, setFuel] = useState('');
-    const [gvw, setGvw] = useState('');
-    const [cc, setCc] = useState('');
-    const [engNo, setEngNo] = useState('');
-    const [chsNo, setChsNo] = useState('');
-    const [policyType, setPolicyType] = useState('');
-    const [productCode, setProductCode] = useState('');
-    const [odPremium, setOdPremium] = useState('');
-    const [liabilityPremium, setLiabilityPremium] = useState('');
-    const [netPremium, setNetPremium] = useState('');
-    const [finalEntryFields, setFinalEntryFields] = useState('');
-    const [taxes, setTaxes] = useState('');
-    const [odDiscount, setOdDiscount] = useState('');
-    const [ncb, setNcb] = useState('');
-    const [advisorName, setAdvisorName] = useState('');
-    const [subAdvisor, setSubAdvisor] = useState('');
-    const [policyMadeBy, setPolicyMadeBy] = useState('');
-    const [branch, setBranch] = useState('');
-    const [payoutOn, setPayoutOn] = useState('');
-    const [calculationType, setCalculationType] = useState('');
-    const [policyPaymentMode, setPolicyPaymentMode] = useState('');
-    const [paymentDoneBy, setPaymentDoneBy] = useState('');
-    const [chqNoRefNo, setChqNoRefNo] = useState('');
-    const [bankName, setBankName] = useState('');
-    const [chqPaymentDate, setChqPaymentDate] = useState('');
-    const [chqStatus, setChqStatus] = useState('');
-    const [advisorPayableAmount, setAdvisorPayableAmount] = useState('');
-    const [branchPayout, setBranchPayout] = useState('');
-    const [branchPayableAmount, setBranchPayableAmount] = useState('');
-    const [companyPayout, setCompanyPayout] = useState('');
-    const [profitLoss, setProfitLoss] = useState('');
+function UpdateMaster({insurance, onUpdate}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [id, setId] = useState("");
- 
-  useEffect(() => {
-    setId(localStorage.getItem("_id"))
-    setEntryDate(localStorage.getItem("entryDate"));
-    setCompany(localStorage.getItem("company"));
-    setCategory(localStorage.getItem("category"));
-    setSegment(localStorage.getItem("segment"));
-    setSourcing(localStorage.getItem("sourcing"));
-    setPolicyNo(localStorage.getItem("policyNo"));
-    setInsuredName(localStorage.getItem("insuredName"));
-    setContactNo(localStorage.getItem("contactNo"));
-    setVehRegNo(localStorage.getItem("vehRegNo"));
-    setPolicyStartDate(localStorage.getItem("policyStartDate"));
-    setPolicyEndDate(localStorage.getItem("policyEndDate"));
-    setOdExpiry(localStorage.getItem("odExpiry"));
-    setTpExpiry(localStorage.getItem("tpExpiry"));
-    setIdv(localStorage.getItem("idv"));
-    setBodyType(localStorage.getItem("bodyType"));
-    setMakeModel(localStorage.getItem("makeModel"));
-    setMfgYear(localStorage.getItem("mfgYear"));
-    setRegistrationDate(localStorage.getItem("registrationDate"));
-    setVehicleAge(localStorage.getItem("vehicleAge"));
-    setFuel(localStorage.getItem("fuel"));
-    setGvw(localStorage.getItem("gvw"));
-    setCc(localStorage.getItem("cc"));
-    setEngNo(localStorage.getItem("engNo"));
-    setChsNo(localStorage.getItem("chsNo"));
-    setPolicyType(localStorage.getItem("policyType"));
-    setProductCode(localStorage.getItem("productCode"));
-    setOdPremium(localStorage.getItem("odPremium"));
-    setLiabilityPremium(localStorage.getItem("liabilityPremium"));
-    setNetPremium(localStorage.getItem("netPremium"));
-    setFinalEntryFields(localStorage.getItem("finalEntryFields"));
-    setTaxes(localStorage.getItem("taxes"));
-    setOdDiscount(localStorage.getItem("odDiscount"));
-    setNcb(localStorage.getItem("ncb"));
-    setAdvisorName(localStorage.getItem("advisorName"));
-    setSubAdvisor(localStorage.getItem("subAdvisor"));
-    setPolicyMadeBy(localStorage.getItem("policyMadeBy"));
-    setBranch(localStorage.getItem("branch"));
-    setPayoutOn(localStorage.getItem("payoutOn"));
-    setCalculationType(localStorage.getItem("calculationType"));
-    setPolicyPaymentMode(localStorage.getItem("policyPaymentMode"));
-    setPaymentDoneBy(localStorage.getItem("paymentDoneBy"));
-    setChqNoRefNo(localStorage.getItem("chqNoRefNo"));
-    setBankName(localStorage.getItem("bankName"));
-    setChqPaymentDate(localStorage.getItem("chqPaymentDate"));
-    setChqStatus(localStorage.getItem("chqStatus"));
-    setAdvisorPayableAmount(localStorage.getItem("advisorPayableAmount"));
-    setBranchPayout(localStorage.getItem("branchPayout"));
-    setBranchPayableAmount(localStorage.getItem("branchPayableAmount"));
-    setCompanyPayout(localStorage.getItem("companyPayout"));
-    setProfitLoss(localStorage.getItem("profitLoss"));
-}, [id]);
-
+  const [loading, setLoading] = useState(false);
+  const [allDetails, setAllDetails] = useState({
+    entryDate: '',
+    company: '',
+    category: '',
+    segment: '',
+    sourcing: '',
+    policyNo: '',
+    insuredName: '',
+    contactNo: '',
+    vehRegNo: '',
+    policyStartDate: '',
+    policyEndDate: '',
+    odExpiry: '',
+    tpExpiry: '',
+    idv: '',
+    bodyType: '',
+    makeModel: '',
+    mfgYear: '',
+    registrationDate: '',
+    vehicleAge: '',
+    fuel: '',
+    gvw: '',
+    cc: '',
+    engNo: '',
+    chsNo: '',
+    policyType: '',
+    productCode: '',
+    odPremium: '',
+    liabilityPremium: '',
+    netPremium: '',
+    finalEntryFields: '',
+    taxes: '',
+    odDiscount: '',
+    ncb: '',
+    advisorName: '',
+    subAdvisor: '',
+    policyMadeBy: '',
+    branch: '',
+    payoutOn: '',
+    calculationType: '',
+    policyPaymentMode: '',
+    paymentDoneBy: '',
+    chqNoRefNo: '',
+    bankName: '',
+    chqPaymentDate: '',
+    chqStatus: '',
+    advisorPayableAmount: '',
+    branchPayout: '',
+    branchPayableAmount: '',
+    companyPayout: '',
+    profitLoss: ''
+  })
 
   // OPEN MODAL
   const openModal = () => {
     setIsModalOpen(true);
- 
   };
 
   // CLOSE MODAL
   const closeModal = () => {
     setIsModalOpen(false);
-    localStorage.clear();
   };
 
 
  // Function to update netPremium when odPremium or liabilityPremium changes
  const updateNetPremium = () => {
-    const odPremiumValue = parseFloat(odPremium) || 0;
-    const liabilityPremiumValue = parseFloat(liabilityPremium) || 0;
+    const odPremiumValue = parseFloat(insurance.odPremium) || 0;
+    const liabilityPremiumValue = parseFloat(insurance.liabilityPremium) || 0;
     // Calculate netPremium by adding odPremium and liabilityPremium
     const newNetPremium = odPremiumValue + liabilityPremiumValue;
     // Set the updated netPremium value directly
-    setNetPremium(newNetPremium);
+    insurance.setNetPremium(newNetPremium);
   };
 
   // Calculate the last day of the previous month
@@ -147,7 +93,7 @@ function UpdateMaster() {
   //  VEHICLE AGE CALCULATED
   const calculateAge = () => {
     const today = new Date();
-    const birthdateDate = new Date(registrationDate);
+    const birthdateDate = new Date(insurance.registrationDate);
 
     if ((birthdateDate.getTime())) {
       // Handle the case where the date is invalid
@@ -169,7 +115,7 @@ function UpdateMaster() {
       ageYears--;
       ageMonths = 12 + ageMonths;
     }
-    setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
+    insurance.setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
   };
 
   useEffect(() => {
@@ -178,44 +124,44 @@ function UpdateMaster() {
 
   // calculate taxes with netPremium
   const calculateFinalAmount = () => {
-    const netPremiumValue = parseFloat(netPremium) || 0;
-    const taxesValue = parseFloat(taxes) || 0;
+    const netPremiumValue = parseFloat(insurance.netPremium) || 0;
+    const taxesValue = parseFloat(insurance.taxes) || 0;
 
     const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
 
-    setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
+    insurance.setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
   };
 
   // calculate branch payable amount
   const calculateBranchPayableAmount = () => {
-    const netPremiumValue = parseFloat(netPremium) || 0;
-    const branchPayoutValue = parseFloat(branchPayout) || 0;
+    const netPremiumValue = parseFloat(insurance.netPremium) || 0;
+    const branchPayoutValue = parseFloat(insurance.branchPayout) || 0;
 
     const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
 
-    setBranchPayableAmount(branchPayableAmountValue.toFixed(2)); // Assuming you want to display the amount with two decimal places
+    insurance.setBranchPayableAmount(branchPayableAmountValue.toFixed(2)); // Assuming you want to display the amount with two decimal places
   };
 
 
   //calculation  profit/loss 
   const calculateProfitLoss = () => {
-    const companyPayoutValue = parseFloat(companyPayout) || 0;
-    const branchPayoutValue = parseFloat(branchPayout) || 0;
+    const companyPayoutValue = parseFloat(insurance.companyPayout) || 0;
+    const branchPayoutValue = parseFloat(insurance.branchPayout) || 0;
     const profitLossValue = companyPayoutValue - branchPayoutValue;
 
-    setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
+    insurance.setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
   };
 
 
   // final amount set
   const handleNetPremiumBlur = () => {
-    if (calculationType === 'finalAmount') {
+    if (insurance.calculationType === 'finalAmount') {
       calculateFinalAmount();
-    } else if (calculationType === 'branchPayableAmount') {
+    } else if (insurance.calculationType === 'branchPayableAmount') {
       calculateBranchPayableAmount();
     }
     // Reset the calculation type after performing the calculation
-    setCalculationType('');
+    insurance.setCalculationType('');
   };
 
 
@@ -224,155 +170,51 @@ function UpdateMaster() {
     // Update odExpiry by adding 1 year to the selected policyStartDate
     const odExpiryDate = new Date(startDate);
     odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
-    setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
+    insurance.setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
 
     // Update policyEndDate by adding 1 year to the selected policyStartDate
     const policyEndDateValue = new Date(startDate);
     policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
-    setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
+    insurance.setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
 
      // Update TP Expiry by adding 1 year to the selected policyStartDate
      const tpExpiryDate = new Date(startDate);
      tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
-     setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
+     insurance.setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
     // Set the selected policyStartDate
-    setPolicyStartDate(startDate);
+    insurance.setPolicyStartDate(startDate);
   };
 
-
+// handle input change
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setAllDetails((prevData) => ({
+      ...prevData,
+      [name]: value,
+  }));
+};
   
-  const handleSubmit = async (id) => {
+  const updateInsuranceAPI = async () => {
     try {
-
-        const updateData = {
-            entryDate, 
-            company,
-            category,
-            segment,
-            sourcing,
-            policyNo,
-            insuredName,
-            contactNo,
-            vehRegNo,
-            policyStartDate,
-            policyEndDate,
-            odExpiry,
-            tpExpiry,
-            bodyType,
-            idv,
-            makeModel,
-            mfgYear,
-            registrationDate,
-            vehicleAge,
-            fuel,
-            gvw,
-            cc,
-            engNo,
-            chsNo,
-            policyType,
-            productCode,
-            odPremium,
-            liabilityPremium,
-            netPremium,
-            finalEntryFields,
-            taxes,
-            odDiscount,
-            ncb,
-            advisorName,
-            subAdvisor,
-            policyMadeBy,
-            branch,
-            payoutOn,
-            calculationType,
-            policyPaymentMode,
-            paymentDoneBy,
-            chqNoRefNo,
-            bankName,
-            chqPaymentDate,
-            advisorPayableAmount,
-            branchPayout,
-            branchPayableAmount,
-            companyPayout,
-            profitLoss
-        };
-
+      setLoading(true);
+    
 
       // Use the selected category ID in the patch method
-      await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${id}`, updateData,  {
+      await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails,  {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }  ).then((resp) => {
-      
-        const updatedMaster = resp.data;
-       
-       
-
-            localStorage.setItem("entryDate", updatedMaster.entryDate);
-            localStorage.setItem("company", updatedMaster.company);
-            localStorage.setItem("category", updatedMaster.category);
-            localStorage.setItem("segment", updatedMaster.segment);
-            localStorage.setItem("sourcing", updatedMaster.sourcing);
-            localStorage.setItem("policyNo", updatedMaster.policyNo);
-            localStorage.setItem("insuredName", updatedMaster.insuredName);
-            localStorage.setItem("contactNo", updatedMaster.contactNo);
-            localStorage.setItem("vehRegNo", updatedMaster.vehRegNo);
-            localStorage.setItem("policyStartDate", updatedMaster.policyStartDate);
-            localStorage.setItem("policyEndDate", updatedMaster.policyEndDate);
-            localStorage.setItem("odExpiry", updatedMaster.odExpiry);
-            localStorage.setItem("tpExpiry", updatedMaster.tpExpiry);
-            localStorage.setItem("idv", updatedMaster.idv);
-            localStorage.setItem("bodyType", updatedMaster.bodyType);
-            localStorage.setItem("makeModel", updatedMaster.makeModel);
-            localStorage.setItem("mfgYear", updatedMaster.mfgYear);
-            localStorage.setItem("registrationDate", updatedMaster.registrationDate);
-            localStorage.setItem("vehicleAge", updatedMaster.vehicleAge);
-            localStorage.setItem("fuel", updatedMaster.fuel);
-            localStorage.setItem("gvw", updatedMaster.gvw);
-            localStorage.setItem("cc", updatedMaster.cc);
-            localStorage.setItem("engNo", updatedMaster.engNo);
-            localStorage.setItem("chsNo", updatedMaster.chsNo);
-            localStorage.setItem("policyType", updatedMaster.policyType);
-            localStorage.setItem("productCode", updatedMaster.productCode);
-            localStorage.setItem("odPremium", updatedMaster.odPremium);
-            localStorage.setItem("liabilityPremium", updatedMaster.liabilityPremium);
-            localStorage.setItem("netPremium", updatedMaster.netPremium);
-            localStorage.setItem("finalEntryFields", updatedMaster.finalEntryFields);
-            localStorage.setItem("taxes", updatedMaster.taxes);
-            localStorage.setItem("odDiscount", updatedMaster.odDiscount);
-            localStorage.setItem("ncb", updatedMaster.ncb);
-            localStorage.setItem("advisorName", updatedMaster.advisorName);
-            localStorage.setItem("subAdvisor", updatedMaster.subAdvisor);
-            localStorage.setItem("policyMadeBy", updatedMaster.policyMadeBy);
-            localStorage.setItem("branch", updatedMaster.branch);
-            localStorage.setItem("payoutOn", updatedMaster.payoutOn);
-            localStorage.setItem("calculationType", updatedMaster.calculationType);
-            localStorage.setItem("policyPaymentMode", updatedMaster.policyPaymentMode);
-            localStorage.setItem("paymentDoneBy", updatedMaster.paymentDoneBy);
-            localStorage.setItem("chqNoRefNo", updatedMaster.chqNoRefNo);
-            localStorage.setItem("bankName", updatedMaster.bankName);
-            localStorage.setItem("chqPaymentDate", updatedMaster.chqPaymentDate);
-            localStorage.setItem("chqStatus", updatedMaster.chqStatus);
-            localStorage.setItem("advisorPayableAmount", updatedMaster.advisorPayableAmount);
-            localStorage.setItem("branchPayout", updatedMaster.branchPayout);
-            localStorage.setItem("branchPayableAmount", updatedMaster.branchPayableAmount);
-            localStorage.setItem("companyPayout", updatedMaster.companyPayout);
-            localStorage.setItem("profitLoss", updatedMaster.profitLoss);
-            toast.success(`${resp.data.status}`);
-            console.log(resp.data);
-            console.log(updatedMaster);
-
-
+      }  ).then((resp) => { 
+        toast.success(`${resp.data.status}`);
+        closeModal(); // Close the modal after successful submission
+        onUpdate(); 
       }).catch((error) => {
+        toast.error(`${error.data.status}`);
         console.error(error);
       });
-      // Handle success, redirect, or show a success message
-      closeModal(); // Close the modal after successful submission
-
     } catch (error) {
-      
       console.error("Error updating insurance details:", error);
-      // Handle error, show an error message, etc.
+      
     }
   };
  
@@ -422,8 +264,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="entryDate"
-                  value={entryDate}
-                  onChange={(e) => setEntryDate(e.target.value)}
+                  value={insurance.entryDate}
+                  onChange={handleInputChange}
                   placeholder="Select Entry Date"
                 />
               </div>
@@ -433,8 +275,8 @@ function UpdateMaster() {
                 <select
                   className="input-style rounded-lg"
                   name="segment"
-                  value={segment}
-                  onChange={(e) => setSegment(e.target.value)}
+                  value={insurance.segment}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Select Segment ---</option>
                   <option value="C V">C V</option>
@@ -452,8 +294,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="insuredName"
-                  value={insuredName}
-                  onChange={(e) => setInsuredName(e.target.value)}
+                  value={insurance.insuredName}
+                  onChange={handleInputChange}
                   placeholder="Enter Insured Name"
                 />
               </div>
@@ -464,7 +306,7 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="policyStartDate"
-                  value={policyStartDate}
+                  value={insurance.policyStartDate}
                   onChange={handlePolicyStartDateChange}
                   placeholder="Select Policy Start Date"
                 />
@@ -476,8 +318,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="tpExpiry"
-                  value={tpExpiry}
-                  onChange={(e) => setTpExpiry(e.target.value)}
+                  value={insurance.tpExpiry}
+                  onChange={handleInputChange}
                   placeholder="TP Expiry"
                   min="2025-01-01"
                 />
@@ -489,8 +331,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="makeModel"
-                  value={makeModel}
-                  onChange={(e) => setMakeModel(e.target.value)}
+                  value={insurance.makeModel}
+                  onChange={handleInputChange}
                   placeholder="Enter Make & Model"
                 />
               </div>
@@ -501,7 +343,7 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="vehicleAge"
-                  value={vehicleAge}
+                  value={insurance.vehicleAge}
                   placeholder="Vehicle Age "
                   readOnly
                 />
@@ -513,8 +355,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value)}
+                  value={insurance.cc}
+                  onChange={handleInputChange}
                   placeholder="Enter CC"
                 />
               </div>
@@ -523,9 +365,9 @@ function UpdateMaster() {
                 <label className="text-base mx-1">Policy Type:</label>
                 <select
                   className="input-style rounded-lg"
-                  value={policyType}
+                  value={insurance.policyType}
                   name="policyType"
-                  onChange={(e) => setPolicyType(e.target.value)}
+                  onChange={handleInputChange}
                 ><option className="w-1" value="" disabled>--- Select Policy Type ---</option>
                   {/* POLICY TYPES */}
                   {Object.keys(POLICY_TYPES).map(category => (
@@ -535,14 +377,14 @@ function UpdateMaster() {
               </div>
               {/* FIELD - 28 */}
               {
-                policyType === "SAOD" ? (<div className="flex flex-col my-5">
+                insurance.policyType === "SAOD" ? (<div className="flex flex-col my-5">
                   <label className="text-base mx-1">Liability Premium:</label>
                   <input
                     className="input-style rounded-lg"
                     type="number"
                     name="liabilityPremium"
-                    value={liabilityPremium}
-                    onChange={(e) => setLiabilityPremium(e.target.value)}
+                    value={insurance.liabilityPremium}
+                    onChange={handleInputChange}
                     placeholder="Disabled"
                     onBlur={updateNetPremium}
                     disabled
@@ -554,8 +396,8 @@ function UpdateMaster() {
                       className="input-style rounded-lg"
                       type="number"
                       name="liabilityPremium"
-                      value={liabilityPremium}
-                      onChange={(e) => setLiabilityPremium(e.target.value)}
+                      value={insurance.liabilityPremium}
+                      onChange={handleInputChange}
                       placeholder="Enter Liability Premium"
                       onBlur={updateNetPremium}
                     />
@@ -569,9 +411,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={finalEntryFields}
+                  value={insurance.finalEntryFields}
                   name="finalEntryFields"
-                  onChange={(e) => setFinalEntryFields(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder=" Final Amount"
                   readOnly
                 />
@@ -584,9 +426,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={advisorName}
+                  value={insurance.advisorName}
                   name="advisorName"
-                  onChange={(e) => setAdvisorName(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Advisor Name"
                 />
               </div>
@@ -599,8 +441,8 @@ function UpdateMaster() {
                   id="policyMadeBy"
                   name="policyMadeBy"
                   className="input-style rounded-lg"
-                  value={policyMadeBy}
-                  onChange={(e) => setPolicyMadeBy(e.target.value)}
+                  value={insurance.policyMadeBy}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Policy Made By ---</option>
                   <option value="RAHUL KUMAR">RAHUL KUMAR</option>
@@ -618,9 +460,9 @@ function UpdateMaster() {
                 <select
                   className="input-style rounded-lg"
 
-                  value={paymentDoneBy}
+                  value={insurance.paymentDoneBy}
                   name="paymentDoneBy"
-                  onChange={(e) => setPaymentDoneBy(e.target.value)}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Select Payment Done By ---</option>
                   <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
@@ -637,8 +479,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="chqPaymentDate"
-                  value={chqPaymentDate}
-                  onChange={(e) => setChqPaymentDate(e.target.value)}
+                  value={insurance.chqPaymentDate}
+                  onChange={handleInputChange}
                   placeholder="Select CHQ / Payment Date"
                 />
               </div>
@@ -649,8 +491,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="number"
                   name="branchPayout"
-                  value={branchPayout}
-                  onChange={(e) => setBranchPayout(e.target.value)}
+                  value={insurance.branchPayout}
+                  onChange={handleInputChange}
                   onBlur={() => {
    
                     calculateBranchPayableAmount();
@@ -666,8 +508,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="profitLoss"
-                  value={profitLoss}
-                  onChange={(e) => setProfitLoss(e.target.value)}
+                  value={insurance.profitLoss}
+                  onChange={handleInputChange}
                   placeholder="Profit/Loss Amount"
                   readOnly
                 />
@@ -685,9 +527,9 @@ function UpdateMaster() {
                 <select
                   id="company" name="company"
                   className="input-style  rounded-lg"
-                  value={company}
+                  value={insurance.company}
 
-                  onChange={(e) => setCompany(e.target.value)}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Select Company ---</option>
                   <option value="TATA AIG">TATA AIG</option>
@@ -710,9 +552,9 @@ function UpdateMaster() {
                 <label className="text-base mx-1">Sourcing:</label>
                 <select
                   className="input-style rounded-lg"
-                  value={sourcing}
+                  value={insurance.sourcing}
                   name="sourcing"
-                  onChange={(e) => setSourcing(e.target.value)}>
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
                   <option value="NEW">NEW</option>
                   <option value="RENEWAL">RENEWAL</option>
@@ -725,9 +567,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={contactNo}
+                  value={insurance.contactNo}
                   name="contactNo"
-                  onChange={(e) => setContactNo(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Contact No"/>
               </div>
               {/* FIELD - 11 */}
@@ -737,8 +579,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="policyEndDate"
-                  value={policyEndDate}
-                  onChange={(e) => setPolicyEndDate(e.target.value)}
+                  value={insurance.policyEndDate}
+                  onChange={handleInputChange}
                   placeholder="Select Policy End Date"/>
               </div>
               {/* FIELD - 14 */}
@@ -748,8 +590,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="idv"
-                  value={idv}
-                  onChange={(e) => setIdv(e.target.value)}
+                  value={insurance.idv}
+                  onChange={handleInputChange}
                   placeholder="Enter IDV"/>
               </div>
               {/* FIELD - 17 */}
@@ -759,8 +601,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="mfgYear"
-                  value={mfgYear}
-                  onChange={(e) => setMfgYear(e.target.value)}
+                  value={insurance.mfgYear}
+                  onChange={handleInputChange}
                   placeholder="Enter Manufacturing Year"/>
               </div>
               {/* FIELD - 20 */}
@@ -768,9 +610,9 @@ function UpdateMaster() {
                 <label className="text-base mx-1">Fuel:</label>
                 <select
                   className="input-style rounded-lg"
-                  value={fuel}
+                  value={insurance.fuel}
                   name="fuel"
-                  onChange={(e) => setFuel(e.target.value)}>
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Fuel Type ---</option>
                   <option value="Diesel">Diesel</option>
                   <option value="Petrol">Petrol</option>
@@ -785,8 +627,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="engNo"
-                  value={engNo}
-                  onChange={(e) => setEngNo(e.target.value)}
+                  value={insurance.engNo}
+                  onChange={handleInputChange}
                   placeholder="Enter Engine No"/>
               </div>
               {/* FIELD - 26 */}
@@ -795,8 +637,8 @@ function UpdateMaster() {
                 <select
                   id="productCode" name="productCode"
                   className="input-style rounded-lg"
-                  value={productCode}
-                  onChange={(e) => setProductCode(e.target.value)}>
+                  value={insurance.productCode}
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Product Code ---</option>
                   {/* {policyType &&
                     POLICY_TYPES[policyType].transactions.map((transaction) => (
@@ -820,7 +662,7 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="number"
                   name="netPremium"
-                  value={netPremium}
+                  value={insurance.netPremium}
                   onBlur={handleNetPremiumBlur}
                   placeholder="Net Premium"
                   readOnly />
@@ -832,8 +674,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="odDiscount"
-                  value={odDiscount}
-                  onChange={(e) => setOdDiscount(e.target.value)}
+                  value={insurance.odDiscount}
+                  onChange={handleInputChange}
                   placeholder="Enter OD Discount"/>
               </div>
               {/* FIELD - 35 */}
@@ -843,8 +685,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="subAdvisor"
-                  value={subAdvisor}
-                  onChange={(e) => setSubAdvisor(e.target.value)}
+                  value={insurance.subAdvisor}
+                  onChange={handleInputChange}
                   placeholder="Enter Sub Advisor"
                 />
               </div>
@@ -855,8 +697,8 @@ function UpdateMaster() {
                   id="payoutOn"
                   name="payoutOn"
                   className="input-style rounded-lg"
-                  value={payoutOn}
-                  onChange={(e) => setPayoutOn(e.target.value)}>
+                  value={insurance.payoutOn}
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Payout on ---</option>
                   <option value="NET">NET</option>
                   <option value="OD">OD</option>
@@ -869,9 +711,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={chqNoRefNo}
+                  value={insurance.chqNoRefNo}
                   name="chqNoRefNo"
-                  onChange={(e) => setChqNoRefNo(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter CHQ No / Ref No."
                 />
               </div>
@@ -880,9 +722,9 @@ function UpdateMaster() {
                 <label className="text-base mx-1">CHQ Status:</label>
                 <select
                   className="input-style rounded-lg"
-                  value={chqStatus}
+                  value={insurance.chqStatus}
                   name="chqStatus"
-                  onChange={(e) => setChqStatus(e.target.value)}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
                   <option value="PENDING">PENDING</option>
@@ -898,9 +740,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={branchPayableAmount}
+                  value={insurance.branchPayableAmount}
                   name="branchPayableAmount"
-                  onChange={(e) => setBranchPayableAmount(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Branch Payable Amount"
                   readOnly
                 />
@@ -916,9 +758,9 @@ function UpdateMaster() {
                 <label className="text-base mx-1">Category:</label>
                 <select
                   className="input-style rounded-lg"
-                  value={category}
+                  value={insurance.category}
                   name="category"
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={handleInputChange}
                 > <option className="w-1" value="" disabled>--- Select Category ---</option>
                   <option value="GIC">GIC</option>
                   <option value="LIFE">LIFE</option>
@@ -930,9 +772,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={policyNo}
+                  value={insurance.policyNo}
                   name="policyNo"
-                  onChange={(e) => setPolicyNo(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Policy No"
                 />
               </div>
@@ -942,9 +784,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={vehRegNo}
+                  value={insurance.vehRegNo}
                   name="vehRegNo"
-                  onChange={(e) => setVehRegNo(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Vehicle Reg No"
                 />
               </div>
@@ -955,8 +797,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="date"
                   name="odExpiry"
-                  value={odExpiry}
-                  onChange={(e) => setOdExpiry(e.target.value)}
+                  value={insurance.odExpiry}
+                  onChange={handleInputChange}
                   placeholder="Select OD Expiry"
                   min="2025-01-01"
                 />
@@ -967,9 +809,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={bodyType}
+                  value={insurance.bodyType}
                   name="bodyType"
-                  onChange={(e) => setBodyType(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Body Type"
                 />
               </div>
@@ -979,9 +821,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="date"
-                  value={registrationDate}
+                  value={insurance.registrationDate}
                   name="registrationDate"
-                  onChange={(e) => setRegistrationDate(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Select Registration Date"
                   min="1950-01-01"
                   max={getLastDayOfPreviousMonth()}
@@ -993,9 +835,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={gvw}
+                  value={insurance.gvw}
                   name="gvw"
-                  onChange={(e) => setGvw(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter GVW"
                 />
               </div>
@@ -1005,22 +847,22 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={chsNo}
+                  value={insurance.chsNo}
                   name="chsNo"
-                  onChange={(e) => setChsNo(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Enter Chassis No"
                 />
               </div>
               {/* FIELD - 27 */}
               {
-                policyType === "SATP" ? (<div className="flex flex-col my-5">
+                insurance.policyType === "SATP" ? (<div className="flex flex-col my-5">
                   <label className="text-base mx-1">OD Premium:</label>
                   <input
                     className="input-style rounded-lg"
                     type="number"
-                    value={odPremium}
+                    value={insurance.odPremium}
                     name="odPremium"
-                    onChange={(e) => setOdPremium(e.target.value)}
+                    onChange={handleInputChange}
                     placeholder="Disabled"
                     onBlur={updateNetPremium}
                     disabled
@@ -1030,9 +872,9 @@ function UpdateMaster() {
                   <input
                     className="input-style rounded-lg"
                     type="number"
-                    value={odPremium}
+                    value={insurance.odPremium}
                     name="odPremium"
-                    onChange={(e) => setOdPremium(e.target.value)}
+                    onChange={handleInputChange}
                     placeholder="Enter OD Premium"
                     onBlur={updateNetPremium}/>
                 </div>) }
@@ -1042,9 +884,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="text"
-                  value={taxes}
+                  value={insurance.taxes}
                   name="finalEntryFields"
-                  onChange={(e) => setTaxes(e.target.value)}
+                  onChange={handleInputChange}
                   onBlur={calculateFinalAmount}
                   placeholder="GST"
                 />
@@ -1056,8 +898,8 @@ function UpdateMaster() {
                   className="input-style rounded-lg"
                   type="text"
                   name="ncb"
-                  value={ncb}
-                  onChange={(e) => setNcb(e.target.value)}
+                  value={insurance.ncb}
+                  onChange={handleInputChange}
                   placeholder="Enter NCB"
                 />
               </div>
@@ -1067,8 +909,8 @@ function UpdateMaster() {
                 <select
                   id="branch" name="branch"
                   className="input-style rounded-lg"
-                  value={branch}
-                  onChange={(e) => setBranch(e.target.value)}
+                  value={insurance.branch}
+                  onChange={handleInputChange}
                 >
                   <option className="w-1" value="" disabled>--- Select Branch ---</option>
                   <option value="PATNA">PATNA</option>
@@ -1083,9 +925,9 @@ function UpdateMaster() {
                   id="policyPaymentMode"
 
                   className="input-style rounded-lg"
-                  value={policyPaymentMode}
+                  value={insurance.policyPaymentMode}
                   name="policyPaymentMode"
-                  onChange={(e) => setPolicyPaymentMode(e.target.value)}>
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
                   <option value="LINK">LINK</option>
                   <option value="ONLINE">ONLINE</option>
@@ -1108,8 +950,8 @@ function UpdateMaster() {
                   id="bankName"
                   name="bankName"
                   className="input-style rounded-lg"
-                  value={bankName}
-                  onChange={(e) => setBankName(e.target.value)}>
+                  value={insurance.bankName}
+                  onChange={handleInputChange}>
                   <option className="w-1" value="" disabled>--- Select Bank ---</option>
                   <option value="HDFC BANK">HDFC BANK</option>
                   <option value="ICICI BANK">ICICI BANK</option>
@@ -1128,9 +970,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="number"
-                  value={advisorPayableAmount}
+                  value={insurance.advisorPayableAmount}
                   name="advisorPayableAmount"
-                  onChange={(e) => setAdvisorPayableAmount(e.target.value)}
+                  onChange={handleInputChange}
                   placeholder="Advisor Payable Amount"/>
               </div>
               {/* FIELD - 48 */}
@@ -1139,9 +981,9 @@ function UpdateMaster() {
                 <input
                   className="input-style rounded-lg"
                   type="number"
-                  value={companyPayout}
+                  value={insurance.companyPayout}
                   name="companyPayout"
-                  onChange={(e) => setCompanyPayout(e.target.value)}
+                  onChange={handleInputChange}
                   onBlur={calculateProfitLoss}
                   placeholder="Enter Company Payout"/>
               </div>
@@ -1150,11 +992,7 @@ function UpdateMaster() {
             <div className="col-span-4 p-2 flex justify-center">
               <button
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                onClick=
-                {() => {
-                    handleSubmit(id);
-                    closeModal(false);
-                  }} type="button" > Submit </button>
+                onClick= {updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
             </div>
           </form>
               </section>
