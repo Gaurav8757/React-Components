@@ -126,7 +126,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   useEffect(() => {
     calculateAge();
-  });
+  }, []);
 
   // Calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -304,7 +304,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <select
                         className="input-style rounded-lg"
                         name="segment"
-                        value={insurance.segment}
+                        value={allDetails.segment}
                         onChange={handleInputChange}
                       >
                         <option className="w-1" value="" disabled>--- Select Segment ---</option>
@@ -323,7 +323,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="insuredName"
-                        value={insurance.insuredName}
+                        value={allDetails.insuredName}
                         onChange={handleInputChange}
                         placeholder="Enter Insured Name"
                       />
@@ -335,7 +335,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="date"
                         name="policyStartDate"
-                        value={insurance.policyStartDate}
+                        value={allDetails.policyStartDate}
                         onChange={handlePolicyStartDateChange}
                         placeholder="Select Policy Start Date"
                       />
@@ -347,7 +347,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="date"
                         name="tpExpiry"
-                        value={insurance.tpExpiry}
+                        value={allDetails.tpExpiry}
                         onChange={handleInputChange}
                         placeholder="TP Expiry"
                         min="2025-01-01"
@@ -360,7 +360,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="makeModel"
-                        value={insurance.makeModel}
+                        value={allDetails.makeModel}
                         onChange={handleInputChange}
                         placeholder="Enter Make & Model"
                       />
@@ -372,7 +372,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="vehicleAge"
-                        value={insurance.vehicleAge}
+                        value={allDetails.vehicleAge}
                         placeholder="Vehicle Age "
                         readOnly
                       />
@@ -384,7 +384,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="cc"
-                        value={insurance.cc}
+                        value={allDetails.cc}
                         onChange={handleInputChange}
                         placeholder="Enter CC"
                       />
@@ -394,7 +394,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">Policy Type:</label>
                       <select
                         className="input-style rounded-lg"
-                        value={insurance.policyType}
+                        value={allDetails.policyType}
                         name="policyType"
                         onChange={handleInputChange}
                       ><option className="w-1" value="" disabled>--- Select Policy Type ---</option>
@@ -406,13 +406,13 @@ function UpdateMaster({ insurance, onUpdate }) {
                     </div>
                     {/* FIELD - 28 */}
                     {
-                      insurance.policyType === "SAOD" ? (<div className="flex flex-col my-5">
+                      allDetails.policyType === "SAOD" ? (<div className="flex flex-col my-5">
                         <label className="text-base mx-1">Liability Premium:</label>
                         <input
                           className="input-style rounded-lg"
                           type="number"
                           name="liabilityPremium"
-                          value={insurance.liabilityPremium}
+                          value={allDetails.liabilityPremium}
                           onChange={handleInputChange}
                           placeholder="Disabled"
                           onBlur={updateNetPremium}
@@ -425,7 +425,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             className="input-style rounded-lg"
                             type="number"
                             name="liabilityPremium"
-                            value={insurance.liabilityPremium}
+                            value={allDetails.liabilityPremium}
                             onChange={handleInputChange}
                             placeholder="Enter Liability Premium"
                             onBlur={updateNetPremium}
@@ -440,7 +440,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.finalEntryFields}
+                        value={allDetails.finalEntryFields}
                         name="finalEntryFields"
                         onChange={handleInputChange}
                         placeholder=" Final Amount"
@@ -455,7 +455,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.advisorName}
+                        value={allDetails.advisorName}
                         name="advisorName"
                         onChange={handleInputChange}
                         placeholder="Enter Advisor Name"
@@ -470,7 +470,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         id="policyMadeBy"
                         name="policyMadeBy"
                         className="input-style rounded-lg"
-                        value={insurance.policyMadeBy}
+                        value={allDetails.policyMadeBy}
                         onChange={handleInputChange}
                       >
                         <option className="w-1" value="" disabled>--- Policy Made By ---</option>
@@ -489,7 +489,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <select
                         className="input-style rounded-lg"
 
-                        value={insurance.paymentDoneBy}
+                        value={allDetails.paymentDoneBy}
                         name="paymentDoneBy"
                         onChange={handleInputChange}
                       >
@@ -508,7 +508,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="date"
                         name="chqPaymentDate"
-                        value={insurance.chqPaymentDate}
+                        value={allDetails.chqPaymentDate}
                         onChange={handleInputChange}
                         placeholder="Select CHQ / Payment Date"
                       />
@@ -520,7 +520,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="number"
                         name="branchPayout"
-                        value={insurance.branchPayout}
+                        value={allDetails.branchPayout}
                         onChange={handleInputChange}
                         onBlur={() => {
 
@@ -537,7 +537,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="profitLoss"
-                        value={insurance.profitLoss}
+                        value={allDetails.profitLoss}
                         onChange={handleInputChange}
                         placeholder="Profit/Loss Amount"
                         readOnly
@@ -556,7 +556,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <select
                         id="company" name="company"
                         className="input-style  rounded-lg"
-                        value={insurance.company}
+                        value={allDetails.company}
 
                         onChange={handleInputChange}
                       >
@@ -581,7 +581,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">Sourcing:</label>
                       <select
                         className="input-style rounded-lg"
-                        value={insurance.sourcing}
+                        value={allDetails.sourcing}
                         name="sourcing"
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
@@ -596,7 +596,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.contactNo}
+                        value={allDetails.contactNo}
                         name="contactNo"
                         onChange={handleInputChange}
                         placeholder="Enter Contact No" />
@@ -608,7 +608,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="date"
                         name="policyEndDate"
-                        value={insurance.policyEndDate}
+                        value={allDetails.policyEndDate}
                         onChange={handleInputChange}
                         placeholder="Select Policy End Date" />
                     </div>
@@ -619,7 +619,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="idv"
-                        value={insurance.idv}
+                        value={allDetails.idv}
                         onChange={handleInputChange}
                         placeholder="Enter IDV" />
                     </div>
@@ -630,7 +630,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="mfgYear"
-                        value={insurance.mfgYear}
+                        value={allDetails.mfgYear}
                         onChange={handleInputChange}
                         placeholder="Enter Manufacturing Year" />
                     </div>
@@ -639,7 +639,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">Fuel:</label>
                       <select
                         className="input-style rounded-lg"
-                        value={insurance.fuel}
+                        value={allDetails.fuel}
                         name="fuel"
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Fuel Type ---</option>
@@ -656,7 +656,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="engNo"
-                        value={insurance.engNo}
+                        value={allDetails.engNo}
                         onChange={handleInputChange}
                         placeholder="Enter Engine No" />
                     </div>
@@ -666,10 +666,10 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <select
                         id="productCode" name="productCode"
                         className="input-style rounded-lg"
-                        value={insurance.productCode}
+                        value={allDetails.productCode}
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Product Code ---</option>
-                        {insurance.policyType &&
+                        {allDetails.policyType &&
                           POLICY_TYPES[insurance.policyType].transactions.map((transaction) => (
                             console.log(transaction),
                             <option key={transaction} value={transaction}>
@@ -689,7 +689,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="number"
                         name="netPremium"
-                        value={insurance.netPremium}
+                        value={allDetails.netPremium}
                         onBlur={handleNetPremiumBlur}
                         placeholder="Net Premium"
                         readOnly />
@@ -701,7 +701,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="odDiscount"
-                        value={insurance.odDiscount}
+                        value={allDetails.odDiscount}
                         onChange={handleInputChange}
                         placeholder="Enter OD Discount" />
                     </div>
@@ -712,7 +712,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="subAdvisor"
-                        value={insurance.subAdvisor}
+                        value={allDetails.subAdvisor}
                         onChange={handleInputChange}
                         placeholder="Enter Sub Advisor"
                       />
@@ -724,7 +724,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         id="payoutOn"
                         name="payoutOn"
                         className="input-style rounded-lg"
-                        value={insurance.payoutOn}
+                        value={allDetails.payoutOn}
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Payout on ---</option>
                         <option value="NET">NET</option>
@@ -738,7 +738,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.chqNoRefNo}
+                        value={allDetails.chqNoRefNo}
                         name="chqNoRefNo"
                         onChange={handleInputChange}
                         placeholder="Enter CHQ No / Ref No."
@@ -749,7 +749,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">CHQ Status:</label>
                       <select
                         className="input-style rounded-lg"
-                        value={insurance.chqStatus}
+                        value={allDetails.chqStatus}
                         name="chqStatus"
                         onChange={handleInputChange}
                       >
@@ -767,7 +767,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.branchPayableAmount}
+                        value={allDetails.branchPayableAmount}
                         name="branchPayableAmount"
                         onChange={handleInputChange}
                         placeholder="Branch Payable Amount"
@@ -785,7 +785,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">Category:</label>
                       <select
                         className="input-style rounded-lg"
-                        value={insurance.category}
+                        value={allDetails.category}
                         name="category"
                         onChange={handleInputChange}
                       > <option className="w-1" value="" disabled>--- Select Category ---</option>
@@ -799,7 +799,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.policyNo}
+                        value={allDetails.policyNo}
                         name="policyNo"
                         onChange={handleInputChange}
                         placeholder="Enter Policy No"
@@ -811,7 +811,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.vehRegNo}
+                        value={allDetails.vehRegNo}
                         name="vehRegNo"
                         onChange={handleInputChange}
                         placeholder="Enter Vehicle Reg No"
@@ -824,7 +824,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="date"
                         name="odExpiry"
-                        value={insurance.odExpiry}
+                        value={allDetails.odExpiry}
                         onChange={handleInputChange}
                         placeholder="Select OD Expiry"
                         min="2025-01-01"
@@ -836,7 +836,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.bodyType}
+                        value={allDetails.bodyType}
                         name="bodyType"
                         onChange={handleInputChange}
                         placeholder="Enter Body Type"
@@ -848,7 +848,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="date"
-                        value={insurance.registrationDate}
+                        value={allDetails.registrationDate}
                         name="registrationDate"
                         onChange={handleInputChange}
                         placeholder="Select Registration Date"
@@ -862,7 +862,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.gvw}
+                        value={allDetails.gvw}
                         name="gvw"
                         onChange={handleInputChange}
                         placeholder="Enter GVW"
@@ -874,7 +874,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.chsNo}
+                        value={allDetails.chsNo}
                         name="chsNo"
                         onChange={handleInputChange}
                         placeholder="Enter Chassis No"
@@ -887,7 +887,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <input
                           className="input-style rounded-lg"
                           type="number"
-                          value={insurance.odPremium}
+                          value={allDetails.odPremium}
                           name="odPremium"
                           onChange={handleInputChange}
                           placeholder="Disabled"
@@ -899,7 +899,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <input
                           className="input-style rounded-lg"
                           type="number"
-                          value={insurance.odPremium}
+                          value={allDetails.odPremium}
                           name="odPremium"
                           onChange={handleInputChange}
                           placeholder="Enter OD Premium"
@@ -911,7 +911,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="text"
-                        value={insurance.taxes}
+                        value={allDetails.taxes}
                         name="finalEntryFields"
                         onChange={handleInputChange}
                         onBlur={calculateFinalAmount}
@@ -925,7 +925,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         type="text"
                         name="ncb"
-                        value={insurance.ncb}
+                        value={allDetails.ncb}
                         onChange={handleInputChange}
                         placeholder="Enter NCB"
                       />
@@ -936,7 +936,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <select
                         id="branch" name="branch"
                         className="input-style rounded-lg"
-                        value={insurance.branch}
+                        value={allDetails.branch}
                         onChange={handleInputChange}
                       >
                         <option className="w-1" value="" disabled>--- Select Branch ---</option>
@@ -952,7 +952,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         id="policyPaymentMode"
 
                         className="input-style rounded-lg"
-                        value={insurance.policyPaymentMode}
+                        value={allDetails.policyPaymentMode}
                         name="policyPaymentMode"
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
@@ -977,7 +977,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         id="bankName"
                         name="bankName"
                         className="input-style rounded-lg"
-                        value={insurance.bankName}
+                        value={allDetails.bankName}
                         onChange={handleInputChange}>
                         <option className="w-1" value="" disabled>--- Select Bank ---</option>
                         <option value="HDFC BANK">HDFC BANK</option>
@@ -997,7 +997,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="number"
-                        value={insurance.advisorPayableAmount}
+                        value={allDetails.advisorPayableAmount}
                         name="advisorPayableAmount"
                         onChange={handleInputChange}
                         placeholder="Advisor Payable Amount" />
@@ -1008,7 +1008,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="number"
-                        value={insurance.companyPayout}
+                        value={allDetails.companyPayout}
                         name="companyPayout"
                         onChange={handleInputChange}
                         onBlur={calculateProfitLoss}

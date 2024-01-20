@@ -76,11 +76,7 @@ function MasterForm() {
     const today = new Date();
     const birthdateDate = new Date(registrationDate);
 
-    if (isNaN(birthdateDate.getTime())) {
-      // Handle the case where the date is invalid
-      console.error('Invalid date format for registrationDate');
-      return;
-    }
+    
 
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
     let ageMonths = today.getMonth() - birthdateDate.getMonth();

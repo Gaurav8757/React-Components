@@ -75,7 +75,7 @@ function MasterView() {
                       <th scope="col" className="px-5 py-4">Policy Made By</th>
                       <th scope="col" className="px-5 py-4">Branch</th>
                       <th scope="col" className="px-5 py-4">Payout On</th>
-                      <th scope="col" className="px-5 py-4">Advisor Payout</th>
+                     
                       <th scope="col" className="px-5 py-4">Policy Payment Mode</th>
                       <th scope="col" className="px-5 py-4">Payment Done By</th>
                       <th scope="col" className="px-5 py-4">CHQ No / Ref No</th>
@@ -128,7 +128,6 @@ function MasterView() {
                         <td className="whitespace-nowrap px-4 py-4">{data.policyMadeBy}</td>
                         <td className="whitespace-nowrap px-4 py-4">{data.branch}</td>
                         <td className="whitespace-nowrap px-4 py-4">{data.payoutOn}</td>
-                        <td className="whitespace-nowrap px-4 py-4">{data.advisorPayout}</td>
                         <td className="whitespace-nowrap px-4 py-4">{data.policyPaymentMode}</td>
                         <td className="whitespace-nowrap px-4 py-4">{data.paymentDoneBy}</td>
                         <td className="whitespace-nowrap px-4 py-4">{data.chqNoRefNo}</td>
