@@ -75,138 +75,138 @@ function UpdateMaster({ insurance, onUpdate }) {
 
 
   // Function to update netPremium when odPremium or liabilityPremium changes
-  const updateNetPremium = () => {
-    const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
-    const liabilityPremiumValue = parseFloat(allDetails.liabilityPremium) || 0;
-    // Calculate netPremium by adding odPremium and liabilityPremium
-    const newNetPremium = odPremiumValue + liabilityPremiumValue;
-    // Set the updated netPremium value directly
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      netPremium: newNetPremium.toFixed(2)
-    }));
-  };
+  // const updateNetPremium = () => {
+  //   const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
+  //   const liabilityPremiumValue = parseFloat(allDetails.liabilityPremium) || 0;
+  //   // Calculate netPremium by adding odPremium and liabilityPremium
+  //   const newNetPremium = odPremiumValue + liabilityPremiumValue;
+  //   // Set the updated netPremium value directly
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     netPremium: newNetPremium.toFixed(2)
+  //   }));
+  // };
 
-  // Calculate the last day of the previous month
-  const getLastDayOfPreviousMonth = () => {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
-  };
+  // // Calculate the last day of the previous month
+  // const getLastDayOfPreviousMonth = () => {
+  //   const today = new Date();
+  //   return today.toISOString().split('T')[0];
+  // };
 
-  // VEHICLE AGE CALCULATED
-  const calculateAge = () => {
-    const today = new Date();
-    const birthdateDate = new Date(allDetails.registrationDate);
+  // // VEHICLE AGE CALCULATED
+  // const calculateAge = () => {
+  //   const today = new Date();
+  //   const birthdateDate = new Date(allDetails.registrationDate);
 
-    // if (isNaN(birthdateDate.getTime())) {
-    //   console.error('Invalid date format for registrationDate');
-    //   return;
-    // }
+  //   // if (isNaN(birthdateDate.getTime())) {
+  //   //   console.error('Invalid date format for registrationDate');
+  //   //   return;
+  //   // }
 
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
+  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
+  //   let ageDays = today.getDate() - birthdateDate.getDate();
 
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
+  //   if (ageDays < 0) {
+  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  //     ageDays = lastDayOfPreviousMonth + ageDays;
+  //     ageMonths--;
+  //   }
 
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
+  //   if (ageMonths < 0) {
+  //     ageYears--;
+  //     ageMonths = 12 + ageMonths;
+  //   }
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+  //   }));
+  // };
 
-  useEffect(() => {
-    calculateAge();
-  }, []);
+  // // useEffect(() => {
+  // //   calculateAge();
+  // // }, []);
 
-  // Calculate taxes with netPremium
-  const calculateFinalAmount = () => {
-    const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
-    const taxesValue = parseFloat(allDetails.taxes) || 0;
-    const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
+  // // Calculate taxes with netPremium
+  // const calculateFinalAmount = () => {
+  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+  //   const taxesValue = parseFloat(allDetails.taxes) || 0;
+  //   const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      finalEntryFields: finalAmountValue.toFixed(2)
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     finalEntryFields: finalAmountValue.toFixed(2)
+  //   }));
+  // };
 
-  // Calculate branch payable amount
-  const calculateBranchPayableAmount = () => {
-    const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
-    const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
-    const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
+  // // Calculate branch payable amount
+  // const calculateBranchPayableAmount = () => {
+  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+  //   const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
+  //   const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      branchPayableAmount: branchPayableAmountValue.toFixed(2)
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     branchPayableAmount: branchPayableAmountValue.toFixed(2)
+  //   }));
+  // };
 
-  // Calculation of profit/loss
-  const calculateProfitLoss = () => {
-    const companyPayoutValue = parseFloat(allDetails.companyPayout) || 0;
-    const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
-    const profitLossValue = companyPayoutValue - branchPayoutValue;
+  // // Calculation of profit/loss
+  // const calculateProfitLoss = () => {
+  //   const companyPayoutValue = parseFloat(allDetails.companyPayout) || 0;
+  //   const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
+  //   const profitLossValue = companyPayoutValue - branchPayoutValue;
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      profitLoss: profitLossValue.toFixed(2)
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     profitLoss: profitLossValue.toFixed(2)
+  //   }));
+  // };
 
 
-  // Final amount set
-  const handleNetPremiumBlur = () => {
-    if (allDetails.calculationType === 'finalAmount') {
-      calculateFinalAmount();
-    } else if (allDetails.calculationType === 'branchPayableAmount') {
-      calculateBranchPayableAmount();
-    }
-    // Reset the calculation type after performing the calculation
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      calculationType: ''
-    }));
-  };
+  // // Final amount set
+  // const handleNetPremiumBlur = () => {
+  //   if (allDetails.calculationType === 'finalAmount') {
+  //     calculateFinalAmount();
+  //   } else if (allDetails.calculationType === 'branchPayableAmount') {
+  //     calculateBranchPayableAmount();
+  //   }
+  //   // Reset the calculation type after performing the calculation
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     calculationType: ''
+  //   }));
+  // };
 
-  const handlePolicyStartDateChange = (e) => {
-    const startDate = e.target.value;
-    const odExpiryDate = new Date(startDate);
-    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      odExpiry: odExpiryDate.toISOString().split('T')[0]
-    }));
+  // const handlePolicyStartDateChange = (e) => {
+  //   const startDate = e.target.value;
+  //   const odExpiryDate = new Date(startDate);
+  //   odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     odExpiry: odExpiryDate.toISOString().split('T')[0]
+  //   }));
 
-    const policyEndDateValue = new Date(startDate);
-    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      policyEndDate: policyEndDateValue.toISOString().split('T')[0]
-    }));
+  //   const policyEndDateValue = new Date(startDate);
+  //   policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     policyEndDate: policyEndDateValue.toISOString().split('T')[0]
+  //   }));
 
-    const tpExpiryDate = new Date(startDate);
-    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      tpExpiry: tpExpiryDate.toISOString().split('T')[0]
-    }));
+  //   const tpExpiryDate = new Date(startDate);
+  //   tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     tpExpiry: tpExpiryDate.toISOString().split('T')[0]
+  //   }));
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      policyStartDate: startDate
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     policyStartDate: startDate
+  //   }));
+  // };
 
   // handle input change
   const handleInputChange = (e) => {
@@ -336,7 +336,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         type="date"
                         name="policyStartDate"
                         value={allDetails.policyStartDate}
-                        onChange={handlePolicyStartDateChange}
+                        onChange={handleInputChange}
                         placeholder="Select Policy Start Date"
                       />
                     </div>
@@ -415,7 +415,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           value={allDetails.liabilityPremium}
                           onChange={handleInputChange}
                           placeholder="Disabled"
-                          onBlur={updateNetPremium}
+                          // onBlur={updateNetPremium}
                           disabled
                         />
                       </div>)
@@ -428,7 +428,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             value={allDetails.liabilityPremium}
                             onChange={handleInputChange}
                             placeholder="Enter Liability Premium"
-                            onBlur={updateNetPremium}
+                            // onBlur={updateNetPremium}
                           />
                         </div>)
                     }
@@ -522,11 +522,11 @@ function UpdateMaster({ insurance, onUpdate }) {
                         name="branchPayout"
                         value={allDetails.branchPayout}
                         onChange={handleInputChange}
-                        onBlur={() => {
+                        // onBlur={() => {
 
-                          calculateBranchPayableAmount();
-                          calculateProfitLoss();
-                        }}
+                        //   calculateBranchPayableAmount();
+                        //   calculateProfitLoss();
+                        // }}
                         placeholder="Enter Branch Payout"
                       />
                     </div>
@@ -671,7 +671,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <option className="w-1" value="" disabled>--- Select Product Code ---</option>
                         {allDetails.policyType &&
                           POLICY_TYPES[insurance.policyType].transactions.map((transaction) => (
-                            console.log(transaction),
+                            
                             <option key={transaction} value={transaction}>
                               {transaction}
 
@@ -690,7 +690,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         type="number"
                         name="netPremium"
                         value={allDetails.netPremium}
-                        onBlur={handleNetPremiumBlur}
+                        // onBlur={handleNetPremiumBlur}
                         placeholder="Net Premium"
                         readOnly />
                     </div>
@@ -853,7 +853,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         onChange={handleInputChange}
                         placeholder="Select Registration Date"
                         min="1950-01-01"
-                        max={getLastDayOfPreviousMonth()}
+                        // max={getLastDayOfPreviousMonth()}
                       />
                     </div>
                     {/* FIELD - 21 */}
@@ -891,7 +891,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           name="odPremium"
                           onChange={handleInputChange}
                           placeholder="Disabled"
-                          onBlur={updateNetPremium}
+                          // onBlur={updateNetPremium}
                           disabled
                         />
                       </div>) : (<div className="flex flex-col my-5">
@@ -903,7 +903,8 @@ function UpdateMaster({ insurance, onUpdate }) {
                           name="odPremium"
                           onChange={handleInputChange}
                           placeholder="Enter OD Premium"
-                          onBlur={updateNetPremium} />
+                          // onBlur={updateNetPremium}
+                           />
                       </div>)}
                     {/* FIELD - 30 */}
                     <div className="flex flex-col my-5">
@@ -914,7 +915,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         value={allDetails.taxes}
                         name="finalEntryFields"
                         onChange={handleInputChange}
-                        onBlur={calculateFinalAmount}
+                        // onBlur={calculateFinalAmount}
                         placeholder="GST"
                       />
                     </div>
@@ -1011,7 +1012,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         value={allDetails.companyPayout}
                         name="companyPayout"
                         onChange={handleInputChange}
-                        onBlur={calculateProfitLoss}
+                        // onBlur={calculateProfitLoss}
                         placeholder="Enter Company Payout" />
                     </div>
                   </div>
