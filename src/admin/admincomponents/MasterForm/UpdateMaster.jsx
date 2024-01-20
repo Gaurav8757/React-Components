@@ -126,7 +126,7 @@ function UpdateMaster({insurance, onUpdate}) {
 
   useEffect(() => {
     calculateAge();
-  }, [allDetails.registrationDate]);
+  }, []);
 
   // Calculate taxes with netPremium
   const calculateFinalAmount = () => {

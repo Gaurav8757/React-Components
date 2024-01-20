@@ -241,14 +241,14 @@ function UpdateCompanyModal({ datas, onUpdate }) {
                           ----- Select Category -----
                         </option>
                         {/* Map categories based on selected insurance type */}
-                        {datas.comp_insurance &&
+                        {/* {companyData.comp_insurance &&
                           homesection
                             .find((ins) => ins.title === datas.comp_insurance)
                             ?.subItems.map((subItem, idx) => (
                               <option key={idx} value={subItem.subtitle}>
                                 {subItem.subtitle}
                               </option>
-                            ))}
+                            ))} */}
                       </select>
                     </div>
 
