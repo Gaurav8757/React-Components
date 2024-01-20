@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
@@ -79,18 +80,16 @@ let homesection = [
   },
 ]
 
-function UpdateCompanyModal({ company }) {
+function UpdateCompanyModal({ datas, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [companyData, setCompanyData] = useState({
     comp_cname: "",
     comp_insurance: "",
     comp_categories: "",
     comp_establishment: "",
-    comp_cfiles: ""
+    comp_cfiles: null
   });
-
 
   // OPEN MODAL
   const openModal = () => {
@@ -101,53 +100,57 @@ function UpdateCompanyModal({ company }) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-  
-    setCompanyData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-  
-
-
-
-  const handleSubmit = async () => {
-
-
-    try {
-      // Use the selected category ID in the patch method
-      await axios.patch(`https://eleedomimf.onrender.com/api/company/updatecomp/${company._id}`, companyData).then((resp) => {
-        console.log(resp.data);
-        toast.success(`${resp.data.status}`)
-      }).catch((error) => {
-        console.error(error);
-      });
-      // Handle success, redirect, or show a success message
-      closeModal(); // Close the modal after successful submission
-
-    } catch (error) {
-      setLoading(false);
-      console.error("Error updating company:", error);
-      // Handle error, show an error message, etc.
+    const { name, value, files } = e.target;
+    if (name === 'comp_cfiles' && files && files.length > 0) {
+      // If it's a file input, handle it separately
+      setCompanyData((prevData) => ({
+        ...prevData,
+        [name]: files[0],  // Set the file directly
+      }));
+    } else {
+      // For other input fields, handle normally
+      setCompanyData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
   };
-  // Fetch company details based on ID
+  // show all data inside input tag
   useEffect(() => {
-    const fetchCompanyData = async () => {
-      try {
-        if (company) {
-          setCompanyData(company); // Set the fetched data to state
-        }
-      } catch (error) {
-        console.error("Error fetching company details:", error);
-      }
-    };
-  
-    fetchCompanyData();
-  }, [company]);
-  
+    setCompanyData(datas);
+  }, [datas]);
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const formData = new FormData();
+
+      // Append all fields to FormData
+      Object.entries(companyData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      // Use the selected category ID in the patch method
+      const resp = await axios.patch(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(resp.data);
+      toast.success(`${resp.data.status}`)
+      closeModal(); // Close the modal after successful submissi
+      onUpdate();
+    } catch (error) {
+      console.error("Error updating company:", error);
+      // Handle error, show an error message, etc.
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -245,9 +248,9 @@ function UpdateCompanyModal({ company }) {
                           ----- Select Category -----
                         </option>
                         {/* Map categories based on selected insurance type */}
-                        {companyData.comp_insurance &&
+                        {datas.comp_insurance &&
                           homesection
-                            .find((ins) => ins.title === company.comp_insurance)
+                            .find((ins) => ins.title === datas.comp_insurance)
                             ?.subItems.map((subItem, idx) => (
                               <option key={idx} value={subItem.subtitle}>
                                 {subItem.subtitle}
@@ -263,7 +266,7 @@ function UpdateCompanyModal({ company }) {
                         type="file"
                         name="comp_cfiles"
                         accept="/*"
-                        onChange={(e) => handleInputChange({ target: { name: 'comp_cfiles', value: e.target.files[0] } })}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -286,5 +289,4 @@ function UpdateCompanyModal({ company }) {
     </>
   );
 }
-
 export default UpdateCompanyModal;

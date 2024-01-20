@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 export default function ViewCompany() {
     const [APIData, setAPIData] = useState([]);
-   
     const [search, setSearch] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -30,21 +29,29 @@ export default function ViewCompany() {
                 });
         }
     }, [APIData]);
+ // refreshing page after updating data
+ const onUpdateCompany = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
 
-    const setData = (data) => {
-        let {
-            insurance,
-            category,
-            establishment,
-            cname,
-            cfiles,
-        } = data;
-        sessionStorage.setItem("comp_insurance", insurance);
-        sessionStorage.setItem("comp_categories", category);
-        sessionStorage.setItem("comp_establishment", establishment);
-        sessionStorage.setItem("comp_cname", cname);
-        sessionStorage.setItem("comp_cfiles", cfiles);
-    };
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/api/company/company-list`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated company data:", error);
+    }
+  };
+    
 
     // ******************** Delete Functions *************************************/
     const onDeleteCompany = async (_id) => {
@@ -135,11 +142,7 @@ export default function ViewCompany() {
 
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                
-                                                    <button type="button">
-                                                    <UpdateCompanyModal onClick={() => setData(data)} />
-                                                    </button>
-
+                                                    <UpdateCompanyModal onUpdate = {onUpdateCompany} datas = {data} />
                                             </td>
                                         
                                             <td className="whitespace-nowrap px-4 py-4">
