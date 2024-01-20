@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 export default function ViewCompany() {
     const [APIData, setAPIData] = useState([]);
     const [search, setSearch] = useState("");
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -28,7 +29,8 @@ export default function ViewCompany() {
                     console.error(error);
                 });
         }
-    }, [APIData]);
+    }, []);
+
  // refreshing page after updating data
  const onUpdateCompany = async () => {
     try {

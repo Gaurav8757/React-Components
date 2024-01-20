@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { CgCloseR } from "react-icons/cg";
-import { useState, } from "react";
+import { useState, useEffect } from "react";
+// import {useParams} from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 let homesection = [
@@ -102,31 +103,23 @@ function UpdateCompanyModal({ datas, onUpdate }) {
 
 
   const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'comp_cfiles' && files && files.length > 0) {
-      // If it's a file input, handle it separately
-      setCompanyData((prevData) => ({
-        ...prevData,
-        [name]: files[0],  // Set the file directly
-      }));
-    } else {
-      // For other input fields, handle normally
-      setCompanyData((prevData) => ({
+    const { name, value } = e.target;
+    setCompanyData((prevData) => ({
         ...prevData,
         [name]: value,
-      }));
-    }
-  };
+    }));
+};
+  
 
   // show all data inside input tag
-  // useEffect(() => {
-  //   setCompanyData(datas);
-  // }, [datas]);
+  useEffect(() => {
+    setCompanyData(datas);
+  }, [datas]);
 
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const updateCompanyData = async () => {
+    // e.preventDefault();
     try {
       setLoading(true);
       const formData = new FormData();
@@ -147,7 +140,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
       onUpdate();
     } catch (error) {
       console.error("Error updating company:", error);
-      // Handle error, show an error message, etc.
+    } finally {
       setLoading(false);
     }
   };
@@ -274,7 +267,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
                   <div className="w-full flex justify-center p-2">
                     <button
                       className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
-                      onClick={handleSubmit}
+                      onClick={updateCompanyData}
                       type="button"
                     >
                       {loading ? "Submitting..." : "Submit"}
