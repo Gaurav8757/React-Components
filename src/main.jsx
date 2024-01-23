@@ -25,14 +25,15 @@ import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
 import Admin from "./admin/Admin.jsx";
 import Dashboard from "./admin/admincomponents/Dashboard.jsx";
-import AddBranch from "./admin/admincomponents/AddBranch.jsx";
+import AddBranch from "./admin/admincomponents/Branch/AddBranch.jsx";
 import AddEmployee from "./admin/admincomponents/AddEmployee.jsx";
 import AddSalary from "./admin/admincomponents/AddSalary.jsx";
 import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
-import ViewBranch from "./admin/admincomponents/ViewBranch.jsx";
+import ViewBranch from "./admin/admincomponents/Branch/ViewBranch.jsx";
+import UpdateBranch from "./admin/admincomponents/Branch/UpdateBranch.jsx";
 import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
 import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/ViewPolicy.jsx";
@@ -142,6 +143,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewcompanies" element={<ViewCompany />} />
           <Route path="/dashboard/addbranch" element={<AddBranch />} />
           <Route path="/dashboard/viewbranch" element={<ViewBranch />} />
+          <Route path="/dashboard/updatebranch" element={<UpdateBranch />} />
           <Route path="/dashboard/addemployee" element={<AddEmployee />} />
           <Route path="/dashboard/viewemployee" element={<ViewEmployee />} />
           <Route path="/dashboard/addsalary" element={<AddSalary />} />

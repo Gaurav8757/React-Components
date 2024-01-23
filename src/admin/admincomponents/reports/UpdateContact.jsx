@@ -4,7 +4,7 @@ import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-function UpdateContact({ data, onUpdate}) {  
+function UpdateContact({ data, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [contactData, setContactData] = useState({
@@ -42,31 +42,31 @@ function UpdateContact({ data, onUpdate}) {
 
 
 
- // API call to update contact
- const updateContactAPI = async () => {
-    try {
-      setLoading(true);
+    // API call to update contact
+    const updateContactAPI = async () => {
+        try {
+            setLoading(true);
 
-      // Make an API call to update contact
-      const response = await axios.patch(
-        `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
-        contactData
-      );
-    
-toast.success(`${response.data.status}`)
-      // Close the modal after successful update
-      closeModal();
-      onUpdate(); 
-    } catch (error) {
-     toast.error(`${error}`)
-      console.error("Error updating contact:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+            // Make an API call to update contact
+            const response = await axios.patch(
+                `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
+                contactData
+            );
+
+            toast.success(`${response.data.status}`)
+            // Close the modal after successful update
+            closeModal();
+            onUpdate();
+        } catch (error) {
+            toast.error(`${error}`)
+            console.error("Error updating contact:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
-    
+
 
     return (
         <>
