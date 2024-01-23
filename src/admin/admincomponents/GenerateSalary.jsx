@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import {toast } from "react-toastify";
 import axios from "axios";
 
 function GenerateSalary() {
@@ -26,7 +27,7 @@ function GenerateSalary() {
   const handleEmployeeChange = (selectedEmployee) => {
     // Find the selected employee object from the salaryList
     const selectedEmp = salaryList.find((emp) => emp._id === selectedEmployee);
-    console.log(selectedEmp);
+    // console.log(selectedEmp);
     // Update state values based on the selected employee
     setEmpname(selectedEmployee);
     setMonthleave(selectedEmp ? selectedEmp.saleavemonth : "");
@@ -34,10 +35,48 @@ function GenerateSalary() {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Your form submission logic
+    try {
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/gensalary", {
+        empName: empname,
+        presentDays: persentday,
+        totalHalfDays: halfday,
+        totalAbsent: absent,
+        genSalary: salaries,
+        monthsalary: monthsalary,
+        genMonths: months,
+        monthleave: monthleave,
+        totalDays: totaldays,
+        incentive: incentive,
+        totalAmount: amount,
+      });
+
+      if (response.data) {
+        toast.success("Added Successfully!");
+        setSalaryList("");  // This line seems unnecessary, you might want to revisit it
+        // Reset the form and loading state on successful submission
+        setEmpname("");
+        setMonths("");
+        setPersentday("");
+        setHalfday("");
+        setAbsent("");
+        setSalaries("");
+        setMonthsalary("");
+        setMonthleave("");
+        setTotaldays("");
+        setIncentive("");
+        setAmount("");
+        setLoading(false);
+      } else {
+        toast.error("Error Occurred. Try again...!");
+      }
+    } catch (error) {
+      console.error("Error during salary generation:", error.response);
+      toast.error("Error Occurred. Try again...!");
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,9 +90,11 @@ function GenerateSalary() {
                 <label className="text-base mx-1">Employee Name</label>
                 <select
                   className="input-style rounded-lg text-base h-10"
-                  name="empadd"
+                  
                   value={empname}
-                  onChange={(e) => handleEmployeeChange(e.target.value)}>
+                  onChange={(e) => handleEmployeeChange(e.target.value)}
+                  name="empName"
+                  >
                   <option value="" disabled className="text-base">
                     ----- Select Employee -----
                   </option>
@@ -74,6 +115,7 @@ function GenerateSalary() {
                   max="12"
                   value={monthleave}
                   onChange={(e) => setMonthleave(e.target.value)}
+                  name="monthleave"
                   placeholder={monthleave}
                   readOnly
                 />
@@ -87,6 +129,7 @@ function GenerateSalary() {
                   min="0"
                   value={totaldays}
                   onChange={(e) => setTotaldays(e.target.value)}
+                  name="totalDays"
                   placeholder=""
                 />
               </div>
@@ -99,8 +142,7 @@ function GenerateSalary() {
                   min="0"
                   value={halfday}
                   onChange={(e) => setHalfday(e.target.value)}
-                  placeholder=""
-                  readOnly
+                  name="totalHalfDays"
                 />
               </div>
 
@@ -112,6 +154,7 @@ function GenerateSalary() {
                   min="0"
                   value={salaries}
                   onChange={(e) => setSalaries(e.target.value)}
+                  name="genSalary"
                   placeholder="₹"
                 />
               </div>
@@ -124,8 +167,9 @@ function GenerateSalary() {
                   min="0"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
+                  name="totalAmount"
                   placeholder="₹"
-                  readOnly
+                  
                 />
               </div>
             </div>
@@ -138,8 +182,9 @@ function GenerateSalary() {
                   min="0"
                   value={monthsalary}
                   onChange={(e) => setMonthsalary(e.target.value)}
+                  name="monthsalary"
                   placeholder=""
-                  readOnly
+                  
                 />
               </div>
               <div className="flex flex-col my-5 ">
@@ -148,7 +193,11 @@ function GenerateSalary() {
                   className="input-style rounded-lg"
                   type="text"
                   value={months}
-                  onChange={(e) => setMonths(e.target.value)}>
+
+                  onChange={(e) => setMonths(e.target.value)}
+                  name="genMonths"
+                  >
+                    
                   <option key="0" value="" disabled>----- Select Month&apos;s -----</option>
                   <option key="1" value={"January"}>January</option>
                   <option key="2" value={"Febuary"}>Febuary</option>
@@ -173,6 +222,7 @@ function GenerateSalary() {
                   min="0"
                   value={persentday}
                   onChange={(e) => setPersentday(e.target.value)}
+                  name="presentDays"
                 />
               </div>
 
@@ -184,7 +234,7 @@ function GenerateSalary() {
                   min="0"
                   value={absent}
                   onChange={(e) => setAbsent(e.target.value)}
-                  placeholder=""
+                  name="totalAbsent"
                 />
               </div>
 
@@ -196,6 +246,7 @@ function GenerateSalary() {
                   min="0"
                   value={incentive}
                   onChange={(e) => setIncentive(e.target.value)}
+                  name="incentive"
                   placeholder="₹"
                 />
               </div>
