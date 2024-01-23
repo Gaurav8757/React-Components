@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
+import UpdateAdvisor from "./UpdateAdvisor.jsx";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
  function ViewAdvisor() {
@@ -26,21 +27,31 @@ import { TiArrowBack } from "react-icons/ti";
                     console.error(error);
                 });
         }
-    }, [APIData]);
+    }, []);
 
-    const setData = (data) => {
-        let {
-            advisorname,
-            advisoremail,
-            addpolicycname,
-            advisormobile,   
-        } = data;
-       
-        sessionStorage.setItem("advisorname", advisorname);
-        sessionStorage.setItem("advisoremail",  advisoremail);
-        sessionStorage.setItem("addpolicycname", addpolicycname);
-        sessionStorage.setItem("advisormobile", advisormobile);
-    };
+  // refreshing page after updating data
+  const onUpdateAdvisor = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/advisor/lists`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated Branch data:", error);
+    }
+  };
 
     // ******************** Delete Functions *************************************/
     const onDeleteAdvisor = async (_id) => {
@@ -105,17 +116,12 @@ import { TiArrowBack } from "react-icons/ti";
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.advisormobile}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-wrap px-4 py-4">
                                                 {data.advisorpassword}
                                             </td>
                                             
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <Link to="#">
-                                                    <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                        {/* <UpdateForm/> */} Edit
-                                                    </button>
-
-                                                </Link>
+                                               <UpdateAdvisor advisor = {data} onUpdate = {onUpdateAdvisor} />
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>

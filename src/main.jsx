@@ -74,8 +74,9 @@ import LoginAdvisor from "./advisor/LoginAdvisor.jsx";
 import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
 import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
-import AddAdvisor from "./admin/admincomponents/AddAdvisor.jsx";
-import ViewAdvisor from "./admin/admincomponents/ViewAdvisor.jsx";
+import AddAdvisor from "./admin/admincomponents/Advisor/AddAdvisor.jsx";
+import ViewAdvisor from "./admin/admincomponents/Advisor/ViewAdvisor.jsx";
+import UpdateAdvisor from "./admin/admincomponents/Advisor/UpdateAdvisor.jsx";
 import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ForgotPassword from "./advisor/ForgotPassword.jsx";
@@ -167,6 +168,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
           <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
           <Route path="/dashboard/viewadvisor" element={<ViewAdvisor />} />
+          <Route path="/dashboard/updateadvisor" element={<UpdateAdvisor />} />
         </Route>
       </Route>
 
