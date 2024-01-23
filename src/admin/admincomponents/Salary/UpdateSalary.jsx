@@ -12,7 +12,7 @@ function UpdateSalary({ salary, onUpdate }) {
         salmonth: "",
         saleavemonth: "",
     })
-console.log(salary.empName);
+ 
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
@@ -43,7 +43,7 @@ console.log(salary.empName);
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/advisor/update/${salary._id}`, // Update the URL with the correct endpoint
+                `https://eleedomimf.onrender.com/api/salary/update/${salary._id}`, // Update the URL with the correct endpoint
                 salaries
             );
 
@@ -104,19 +104,14 @@ console.log(salary.empName);
                                                 className="input-style rounded-lg text-base h-10"
                                                 value={salaries.empName}
                                                 onChange={handleInputChange}
-                                                name="empName"
-                                            >
-                                               
-                                                    <option  value={salaries.empName} className="text-base">
-                                                        {salaries.empName}
-                                                    </option>
-                                               
+                                                name="empName">
+
+                                                <option value={salaries.empName} className="text-base">
+                                                    {salaries.empName}
+                                                </option>
+
                                             </select>
                                         </div>
-
-
-
-
 
 
                                         <div className="flex flex-col my-5">
@@ -128,12 +123,10 @@ console.log(salary.empName);
                                                 value={salaries.saleavemonth}
                                                 onChange={handleInputChange}
                                                 name="saleavemonth"
-                                                placeholder=""
+                                                
                                             />
                                         </div>
                                     </div>
-
-
 
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
@@ -143,10 +136,11 @@ console.log(salary.empName);
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                name="salmonth"
+
                                                 value={salaries.salmonth}
                                                 onChange={handleInputChange}
-                                                placeholder=""
+                                                name="salmonth"
+                                                
                                             />
                                         </div>
 
