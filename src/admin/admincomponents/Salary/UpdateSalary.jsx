@@ -106,13 +106,10 @@ console.log(salary.empName);
                                                 onChange={handleInputChange}
                                                 name="empName"
                                             >
-                                                {/* <option value="" disabled className="text-base">
-                                                    ----- Select Employee -----
-                                                </option>
-                                                
-                                                    <option  value={salary.empName} className="text-base">
+                                               
+                                                    <option  value={salaries.empName} className="text-base">
                                                         {salaries.empName}
-                                                    </option> */}
+                                                    </option>
                                                
                                             </select>
                                         </div>
