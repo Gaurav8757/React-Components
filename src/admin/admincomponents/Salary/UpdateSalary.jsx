@@ -4,15 +4,15 @@ import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function UpdateAdvisor({ advisor, onUpdate }) {
+function UpdateSalary({ salary, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [advInfo, setAdvInfo] = useState({
-        advisorname: "",
-        advisoremail: "",
-        advisormobile: "",
-        advisorpassword: "",
+    const [salaries, setSalaries] = useState({
+        empName: "",
+        salmonth: "",
+        saleavemonth: "",
     })
+console.log(salary.empName);
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
@@ -25,26 +25,26 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
     // show all data inside input tag
     useEffect(() => {
-        setAdvInfo(advisor);
-    }, [advisor]);
+        setSalaries(salaries);
+    }, [salaries]);
 
     // handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setAdvInfo((prevData) => ({
+        setSalaries((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const updateAdvisorAPI = async () => {
+    const updateSalaryAPI = async () => {
         try {
             setLoading(true);
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/advisor/update/${advisor._id}`, // Update the URL with the correct endpoint
-                advInfo
+                `https://eleedomimf.onrender.com/advisor/update/${salary._id}`, // Update the URL with the correct endpoint
+                salaries
             );
 
             toast.success(`${response.data.status}`)
@@ -53,12 +53,11 @@ function UpdateAdvisor({ advisor, onUpdate }) {
             onUpdate();
         } catch (error) {
             toast.error(`${error}`)
-            console.error("Error updating Advisor:", error);
+            console.error("Error updating Salary:", error);
         } finally {
             setLoading(false);
         }
     };
-
 
     return (
         <>
@@ -69,7 +68,6 @@ function UpdateAdvisor({ advisor, onUpdate }) {
             >
                 Edit
             </button>
-
 
             {isModalOpen && (
                 <div
@@ -85,7 +83,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                                    Update Advisor
+                                    Update Salary
                                 </h3>
                                 <button
                                     onClick={closeModal}
@@ -100,41 +98,58 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                                     {/* ... other form elements ... */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
                                         <div className="flex flex-col ">
-                                            <label className="text-base mx-1">Name:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={advInfo.advisorname}
+                                            <label className="text-base mx-1">  Employee:</label>
+                                            {/* // Render the dropdown in your form */}
+                                            <select
+                                                className="input-style rounded-lg text-base h-10"
+                                                value={salaries.empName}
                                                 onChange={handleInputChange}
-                                                name="advisorname"
-                                                placeholder="Enter Name"
-                                            />
+                                                name="empName"
+                                            >
+                                                {/* <option value="" disabled className="text-base">
+                                                    ----- Select Employee -----
+                                                </option>
+                                                
+                                                    <option  value={salary.empName} className="text-base">
+                                                        {salaries.empName}
+                                                    </option> */}
+                                               
+                                            </select>
                                         </div>
+
+
+
+
+
+
                                         <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Mobile No:</label>
+                                            <label className="text-base mx-1">Monthly Leave:</label>
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="number"
-                                                value={advInfo.advisormobile}
+                                                min="0"
+                                                value={salaries.saleavemonth}
                                                 onChange={handleInputChange}
-                                                name="advisormobile"
-                                                placeholder="+91"
+                                                name="saleavemonth"
+                                                placeholder=""
                                             />
                                         </div>
                                     </div>
 
 
+
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col ">
-                                            <label className="text-base mx-1">Email ID:</label>
+                                        <div className="flex flex-col">
+                                            <label className="text-base mx-1">Monthly Salary:</label>
                                             <input
                                                 className="input-style rounded-lg"
-                                                type="email"
-                                                value={advInfo.advisoremail}
+                                                type="number"
+                                                min="0"
+                                                name="salmonth"
+                                                value={salaries.salmonth}
                                                 onChange={handleInputChange}
-                                                name="advisoremail"
-                                                placeholder="abc@gmail.com"
+                                                placeholder=""
                                             />
                                         </div>
 
@@ -144,7 +159,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
                                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                                            onClick={updateAdvisorAPI}
+                                            onClick={updateSalaryAPI}
                                             type="button"
                                         >
                                             {loading ? "Submitting..." : "Submit"}
@@ -158,9 +173,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
             )}
 
         </>
-
-
     )
 }
 
-export default UpdateAdvisor;
+export default UpdateSalary;

@@ -101,8 +101,7 @@ import { TiArrowBack } from "react-icons/ti";
                                 </tr>
                             </thead>
                             <tbody>
-                                {APIData.map((data) => {
-                                   
+                                {APIData.map((data) => {  
                                     return (
                                         <tr  key={data._id}
                                             className="border-b dark:border-neutral-200 text-sm font-medium">
