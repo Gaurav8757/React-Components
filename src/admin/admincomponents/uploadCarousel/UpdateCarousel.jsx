@@ -11,7 +11,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
         usercarousel_title: "",
         usercarousel_link: "",
         usercarousel_desc: "",
-        usercarousel_upload: ""
+        usercarousel_upload: null
     })
 
     // OPEN MODAL
@@ -29,22 +29,45 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
         setCarousel(carouselFirst);
     }, [carouselFirst]);
 
-    // handle input change
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCarousel((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
+   // handle input change, including file uploads
+  const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+
+    if (type === "file") {
+      // Handle file uploads
+      const file = e.target.files[0];
+      setCarousel((prevData) => ({
+        ...prevData,
+        [name]: file,
+      }));
+    } else {
+      setCarousel((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
     const updateCarouselAPI = async () => {
         try {
             setLoading(true);
 
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append("usercarousel_title", carousel.usercarousel_title);
+      formData.append("usercarousel_link", carousel.usercarousel_link);
+      formData.append("usercarousel_desc", carousel.usercarousel_desc);
+      formData.append("usercarousel_upload", carousel.usercarousel_upload);
+
+
             // Make an API call to update contact
             const response = await axios.put(
                 `https://eleedomimf.onrender.com/users/first/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
-                carousel
+                formData,  {
+                    headers: {
+                      "Content-Type": "multipart/form-data",
+                    },
+                  }
             );
 
             toast.success(`${response.data.status}`)
@@ -58,9 +81,6 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
             setLoading(false);
         }
     };
-
-
-
 
     return (
         <>
@@ -145,7 +165,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                             <input
                                                 className="input-style border w-full h-12 items-center rounded-lg"
                                                 type="file"
-                                                accept="images/*"
+                                                accept="image/*"
                                                 value={carousel.usercarousel_upload}
                                                 onChange={handleInputChange}
                                                 name="usercarousel_upload"
