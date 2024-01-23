@@ -1,6 +1,6 @@
 import axios from "axios";
 import {  useState,useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewGenPolicy() {
