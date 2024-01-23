@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
 function ViewUserFillCompany() {
@@ -26,22 +26,9 @@ function ViewUserFillCompany() {
                     console.error(error);
                 });
         }
-    }, [APIData]);
+    }, []);
 
-    const setData = (data) => {
-        let {
-            h_name,
-            h_email,
-            h_mobile,
-            h_cname,
-            h_address
-        } = data;
-        sessionStorage.setItem("h_name", h_name);
-        sessionStorage.setItem("h_email", h_email);
-        sessionStorage.setItem("h_mobile", h_mobile);
-        sessionStorage.setItem("h_cname", h_cname);
-        sessionStorage.setItem("h_address", h_address);
-    };
+   
 
     // ******************** Delete Functions *************************************/
     const onDeleteCustomerDetails = async (_id) => {
@@ -124,14 +111,7 @@ function ViewUserFillCompany() {
                                             <td className="whitespace-wrap px-4 py-4 text-center">
                                                 {data.h_address}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                <Link to="#">
-                                                    <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                        {/* <UpdateForm/> */} Edit
-                                                    </button>
-
-                                                </Link>
-                                            </td>
+                                           
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteCustomerDetails(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>

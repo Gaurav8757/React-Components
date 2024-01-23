@@ -13,12 +13,10 @@ function UpdateContact({ data, onUpdate }) {
         usercontact_query: "",
     });
 
-
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
     };
-
 
     // CLOSE MODAL
     const closeModal = () => {
@@ -29,8 +27,6 @@ function UpdateContact({ data, onUpdate }) {
         setContactData(data);
     }, [data]);
 
-
-
     // handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -40,19 +36,15 @@ function UpdateContact({ data, onUpdate }) {
         }));
     };
 
-
-
     // API call to update contact
     const updateContactAPI = async () => {
         try {
             setLoading(true);
-
             // Make an API call to update contact
             const response = await axios.patch(
                 `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
                 contactData
             );
-
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
             closeModal();
@@ -64,8 +56,6 @@ function UpdateContact({ data, onUpdate }) {
             setLoading(false);
         }
     };
-
-
 
 
     return (
@@ -99,8 +89,6 @@ function UpdateContact({ data, onUpdate }) {
                                 </button>
                             </div>
 
-
-
                             {/* <!-- Modal body --> */}
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
                                 <form className="flex flex-wrap" method="post" encType="multipart/form-data">
@@ -114,9 +102,7 @@ function UpdateContact({ data, onUpdate }) {
                                                 name="usercontact_email"
                                                 value={contactData.usercontact_email}
                                                 onChange={handleInputChange}
-                                                placeholder="Enter Company Name"
-
-                                            />
+                                                placeholder="Enter Company Name" />
                                         </div>
                                         {/* QUERY */}
                                         <div className="flex flex-col my-5">
@@ -126,8 +112,7 @@ function UpdateContact({ data, onUpdate }) {
                                                 type="text"
                                                 name="usercontact_query"
                                                 value={contactData.usercontact_query}
-                                                onChange={handleInputChange}
-                                            />
+                                                onChange={handleInputChange} />
                                         </div>
                                     </div>
                                     {/* part-2 */}
@@ -139,12 +124,10 @@ function UpdateContact({ data, onUpdate }) {
                                                 type="number"
                                                 name="usercontact_mobile"
                                                 value={contactData.usercontact_mobile}
-                                                onChange={handleInputChange}
-                                            />
+                                                onChange={handleInputChange} />
                                         </div>
-
-
                                     </div>
+
 
                                     <div className="w-full flex justify-center p-2">
                                         <button

@@ -1,6 +1,7 @@
 import axios from "axios";
+import UpdateCarousel from "./UpdateCarousel.jsx";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 function ViewCarousel() {
@@ -18,7 +19,6 @@ function ViewCarousel() {
                     },
                 })
                 .then((response) => {
-                    // console.log(response.data);
                     setAPIData(response.data);
 
                 })
@@ -26,22 +26,32 @@ function ViewCarousel() {
                     console.error(error);
                 });
         }
-    }, [APIData]);
+    }, []);
 
-    const setData = (data) => {
-        let {
-            insurance,
-            category,
-            establishment,
-            cname,
-            cfiles,
-        } = data;
-        sessionStorage.setItem("usercarousel_title", insurance);
-        sessionStorage.setItem("usercarousel_desc", category);
-        sessionStorage.setItem("comp_establishment", establishment);
-        sessionStorage.setItem("usercarousel_link", cname);
-        sessionStorage.setItem("usercarousel_upload", cfiles);
-    };
+    
+    // refreshing page after updating data
+  const onUpdateCarousel = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/users/first/view`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated Carousel data:", error);
+    }
+  };
 
     // ******************** Delete Functions *************************************/
     const onDeleteCarousel = async (_id) => {
@@ -116,16 +126,13 @@ function ViewCarousel() {
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <Link to="#">
-                                                    <button type="button" onClick={() => setData(data)} className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
-                                                        {/* <UpdateForm/> */} Edit
-                                                    </button>
-
-                                                </Link>
+                                               <UpdateCarousel carouselFirst = {data} onUpload = {onUpdateCarousel}/>
                                             </td>
+
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteCarousel(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
+                                            
                                         </tr>
                                     );
                                 })}

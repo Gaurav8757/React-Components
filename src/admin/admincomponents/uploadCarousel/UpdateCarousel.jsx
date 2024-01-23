@@ -4,13 +4,14 @@ import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function UpdateSalary({ salary, onUpdate }) {
+function UpdateCarousel({ carouselFirst, onUpload }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [salaries, setSalaries] = useState({
-        empName: "",
-        salmonth: "",
-        saleavemonth: "",
+    const [carousel, setCarousel] = useState({
+        usercarousel_title: "",
+        usercarousel_link: "",
+        usercarousel_desc: "",
+        usercarousel_upload: ""
     })
 
     // OPEN MODAL
@@ -25,39 +26,41 @@ function UpdateSalary({ salary, onUpdate }) {
 
     // show all data inside input tag
     useEffect(() => {
-        setSalaries(salary);
-    }, [salary]);
+        setCarousel(carouselFirst);
+    }, [carouselFirst]);
 
     // handle input change
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setSalaries((prevData) => ({
+        setCarousel((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
-
-    const updateSalaryAPI = async () => {
+    const updateCarouselAPI = async () => {
         try {
             setLoading(true);
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/api/salary/update/${salary._id}`, // Update the URL with the correct endpoint
-                salaries
+                `https://eleedomimf.onrender.com/users/first/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
+                carousel
             );
 
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
             closeModal();
-            onUpdate();
+            onUpload();
         } catch (error) {
             toast.error(`${error}`)
-            console.error("Error updating Salary:", error);
+            console.error("Error updating Carousel:", error);
         } finally {
             setLoading(false);
         }
     };
+
+
+
 
     return (
         <>
@@ -83,7 +86,7 @@ function UpdateSalary({ salary, onUpdate }) {
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                                    Update Salary
+                                    Update Carousel
                                 </h3>
                                 <button
                                     onClick={closeModal}
@@ -97,50 +100,55 @@ function UpdateSalary({ salary, onUpdate }) {
                                 <form className="flex flex-wrap ">
                                     {/* ... other form elements ... */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col ">
-                                            <label className="text-base mx-1">  Employee:</label>
-                                            {/* // Render the dropdown in your form */}
-                                            <select
-                                                className="input-style rounded-lg text-base h-10"
-                                                value={salaries.empName}
-                                                onChange={handleInputChange}
-                                                name="empName">
-
-                                                <option value={salaries.empName} className="text-base">
-                                                    {salaries.empName}
-                                                </option>
-
-                                            </select>
-                                        </div>
-
-
                                         <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Monthly Leave:</label>
+                                            <label className="text-base mx-1">Title:</label>
                                             <input
                                                 className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={salaries.saleavemonth}
+                                                type="text"
+                                                value={carousel.usercarousel_title}
                                                 onChange={handleInputChange}
-                                                name="saleavemonth"
+                                                name="usercarousel_title"
+                                                placeholder="Enter Carousel Title "
+                                            />
+                                        </div>
 
+                                        <div className="flex flex-col my-5">
+                                            <label className="text-base mx-1">Link:</label>
+                                            <input
+                                                className="input-style rounded-lg"
+                                                type="text"
+                                                value={carousel.usercarousel_link}
+                                                onChange={handleInputChange}
+                                                name="usercarousel_link"
                                             />
                                         </div>
                                     </div>
 
+
+
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
-                                            <label className="text-base mx-1">Monthly Salary:</label>
+
+                                        <div className="flex flex-col my-5">
+                                            <label className="text-base mx-1">Description:</label>
                                             <input
                                                 className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-
-                                                value={salaries.salmonth}
+                                                type="text"
+                                                name="usercarousel_desc"
+                                                value={carousel.usercarousel_desc}
                                                 onChange={handleInputChange}
-                                                name="salmonth"
-
+                                                placeholder="Enter Description"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col my-6">
+                                            <label className="text-base mx-1">Image Upload:</label>
+                                            <input
+                                                className="input-style border w-full h-12 items-center rounded-lg"
+                                                type="file"
+                                                accept="images/*"
+                                                value={carousel.usercarousel_upload}
+                                                onChange={handleInputChange}
+                                                name="usercarousel_upload"
                                             />
                                         </div>
 
@@ -150,7 +158,7 @@ function UpdateSalary({ salary, onUpdate }) {
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
                                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                                            onClick={updateSalaryAPI}
+                                            onClick={updateCarouselAPI}
                                             type="button"
                                         >
                                             {loading ? "Submitting..." : "Submit"}
@@ -167,4 +175,4 @@ function UpdateSalary({ salary, onUpdate }) {
     )
 }
 
-export default UpdateSalary;
+export default UpdateCarousel;
