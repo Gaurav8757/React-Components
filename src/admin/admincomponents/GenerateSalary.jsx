@@ -19,8 +19,9 @@ function GenerateSalary() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("https://eleedomimf.onrender.com/api/salary-lists").then((response) => {
+    axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
+      // console.log(response.data);
     });
   }, []);
 
@@ -55,7 +56,7 @@ function GenerateSalary() {
 
       if (response.data) {
         toast.success("Added Successfully!");
-        setSalaryList("");  // This line seems unnecessary, you might want to revisit it
+        
         // Reset the form and loading state on successful submission
         setEmpname("");
         setMonths("");
@@ -99,7 +100,7 @@ function GenerateSalary() {
                     ----- Select Employee -----
                   </option>
                   {salaryList.map((salary) => (
-                    <option key={salary._id} value={salary._id} className="text-base">
+                    <option key={salary._id} value={salary.empName} className="text-base">
                       {salary.empName}
                     </option>
                   ))}
