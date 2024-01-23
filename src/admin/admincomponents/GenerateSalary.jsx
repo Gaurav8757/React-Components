@@ -19,9 +19,9 @@ function GenerateSalary() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("https://eleedomimf.onrender.com/api/salaries-list").then((response) => {
+    axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
-      console.log(response.data);
+      
     });
   }, []);
 
@@ -95,12 +95,13 @@ function GenerateSalary() {
                   value={empname}
                   onChange={(e) => handleEmployeeChange(e.target.value)}
                   name="empName"
+
                   >
                   <option value="" disabled className="text-base">
                     ----- Select Employee -----
                   </option>
                   {salaryList.map((salary) => (
-                    <option key={salary._id} value={salary.empName} className="text-base">
+                    <option key={salary._id} value={salary._id} className="text-base">
                       {salary.empName}
                     </option>
                   ))}
@@ -185,7 +186,7 @@ function GenerateSalary() {
                   onChange={(e) => setMonthsalary(e.target.value)}
                   name="monthsalary"
                   placeholder=""
-                  
+                  readOnly
                 />
               </div>
               <div className="flex flex-col my-5 ">
