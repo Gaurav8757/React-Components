@@ -54,33 +54,6 @@ export default function ViewBranch() {
     }
   };
   
-    // const setData = (data) => {
-    //     let {
-    //         branchname,
-    //         branchaddress,
-    //         branchid,
-    //         branchcode,
-    //         branchemail,
-    //         branchmobile,
-    //         branchphone,
-    //         branchdistrict,
-    //         branchstate,
-    //         branchpincode,
-    //         concernperson,
-    //     } = data;
-    //     sessionStorage.setItem("branchname", branchname);
-    //     sessionStorage.setItem("branchid", branchid);
-    //     sessionStorage.setItem("branchcode", branchcode);
-    //     sessionStorage.setItem("branchaddress", branchaddress);
-    //     sessionStorage.setItem("branchemail", branchemail);
-    //     sessionStorage.setItem("branchmobile", branchmobile);
-    //     sessionStorage.setItem("concernperson", concernperson);
-    //     sessionStorage.setItem("branchdistrict", branchdistrict);
-    //     sessionStorage.setItem("branchstate ", branchstate);
-    //     sessionStorage.setItem("branchpincode", branchpincode);
-    //     sessionStorage.setItem("branchphone ", branchphone);
-    // };
-
     // ******************** Delete Functions *************************************/
     const onDeleteBranch = async (_id) => {
         try {

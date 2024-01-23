@@ -139,7 +139,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
           formData.append(key, value);
         });
         // Use the selected category ID in the patch method
-        const resp = await axios.patch(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
+        const resp = await axios.put(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

@@ -26,7 +26,7 @@ import ContactUs from "./components/contact/ContactUs.jsx";
 import Admin from "./admin/Admin.jsx";
 import Dashboard from "./admin/admincomponents/Dashboard.jsx";
 import AddBranch from "./admin/admincomponents/Branch/AddBranch.jsx";
-import AddEmployee from "./admin/admincomponents/AddEmployee.jsx";
+import AddEmployee from "./admin/admincomponents/Employee/AddEmployee.jsx";
 import AddSalary from "./admin/admincomponents/AddSalary.jsx";
 import GenerateSalary from "./admin/admincomponents/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
@@ -34,7 +34,7 @@ import AddPolicyDetails from "./admin/admincomponents/reports/AddPolicyDetails.j
 import Layout from "./admin/Layout.jsx";
 import ViewBranch from "./admin/admincomponents/Branch/ViewBranch.jsx";
 import UpdateBranch from "./admin/admincomponents/Branch/UpdateBranch.jsx";
-import ViewEmployee from "./admin/admincomponents/ViewEmployee.jsx";
+import ViewEmployee from "./admin/admincomponents/Employee/ViewEmployee.jsx";
 import ViewSalary from "./admin/admincomponents/ViewSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/ViewPolicy.jsx";
 import ViewGenSalary from "./admin/admincomponents/ViewGenSalary.jsx";
@@ -80,6 +80,7 @@ import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
+import UpdateEmployee from "./admin/admincomponents/Employee/UpdateEmployee.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -146,6 +147,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/updatebranch" element={<UpdateBranch />} />
           <Route path="/dashboard/addemployee" element={<AddEmployee />} />
           <Route path="/dashboard/viewemployee" element={<ViewEmployee />} />
+          <Route path="/dashboard/updateemployee" element={<UpdateEmployee />} />
           <Route path="/dashboard/addsalary" element={<AddSalary />} />
           <Route path="/dashboard/viewsalary" element={<ViewSalary />} />
           <Route path="/dashboard/generatesalary" element={<GenerateSalary />} />
