@@ -5,7 +5,7 @@ import axios from "axios";
 
 function GenerateSalary() {
   const [salaryList, setSalaryList] = useState([]);
-  const [empname, setEmpname] = useState("");
+  const [empName, setEmpname] = useState("");
   const [months, setMonths] = useState("");
   const [persentday, setPersentday] = useState("");
   const [halfday, setHalfday] = useState("");
@@ -17,7 +17,7 @@ function GenerateSalary() {
   const [incentive, setIncentive] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-
+console.log(empName);
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
@@ -27,7 +27,7 @@ function GenerateSalary() {
 
   const handleEmployeeChange = (selectedEmployee) => {
     // Find the selected employee object from the salaryList
-    const selectedEmp = salaryList.find((emp) => emp._id === selectedEmployee);
+    const selectedEmp = salaryList.find((emp) => emp.empName === selectedEmployee);
     // console.log(selectedEmp);
     // Update state values based on the selected employee
     setEmpname(selectedEmployee);
@@ -41,7 +41,7 @@ function GenerateSalary() {
     setLoading(true);
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/dashboard/gensalary", {
-        empName: empname,
+        empName: empName.toString(),
         presentDays: persentday,
         totalHalfDays: halfday,
         totalAbsent: absent,
@@ -92,7 +92,7 @@ function GenerateSalary() {
                 <select
                   className="input-style rounded-lg text-base h-10"
                   
-                  value={empname}
+                  value={empName}
                   onChange={(e) => handleEmployeeChange(e.target.value)}
                   name="empName"
 
@@ -101,7 +101,7 @@ function GenerateSalary() {
                     ----- Select Employee -----
                   </option>
                   {salaryList.map((salary) => (
-                    <option key={salary._id} value={salary._id} className="text-base">
+                    <option key={salary._id} value={salary.empName} className="text-base">
                       {salary.empName}
                     </option>
                   ))}
@@ -175,6 +175,9 @@ function GenerateSalary() {
                 />
               </div>
             </div>
+
+            
+            {/* part-2 */}
             <div className="w-full lg:w-1/2 p-2 text-start">
               <div className="flex flex-col">
                 <label className="text-base mx-1">Monthly Salary:</label>
