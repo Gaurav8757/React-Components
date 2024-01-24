@@ -121,8 +121,8 @@ function ViewCarousel() {
                                                 {data.usercarousel_link}
                                             </td>
 
-                                            <td className="whitespace-nowrap  py-4 justify-center flex">
-                                                <img src={data.usercarousel_upload} className="w-1/3 " alt="file" />
+                                            <td className="whitespace-nowrap px-4  py-4">
+                                                <img src={data.usercarousel_upload} alt="file" />
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">

@@ -169,7 +169,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                                 className="input-style border w-full h-12 items-center rounded-lg"
                                                 type="file"
                                                 accept="image/*"
-                                                value={carousel.usercarousel_upload || ""}
+                                                // value={carousel.usercarousel_upload || ""}
                                                 onChange={handleInputChange}
                                                 name="usercarousel_upload"
                                             />

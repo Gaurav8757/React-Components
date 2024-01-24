@@ -169,6 +169,7 @@ function UpdatePolicy({ policy, onUpdate }) {
                                                 className="input-style border w-full h-12 items-center rounded-lg"
                                                 type="file"
                                                 accept="image/*"
+                                                
                                                 onChange={handleInputChange}
                                                 name="addpolicyimage"
                                             />
