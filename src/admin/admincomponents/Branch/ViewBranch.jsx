@@ -1,7 +1,7 @@
 import axios from "axios";
 import UpdateBranch from "./UpdateBranch.jsx";
 import { useEffect, useState } from "react";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 export default function ViewBranch() {
@@ -31,29 +31,29 @@ export default function ViewBranch() {
 
 
     // refreshing page after updating data
-  const onUpdateBranch = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
+    const onUpdateBranch = async () => {
+        try {
+            const token = sessionStorage.getItem("token");
 
-      if (!token) {
-        toast.error("Not Authorized yet.. Try again!");
-      } else {
-        const response = await axios.get(
-          `https://eleedomimf.onrender.com/api/branch-list`,
-          {
-            headers: {
-              Authorization: `${token}`,
-            },
-          }
-        );
+            if (!token) {
+                toast.error("Not Authorized yet.. Try again!");
+            } else {
+                const response = await axios.get(
+                    `https://eleedomimf.onrender.com/api/branch-list`,
+                    {
+                        headers: {
+                            Authorization: `${token}`,
+                        },
+                    }
+                );
 
-        setAPIData(response.data);
-      }
-    } catch (error) {
-      console.error("Error fetching updated Branch data:", error);
-    }
-  };
-  
+                setAPIData(response.data);
+            }
+        } catch (error) {
+            console.error("Error fetching updated Branch data:", error);
+        }
+    };
+
     // ******************** Delete Functions *************************************/
     const onDeleteBranch = async (_id) => {
         try {
@@ -157,10 +157,10 @@ export default function ViewBranch() {
                                                 {data.branchstate}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.branchpincode} 
+                                                {data.branchpincode}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4"> 
-                                                        <UpdateBranch branch = {data} onUpdate={onUpdateBranch}/> 
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                <UpdateBranch branch={data} onUpdate={onUpdateBranch} />
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteBranch(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
