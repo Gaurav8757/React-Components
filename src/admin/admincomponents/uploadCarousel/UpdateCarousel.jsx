@@ -29,6 +29,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
         setCarousel(carouselFirst);
     }, [carouselFirst]);
 
+
    // handle input change, including file uploads
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -58,11 +59,12 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
       formData.append("usercarousel_link", carousel.usercarousel_link);
       formData.append("usercarousel_desc", carousel.usercarousel_desc);
       formData.append("usercarousel_upload", carousel.usercarousel_upload);
+     
 
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/users/first/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
+                `https://eleedomimf.onrender.com/users/first/carousel/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
                 formData,  {
                     headers: {
                       "Content-Type": "multipart/form-data",
