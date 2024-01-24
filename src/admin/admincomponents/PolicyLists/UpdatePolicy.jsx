@@ -33,12 +33,22 @@ function UpdatePolicy({ policy, onUpdate }) {
 
     // handle input change
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setData((prevData) => ({
+        const { name, value, type } = e.target;
+    
+        if (type === "file") {
+          // Handle file uploads
+          const file = e.target.files[0];
+          setData((prevData) => ({
+            ...prevData,
+            [name]: file,
+          }));
+        } else {
+          setData((prevData) => ({
             ...prevData,
             [name]: value,
-        }));
-    };
+          }));
+        }
+      };
 
     const updatePolicyAPI = async () => {
         try {

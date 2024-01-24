@@ -80,29 +80,29 @@ const updatePolicyLists = async () => {
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                    
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Policy Type
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Policy Title
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Description
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Policy Name
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Image
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                     Logo
                                     </th>
                                    
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                         Edit
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-4 py-4">
                                         Delete
                                     </th>
                                 </tr>
@@ -116,32 +116,32 @@ const updatePolicyLists = async () => {
                                             key={data._id}
                                         >
                                           
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                 {data.addpolicytype}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                 {data.addpolicytitle}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                 {data.addpolicycname}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                 {data.addpolicydesc}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                             <NavLink to= {data.addpolicyimage}>
                                                     <img src={data.addpolicyimage} alt="img"/>
                                                       </NavLink>
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                             <NavLink to= {data.addpolicylogo}>
                                                     <img src={data.addpolicylogo} alt="logo"/>
                                                       </NavLink>
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                <UpdatePolicy policy = {data} onUpdate = {updatePolicyLists} />
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-3 py-4">
                                                 <button type="button" onClick={() => onDeletePolicy(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
