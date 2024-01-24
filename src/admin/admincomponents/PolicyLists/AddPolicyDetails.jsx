@@ -116,7 +116,7 @@ function AddPolicyDetails() {
                 />
               </div>
             </div>
-
+{/* part -2 */}
             <div className="w-full lg:w-1/2 p-2 text-start">
               <div className="flex flex-col">
                 <label className="text-base mx-1 ">Title:</label>
@@ -135,7 +135,7 @@ function AddPolicyDetails() {
                   className="input-style border w-full h-12 items-center rounded-lg"
                   type="file"
                   name="addpolicyimage"
-                  accept="images/*"
+                  accept="image/*"
                   onChange={(e) => setImages(e.target.files[0])}
                 />
               </div>
@@ -145,7 +145,7 @@ function AddPolicyDetails() {
                   className="input-style border w-full h-12 items-center rounded-lg"
                   type="file"
                   name="addpolicylogo"
-                  accept="images/*"
+                  accept="image/*"
                   onChange={(e) => setLogos(e.target.files[0])}
                 />
               </div>

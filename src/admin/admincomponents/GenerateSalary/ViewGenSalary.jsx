@@ -122,7 +122,7 @@ export default function ViewGenPolicy() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    console.log(data);
+                                    
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"

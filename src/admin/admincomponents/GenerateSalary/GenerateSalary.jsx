@@ -17,7 +17,7 @@ function GenerateSalary() {
   const [incentive, setIncentive] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-console.log(empName);
+
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
