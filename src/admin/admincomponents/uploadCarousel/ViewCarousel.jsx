@@ -114,7 +114,7 @@ function ViewCarousel() {
                                             <td className="whitespace-nowrap px-4 py-4 ">
                                                 {data.usercarousel_title}
                                             </td>
-                                            <td className="whitespace-wrap px-4 py-4 text-justify">
+                                            <td className=" flex-1 whitespace-wrap px-4 py-4 ">
                                                 {data.usercarousel_desc}
                                             </td>
                                             <td className="whitespace-wrap py-4 text-center">

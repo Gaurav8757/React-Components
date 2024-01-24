@@ -11,7 +11,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
         usercarousel_title: "",
         usercarousel_link: "",
         usercarousel_desc: "",
-        usercarousel_upload: null
+        usercarousel_upload: null,
     })
 
     // OPEN MODAL
@@ -31,9 +31,9 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
 
 
    // handle input change, including file uploads
-  const handleInputChange = (e) => {
+   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
-
+  
     if (type === "file") {
       // Handle file uploads
       const file = e.target.files[0];
@@ -48,6 +48,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
       }));
     }
   };
+  
 
     const updateCarouselAPI = async () => {
         try {
@@ -168,7 +169,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                                 className="input-style border w-full h-12 items-center rounded-lg"
                                                 type="file"
                                                 accept="image/*"
-                                                value={carousel.usercarousel_upload}
+                                                value={carousel.usercarousel_upload || ""}
                                                 onChange={handleInputChange}
                                                 name="usercarousel_upload"
                                             />
