@@ -84,6 +84,7 @@ import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./admin/admincomponents/Employee/UpdateEmployee.jsx";
 import UpdateGenSalary from "./admin/admincomponents/GenerateSalary/UpdateGenSalary.jsx";
+import LoginEmp from "./Employee/loginEmp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -176,9 +177,9 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-{/* BRANCHES ROUTES */}
+      {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginBranch />} />
-      <Route path="/branches/forget" element={<ForgetPassBranch/>} />
+      <Route path="/branches/forget" element={<ForgetPassBranch />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
@@ -191,12 +192,13 @@ const router = createBrowserRouter(
       <Route path="/advisor/forget" element={<ForgotPassword />} />
       <Route element={<ProtectedAdvisor />}>
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
-        <Route path="/advisor/home" element={<HomepageAdvisor />}/>
+          <Route path="/advisor/home" element={<HomepageAdvisor />} />
           <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
         </Route>
       </Route>
 
-
+      {/* Employee Login */}
+      <Route path="/login/employee" element={<LoginEmp />} />
 
 
     </>

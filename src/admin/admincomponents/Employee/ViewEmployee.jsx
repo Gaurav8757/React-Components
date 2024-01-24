@@ -88,6 +88,9 @@ export default function ViewEmployee() {
                                     Email ID
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                    Password
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                     Mobile No.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
@@ -139,8 +142,11 @@ export default function ViewEmployee() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empname}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empemail}
+                                            </td>
+                                            <td className="whitespace-wrap px-4 py-4">
+                                                {data.emppassword}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empmobile}
@@ -154,7 +160,7 @@ export default function ViewEmployee() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empaadharno}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrap px-4 py-4">
                                                 <NavLink to= {data.empaadharfile}>
                                                     <img src={data.empaadharfile} alt="aadhar"/>
                                                       </NavLink>
