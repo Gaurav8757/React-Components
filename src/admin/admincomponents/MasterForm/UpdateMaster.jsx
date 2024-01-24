@@ -5,8 +5,6 @@ import { POLICY_TYPES } from "./master.jsx";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
-
 function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -126,7 +124,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   useEffect(() => {
     calculateAge();
-  }, );
+  },);
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -208,7 +206,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-  
+
   // show all data inside input tag
   useEffect(() => {
     setAllDetails(insurance);
@@ -218,7 +216,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAllDetails((prevData) => ({
-       ...prevData,
+      ...prevData,
       [name]: value,
     }));
   };
@@ -231,7 +229,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
 
       // Use the selected category ID in the patch method
-      const resp = await axios.patch(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
+      const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
 
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
@@ -240,7 +238,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
     } catch (error) {
       console.error("Error updating insurance details:", error);
-    }finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -332,7 +330,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         type="date"
                         name="policyStartDate"
                         value={allDetails.policyStartDate}
-                        onChange={ 
+                        onChange={
                           handlePolicyStartDateChange
                         }
                       />
@@ -579,7 +577,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         value={allDetails.sourcing}
                         onChange={handleInputChange} name="sourcing">
-                          
+
                         <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
                         <option value="NEW">NEW</option>
                         <option value="RENEWAL">RENEWAL</option>
@@ -660,11 +658,11 @@ function UpdateMaster({ insurance, onUpdate }) {
                     <div className="flex flex-col my-5">
                       <label className="text-base mx-1">Product Code:</label>
                       <select
-                        id="productCode" 
+                        id="productCode"
                         className="input-style rounded-lg"
                         value={allDetails.productCode}
                         onChange={handleInputChange} name="productCode">
-                          
+
                         <option className="w-1" value="" disabled>--- Select Product Code ---</option>
                         {allDetails.policyType &&
                           POLICY_TYPES[insurance.policyType].transactions.map((transaction) => (
@@ -685,7 +683,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         name="netPremium"
                         placeholder="Net Premium"
                         readOnly />
-                        <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
+                      <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
                     </div>
                     {/* FIELD - 32 */}
                     <div className="flex flex-col my-5">
@@ -756,7 +754,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                     {/* FIELD - 47 */}
                     <div className="flex flex-col my-5">
                       <label className="text-base mx-1">Branch Payable Amount: </label>
-                     
+
                       <input
                         className="input-style rounded-lg"
                         type="text"
@@ -766,7 +764,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         placeholder="Branch Payable Amount"
                         readOnly
                       />
-                       <span className="text-xs mx-1 text-red-600" >(netpremium - branchpayout)</span>
+                      <span className="text-xs mx-1 text-red-600" >(netpremium - branchpayout)</span>
                     </div>
                   </div>
 
@@ -898,7 +896,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           name="odPremium"
                           placeholder="Enter OD Premium"
                           onBlur={updateNetPremium}
-                           />
+                        />
                       </div>)}
                     {/* FIELD - 30 */}
                     <div className="flex flex-col my-5">
@@ -929,7 +927,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                     <div className="flex flex-col my-5">
                       <label className="text-base mx-1">Branch:</label>
                       <select
-                        id="branch" 
+                        id="branch"
                         className="input-style rounded-lg"
                         value={allDetails.branch}
                         onChange={handleInputChange}
@@ -949,7 +947,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         className="input-style rounded-lg"
                         value={allDetails.policyPaymentMode}
                         onChange={handleInputChange} name="policyPaymentMode">
-                          
+
                         <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
                         <option value="LINK">LINK</option>
                         <option value="ONLINE">ONLINE</option>
