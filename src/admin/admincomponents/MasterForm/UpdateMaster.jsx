@@ -217,8 +217,8 @@ function UpdateMaster({ insurance, onUpdate }) {
   // handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAllDetails(() => ({
-      // ...prevData,
+    setAllDetails((prevData) => ({
+       ...prevData,
       [name]: value,
     }));
   };
@@ -231,11 +231,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
 
       // Use the selected category ID in the patch method
-      const resp = await axios.patch(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const resp = await axios.patch(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
 
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
@@ -294,10 +290,9 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <input
                         className="input-style rounded-lg"
                         type="date"
-                        name="entryDate"
                         value={allDetails.entryDate}
                         onChange={handleInputChange}
-                        placeholder="Select Entry Date"
+                        name="entryDate"
                       />
                     </div>
                     {/* FIELD - 4 */}
@@ -305,9 +300,9 @@ function UpdateMaster({ insurance, onUpdate }) {
                       <label className="text-base mx-1">Segment:</label>
                       <select
                         className="input-style rounded-lg"
-                        name="segment"
                         value={allDetails.segment}
                         onChange={handleInputChange}
+                        name="segment"
                       >
                         <option className="w-1" value="" disabled>--- Select Segment ---</option>
                         <option value="C V">C V</option>
