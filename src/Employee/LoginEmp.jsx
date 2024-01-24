@@ -14,9 +14,9 @@ function LoginEmp() {
     e.preventDefault();
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
-        mobile,
-        email,
-        password,
+        empmobile: mobile,
+        empemail: email,
+        emppassword: password,
       });
 // console.log(response.data.email);
       const token = response.data.token;
