@@ -206,7 +206,6 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-
   // show all data inside input tag
   useEffect(() => {
     setAllDetails(insurance);
@@ -221,28 +220,20 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-
-
   const updateInsuranceAPI = async () => {
     try {
       setLoading(true);
-
-
       // Use the selected category ID in the patch method
       const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
-
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
-      onUpdate();
-
-
+      onUpdate()
     } catch (error) {
       console.error("Error updating insurance details:", error);
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <>
