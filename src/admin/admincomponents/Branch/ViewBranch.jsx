@@ -135,7 +135,7 @@ export default function ViewBranch() {
                                             <td className="whitespace-nowrap px4 py-4">
                                                 {data.branchemail}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="flex-1 whitespace-wrap px-4 py-4">
                                                 {data.password}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
