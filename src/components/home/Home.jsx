@@ -38,23 +38,6 @@ let homesection = [
       images: "/nonmotor.png",
       links: "/nonmotorinsurance",
     },
-  
-// {
-//     title: "Term Insurance (Women)",
-//     images: "/superwoman.png",
-// },
-// {
-//     title: "Free of Cost Term Plan",
-//     images: "/money.png",
-// },
-// {
-//     title: "Guaranteed Return Plans",
-//     images: "/money-bag.png",
-// },
-// {
-//     title: "Retirement Plans",
-//     images: "/old-man.png",
-// },
 
 ]
 
@@ -195,9 +178,6 @@ const general = [{
 },
 {
     img: "/5.png"
-},
-{
-    img: "/6.png"
 },{
     img: "/7.png"
 },{

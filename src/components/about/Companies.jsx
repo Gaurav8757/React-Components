@@ -1,15 +1,16 @@
 function Companies() {
   return (
     <section className="container-fluid relative bg-white">
-      <div className="container-fluid  pb-4 pt-10 bg-gradient-to-b from-white to-slate-100">
+      <div className="container-fluid  pb-4 pt-10
+       sm:pt-10  bg-gradient-to-b from-white to-slate-100">
         {/* part - 1 */}
         <div className="flex flex-col lg:flex-row ">
-          <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
-            {/* <img
-              src="/logo.png" // Add the actual image source
+          <div className="lg:w-1/2  max-w-4xl  lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
+            <img
+              src="/cname.png" // Add the actual image source
               alt="company img"
-              className="w-1/2 sm:w-1/2 md:w-1/2 max-w-5xl mx-auto me-auto lg:w-1/2 xl:w-1/3 h-auto rounded-full items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
-            /> */}
+              className="w-1/2 sm:w-1/2 md:w-1/2 xl:absolute lg:absolute top-72  max-w-4xl mx-auto me-auto lg:w-fit xl:w-fit h-auto  items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
+            />
           </div>
 
           <div className="w-full lg:w-1/2 max-w-5xl mb-5 mt-16 lg:mr-10 rounded-lg  dark:border-gray-100">
@@ -28,9 +29,9 @@ function Companies() {
           <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
            {/* Update UI on Monday */}
             {/* <img
-              src="/logo.png" // Add the actual image source
+              src="/cname.png" // Add the actual image source
               alt="company img"
-              className="w-1/2 sm:w-1/2 md:w-1/2 max-w-5xl mx-auto me-auto lg:w-1/2 xl:w-1/3 h-auto rounded-full items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
+              className="w-1/2 sm:w-1/2 md:w-1/2 max-w-5xl mx-auto me-auto llg:w-fit xl:w-fit h-auto  items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
             /> */}
           </div>
 

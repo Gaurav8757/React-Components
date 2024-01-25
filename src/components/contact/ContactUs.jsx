@@ -46,11 +46,11 @@ const ContactUs = () => {
                         <li className="mt-2">
                             <i className="fa fa-envelope mr-2"></i>email
                         </li>
-                        <li className="mt-2 mb-2">
-                            <i className="fa-solid fa-map-pin mr-2"></i>
-                            FLAT NO - 203 LALJI TOWER APT, BASANT B PATNA
+                        <li className="xl:mt-20 mt-3 mb-2 leading-loose w-96 ml-12  text-center">
+                            <i className="fa-solid fa-map-pin mr-2 "></i>
+                            607, 6th Floor, B-block, Gagan Apartment, Exhibition Road Chauraha
                             <span className="pl-1">
-                                Patna, Bihar - 801503, India
+                                Patna, Bihar - 800001, India
                             </span>
                         </li>
                     </ul>
@@ -109,7 +109,7 @@ const ContactUs = () => {
 
                 <div className="md:w-1/3 rounded-md h-3/2 bg-slate-300 m-3 border-sky-200 shadow-xl">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.7123598999196!2d85.04531387524924!3d25.614472677444645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed572733094417%3A0xb3b4bcea04b2a04!2sLalji%20Tower!5e0!3m2!1sen!2sin!4v1702376205500!5m2!1sen!2sin"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.8671437525227!2d85.13708618069788!3d25.60933061929899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ed585c323272d3%3A0x7a397057f152dc4c!2sGagan%20Apartment%2C%20Brajkishore%20Path%2C%20Old%20Jakkanpur%2C%20Lodipur%2C%20Patna%2C%20Bihar%20800001!5e0!3m2!1sen!2sin!4v1706184434771!5m2!1sen!2sin"
                         className="w-full h-full border-0 rounded-md"
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
