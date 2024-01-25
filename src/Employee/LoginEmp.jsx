@@ -10,22 +10,21 @@ function LoginEmp() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
         empmobile: mobile,
         empemail: email,
         emppassword: password,
       });
-// console.log(response.data.email);
       const token = response.data.token;
        const emails = response.data.email;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", emails);
       navigate("/");
       // Check if the user is an admin based on your backend response
-      if (response.data.token === true) {
+      if (response.data) {
         const token = response.data.token;
         sessionStorage.getItem("token", token);
         navigate("/dashboard");
