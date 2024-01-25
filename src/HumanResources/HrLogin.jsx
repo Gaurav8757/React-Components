@@ -24,7 +24,7 @@ function HrLogin() {
                 //   const hrRandomNumber = "hr-randomnumber"; // replace with the actual HR random number
                 if (empid === 'HR || hr') {
                     sessionStorage.setItem("token", token);
-                    sessionStorage.setItem("email", email);
+                    sessionStorage.setItem("hremail", email);
                     navigate("/hr/home");
                     toast.success("Logged In Successfully !");
                 } else {
