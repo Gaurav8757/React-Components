@@ -196,7 +196,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      {/* advisor routes */}
+      {/* Advisor Routes */}
       <Route path="/advisor" element={<LoginAdvisor />} />
       <Route path="/advisor/forget" element={<ForgotPassword />} />
       <Route element={<ProtectedAdvisor />}>
@@ -206,7 +206,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      {/* Employee Modules */}
+      {/* Employee Routes */}
       <Route path="/employee" element={<LoginEmployee />} />
       <Route path="/employee/forget" element={<ForgotEmpPassword />} />
       <Route element={<ProtectedEmp />}>
@@ -215,7 +215,7 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      {/* HR Modules */}
+      {/* HR Routes */}
       <Route path="/hr" element = {<HrLogin/>}/>
       <Route path="/hr/forget" element = {<ForgetHr/>}/>
       <Route element = {<ProtectedHr/>}>

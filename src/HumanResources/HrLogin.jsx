@@ -12,31 +12,36 @@ function HrLogin() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post("https://eleedomimf.onrender.com/login/hr", {
-          hrmobile: mobile,
-          hremail: email,
-          hrpassword: password,
+        const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
+          empmobile: mobile,
+          empemail: email,
+          emppassword: password,
         });
-        const token = response.data.token;
-         const emails = response.data.email;
+
+         if (response.data) {
+      const { token, empid } = response.data;
+      
+      // Check if empid is equal to the HR random number
+    //   const hrRandomNumber = "hr-randomnumber"; // replace with the actual HR random number
+      if (empid === 'HR || hr') {
         sessionStorage.setItem("token", token);
-        sessionStorage.setItem("hremail", emails);
-        navigate("/");
-        // Check if the user is an token based on your backend response
-        if (response.data) {
-          const token = response.data.token;
-          sessionStorage.getItem("token", token);
-          navigate("/hr/home");
-          toast.success("Logged In Successfully !");
-        } else {
-          // For non-token users, you might want to redirect to a different page
-          navigate("/hr");
-          toast.error("User Not Found!");
-        }
-      } catch (error) {
-        console.log(error);
-        toast.warn("Incorrect UserID/Password or Admin Access Not Allowed! ");
+        sessionStorage.setItem("empemail", email);
+        navigate("/hr/home");
+        toast.success("Logged In Successfully !");
+      } else {
+        // Restrict login for employees with empid not equal to the HR random number
+        navigate("/hr");
+        toast.error("Unauthorized Access!");
       }
+    } else {
+      // For non-token users, you might want to redirect to a different page
+      navigate("/hr");
+      toast.error("User Not Found!");
+    }
+  } catch (error) {
+    console.log(error);
+    toast.warn("Incorrect UserID/Password or Admin Access Not Allowed! ");
+  }
     };
   
     return (
