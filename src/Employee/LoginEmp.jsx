@@ -27,7 +27,7 @@ function LoginEmp() {
       if (response.data) {
         const token = response.data.token;
         sessionStorage.getItem("token", token);
-        navigate("/");
+        navigate("/employee/home");
         toast.success("Logged In Successfully !");
       } else {
         // For non-admin users, you might want to redirect to a different page
