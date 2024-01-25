@@ -27,7 +27,7 @@ function LoginEmp() {
       if (response.data) {
         const token = response.data.token;
         sessionStorage.getItem("token", token);
-        navigate("/dashboard");
+        navigate("/");
         toast.success("Logged In Successfully !");
       } else {
         // For non-admin users, you might want to redirect to a different page
@@ -71,13 +71,15 @@ function LoginEmp() {
                   </label>
                   <input
                     type="email"
-                    name="email"
+                    
                     id="email"
                     value={mobile || email}
                     onChange={(e) => {
                       setEmail(e.target.value);
                       setMobile(e.target.value);
+                      
                     }}
+                    name="email"
                     autoComplete="email"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="name@company.com"
@@ -92,11 +94,12 @@ function LoginEmp() {
                   </label>
                   <input
                     type="password"
-                    name="password"
+                   
                     id="password"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    name="password"
                     autoComplete="current-password"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     required
