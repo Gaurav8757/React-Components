@@ -10,8 +10,8 @@ function LoginEmp() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
         empmobile: mobile,
