@@ -31,7 +31,7 @@ function LoginEmp() {
         toast.success("Logged In Successfully !");
       } else {
         // For non-admin users, you might want to redirect to a different page
-        navigate("/login/employee");
+        navigate("/employee");
         toast.error("User Not Found!");
       }
     } catch (error) {
@@ -127,7 +127,5 @@ function LoginEmp() {
     </>
   );
 }
-
-
 
 export default LoginEmp;
