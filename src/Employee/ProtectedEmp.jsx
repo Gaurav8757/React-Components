@@ -4,7 +4,7 @@ function ProtectedEmp() {
     if (auth !== undefined && auth?.length > 0) {
       return <Outlet />
     } else {
-      return <Navigate to="/login/employee" />
+      return <Navigate to="/employee" />
     }
   }
 
