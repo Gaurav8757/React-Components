@@ -47,7 +47,7 @@ function LoginBranch() {
               className="h-full w-full rounded-full mx-auto "
               alt="Logo"
             />
-            <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-white flex justify-center">Branch Login</div>
+            <div className="text-4xl font-bold mt-6 w-64 mx-auto   flex justify-center">Branch Login</div>
           </div>
           <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-20">
             <div className="w-full max-w-xl p-6 space-y-14 sm:p-8 bg-white rounded-lg shadow bg-gradient-to-l from-slate-800 to-slate-900">

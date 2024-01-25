@@ -89,6 +89,11 @@ import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
 import DashboardEmp from "./Employee/DashboardEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
+import HrLogin from "./HumanResources/HrLogin.jsx";
+import ForgetHr from "./HumanResources/ForgetHr.jsx";
+import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
+import LayoutHr from "./HumanResources/LayoutHr.jsx";
+import DashboardHr from "./HumanResources/DashboardHr.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -201,16 +206,23 @@ const router = createBrowserRouter(
         </Route>
       </Route>
 
-      {/* Employee Login */}
-     <Route path="/employee" element = {<LoginEmployee/>}/>
-     <Route path = "/employee/forget" element = {<ForgotEmpPassword/>}/>
-     <Route element = {<ProtectedEmp/>}>
-      <Route path="/employee/home" element = {<LayoutEmp/>}>
-        <Route path="/employee/home" element = {<DashboardEmp/>}/>
-        
+      {/* Employee Modules */}
+      <Route path="/employee" element={<LoginEmployee />} />
+      <Route path="/employee/forget" element={<ForgotEmpPassword />} />
+      <Route element={<ProtectedEmp />}>
+        <Route path="/employee/home" element={<LayoutEmp />}>
+          <Route path="/employee/home" element={<DashboardEmp />} />
+        </Route>
       </Route>
-     </Route>
 
+      {/* HR Modules */}
+      <Route path="/hr" element = {<HrLogin/>}/>
+      <Route path="/hr/forget" element = {<ForgetHr/>}/>
+      <Route element = {<ProtectedHr/>}>
+        <Route path="/hr/home" element = {<LayoutHr/>}>
+        <Route path="/hr/home" element = {<DashboardHr/>}/>
+        </Route>
+      </Route>
 
     </>
   )

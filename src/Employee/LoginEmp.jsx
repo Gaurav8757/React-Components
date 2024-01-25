@@ -9,7 +9,7 @@ function LoginEmp() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -77,7 +77,6 @@ function LoginEmp() {
                     onChange={(e) => {
                       setEmail(e.target.value);
                       setMobile(e.target.value);
-                      
                     }}
                     name="email"
                     autoComplete="email"
