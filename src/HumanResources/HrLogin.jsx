@@ -26,6 +26,7 @@ function HrLogin() {
            // Check if the user is an token based on your backend response
             if (response.data) {
                 const { token, empid } = response.data;
+                
                 console.log(empid);
                 // Check if empid is equal to the HR random number
                 if (empid === 'HR') {
