@@ -26,12 +26,12 @@ function HrLogin() {
            // Check if the user is an token based on your backend response
             if (response.data) {
                 const { token, empid } = response.data;
-                
+                sessionStorage.getItem("token", token);
                 console.log(empid);
                 // Check if empid is equal to the HR random number
                 if (empid === 'HR') {
                     console.log(empid);
-                    sessionStorage.getItem("token", token);
+                    
                     navigate("/hr/home");
                     toast.success("Logged In Successfully !");
                 } else {
