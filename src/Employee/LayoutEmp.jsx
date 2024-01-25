@@ -9,4 +9,4 @@ function LayoutEmp() {
   )
 }
 
-export default LayoutEmp
+export default LayoutEmp;
