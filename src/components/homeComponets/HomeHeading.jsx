@@ -43,7 +43,7 @@ const HomeHeading = () => {
                         <b className="font-normal bg-gradient-to-r from-red-900 to-slate-800  bg-clip-text text-transparent" ref={textRef}></b>
                     </span>
                     <div className="flex row container-fluid  lg:col text-md md:text-lg sm:text-xl font-arial  p-5">
-                        <span className="bg-gradient-to-r from-yellow-800 to-orange-600 bg-clip-text text-transparent font-medium  hover:text-green-500 text-xl w-2/3">50+ insurers with one of the best prices</span>
+                        <span className="bg-gradient-to-r from-yellow-800 to-orange-600 bg-clip-text text-transparent font-medium  hover:text-green-500 text-xl w-2/3">33+ insurers with one of the best prices</span>
                         <span className="text-red-500 w-2/3 text-xl hover:text-green-500">Quick, easy & hassle free</span>
                     </div>
                 </div>
