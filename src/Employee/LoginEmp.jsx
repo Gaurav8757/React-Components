@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 
 function LoginEmp() {
@@ -105,14 +105,11 @@ function LoginEmp() {
                     required
                   />
                 </div>
-                <div className="flex items-start">
-                  {/* <NavLink
-                    to="#"
-                    className="ml-auto text-sm text-red-200 hover:underline dark:text-red-500"
-                  >
-                    Lost Password?
-                  </NavLink> */}
-                </div>
+                <div className=" text-end text-red-700 font-semibold hover:text-red-500">
+             <NavLink to = "/employee/forget">
+              Forgot Password
+             </NavLink>
+              </div>
                 <button
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 focus:ring-1 focus:ring-blue-900 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
