@@ -28,8 +28,8 @@ function HrLogin() {
                 const { token, empid } = response.data;
                 console.log(empid);
                 // Check if empid is equal to the HR random number
-                if (empid === 'HR || hr') {
-                    console.log(empid === 'HR || hr');
+                if (empid === 'HR') {
+                    console.log(empid);
                     sessionStorage.getItem("token", token);
                     navigate("/hr/home");
                     toast.success("Logged In Successfully !");
