@@ -85,6 +85,9 @@ import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./admin/admincomponents/Employee/UpdateEmployee.jsx";
 import UpdateGenSalary from "./admin/admincomponents/GenerateSalary/UpdateGenSalary.jsx";
 import LoginEmp from "./Employee/loginEmp.jsx";
+import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
+import LayoutEmp from "./Employee/LayoutEmp.jsx";
+import DashboardEmp from "./Employee/DashboardEmp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -199,6 +202,12 @@ const router = createBrowserRouter(
 
       {/* Employee Login */}
       <Route path="/login/employee" element={<LoginEmp />} />
+      <Route element={<ProtectedEmp />}>
+        <Route path="/employee/home" element={<LayoutEmp />}>
+          <Route path="/employee/home" element={<DashboardEmp />} />
+
+        </Route>
+      </Route>
 
 
     </>
