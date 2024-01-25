@@ -1,9 +1,9 @@
 import {Outlet} from "react-router-dom";
-// import DashboardAdvisor from "./DashboardAdvisor.jsx";
+import DashboardEmp from "./DashboardEmp.jsx";
 function LayoutEmp() {
   return (
     <>
-      {/* <DashboardAdvisor/> */}
+      <DashboardEmp/>
         <Outlet />
       </>
   )

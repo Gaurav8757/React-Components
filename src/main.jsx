@@ -87,7 +87,7 @@ import UpdateGenSalary from "./admin/admincomponents/GenerateSalary/UpdateGenSal
 import LoginEmp from "./Employee/loginEmp.jsx";
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
-import DashboardEmp from "./Employee/DashboardEmp.jsx";
+// import DashboardEmp from "./employee/DashboardEmp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -204,7 +204,7 @@ const router = createBrowserRouter(
       <Route path="/login/employee" element={<LoginEmp />} />
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
-          <Route path="/employee/home" element={<DashboardEmp />} />
+          {/* <Route path="/employee/home" element={<DashboardEmp />} /> */}
 
         </Route>
       </Route>
