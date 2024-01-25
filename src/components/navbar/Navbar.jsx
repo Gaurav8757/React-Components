@@ -44,7 +44,7 @@ export default function Navbar({ navigation }) {
               </NavLink>
 
               <div className="hidden sm:ml-2  items-center lg:block py-10">
-                <div className="flex lg:space-x-1  xl:space-x-2 ">
+                <div className="flex lg:space-x-2  xl:space-x-3 ">
                   {navigation.map((item, idx) => (
                     <div key={idx} className="relative group text-lg">
                       <NavLink
@@ -52,7 +52,7 @@ export default function Navbar({ navigation }) {
                         className={({ isActive }) =>
                           classNames(
                             isActive
-                              ? 'bg-slate-600 text-white font-bolder'
+                              ? 'bg-slate-600 text-white font-bolder sm:text-sm md:text-sm lg:text-sm xl:text-lg'
                               : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 hover:text-#6ee7b7',
                             'rounded-md px-2 py-2 font-medium text-gray-900'
                           )
@@ -61,7 +61,6 @@ export default function Navbar({ navigation }) {
                       >
                         {item.name}
                       </NavLink>
-
                       {item.submenus && (
                         <>
                           <NavLink>
