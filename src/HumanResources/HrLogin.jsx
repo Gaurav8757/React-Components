@@ -17,14 +17,19 @@ function HrLogin() {
                 empemail: email,
                 emppassword: password,
             });
+            const token = response.data.token;
+            const emails = response.data.email;
+           sessionStorage.setItem("token", token);
+           sessionStorage.setItem("hremail", emails);
+           navigate("/");
 
+           // Check if the user is an token based on your backend response
             if (response.data) {
                 const { token, empid } = response.data;
                 // Check if empid is equal to the HR random number
                 //   const hrRandomNumber = "hr-randomnumber"; // replace with the actual HR random number
                 if (empid === 'HR || hr') {
-                    sessionStorage.setItem("token", token);
-                    sessionStorage.setItem("hremail", email);
+                    sessionStorage.getItem("token", token);
                     navigate("/hr/home");
                     toast.success("Logged In Successfully !");
                 } else {
