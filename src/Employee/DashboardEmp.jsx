@@ -96,8 +96,9 @@ function DashboardEmp() {
                         <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
                       </button>
                     </div>
-                    <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                      <div className="px-4 py-3" role="none">
+
+                    <div className="z-50 hidden my-4 text-base  list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                      <div className="mx-4 py-3" role="none">
                         <p className="text-sm text-gray-900 dark:text-white" role="none">
                           Name
                         </p>
