@@ -84,7 +84,7 @@ import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./admin/admincomponents/Employee/UpdateEmployee.jsx";
 import UpdateGenSalary from "./admin/admincomponents/GenerateSalary/UpdateGenSalary.jsx";
-
+import LoginEmployee from "./Employee/LoginEmp.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -198,7 +198,8 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Employee Login */}
-     
+     <Route path="/employee" element = {<LoginEmployee/>}/>
+
 
 
     </>

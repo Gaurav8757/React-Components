@@ -23,14 +23,14 @@ function LoginEmp() {
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", emails);
       navigate("/");
-      // Check if the user is an admin based on your backend response
+      // Check if the user is an token based on your backend response
       if (response.data) {
         const token = response.data.token;
         sessionStorage.getItem("token", token);
         navigate("/employee/home");
         toast.success("Logged In Successfully !");
       } else {
-        // For non-admin users, you might want to redirect to a different page
+        // For non-token users, you might want to redirect to a different page
         navigate("/employee");
         toast.error("User Not Found!");
       }
