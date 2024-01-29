@@ -130,6 +130,15 @@ export default function ViewGenPolicy() {
                                     Company PF
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                       Employee PF
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                   ESI
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Loan EMI
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                         Total Amount
                                     </th>
                                     <th scope="col" className="px-5 py-4">
