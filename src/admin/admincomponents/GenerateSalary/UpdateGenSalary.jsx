@@ -4,21 +4,21 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { CgCloseR } from "react-icons/cg";
 
-function UpdateGenSalary({ genSalaries, onUpdate }) {
+function UpdateGenSalary({ genHrSalaries, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
-        empName: "",
-        presentDays: "",
-        totalHalfDays: "",
-        totalAbsent: "",
-        genSalary: "",
-        monthsalary: "",
-        genMonths: "",
-        monthleave: "",
-        totalDays: "",
-        incentive: "",
-        totalAmount: "",
+        hrname: "",
+        presenthrDays: "",
+        totalhrHalfDays: "",
+        totalhrAbsent: "",
+        genhrSalary: "",
+        // hrmonthlySalary: "",
+        genHrMonths: "",
+        // hrmonthlyLeave: "",
+        totalhrDays: "",
+        hrincentive: "",
+        totalhrAmount: "",
     });
 
     // OPEN MODAL
@@ -33,8 +33,8 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
 
     // show all data inside input tag
     useEffect(() => {
-        setData(genSalaries);
-    }, [genSalaries]);
+        setData(genHrSalaries);
+    }, [genHrSalaries]);
 
     // handle input change
     const handleInputChange = (e) => {
@@ -51,7 +51,7 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/api/salaries/${genSalaries._id}`, // Update the URL with the correct endpoint
+                `https://eleedomimf.onrender.com/dashboard/hr/updategen/salary/${genHrSalaries._id}`, // Update the URL with the correct endpoint
                 data
             );
             toast.success(`${response.data.status}`)
@@ -111,24 +111,24 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                             <label className="text-base mx-1">Employee Name</label>
                                             <select
                                                 className="input-style rounded-lg text-base h-10" value={data.empName} onChange={handleInputChange} name="empName">
-                                                <option value={data.empName} className="text-base">
-                                                    {data.empName}
+                                                <option value={data.hrname} className="text-base">
+                                                    {data.hrname}
                                                 </option>
                                             </select>
                                         </div>
 
-                                        <div className="flex flex-col my-5 ">
+                                        {/* <div className="flex flex-col my-5 ">
                                             <label className="text-base mx-1">Monthly Leave:</label>
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
                                                 max="12"
-                                                value={data.monthleave}
+                                                value={data.hrmonthlyLeave}
                                                 onChange={handleInputChange}
-                                                name="monthleave"
+                                                name="hrmonthlyLeave"
                                             />
-                                        </div>
+                                        </div> */}
 
                                         <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Total Days:</label>
@@ -136,9 +136,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.totalDays}
+                                                value={data.totalhrDays}
                                                 onChange={handleInputChange}
-                                                name="totalDays"
+                                                name="totalhrDays"
                                             />
                                         </div>
 
@@ -148,9 +148,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.totalHalfDays}
+                                                value={data.totalhrHalfDays}
                                                 onChange={handleInputChange}
-                                                name="totalHalfDays"
+                                                name="totalhrHalfDays"
                                             />
                                         </div>
 
@@ -160,9 +160,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.genSalary}
+                                                value={data.genhrSalary}
                                                 onChange={handleInputChange}
-                                                name="genSalary"
+                                                name="genhrSalary"
                                             />
                                         </div>
 
@@ -172,9 +172,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.totalAmount}
+                                                value={data.totalhrAmount}
                                                 onChange={handleInputChange}
-                                                name="totalAmount"
+                                                name="totalhrAmount"
                                             />
                                         </div>
                                     </div>
@@ -182,31 +182,31 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
 
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
+                                        {/* <div className="flex flex-col">
                                             <label className="text-base mx-1">Monthly Salary:</label>
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.monthsalary}
+                                                value={data.hrmonthlySalary}
                                                 onChange={handleInputChange}
-                                                name="monthsalary"
+                                                name="hrmonthlySalary"
                                                 placeholder=""
                                                 readOnly
                                             />
-                                        </div>
+                                        </div> */}
 
 
 
 
-                                        <div className="flex flex-col my-5 ">
+                                        <div className="flex flex-col ">
                                             <label className="text-base mx-1">Months:</label>
                                             <select
                                                 className="input-style rounded-lg"
                                                 type="text"
-                                                value={data.genMonths}
+                                                value={data.genHrMonths}
                                                 onChange={handleInputChange}
-                                                name="genMonths"
+                                                name="genHrMonths"
                                             >
 
                                                 <option key="0" value="" disabled>----- Select Month&apos;s -----</option>
@@ -232,9 +232,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.presentDays}
+                                                value={data.presenthrDays}
                                                 onChange={handleInputChange}
-                                                name="presentDays"
+                                                name="presenthrDays"
                                             />
                                         </div>
 
@@ -244,9 +244,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.totalAbsent}
+                                                value={data.totalhrAbsent}
                                                 onChange={handleInputChange}
-                                                name="totalAbsent"
+                                                name="totalhrAbsent"
                                             />
                                         </div>
 
@@ -256,9 +256,9 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={data.incentive}
+                                                value={data.hrincentive}
                                                 onChange={handleInputChange}
-                                                name="incentive"
+                                                name="hrincentive"
                                                 placeholder="₹"
                                             />
                                         </div>
