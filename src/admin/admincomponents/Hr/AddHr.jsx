@@ -95,7 +95,7 @@ function AddHr() {
           <form className="flex flex-wrap" method="POST" encType="multipart/form-data">
             <div className="w-full lg:w-1/2 p-2 text-start">
             <div className="flex flex-col">
-                <label className="text-base mx-1 ">Employee Name:</label>
+                <label className="text-base mx-1 ">HR Name:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -215,7 +215,7 @@ function AddHr() {
                 />
               </div>
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Employee Id:</label>
+                <label className="text-base mx-1">HR Id:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
