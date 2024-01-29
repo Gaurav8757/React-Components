@@ -113,7 +113,6 @@ function AddHr() {
                   name="hrdob"
                   value={calendar}
                   onChange={(e) => setCalendar(e.target.value)}
-                  placeholder="Enter Branch Code"
                 />
               </div>
              
@@ -192,12 +191,11 @@ function AddHr() {
                   value={gender}
                   name="hrgender"
                   onChange={(e) => setGender(e.target.value)}
-                  placeholder="Enter Your District Name"
                 >
-                  <option value="0">----- Select Gender -----</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Others</option>
+                  <option value="">----- Select Gender -----</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
                 </select>
                 
               </div>

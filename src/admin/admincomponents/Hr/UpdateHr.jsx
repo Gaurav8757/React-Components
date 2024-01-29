@@ -14,7 +14,7 @@ function UpdateHr({ hr, onUpdate }) {
         hrgender: "",
         hrdob: "",
         hrjoiningdate: "",
-        hrbranch: "",
+        empbranch: "",
         permanenthraddress: "",
         currenthraddress: "",
         hraadharno: "",
@@ -159,7 +159,7 @@ function UpdateHr({ hr, onUpdate }) {
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="date"
-                                                value={data.hrjoining}
+                                                value={data.hrjoiningdate}
                                                 onChange={handleInputChange}
                                                 name="hrjoiningdate"
                                                 placeholder=""
@@ -179,18 +179,7 @@ function UpdateHr({ hr, onUpdate }) {
                                             />
                                         </div>
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Designation:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-
-                                                value={data.hrdesignation}
-                                                onChange={handleInputChange}
-                                                name="hrdesignation"
-                                                placeholder=""
-                                            />
-                                        </div>
+                                       
 
 
                                     </div>
@@ -208,10 +197,10 @@ function UpdateHr({ hr, onUpdate }) {
                                                 name="hrgender"
                                                 placeholder="Enter Your District Name"
                                             >
-                                                <option value="0">----- Select Gender -----</option>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                                <option value="3">Others</option>
+                                                <option value="">----- Select Gender -----</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Others">Others</option>
                                             </select>
 
                                         </div>
@@ -227,7 +216,7 @@ function UpdateHr({ hr, onUpdate }) {
                                                 placeholder="abc@gmail.com"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
+                                        {/* <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">HR Id:</label>
                                             <input
                                                 className="input-style rounded-lg"
@@ -237,10 +226,10 @@ function UpdateHr({ hr, onUpdate }) {
                                                 onChange={handleInputChange}
                                                 placeholder="s-12"
                                             />
-                                        </div>
+                                        </div> */}
 
                                         <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Upload Aadhar Card:</label>
+                                            <label className="text-base mx-1">Update Aadhar Card:</label>
                                             <input
                                                 className="input-style border w-full h-10 items-center rounded-lg"
                                                 type="file"
@@ -255,20 +244,30 @@ function UpdateHr({ hr, onUpdate }) {
                                             <select
                                                 className="input-style rounded-lg"
                                                 type="text"
-                                                value={data.hrbranch}
+                                                value={data.empbranch}
                                                 onChange={handleInputChange}
                                                 name="hrbranch"
                                                 placeholder="Enter Branch Name"
                                             >
-                                                <option value="0">----- Select Branch -----</option>
-                                                {/* {data.branchList.map((branchItem) => (
-                                                    <option key={branchItem._id} value={branchItem.branchname}>
-                                                        {branchItem.branchname}
+                                                {/* {data.map((branchItem) => ( */}
+                                                    <option value={data.hrbranch}>
+                                                        {data.hrbranch}
                                                     </option>
-                                                ))} */}
+                                                {/* ))} */}
                                             </select>
                                         </div>
+                                        <div className="flex flex-col my-5">
+                                            <label className="text-base mx-1">Designation:</label>
+                                            <input
+                                                className="input-style rounded-lg"
+                                                type="text"
 
+                                                value={data.hrdesignation}
+                                                onChange={handleInputChange}
+                                                name="hrdesignation"
+                                                placeholder=""
+                                            />
+                                        </div>
                                         <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Permanent Address:</label>
                                             <textarea
