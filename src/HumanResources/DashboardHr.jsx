@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
-// import { RiGitBranchFill } from "react-icons/ri";
+import { RiGitBranchFill } from "react-icons/ri";
 // import { IoPeopleOutline } from "react-icons/io5";
 // import { TbMoneybag, TbReport } from "react-icons/tb";
 // import { FcMoneyTransfer } from "react-icons/fc"; 
@@ -15,11 +15,11 @@ function DashboardHr() {
           path: "/hr/home",
           logo: <RxDashboard size={25} />
         },
-        // {
-        //    title: "View Insurance",
-        //   path: "/employee/home/",
-        //   logo: <RiGitBranchFill size={25} />
-        // },
+        {
+           title: "Add Employee",
+          path: "/hr/home/addemployee",
+          logo: <RiGitBranchFill size={25} />
+        },
         // {
         //   title: "Add Employee",
         //   path: "/branches",
