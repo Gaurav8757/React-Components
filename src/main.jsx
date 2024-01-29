@@ -28,7 +28,7 @@ import Dashboard from "./admin/admincomponents/Dashboard.jsx";
 import AddBranch from "./admin/admincomponents/Branch/AddBranch.jsx";
 import AddEmployee from "./HumanResources/Employee/AddEmployee.jsx";
 import AddHRSalary from "./admin/admincomponents/Salary/HrSalary.jsx";
-import GenerateSalary from "./admin/admincomponents/GenerateSalary/GenerateSalary.jsx";
+import GenerateSalary from "./HumanResources/GenerateSalary/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/PolicyLists/AddPolicyDetails.jsx";
 import Layout from "./admin/Layout.jsx";
@@ -38,7 +38,7 @@ import ViewEmployee from "./HumanResources/Employee/ViewEmployee.jsx";
 import ViewHRSalary from "./admin/admincomponents/Salary/ViewHrSalary.jsx";
 import UpdateHRSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/PolicyLists/ViewPolicy.jsx";
-import ViewGenSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalary.jsx";
+import ViewGenSalary from "./HumanResources/GenerateSalary/ViewGenSalary.jsx";
 import ProtectRoute from "./admin/Protected.jsx";
 import LoginBranch from "./branches/LoginBranch.jsx";
 import BranchLayout from "./branches/BranchLayout.jsx";
@@ -83,7 +83,7 @@ import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./HumanResources/Employee/UpdateEmployee.jsx";
-import UpdateGenSalary from "./admin/admincomponents/GenerateSalary/UpdateGenSalary.jsx";
+import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx";
 import LoginEmployee from "./Employee/LoginEmp.jsx";
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
@@ -99,6 +99,9 @@ import DashboardHr from "./HumanResources/DashboardHr.jsx";
 import AddSalary from "./HumanResources/Salary/AddSalary.jsx";
 import ViewSalary from "./HumanResources/Salary/ViewSalary.jsx";
 import UpdateSalary from "./HumanResources/Salary/UpdateSalary.jsx";
+import GenerateHrSalary from "./admin/admincomponents/GenerateSalary/GenerateSalary.jsx";
+import ViewGenHrSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalary.jsx";
+import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -167,9 +170,9 @@ const router = createBrowserRouter(
           <Route path="/dashboard/addhrsalary" element={<AddHRSalary />} />
           <Route path="/dashboard/viewhrsalary" element={<ViewHRSalary />} />
           <Route path="/dashboard/updatehrsalary" element={<UpdateHRSalary />} />
-          <Route path="/dashboard/generatesalary" element={<GenerateSalary />} />
-          <Route path="/dashboard/update/gensalary" element={<UpdateGenSalary />} />
-          <Route path="/dashboard/viewgeneratesalary" element={<ViewGenSalary />} />
+          <Route path="/dashboard/generate/salary" element={<GenerateHrSalary />} />
+          <Route path="/dashboard/update/gensalary" element={<UpdateGenHrSalary />} />
+          <Route path="/dashboard/view/generatesalary" element={<ViewGenHrSalary />} />
           <Route path="/dashboard/policy" element={<Policy />} />
           <Route path="/dashboard/addpolicy" element={<AddPolicyDetails />} />
           <Route path="/dashboard/viewpolicy" element={<ViewPolicy />} />
@@ -231,6 +234,10 @@ const router = createBrowserRouter(
           <Route path="/hr/home/addsalary" element={<AddSalary />} />
           <Route path="/hr/home/viewsalary" element={<ViewSalary />} />
           <Route path="/hr/home/updatesalary" element={<UpdateSalary />} />
+
+          <Route path="/hr/home/generate/salary" element={<GenerateSalary />} />
+          <Route path="/hr/home/update/gensalary" element={<UpdateGenSalary />} />
+          <Route path="/hr/home/view/generate/salary" element={<ViewGenSalary />} />
           </Route>
         </Route>
       {/* </Route> */}

@@ -55,7 +55,7 @@ const Sidebar = () => {
     },
     {
       title: "Generate Salary",
-      path: "/dashboard/generatesalary",
+      path: "/dashboard/generate/salary",
       logo: <FcMoneyTransfer size={24}/>
     },
     {

@@ -53,13 +53,13 @@ export default function ViewGenPolicy() {
         }
     };
     // ******************** Delete Functions *************************************/
-    const onGenHrSalaryDelete = async (_id) => {
+    const onGenSalaryDelete = async (_id) => {
         try {
             await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
-            toast.warn("HR Salary Deleted!", { theme: "dark", position: "top-right" });
+            toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
             // Update state or perform any other necessary actions
         } catch (error) {
-            console.error('Error deleting HR salary:', error);
+            console.error('Error deleting general salary:', error);
         }
     };
 
@@ -71,15 +71,15 @@ export default function ViewGenPolicy() {
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-blue-500"
-                    ><NavLink to="/dashboard/generate/salary" className="flex justify-end text-red-700"> <TiArrowBack size={30} /></NavLink>
-                        <h1 className="flex justify-center text-4xl w-full mb-8"> HR Generate Salary Lists</h1><hr></hr>
+                    ><NavLink to="/hr/home/generate/salary" className="flex justify-end text-red-700"> <TiArrowBack size={30} /></NavLink>
+                        <h1 className="flex justify-center text-4xl w-full mb-8"> Employee Generate Salary Lists</h1><hr></hr>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
-                                        Name
+                                        Employee Name
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         Monthly Salary
@@ -168,7 +168,7 @@ export default function ViewGenPolicy() {
                                                 <UpdateGenSalary genSalaries = {data} onUpdate={updateGenSalary} />
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onGenHrSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>
                                     );

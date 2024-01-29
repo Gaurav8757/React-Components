@@ -5,7 +5,7 @@ import axios from "axios";
 
 function GenerateSalary() {
   const [salaryList, setSalaryList] = useState([]);
-  const [hrname, setHrName] = useState("");
+  const [empName, setEmpname] = useState("");
   const [months, setMonths] = useState("");
   const [persentday, setPersentday] = useState("");
   const [halfday, setHalfday] = useState("");
@@ -19,19 +19,20 @@ function GenerateSalary() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("https://eleedomimf.onrender.com/dashboard/hr/viewsalary").then((response) => {
+    axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
+      
     });
   }, []);
 
   const handleEmployeeChange = (selectedEmployee) => {
     // Find the selected employee object from the salaryList
-    const selectedEmp = salaryList.find((emp) => emp.hrname === selectedEmployee);
+    const selectedEmp = salaryList.find((emp) => emp.empName === selectedEmployee);
     // console.log(selectedEmp);
     // Update state values based on the selected employee
-    setHrName(selectedEmployee);
-    setMonthleave(selectedEmp ? selectedEmp.hrmonthlyLeave : "");
-    setMonthsalary(selectedEmp ? selectedEmp.hrmonthlySalary : "");
+    setEmpname(selectedEmployee);
+    setMonthleave(selectedEmp ? selectedEmp.saleavemonth : "");
+    setMonthsalary(selectedEmp ? selectedEmp.salmonth : "");
   };
 
 
@@ -39,24 +40,25 @@ function GenerateSalary() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/hr/gensalary", {
-        hrname: hrname.toString(),
-        presenthrDays: persentday,
-        totalhrHalfDays: halfday,
-        totalhrAbsent: absent,
-        genhrSalary: salaries,
-        hrmonthlySalary: monthsalary,
-        genhrMonths: months,
-        hrmonthlyLeave: monthleave,
-        totalhrDays: totaldays,
-        hrincentive: incentive,
-        totalhrAmount: amount,
+      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/gensalary", {
+        empName: empName.toString(),
+        presentDays: persentday,
+        totalHalfDays: halfday,
+        totalAbsent: absent,
+        genSalary: salaries,
+        monthsalary: monthsalary,
+        genMonths: months,
+        monthleave: monthleave,
+        totalDays: totaldays,
+        incentive: incentive,
+        totalAmount: amount,
       });
 
       if (response.data) {
         toast.success("Added Successfully!");
+        
         // Reset the form and loading state on successful submission
-        setHrName("");
+        setEmpname("");
         setMonths("");
         setPersentday("");
         setHalfday("");
@@ -68,7 +70,6 @@ function GenerateSalary() {
         setIncentive("");
         setAmount("");
         setLoading(false);
-
       } else {
         toast.error("Error Occurred. Try again...!");
       }
@@ -83,25 +84,25 @@ function GenerateSalary() {
     <section className="container-fluid h-screen relative p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg bg-white">
         <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-400">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Generate HR Salary</h1>
+          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Generate Employee Salary</h1>
           <form className="flex flex-wrap">
             <div className="w-full lg:w-1/2 p-2 text-start">
               <div className="flex flex-col ">
-                <label className="text-base mx-1">Name</label>
+                <label className="text-base mx-1">Employee Name</label>
                 <select
                   className="input-style rounded-lg text-base h-10"
                   
-                  value={hrname}
+                  value={empName}
                   onChange={(e) => handleEmployeeChange(e.target.value)}
-                  name="hrname"
+                  name="empName"
 
                   >
                   <option value="" disabled className="text-base">
-                    ----- Select HR -----
+                    ----- Select Employee -----
                   </option>
                   {salaryList.map((salary) => (
-                    <option key={salary._id} value={salary.hrname} className="text-base">
-                      {salary.hrname}
+                    <option key={salary._id} value={salary.empName} className="text-base">
+                      {salary.empName}
                     </option>
                   ))}
                 </select>
@@ -116,7 +117,7 @@ function GenerateSalary() {
                   max="12"
                   value={monthleave}
                   onChange={(e) => setMonthleave(e.target.value)}
-                  name="hrmonthlyLeave"
+                  name="monthleave"
                   placeholder={monthleave}
                   readOnly
                 />
@@ -130,7 +131,7 @@ function GenerateSalary() {
                   min="0"
                   value={totaldays}
                   onChange={(e) => setTotaldays(e.target.value)}
-                  name="totalhrDays"
+                  name="totalDays"
                   placeholder=""
                 />
               </div>
@@ -143,7 +144,7 @@ function GenerateSalary() {
                   min="0"
                   value={halfday}
                   onChange={(e) => setHalfday(e.target.value)}
-                  name="totalhrHalfDays"
+                  name="totalHalfDays"
                 />
               </div>
 
@@ -155,7 +156,7 @@ function GenerateSalary() {
                   min="0"
                   value={salaries}
                   onChange={(e) => setSalaries(e.target.value)}
-                  name="genhrSalary"
+                  name="genSalary"
                   placeholder="₹"
                 />
               </div>
@@ -168,7 +169,7 @@ function GenerateSalary() {
                   min="0"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  name="totalhrAmount"
+                  name="totalAmount"
                   placeholder="₹"
                   
                 />
@@ -186,7 +187,7 @@ function GenerateSalary() {
                   min="0"
                   value={monthsalary}
                   onChange={(e) => setMonthsalary(e.target.value)}
-                  name="hrmonthlySalary"
+                  name="monthsalary"
                   placeholder=""
                   readOnly
                 />
@@ -199,7 +200,7 @@ function GenerateSalary() {
                   value={months}
 
                   onChange={(e) => setMonths(e.target.value)}
-                  name="genhrMonths"
+                  name="genMonths"
                   >
                     
                   <option key="0" value="" disabled>----- Select Month&apos;s -----</option>
@@ -226,7 +227,7 @@ function GenerateSalary() {
                   min="0"
                   value={persentday}
                   onChange={(e) => setPersentday(e.target.value)}
-                  name="presenthrDays"
+                  name="presentDays"
                 />
               </div>
 
@@ -238,7 +239,7 @@ function GenerateSalary() {
                   min="0"
                   value={absent}
                   onChange={(e) => setAbsent(e.target.value)}
-                  name="totalhrAbsent"
+                  name="totalAbsent"
                 />
               </div>
 
@@ -250,7 +251,7 @@ function GenerateSalary() {
                   min="0"
                   value={incentive}
                   onChange={(e) => setIncentive(e.target.value)}
-                  name="hrincentive"
+                  name="incentive"
                   placeholder="₹"
                 />
               </div>
@@ -265,8 +266,8 @@ function GenerateSalary() {
                 {loading ? "Submitting..." : "Submit"}
               </button>
               
-              <NavLink to="/dashboard/view/generatesalary" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2 text-center me-2 mb-2">
-                {/* <ViewBranch/> */}
+              <NavLink to="/hr/home/view/generate/salary" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2 text-center me-2 mb-2">
+              
                 View
               </NavLink>
             </div>

@@ -5,7 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 // import { IoPeopleOutline } from "react-icons/io5";
 import { TbMoneybag } from "react-icons/tb";
-// import { FcMoneyTransfer } from "react-icons/fc"; 
+import { FcMoneyTransfer } from "react-icons/fc"; 
 
 
 function DashboardHr() {
@@ -30,11 +30,11 @@ function DashboardHr() {
         //   path: "/branches",
         //   logo: <TbMoneybag size={25} />
         // },
-        // {
-        //   title: "Generate Salary",
-        //   path: "/branches",
-        //   logo: <FcMoneyTransfer size={25} />
-        // },
+        {
+          title: "Generate Salary",
+          path: "/hr/home/generate/salary",
+          logo: <FcMoneyTransfer size={25} />
+        },
         // {
         //   title: "Report",
         //   path: "/branches",
