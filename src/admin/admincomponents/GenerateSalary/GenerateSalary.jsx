@@ -46,7 +46,7 @@ console.log(months);
         totalhrAbsent: absent,
         genhrSalary: salaries,
         hrmonthlySalary: monthsalary,
-        genhrMonths: months,
+        genHrMonths: months,
         hrmonthlyLeave: monthleave,
         totalhrDays: totaldays,
         hrincentive: incentive,
@@ -198,7 +198,7 @@ console.log(months);
                   type="text"
                   value={months}
                   onChange={(e) => setMonths(e.target.value)}
-                  name="genhrMonths"
+                  name="genHrMonths"
                   >
                     
                   <option value="" disabled>----- Select Month&apos;s -----</option>
