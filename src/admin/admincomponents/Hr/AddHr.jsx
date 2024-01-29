@@ -8,7 +8,7 @@ function AddHr() {
     const [address, setAddress] = useState("");
     const [gender, setGender] = useState("");
     const [aadhar, setAadhar] = useState("");
-    const [empid, setEmpid] = useState("");
+    const [hrid, setHrid] = useState("");
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
     const [designation, setDesignation] = useState("");
@@ -37,7 +37,7 @@ function AddHr() {
         const formData = new FormData();
         // formData.append("empaadhar", aadhar);
         formData.append("hraadharfile", aadhar);
-        formData.append("hrid", empid);
+        formData.append("hrid", hrid);
         formData.append("hrname", hrname);
         formData.append("hrdob", calendar);
         formData.append("hrgender", gender);
@@ -67,7 +67,7 @@ function AddHr() {
           setAddress("");
           setGender("");
           setAadhar("");
-          setEmpid("");
+          setHrid("");
           setEmail("");
           setMobile("");
           setDesignation("");
@@ -220,8 +220,8 @@ function AddHr() {
                   className="input-style rounded-lg"
                   type="text"
                   name="hrid"
-                  value={empid}
-                  onChange={(e) => setEmpid(e.target.value)}
+                  value={hrid}
+                  onChange={(e) => setHrid(e.target.value)}
                   placeholder="s-12"
                 />
               </div>
