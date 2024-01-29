@@ -112,10 +112,10 @@ export default function ViewHrSalary() {
                                                 {data.hrname}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.salmonth}
+                                                {data.hrmonthlySalary}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.saleavemonth}
+                                                {data.hrmonthlyLeave}
                                             </td>
                                           
                                             <td className="whitespace-nowrap px-4 py-4">

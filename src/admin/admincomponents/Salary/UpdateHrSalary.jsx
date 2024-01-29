@@ -10,7 +10,7 @@ function UpdateHrSalary({ salary, onUpdate }) {
     const [salaries, setSalaries] = useState({
         hrname: "",
         salmonth: "",
-        saleavemonth: "",
+        hrmonthlyLeave: "",
     })
 
     // OPEN MODAL
@@ -43,7 +43,7 @@ function UpdateHrSalary({ salary, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/hr/update/${salary._id}`, // Update the URL with the correct endpoint
+                `https://eleedomimf.onrender.com/dashboard/hr/update/salary/${salary._id}`, // Update the URL with the correct endpoint
                 salaries
             );
 
@@ -88,8 +88,7 @@ function UpdateHrSalary({ salary, onUpdate }) {
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
+                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
@@ -120,9 +119,9 @@ function UpdateHrSalary({ salary, onUpdate }) {
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={salaries.saleavemonth}
+                                                value={salaries.hrmonthlyLeave}
                                                 onChange={handleInputChange}
-                                                name="saleavemonth"
+                                                name="hrmonthlyLeave"
 
                                             />
                                         </div>
@@ -137,9 +136,9 @@ function UpdateHrSalary({ salary, onUpdate }) {
                                                 type="number"
                                                 min="0"
 
-                                                value={salaries.salmonth}
+                                                value={salaries.hrmonthlySalary}
                                                 onChange={handleInputChange}
-                                                name="salmonth"
+                                                name="hrmonthlySalary"
 
                                             />
                                         </div>
