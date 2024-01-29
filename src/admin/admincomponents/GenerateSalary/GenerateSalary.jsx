@@ -17,7 +17,6 @@ function GenerateSalary() {
   const [incentive, setIncentive] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-console.log(months);
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/dashboard/hr/viewsalary").then((response) => {
       setSalaryList(response.data);
@@ -128,6 +127,7 @@ console.log(months);
                   className="input-style rounded-lg"
                   type="number"
                   min="0"
+                  max="366"
                   value={totaldays}
                   onChange={(e) => setTotaldays(e.target.value)}
                   name="totalhrDays"
@@ -141,6 +141,7 @@ console.log(months);
                   className="input-style rounded-lg"
                   type="number"
                   min="0"
+                  max="366"
                   value={halfday}
                   onChange={(e) => setHalfday(e.target.value)}
                   name="totalhrHalfDays"
@@ -223,6 +224,7 @@ console.log(months);
                   className="input-style rounded-lg"
                   type="number"
                   min="0"
+                  max="366"
                   value={persentday}
                   onChange={(e) => setPersentday(e.target.value)}
                   name="presenthrDays"
@@ -235,6 +237,7 @@ console.log(months);
                   className="input-style rounded-lg"
                   type="number"
                   min="0"
+                  max="366"
                   value={absent}
                   onChange={(e) => setAbsent(e.target.value)}
                   name="totalhrAbsent"

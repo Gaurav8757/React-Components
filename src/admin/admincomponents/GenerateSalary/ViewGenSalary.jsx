@@ -30,7 +30,7 @@ export default function ViewGenPolicy() {
     }, []);
 
     // refreshing page after updating data
-    const updateGenSalary = async () => {
+    const updateGenHrSalary = async () => {
         try {
             const token = sessionStorage.getItem("token");
 
@@ -38,7 +38,7 @@ export default function ViewGenPolicy() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/salaries-list`,
+                    `https://eleedomimf.onrender.com/dashboard/hr/viewgen/salary`,
                     {
                         headers: {
                             Authorization: `${token}`,
@@ -55,7 +55,7 @@ export default function ViewGenPolicy() {
     // ******************** Delete Functions *************************************/
     const onGenHrSalaryDelete = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
+            await axios.delete(`https://eleedomimf.onrender.com/dashboard/hr/deletegen/salary/${_id}`);
             toast.warn("HR Salary Deleted!", { theme: "dark", position: "top-right" });
             // Update state or perform any other necessary actions
         } catch (error) {
@@ -122,50 +122,50 @@ export default function ViewGenPolicy() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    
+                                    console.log(data);
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}
                                         >
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.empName}
+                                                {data.hrname}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.monthsalary}
+                                                {data.hrmonthlySalary}
                                             </td>
                                             <td className="whitespace-nowrap px4 py-4">
-                                                {data.monthleave}
+                                                {data.hrmonthlyLeave}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.genMonths}
+                                                {data.genHrMonths}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.totalDays}
+                                                {data.totalhrDays}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.presentDays}
+                                                {data.presenthrDays}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.totalHalfDays}
-                                            </td>
-
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.totalAbsent}
-                                            </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.genSalary}
+                                                {data.totalhrHalfDays}
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.incentive}
+                                                {data.totalhrAbsent}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                {data.totalAmount}
+                                                {data.genhrSalary}
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <UpdateGenSalary genSalaries = {data} onUpdate={updateGenSalary} />
+                                                {data.hrincentive}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.totalhrAmount}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                <UpdateGenSalary genSalaries = {data} onUpdate={updateGenHrSalary} />
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onGenHrSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
