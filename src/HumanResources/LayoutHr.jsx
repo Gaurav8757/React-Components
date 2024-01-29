@@ -1,9 +1,9 @@
 import {Outlet} from "react-router-dom";
-import DashboardHr from "./DashboardHr.jsx";
+import SidebarHr from "./SidebarHr.jsx";
 function LayoutHr() {
   return (
     <>
-      <DashboardHr/>
+      <SidebarHr/>
         <Outlet />
       </>
   )

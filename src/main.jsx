@@ -27,7 +27,7 @@ import Admin from "./admin/Admin.jsx";
 import Dashboard from "./admin/admincomponents/Dashboard.jsx";
 import AddBranch from "./admin/admincomponents/Branch/AddBranch.jsx";
 import AddEmployee from "./HumanResources/Employee/AddEmployee.jsx";
-import AddSalary from "./admin/admincomponents/Salary/AddSalary.jsx";
+import AddHRSalary from "./admin/admincomponents/Salary/HrSalary.jsx";
 import GenerateSalary from "./admin/admincomponents/GenerateSalary/GenerateSalary.jsx";
 import Policy from "./admin/admincomponents/reports/Policy.jsx";
 import AddPolicyDetails from "./admin/admincomponents/PolicyLists/AddPolicyDetails.jsx";
@@ -35,8 +35,8 @@ import Layout from "./admin/Layout.jsx";
 import ViewBranch from "./admin/admincomponents/Branch/ViewBranch.jsx";
 import UpdateBranch from "./admin/admincomponents/Branch/UpdateBranch.jsx";
 import ViewEmployee from "./HumanResources/Employee/ViewEmployee.jsx";
-import ViewSalary from "./admin/admincomponents/Salary/ViewSalary.jsx";
-import UpdateSalary from "./admin/admincomponents/Salary/UpdateSalary.jsx";
+import ViewHRSalary from "./admin/admincomponents/Salary/ViewHrSalary.jsx";
+import UpdateHRSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/PolicyLists/ViewPolicy.jsx";
 import ViewGenSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalary.jsx";
 import ProtectRoute from "./admin/Protected.jsx";
@@ -93,10 +93,12 @@ import HrLogin from "./HumanResources/HrLogin.jsx";
 import ForgetHr from "./HumanResources/ForgetHr.jsx";
 import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
-import DashboardHr from "./HumanResources/DashboardHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
 import ViewHr from "./admin/admincomponents/Hr/ViewHr.jsx";
-
+import DashboardHr from "./HumanResources/DashboardHr.jsx";
+import AddSalary from "./HumanResources/Salary/AddSalary.jsx";
+import ViewSalary from "./HumanResources/Salary/ViewSalary.jsx";
+import UpdateSalary from "./HumanResources/Salary/UpdateSalary.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -162,9 +164,9 @@ const router = createBrowserRouter(
           <Route path="/dashboard/updatebranch" element={<UpdateBranch />} />
           <Route path = "/dashboard/addhr" element = {<AddHr/>}/>
           <Route path = "/dashboard/viewhr" element = {<ViewHr/>}/>
-          <Route path="/dashboard/addsalary" element={<AddSalary />} />
-          <Route path="/dashboard/viewsalary" element={<ViewSalary />} />
-          <Route path="/dashboard/updatesalary" element={<UpdateSalary />} />
+          <Route path="/dashboard/addhrsalary" element={<AddHRSalary />} />
+          <Route path="/dashboard/viewhrsalary" element={<ViewHRSalary />} />
+          <Route path="/dashboard/updatehrsalary" element={<UpdateHRSalary />} />
           <Route path="/dashboard/generatesalary" element={<GenerateSalary />} />
           <Route path="/dashboard/update/gensalary" element={<UpdateGenSalary />} />
           <Route path="/dashboard/viewgeneratesalary" element={<ViewGenSalary />} />
@@ -215,19 +217,23 @@ const router = createBrowserRouter(
           <Route path="/employee/home" element={<DashboardEmp />} />
         </Route>
       </Route>
-
+      
       {/* HR Routes */}
       <Route path="/hr" element = {<HrLogin/>}/>
       <Route path="/hr/forget" element = {<ForgetHr/>}/>
       <Route element = {<ProtectedHr/>}>
         <Route path="/hr/home" element = {<LayoutHr/>}>
-        <Route path="/hr/home" element = {<DashboardHr/>}>
+        <Route path="" element = {<DashboardHr/>}/>
         <Route path="/hr/home/addemployee" element={<AddEmployee />} />
           <Route path="/hr/home/viewemployee" element={<ViewEmployee />} />
           <Route path="/hr/home/updateemployee" element={<UpdateEmployee />} />
+
+          <Route path="/hr/home/addsalary" element={<AddSalary />} />
+          <Route path="/hr/home/viewsalary" element={<ViewSalary />} />
+          <Route path="/hr/home/updatesalary" element={<UpdateSalary />} />
           </Route>
         </Route>
-      </Route>
+      {/* </Route> */}
 
     </>
   )
