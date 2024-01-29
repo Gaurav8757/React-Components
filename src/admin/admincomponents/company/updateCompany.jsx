@@ -87,7 +87,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
     comp_cname: "",
     comp_insurance: "",
     comp_categories: "",
-    comp_establishment: "",
+    // comp_establishment: "",
     comp_cfiles: null
   });
 
@@ -225,7 +225,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
                         />
                       </div>
 
-                      <div className="flex flex-col my-5">
+                      {/* <div className="flex flex-col my-5">
                         <label className="text-base mx-1">Establishment Year:</label>
                         <input
                           className="input-style rounded-lg"
@@ -234,7 +234,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
                           value={companyData.comp_establishment}
                           onChange={handleInputChange}
                         />
-                      </div>
+                      </div> */}
                     </div>
                     {/* part-2 */}
                     <div className="w-full lg:w-1/2 p-2 text-start">

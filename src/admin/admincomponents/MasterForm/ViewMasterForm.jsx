@@ -78,7 +78,7 @@ function ViewMasterForm() {
               <TiArrowBack size={30} color="red" />
             </NavLink>
             <h1 className="flex justify-center font-semibold text-3xl w-full mb-4">
-              View All Details
+              View All Policy Details
             </h1>
             <hr />
           </div>

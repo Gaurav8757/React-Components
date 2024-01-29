@@ -166,7 +166,7 @@ function AddBranch() {
               />
             </div>
             <div className="flex flex-col my-5">
-              <label className="text-base mx-1">Concern Person</label>
+              <label className="text-base mx-1">Branch Manager</label>
               <input
                 className="input-style rounded-lg"
                 type="text"

@@ -83,7 +83,7 @@ function AddCompanies() {
  
   const [insList, setInsList] = useState("");
   const [category, setCategory] = useState("");
-  const [establishment, setEstablishment] = useState("");
+  // const [establishment, setEstablishment] = useState("");
   const [cname, setCname] = useState("");
   const [files, setFiles] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -102,7 +102,7 @@ function AddCompanies() {
       const formData = new FormData();
       formData.append("comp_insurance", insList);
       formData.append("comp_categories", category);
-      formData.append("comp_establishment", establishment);
+      // formData.append("comp_establishment", establishment);
       formData.append("comp_cname", cname);
       if (files) {
         formData.append("comp_cfiles", files);
@@ -122,7 +122,7 @@ function AddCompanies() {
         // Reset the form fields
         setInsList("");
         setCategory("");
-        setEstablishment("");
+        // setEstablishment("");
         setCname("");
         setFiles(null);
       } else {
@@ -177,7 +177,7 @@ function AddCompanies() {
                 />
               </div>
 
-              <div className="flex flex-col my-5">
+              {/* <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Establishment Year:</label>
                 <input
                   className="input-style rounded-lg"
@@ -186,7 +186,7 @@ function AddCompanies() {
                   value={establishment}
                   onChange={(e) => setEstablishment(e.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
             {/* part-2 */}
             <div className="w-full lg:w-1/2 p-2 text-start">

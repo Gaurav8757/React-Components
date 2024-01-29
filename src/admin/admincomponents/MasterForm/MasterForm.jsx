@@ -239,7 +239,7 @@ function MasterForm() {
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add All Detail&apos;s </h1>
+          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add Policy Detail&apos;s </h1>
           <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
             {/* PART-1 */}
             <div className="p-2 text-start">

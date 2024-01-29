@@ -98,9 +98,9 @@ export default function ViewCompany() {
                                     <th scope="col" className="px-5 py-4">
                                         Category
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    {/* <th scope="col" className="px-5 py-4">
                                         Date of Establish
-                                    </th>
+                                    </th> */}
                                     <th scope="col" className="px-5 py-4">
                                         Files
                                     </th>
@@ -133,9 +133,9 @@ export default function ViewCompany() {
                                             <td className="whitespace-nowrap px4 py-4">
                                                 {data.comp_categories}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            {/* <td className="whitespace-nowrap px-4 py-4">
                                                 {data.comp_establishment}
-                                            </td>
+                                            </td> */}
                                             <td className="whitespace-nowrap px4 py-4">
                                                 
                                                 <NavLink to={data.comp_cfiles} >

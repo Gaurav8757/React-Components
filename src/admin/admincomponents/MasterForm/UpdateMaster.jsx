@@ -256,7 +256,7 @@ function UpdateMaster({ insurance, onUpdate }) {
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                  Update Details
+                  Update Policy Details
                 </h3>
                 <button
                   onClick={closeModal}
