@@ -17,7 +17,7 @@ function GenerateSalary() {
   const [incentive, setIncentive] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-
+console.log(months);
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/dashboard/hr/viewsalary").then((response) => {
       setSalaryList(response.data);
@@ -197,24 +197,23 @@ function GenerateSalary() {
                   className="input-style rounded-lg"
                   type="text"
                   value={months}
-
                   onChange={(e) => setMonths(e.target.value)}
                   name="genhrMonths"
                   >
                     
-                  <option key="0" value="" disabled>----- Select Month&apos;s -----</option>
-                  <option key="1" value={"January"}>January</option>
-                  <option key="2" value={"Febuary"}>Febuary</option>
-                  <option key="3" value={"March"}>March</option>
-                  <option key="4" value={"April"}>April</option>
-                  <option key="5" value={"May"}>May</option>
-                  <option key="6" value={"June"}>June</option>
-                  <option key="7" value={"July"}>July</option>
-                  <option key="8" value={"August"}>August</option>
-                  <option key="9" value={"September"}>September</option>
-                  <option key="10" value={"October"}>October</option>
-                  <option key="11" value={"November"}>November</option>
-                  <option key="12" value={"December"}>December</option>
+                  <option value="" disabled>----- Select Month&apos;s -----</option>
+                  <option value={"January"}>January</option>
+                  <option value={"Febuary"}>Febuary</option>
+                  <option value={"March"}>March</option>
+                  <option value={"April"}>April</option>
+                  <option value={"May"}>May</option>
+                  <option value={"June"}>June</option>
+                  <option value={"July"}>July</option>
+                  <option value={"August"}>August</option>
+                  <option value={"September"}>September</option>
+                  <option  value={"October"}>October</option>
+                  <option  value={"November"}>November</option>
+                  <option  value={"December"}>December</option>
                 </select>
               </div>
 
