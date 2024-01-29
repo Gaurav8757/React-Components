@@ -12,10 +12,10 @@ function HrLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
-                empmobile: mobile,
-                empemail: email,
-                emppassword: password,
+            const response = await axios.post("https://eleedomimf.onrender.com/hr/login", {
+                hrmobile: mobile,
+                hremail: email,
+                hrpassword: password,
             });
             const token = response.data.token;
             const emails = response.data.email;

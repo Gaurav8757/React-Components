@@ -72,17 +72,17 @@ function ViewHr() {
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-blue-500"
                     ><NavLink to = "/dashboard/addhr" className="flex justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
-                        <h1 className="flex justify-center text-3xl w-full font-semibold mb-8">All Employee Lists</h1><hr></hr>
+                        <h1 className="flex justify-center text-3xl w-full font-semibold mb-8">All HR Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
-                                   Employee ID
+                                   HR ID
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Employee Name
+                                     Name
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Email ID

@@ -35,7 +35,6 @@ function AddHr() {
   
       try {
         const formData = new FormData();
-        // formData.append("empaadhar", aadhar);
         formData.append("hraadharfile", aadhar);
         formData.append("hrid", hrid);
         formData.append("hrname", hrname);
