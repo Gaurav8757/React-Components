@@ -109,9 +109,29 @@ export default function ViewGenPolicy() {
                                         Incentive
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                        Gross Salary
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                        Basic Salary
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                       HRA
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                        CA
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                       Medical Allowance
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Tiffin Allowance
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Company PF
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                         Total Amount
                                     </th>
-
                                     <th scope="col" className="px-5 py-4">
                                         Edit
                                     </th>
@@ -159,6 +179,42 @@ export default function ViewGenPolicy() {
 
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.hrincentive}
+                                            </td>
+
+
+
+                                            <td className="whitespace-nowrap px4 py-4">
+                                                {data.grossSalary}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.basicSalary}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.hra}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.ca}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.medical}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.tiffin}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.companyPf}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.pf}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.esi}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.loanemi}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.totalhrAmount}

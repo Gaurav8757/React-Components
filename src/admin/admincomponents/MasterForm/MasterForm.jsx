@@ -73,11 +73,12 @@ function MasterForm() {
   };
   //  VEHICLE AGE CALCULATED
   const calculateAge = () => {
+    if (!registrationDate) {
+      setVehicleAge("0 years 0 months 0 days");
+      return;
+    }
     const today = new Date();
     const birthdateDate = new Date(registrationDate);
-
-    
-
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
     let ageMonths = today.getMonth() - birthdateDate.getMonth();
     let ageDays = today.getDate() - birthdateDate.getDate();
@@ -957,14 +958,15 @@ function MasterForm() {
               {/* FIELD - 42 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Bank Name:</label>
-                <select
+                <input
                   id="bankName"
                   name="bankName"
                   className="input-style rounded-lg"
                   value={bankName}
+                  placeholder="Enter Bank Name"
                   onChange={(e) => setBankName(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Bank ---</option>
+                  {/* <option className="w-1" value="" disabled>--- Select Bank ---</option>
                   <option value="HDFC BANK">HDFC BANK</option>
                   <option value="ICICI BANK">ICICI BANK</option>
                   <option value="SBI">SBI</option>
@@ -973,14 +975,14 @@ function MasterForm() {
                   <option value="AXIS BANK">AXIS BANK</option>
                   <option value="BOB">BOB</option>
                   <option value="BOI">BOI</option>
-                  <option value="IDBI">IDBI</option>
-                </select>
+                  <option value="IDBI">IDBI</option> */}
+                </input>
               </div>
               {/* FIELD - 45 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Advisor Payable Amount:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className=" rounded-lg"
                   type="number"
                   value={advisorPayableAmount}
                   name="advisorPayableAmount"
