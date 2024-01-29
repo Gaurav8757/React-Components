@@ -109,6 +109,37 @@ export default function ViewGenPolicy() {
                                         Incentive
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                        Gross Salary
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                        Basic Salary
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                       HRA
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                        CA
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                       Medical Allowance
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Tiffin Allowance
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Company PF
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                       Employee PF
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    ESI
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    Loan EMI
+                                    </th>
+
+                                    <th scope="col" className="px-5 py-4">
                                         Total Amount
                                     </th>
 
@@ -160,6 +191,42 @@ export default function ViewGenPolicy() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.incentive}
                                             </td>
+                                            <td className="whitespace-nowrap px4 py-4">
+                                                {data.empgrossSalary}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empbasicSalary}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.emphra}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empca}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empmedical}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.emptiffin}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empcompanyPf}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.emppf}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.empesi}
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.emploanemi}
+                                            </td>
+
+
+
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.totalAmount}
                                             </td>

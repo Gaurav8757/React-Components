@@ -372,7 +372,7 @@ function GenerateSalary() {
                 />
               </div>
             </div>
-            <div className="w-full col-span-4 mt-10">Employee Contribution/Deduction</div>
+            <div className="w-full col-span-4 mt-10">HR Contribution/Deduction</div>
             {/* part -6 */}
             <div className="w-full lg:w-1/2 p-2 text-start border-gray-500 border-t">
               <div className="flex flex-col ">

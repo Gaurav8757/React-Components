@@ -17,7 +17,16 @@ function GenerateSalary() {
   const [incentive, setIncentive] = useState("");
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [empgrossSalary, setGrossEmpSalary] = useState("");
+  const [empbasicSalary, setBasicEmpSalary] = useState("");
+  const [emphra, setEmpHra] = useState("");
+  const [empca, setEmpCa] = useState("");
+  const [empmedical, setEmpMedical] = useState("");
+  const [emptiffin, setEmpTiffin] = useState("");
+  const [empcompanyPf, setEmpCompanyPf] = useState("");
+  const [emppf, setEmpPf] = useState("");
+  const [empesi, setEmpESI] = useState("");
+  const [emploanemi, setEmpLoanemi] = useState("");
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
@@ -51,12 +60,20 @@ function GenerateSalary() {
         monthleave: monthleave,
         totalDays: totaldays,
         incentive: incentive,
+        empgrossSalary: empgrossSalary,
+      empbasicSalary: empbasicSalary,
+      emphra: emphra,
+      empca:empca,
+      empmedical:empmedical,
+      emptiffin:emptiffin,
+      empcompanyPf:empcompanyPf,
+      emppf: emppf,
+      empesi: empesi,
+      emploanemi:emploanemi,
         totalAmount: amount,
       });
-
       if (response.data) {
         toast.success("Added Successfully!");
-        
         // Reset the form and loading state on successful submission
         setEmpname("");
         setMonths("");
@@ -69,6 +86,16 @@ function GenerateSalary() {
         setTotaldays("");
         setIncentive("");
         setAmount("");
+        setGrossEmpSalary("");
+        setBasicEmpSalary("");
+        setEmpCa("");
+        setEmpHra("");
+        setEmpMedical("");
+        setEmpTiffin("");
+        setEmpCompanyPf("");
+        setEmpPf("");
+        setEmpESI("");
+        setEmpLoanemi("");
         setLoading(false);
       } else {
         toast.error("Error Occurred. Try again...!");
@@ -252,6 +279,159 @@ function GenerateSalary() {
                   value={incentive}
                   onChange={(e) => setIncentive(e.target.value)}
                   name="incentive"
+                  placeholder="₹"
+                />
+              </div>
+            </div>
+             {/* part- 3 */}
+             <div className="w-full lg:w-1/2 p-2 text-start border-gray-500 border-t">
+              <div className="flex flex-col ">
+                <label className="text-base mx-1">Gross Salary:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empgrossSalary"
+                  value={empgrossSalary}
+                  onChange={(e) => setGrossEmpSalary(e.target.value)}
+                  placeholder="Enter Gross Salary"
+                />
+              </div>
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">HRA:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="emphra"
+                  value={emphra}
+                  onChange={(e) => setEmpHra(e.target.value)}
+                  placeholder="HRA"
+                />
+              </div>
+
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Medical Allowance:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empmedical"
+                  value={empmedical}
+                  onChange={(e) => setEmpMedical(e.target.value)}
+                  placeholder="Medical Allowance"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="text-base mx-1">Company PF:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empcompanyPf"
+                  value={empcompanyPf}
+                  onChange={(e) => setEmpCompanyPf(e.target.value)}
+                  placeholder="PF"
+                />
+              </div>
+
+            </div>
+
+
+            {/* part -5 */}
+            <div className="w-full lg:w-1/2 p-2 text-start xs:border-hidden  border-gray-500 border-t">
+              <div className="flex flex-col ">
+                <label className="text-base mx-1">Basic Salary:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empbasicSalary"
+                  value={empbasicSalary}
+                  onChange={(e) => setBasicEmpSalary(e.target.value)}
+                  placeholder="Basic Salary"
+                />
+              </div>
+
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">CA:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empca"
+                  value={empca}
+                  onChange={(e) => setEmpCa(e.target.value)}
+                  placeholder="Basic Salary"
+                />
+              </div>
+
+              <div className="flex flex-col ">
+                <label className="text-base mx-1">Tiffin/DAS Allowance:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="emptiffin"
+                  value={emptiffin}
+                  onChange={(e) => setEmpTiffin(e.target.value)}
+                  placeholder="Tiffin Allowance"
+                />
+              </div>
+            </div>
+            <div className="w-full col-span-4 mt-10">Employee Contribution/Deduction</div>
+            {/* part -6 */}
+            <div className="w-full lg:w-1/2 p-2 text-start border-gray-500 border-t">
+              <div className="flex flex-col ">
+                <label className="text-base mx-1">PF:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="emppf"
+                  value={emppf}
+                  onChange={(e) => setEmpPf(e.target.value)}
+                  placeholder="PF"
+                />
+              </div>
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Load EMI:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="emploanemi"
+                  value={emploanemi}
+                  onChange={(e) => setEmpLoanemi(e.target.value)}
+                  placeholder="EMI"
+                />
+              </div>
+            </div>
+
+            {/* esi part -2 */}
+            <div className="w-full lg:w-1/2 p-2 text-start xs:border-hidden  border-gray-500 border-t">
+              <div className="flex flex-col">
+                <label className="text-base mx-1">ESI:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  rows={2}
+                  name="empesi"
+                  value={empesi}
+                  onChange={(e) => setEmpESI(e.target.value)}
+                  placeholder="Basic ESI"
+                />
+              </div>
+
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Total Amount:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="number"
+                  min="0"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  name="totalhrAmount"
                   placeholder="₹"
                 />
               </div>
