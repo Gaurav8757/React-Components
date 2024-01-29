@@ -25,20 +25,11 @@ function HrLogin() {
 
            // Check if the user is an token based on your backend response
             if (response.data) {
-                const { token, empid } = response.data;
+                const { token } = response.data;
                 sessionStorage.getItem("token", token);
-                console.log(empid);
-                // Check if empid is equal to the HR random number
-                if (empid === 'HR') {
-                    console.log(empid);
-                    
                     navigate("/hr/home");
                     toast.success("Logged In Successfully !");
-                } else {
-                    // Restrict login for employees with empid not equal to the HR random number
-                    navigate("/hr");
-                    toast.error("Unauthorized Access!");
-                }
+             
             } else {
                 // For non-token users, you might want to redirect to a different page
                 navigate("/hr");
