@@ -29,8 +29,8 @@ const Sidebar = () => {
       logo: <RiGitBranchFill size={24}/>
     },
     {
-      title: "Add Employee",
-      path: "/dashboard/addemployee",
+      title: "Add HR",
+      path: "/dashboard/addhr",
       logo: <IoPeopleOutline size={24}/>
     },
     {

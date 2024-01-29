@@ -95,6 +95,7 @@ import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
 import DashboardHr from "./HumanResources/DashboardHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
+import ViewHr from "./admin/admincomponents/Hr/ViewHr.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -160,7 +161,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/viewbranch" element={<ViewBranch />} />
           <Route path="/dashboard/updatebranch" element={<UpdateBranch />} />
           <Route path = "/dashboard/addhr" element = {<AddHr/>}/>
-          
+          <Route path = "/dashboard/viewhr" element = {<ViewHr/>}/>
           <Route path="/dashboard/addsalary" element={<AddSalary />} />
           <Route path="/dashboard/viewsalary" element={<ViewSalary />} />
           <Route path="/dashboard/updatesalary" element={<UpdateSalary />} />
