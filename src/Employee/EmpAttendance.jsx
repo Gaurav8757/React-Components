@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-import '/policy-bazaar/src/employee/EmpAttendance.css';
+// import '/policy-bazaar/src/employee/EmpAttendance.css';
 import axios from 'axios';
 
 function EmpAttendance() {
