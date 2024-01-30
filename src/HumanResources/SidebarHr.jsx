@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-// import { IoPeopleOutline } from "react-icons/io5";
+import { FcTodoList } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc"; 
 
@@ -14,6 +14,11 @@ function DashboardHr() {
           title: "Dashboard",
           path: "/hr/home",
           logo: <RxDashboard size={25} />
+        },
+         {
+          title: "Make Attendance",
+          path: "/hr/home/attendance",
+          logo: <FcTodoList size={25} />
         },
         {
            title: "Add Employee",

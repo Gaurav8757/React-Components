@@ -53,7 +53,6 @@ function UpdateEmployee({ employee, onUpdate }) {
                 `https://eleedomimf.onrender.com/api/emp/update/${employee._id}`, // Update the URL with the correct endpoint
                 data
             );
-
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
             closeModal();
@@ -147,7 +146,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="text"
-                                                value={data.aadharno}
+                                                value={data.empaadharno}
                                                 onChange={handleInputChange}
                                                 name="aadharno"
                                                 placeholder=""
@@ -159,7 +158,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="date"
-                                                value={data.joining}
+                                                value={data.empjoiningdate}
                                                 onChange={handleInputChange}
                                                 name="empjoiningdate"
                                                 placeholder=""
@@ -258,14 +257,11 @@ function UpdateEmployee({ employee, onUpdate }) {
                                                 value={data.empbranch}
                                                 onChange={handleInputChange}
                                                 name="empbranch"
-                                                placeholder="Enter Branch Name"
-                                            >
+                                                placeholder="Enter Branch Name">
                                                 <option value="0">----- Select Branch -----</option>
-                                                {/* {data.branchList.map((branchItem) => (
-                                                    <option key={branchItem._id} value={branchItem.branchname}>
-                                                        {branchItem.branchname}
-                                                    </option>
-                                                ))} */}
+                                                <option value={data.empbranch}>
+                                                    {data.empbranch}
+                                                </option>
                                             </select>
                                         </div>
 

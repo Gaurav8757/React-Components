@@ -2,6 +2,8 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
 import { RxDashboard } from "react-icons/rx";
+import { FcTodoList } from "react-icons/fc";
+
 // import { RiGitBranchFill } from "react-icons/ri";
 // import { IoPeopleOutline } from "react-icons/io5";
 // import { TbMoneybag, TbReport } from "react-icons/tb";
@@ -14,11 +16,11 @@ function DashboardEmp() {
           path: "/employee/home",
           logo: <RxDashboard size={25} />
         },
-        // {
-        //    title: "View Insurance",
-        //   path: "/employee/home/",
-        //   logo: <RiGitBranchFill size={25} />
-        // },
+        {
+          title: "Make Attendance",
+          path: "/employee/home/attendance",
+          logo: <FcTodoList size={25} />
+        },
         // {
         //   title: "Add Employee",
         //   path: "/branches",
