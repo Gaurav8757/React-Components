@@ -102,8 +102,8 @@ import GenerateHrSalary from "./admin/admincomponents/GenerateSalary/GenerateSal
 import ViewGenHrSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalary.jsx";
 import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import HrAttendance from "./HumanResources/HrAttendance.jsx";
-import EmpAttendance from "./employee/EmpAttendance.jsx";
-import DashboardEmp from "./employee/DashboardEmp.jsx";
+import EmpAttendance from "./Employee/EmpAttendance.jsx";
+import DashboardEmp from "./Employee/DashboardEmp.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
