@@ -219,7 +219,7 @@ const router = createBrowserRouter(
       <Route path="/employee/forget" element={<ForgotEmpPassword />} />
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
-          <Route path="/employee/home" element={<DashboardEmp />} />
+          <Route path="" element={<DashboardEmp />} />
           <Route path="/employee/home/attendance" element = {<EmpAttendance/>}/>
         </Route>
       </Route>
