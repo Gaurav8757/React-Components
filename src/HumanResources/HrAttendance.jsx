@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-// import '../employee/EmpAttendance.css';
+import '../employee/EmpAttendance.css';
 import axios from 'axios';
 
-function EmpAttendance() {
+function HrAttendance() {
   const [value, onChange] = useState(new Date());
   const [attendanceStatus, setAttendanceStatus] = useState(null);
   const apiEndpoint = 'https://eleedomimf.onrender.com/employee/attendance';
@@ -125,4 +125,4 @@ function EmpAttendance() {
   );
 }
 
-export default EmpAttendance;
+export default HrAttendance;
