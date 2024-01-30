@@ -87,7 +87,6 @@ import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx
 import LoginEmployee from "./Employee/LoginEmp.jsx";
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
-import DashboardEmp from "./Employee/DashboardEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
 import HrLogin from "./HumanResources/HrLogin.jsx";
 import ForgetHr from "./HumanResources/ForgetHr.jsx";
@@ -104,6 +103,7 @@ import ViewGenHrSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalar
 import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import HrAttendance from "./HumanResources/HrAttendance.jsx";
 import EmpAttendance from "./employee/EmpAttendance.jsx";
+import DashboardEmp from "./employee/DashboardEmp.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>

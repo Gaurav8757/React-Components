@@ -1,9 +1,9 @@
 import {Outlet} from "react-router-dom";
-import DashboardEmp from "./DashboardEmp.jsx";
+import SidebarEmp from "./SidebarEmp.jsx";
 function LayoutEmp() {
   return (
     <>
-      <DashboardEmp/>
+      <SidebarEmp/>
         <Outlet />
       </>
   )
