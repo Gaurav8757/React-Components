@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
 import { RxCross2 } from "react-icons/rx";
 import { useState, useEffect } from "react";
+
 // import { NavLink } from "react-router-dom";
 function ChallanModal() {
     const [showOtpInput, setShowOtpInput] = useState(false);
@@ -140,6 +142,7 @@ function ChallanModal() {
                                             className="text-green-600 inline-flex items-center hover:text-white border border-green-600 hover:bg-green-600 focus:ring-1 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-2.5 text-center dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-900"
                                         >
                                             Verify OTP
+                                            
                                         </button>
                                     </div>
                                 </div>

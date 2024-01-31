@@ -1,19 +1,45 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
 import { useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
-import ChallanModal from "./viewChallan/ChallanModal";
-// import ChallanView from "./viewChallan/ChallanView";
+// import ChallanModal from "./viewChallan/ChallanModal";
+import ChallanView from "./viewChallan/ChallanView";
 const HomeSection = ({ homesection }) => {
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+  const [response, setResponse] = useState(null);
+console.log(response);
   const validateVehicleNumber = () => {
     const regex = /^[A-Z]{2}[ ][0-9]{1,2}[ ][A-Z]{2}[ ][0-9]{4}$/;
     setIsValid(regex.test(vehicleNumber));
   };
+  const fetchData = async () => {
+    try {
+      const options = {
+        method: 'POST',
+        url: 'https://rto-challan-information-verification-india.p.rapidapi.com/api/rc/challaninfo',
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Key': '8bfed02b6amsh3f5b6fe0d8f151bp1d370ejsne07e869329ae',
+          'X-RapidAPI-Host': 'rto-challan-information-verification-india.p.rapidapi.com',
+        },
+        data: {
+          regn_no: vehicleNumber,
+          consent: 'yes',
+          consent_text: 'I hereby declare my consent agreement for fetching my information via AITAN Labs API',
+        },
+      };
 
+      const response = await axios.request(options);
+      setResponse(response.data);
+    } catch (error) {
+      console.error(error);
+      // You may want to handle errors in a meaningful way in your application
+    }
+  };
 
   return (
     <section className="container-fluid flex flex-col lg:flex-row justify-between  sm:w-full     bg-slate-100">
@@ -58,8 +84,8 @@ const HomeSection = ({ homesection }) => {
             )}
 
           </div>
-          <div className="flex justify-center mt-10 items-center">
-            <ChallanModal />
+          <div className="flex justify-center mt-10 items-center" onClick = {fetchData}>
+            <ChallanView   />
           </div>
         </div>
       </div>

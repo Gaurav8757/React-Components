@@ -5,7 +5,7 @@ const ClaimForm = () => {
     {
       s_no: "1",
       c_name: "Tata AIG",
-      link: "src/assets/pdf/CLAIM_FORM_TATA_AIG.PDF",
+      link: "assets/CLAIM_FORM_TATA_AIG.PDF",
     },
     {
       s_no: "2",
