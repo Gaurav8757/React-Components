@@ -5,25 +5,25 @@ const ClaimForm = () => {
     {
       s_no: "1",
       c_name: "Tata AIG",
-      link: "public/pdf/CLAIM_FORM_TATA_AIG.PDF",
+      link: "pdf/CLAIM_FORM_TATA_AIG.PDF",
      
     },
     {
       s_no: "2",
       c_name: "Bajaj Allianz",
-      link: "public/pdf/BAJAJ_CLAIM_FROM.pdf",
+      link: "pdf/BAJAJ_CLAIM_FROM.pdf",
     },
     {
       s_no: "3",
       c_name: "ICICI Lombard",
-      link: "public/pdf/CLAIM_FORM_ICIC_LOMBARD.pdf",
+      link: "pdf/CLAIM_FORM_ICIC_LOMBARD.pdf",
     },
-    { s_no: "4", c_name: "Reliance General Insurance", link: "public/pdf/Claim_Form_RELIANCE.pdf" },
-    { s_no: "5", c_name: "Future Generali", link: "public/pdf/FUTURE_GEN_CLAIM_FORM.pdf" },
-    { s_no: "6", c_name: "HDFC ERGO", link: "public/pdf/HDFC_CLAIM_FROM.pdf" },
-    { s_no: "7", c_name: "IFFICO Tokio", link: "public/pdf/IFFCO_TOKIO_CLAIM_FORM.pdf" },
-    { s_no: "8", c_name: "Magma HDI", link: "public/pdf/magma_COMMERCIAL_VEHICLE_CLAIM_FORM.pdf" },
-    { s_no: "9", c_name: "Shriram General Insurance", link: "public/pdf/Motor_Claim_Form_SHRIRAM.pdf" },
+    { s_no: "4", c_name: "Reliance General Insurance", link: "pdf/Claim_Form_RELIANCE.pdf" },
+    { s_no: "5", c_name: "Future Generali", link: "pdf/FUTURE_GEN_CLAIM_FORM.pdf" },
+    { s_no: "6", c_name: "HDFC ERGO", link: "pdf/HDFC_CLAIM_FROM.pdf" },
+    { s_no: "7", c_name: "IFFICO Tokio", link: "pdf/IFFCO_TOKIO_CLAIM_FORM.pdf" },
+    { s_no: "8", c_name: "Magma HDI", link: "pdf/magma_COMMERCIAL_VEHICLE_CLAIM_FORM.pdf" },
+    { s_no: "9", c_name: "Shriram General Insurance", link: "pdf/Motor_Claim_Form_SHRIRAM.pdf" },
   ];
 
   // const downloadPDF = (pdfUrl, filename) => {
