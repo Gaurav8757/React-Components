@@ -59,10 +59,6 @@ const ClaimForm = () => {
                     <td className="whitespace-nowrap ">
                       <NavLink
                         to={`https://eleedomimf.com/${company.link}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          // downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
-                        }}
                         download={`${company.c_name}_Claim_Form.pdf`}
                         className="flex justify-center"
                         target="_blank"
