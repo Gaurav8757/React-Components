@@ -8,7 +8,8 @@ const getCurrentDateAndTime = () => {
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
   return formattedDate;
 };
-const currentDateTime = getCurrentDateAndTime();
+const curentDateTime = getCurrentDateAndTime();
+
 function AddAttendance() {
   
   const [attendanceStatus, setAttendanceStatus] = useState('');
@@ -25,7 +26,7 @@ function AddAttendance() {
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
-        date: currentDateTime,
+        date: curentDateTime,
       });
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
