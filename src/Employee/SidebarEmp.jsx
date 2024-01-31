@@ -68,7 +68,7 @@ function DashboardEmp() {
         setOpenSubmenu(null);
       };
     
-      const loginBranch = sessionStorage.getItem("advisoremail");
+      const loginBranch = sessionStorage.getItem("email");
       return (
         <>
           <nav className="fixed top-0 z-50 w-full bg-black">

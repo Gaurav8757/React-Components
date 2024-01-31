@@ -25,10 +25,10 @@ function AddAttendance() {
     <label>
       Attendance Status:
       <select value={attendanceStatus} onChange={(e) => setAttendanceStatus(e.target.value)}>
-        <option value="Present">Present</option>
-        <option value="Absent">Absent</option>
-        <option value="Halfday">Halfday</option>
-        <option value="Holiday">Holiday</option>
+        <option value="present">Present</option>
+        <option value="absent">Absent</option>
+        <option value="halfday">Halfday</option>
+        <option value="holiday">Holiday</option>
       </select>
     </label>
     <br />
