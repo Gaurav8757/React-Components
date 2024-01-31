@@ -74,7 +74,7 @@ const ClaimForm = () => {
                     <td className="whitespace-nowrap px-4 py-4 font-bold">{company.c_name}</td>
                     <td className="whitespace-nowrap ">
                       <NavLink
-                        to={company.link}
+                        to={`https://eleedomimf.com/${company.link}`}
                         onClick={(e) => {
                           e.preventDefault();
                           // downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
@@ -82,6 +82,7 @@ const ClaimForm = () => {
                         download={`${company.c_name}`}
                         className="flex justify-center"
                       >
+                        
                         <img src="/pdf.png" alt="download" className="w-14 h-12 text-center" />
                       </NavLink>
                     </td>
