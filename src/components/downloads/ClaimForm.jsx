@@ -26,23 +26,7 @@ const ClaimForm = () => {
     { s_no: "9", c_name: "Shriram General Insurance", link: "pdf/Motor_Claim_Form_SHRIRAM.pdf" },
   ];
 
-  // const downloadPDF = (pdfUrl, filename) => {
-  //   fetch(pdfUrl)
-  //     .then((response) => response.blob())
-  //     .then((blob) => {
-  //       const url = window.URL.createObjectURL(blob);
-  //       const a = document.createElement('a');
-  //       a.href = url;
-  //       a.download = filename; // Set the desired file name
-  //       document.body.appendChild(a);
-  //       a.click();
-  //       document.body.removeChild(a);
-  //       window.URL.revokeObjectURL(url);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error downloading PDF:', error);
-  //     });
-  // };
+ 
 
   return (
     <section className="container-fluid relative h-screen bg-white">
@@ -79,7 +63,7 @@ const ClaimForm = () => {
                           e.preventDefault();
                           // downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
                         }}
-                        download={`${company.c_name}`}
+                        download={`${company.c_name}_Claim_Form.pdf`}
                         className="flex justify-center"
                       >
                         
