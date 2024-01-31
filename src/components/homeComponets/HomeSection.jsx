@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
+import {toast} from "react-toastify";
 import axios from 'axios';
 import { useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
-// import ChallanModal from "./viewChallan/ChallanModal";
-import ChallanView from "./viewChallan/ChallanView";
+import ChallanModal from "./viewChallan/ChallanModal";
+
 const HomeSection = ({ homesection }) => {
   const [vehicleNumber, setVehicleNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
@@ -35,8 +36,12 @@ console.log(response);
 
       const response = await axios.request(options);
       setResponse(response.data);
+     
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
+      toast.error(error.response.data.message, {
+         theme: "dark", position: "top-center" 
+      });
       // You may want to handle errors in a meaningful way in your application
     }
   };
@@ -85,7 +90,7 @@ console.log(response);
 
           </div>
           <div className="flex justify-center mt-10 items-center" onClick = {fetchData}>
-            <ChallanView   />
+            <ChallanModal />
           </div>
         </div>
       </div>

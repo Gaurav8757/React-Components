@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 
-function ChallanView({resp, onClick}) {
-  console.log(resp);
-  console.log(onClick);
+function ChallanView() {
+  
+
   return (
     <div className="flex  justify-center m-4 items-center">
         Challans
