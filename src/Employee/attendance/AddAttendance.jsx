@@ -15,7 +15,7 @@ function AddAttendance() {
       }
 
       // Make a POST request to mark attendance
-      await axios.post(`/api/employee/mark/attendance/${empid}`, { status: attendanceStatus });
+      await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, { status: attendanceStatus });
 
       // Handle success (e.g., show a success message)
       console.log('Attendance marked successfully');
