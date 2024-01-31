@@ -65,6 +65,7 @@ const ClaimForm = () => {
                         }}
                         download={`${company.c_name}_Claim_Form.pdf`}
                         className="flex justify-center"
+                        target="_blank"
                       >
                         
                         <img src="/pdf.png" alt="download" className="w-14 h-12 text-center" />
