@@ -16,7 +16,7 @@ function DashboardHr() {
           logo: <RxDashboard size={25} />
         },
          {
-          title: "Make Attendance",
+          title: "View Attendance",
           path: "/hr/home/attendance",
           logo: <FcTodoList size={25} />
         },

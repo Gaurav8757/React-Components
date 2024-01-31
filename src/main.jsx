@@ -102,8 +102,9 @@ import GenerateHrSalary from "./admin/admincomponents/GenerateSalary/GenerateSal
 import ViewGenHrSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalary.jsx";
 import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import HrAttendance from "./HumanResources/HrAttendance.jsx";
-import EmpAttendance from "./Employee/EmpAttendance.jsx";
+import EmpAttendance from "./Employee/attendance/EmpAttendance.jsx";
 import DashboardEmp from "./Employee/DashboardEmp.jsx";
+import AddAttendance from "./Employee/attendance/AddAttendance.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -220,6 +221,7 @@ const router = createBrowserRouter(
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
           <Route path="" element={<DashboardEmp />} />
+          <Route path="/employee/home/add/attendance" element = {<AddAttendance/>}/>
           <Route path="/employee/home/attendance" element = {<EmpAttendance/>}/>
         </Route>
       </Route>

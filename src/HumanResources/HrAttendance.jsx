@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-// import '../../public/EmpAttendance.css';
 import axios from 'axios';
 
 function HrAttendance() {
   const [value, onChange] = useState(new Date());
   const [attendanceStatus, setAttendanceStatus] = useState(null);
-  const apiEndpoint = 'https://eleedomimf.onrender.com/employee/attendance';
+  const apiEndpoint = 'https://eleedomimf.onrender.com/employee/attendanc';
 
   useEffect(() => {
     getAttendanceStatusForDate();
@@ -109,8 +108,7 @@ function HrAttendance() {
             next2Label = "Next Year"
             prev2Label = "Prev Year"
             className="  max-w-screen"
-            defaultView	= "month"
-            
+            defaultView	= "month"      
           />
           <div>
             <button onClick={() => markAttendance('present')}>Mark Present</button>

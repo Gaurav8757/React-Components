@@ -2,10 +2,8 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { FcTodoList } from "react-icons/fc";
+import { FcTodoList, FcPlanner } from "react-icons/fc";
 
-// import { RiGitBranchFill } from "react-icons/ri";
-// import { IoPeopleOutline } from "react-icons/io5";
 // import { TbMoneybag, TbReport } from "react-icons/tb";
 // import { FcMoneyTransfer } from "react-icons/fc"; 
 
@@ -17,15 +15,16 @@ function DashboardEmp() {
           logo: <RxDashboard size={25} />
         },
         {
-          title: "Make Attendance",
+          title: "Add Attendance",
+          path: "/employee/home/add/attendance",
+          logo: <FcPlanner size={25} />
+        },
+        {
+          title: "View Attendance",
           path: "/employee/home/attendance",
           logo: <FcTodoList size={25} />
         },
-        // {
-        //   title: "Add Employee",
-        //   path: "/branches",
-        //   logo: <IoPeopleOutline size={25} />
-        // },
+       
         // {
         //   title: "Add Salary",
         //   path: "/branches",
