@@ -77,7 +77,7 @@ const ClaimForm = () => {
                         to={company.link}
                         onClick={(e) => {
                           e.preventDefault();
-                          downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
+                          downloadPDF( `${company.c_name}_Claim_Form.pdf`);
                         }}
                         download
                         className="flex justify-center"
