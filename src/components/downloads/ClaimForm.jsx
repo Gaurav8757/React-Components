@@ -5,44 +5,44 @@ const ClaimForm = () => {
     {
       s_no: "1",
       c_name: "Tata AIG",
-      link: "/assets/CLAIM_FORM_TATA_AIG.PDF",
-      
+      link: "public/pdf/CLAIM_FORM_TATA_AIG.PDF",
+     
     },
     {
       s_no: "2",
       c_name: "Bajaj Allianz",
-      link: "/assets/BAJAJ_CLAIM_FROM.pdf",
+      link: "public/pdf/BAJAJ_CLAIM_FROM.pdf",
     },
     {
       s_no: "3",
       c_name: "ICICI Lombard",
-      link: "/assets/CLAIM_FORM_ICIC_LOMBARD.pdf",
+      link: "public/pdf/CLAIM_FORM_ICIC_LOMBARD.pdf",
     },
-    { s_no: "4", c_name: "Reliance General Insurance", link: "/assets/Claim_Form_RELIANCE.pdf" },
-    { s_no: "5", c_name: "Future Generali", link: "/assets/FUTURE_GEN_CLAIM_FORM.pdf" },
-    { s_no: "6", c_name: "HDFC ERGO", link: "/assets/HDFC_CLAIM_FROM.pdf" },
-    { s_no: "7", c_name: "IFFICO Tokio", link: "/assets//IFFCO_TOKIO_CLAIM_FORM.pdf" },
-    { s_no: "8", c_name: "Magma HDI", link: "/assets/magma_COMMERCIAL_VEHICLE_CLAIM_FORM.pdf" },
-    { s_no: "9", c_name: "Shriram General Insurance", link: "/assets/Motor_Claim_Form_SHRIRAM.pdf" },
+    { s_no: "4", c_name: "Reliance General Insurance", link: "public/pdf/Claim_Form_RELIANCE.pdf" },
+    { s_no: "5", c_name: "Future Generali", link: "public/pdf/FUTURE_GEN_CLAIM_FORM.pdf" },
+    { s_no: "6", c_name: "HDFC ERGO", link: "public/pdf/HDFC_CLAIM_FROM.pdf" },
+    { s_no: "7", c_name: "IFFICO Tokio", link: "public/pdf/IFFCO_TOKIO_CLAIM_FORM.pdf" },
+    { s_no: "8", c_name: "Magma HDI", link: "public/pdf/magma_COMMERCIAL_VEHICLE_CLAIM_FORM.pdf" },
+    { s_no: "9", c_name: "Shriram General Insurance", link: "public/pdf/Motor_Claim_Form_SHRIRAM.pdf" },
   ];
 
-  const downloadPDF = (pdfUrl, filename) => {
-    fetch(pdfUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename; // Set the desired file name
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      })
-      .catch((error) => {
-        console.error('Error downloading PDF:', error);
-      });
-  };
+  // const downloadPDF = (pdfUrl, filename) => {
+  //   fetch(pdfUrl)
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       const url = window.URL.createObjectURL(blob);
+  //       const a = document.createElement('a');
+  //       a.href = url;
+  //       a.download = filename; // Set the desired file name
+  //       document.body.appendChild(a);
+  //       a.click();
+  //       document.body.removeChild(a);
+  //       window.URL.revokeObjectURL(url);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error downloading PDF:', error);
+  //     });
+  // };
 
   return (
     <section className="container-fluid relative h-screen bg-white">
@@ -77,9 +77,9 @@ const ClaimForm = () => {
                         to={company.link}
                         onClick={(e) => {
                           e.preventDefault();
-                          downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
+                          // downloadPDF(company.link, `${company.c_name}_Claim_Form.pdf`);
                         }}
-                        download={`${company.c_name}_Claim_Form.pdf`}
+                        download={`${company.c_name}`}
                         className="flex justify-center"
                       >
                         <img src="/pdf.png" alt="download" className="w-14 h-12 text-center" />
