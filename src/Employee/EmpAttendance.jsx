@@ -105,7 +105,7 @@ function EmpAttendance() {
   };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
+    <section className="container-fluid emp-attendance-container relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-50">
         <div className='w-full '>
           <h1 className='text-3xl tracking-wider font-medium p-4'>Attendance</h1>
