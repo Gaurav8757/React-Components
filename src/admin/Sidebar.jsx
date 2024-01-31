@@ -7,7 +7,7 @@ import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { TbMoneybag, TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
-import { FcMoneyTransfer } from "react-icons/fc";
+import { FcMoneyTransfer, FcPlanner } from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
@@ -33,11 +33,11 @@ const Sidebar = () => {
       path: "/dashboard/addhr",
       logo: <IoPeopleOutline size={24}/>
     },
-    // {
-    //   title: "Add Advisor",
-    //   path: "/dashboard/addAdvisor",
-    //   logo: < IoIosPeople size={24}/>
-    // },
+    {
+      title: "HR Attendance",
+      path: "/dashboard/view/attendance",
+      logo: < FcPlanner size={24}/>
+    },
     {
       title: "Add Salary",
       path: "/dashboard/addhrsalary",

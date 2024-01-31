@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import { FcTodoList } from "react-icons/fc";
+import { FcTodoList, FcPlanner } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc"; 
 
@@ -14,6 +14,11 @@ function DashboardHr() {
           title: "Dashboard",
           path: "/hr/home",
           logo: <RxDashboard size={25} />
+        },
+         {
+          title: "Add Attendance",
+          path: "/hr/home/add/attendance",
+          logo: <FcPlanner size={25} />
         },
          {
           title: "View Attendance",
@@ -30,11 +35,7 @@ function DashboardHr() {
           path: "/hr/home/addsalary",
           logo: <TbMoneybag  size={25} />
         },
-        // {
-        //   title: "Add Salary",
-        //   path: "/branches",
-        //   logo: <TbMoneybag size={25} />
-        // },
+       
         {
           title: "Generate Salary",
           path: "/hr/home/generate/salary",
