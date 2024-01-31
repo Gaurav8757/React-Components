@@ -47,11 +47,11 @@ function AddAttendance() {
         <div className="inline-block min-w-full  w-full py-0 sm:px-5 lg:px-1">
           <h2 className="text-4xl tracking-wider font-medium">Mark Attendance</h2>
 
-          <div className="overflow-x-auto max-h-screen h-screen mt-10 bg-slate-200">
+          <div className="overflow-x-auto max-h-screen h-screen mt-6 bg-slate-200">
             <p className="text-start font-semibold text-2xl">
               Your Name: <span className="font-medium tracking-wide text-green-700">{empnam}</span>
             </p>
-            <div className="mt-6 ">
+            <div className="mt-5 self-center ">
               <div className="flex flex-wrap">
                 <div className="flex items-center me-10">
                   <h1 className='text-2xl tracking-wide font-medium text-blue-600 me-10'>Attendance Status:</h1>
@@ -62,11 +62,11 @@ function AddAttendance() {
                     name="colored-radio"
                     checked={attendanceStatus === 'absent'}
                     onChange={() => setAttendanceStatus('absent')}
-                    className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-5 h-5 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
                     htmlFor="red-radio"
-                    className="ms-2 text-sm font-medium text-gray-600 "
+                    className="ms-2 text-xl font-medium text-gray-600 "
                   >
                     Absent
                   </label>
@@ -79,11 +79,11 @@ function AddAttendance() {
                     name="colored-radio"
                     checked={attendanceStatus === 'present'}
                     onChange={() => setAttendanceStatus('present')}
-                    className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
                     htmlFor="green-radio"
-                    className="ms-2 text-sm font-medium text-gray-600 "
+                    className="ms-2 text-xl font-medium text-gray-600 "
                   >
                     Present
                   </label>
@@ -96,11 +96,11 @@ function AddAttendance() {
                     name="colored-radio"
                     checked={attendanceStatus === 'holiday'}
                     onChange={() => setAttendanceStatus('holiday')}
-                    className="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className="w-5 h-5 text-yellow-400 bg-gray-100 border-gray-300 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
                     htmlFor="yellow-radio"
-                    className="ms-2 text-sm font-medium text-gray-600 "
+                    className="ms-2 text-xl font-medium text-gray-600 "
                   >
                     Holiday
                   </label>
