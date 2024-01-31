@@ -20,8 +20,8 @@ function LoginEmp() {
       });
       const token = response.data.token;
       console.log(response.data.user);
-       const emails = response.data.user.email;
-       const employeeId = response.data.user_id;
+       const emails = response.data.user.empemail;
+       const employeeId = response.data.user._id;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", emails);
       sessionStorage.setItem("employeeId", employeeId);
