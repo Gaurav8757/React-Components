@@ -19,9 +19,9 @@ function LoginEmp() {
         emppassword: password,
       });
       const token = response.data.token;
-      console.log(response.data);
-       const emails = response.data.email;
-       const employeeId = response.data._id;
+      console.log(response.data.user);
+       const emails = response.data.user.email;
+       const employeeId = response.data.user_id;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", emails);
       sessionStorage.setItem("employeeId", employeeId);
