@@ -2,13 +2,14 @@
 import { useState } from 'react';
 import axios from 'axios';
 function AddAttendance() {
- 
-  const [identifier, setIdentifier] = useState('');
+  const [attendanceStatus, setAttendanceStatus] = useState('');
 
-  const handleMarkAttendance = async () => {
+  const handleToggleAttendance = async () => {
     try {
-      // Make a POST request to the backend API
-      await axios.post('https://eleedomimf.onrender.com/employee/mark/attendance', { identifier });
+      const empid = sessionStorage.getItem("employeeId");
+      // Make a POST request to mark attendance
+      await axios.post(`/api/employee/mark/attendance/${empid}`, { status: attendanceStatus });
+
       // Handle success (e.g., show a success message)
       console.log('Attendance marked successfully');
     } catch (error) {
@@ -19,14 +20,20 @@ function AddAttendance() {
 
   return (
     <div>
-      <h1>Employee Attendance Tracking App</h1>
-      <label>
-        Employee Identifier:
-        <input type="text" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
-      </label>
-      <br />
-      <button onClick={handleMarkAttendance}>Mark Attendance</button>
-    </div>
+    <h2>Mark Attendance</h2>
+    <p>Employee ID:</p>
+    <label>
+      Attendance Status:
+      <select value={attendanceStatus} onChange={(e) => setAttendanceStatus(e.target.value)}>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Halfday">Halfday</option>
+        <option value="Holiday">Holiday</option>
+      </select>
+    </label>
+    <br />
+    <button onClick={handleToggleAttendance}>Toggle Attendance</button>
+  </div>
   );
 }
 

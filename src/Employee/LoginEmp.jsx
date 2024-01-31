@@ -19,9 +19,12 @@ function LoginEmp() {
         emppassword: password,
       });
       const token = response.data.token;
+      console.log(response.data);
        const emails = response.data.email;
+       const employeeId = response.data._id;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", emails);
+      sessionStorage.setItem("employeeId", employeeId);
       navigate("/");
       // Check if the user is an token based on your backend response
       if (response.data) {
