@@ -9,17 +9,17 @@ function EmpAttendance() {
   const [APIData, setAPIData] = useState([]);
 
   const tileClassName = ({ date }) => {
-    const currentDate = new Date();
-    const isCurrentDate =
-      date.getDate() === currentDate.getDate() &&
-      date.getMonth() === currentDate.getMonth() &&
-      date.getFullYear() === currentDate.getFullYear();
+    // const currentDate = new Date();
+    // const isCurrentDate =
+    //   date.getDate() === currentDate.getDate() &&
+    //   date.getMonth() === currentDate.getMonth() &&
+    //   date.getFullYear() === currentDate.getFullYear();
 
     let classNames = '';
 
-    if (isCurrentDate) {
-      classNames += 'current-day ';
-    }
+    // if (isCurrentDate) {
+    //   classNames += 'current-day ';
+    // }
 
     const statusForDate = getAttendanceStatusForDateSync(date);
 
@@ -39,19 +39,14 @@ function EmpAttendance() {
 
   const getAttendanceStatusForDateSync = (selectedDate) => {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options).replace(/\//g, '');
-    console.log(formattedSelectedDate);
-    
-  
+    const formattedSelectedDate = selectedDate.toLocaleDateString('en-GB', options);
     const attendanceData = APIData.find((data) => {
       const dataDate = data.date.split('T')[0]; // Extract the date part from the API date
-      // console.log(dataDate);
       return dataDate === formattedSelectedDate;
     });
-  
     return attendanceData ? attendanceData.status : null;
   };
-  
+
 
 
 
@@ -69,7 +64,6 @@ function EmpAttendance() {
         })
         .then((response) => {
           setAPIData(response.data);
-          console.log(response.data);
         })
         .catch((error) => {
           console.error(error);

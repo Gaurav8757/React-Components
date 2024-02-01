@@ -5,7 +5,7 @@ import axios from 'axios';
 function HrAttendance() {
   const [value, onChange] = useState(new Date());
   const [attendanceStatus, setAttendanceStatus] = useState(null);
-  const apiEndpoint = 'https://eleedomimf.onrender.com/employee/attendanc';
+  const apiEndpoint = 'https://eleedomimf.onrender.com/employee/attendance';
 
   useEffect(() => {
     getAttendanceStatusForDate();

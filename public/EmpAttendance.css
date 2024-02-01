@@ -137,9 +137,9 @@
     
   }
   
-  .react-calendar__tile--now {
+  /* .react-calendar__tile--now {
     background: #43d27d;
-  }
+  } */
   
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
@@ -155,10 +155,10 @@
     background: #4e9be8;
   }
   
-  .react-calendar__tile--active {
+  /* .react-calendar__tile--active {
     background: #006edc;
     color: white;
-  }
+  } */
   
   .react-calendar__tile--active:enabled:hover,
   .react-calendar__tile--active:enabled:focus {
@@ -171,12 +171,12 @@
 
   /* Add these styles to your existing CSS file */
 .absent-day {
-  background-color: #aa0e0e; /* Red background for absent days */
+  background-color: #f01414; /* Red background for absent days */
 }
 
 .present-day {
-  background-color: #289228; /* Green background for present days */
-  color:white
+  background-color: #3ecd3e; /* Green background for present days */
+ 
 }
 
 .current-day {
@@ -185,7 +185,8 @@
 }
 
 .holiday-day {
-  background-color: #a7a709; /* Yellow background for holiday days */
+  background-color: #ecec1d; /* Yellow background for holiday days */
+ 
 }
 .white {
   background-color: #ffffff; /* Yellow background for holiday days */
