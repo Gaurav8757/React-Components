@@ -9,9 +9,17 @@ const getCurrentDateAndTime = () => {
   return formattedDate;
 };
 
+// const formatDate = (dateTimeString) => {
+//   const datePart = dateTimeString.split(',')[1];
+//   return datePart;
+// };
 const formatDate = (dateTimeString) => {
-  const datePart = dateTimeString.split(',')[1];
-  return datePart;
+  const date = new Date(dateTimeString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
 };
 
 const formatTime = (dateTimeString) => {
@@ -35,7 +43,7 @@ function AddAttendance() {
         toast.error('Please select a valid attendance status.');
         return;
       }
-
+     
       const currentDateAndTime = getCurrentDateAndTime();
       const datePart = formatDate(currentDateAndTime); // Get date in the format 01-01-2000
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
