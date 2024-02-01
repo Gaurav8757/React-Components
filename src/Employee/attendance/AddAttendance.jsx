@@ -4,22 +4,22 @@ import { toast } from 'react-toastify';
 
 
 const getCurrentDateAndTime = () => {
-  const options = {weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
   return formattedDate;
 };
 
-const formatToDateString = (dateTimeString) => {
-  const datePart = dateTimeString.split(' ')[0];
+const formatDate = (dateTimeString) => {
+  const datePart = dateTimeString.split(', ')[1];
   return datePart;
 };
 
-const formatToTimeString = (dateTimeString) => {
+const formatTime = (dateTimeString) => {
   const timePart = dateTimeString.split(' ')[1] + ' ' + dateTimeString.split(' ')[2];
   return timePart;
 };
 
-const formatToWeekdayString = (dateTimeString) => {
+const formatWeekday = (dateTimeString) => {
   const weekdayPart = dateTimeString.split(', ')[0];
   return weekdayPart;
 };
@@ -37,14 +37,14 @@ function AddAttendance() {
       }
 
       const currentDateAndTime = getCurrentDateAndTime();
-      const datePart = formatToDateString(currentDateAndTime); // Get date in the format 01-01-2000
-      const timePart = formatToTimeString(currentDateAndTime); // Get time in the format 00:00:00 am/pm
-      const weekdayPart = formatToWeekdayString(currentDateAndTime); // Get weekday like 'Monday'
+      const datePart = formatDate(currentDateAndTime); // Get date in the format 01-01-2000
+      const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
+      const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
-        date: timePart,
-        time: datePart ,
+        date: datePart,
+        time: timePart ,
         weekday: weekdayPart,
       });
       // Handle success (e.g., show a success message)
