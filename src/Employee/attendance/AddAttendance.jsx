@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 
 const getCurrentDateAndTime = () => {
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+  const options = {weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
   return formattedDate;
 };
@@ -17,6 +17,11 @@ const formatToDateString = (dateTimeString) => {
 const formatToTimeString = (dateTimeString) => {
   const timePart = dateTimeString.split(' ')[1] + ' ' + dateTimeString.split(' ')[2];
   return timePart;
+};
+
+const formatToWeekdayString = (dateTimeString) => {
+  const weekdayPart = dateTimeString.split(', ')[0];
+  return weekdayPart;
 };
 
 function AddAttendance() {
@@ -33,12 +38,14 @@ function AddAttendance() {
 
       const currentDateAndTime = getCurrentDateAndTime();
       const datePart = formatToDateString(currentDateAndTime); // Get date in the format 01-01-2000
+      const weekdayPart = formatToWeekdayString(currentDateAndTime); // Get weekday like 'Monday'
       const timePart = formatToTimeString(currentDateAndTime); // Get time in the format 00:00:00 am/pm
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
         date: datePart,
-        time: timePart
+        time: timePart,
+        weekday: weekdayPart
       });
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
