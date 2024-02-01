@@ -38,24 +38,18 @@ function EmpAttendance() {
   };
 
   const getAttendanceStatusForDateSync = (selectedDate) => {
-    const formattedSelectedDate = getCurrentDateAndTime(selectedDate);
-     // Format selectedDate to match API data
-    
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options);
+    console.log(formattedSelectedDate);
     const attendanceData = APIData.find((data) => {
-      //const dataDate = new Date(data.date).toDateString(); // Format API date for comparison
-      // console.log(data.date);
-      // console.log(formattedSelectedDate);
-      return data.date === formattedSelectedDate;
-    
+      const dataDate = data.date.split('T')[0]; // Extract the date part from the API date
+      console.log(dataDate);
+      return dataDate === formattedSelectedDate;
     });
-    console.log(attendanceData);
+  
     return attendanceData ? attendanceData.status : null;
   };
-  const getCurrentDateAndTime = () => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
-    return formattedDate;
-  };
+
 
 
   useEffect(() => {
