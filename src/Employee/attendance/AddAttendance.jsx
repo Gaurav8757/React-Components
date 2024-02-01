@@ -1,38 +1,33 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
-
+// get times
 const getCurrentDateAndTime = () => {
   const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
   return formattedDate;
 };
-
+// dates
 const formatDate = (dateTimeString) => {
   const date = new Date(dateTimeString);
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
   const year = date.getFullYear();
-
   return `${day}/${month}/${year}`;
 };
-
+// time
 const formatTime = (dateTimeString) => {
   const timePart = dateTimeString.split(' ')[2] + ' ' + dateTimeString.split(' ')[3];
   return timePart;
 };
-
+// weekday
 const formatWeekday = (dateTimeString) => {
   const weekdayPart = dateTimeString.split(',')[0];
   return weekdayPart;
 };
-
-
-
-
-
-
+// show date on screen
+let dates = formatDate(getCurrentDateAndTime());
+// api call to post attendancee
 function AddAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [ctime, setTime] = useState(digitalTime);
@@ -55,7 +50,6 @@ function AddAttendance() {
         toast.error('Please select a valid attendance status.');
         return;
       }
-
       const currentDateAndTime = getCurrentDateAndTime();
       const datePart = formatDate(currentDateAndTime); // Get date in the format 01-01-2000
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
@@ -82,20 +76,18 @@ function AddAttendance() {
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 sm:px-5 lg:px-1">
-
           <h2 className="text-4xl tracking-wider font-medium">Mark Attendance</h2>
-          
           <div className="overflow-x-auto   max-h-screen h-screen mt-6 bg-slate-200">
-            <div className='flex justify-between'>
-            <span className="text-start font-semibold text-2xl">
-              Your Name: <span className="font-medium tracking-wide text-green-700">{empnam}</span>
-            </span>
-            <span className="text-start font-semibold text-2xl">Time: <span className='font-medium tracking-wide text-green-700 text-xl'> {ctime}</span> </span></div>
-
-
-
-            
-            <div className="mt-5 self-center ">
+            {/* name, date, time */}
+            <div className='flex justify-between text-xl sm:text-md md:text-xl lg:text-2xl xl:text-2xl'>
+              <span className="text-start font-semibold ">
+                Your Name: <span className="font-medium tracking-wide text-green-700">{empnam}</span>
+              </span>
+              <span className="text-start font-semibold ">Time: <span className='font-medium tracking-wide text-green-500   md:text-lg xl:text-xl  text-lg sm:text-md'> {ctime}</span> </span>
+              <span className="text-start font-semibold ">Date: <span className='font-medium tracking-wide text-blue-600 md:text-lg xl:text-xl text-lg sm:text-md'> {dates}</span> </span>
+            </div>
+            {/* part-2 */}
+            <div className="mt-8 self-center ">
               <div className="flex flex-wrap">
                 <div className="flex items-center me-10 ">
                   <h1 className='text-2xl tracking-wide font-medium text-blue-600 me-10'>Attendance Status:</h1>
@@ -156,9 +148,7 @@ function AddAttendance() {
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );
