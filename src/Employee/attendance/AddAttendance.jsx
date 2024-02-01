@@ -10,17 +10,17 @@ const getCurrentDateAndTime = () => {
 };
 
 const formatDate = (dateTimeString) => {
-  const datePart = dateTimeString.split(', ')[1];
+  const datePart = dateTimeString.split(' ')[1];
   return datePart;
 };
 
 const formatTime = (dateTimeString) => {
-  const timePart = dateTimeString.split(' ')[1] + ' ' + dateTimeString.split(' ')[2];
+  const timePart = dateTimeString.split(' ')[2];
   return timePart;
 };
 
 const formatWeekday = (dateTimeString) => {
-  const weekdayPart = dateTimeString.split(', ')[0];
+  const weekdayPart = dateTimeString.split(' ')[0];
   return weekdayPart;
 };
 
