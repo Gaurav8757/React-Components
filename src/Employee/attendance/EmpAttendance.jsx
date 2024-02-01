@@ -39,7 +39,7 @@ function EmpAttendance() {
 
   const getAttendanceStatusForDateSync = (selectedDate) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options).replace('');
+    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options);
     console.log(formattedSelectedDate);
   
     const attendanceData = APIData.find((data) => {
