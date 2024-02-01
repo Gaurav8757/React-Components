@@ -168,3 +168,25 @@
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
+
+  /* Add these styles to your existing CSS file */
+.absent-day {
+  background-color: #aa0e0e; /* Red background for absent days */
+}
+
+.present-day {
+  background-color: #289228; /* Green background for present days */
+  color:white
+}
+
+.current-day {
+  background-color: #0ba8eb; /* Green background for present days */
+  color:white
+}
+
+.holiday-day {
+  background-color: #a7a709; /* Yellow background for holiday days */
+}
+.white {
+  background-color: #ffffff; /* Yellow background for holiday days */
+}
