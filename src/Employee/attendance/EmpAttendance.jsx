@@ -38,13 +38,14 @@ function EmpAttendance() {
   };
 
   const getAttendanceStatusForDateSync = (selectedDate) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const formattedSelectedDate = selectedDate.toLocaleDateString('en-US', options).replace(/\//g, '');
     console.log(formattedSelectedDate);
+    
   
     const attendanceData = APIData.find((data) => {
       const dataDate = data.date.split('T')[0]; // Extract the date part from the API date
-      console.log(dataDate);
+      // console.log(dataDate);
       return dataDate === formattedSelectedDate;
     });
   
