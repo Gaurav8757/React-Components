@@ -4,11 +4,20 @@ import { toast } from 'react-toastify';
 
 
 const getCurrentDateAndTime = () => {
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
   const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
   return formattedDate;
 };
-// const curentDateTime = getCurrentDateAndTime();
+
+const formatToDateString = (dateTimeString) => {
+  const datePart = dateTimeString.split(' ')[0];
+  return datePart;
+};
+
+const formatToTimeString = (dateTimeString) => {
+  const timePart = dateTimeString.split(' ')[1];
+  return timePart;
+};
 
 function AddAttendance() {
   const [attendanceStatus, setAttendanceStatus] = useState('');
@@ -21,11 +30,15 @@ function AddAttendance() {
         toast.error('Please select a valid attendance status.');
         return;
       }
+
+      const currentDateAndTime = getCurrentDateAndTime();
+      const datePart = formatToDateString(currentDateAndTime); // Get date in the format 01-01-2000
+      const timePart = formatToTimeString(currentDateAndTime); // Get time in the format 00:00:00 am/pm
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
-        date: getCurrentDateAndTime().split(',')[0],
-        time: getCurrentDateAndTime().split(',')[1].trim()
+        date: datePart,
+        time: timePart
       });
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
