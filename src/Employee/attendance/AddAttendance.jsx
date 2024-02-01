@@ -38,8 +38,8 @@ function AddAttendance() {
 
       const currentDateAndTime = getCurrentDateAndTime();
       const datePart = formatToDateString(currentDateAndTime); // Get date in the format 01-01-2000
-      const weekdayPart = formatToWeekdayString(currentDateAndTime); // Get weekday like 'Monday'
       const timePart = formatToTimeString(currentDateAndTime); // Get time in the format 00:00:00 am/pm
+      const weekdayPart = formatToWeekdayString(currentDateAndTime); // Get weekday like 'Monday'
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
