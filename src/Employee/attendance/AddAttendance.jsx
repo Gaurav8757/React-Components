@@ -43,9 +43,9 @@ function AddAttendance() {
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
-        date: datePart,
-        time: timePart,
-        weekday: weekdayPart
+        date: timePart,
+        time: datePart ,
+        weekday: weekdayPart,
       });
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
