@@ -15,7 +15,7 @@ const formatDate = (dateTimeString) => {
 };
 
 const formatTime = (dateTimeString) => {
-  const timePart = dateTimeString.split(' ')[2];
+  const timePart = dateTimeString.split(' ')[2] + ' ' + dateTimeString.split(' ')[3];
   return timePart;
 };
 
