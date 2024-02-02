@@ -32,6 +32,12 @@ function AddAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [ctime, setTime] = useState(digitalTime);
   const [attendanceStatus, setAttendanceStatus] = useState('');
+  // const [markedToday, setMarkedToday] = useState(false);
+
+
+
+
+  
   // digital clock
   const updateTime = () => {
     digitalTime = new Date().toLocaleTimeString();

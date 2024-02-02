@@ -48,8 +48,6 @@ function EmpAttendance() {
   };
 
 
-
-
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     const id = sessionStorage.getItem('employeeId');
