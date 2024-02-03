@@ -56,13 +56,13 @@ function AddAttendance() {
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
       const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
-     let resp = await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
+     await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
         date: datePart,
         time: timePart,
         weekday: weekdayPart,
       });
-      console.log(resp.data);
+      
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
     } catch (error) {
@@ -131,17 +131,17 @@ function AddAttendance() {
                   <input
                     id="yellow-radio"
                     type="radio"
-                    value="holiday"
+                    value="leave"
                     name="colored-radio"
-                    checked={attendanceStatus === 'holiday'}
-                    onChange={() => setAttendanceStatus('holiday')}
+                    checked={attendanceStatus === 'leave'}
+                    onChange={() => setAttendanceStatus('leave')}
                     className="w-5 h-5 cursor-pointer text-yellow-400 bg-yellow-200 border-yellow-700 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-yellow-800 focus:ring-2"
                   />
                   <label
                     htmlFor="yellow-radio"
                     className="ms-2 text-xl cursor-pointer font-semibold text-yellow-600 "
                   >
-                    Holiday
+                    Leave
                   </label>
                 </div>
               </div>

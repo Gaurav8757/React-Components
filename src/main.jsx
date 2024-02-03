@@ -103,10 +103,12 @@ import ViewGenHrSalary from "./admin/admincomponents/GenerateSalary/ViewGenSalar
 import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import HrAttendance from "./HumanResources/attendance/HrAttendance.jsx";
 import AddHrAttendance from "./HumanResources/attendance/AddHrAttendance.jsx";
-import EmpAttendance from "./Employee/attendance/EmpAttendance.jsx";
+import EmpAttendance from "./employee/attendance/EmpAttendance.jsx";
 import DashboardEmp from "./Employee/DashboardEmp.jsx";
-import AddAttendance from "./Employee/attendance/AddAttendance.jsx";
+import AddAttendance from "./employee/attendance/AddAttendance.jsx";
 import ViewHrAttendace from "./admin/admincomponents/Hr/ViewHrAttendace.jsx";
+import EmpAttendanceModal from "./HumanResources/Employee/EmpAttendanceModal.jsx";
+import EmpCalendar from "./HumanResources/Employee/EmpCalendar.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -237,7 +239,10 @@ const router = createBrowserRouter(
         <Route path="" element = {<DashboardHr/>}/>
         <Route path="/hr/home/addemployee" element={<AddEmployee />} />
           <Route path="/hr/home/viewemployee" element={<ViewEmployee />} />
+          <Route path="/hr/home/emp/modal/attendance" element={<EmpAttendanceModal/>} />
           <Route path="/hr/home/updateemployee" element={<UpdateEmployee />} />
+          <Route path="/hr/home/emp/attendance" element = {<EmpCalendar/>}/>
+          
 
           <Route path="/hr/home/addsalary" element={<AddSalary />} />
           <Route path="/hr/home/viewsalary" element={<ViewSalary />} />

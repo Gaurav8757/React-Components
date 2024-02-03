@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {  NavLink } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee.jsx";
+import EmpAttendanceModal from "./EmpAttendanceModal.jsx";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
 export default function ViewEmployee() {
     const [APIData, setAPIData] = useState([]);
+    
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -29,6 +31,7 @@ export default function ViewEmployee() {
         }
     }, []);
 
+    
     // refreshing page after updating data
   const onUpdateBranch = async () => {
     try {
@@ -52,6 +55,9 @@ export default function ViewEmployee() {
       console.error("Error fetching updated Employee data:", error);
     }
   };
+
+
+  
 
     // ******************** Delete Functions *************************************/
     const onDeleteEmployee = async (_id) => {
@@ -124,13 +130,16 @@ export default function ViewEmployee() {
                                         Edit
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                        Attendance
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                         Delete
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    
+                                    console.log(data);
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -182,11 +191,15 @@ export default function ViewEmployee() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empdesignation}
                                             </td>
-
-
                                             <td className="whitespace-nowrap px-4 py-4">
                                                <UpdateEmployee employee = {data}  onUpdate = {onUpdateBranch}/>
                                             </td>
+
+                                            <td className="whitespace-nowrap px-4 py-4" >
+                                               
+                                               <EmpAttendanceModal  emp = {data.employeeDetails}  />
+                                            </td>
+
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onDeleteEmployee(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>

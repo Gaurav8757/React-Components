@@ -218,7 +218,7 @@ const loginemail = sessionStorage.getItem("email");
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2  rounded-lg text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-10">{route.title}</span>
+                    <span className="ms-6">{route.title}</span>
                   </NavLink>
                 )}
               </li>
