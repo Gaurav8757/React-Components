@@ -89,7 +89,7 @@ const ServiceClaim = () => {
 
 
                             <div className="flex flex-col ">
-                                <label className="text-sm mx-1 ">Insurance Claim Name</label>
+                                <label className="text-sm mx-1 ">Insurance Company Name</label>
                                 <input
                                     className="input-style rounded-lg"
                                     type="text"

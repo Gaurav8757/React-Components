@@ -123,7 +123,7 @@ const Footers = () => {
             </div>
 
 
-            <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs  text-black bg-gradient-to-r from-slate-50 to-slate-50">
+            {/* <div className="flex text-start p-5 ml-2 mr-2 leading-6 text-xs  text-black bg-gradient-to-r from-slate-50 to-slate-50">
                 *Standard Plans Terms and Conditions apply
                 <br/>
                 +For insurance plans that do not require inspection of your car
@@ -143,7 +143,7 @@ const Footers = () => {
               
                 **Full refund of the premium may be availed when you opt to exit the policy at a pre-defined interval. On availing the one-time option to exit, the total base premium is returned by the Insurer excluding GST & premium paid for additional optional benefits.
                 <br/>
-            </div>
+            </div> */}
         </section>
     );
 };

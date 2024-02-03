@@ -183,8 +183,11 @@
   background-color: #0ba8eb; /* Green background for present days */
   color:white
 }
-
-.leave-day {
+.holi-day {
+  background-color: rgb(30, 183, 183); /* Green background for present days */
+  color:white
+}
+.half-day {
   background-color: #ecec1d; /* Yellow background for holiday days */
  
 }

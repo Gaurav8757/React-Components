@@ -19,7 +19,7 @@ export default function Navbar({ navigation }) {
   return (
     <>
       {/* Navbar */}
-      <nav className="bg-black">
+      <nav style={{backgroundColor: "#A31217"}}>
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
@@ -37,10 +37,10 @@ export default function Navbar({ navigation }) {
                 )}
               </button>
             </div>
-            <div className="flex flex-1 items-center sm:justify-center justify-evenly sm:items-stretch md:justify-between">
+            <div className="flex flex-1  items-center sm:justify-center justify-evenly sm:items-stretch md:justify-between">
               <NavLink to="/" className="flex ms-4 md:me-2  items-center">
-                <img src="/logo.jpg " className=" h-16  xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20  mx-2 w-28 sm:w-28 md:w-28 lg:w-32 xl:w-32 " alt="Logo" />
-                <span className="self-center xs:text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold  whitespace-nowrap font-sans dark:text-white">ELEEDOM IMF</span>
+                <img src="/logo.jpg " className=" h-16  py-2 xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20  mx-2 w-28 sm:w-28 md:w-28 lg:w-32 xl:w-32 " alt="Logo" />
+                
               </NavLink>
 
               <div className="hidden sm:ml-2  items-center lg:block py-10">
@@ -52,7 +52,7 @@ export default function Navbar({ navigation }) {
                         className={({ isActive }) =>
                           classNames(
                             isActive
-                              ? 'bg-slate-600 text-white font-bolder sm:text-sm md:text-sm lg:text-sm xl:text-lg'
+                              ? ' text-slate-200   sm:text-sm md:text-sm lg:text-sm xl:text-lg'
                               : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 hover:text-#6ee7b7',
                             'rounded-md px-2 py-2 font-medium text-gray-900'
                           )

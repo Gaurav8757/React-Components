@@ -770,18 +770,7 @@ function MasterForm() {
                   <option value="LIFE">LIFE</option>
                 </select>
               </div>
-              {/* FIELD - 6 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={policyNo}
-                  name="policyNo"
-                  onChange={(e) => setPolicyNo(e.target.value)}
-                  placeholder="Enter Policy No"
-                />
-              </div>
+             
               {/* FIELD - 9 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Vehicle Reg No:</label>
@@ -792,6 +781,18 @@ function MasterForm() {
                   name="vehRegNo"
                   onChange={(e) => setVehRegNo(e.target.value)}
                   placeholder="Enter Vehicle Reg No"
+                />
+              </div>
+               {/* FIELD - 6 */}
+               <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Policy No:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={policyNo}
+                  name="policyNo"
+                  onChange={(e) => setPolicyNo(e.target.value)}
+                  placeholder="Enter Policy No"
                 />
               </div>
               {/* FIELD - 12 */}
@@ -1006,6 +1007,8 @@ function MasterForm() {
             </div>
 
             {/* button */}
+
+            {}
             <div className="col-span-4 p-2">
               <button
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"

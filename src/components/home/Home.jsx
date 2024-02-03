@@ -117,10 +117,10 @@ const homesecondslider = [
         img: "/chalan.jpg",
         link:"https://echallan.parivahan.gov.in/index/accused-challan"
     },
-    {
-        img: "/carousel1.jpg",
-        link:""
-    }, 
+    // {
+    //     img: "/carousel1.jpg",
+    //     link:""
+    // }, 
     {
         img: "/carousel2.jpg",
         link:""
@@ -157,12 +157,12 @@ const homethirdslider = [
 
 
 const Health = [{
-    img: "/h3.png"
+    img: "/h1.png"
 },{
-    img: "/h2.png"
+    img: "/h3.png"
 },
 {
-    img: "/h1.png"
+    img: "/h2.png"
 }]
 
 
@@ -179,9 +179,9 @@ const general = [{
 {
     img: "/5.png"
 },{
-    img: "/7.png"
-},{
     img: "/8.png"
+},{
+    img: "/7.png"
 },
 
 

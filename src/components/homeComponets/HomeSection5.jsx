@@ -3,7 +3,7 @@ const HomeSection5 = () => {
   return (
     <section className="container-fluid bg-gradient-to-r from-white to-slate-50">
       <div className="col ml-2 mr-2 pt-10 p-2 pb-5 text-start bg-gradient-to-r from-white to-slate-50">
-        <div className="text-3xl mx-10 font-medium">ELEEDOM IMF Advantage
+        <div className="text-3xl mx-10 font-medium">Eleedom IMF Advantage
           <svg width="70" height="70" xmlns="http://www.w3.org/2000/svg" className="-mt-12 -ml-2">
             <line x1="10" y1="50" x2="90" y2="50" stroke="red" strokeWidth="4" />
           </svg>

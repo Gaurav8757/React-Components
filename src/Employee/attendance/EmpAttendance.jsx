@@ -25,12 +25,15 @@ function EmpAttendance() {
 
     if (statusForDate) {
       if (statusForDate === 'present') {
-        classNames += 'present-day ';
+        classNames += 'present-day';
       } else if (statusForDate === 'absent') {
         classNames += 'absent-day ';
-      } else if (statusForDate === 'leave') {
-        classNames += 'leave-day ';
-      } else {
+      } else if (statusForDate === 'halfday') {
+        classNames += 'half-day';
+      }else if (statusForDate === 'holiday') {
+        classNames += 'holi-day';
+      }
+       else {
         classNames += 'white'; // Default class for other cases
       }
     }

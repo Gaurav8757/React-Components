@@ -40,13 +40,21 @@ const ContactUs = () => {
                 <div className="md:w-1/3 w-auto  rounded-md md:h-auto p-4  m-5 mx-5  bg-gradient-to-r from-slate-200 to-slate-300 shadow-xl mb-4 md:mb-0">
                     <h5 className="text-2xl font-bold bg-gradient-to-r from-teal-500 to-emerald-700 bg-clip-text text-transparent ">Reach Us At</h5>
                     <ul className=" ">
-                        <li className="mt-2">
-                            <i className="fa fa-phone mr-2"></i>+91-mob
+                        <li className="mt-2 text-lg font-bold">
+                            <i className="fa fa-phone mr-2"></i>+91 9430608622
                         </li>
-                        <li className="mt-2">
-                            <i className="fa fa-envelope mr-2"></i>email
+                        <li className="mt-1 text-lg font-bold">
+                            <i className="fa fa-phone mr-2"></i>+91 8252460046
                         </li>
-                        <li className="xl:mt-20 mt-3 mb-2 leading-loose w-96 ml-12  text-center">
+                        <li className="mt-1 text-lg font-bold">
+                            <i className="fa fa-phone mr-2"></i>+91 9905886633
+                        </li>
+                        </ul>
+                        <ul className="mt-5 ">
+                        <li className="mt-1 text-lg font-bold">
+                            <i className="fa fa-envelope mr-2"></i>support@eleedomimf.com
+                        </li>
+                        <li className="xl:mt-20 mt-3 mb-2 font-semibold leading-loose w-96 ml-12  text-center">
                             <i className="fa-solid fa-map-pin mr-2 "></i>
                             607, 6th Floor, B-block, Gagan Apartment, Exhibition Road Chauraha
                             <span className="pl-1">
