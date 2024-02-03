@@ -131,17 +131,35 @@ function AddAttendance() {
                   <input
                     id="yellow-radio"
                     type="radio"
-                    value="leave"
+                    value="halfday"
                     name="colored-radio"
-                    checked={attendanceStatus === 'leave'}
-                    onChange={() => setAttendanceStatus('leave')}
+                    checked={attendanceStatus === 'halfday'}
+                    onChange={() => setAttendanceStatus('halfday')}
                     className="w-5 h-5 cursor-pointer text-yellow-400 bg-yellow-200 border-yellow-700 focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-yellow-800 focus:ring-2"
                   />
                   <label
                     htmlFor="yellow-radio"
                     className="ms-2 text-xl cursor-pointer font-semibold text-yellow-600 "
                   >
-                    Leave
+                    Half-Day
+                  </label>
+                </div>
+
+                <div className="flex items-center mx-5">
+                  <input
+                    id="yellow-radio"
+                    type="radio"
+                    value="holiday"
+                    name="colored-radio"
+                    checked={attendanceStatus === 'holiday'}
+                    onChange={() => setAttendanceStatus('holiday')}
+                    className="w-5 h-5 cursor-pointer text-teal-400 bg-teal-200 border-teal-700 focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-teal-800 focus:ring-2"
+                  />
+                  <label
+                    htmlFor="yellow-radio"
+                    className="ms-2 text-xl cursor-pointer font-semibold text-teal-600 "
+                  >
+                    Holiday
                   </label>
                 </div>
               </div>
