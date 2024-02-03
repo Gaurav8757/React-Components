@@ -32,12 +32,7 @@ function AddAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [ctime, setTime] = useState(digitalTime);
   const [attendanceStatus, setAttendanceStatus] = useState('');
-  // const [markedToday, setMarkedToday] = useState(false);
 
-
-
-
-  
   // digital clock
   const updateTime = () => {
     digitalTime = new Date().toLocaleTimeString();
@@ -61,12 +56,13 @@ function AddAttendance() {
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
       const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
-      await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
+     let resp = await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
         date: datePart,
         time: timePart,
         weekday: weekdayPart,
       });
+      console.log(resp.data);
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
     } catch (error) {
@@ -75,8 +71,9 @@ function AddAttendance() {
         'Error marking attendance:',
         error.response ? error.response.data.message : error.message
       );
+      
     }
-  };
+  }
   const empnam = sessionStorage.getItem('name');
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
