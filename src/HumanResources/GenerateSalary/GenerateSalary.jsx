@@ -45,6 +45,51 @@ function GenerateSalary() {
   };
 
 
+const handleBasic = ()=>{
+  const basic = parseFloat(empgrossSalary) || 0;
+  const final_basic = basic / 2 ;
+  console.log(final_basic);
+  setBasicEmpSalary(final_basic);
+}
+
+const handleHra = ()=>{
+  const calculateHra = parseFloat(empgrossSalary) || 0;
+  const finalHra = (calculateHra*30)/100;
+  console.log(finalHra);
+  setEmpHra(finalHra);
+}
+
+const handleCa = ()=>{
+  const calculateCa = parseFloat(empgrossSalary) || 0;
+  const finalCa = (calculateCa*10)/100;
+  console.log(finalCa);
+  setEmpCa(finalCa);
+}
+
+const handleMedical = ()=>{
+  const calculateMedical = parseFloat(empgrossSalary) || 0;
+  const finalMedical = (calculateMedical*5)/100;
+  console.log(finalMedical);
+  setEmpMedical(finalMedical);
+}
+
+const handleTiffin = ()=>{
+  const calculateTiffin= parseFloat(empgrossSalary) || 0;
+  const finalTiffin = (calculateTiffin*5)/100;
+  console.log(finalTiffin);
+  setEmpTiffin(finalTiffin);
+}
+const handleCompanyPf = ()=>{
+  const calculatePf= parseFloat(empbasicSalary) || 0;
+  const finalPf = (calculatePf*125)/1000;
+  console.log(finalPf);
+  setEmpCompanyPf(finalPf);
+}
+const handleEmpPf = ()=>{
+  setEmpPf(empcompanyPf);
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -306,6 +351,7 @@ function GenerateSalary() {
                   name="emphra"
                   value={emphra}
                   onChange={(e) => setEmpHra(e.target.value)}
+                  onBlur={handleHra}
                   placeholder="HRA"
                 />
               </div>
@@ -319,7 +365,9 @@ function GenerateSalary() {
                   name="empmedical"
                   value={empmedical}
                   onChange={(e) => setEmpMedical(e.target.value)}
+                  onBlur={handleMedical}
                   placeholder="Medical Allowance"
+                  readOnly
                 />
               </div>
               <div className="flex flex-col">
@@ -331,7 +379,9 @@ function GenerateSalary() {
                   name="empcompanyPf"
                   value={empcompanyPf}
                   onChange={(e) => setEmpCompanyPf(e.target.value)}
+                  onBlur={handleCompanyPf}
                   placeholder="PF"
+                  readOnly
                 />
               </div>
 
@@ -349,8 +399,11 @@ function GenerateSalary() {
                   name="empbasicSalary"
                   value={empbasicSalary}
                   onChange={(e) => setBasicEmpSalary(e.target.value)}
+                  onBlur={handleBasic}
                   placeholder="Basic Salary"
+                  readOnly
                 />
+
               </div>
 
               <div className="flex flex-col my-5">
@@ -362,7 +415,9 @@ function GenerateSalary() {
                   name="empca"
                   value={empca}
                   onChange={(e) => setEmpCa(e.target.value)}
-                  placeholder="Basic Salary"
+                  onBlur={handleCa}
+                  placeholder="CA"
+                  readOnly
                 />
               </div>
 
@@ -375,7 +430,9 @@ function GenerateSalary() {
                   name="emptiffin"
                   value={emptiffin}
                   onChange={(e) => setEmpTiffin(e.target.value)}
+                  onBlur={handleTiffin}
                   placeholder="Tiffin Allowance"
+                  readOnly
                 />
               </div>
             </div>
@@ -391,6 +448,7 @@ function GenerateSalary() {
                   name="emppf"
                   value={emppf}
                   onChange={(e) => setEmpPf(e.target.value)}
+                  onBlur={handleEmpPf}
                   placeholder="PF"
                 />
               </div>
