@@ -43,7 +43,7 @@ function UserCarousel() {
         } catch (error) {
             // Handle unexpected errors
             setLoading(false);
-            toast.error(`Error Occurred...! ${error}`);
+            toast.error(`Error Occurred...! ${error.response.data.message}`);
         }
     };
 
@@ -75,7 +75,9 @@ function UserCarousel() {
                                     name="usercarousel_link"
                                     value={link}
                                     onChange={(e) => setLink(e.target.value)}
+                                    required
                                 />
+                                <span className="text-red-900 text-sm">*required</span>
                             </div>
                         </div>
                         {/* part-2 */}
