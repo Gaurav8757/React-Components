@@ -19,7 +19,7 @@ function HrLogin() {
             });
             const token = response.data.token;
             const emails = response.data.email;
-            const hrId = response.data.hr._id;
+            const hrId = response.data.hr_id;
             const name = response.data.hrname;
            sessionStorage.setItem("token", token);
            sessionStorage.setItem("hremail", emails);
