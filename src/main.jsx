@@ -109,6 +109,10 @@ import AddAttendance from "./Employee/attendance/AddAttendance.jsx";
 import ViewHrAttendace from "./admin/admincomponents/Hr/ViewHrAttendace.jsx";
 import EmpAttendanceModal from "./HumanResources/Employee/EmpAttendanceModal.jsx";
 import EmpCalendar from "./HumanResources/Employee/EmpCalendar.jsx";
+import AddDataByBranch from "./branches/AddDetails/AddDataByBranch.jsx";
+import OperationHead from "./admin/admincomponents/operationHead/OperationHead.jsx";
+import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
+import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -197,15 +201,19 @@ const router = createBrowserRouter(
           <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
           <Route path="/dashboard/viewadvisor" element={<ViewAdvisor />} />
           <Route path="/dashboard/updateadvisor" element={<UpdateAdvisor />} />
+          <Route path="/dashboard/operation/head" element={<OperationHead />} />
+          <Route path="/dashboard/team/operation" element={<TeamLead />} />
+          <Route path="/dashboard/staff/type" element={<StaffType />} />
         </Route>
       </Route>
-
+     
       {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginBranch />} />
       <Route path="/branches/forget" element={<ForgetPassBranch />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
+          <Route path="/branches/home/add/emp" element = {<AddDataByBranch/>}/>
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
         </Route>
       </Route>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 // import { IoIosPeople } from "react-icons/io";
 import Logout from "./logout/Logout.jsx";
+import { FaCodePullRequest } from "react-icons/fa6";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -11,6 +12,9 @@ import { FcMoneyTransfer, FcPlanner } from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
+import { BiLogoMicrosoftTeams } from "react-icons/bi";
+import { MdOutlineCategory } from "react-icons/md";
+
 const Sidebar = () => {
   const dashboardRoutes = [
     {
@@ -39,6 +43,30 @@ const Sidebar = () => {
       logo: < FcPlanner size={24}/>
     },
     {
+      title: "Operation Head",
+      path: "#",
+      logo: < FaCodePullRequest size={24}/>,
+      subRoutes: [
+        {
+          title: "Lists",
+          path: "/dashboard/operation/head",
+          dash:""
+        }]
+    },
+    {
+      title: "Team(s) Operation",
+      path: "#",
+      logo: < BiLogoMicrosoftTeams size={24}/>,
+      subRoutes: [
+        {
+          title: "Lists",
+          path: "/dashboard/team/operation",
+          dash:""
+        }]
+    },
+
+    
+    {
       title: "Add Salary",
       path: "/dashboard/addhrsalary",
       logo: <TbMoneybag size={24}/>
@@ -58,9 +86,15 @@ const Sidebar = () => {
       path: "/dashboard/generate/salary",
       logo: <FcMoneyTransfer size={24}/>
     },
+
+    {
+      title: "Staff Type",
+      path: "/dashboard/staff/type",
+      logo: <MdOutlineCategory size={24}/>
+    },
     {
       title: "Report",
-      path: "/dashboard/policy",
+      path: "#",
       logo: <TbReport size={24}/>,
       subRoutes: [
         {
@@ -195,7 +229,7 @@ const loginemail = sessionStorage.getItem("email");
                       className={`flex items-center p-2 text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-10">{route.title}</span>
+                      <span className="ms-6">{route.title}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}

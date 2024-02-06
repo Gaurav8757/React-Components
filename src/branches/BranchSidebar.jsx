@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import BranchLogout from "./BranchLogout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-// import { IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline } from "react-icons/io5";
 // import { TbMoneybag, TbReport } from "react-icons/tb";
 // import { FcMoneyTransfer } from "react-icons/fc"; 
 const BranchSidebar = () => {
@@ -13,16 +13,22 @@ const BranchSidebar = () => {
       path: "/branches/home",
       logo: <RxDashboard size={25} />
     },
+
+    {
+      title: "Add Employee",
+      path: "/branches/home/add/emp",
+      logo: <IoPeopleOutline size={25} />
+    },
     {
        title: "View Insurance",
       path: "/branches/home/viewinsurance",
       logo: <RiGitBranchFill size={25} />
     },
-    {
+    // {
     //   title: "Add Employee",
-      path: "/branches",
-      // logo: <IoPeopleOutline size={25} />
-    },
+    //   path: "/branches",
+    //   logo: <IoPeopleOutline size={25} />
+    // },
     {
     //   title: "Add Salary",
       path: "/branches",

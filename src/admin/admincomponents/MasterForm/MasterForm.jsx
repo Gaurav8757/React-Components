@@ -243,8 +243,9 @@ function MasterForm() {
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add Policy Detail&apos;s </h1>
           <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
             {/* PART-1 */}
-            <div className="p-2 text-start">
+            <div className="p-2 rows text-start">
               {/* FIELD - 1 */}
+              <div className = "row-auto">
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Entry Date:</label>
                 <input
@@ -286,6 +287,7 @@ function MasterForm() {
                   placeholder="Enter Insured Name"
                 />
               </div>
+            </div>
               {/* FIELD - 10 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Policy Start Date:</label>
