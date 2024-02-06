@@ -18,9 +18,12 @@ function HrLogin() {
                 hrpassword: password,
             });
             const token = response.data.token;
-            const emails = response.data.email;
-            const hrId = response.data.hr_id;
-            const name = response.data.hrname;
+            const emails = response.data.user.hremail;
+            console.log(emails);
+            const hrId = response.data.user._id;
+            console.log(hrId);
+            const name = response.data.user.hrname;
+            console.log(name);
            sessionStorage.setItem("token", token);
            sessionStorage.setItem("hremail", emails);
            sessionStorage.setItem("hrId", hrId);

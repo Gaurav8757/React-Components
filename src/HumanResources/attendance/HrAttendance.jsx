@@ -1,99 +1,72 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 function HrAttendance() {
   const [value, onChange] = useState(new Date());
-  const [attendanceStatus, setAttendanceStatus] = useState(null);
-  const apiEndpoint = 'https://eleedomimf.onrender.com/hr/attendance';
+  const [attendanceStatus, setAttendanceStatus] = useState("");
+  console.log(attendanceStatus);
 
-  useEffect(() => {
-    getAttendanceStatusForDate();
-  }, );
 
   const tileClassName = ({ date }) => {
-    const currentDate = new Date();
-    const isPastDate = date < currentDate;
-    const isCurrentDate = date.getDate() === currentDate.getDate() && date.getMonth() === currentDate.getMonth() && date.getFullYear() === currentDate.getFullYear();
-
     let classNames = '';
-    if (isCurrentDate) {
-      classNames += 'present-day';
-    } else if (isPastDate) {
-      const status = getAttendanceStatusForDateSync(date);
-      if (status) {
-        classNames += ` ${status.toLowerCase()}-day`;
+    const statusForDate = getAttendanceStatusForDateSync(date);
+    if (statusForDate) {
+      if (statusForDate === 'present') {
+        classNames += 'present-day';
+      } else if (statusForDate === 'absent') {
+        classNames += 'absent-day ';
+      } else if (statusForDate === 'halfday') {
+        classNames += 'half-day';
+      } else if (statusForDate === 'holiday') {
+        classNames += 'holi-day';
+      }
+      else {
+        classNames += 'white'; // Default class for other cases
       }
     }
-
     return classNames.trim();
   };
 
-  const tileContent = () => {
-    if (attendanceStatus !== null) {
-      return attendanceStatus;
+  const getAttendanceStatusForDateSync = (selectedDate) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const formattedSelectedDate = selectedDate.toLocaleDateString('en-GB', options);
+    const attendanceData = attendanceStatus.find((data) => {
+      const dataDate = data.date.split('T')[0]; // Extract the date part from the API date
+      return dataDate === formattedSelectedDate;
+    });
+    return attendanceData ? attendanceData.status : null;
+  };
+
+// 
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    const id = sessionStorage.getItem('hrId');
+    if (!token) {
+      toast.error('Not Authorized yet.. Try again! ');
+    } else {
+      axios
+        .get(`https://eleedomimf.onrender.com/hr/attendance/${id}`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setAttendanceStatus(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
+  }, []);
 
-    return null;
-  };
-
-  const getAttendanceStatusForDate = async () => {
-    try {
-      const response = await axios.get(apiEndpoint, {
-        params: {
-          date: value.toISOString(),
-        },
-      });
-
-      const fetchedAttendanceStatus = response.data.status;
-
-      setAttendanceStatus(() => {
-        switch (fetchedAttendanceStatus) {
-          case 'present':
-            return ' P';
-          case 'absent':
-            return ' A';
-          case 'halfday':
-            return ' H';
-          case 'holiday':
-            return ' Holiday';
-          default:
-            return null;
-        }
-      });
-    } catch (error) {
-      console.error('Error fetching attendance data:', error);
-      setAttendanceStatus(null);
-    }
-  };
-
-  // // Synchronous version for tileClassName
-  const getAttendanceStatusForDateSync = () => {
-    // Implement synchronous logic to get attendance status for a given date
-    return 'present', 'absent', 'halfday', 'holiday', null
-    // return null;
-  };
-
-  const markAttendance = async (status) => {
-    try {
-      const response = await axios.post(apiEndpoint, {
-        date: value,
-        status,
-      });
-
-      console.log(`Attendance marked as ${status} successfully:`, response.data);
-
-      getAttendanceStatusForDate();
-    } catch (error) {
-      console.error('Error marking attendance:', error);
-    }
-  };
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div
         className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-50"
-       
+
       >
         {/* <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8"> */}
         <div className='w-full '>
@@ -102,20 +75,14 @@ function HrAttendance() {
             onChange={onChange}
             value={value}
             tileClassName={tileClassName}
-            tileContent={tileContent}
-            prevLabel = "Prev Month"
-            nextLabel = "Next Month"
-            next2Label = "Next Year"
-            prev2Label = "Prev Year"
+            prevLabel="Prev Month"
+            nextLabel="Next Month"
+            next2Label="Next Year"
+            prev2Label="Prev Year"
             className="  max-w-screen"
-            defaultView	= "month"      
+            defaultView="month"
           />
-          <div>
-            <button onClick={() => markAttendance('present')}>Mark Present</button>
-            <button onClick={() => markAttendance('absent')}>Mark Absent</button>
-            <button onClick={() => markAttendance('halfday')}>Mark Half Day</button>
-            <button onClick={() => markAttendance('holiday')}>Mark Holiday</button>
-          </div>
+
         </div>
       </div>
       {/* </div> */}
