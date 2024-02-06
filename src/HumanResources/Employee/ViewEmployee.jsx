@@ -124,6 +124,9 @@ export default function ViewEmployee() {
                                     Permanent Address
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                    Staff Type
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                     Designation
                                     </th>
                                     <th scope="col" className="px-5 py-4">
@@ -139,7 +142,7 @@ export default function ViewEmployee() {
                             </thead>
                             <tbody>
                                 {APIData.map((data) => {
-                                    console.log(data);
+                                    
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -187,6 +190,9 @@ export default function ViewEmployee() {
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.permanentempaddress}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.staffType}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empdesignation}

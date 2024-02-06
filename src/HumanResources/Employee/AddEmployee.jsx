@@ -19,11 +19,20 @@ function AddEmployee() {
   const [permanentaddress, setPermanentaddress] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [staffType, setStaffType] = useState([]);
 
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
       setBranchList(resp.data);
+    });
+
+  }, []);
+  useEffect(() => {
+    // Fetch the list of branches when the component mounts
+    axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+      setStaffType(resp.data);
+      console.log(resp.data);
     });
   }, []);
 
@@ -184,7 +193,27 @@ function AddEmployee() {
 
 
           <div className="w-full lg:w-1/2 p-2 text-start">
+
           <div className="flex flex-col ">
+              <label className="text-base mx-1">Staff Type:</label>
+              <select
+                className="input-style rounded-lg"
+                type="text"
+                // value={type}
+                name="type"
+                onChange={(e) => setGender(e.target.value)}
+                
+              >
+                <option value="0">----- Select -----</option>
+               {
+                staffType.map((data)=>(
+                  <option key={data._id} value= {data.s_type}>{data.s_type}</option>
+                ))
+               }
+              </select>
+              
+            </div>
+          <div className="flex flex-col my-5">
               <label className="text-base mx-1">Gender:</label>
               <select
                 className="input-style rounded-lg"
