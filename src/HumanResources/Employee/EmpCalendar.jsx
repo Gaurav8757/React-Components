@@ -28,8 +28,11 @@ function EmpCalendar() {
         classNames += 'present-day ';
       } else if (statusForDate === 'absent') {
         classNames += 'absent-day ';
-      } else if (statusForDate === 'holiday') {
-        classNames += 'holiday-day ';
+      } else if (statusForDate === 'halfday') {
+        classNames += 'half-day ';
+      } 
+      else if (statusForDate === 'holiday') {
+        classNames += 'holi-day ';
       } else {
         classNames += 'white'; // Default class for other cases
       }

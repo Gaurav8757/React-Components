@@ -19,8 +19,12 @@ function HrLogin() {
             });
             const token = response.data.token;
             const emails = response.data.email;
+            const hrId = response.data.hr._id;
+            const name = response.data.hrname;
            sessionStorage.setItem("token", token);
            sessionStorage.setItem("hremail", emails);
+           sessionStorage.setItem("hrId", hrId);
+           sessionStorage.setItem("name", name);
            navigate("/");
 
            // Check if the user is an token based on your backend response

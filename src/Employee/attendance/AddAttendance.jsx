@@ -28,6 +28,10 @@ const formatWeekday = (dateTimeString) => {
 // show date on screen
 let dates = formatDate(getCurrentDateAndTime());
 // api call to post attendancee
+
+
+
+
 function AddAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [ctime, setTime] = useState(digitalTime);
