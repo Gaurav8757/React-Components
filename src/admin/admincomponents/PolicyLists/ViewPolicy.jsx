@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
 export default function ViewPolicy() {
-    const [APIData, setAPIData] = useState([]);4
+    const [APIData, setAPIData] = useState([]);
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");

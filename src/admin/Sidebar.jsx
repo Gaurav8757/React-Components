@@ -88,9 +88,21 @@ const Sidebar = () => {
     },
 
     {
-      title: "Staff Type",
-      path: "/dashboard/staff/type",
-      logo: <MdOutlineCategory size={24}/>
+      title: "Staff",
+      path: "#",
+      logo: <MdOutlineCategory size={24}/>,
+      subRoutes: [
+        {
+          title: "Add Staff Type",
+          path: "/dashboard/staff/type",
+          dash:""
+        },
+        {
+          title: "View Staff Type",
+          path: "/dashboard/staff/lists",
+          dash:""
+        },
+      ]
     },
     {
       title: "Report",

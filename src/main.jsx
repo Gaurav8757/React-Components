@@ -113,6 +113,7 @@ import AddDataByBranch from "./branches/AddDetails/AddDataByBranch.jsx";
 import OperationHead from "./admin/admincomponents/operationHead/OperationHead.jsx";
 import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
+import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -204,6 +205,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/operation/head" element={<OperationHead />} />
           <Route path="/dashboard/team/operation" element={<TeamLead />} />
           <Route path="/dashboard/staff/type" element={<StaffType />} />
+          <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
         </Route>
       </Route>
      
