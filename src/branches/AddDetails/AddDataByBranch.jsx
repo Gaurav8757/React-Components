@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-
+import {toast} from "react-toastify";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -18,7 +18,7 @@ function AddDataByBranch() {
     const [staffType, setStaffType] = useState("");
     const [staffName, setStaffName] = useState("");
     const [type, setType] = useState([]);
-
+    const employeeId = sessionStorage.getItem("employeeId");
     useEffect(() => {
         // Fetch the list of branches when the component mounts
         axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
@@ -26,8 +26,41 @@ function AddDataByBranch() {
         });
     }, []);
 
+    const handleSubmit = async (e) => {
+   
+        e.preventDefault();
+        try {
+          // Make sure to replace this URL with your actual API endpoint
+          const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${employeeId}`, {
+            entryDate,
+            company,
+            category,
+            segment,
+            sourcing,
+            insuredName,
+            contactNo,
+            vehRegNo,
+            hypo,
+            advisorName,
+            subAdvisor,
+            branch,
+            staffName,
+            staffType
+          });
 
+          if (response.data) {
+            toast.success("Data Added Successfully !");
+          }
+          else {
+            toast.error("Error Occurred. Try again...! ");
+          }
+        } catch (error) {
+          console.error("Error during branch registration:", error.response);
+        }
+      };
     
+
+
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
@@ -251,7 +284,7 @@ function AddDataByBranch() {
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
                         <button
                             className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
-                            // onClick={handleSubmit}
+                            onClick={handleSubmit}
                             type="button"
                         >
                             Submit

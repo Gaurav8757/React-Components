@@ -15,14 +15,17 @@ function LoginBranch() {
         password,
       });
 
-      // console.log(response.data);
+      console.log(response.data);
       const token = response.data.token;
-      
+      const name = response.data.user.branchname;
+      const email = response.data.user.branchemail;
       sessionStorage.setItem("token", token);
-      sessionStorage.setItem("branchemail", branchemail);
+      sessionStorage.setItem("email", email);
+      sessionStorage.setItem("name", name);
 
       // Check if the user is an admin based on your backend response
       if (response.data) {
+
         navigate("/branches/home");
         toast.success("Logged In Successfully !");
       } else {

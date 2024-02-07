@@ -215,7 +215,7 @@ const router = createBrowserRouter(
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
-          <Route path="/branches/home/add/emp" element = {<AddDataByBranch/>}/>
+          <Route path="/branches/home/add/policy" element = {<AddDataByBranch/>}/>
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
         </Route>
       </Route>
