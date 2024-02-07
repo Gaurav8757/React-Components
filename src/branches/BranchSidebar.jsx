@@ -15,7 +15,7 @@ const BranchSidebar = () => {
     },
 
     {
-      title: "Add Employee",
+      title: "Add Policy",
       path: "/branches/home/add/emp",
       logo: <IoPeopleOutline size={25} />
     },

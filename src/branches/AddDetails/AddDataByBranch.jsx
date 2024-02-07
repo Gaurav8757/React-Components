@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
@@ -13,11 +14,23 @@ function AddDataByBranch() {
     const [branch, setBranch] = useState('');
     const [advisorName, setAdvisorName] = useState('');
     const [subAdvisor, setSubAdvisor] = useState('');
+    const [staffType, setStaffType] = useState("");
+    const [type, setType] = useState([]);
+
+    useEffect(() => {
+        // Fetch the list of branches when the component mounts
+        axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+            setType(resp.data);
+           
+        });
+    }, []);
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
             <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+
                 <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
+                    <h1 className="font-semibold text-3xl mb-10">Policy</h1>
                     <div className="flex flex-wrap justify-between">
                         {/* FIELD - 1 */}
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/3">
@@ -198,9 +211,42 @@ function AddDataByBranch() {
                                 placeholder="Enter Sub Advisor"
                             />
                         </div>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                            <label className="text-base mx-1">Staff Type:</label>
+                            <select
+                                className="input-style rounded-lg"
+                                type="text"
+                                name="type"
+                                value={staffType}
+                                onChange={(e) => setStaffType(e.target.value)}>
+                                <option className="w-1" value="">--- Select ---</option>
+                                {
+                                    type.map((data) => (
+                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                            <label className="text-base mx-1">Staff Name:</label>
+                            <select
+                                className="input-style rounded-lg"
+                                type="text"
+                                // name="staffName"
+                                // value={staffName}
+                                // onChange={(e) => setStaffName(e.target.value)}
+                                >
+                                <option className="w-1" value="">--- Select ---</option>
+                                {/* {
+                                    staffName.map((data) => (
+                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                                    ))
+                                } */}
+                            </select>
+                        </div>
                     </div>
-
-
+                   
 
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
                         <button
@@ -210,7 +256,7 @@ function AddDataByBranch() {
                         >
                             Submit
                         </button>
-                        
+
                         <NavLink to="#"
                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         >
