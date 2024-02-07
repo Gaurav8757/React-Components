@@ -11,19 +11,23 @@ function AddDataByBranch() {
     const [insuredName, setInsuredName] = useState('');
     const [contactNo, setContactNo] = useState('');
     const [vehRegNo, setVehRegNo] = useState('');
+    const [hypo, setHypo] = useState("");
     const [branch, setBranch] = useState('');
     const [advisorName, setAdvisorName] = useState('');
     const [subAdvisor, setSubAdvisor] = useState('');
     const [staffType, setStaffType] = useState("");
+    const [staffName, setStaffName] = useState("");
     const [type, setType] = useState([]);
 
     useEffect(() => {
         // Fetch the list of branches when the component mounts
-        axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+        axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
             setType(resp.data);
-           
         });
     }, []);
+
+
+    
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
@@ -77,8 +81,7 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 value={category}
                                 name="category"
-                                onChange={(e) => setCategory(e.target.value)}
-                            >
+                                onChange={(e) => setCategory(e.target.value)}>
                                 <option className="w-1" value="" disabled>--- Select Category ---</option>
                                 <option value="GIC">GIC</option>
                                 <option value="LIFE">LIFE</option>
@@ -92,8 +95,7 @@ function AddDataByBranch() {
                                 className="rounded-lg"
                                 name="segment"
                                 value={segment}
-                                onChange={(e) => setSegment(e.target.value)}
-                            >
+                                onChange={(e) => setSegment(e.target.value)}>
                                 <option value="" disabled>--- Select Segment ---</option>
                                 <option value="C V">C V</option>
                                 <option value="PVT-CAR">PVT-CAR</option>
@@ -111,8 +113,7 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 value={sourcing}
                                 name="sourcing"
-                                onChange={(e) => setSourcing(e.target.value)}
-                            >
+                                onChange={(e) => setSourcing(e.target.value)}>
                                 <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
                                 <option value="NEW">NEW</option>
                                 <option value="RENEWAL">RENEWAL</option>
@@ -163,9 +164,9 @@ function AddDataByBranch() {
                             <input
                                 className="input-style rounded-lg"
                                 type="text"
-                                value={vehRegNo}
-                                name="vehRegNo"
-                                onChange={(e) => setVehRegNo(e.target.value)}
+                                value={hypo}
+                                name="hypo"
+                                onChange={(e) => setHypo(e.target.value)}
                                 placeholder="Enter Hypothication"
                             />
                         </div>
@@ -222,7 +223,7 @@ function AddDataByBranch() {
                                 <option className="w-1" value="">--- Select ---</option>
                                 {
                                     type.map((data) => (
-                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                                        <option key={data._id} value={data._id}>{data._id}</option>
                                     ))
                                 }
                             </select>
@@ -233,20 +234,19 @@ function AddDataByBranch() {
                             <select
                                 className="input-style rounded-lg"
                                 type="text"
-                                // name="staffName"
-                                // value={staffName}
-                                // onChange={(e) => setStaffName(e.target.value)}
-                                >
+                                name="staffName"
+                                value={staffName}
+                                onChange={(e) => setStaffName(e.target.value)}
+                            >
                                 <option className="w-1" value="">--- Select ---</option>
-                                {/* {
-                                    staffName.map((data) => (
-                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
-                                    ))
-                                } */}
+                                {staffType &&
+                                    type.find(item => item._id === staffType)?.empnames.map((name, index) => (
+                                        <option key={index} value={name}>{name}</option>
+                                    ))}
                             </select>
                         </div>
                     </div>
-                   
+
 
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
                         <button

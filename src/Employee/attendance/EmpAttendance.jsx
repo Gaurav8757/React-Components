@@ -7,7 +7,7 @@ import '../../../public/EmpAttendance.css';
 function EmpAttendance() {
   const [value, onChange] = useState(new Date());
   const [APIData, setAPIData] = useState([]);
-
+  const employeeId = sessionStorage.getItem('employeeId');
   const tileClassName = ({ date }) => {
     // const currentDate = new Date();
     // const isCurrentDate =
@@ -53,12 +53,12 @@ function EmpAttendance() {
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-    const id = sessionStorage.getItem('employeeId');
+    
     if (!token) {
       toast.error('Not Authorized yet.. Try again! ');
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/employee/emp/attendance/${id}`, {
+        .get(`https://eleedomimf.onrender.com/employee/emp/attendance/${employeeId}`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -70,7 +70,7 @@ function EmpAttendance() {
           console.error(error);
         });
     }
-  }, []);
+  }, [employeeId]);
 
   return (
     <section className="container-fluid emp-attendance-container relative h-screen p-0 sm:ml-64 bg-white">

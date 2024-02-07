@@ -6,7 +6,8 @@ import { RiGitBranchFill } from "react-icons/ri";
 import { FcTodoList, FcPlanner } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc"; 
-
+import { FaUserGroup } from "react-icons/fa6";
+import { IoMdArrowDropright } from "react-icons/io";
 
 function DashboardHr() {
     const dashboardRouted = [
@@ -28,7 +29,14 @@ function DashboardHr() {
         {
            title: "Add Employee",
           path: "/hr/home/addemployee",
-          logo: <RiGitBranchFill size={25} />
+          logo: <FaUserGroup size={25} />,
+          subRoutes: [
+            {
+              title: "View Employee",
+              path: "/hr/home/viewemployee",
+              dash:""
+            },
+          ]
         },
         {
          title: "Employee Attendance",
@@ -140,7 +148,7 @@ function DashboardHr() {
                           className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                         >
                           <span className="">{route.logo}</span>
-                          <span className="ms-10">{route.title}</span>
+                          <span className="ms-6">{route.title}</span>
                         </NavLink>
                         <ul
                           onClick={() => toggleSubmenu(idx)}
@@ -151,9 +159,9 @@ function DashboardHr() {
                             <li key={subIdx}>
                               <NavLink
                                 to={subRoute.path}
-                                className="block p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                                className="flex 2 p-2 text-white text-start mx-6 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
                               >
-                                {subRoute.title}
+                                {<IoMdArrowDropright size={30}/>}{subRoute.title}
                               </NavLink>
                             </li>
                           ))}

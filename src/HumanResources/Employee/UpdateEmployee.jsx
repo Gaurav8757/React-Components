@@ -6,6 +6,7 @@ import { CgCloseR } from "react-icons/cg";
 function UpdateEmployee({ employee, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [type, setType] = useState([]);
     const [data, setData] = useState({
         empid: "",
         empname: "",
@@ -19,7 +20,8 @@ function UpdateEmployee({ employee, onUpdate }) {
         currentempaddress: "",
         empaadharno: "",
         empdesignation: "",
-        empaadharfile: ""
+        empaadharfile: "",
+        staffType: ""
     });
     // OPEN MODAL
     const openModal = () => {
@@ -31,6 +33,13 @@ function UpdateEmployee({ employee, onUpdate }) {
         setIsModalOpen(false);
     };
 
+    useEffect(() => {
+        // Fetch the list of branches when the component mounts
+        axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+          setType(resp.data);
+          
+        });
+      }, []);
     // show all data inside input tag
     useEffect(() => {
         setData(employee);
@@ -197,7 +206,24 @@ function UpdateEmployee({ employee, onUpdate }) {
 
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col ">
+                                    <div className="flex flex-col ">
+                <label className="text-base mx-1">Staff Type:</label>
+                <select
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={data.staffType}
+                  name="staffType"
+                  onChange={handleInputChange}>
+                  <option value="">----- Select -----</option>
+                  {
+                    type.map((data) => (
+                      <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                    ))
+                  }
+                </select>
+
+              </div>
+                                        <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Gender:</label>
                                             <select
                                                 className="input-style rounded-lg"
@@ -207,10 +233,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                                 name="empgender"
                                                 placeholder="Enter Your District Name"
                                             >
-                                                <option value="0">----- Select Gender -----</option>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                                <option value="3">Others</option>
+                                                <option value="">----- Select Gender -----</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="others">Others</option>
                                             </select>
 
                                         </div>

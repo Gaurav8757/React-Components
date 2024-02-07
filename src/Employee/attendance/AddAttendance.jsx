@@ -29,9 +29,6 @@ const formatWeekday = (dateTimeString) => {
 let dates = formatDate(getCurrentDateAndTime());
 // api call to post attendancee
 
-
-
-
 function AddAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [ctime, setTime] = useState(digitalTime);
@@ -44,12 +41,10 @@ function AddAttendance() {
   }
   setInterval(updateTime, 1000);
 
-
   // toggle handle present, absent api
   const handleToggleAttendance = async () => {
     try {
       const empid = sessionStorage.getItem('employeeId');
-
       // Check if a valid attendance status is selected
       if (!attendanceStatus) {
         toast.error('Please select a valid attendance status.');
@@ -60,13 +55,12 @@ function AddAttendance() {
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
       const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
-     await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
+      await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
         date: datePart,
         time: timePart,
         weekday: weekdayPart,
       });
-      
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
     } catch (error) {
@@ -75,7 +69,9 @@ function AddAttendance() {
         'Error marking attendance:',
         error.response ? error.response.data.message : error.message
       );
-      
+      toast.error(`${
+        error.response ? error.response.data.message : error.message
+      }`)
     }
   }
   const empnam = sessionStorage.getItem('name');
@@ -143,8 +139,7 @@ function AddAttendance() {
                   />
                   <label
                     htmlFor="yellow-radio"
-                    className="ms-2 text-xl cursor-pointer font-semibold text-yellow-600 "
-                  >
+                    className="ms-2 text-xl cursor-pointer font-semibold text-yellow-600">
                     Half-Day
                   </label>
                 </div>

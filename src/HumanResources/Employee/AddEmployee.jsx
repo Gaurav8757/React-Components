@@ -21,7 +21,7 @@ function AddEmployee() {
   const [loading, setLoading] = useState(false);
   const [staffType, setStaffType] = useState("");
   const [type, setType] = useState([]);
-  
+  const [ view, setView] = useState("");
 
   useEffect(() => {
     // Fetch the list of branches when the component mounts
@@ -71,9 +71,10 @@ function AddEmployee() {
           },
         }
       );
-
+      setView(response.data);
       if (response.data) {
         toast.success("Employee added successfully!");
+        
         // Reset the form on successful submission
         setAddress("");
         setGender("");
@@ -225,10 +226,10 @@ function AddEmployee() {
                   onChange={(e) => setGender(e.target.value)}
                   placeholder="Enter Your District Name"
                 >
-                  <option value="0">----- Select Gender -----</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Others</option>
+                  <option value="">----- Select Gender -----</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
                 </select>
 
               </div>
@@ -312,10 +313,12 @@ function AddEmployee() {
               >
                 {loading ? "Submitting..." : "Submit"}
               </button>
+
+              {view && 
               <NavLink to="/hr/home/viewemployee" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2 text-center me-2 mb-2">
                 {/* <ViewBranch/> */}
                 View
-              </NavLink>
+              </NavLink>}
             </div>
           </form>
         </div>
