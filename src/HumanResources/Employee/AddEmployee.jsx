@@ -59,6 +59,7 @@ function AddEmployee() {
       formData.append("permanentempaddress", permanentaddress);
       formData.append("empaadharno", aadharno);
       formData.append("empdesignation", designation);
+      formData.append("staffType", staffType);
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
@@ -86,6 +87,7 @@ function AddEmployee() {
         setAadharno("");
         setBranch("");
         setJoining("");
+        setStaffType("");
         setPermanentaddress("");
         setLoading(false);
       } else {

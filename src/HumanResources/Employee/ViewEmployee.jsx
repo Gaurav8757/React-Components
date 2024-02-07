@@ -77,7 +77,7 @@ export default function ViewEmployee() {
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-blue-500"
-                    ><NavLink to = "/dashboard/addemployee" className="flex justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
+                    ><NavLink to = "/hr/home/addemployee" className="flex justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
                         <h1 className="flex justify-center text-3xl w-full font-semibold mb-8">All Employee Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
