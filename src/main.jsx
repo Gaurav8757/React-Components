@@ -114,7 +114,7 @@ import OperationHead from "./admin/admincomponents/operationHead/OperationHead.j
 import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
 import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
-import EmpPolicy from "./employee/policy/EmpPolicy.jsx";
+import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
