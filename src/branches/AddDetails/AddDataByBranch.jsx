@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -18,7 +18,9 @@ function AddDataByBranch() {
     const [staffType, setStaffType] = useState("");
     const [staffName, setStaffName] = useState("");
     const [type, setType] = useState([]);
-    const employeeId = sessionStorage.getItem("employeeId");
+    const [staffId, setStaffId] = useState("");
+
+    console.log(staffId);
     useEffect(() => {
         // Fetch the list of branches when the component mounts
         axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
@@ -27,38 +29,38 @@ function AddDataByBranch() {
     }, []);
 
     const handleSubmit = async (e) => {
-   
+
         e.preventDefault();
         try {
-          // Make sure to replace this URL with your actual API endpoint
-          const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${employeeId}`, {
-            entryDate,
-            company,
-            category,
-            segment,
-            sourcing,
-            insuredName,
-            contactNo,
-            vehRegNo,
-            hypo,
-            advisorName,
-            subAdvisor,
-            branch,
-            staffName,
-            staffType
-          });
+            // Make sure to replace this URL with your actual API endpoint
+            const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${staffId}`, {
+                entryDate,
+                company,
+                category,
+                segment,
+                sourcing,
+                insuredName,
+                contactNo,
+                vehRegNo,
+                hypo,
+                advisorName,
+                subAdvisor,
+                branch,
+                staffName,
+                staffType
+            });
 
-          if (response.data) {
-            toast.success("Data Added Successfully !");
-          }
-          else {
-            toast.error("Error Occurred. Try again...! ");
-          }
+            if (response.data) {
+                toast.success("Data Added Successfully !");
+            }
+            else {
+                toast.error("Error Occurred. Try again...! ");
+            }
         } catch (error) {
-          console.error("Error during branch registration:", error.response);
+            console.error("Error during branch registration:", error.response);
         }
-      };
-    
+    };
+
 
 
 
@@ -252,7 +254,8 @@ function AddDataByBranch() {
                                 type="text"
                                 name="type"
                                 value={staffType}
-                                onChange={(e) => setStaffType(e.target.value)}>
+                                onChange={(e) => setStaffType(e.target.value)}
+                                >
                                 <option className="w-1" value="">--- Select ---</option>
                                 {
                                     type.map((data) => (
@@ -269,13 +272,27 @@ function AddDataByBranch() {
                                 type="text"
                                 name="staffName"
                                 value={staffName}
-                                onChange={(e) => setStaffName(e.target.value)}
+                                // onChange={(e) => setStaffName(e.target.value)}
+                                onChange={(e) => {
+                                    setStaffName(e.target.value);
+                                    const selectedStaff = type.find(item => item._id === staffType);
+                                    if (selectedStaff?.empnames?.length) {
+                                        setStaffName(selectedStaff.empnames[0]);
+                                    } else {
+                                        setStaffName("");
+                                    }
+                                    setStaffId(selectedStaff?._id);
+                                }}
                             >
                                 <option className="w-1" value="">--- Select ---</option>
                                 {staffType &&
                                     type.find(item => item._id === staffType)?.empnames.map((name, index) => (
                                         <option key={index} value={name}>{name}</option>
-                                    ))}
+                                    )
+                                    )
+
+                                }
+
                             </select>
                         </div>
                     </div>
