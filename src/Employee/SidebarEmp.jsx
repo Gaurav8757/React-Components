@@ -29,32 +29,6 @@ function DashboardEmp() {
           logo: <FcTodoList size={25} />
         },
        
-        // {
-        //   title: "Add Salary",
-        //   path: "/branches",
-        //   logo: <TbMoneybag size={25} />
-        // },
-        // {
-        //   title: "Generate Salary",
-        //   path: "/branches",
-        //   logo: <FcMoneyTransfer size={25} />
-        // },
-        // {
-        //   title: "Report",
-        //   path: "/branches",
-        //   logo: <TbReport size={25} />,
-        //   subRoutes: [
-        //     {
-        //       title: "Policy",
-        //       path: "/branches"
-        //     },
-        //     {
-        //       title: "Add Policy Details",
-        //       path: "/branches"
-        //     }
-          
-        //   ]
-        // }
       ];
     
       const [sidebarOpen, setSidebarOpen] = useState(false);
