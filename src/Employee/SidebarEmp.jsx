@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { FcTodoList, FcPlanner } from "react-icons/fc";
+import { MdOutlinePolicy } from "react-icons/md";
 
-// import { TbMoneybag, TbReport } from "react-icons/tb";
-// import { FcMoneyTransfer } from "react-icons/fc"; 
 
 function DashboardEmp() {
     const dashboardRouted = [
@@ -18,6 +17,11 @@ function DashboardEmp() {
           title: "Add Attendance",
           path: "/employee/home/add/attendance",
           logo: <FcPlanner size={25} />
+        },
+        {
+          title: "Policy",
+          path: "/employee/home/policy",
+          logo: <MdOutlinePolicy size={25} />
         },
         {
           title: "View Attendance",

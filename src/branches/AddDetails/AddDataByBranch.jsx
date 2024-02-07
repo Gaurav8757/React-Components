@@ -19,8 +19,8 @@ function AddDataByBranch() {
     const [staffName, setStaffName] = useState("");
     const [type, setType] = useState([]);
     const [staffId, setStaffId] = useState("");
+    const [err, setError] = useState("");
 
-    console.log(staffId);
     useEffect(() => {
         // Fetch the list of branches when the component mounts
         axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
@@ -32,6 +32,11 @@ function AddDataByBranch() {
 
         e.preventDefault();
         try {
+            if (!staffName) {
+                setError("required*");
+            }else{
+                setError("");
+            }
             // Make sure to replace this URL with your actual API endpoint
             const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${staffId}`, {
                 entryDate,
@@ -47,7 +52,8 @@ function AddDataByBranch() {
                 subAdvisor,
                 branch,
                 staffName,
-                staffType
+                staffType,
+                employee_id: staffId
             });
 
             if (response.data) {
@@ -255,7 +261,7 @@ function AddDataByBranch() {
                                 name="type"
                                 value={staffType}
                                 onChange={(e) => setStaffType(e.target.value)}
-                                >
+                            >
                                 <option className="w-1" value="">--- Select ---</option>
                                 {
                                     type.map((data) => (
@@ -272,28 +278,27 @@ function AddDataByBranch() {
                                 type="text"
                                 name="staffName"
                                 value={staffName}
-                                // onChange={(e) => setStaffName(e.target.value)}
+                                // onChange={(e) => setStaffName(e.target.value) }
                                 onChange={(e) => {
-                                    setStaffName(e.target.value);
-                                    const selectedStaff = type.find(item => item._id === staffType);
-                                    if (selectedStaff?.empnames?.length) {
-                                        setStaffName(selectedStaff.empnames[0]);
+                                    const selectedName = e.target.value;
+                                    setStaffName(selectedName);
+                                    const selectedStaff = type.find(item => item._id === staffType)?.empnames.find(emp => emp.empname === selectedName);
+                                    if (selectedStaff) {
+                                        setStaffId(selectedStaff._id);
                                     } else {
-                                        setStaffName("");
+                                        setStaffId('');
                                     }
-                                    setStaffId(selectedStaff?._id);
                                 }}
                             >
                                 <option className="w-1" value="">--- Select ---</option>
                                 {staffType &&
-                                    type.find(item => item._id === staffType)?.empnames.map((name, index) => (
-                                        <option key={index} value={name}>{name}</option>
-                                    )
-                                    )
-
+                                    type.find(item => item._id === staffType)?.empnames.map((emp) => (
+                                        <option key={emp._id} value={emp.empname}>{emp.empname}</option>
+                                    ))
                                 }
-
                             </select>
+                            
+                            <span className="text-red-700 text-base mx-3">{err}</span>
                         </div>
                     </div>
 
