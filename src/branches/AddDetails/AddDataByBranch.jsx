@@ -254,7 +254,7 @@ function AddDataByBranch() {
                             />
                         </div>
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                            <label className="text-base mx-1">Staff Type:</label>
+                            <label className="text-base mx-1">OPS Admin:</label>
                             <select
                                 className="input-style rounded-lg"
                                 type="text"
@@ -272,7 +272,7 @@ function AddDataByBranch() {
                         </div>
 
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                            <label className="text-base mx-1">Staff Name:</label>
+                            <label className="text-base mx-1">:</label>
                             <select
                                 className="input-style rounded-lg"
                                 type="text"

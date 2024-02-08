@@ -115,7 +115,18 @@ import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
 import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
 import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
+import LoginOps from "./opsAdmin/LoginOps.jsx";
+import ForgetPassOps from "./opsAdmin/ForgetPassOps.jsx";
+import ProtectOps from "./opsAdmin/ProtectOps.jsx";
+import LayoutOps from "./opsAdmin/LayoutOps.jsx";
+import DashboardOps from "./opsAdmin/DashboardOps.jsx";
+import AllOpsDetails from "./opsAdmin/AllOpsDetails/AllOpsDetails.jsx";
 // import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
+
+
+
+
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -179,15 +190,15 @@ const router = createBrowserRouter(
           <Route path="/dashboard/addbranch" element={<AddBranch />} />
           <Route path="/dashboard/viewbranch" element={<ViewBranch />} />
           <Route path="/dashboard/updatebranch" element={<UpdateBranch />} />
-          <Route path = "/dashboard/addhr" element = {<AddHr/>}/>
-          <Route path = "/dashboard/viewhr" element = {<ViewHr/>}/>
+          <Route path="/dashboard/addhr" element={<AddHr />} />
+          <Route path="/dashboard/viewhr" element={<ViewHr />} />
           <Route path="/dashboard/addhrsalary" element={<AddHRSalary />} />
           <Route path="/dashboard/viewhrsalary" element={<ViewHRSalary />} />
           <Route path="/dashboard/updatehrsalary" element={<UpdateHRSalary />} />
           <Route path="/dashboard/generate/salary" element={<GenerateHrSalary />} />
           <Route path="/dashboard/update/gensalary" element={<UpdateGenHrSalary />} />
           <Route path="/dashboard/view/generatesalary" element={<ViewGenHrSalary />} />
-          <Route path="/dashboard/view/attendance" element = {<ViewHrAttendace/>} />
+          <Route path="/dashboard/view/attendance" element={<ViewHrAttendace />} />
           <Route path="/dashboard/policy" element={<Policy />} />
           <Route path="/dashboard/addpolicy" element={<AddPolicyDetails />} />
           <Route path="/dashboard/viewpolicy" element={<ViewPolicy />} />
@@ -210,14 +221,14 @@ const router = createBrowserRouter(
           <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
         </Route>
       </Route>
-     
+
       {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginBranch />} />
       <Route path="/branches/forget" element={<ForgetPassBranch />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
-          <Route path="/branches/home/add/policy" element = {<AddDataByBranch/>}/>
+          <Route path="/branches/home/add/policy" element={<AddDataByBranch />} />
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
         </Route>
       </Route>
@@ -238,39 +249,44 @@ const router = createBrowserRouter(
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
           <Route path="" element={<DashboardEmp />} />
-          <Route path="/employee/home/add/attendance" element = {<AddAttendance/>}/>
-          <Route path="/employee/home/attendance" element = {<EmpAttendance/>}/>
-          <Route path="/employee/home/policy" element = {<EmpPolicy/>}/>
+          <Route path="/employee/home/add/attendance" element={<AddAttendance />} />
+          <Route path="/employee/home/attendance" element={<EmpAttendance />} />
+          <Route path="/employee/home/policy" element={<EmpPolicy />} />
           {/* <Route path="/employee/home/policy/add" element = {<AddPolicyDetail/>}/> */}
         </Route>
       </Route>
-      
-      {/* HR Routes */}
-      <Route path="/hr" element = {<HrLogin/>}/>
-      <Route path="/hr/forget" element = {<ForgetHr/>}/>
-      <Route element = {<ProtectedHr/>}>
-        <Route path="/hr/home" element = {<LayoutHr/>}>
-        <Route path="" element = {<DashboardHr/>}/>
-        <Route path="/hr/home/addemployee" element={<AddEmployee />} />
-          <Route path="/hr/home/viewemployee" element={<ViewEmployee />} />
-          <Route path="/hr/home/emp/modal/attendance" element={<EmpAttendanceModal/>} />
-          <Route path="/hr/home/updateemployee" element={<UpdateEmployee />} />
-          <Route path="/hr/home/emp/attendance" element = {<EmpCalendar/>}/>
-          
 
+      {/* HR Routes */}
+      <Route path="/hr" element={<HrLogin />} />
+      <Route path="/hr/forget" element={<ForgetHr />} />
+      <Route element={<ProtectedHr />}>
+        <Route path="/hr/home" element={<LayoutHr />}>
+          <Route path="" element={<DashboardHr />} />
+          <Route path="/hr/home/addemployee" element={<AddEmployee />} />
+          <Route path="/hr/home/viewemployee" element={<ViewEmployee />} />
+          <Route path="/hr/home/emp/modal/attendance" element={<EmpAttendanceModal />} />
+          <Route path="/hr/home/updateemployee" element={<UpdateEmployee />} />
+          <Route path="/hr/home/emp/attendance" element={<EmpCalendar />} />
           <Route path="/hr/home/addsalary" element={<AddSalary />} />
           <Route path="/hr/home/viewsalary" element={<ViewSalary />} />
           <Route path="/hr/home/updatesalary" element={<UpdateSalary />} />
-
           <Route path="/hr/home/generate/salary" element={<GenerateSalary />} />
           <Route path="/hr/home/update/gensalary" element={<UpdateGenSalary />} />
           <Route path="/hr/home/view/generate/salary" element={<ViewGenSalary />} />
-          <Route path="/hr/home/attendance" element = {<HrAttendance/>} />
-          <Route path="/hr/home/add/attendance" element = {<AddHrAttendance/>} />
-          </Route>
+          <Route path="/hr/home/attendance" element={<HrAttendance />} />
+          <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
         </Route>
-      {/* </Route> */}
+      </Route>
 
+      {/* OPSAdmin */}
+      <Route path="/ops" element={<LoginOps />} />
+      <Route path="/ops/forget" element={<ForgetPassOps />} />
+      <Route element={<ProtectOps />}>
+        <Route path="/ops/home" element={<LayoutOps />}>
+        <Route path="" element={<DashboardOps />} />
+        <Route path="/ops/home/policy" element={<AllOpsDetails />} />
+        </Route>
+      </Route>
     </>
   )
 );
