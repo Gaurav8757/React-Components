@@ -250,6 +250,7 @@ function UpdateMaster({ insurance, onUpdate }) {
           tabIndex="-1"
           aria-hidden="true"
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
+          
           <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
             {/* <!-- Modal content --> */}
             <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">

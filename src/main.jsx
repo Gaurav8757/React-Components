@@ -115,6 +115,7 @@ import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
 import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
 import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
+// import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -240,6 +241,7 @@ const router = createBrowserRouter(
           <Route path="/employee/home/add/attendance" element = {<AddAttendance/>}/>
           <Route path="/employee/home/attendance" element = {<EmpAttendance/>}/>
           <Route path="/employee/home/policy" element = {<EmpPolicy/>}/>
+          {/* <Route path="/employee/home/policy/add" element = {<AddPolicyDetail/>}/> */}
         </Route>
       </Route>
       
