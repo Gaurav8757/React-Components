@@ -19,10 +19,11 @@ function LoginBranch() {
       const token = response.data.token;
       const name = response.data.user.branchname;
       const email = response.data.user.branchemail;
+      const id = response.data.user._id;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("name", name);
-
+      sessionStorage.setItem("branchId", id);
       // Check if the user is an admin based on your backend response
       if (response.data) {
 

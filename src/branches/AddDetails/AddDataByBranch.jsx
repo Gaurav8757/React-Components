@@ -12,15 +12,16 @@ function AddDataByBranch() {
     const [contactNo, setContactNo] = useState('');
     const [vehRegNo, setVehRegNo] = useState('');
     const [hypo, setHypo] = useState("");
-    const [branch, setBranch] = useState('');
+    // const [branch, setBranch] = useState('');
     const [advisorName, setAdvisorName] = useState('');
     const [subAdvisor, setSubAdvisor] = useState('');
+    const name = sessionStorage.getItem("name");
     const [staffType, setStaffType] = useState("");
     const [staffName, setStaffName] = useState("");
     const [type, setType] = useState([]);
     const [staffId, setStaffId] = useState("");
-    const [err, setError] = useState("");
-
+    // const [err, setError] = useState("");
+console.log(staffId);
     useEffect(() => {
         // Fetch the list of branches when the component mounts
         axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
@@ -29,14 +30,9 @@ function AddDataByBranch() {
     }, []);
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
+
         try {
-            if (!staffName) {
-                setError("required*");
-            }else{
-                setError("");
-            }
             // Make sure to replace this URL with your actual API endpoint
             const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${staffId}`, {
                 entryDate,
@@ -50,10 +46,7 @@ function AddDataByBranch() {
                 hypo,
                 advisorName,
                 subAdvisor,
-                branch,
-                staffName,
-                staffType,
-                employee_id: staffId
+                branch: name,
             });
 
             if (response.data) {
@@ -215,17 +208,15 @@ function AddDataByBranch() {
                         {/* FIELD - 36 */}
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Branch:</label>
-                            <select
+                            <input
                                 id="branch" name="branch"
                                 className="input-style rounded-lg"
-                                value={branch}
-                                onChange={(e) => setBranch(e.target.value)}
+                                value={name}
+                                // onChange={(e) => setBranch(e.target.value)}
+                                disabled
                             >
-                                <option className="w-1" value="" disabled>--- Select Branch ---</option>
-                                <option value="PATNA">PATNA</option>
-                                <option value="HAJIPUR">HAJIPUR</option>
-                                <option value="SAMASTIPUR">SAMASTIPUR</option>
-                            </select>
+                               
+                            </input>
                         </div>
 
                         {/* FIELD - 34*/}
@@ -253,6 +244,7 @@ function AddDataByBranch() {
                                 placeholder="Enter Sub Advisor"
                             />
                         </div>
+
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">OPS Admin:</label>
                             <select
@@ -298,7 +290,7 @@ function AddDataByBranch() {
                                 }
                             </select>
                             
-                            <span className="text-red-700 text-base mx-3">{err}</span>
+                            {/* <span className="text-red-700 text-base mx-3">{err}</span> */}
                         </div>
                     </div>
 
@@ -312,7 +304,7 @@ function AddDataByBranch() {
                             Submit
                         </button>
 
-                        <NavLink to="#"
+                        <NavLink to="/branches/home/viewinsurance"
                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         >
                             View

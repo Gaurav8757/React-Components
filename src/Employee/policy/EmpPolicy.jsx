@@ -6,7 +6,7 @@ import AddPolicyDetail from './AddPolicyDetail.jsx';
 function EmpPolicy() {
   const [APIData, setAPIData] = useState([]);
   const empid = sessionStorage.getItem("employeeId");
-  // console.log(APIData);
+//   console.log(empid);
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {

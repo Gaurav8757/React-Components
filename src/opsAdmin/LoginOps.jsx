@@ -4,21 +4,21 @@ import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 function LoginOps() {
   const navigate = useNavigate();
-  const [branchemail, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [opsemail, setEmail] = useState("");
+  const [opspassword, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
-        branchemail,
-        password,
+        opsemail,
+        opspassword,
       });
 
-      console.log(response.data);
+      // console.log(response.data);
       const token = response.data.token;
-      const name = response.data.user.branchname;
-      const email = response.data.user.branchemail;
+      const name = response.data.user.opsname;
+      const email = response.data.user.opsemail;
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("name", name);
@@ -26,16 +26,16 @@ function LoginOps() {
       // Check if the user is an admin based on your backend response
       if (response.data) {
 
-        navigate("/branches/home");
+        navigate("/ops/home");
         toast.success("Logged In Successfully !");
       } else {
         // For non-admin users, you might want to redirect to a different page
-        navigate("/branches");
-        toast.error("User Not Found!");
+        navigate("/ops");
+        toast.error("OPS Admin Not Found!");
       }
     } catch (error) {
       console.log(error);
-      toast.warn("Incorrect UserID/Password | Branch Not Accessed! ");
+      toast.warn("Incorrect UserID/Password | OPS Admin Not Accessed! ");
     }
   };
 
@@ -70,10 +70,10 @@ function LoginOps() {
                     Your email
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={branchemail}
+                    type="opsemail"
+                    name="opsemail"
+                    id="opsemail"
+                    value={opsemail}
                     onChange={(e) => {
                       setEmail(e.target.value);
                      
@@ -91,11 +91,11 @@ function LoginOps() {
                     Your password
                   </label>
                   <input
-                    type="password"
-                    name="password"
-                    id="password"
+                    type="opspassword"
+                    name="opspassword"
+                    id="opspassword"
                     placeholder="••••••••"
-                    value={password}
+                    value={opspassword}
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="current-password"
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -104,7 +104,7 @@ function LoginOps() {
                 </div>
                 <div className="text-end text-red-700 font-semibold hover:text-red-500">
                   <NavLink
-                    to="/branches/forget"
+                    to="/ops/forget"
                     className="ml-auto text-sm "
                   >
                    Forgot Password
