@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -16,25 +16,25 @@ function AddDataByBranch() {
     const [advisorName, setAdvisorName] = useState('');
     const [subAdvisor, setSubAdvisor] = useState('');
     const name = sessionStorage.getItem("name");
-    const [staffType, setStaffType] = useState("");
-    const [staffName, setStaffName] = useState("");
-    const [type, setType] = useState([]);
-    const [staffId, setStaffId] = useState("");
+    // const [staffType, setStaffType] = useState("");
+    // const [staffName, setStaffName] = useState("");
+    // const [type, setType] = useState([]);
+    // const [staffId, setStaffId] = useState("");
     // const [err, setError] = useState("");
-console.log(staffId);
-    useEffect(() => {
-        // Fetch the list of branches when the component mounts
-        axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
-            setType(resp.data);
-        });
-    }, []);
+// console.log(staffId);
+    // useEffect(() => {
+    //     // Fetch the list of branches when the component mounts
+    //     axios.get("https://eleedomimf.onrender.com/hr/staff/type").then((resp) => {
+    //         setType(resp.data);
+    //     });
+    // }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             // Make sure to replace this URL with your actual API endpoint
-            const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata/${staffId}`, {
+            const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata`, {
                 entryDate,
                 company,
                 category,
@@ -245,7 +245,7 @@ console.log(staffId);
                             />
                         </div>
 
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                        {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">OPS Admin:</label>
                             <select
                                 className="input-style rounded-lg"
@@ -261,9 +261,9 @@ console.log(staffId);
                                     ))
                                 }
                             </select>
-                        </div>
+                        </div> */}
 
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                        {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">:</label>
                             <select
                                 className="input-style rounded-lg"
@@ -290,8 +290,8 @@ console.log(staffId);
                                 }
                             </select>
                             
-                            {/* <span className="text-red-700 text-base mx-3">{err}</span> */}
-                        </div>
+                           
+                        </div> */}
                     </div>
 
 

@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function AddPolicyDetail({ insurance, onUpdate }) {
+    console.log(
+        insurance
+    );
     console.log(insurance.employee_id);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +35,71 @@ function AddPolicyDetail({ insurance, onUpdate }) {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+
+    const updateNetPremium = () => {
+        const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
+        const liabilityPremiumValue = parseFloat(allDetails.liabilityPremium) || 0;
+        // Calculate netPremium by adding odPremium and liabilityPremium
+        const newNetPremium = odPremiumValue + liabilityPremiumValue;
+        // Set the updated netPremium value directly
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          netPremium: newNetPremium.toFixed(2)
+        }));
+      };
+    
+     
+    
+      // // VEHICLE AGE CALCULATED
+      
+    
+      
+    
+      // // Calculate taxes with netPremium
+      const calculateFinalAmount = () => {
+        const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+        const taxesValue = parseFloat(allDetails.taxes) || 0;
+        const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
+    
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          finalEntryFields: finalAmountValue.toFixed(2)
+        }));
+      };
+    
+      // // Calculate branch payable amount
+      const calculateBranchPayableAmount = () => {
+        const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+        const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
+        const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
+    
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          branchPayableAmount: branchPayableAmountValue.toFixed(2)
+        }));
+      };
+    
+     
+    
+    
+      // // Final amount set
+      const handleNetPremiumBlur = () => {
+        if (allDetails.calculationType === 'finalAmount') {
+          calculateFinalAmount();
+        } else if (allDetails.calculationType === 'branchPayableAmount') {
+          calculateBranchPayableAmount();
+        }
+        // Reset the calculation type after performing the calculation
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          calculationType: ''
+        }));
+      };
+    
+     
+    
+    
     // show all data inside input tag
     useEffect(() => {
         setAllDetails(insurance);
@@ -50,7 +118,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
         try {
             setLoading(true);
             // Use the selected category ID in the patch method
-            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance.employee_id}`, allDetails);
+            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
             toast.success(`${resp.data.status}`);
             // Close the modal after successful submission
             closeModal();
@@ -162,7 +230,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                         onChange={handleInputChange}
                                                         placeholder="Disabled"
                                                         name="odPremium"
-                                                        //   onBlur={updateNetPremium}
+                                                        onBlur={updateNetPremium}
                                                         disabled
                                                     />
                                                 </div>) : (<div className="flex flex-col p-2 my-5 text-start w-full lg:w-1/4">
@@ -174,7 +242,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                         onChange={handleInputChange}
                                                         name="odPremium"
                                                         placeholder="Enter OD Premium"
-                                                    //   onBlur={updateNetPremium}
+                                                        onBlur={updateNetPremium}
                                                     />
                                                 </div>)}
 
@@ -188,7 +256,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                         value={allDetails.liabilityPremium}
                                                         onChange={handleInputChange}
                                                         placeholder="Disabled"
-                                                        //   onBlur={updateNetPremium}
+                                                        onBlur={updateNetPremium}
                                                         name="liabilityPremium"
 
                                                         disabled
@@ -201,7 +269,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                             type="number"
                                                             value={allDetails.liabilityPremium}
                                                             onChange={handleInputChange}
-                                                            // onBlur={updateNetPremium}
+                                                            onBlur={updateNetPremium}
                                                             name="liabilityPremium"
                                                             placeholder="Enter Liability Premium"
                                                         />
@@ -214,7 +282,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                     className="input-style rounded-lg"
                                                     type="number"
                                                     value={allDetails.netPremium}
-                                                    // onBlur={handleNetPremiumBlur}
+                                                    onBlur={handleNetPremiumBlur}
                                                     name="netPremium"
                                                     placeholder="Net Premium"
                                                     readOnly />
@@ -230,8 +298,8 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                     type="text"
                                                     value={allDetails.taxes}
                                                     onChange={handleInputChange}
-                                                    // onBlur={calculateFinalAmount}
-                                                    name="finalEntryFields"
+                                                    onBlur={calculateFinalAmount}
+                                                    name="taxes"
                                                     placeholder="GST"
                                                 />
                                             </div>
@@ -244,10 +312,12 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                     type="text"
                                                     value={allDetails.finalEntryFields}
                                                     onChange={handleInputChange}
+                                                    onBlur={calculateFinalAmount}
                                                     name="finalEntryFields"
                                                     placeholder=" Final Amount"
                                                     readOnly
                                                 />
+                                                 <span className="mx-1 text-xs text-green-600">(netPremium + GST%)</span>
                                             </div>
 
                                             {/* FIELD - 10 */}
@@ -283,7 +353,7 @@ function AddPolicyDetail({ insurance, onUpdate }) {
                                                     value={allDetails.policyMadeBy}
                                                     onChange={handleInputChange}
                                                     name="policyMadeBy">
-                                                    <option className="w-1" value="" disabled>--- Policy Made By ---</option>
+                                                    <option className="w-1" value="" >--- Policy Made By ---</option>
                                                     <option value="RAHUL KUMAR">RAHUL KUMAR</option>
                                                     <option value="CHOTU KUMAR">CHOTU KUMAR</option>
                                                     <option value="HARSH KUMAR">HARSH KUMAR</option>

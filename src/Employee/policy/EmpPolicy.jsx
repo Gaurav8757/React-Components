@@ -123,6 +123,9 @@ function EmpPolicy() {
                                 Net Premium
                                 </th>
                                 <th scope="col" className="px-4 py-4 bg-green-100">
+                               GST(%)
+                                </th>
+                                <th scope="col" className="px-4 py-4 bg-green-100">
                                 Final Premium(GST%)
                                 </th>
                                 <th scope="col" className="px-4 py-4 bg-green-100">
@@ -207,6 +210,9 @@ function EmpPolicy() {
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 bg-green-100">
                                             {data.netPremium}
+                                        </td>
+                                        <td className="whitespace-nowrap px-3 py-4 bg-green-100">
+                                            {data.taxes}
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 bg-green-100">
                                             {data.finalEntryFields}
