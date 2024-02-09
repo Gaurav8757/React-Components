@@ -5,7 +5,6 @@ import axios from 'axios';
 
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
-    const [staff, setStaff] = useState([]);
     const [staffName, setStaffName] = useState("");
     const [staffId, setStaffId] = useState("");
     const [status, setStatus] = useState("");
@@ -21,27 +20,7 @@ function AllOpsDetails() {
     };
 
 
-    // EMPLOYEE LISTS
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    },
-                })
-                .then((response) => {
-                    setStaff(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, []);
+  
 
     // POLICY DATA LISTS
     useEffect(() => {
@@ -306,19 +285,19 @@ function AllOpsDetails() {
                                                     onChange={(e) => {
                                                         setStaffName(e.target.value);
                                                         // Find the selected employee by their name
-                                                        const selectedEmployee = staff.find(emp => emp.empname === e.target.value);
+                                                        // const selectedEmployee = staff.find(emp => emp.empname === e.target.value);
                                                         // If the selected employee is found, set the staffId state to their _id
-                                                        if (selectedEmployee) {
-                                                            setStaffId(selectedEmployee._id);
-                                                        }
+                                                        // if (selectedEmployee) {
+                                                        //     setStaffId(selectedEmployee._id);
+                                                        // }
                                                     }}
                                                 >
                                                     <option className="w-1" value="">--- Select ---</option>
-                                                    {
+                                                    {/* {
                                                         staff.map((data) => (
                                                             <option key={data._id} value={data.empname}>{data.empid} - {data.empname}</option>
                                                         ))
-                                                    }
+                                                    } */}
                                                 </select>
                                             </td>
                                             <td className="whitespace-nowrap px-3 py-4 bg-red-100">

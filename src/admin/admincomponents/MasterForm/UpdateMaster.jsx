@@ -85,11 +85,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-  // // Calculate the last day of the previous month
-  const getLastDayOfPreviousMonth = () => {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
-  };
+  
 
   // // VEHICLE AGE CALCULATED
   const calculateAge = () => {

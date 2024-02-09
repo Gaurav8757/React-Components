@@ -230,6 +230,7 @@ const router = createBrowserRouter(
           <Route path="/branches/home" element={<BranchDashboard />} />
           <Route path="/branches/home/add/policy" element={<AddDataByBranch />} />
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
+          
         </Route>
       </Route>
 
