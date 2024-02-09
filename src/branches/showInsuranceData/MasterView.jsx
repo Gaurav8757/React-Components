@@ -10,7 +10,7 @@ function MasterView() {
         const fetchData = async () => {
           try {
             const response = await axios.get(
-              `https://eleedomimf.onrender.com/alldetails/viewdata`
+              `https://eleedomimf.onrender.com/alldetails/viewdata/branch/hpur`
             );
             setAllDetailsData(response.data);
           } catch (error) {
