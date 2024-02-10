@@ -26,7 +26,7 @@ function MasterView() {
           }
         );
         setAllDetailsData(response.data);
-        console.log(response.data);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -162,11 +162,6 @@ function MasterView() {
                     <td className="whitespace-nowrap px-4 py-4">{data.gvw}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.cc}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.productCode}</td>
-
-
-
-
-
                     <td className="whitespace-nowrap px-4 py-4">
                       <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy}/>
                     </td>

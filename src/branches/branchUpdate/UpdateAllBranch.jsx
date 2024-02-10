@@ -84,39 +84,42 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         return today.toISOString().split('T')[0];
     };
  // // VEHICLE AGE CALCULATED
- const calculateAge = () => {
-    const today = new Date();
-    const birthdateDate = new Date(allDetails.registrationDate);
+ 
+ useEffect(() => {
+    const calculateAge = () => {
+        const today = new Date();
+        const birthdateDate = new Date(allDetails.registrationDate);
+    
+        if (isNaN(birthdateDate.getTime())) {
+          console.error('Invalid date format for registrationDate');
+          return;
+        }
+    
+        let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+        let ageMonths = today.getMonth() - birthdateDate.getMonth();
+        let ageDays = today.getDate() - birthdateDate.getDate();
+    
+        if (ageDays < 0) {
+          const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+          ageDays = lastDayOfPreviousMonth + ageDays;
+          ageMonths--;
+        }
+    
+        if (ageMonths < 0) {
+          ageYears--;
+          ageMonths = 12 + ageMonths;
+        }
+    
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+        }));
+    };
+    
+    calculateAge(); // Call calculateAge directly here
 
-    if (isNaN(birthdateDate.getTime())) {
-      console.error('Invalid date format for registrationDate');
-      return;
-    }
+}, [allDetails.registrationDate]); // Include the dependencies of calculateAge here
 
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
-
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
-
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
-
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
-    }));
-  };
-
-  useEffect(() => {
-    calculateAge();
-  },);
 
     // show all data inside input tag
     useEffect(() => {

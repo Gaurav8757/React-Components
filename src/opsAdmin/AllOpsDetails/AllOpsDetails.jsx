@@ -101,49 +101,49 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-4 py-4">
                                         Insured By
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Policy No.
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Engine No.
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Chassis No
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Policy Type
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         OD Premium
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Liability Premium
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Net Premium
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Final Premium(GST%)
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         OD Discount(%)
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         NCB
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Policy Made By
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Status
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Sent to
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Select Employee
                                     </th>
-                                    <th scope="col" className="px-4 py-4 bg-red-100">
+                                    <th scope="col" className="px-4 py-4">
                                         Send to Made Policy
                                     </th>
                                 </tr>

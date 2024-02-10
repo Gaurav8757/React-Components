@@ -82,46 +82,46 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-3 py-4">
                 {data.insuredName}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.policyNo}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.engNo}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.chsNo}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.policyType}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.odPremium}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.liabilityPremium}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.netPremium}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.finalEntryFields}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.odDiscount}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.ncb}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.policyMadeBy}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className={`whitespace-nowrap px-3 py-4 ${data.status === "Pending" ? "text-red-600 text-lg" : "text-green-600 text-lg font-bold"}`}>
                     {data.status}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4 ">
                 {data.staffName}
             </td>
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4 ">
                 <select
                     className="input-style rounded-lg cursor-pointer"
                     type="text"
@@ -153,7 +153,7 @@ function AllOpsData({ data, policy }) {
                 </select>
             </td>
 
-            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+            <td className="whitespace-nowrap px-3 py-4 ">
                 <button className='text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={staffSend}>Send</button>
             </td>
             <td>
