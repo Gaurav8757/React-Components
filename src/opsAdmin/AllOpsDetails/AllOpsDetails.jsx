@@ -28,7 +28,29 @@ function AllOpsDetails() {
         }
     }, []);
 
-    
+     // refreshing page after updating data
+   const onUpdatePolicy = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/alldetails/viewdata`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated insurance data:", error);
+    }
+  };
+
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
@@ -40,8 +62,11 @@ function AllOpsDetails() {
                         <table className="min-w-full text-center text-sm font-light ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
+                                <th scope="col" className="px-4 py-4">
+                                        Reference ID
+                                    </th>
                                     <th scope="col" className="px-4 py-4">
-                                        Entry Date
+                                        Entry DateReference ID
                                     </th>
                                     <th scope="col" className="px-4 py-4">
                                         Branch
@@ -125,7 +150,7 @@ function AllOpsDetails() {
                             </thead>
                             <tbody>
                             {APIData.map((data) => (
-                                    <AllOpsData key={data._id} data={data} />
+                                    <AllOpsData key={data._id} data={data} policy = {onUpdatePolicy} />
                                 ))}
                             </tbody>
                         </table>

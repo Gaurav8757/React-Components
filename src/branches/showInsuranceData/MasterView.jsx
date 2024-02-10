@@ -76,6 +76,7 @@ function MasterView() {
             <table className="min-w-full text-center text-sm font-light ">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr className="text-blue-700">
+                <th scope="col" className="px-5 py-4">Reference ID</th>
                   <th scope="col" className="px-5 py-4">Entry Date</th>
                   <th scope="col" className="px-5 py-4">Company</th>
                   <th scope="col" className="px-5 py-4">Category</th>
@@ -100,8 +101,6 @@ function MasterView() {
                   <th scope="col" className="px-5 py-4">OD Discount(%)</th>
                   <th scope="col" className="px-5 py-4">NCB(%)</th>
                   <th scope="col" className="px-5 py-4">Policy Made By</th>
-
-
                   <th scope="col" className="px-5 py-4">Policy Start Date</th>
                   <th scope="col" className="px-5 py-4">Policy End Date</th>
                   <th scope="col" className="px-5 py-4">OD Expiry</th>
@@ -116,17 +115,15 @@ function MasterView() {
                   <th scope="col" className="px-5 py-4">GVW</th>
                   <th scope="col" className="px-5 py-4">C.C.</th>
                   <th scope="col" className="px-5 py-4">Product Code</th>
-                  
-
-
                   <th scope="col" className="px-5 py-4">Edit</th>
-                  <th scope="col" className="px-5 py-4">Delete</th>
+                  {/* <th scope="col" className="px-5 py-4">Delete</th> */}
                 </tr>
               </thead>
 
               <tbody>
                 {allDetailsData.map((data) => (
                   <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium">
+                    <td className="whitespace-nowrap px-4 py-4">{data._id}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.company}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.category}</td>

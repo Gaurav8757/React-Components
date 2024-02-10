@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-function AllOpsData({ data }) {
+function AllOpsData({ data, policy }) {
     const [status, setStatus] = useState("Pending");
     const [staffName, setStaffName] = useState("");
     const [employee_id, setEmployeeId] = useState("");
@@ -20,28 +20,32 @@ function AllOpsData({ data }) {
         status
     }
 
-    // // show data as sent 
-    // if(data.staffName && data.employee_id){
-    //     setStatus("Sent");
-    // }
-
     const updateAPI = async () => {
         try {
-            
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${staffId}`, allDetails);
             toast.success(`${resp.data.status}${staffName}`);
-            // if data successfully sent
-           
-
+            if (resp.data.status) {
+                setStatus("Sent");
+                policy();
+            }
         } catch (error) {
             toast.error(`${error.response.data.message}`)
             console.error("Error updating insurance details:", error);
         }
     };
+    // SHOW STATUS
+    useEffect(() => {
+        if (data.staffName) {
+            setStatus("Sent");
+        }
+    }, [data.staffName]);
 
     return (
         <tr
             className="border-b dark:border-neutral-200 text-sm font-medium">
+                <td className="whitespace-nowrap px-3 py-4">
+                {data._id}
+            </td>
             <td className="whitespace-nowrap px-3 py-4">
                 {data.entryDate}
             </td>
@@ -119,7 +123,7 @@ function AllOpsData({ data }) {
             </td>
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
                 <select
-                    className="input-style rounded-lg"
+                    className="input-style rounded-lg cursor-pointer"
                     type="text"
                     name="staffName"
                     value={staffName}
@@ -134,14 +138,18 @@ function AllOpsData({ data }) {
                             // set employee_id
                             setEmployeeId(selectedEmployee._id);
                         }
-                    }}
-                >
+                    }}>
                     <option className="w-1" value="">--- Select ---</option>
                     {
-                        data.allpolicyemployee.map((emp) => (
-                            <option key={emp._id} value={emp.empname}>{emp.empid} - {emp.empname}</option>
-                        ))
-                    }
+    data.allpolicyemployee
+        .filter(emp => emp.staffType === "OPS Executive")
+        .map((emp) => (
+            <option key={emp._id} value={emp.empname}>
+                {emp.empid} - {emp.empname}
+            </option>
+        ))
+}
+
                 </select>
             </td>
 

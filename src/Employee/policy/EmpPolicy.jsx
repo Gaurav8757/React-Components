@@ -66,6 +66,9 @@ function EmpPolicy() {
                         <thead className="border-b font-medium dark:border-neutral-500">
                             <tr className="text-blue-700">
                             <th scope="col" className="px-4 py-4">
+                                        Reference ID
+                                    </th>
+                            <th scope="col" className="px-4 py-4">
                                 Entry Date
                                 </th>
                                 <th scope="col" className="px-4 py-4">
@@ -152,6 +155,9 @@ function EmpPolicy() {
                                         className="border-b dark:border-neutral-200 text-sm font-medium"
                                         key={data._id}
                                     >
+                                        <td className="whitespace-nowrap px-3 py-4">
+                                            {data._id}
+                                        </td>
                                        <td className="whitespace-nowrap px-3 py-4">
                                             {data.entryDate}
                                         </td>
@@ -230,7 +236,7 @@ function EmpPolicy() {
 
                                         <td className="whitespace-nowrap px-3 py-4 bg-green-100">
                                          
-                                           <AddPolicyDetail  insurance = {data}  onUpdate = {onUpdatePolicy}/>
+                                           <AddPolicyDetail  insurance = {data}  onUpdates = {onUpdatePolicy}/>
                                         </td>
                                     </tr>
                                 );
