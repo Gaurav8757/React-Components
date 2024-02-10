@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function AllOpsData({ data }) {
     // console.log(data.allpolicyemployee);
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("Pending");
     const [staffName, setStaffName] = useState("");
     const [employee_id, setEmployeeId] = useState("");
     const [staffId, setStaffId] = useState("");
@@ -19,6 +19,7 @@ function AllOpsData({ data }) {
     const staffSend = (_id) => {
         setSendStaffId(_id);
     };
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,8 +32,14 @@ function AllOpsData({ data }) {
     const updateAPI = async () => {
         try {
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${staffId}`, allDetails);
-            toast.success(`${resp.data.status}`);
+            toast.success(`${resp.data.status}${staffName}`);
+            // if data successfully sent
+            if(resp.data.status){
+                setStatus("Sent");
+            }
+
         } catch (error) {
+            toast.error(`${error.response.data.message}`)
             console.error("Error updating insurance details:", error);
         }
     };
@@ -110,16 +117,7 @@ function AllOpsData({ data }) {
                 {data.policyMadeBy}
             </td>
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
-                <select
-                    className="input-style rounded-lg"
-                    type="text"
-                    name="status"
-                    value={status}
-                    onChange={handleInputChange}>
-                    <option className="w-1" value="">--- Select ---</option>
-                    <option className="w-1" value="Pending">Pending</option>
-                    <option className="w-1" value="Sent">Sent</option>
-                </select>
+                    {status}
             </td>
 
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
@@ -159,7 +157,7 @@ function AllOpsData({ data }) {
                         <div className="bg-white p-4 rounded-lg ">
                             <h2 className="text-lg font-semibold text-gray-800">{`Are you sure you want to send this policy to ${staffName} ?`}</h2>
                             <div className="flex justify-end mt-10">
-                                <button onClick={() => { updateAPI(); setSendStaffId(null); }} className="text-white bg-green-600 hover:bg-green-800 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
+                                <button onClick={() => { updateAPI(); setSendStaffId(null);  }} className="text-white bg-green-600 hover:bg-green-800 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
                                     Yes, I&apos;m sure
                                 </button>
                                 <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
