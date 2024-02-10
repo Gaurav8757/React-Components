@@ -5,41 +5,37 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function UpdateAllBranch({ updateBranch, onUpdate }) {
-    console.log(
-        updateBranch
-    );
-    console.log(updateBranch.employee_id);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [allDetails, setAllDetails] = useState({
-    entryDate: '',
-    company: '',
-    category: '',
-    segment: '',
-    sourcing: '',
-    policyNo: '',
-    insuredName: '',
-    contactNo: '',
-    vehRegNo: '',
-    hypo: '',
-    branch: '',
-    advisorName: '',
-    subAdvisor: '',
-    policyType: '',
-    policyStartDate: '',
-    policyEndDate: '',
-    odExpiry: '',
-    tpExpiry: '',
-    idv: '',
-    bodyType: '',
-    makeModel: '',
-    mfgYear: '',
-    registrationDate: '',
-    vehicleAge: '',
-    fuel: '',
-    gvw: '',
-    cc: '',
-    productCode: '',
+        entryDate: '',
+        company: '',
+        category: '',
+        segment: '',
+        sourcing: '',
+        policyNo: '',
+        insuredName: '',
+        contactNo: '',
+        vehRegNo: '',
+        hypo: '',
+        branch: '',
+        advisorName: '',
+        subAdvisor: '',
+        policyType: '',
+        policyStartDate: '',
+        policyEndDate: '',
+        odExpiry: '',
+        tpExpiry: '',
+        idv: '',
+        bodyType: '',
+        makeModel: '',
+        mfgYear: '',
+        registrationDate: '',
+        vehicleAge: '',
+        fuel: '',
+        gvw: '',
+        cc: '',
+        productCode: '',
     });
 
     // OPEN MODAL
@@ -53,42 +49,75 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
     };
 
 
-   
-      const handlePolicyStartDateChange = (e) => {
+
+    const handlePolicyStartDateChange = (e) => {
         const startDate = e.target.value;
         const odExpiryDate = new Date(startDate);
         odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          odExpiry: odExpiryDate.toISOString().split('T')[0]
+            ...prevDetails,
+            odExpiry: odExpiryDate.toISOString().split('T')[0]
         }));
-    
+
         const policyEndDateValue = new Date(startDate);
         policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          policyEndDate: policyEndDateValue.toISOString().split('T')[0]
+            ...prevDetails,
+            policyEndDate: policyEndDateValue.toISOString().split('T')[0]
         }));
-    
+
         const tpExpiryDate = new Date(startDate);
         tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          tpExpiry: tpExpiryDate.toISOString().split('T')[0]
+            ...prevDetails,
+            tpExpiry: tpExpiryDate.toISOString().split('T')[0]
         }));
-    
+
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          policyStartDate: startDate
+            ...prevDetails,
+            policyStartDate: startDate
         }));
-      };
-     // // Calculate the last day of the previous month
-  const getLastDayOfPreviousMonth = () => {
+    };
+    // // Calculate the last day of the previous month
+    const getLastDayOfPreviousMonth = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    };
+ // // VEHICLE AGE CALCULATED
+ const calculateAge = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    const birthdateDate = new Date(allDetails.registrationDate);
+
+    if (isNaN(birthdateDate.getTime())) {
+      console.error('Invalid date format for registrationDate');
+      return;
+    }
+
+    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+    let ageMonths = today.getMonth() - birthdateDate.getMonth();
+    let ageDays = today.getDate() - birthdateDate.getDate();
+
+    if (ageDays < 0) {
+      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      ageDays = lastDayOfPreviousMonth + ageDays;
+      ageMonths--;
+    }
+
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths = 12 + ageMonths;
+    }
+
+    setAllDetails(prevDetails => ({
+      ...prevDetails,
+      vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+    }));
   };
-    
-  
+
+  useEffect(() => {
+    calculateAge();
+  },);
+
     // show all data inside input tag
     useEffect(() => {
         setAllDetails(updateBranch);
@@ -111,7 +140,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
             toast.success(`${resp.data.status}`);
             // Close the modal after successful submission
             closeModal();
-            onUpdate()
+            onUpdate();
         } catch (error) {
             console.error("Error updating insurance details:", error);
         } finally {
@@ -161,7 +190,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                             <div className="flex flex-col p-2  text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Entry Date:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className="input-style rounded-lg mt-1"
                                                     type="date"
                                                     value={allDetails.entryDate}
                                                     onChange={handleInputChange}
@@ -171,355 +200,355 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
 
                                             {/* FIELD - 2 */}
                                             <div className="flex flex-col p-2  text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Company Name:</label>
-                                            <select
-                                                className="input-style  rounded-lg"
-                                                value={allDetails.company}
-                                                onChange={handleInputChange}
-                                                name="company">
-                                                <option className="w-1" value="">--- Select Company ---</option>
-                                                <option value="TATA AIG">TATA AIG</option>
-                                                <option value="MAGMA-HDI">MAGMA HDI</option>
-                                                <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
-                                                <option value="GO-DIGIT">GO-DIGIT</option>
-                                                <option value="HDFC ERGO">HDFC ERGO</option>
-                                                <option value="ICICI LOMBARD">ICICI LOMBARD</option>
-                                                <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
-                                                <option value="RELIANCE">RELIANCE</option>
-                                                <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
-                                                <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
-                                                <option value="PNB MET LIFE">PNB MET LIFE</option>
-                                                <option value="LIC">LIC</option>
-                                            </select>
+                                                <label className="text-base mx-1">Company Name:</label>
+                                                <select
+                                                    className="input-style  rounded-lg mt-1"
+                                                    value={allDetails.company}
+                                                    onChange={handleInputChange}
+                                                    name="company">
+                                                    <option className="w-1" value="">--- Select Company ---</option>
+                                                    <option value="TATA AIG">TATA AIG</option>
+                                                    <option value="MAGMA-HDI">MAGMA HDI</option>
+                                                    <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
+                                                    <option value="GO-DIGIT">GO-DIGIT</option>
+                                                    <option value="HDFC ERGO">HDFC ERGO</option>
+                                                    <option value="ICICI LOMBARD">ICICI LOMBARD</option>
+                                                    <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
+                                                    <option value="RELIANCE">RELIANCE</option>
+                                                    <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
+                                                    <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
+                                                    <option value="PNB MET LIFE">PNB MET LIFE</option>
+                                                    <option value="LIC">LIC</option>
+                                                </select>
                                             </div>
-                                            
+
                                             {/* FIELD - 3 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
 
-                                            <label className="text-base mx-1">Category:</label>
-                      <select
-                        className="input-style rounded-lg"
-                        value={allDetails.category}
-                        onChange={handleInputChange}
-                        name="category"
-                      > <option className="w-1" value="" >--- Select Category ---</option>
-                        <option value="GIC">GIC</option>
-                        <option value="LIFE">LIFE</option>
-                      </select>
+                                                <label className="text-base mx-1">Category:</label>
+                                                <select
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.category}
+                                                    onChange={handleInputChange}
+                                                    name="category"
+                                                > <option className="w-1" value="" >--- Select Category ---</option>
+                                                    <option value="GIC">GIC</option>
+                                                    <option value="LIFE">LIFE</option>
+                                                </select>
 
                                             </div>
 
                                             {/* FIELD - 4 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Segment:</label>
-                                            <select
-                                                className="input-style rounded-lg"
-                                                value={allDetails.segment}
-                                                onChange={handleInputChange}
-                                                name="segment">
-                                                <option className="w-1" value="">--- Select Segment ---</option>
-                                                <option value="C V">C V</option>
-                                                <option value="PVT-CAR">PVT-CAR</option>
-                                                <option value="TW">TW</option>
-                                                <option value="HEALTH">HEALTH</option>
-                                                <option value="NON-MOTOR">NON-MOTOR</option>
-                                                <option value="LIFE">LIFE</option>
-                                            </select>
+                                                <label className="text-base mx-1">Segment:</label>
+                                                <select
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.segment}
+                                                    onChange={handleInputChange}
+                                                    name="segment">
+                                                    <option className="w-1" value="">--- Select Segment ---</option>
+                                                    <option value="C V">C V</option>
+                                                    <option value="PVT-CAR">PVT-CAR</option>
+                                                    <option value="TW">TW</option>
+                                                    <option value="HEALTH">HEALTH</option>
+                                                    <option value="NON-MOTOR">NON-MOTOR</option>
+                                                    <option value="LIFE">LIFE</option>
+                                                </select>
                                             </div>
 
                                             {/* FIELD - 5 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-                                            <label className="text-base mx-1">Sourcing:</label>
-                      <select
-                        className="input-style rounded-lg"
-                        value={allDetails.sourcing}
-                        onChange={handleInputChange} name="sourcing">
+                                                <label className="text-base mx-1">Sourcing:</label>
+                                                <select
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.sourcing}
+                                                    onChange={handleInputChange} name="sourcing">
 
-                        <option className="w-1" value="">--- Select Sourcing Type ---</option>
-                        <option value="NEW">NEW</option>
-                        <option value="RENEWAL">RENEWAL</option>
-                        <option value="ROLL OVER">ROLL OVER</option>
-                      </select>
+                                                    <option className="w-1" value="">--- Select Sourcing Type ---</option>
+                                                    <option value="NEW">NEW</option>
+                                                    <option value="RENEWAL">RENEWAL</option>
+                                                    <option value="ROLL OVER">ROLL OVER</option>
+                                                </select>
                                             </div>
 
-{/* FIELD - 6 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Insured Name:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.insuredName}
-                        onChange={handleInputChange}
-                        name="insuredName"
-                      />
-</div>
-{/* FIELD - 7 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Contact No:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.contactNo}
-                        onChange={handleInputChange}
-                        name="contactNo"
-                        placeholder="Enter Contact No" />
-    </div>
-{/* FIELD - 8 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Vehicle Reg No:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.vehRegNo}
-                        onChange={handleInputChange}
-                        name="vehRegNo"
-                        placeholder="Enter Vehicle Reg No"
-                      />
-</div>
-{/* FIELD - 9 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Hypothication:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.hypo}
-                        onChange={handleInputChange}
-                        name="hypo"
-                        placeholder="Hypothication"
-                      />
-</div>
-{/* FIELD - 10 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Branch:</label>
-                      <select
-                        id="branch"
-                        className="input-style rounded-lg"
-                        value={allDetails.branch}
-                        onChange={handleInputChange}
-                        name="branch"
-                      >
-                        <option className="w-1" value="" >--- Select Branch ---</option>
-                        <option value="PATNA">PATNA</option>
-                        <option value="HAJIPUR">HAJIPUR</option>
-                        <option value="SAMASTIPUR">SAMASTIPUR</option>
-                      </select>
-</div>
-{/* FIELD - 11 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Advisor Name:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.advisorName}
-                        onChange={handleInputChange}
-                        name="advisorName"
-                        placeholder="Enter Advisor Name"
-                      />
-</div>
+                                            {/* FIELD - 6 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Insured Name:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.insuredName}
+                                                    onChange={handleInputChange}
+                                                    name="insuredName"
+                                                />
+                                            </div>
+                                            {/* FIELD - 7 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Contact No:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.contactNo}
+                                                    onChange={handleInputChange}
+                                                    name="contactNo"
+                                                    placeholder="Enter Contact No" />
+                                            </div>
+                                            {/* FIELD - 8 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Vehicle Reg No:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.vehRegNo}
+                                                    onChange={handleInputChange}
+                                                    name="vehRegNo"
+                                                    placeholder="Enter Vehicle Reg No"
+                                                />
+                                            </div>
+                                            {/* FIELD - 9 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Hypothication:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.hypo}
+                                                    onChange={handleInputChange}
+                                                    name="hypo"
+                                                    placeholder="Hypothication"
+                                                />
+                                            </div>
+                                            {/* FIELD - 10 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Branch:</label>
+                                                <select
+                                                    id="branch"
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.branch}
+                                                    onChange={handleInputChange}
+                                                    name="branch"
+                                                >
+                                                    <option className="w-1" value="" >--- Select Branch ---</option>
+                                                    <option value="PATNA">PATNA</option>
+                                                    <option value="HAJIPUR">HAJIPUR</option>
+                                                    <option value="SAMASTIPUR">SAMASTIPUR</option>
+                                                </select>
+                                            </div>
+                                            {/* FIELD - 11 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Advisor Name:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.advisorName}
+                                                    onChange={handleInputChange}
+                                                    name="advisorName"
+                                                    placeholder="Enter Advisor Name"
+                                                />
+                                            </div>
 
-{/* FIELD - 12 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Sub Advisor:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.subAdvisor}
-                        onChange={handleInputChange}
-                        name="subAdvisor"
-                        placeholder="Enter Sub Advisor"
-                      />
-</div>
+                                            {/* FIELD - 12 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Sub Advisor:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.subAdvisor}
+                                                    onChange={handleInputChange}
+                                                    name="subAdvisor"
+                                                    placeholder="Enter Sub Advisor"
+                                                />
+                                            </div>
 
-{/* FIELD - 13 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Policy Start Date:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        name="policyStartDate"
-                        value={allDetails.policyStartDate}
-                        onChange={
-                          handlePolicyStartDateChange
-                        }
-                      />
-</div>
+                                            {/* FIELD - 13 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Policy Start Date:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="date"
+                                                    name="policyStartDate"
+                                                    value={allDetails.policyStartDate}
+                                                    onChange={
+                                                        handlePolicyStartDateChange
+                                                    }
+                                                />
+                                            </div>
 
-{/* FIELD - 14 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Policy End Date:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        value={allDetails.policyEndDate}
-                        onChange={handleInputChange}
-                        name="policyEndDate"
-                        placeholder="Select Policy End Date" />
-</div>
-     {/* FIELD - 15 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">OD Expiry:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        value={allDetails.odExpiry}
-                        onChange={handleInputChange}
-                        name="odExpiry"
-                        placeholder="Select OD Expiry"
-                        min="2025-01-01"
-                      />
-    </div>                                     
-                                          
-         {/* FIELD - 16 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">TP Expiry:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        value={allDetails.tpExpiry}
-                        onChange={handleInputChange}
-                        name="tpExpiry"
-                        min="2025-01-01"
-                      />
-    </div>                                    
-                                          
-        {/* FIELD - 17 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">IDV:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.idv}
-                        onChange={handleInputChange}
-                        name="idv"
-                        placeholder="Enter IDV" />
-    </div>                                     
-                                          
-                                          
-         {/* FIELD - 18 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Body Type:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.bodyType}
-                        onChange={handleInputChange}
-                        name="bodyType"
-                        placeholder="Enter Body Type"
-                      />
-    </div>                                    
-                                          
-         {/* FIELD - 19 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Make & Model:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.makeModel}
-                        onChange={handleInputChange}
-                        name="makeModel"
-                      />
-    </div>                                    
-                                          
-        {/* FIELD - 20 */}
-<div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-<label className="text-base mx-1">Registration Date:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="date"
-                        value={allDetails.registrationDate}
-                        onChange={handleInputChange}
-                        name="registrationDate"
-                        placeholder="Select Registration Date"
-                        min="1950-01-01"
-                        max={getLastDayOfPreviousMonth()}
-                      />
-    </div>     
- {/* FIELD - 21 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">Vehicle Age:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.vehicleAge}
-                        name="vehicleAge"
-                        readOnly
-                      />
-    </div>     
- {/* FIELD - 22 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">Manufacturing Year:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.mfgYear}
-                        onChange={handleInputChange}
-                        name="mfgYear"
-                        placeholder="Enter Manufacturing Year" />
-    </div>     
+                                            {/* FIELD - 14 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Policy End Date:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="date"
+                                                    value={allDetails.policyEndDate}
+                                                    onChange={handleInputChange}
+                                                    name="policyEndDate"
+                                                    placeholder="Select Policy End Date" />
+                                            </div>
+                                            {/* FIELD - 15 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">OD Expiry:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="date"
+                                                    value={allDetails.odExpiry}
+                                                    onChange={handleInputChange}
+                                                    name="odExpiry"
+                                                    placeholder="Select OD Expiry"
+                                                    min="2025-01-01"
+                                                />
+                                            </div>
+
+                                            {/* FIELD - 16 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">TP Expiry:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="date"
+                                                    value={allDetails.tpExpiry}
+                                                    onChange={handleInputChange}
+                                                    name="tpExpiry"
+                                                    min="2025-01-01"
+                                                />
+                                            </div>
+
+                                            {/* FIELD - 17 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">IDV:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.idv}
+                                                    onChange={handleInputChange}
+                                                    name="idv"
+                                                    placeholder="Enter IDV" />
+                                            </div>
 
 
- {/* FIELD - 23 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">Fuel:</label>
-                      <select
-                        className="input-style rounded-lg"
-                        value={allDetails.fuel}
-                        onChange={handleInputChange} name="fuel">
-                        <option className="w-1" value="" >--- Select Fuel Type ---</option>
-                        <option value="Diesel">Diesel</option>
-                        <option value="Petrol">Petrol</option>
-                        <option value="Electric">Electric</option>
-                        {/* Add more fuel options */}
-                      </select>
-    </div>     
+                                            {/* FIELD - 18 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Body Type:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.bodyType}
+                                                    onChange={handleInputChange}
+                                                    name="bodyType"
+                                                    placeholder="Enter Body Type"
+                                                />
+                                            </div>
 
- {/* FIELD - 24 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">GVW (kg):</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.gvw}
-                        onChange={handleInputChange}
-                        name="gvw"
-                        placeholder="Enter GVW"
-                      />
-    </div>     
+                                            {/* FIELD - 19 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Make & Model:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.makeModel}
+                                                    onChange={handleInputChange}
+                                                    name="makeModel"
+                                                />
+                                            </div>
 
- {/* FIELD - 25 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">C.C.:</label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="text"
-                        value={allDetails.cc}
-                        onChange={handleInputChange}
-                        name="cc"
-                      />
-    </div>     
+                                            {/* FIELD - 20 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Registration Date:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="date"
+                                                    value={allDetails.registrationDate}
+                                                    onChange={handleInputChange}
+                                                    name="registrationDate"
+                                                    placeholder="Select Registration Date"
+                                                    min="1950-01-01"
+                                                    max={getLastDayOfPreviousMonth()}
+                                                />
+                                            </div>
+                                            {/* FIELD - 21 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Vehicle Age:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.vehicleAge}
+                                                    name="vehicleAge"
+                                                    readOnly
+                                                />
+                                            </div>
+                                            {/* FIELD - 22 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Manufacturing Year:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.mfgYear}
+                                                    onChange={handleInputChange}
+                                                    name="mfgYear"
+                                                    placeholder="Enter Manufacturing Year" />
+                                            </div>
 
- {/* FIELD - 26 */}
- <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
- <label className="text-base mx-1">Product Code:</label>
-                      <select
-                        id="productCode"
-                        className="input-style rounded-lg"
-                        value={allDetails.productCode}
-                        onChange={handleInputChange} name="productCode">
 
-                        <option className="w-1" value="" disabled>--- Select Product Code ---</option>
-                        {allDetails.policyType &&
-                          POLICY_TYPES[updateBranch.policyType].transactions.map((transaction) => (
-                            <option key={transaction} value={transaction}>
-                              {transaction}
-                            </option>
-                          ))}
-                      </select>
-    </div>     
+                                            {/* FIELD - 23 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Fuel:</label>
+                                                <select
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.fuel}
+                                                    onChange={handleInputChange} name="fuel">
+                                                    <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                                                    <option value="Diesel">Diesel</option>
+                                                    <option value="Petrol">Petrol</option>
+                                                    <option value="Electric">Electric</option>
+                                                    {/* Add more fuel options */}
+                                                </select>
+                                            </div>
 
-     
+                                            {/* FIELD - 24 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">GVW (kg):</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.gvw}
+                                                    onChange={handleInputChange}
+                                                    name="gvw"
+                                                    placeholder="Enter GVW"
+                                                />
+                                            </div>
 
-                                           
+                                            {/* FIELD - 25 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">C.C.:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.cc}
+                                                    onChange={handleInputChange}
+                                                    name="cc"
+                                                />
+                                            </div>
+
+                                            {/* FIELD - 26 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                                <label className="text-base mx-1">Product Code:</label>
+                                                <select
+                                                    id="productCode"
+                                                    className="input-style rounded-lg mt-1"
+                                                    value={allDetails.productCode}
+                                                    onChange={handleInputChange} name="productCode">
+
+                                                    <option className="w-1" value="" disabled>--- Select Product Code ---</option>
+                                                    {allDetails.policyType &&
+                                                        POLICY_TYPES[updateBranch.policyType].transactions.map((transaction) => (
+                                                            <option key={transaction} value={transaction}>
+                                                                {transaction}
+                                                            </option>
+                                                        ))}
+                                                </select>
+                                            </div>
+                                            {/* FIELD - 27 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
+                                            {/* FIELD - 28 */}
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
                                         </div>
                                         {/* button */}
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
