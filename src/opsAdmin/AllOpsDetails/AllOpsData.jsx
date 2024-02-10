@@ -4,39 +4,34 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 function AllOpsData({ data }) {
-    // console.log(data.allpolicyemployee);
     const [status, setStatus] = useState("Pending");
     const [staffName, setStaffName] = useState("");
     const [employee_id, setEmployeeId] = useState("");
     const [staffId, setStaffId] = useState("");
     const [sendStaffId, setSendStaffId] = useState(null);
-    const [allDetails, setAllDetails] = useState({
-        staffName: "",
-        employee_id: employee_id,
-        status: ""
-    });
+   
 // popup
     const staffSend = (_id) => {
         setSendStaffId(_id);
     };
+    const allDetails = {
+        staffName,
+        employee_id,
+        status
+    }
     
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setAllDetails((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
+    // show data as sent 
+    if(data.staffName && data.employee_id){
+        setStatus("Sent");
+    }
 
     const updateAPI = async () => {
         try {
+            
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${staffId}`, allDetails);
             toast.success(`${resp.data.status}${staffName}`);
             // if data successfully sent
-            if(resp.data.status){
-                setStatus("Sent");
-            }
+           
 
         } catch (error) {
             toast.error(`${error.response.data.message}`)
@@ -119,7 +114,9 @@ function AllOpsData({ data }) {
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
                     {status}
             </td>
-
+            <td className="whitespace-nowrap px-3 py-4 bg-red-100">
+                {data.staffName}
+            </td>
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
                 <select
                     className="input-style rounded-lg"

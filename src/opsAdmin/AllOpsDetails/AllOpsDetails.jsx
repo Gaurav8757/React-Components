@@ -113,6 +113,9 @@ function AllOpsDetails() {
                                         Status
                                     </th>
                                     <th scope="col" className="px-4 py-4 bg-red-100">
+                                        Sent to
+                                    </th>
+                                    <th scope="col" className="px-4 py-4 bg-red-100">
                                         Select Employee
                                     </th>
                                     <th scope="col" className="px-4 py-4 bg-red-100">
