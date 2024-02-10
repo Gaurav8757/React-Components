@@ -19,11 +19,11 @@ function AllOpsData({ data }) {
         employee_id,
         status
     }
-    
-    // show data as sent 
-    if(data.staffName && data.employee_id){
-        setStatus("Sent");
-    }
+
+    // // show data as sent 
+    // if(data.staffName && data.employee_id){
+    //     setStatus("Sent");
+    // }
 
     const updateAPI = async () => {
         try {
@@ -112,7 +112,7 @@ function AllOpsData({ data }) {
                 {data.policyMadeBy}
             </td>
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
-                    {status}
+                    {data.status}
             </td>
             <td className="whitespace-nowrap px-3 py-4 bg-red-100">
                 {data.staffName}

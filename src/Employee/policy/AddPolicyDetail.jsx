@@ -5,10 +5,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function AddPolicyDetail({ insurance, onUpdate }) {
-    console.log(
-        insurance
-    );
-    console.log(insurance.employee_id);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [allDetails, setAllDetails] = useState({
