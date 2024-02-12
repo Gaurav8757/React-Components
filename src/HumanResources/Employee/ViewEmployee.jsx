@@ -60,15 +60,15 @@ export default function ViewEmployee() {
   
 
     // ******************** Delete Functions *************************************/
-    const onDeleteEmployee = async (_id) => {
-        try {
-          await axios.delete(`https://eleedomimf.onrender.com/emp/api/${_id}`);
-          toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
-          setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
-        } catch (error) {
-          console.error('Error deleting employee:', error);
-        }
-      };
+    // const onDeleteEmployee = async (_id) => {
+    //     try {
+    //       await axios.delete(`https://eleedomimf.onrender.com/emp/api/${_id}`);
+    //       toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
+    //       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+    //     } catch (error) {
+    //       console.error('Error deleting employee:', error);
+    //     }
+    //   };
       
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
@@ -107,6 +107,15 @@ export default function ViewEmployee() {
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Aadhar No.
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                   Account Number
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                   IFSC Code
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                   Bank Name
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         Aadhar
@@ -171,6 +180,15 @@ export default function ViewEmployee() {
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empaadharno}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.accNumber}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.ifsc}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.bankName}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <NavLink to= {data.empaadharfile}>

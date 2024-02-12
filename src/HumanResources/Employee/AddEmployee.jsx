@@ -25,7 +25,7 @@ function AddEmployee() {
   const [staffType, setStaffType] = useState("");
   const [type, setType] = useState([]);
   const [ view, setView] = useState("");
-
+const [pan, setPan] = useState("");
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
@@ -66,6 +66,7 @@ function AddEmployee() {
       formData.append("accNumber", accNumber);
         formData.append("bankName", bankName);
         formData.append("ifsc", ifsc);
+        formData.append("pan", pan);
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
@@ -100,6 +101,7 @@ function AddEmployee() {
         setStaffType("");
         setPermanentaddress("");
         setLoading(false);
+        setPan("");
       } else {
         toast.error("Error Occurred. Try again!");
       }
@@ -185,6 +187,17 @@ function AddEmployee() {
                   type="text"
                   name="aadharno"
                   value={aadharno}
+                  onChange={(e) => setAadharno(e.target.value)}
+                  placeholder=""
+                />
+              </div>
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Pan No.:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="pan"
+                  value={pan}
                   onChange={(e) => setAadharno(e.target.value)}
                   placeholder=""
                 />
