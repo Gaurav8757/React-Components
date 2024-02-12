@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import AddPolicyDetail from './AddPolicyDetail.jsx';
+import * as XLSX from 'xlsx';
 // update policy
 function EmpPolicy() {
   const [APIData, setAPIData] = useState([]);
@@ -53,13 +54,32 @@ function EmpPolicy() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
-
+  const exportToExcel = () => {
+    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const fileExtension = '.xlsx';
+    const fileName = 'all_details_data';
+    const ws = XLSX.utils.json_to_sheet(APIData);
+    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    const url = URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', fileName + fileExtension);
+    document.body.appendChild(link);
+    link.click();
+  };
+  const handleExportClick = () => {
+    exportToExcel();
+    // exportToPDF();
+  };
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
     <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
             <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                 <div className="overflow-x-auto w-xl  text-blue-500">
-                    <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1><hr></hr>
+                    <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1>
+                    <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                     <table className="min-w-full text-center text-sm font-light ">

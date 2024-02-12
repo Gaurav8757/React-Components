@@ -20,7 +20,7 @@ const BranchSidebar = () => {
       logo: <IoPeopleOutline size={25} />
     },
     {
-       title: "View Insurance",
+       title: "Policy Lists",
       path: "/branches/home/viewinsurance",
       logo: <RiGitBranchFill size={25} />
     },

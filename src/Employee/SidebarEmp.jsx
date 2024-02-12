@@ -19,7 +19,7 @@ function DashboardEmp() {
           logo: <FcPlanner size={25} />
         },
         {
-          title: "Policy",
+          title: "Policy Lists",
           path: "/employee/home/policy",
           logo: <MdOutlinePolicy size={25} />
         },

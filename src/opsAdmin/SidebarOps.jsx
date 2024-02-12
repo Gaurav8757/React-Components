@@ -12,7 +12,7 @@ const SidebarOps = () => {
     },
 
     {
-      title: "All Policies",
+      title: "Policy Lists",
       path: "/ops/home/policy",
       logo: <IoPeopleOutline size={25} />
     },

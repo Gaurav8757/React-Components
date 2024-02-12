@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from 'react-toastify';
+
+import * as XLSX from 'xlsx';
 import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
+
+
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   useEffect(() => {
@@ -57,7 +61,25 @@ function MasterView() {
   }
 };
 
-
+const exportToExcel = () => {
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+  const fileName = 'all_details_data';
+  const ws = XLSX.utils.json_to_sheet(allDetailsData);
+  const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+  const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const data = new Blob([excelBuffer], { type: fileType });
+  const url = URL.createObjectURL(data);
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', fileName + fileExtension);
+  document.body.appendChild(link);
+  link.click();
+};
+const handleExportClick = () => {
+  exportToExcel();
+  // exportToPDF();
+};
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
@@ -67,6 +89,7 @@ function MasterView() {
             <NavLink to="/branches/home" className="absolute top-30 right-10">
               <TiArrowBack size={30} color="red" />
             </NavLink>
+            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
             <h1 className="flex justify-center font-semibold text-3xl w-full mb-4">
               View All Details
             </h1>
