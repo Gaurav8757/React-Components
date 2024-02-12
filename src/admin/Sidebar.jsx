@@ -32,11 +32,11 @@ const Sidebar = () => {
       path: "/dashboard/addbranch",
       logo: <RiGitBranchFill size={24}/>
     },
-    {
-      title: "Add HR",
-      path: "/dashboard/addhr",
-      logo: <IoPeopleOutline size={24}/>
-    },
+    // {
+    //   title: "Add HR",
+    //   path: "/dashboard/addhr",
+    //   logo: <IoPeopleOutline size={24}/>
+    // },
     {
       title: "HR Attendance",
       path: "/dashboard/view/attendance",

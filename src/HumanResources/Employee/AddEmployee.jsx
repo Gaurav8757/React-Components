@@ -16,6 +16,9 @@ function AddEmployee() {
   const [aadharno, setAadharno] = useState("");
   const [branch, setBranch] = useState("");
   const [joining, setJoining] = useState("");
+  const [accNumber, setAccNumber] = useState("");
+    const [ifsc, setIfsce] = useState("");
+    const [bankName, setBankName] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,6 +63,9 @@ function AddEmployee() {
       formData.append("empaadharno", aadharno);
       formData.append("empdesignation", designation);
       formData.append("staffType", staffType);
+      formData.append("accNumber", accNumber);
+        formData.append("bankName", bankName);
+        formData.append("ifsc", ifsc);
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
@@ -76,6 +82,9 @@ function AddEmployee() {
         toast.success("Employee added successfully!");
         
         // Reset the form on successful submission
+        setAccNumber("");
+        setIfsce("");
+        setBankName("");
         setAddress("");
         setGender("");
         setAadhar("");
@@ -143,6 +152,31 @@ function AddEmployee() {
                   placeholder="+91"
                 />
               </div>
+
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Account No.:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="accNumber"
+                  value={accNumber}
+                  onChange={(e) => setAadharno(e.target.value)}
+                  placeholder="Enter Account Number"
+                />
+              </div>
+
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">Bank Name:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="bankName"
+                  value={bankName}
+                  onChange={(e) => setAadharno(e.target.value)}
+                  placeholder="Enter Bank Name"
+                />
+              </div>
+              
 
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Aadhar No.:</label>
@@ -245,6 +279,18 @@ function AddEmployee() {
                   placeholder="abc@gmail.com"
                 />
               </div>
+              <div className="flex flex-col my-5">
+                <label className="text-base mx-1">IFSC Code:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="ifsc"
+                  value={ifsc}
+                  onChange={(e) => setAadharno(e.target.value)}
+                  placeholder="Enter IFSC Code"
+                />
+              </div>
+
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Employee Id:</label>
                 <input

@@ -15,6 +15,9 @@ function AddHr() {
     const [calendar, setCalendar] = useState("");
     const [hrname, setHrname] = useState("");
     const [aadharno, setAadharno] = useState("");
+    // const [accNumber, setAccNumber] = useState("");
+    // const [ifsc, setIfsce] = useState("");
+    // const [bankName, setBankName] = useState("");
     const [branch, setBranch] = useState("");
     const [joining, setJoining] = useState("");
     const [permanentaddress, setPermanentaddress] = useState("");
@@ -47,6 +50,11 @@ function AddHr() {
         formData.append("currenthraddress", address);
         formData.append("permanenthraddress", permanentaddress);
         formData.append("hraadharno", aadharno);
+
+        // formData.append("accNumber", accNumber);
+        // formData.append("bankName", bankName);
+        // formData.append("ifsc", ifsc);
+
         formData.append("hrdesignation", designation);
   
         // Make sure to replace this URL with your actual API endpoint
@@ -140,6 +148,8 @@ function AddHr() {
                   placeholder=""
                 />
               </div>
+  
+             
   
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Joining Date:</label>
