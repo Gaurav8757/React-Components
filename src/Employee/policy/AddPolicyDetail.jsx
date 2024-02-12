@@ -208,7 +208,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     value={allDetails.policyType}
                                                     onChange={handleInputChange}
                                                     name="policyType">
-                                                    <option className="w-1" value="" disabled>--- Select Policy Type ---</option>
+                                                    <option className="w-1" value="">--- Select Policy Type ---</option>
                                                     {/* here check */}
                                                     {Object.keys(POLICY_TYPES).map(category => (
                                                         <option key={category} value={category}>{category}</option>
