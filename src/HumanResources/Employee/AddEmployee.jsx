@@ -249,7 +249,7 @@ const [pan, setPan] = useState("");
             <div className="w-full lg:w-1/2 p-2 text-start">
 
               <div className="flex flex-col ">
-                <label className="text-base mx-1">Staff Type:</label>
+                <label className="text-base mx-1">Designation:</label>
                 <select
                   className="input-style rounded-lg"
                   type="text"

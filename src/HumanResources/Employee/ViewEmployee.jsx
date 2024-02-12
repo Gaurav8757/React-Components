@@ -133,11 +133,9 @@ export default function ViewEmployee() {
                                     Permanent Address
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Staff Type
-                                    </th>
-                                    <th scope="col" className="px-5 py-4">
                                     Designation
                                     </th>
+                                   
                                     <th scope="col" className="px-5 py-4">
                                         Edit
                                     </th>
@@ -212,9 +210,7 @@ export default function ViewEmployee() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.staffType}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                {data.empdesignation}
-                                            </td>
+                                           
                                             <td className="whitespace-nowrap px-4 py-4">
                                                <UpdateEmployee employee = {data}  onUpdate = {onUpdateBranch}/>
                                             </td>

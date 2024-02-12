@@ -86,7 +86,7 @@ function AllOpsDetails() {
                                         Reference ID
                                     </th>
                                     <th scope="col" className="px-4 py-4">
-                                        Entry DateReference ID
+                                        Entry Date
                                     </th>
                                     <th scope="col" className="px-4 py-4">
                                         Branch
