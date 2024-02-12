@@ -162,7 +162,7 @@ const [pan, setPan] = useState("");
                   type="text"
                   name="accNumber"
                   value={accNumber}
-                  onChange={(e) => setAadharno(e.target.value)}
+                  onChange={(e) => setAccNumber(e.target.value)}
                   placeholder="Enter Account Number"
                 />
               </div>
@@ -174,7 +174,7 @@ const [pan, setPan] = useState("");
                   type="text"
                   name="bankName"
                   value={bankName}
-                  onChange={(e) => setAadharno(e.target.value)}
+                  onChange={(e) => setBankName(e.target.value)}
                   placeholder="Enter Bank Name"
                 />
               </div>
@@ -198,7 +198,7 @@ const [pan, setPan] = useState("");
                   type="text"
                   name="pan"
                   value={pan}
-                  onChange={(e) => setAadharno(e.target.value)}
+                  onChange={(e) => setPan(e.target.value)}
                   placeholder=""
                 />
               </div>
@@ -299,7 +299,7 @@ const [pan, setPan] = useState("");
                   type="text"
                   name="ifsc"
                   value={ifsc}
-                  onChange={(e) => setAadharno(e.target.value)}
+                  onChange={(e) => setIfsce(e.target.value)}
                   placeholder="Enter IFSC Code"
                 />
               </div>
