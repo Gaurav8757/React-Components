@@ -189,6 +189,7 @@ const [pan, setPan] = useState("");
                   value={aadharno}
                   onChange={(e) => setAadharno(e.target.value)}
                   placeholder=""
+                  max= "12"
                 />
               </div>
               <div className="flex flex-col my-5">
@@ -200,6 +201,7 @@ const [pan, setPan] = useState("");
                   value={pan}
                   onChange={(e) => setPan(e.target.value)}
                   placeholder=""
+                  max="10"
                 />
               </div>
 
@@ -228,7 +230,7 @@ const [pan, setPan] = useState("");
                 />
               </div>
 
-              <div className="flex flex-col my-5">
+              {/* <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Designation:</label>
                 <input
                   className="input-style rounded-lg"
@@ -238,7 +240,7 @@ const [pan, setPan] = useState("");
                   onChange={(e) => setDesignation(e.target.value)}
                   placeholder=""
                 />
-              </div>
+              </div> */}
 
             </div>
 

@@ -22,7 +22,7 @@ function MasterView() {
         }
 
         const response = await axios.get(
-          `http://localhost:7000/alldetails/viewdata/branch/hpur`,
+          `https://eleedomimf.onrender.com/alldetails/viewdata/branch/hpur`,
           {
             params: {
               branch: branch
