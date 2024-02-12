@@ -77,7 +77,7 @@ const Sidebar = () => {
       logo: <FaImages size={24}/>
     },
     {
-      title: "Add All Details",
+      title: "Add Policy Details",
       path: "/dashboard/masterform",
       logo: < FcViewDetails size={24}/>
     },
