@@ -85,7 +85,7 @@ export default function ViewEmployee() {
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
-                                   Employee ID
+                                    Employee ID
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                     Employee Name
@@ -109,6 +109,15 @@ export default function ViewEmployee() {
                                     Aadhar No.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
+                                        Aadhar Card
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    PAN No.
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
+                                    PAN Card
+                                    </th>
+                                    <th scope="col" className="px-5 py-4">
                                    Account Number
                                     </th>
                                     <th scope="col" className="px-5 py-4">
@@ -117,9 +126,7 @@ export default function ViewEmployee() {
                                     <th scope="col" className="px-5 py-4">
                                    Bank Name
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
-                                        Aadhar
-                                    </th>
+                                    
                                     <th scope="col" className="px-5 py-4">
                                         Joining Date
                                     </th>
@@ -180,6 +187,21 @@ export default function ViewEmployee() {
                                                 {data.empaadharno}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
+                                                <NavLink to= {data.empaadharfile}>
+                                                    <img src={data.empaadharfile} alt="aadhar"/>
+                                                      </NavLink>
+                                                
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                {data.pan}
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
+                                                <NavLink to= {data.panno}>
+                                                    <img src={data.panno} alt="pan"/>
+                                                      </NavLink>
+                                                
+                                            </td>
+                                            <td className="whitespace-nowrap px-4 py-4">
                                                 {data.accNumber}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
@@ -188,12 +210,7 @@ export default function ViewEmployee() {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.bankName}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                <NavLink to= {data.empaadharfile}>
-                                                    <img src={data.empaadharfile} alt="aadhar"/>
-                                                      </NavLink>
-                                                
-                                            </td>
+                                           
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empjoiningdate}
                                             </td>

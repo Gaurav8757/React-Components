@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 // import { IoIosPeople } from "react-icons/io";
 import Logout from "./logout/Logout.jsx";
-import { FaCodePullRequest } from "react-icons/fa6";
+// import { FaCodePullRequest } from "react-icons/fa6";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -12,7 +12,7 @@ import { FcMoneyTransfer, FcPlanner } from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
-import { BiLogoMicrosoftTeams } from "react-icons/bi";
+// import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
 
 const Sidebar = () => {
@@ -42,28 +42,28 @@ const Sidebar = () => {
       path: "/dashboard/view/attendance",
       logo: < FcPlanner size={24}/>
     },
-    {
-      title: "Operation Head",
-      path: "#",
-      logo: < FaCodePullRequest size={24}/>,
-      subRoutes: [
-        {
-          title: "Lists",
-          path: "/dashboard/operation/head",
-          dash:""
-        }]
-    },
-    {
-      title: "Team(s) Operation",
-      path: "#",
-      logo: < BiLogoMicrosoftTeams size={24}/>,
-      subRoutes: [
-        {
-          title: "Lists",
-          path: "/dashboard/team/operation",
-          dash:""
-        }]
-    },
+    // {
+    //   title: "Operation Head",
+    //   path: "#",
+    //   logo: < FaCodePullRequest size={24}/>,
+    //   subRoutes: [
+    //     {
+    //       title: "Lists",
+    //       path: "/dashboard/operation/head",
+    //       dash:""
+    //     }]
+    // },
+    // {
+    //   title: "Team(s) Operation",
+    //   path: "#",
+    //   logo: < BiLogoMicrosoftTeams size={24}/>,
+    //   subRoutes: [
+    //     {
+    //       title: "Lists",
+    //       path: "/dashboard/team/operation",
+    //       dash:""
+    //     }]
+    // },
 
     
     {

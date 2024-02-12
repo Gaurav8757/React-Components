@@ -36,10 +36,10 @@ function UpdateEmployee({ employee, onUpdate }) {
     useEffect(() => {
         // Fetch the list of branches when the component mounts
         axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
-          setType(resp.data);
-          
+            setType(resp.data);
+
         });
-      }, []);
+    }, []);
     // show all data inside input tag
     useEffect(() => {
         setData(employee);
@@ -187,7 +187,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             />
                                         </div>
 
-                                        <div className="flex flex-col my-5">
+                                        {/* <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Designation:</label>
                                             <input
                                                 className="input-style rounded-lg"
@@ -198,7 +198,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                                 name="empdesignation"
                                                 placeholder=""
                                             />
-                                        </div>
+                                        </div> */}
 
 
                                     </div>
@@ -206,23 +206,23 @@ function UpdateEmployee({ employee, onUpdate }) {
 
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
-                                    <div className="flex flex-col ">
-                <label className="text-base mx-1">Staff Type:</label>
-                <select
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={data.staffType}
-                  name="staffType"
-                  onChange={handleInputChange}>
-                  <option value="">----- Select -----</option>
-                  {
-                    type.map((data) => (
-                      <option key={data._id} value={data.s_type}>{data.s_type}</option>
-                    ))
-                  }
-                </select>
+                                        <div className="flex flex-col ">
+                                            <label className="text-base mx-1">Designation:</label>
+                                            <select
+                                                className="input-style rounded-lg"
+                                                type="text"
+                                                value={data.staffType}
+                                                name="staffType"
+                                                onChange={handleInputChange}>
+                                                <option value="">----- Select -----</option>
+                                                {
+                                                    type.map((data) => (
+                                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                                                    ))
+                                                }
+                                            </select>
 
-              </div>
+                                        </div>
                                         <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Gender:</label>
                                             <select
@@ -252,17 +252,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                                 placeholder="abc@gmail.com"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Employee Id:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                name="empid"
-                                                value={data.empid}
-                                                onChange={handleInputChange}
-                                                placeholder="s-12"
-                                            />
-                                        </div>
+                                       
 
                                         <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Upload Aadhar Card:</label>

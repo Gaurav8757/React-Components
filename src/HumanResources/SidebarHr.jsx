@@ -3,46 +3,61 @@ import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import { FcTodoList, FcPlanner } from "react-icons/fc";
+import { FcPlanner } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc"; 
 import { FaUserGroup } from "react-icons/fa6";
-import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 
 function DashboardHr() {
     const dashboardRouted = [
         {
-          title: "Dashboard",
+          title: "Home",
           path: "/hr/home",
           logo: <RxDashboard size={25} />
         },
          {
-          title: "Add Attendance",
+          title: "Attendance",
           path: "/hr/home/add/attendance",
-          logo: <FcPlanner size={25} />
+          logo: <FcPlanner size={25} />,
+          subRoutes: [
+            {
+              title: "Add Attendance",
+              path: "/hr/home/add/attendance",
+              dash:""
+            },
+            {
+              title: "View Attendance",
+              path: "/hr/home/attendance",
+              dash:""
+            },
+          ]
         },
-         {
-          title: "View Attendance",
-          path: "/hr/home/attendance",
-          logo: <FcTodoList size={25} />
-        },
+         
+
         {
-           title: "Add Employee",
-          path: "/hr/home/addemployee",
+          title: "Employee",
+          path: "#",
           logo: <FaUserGroup size={25} />,
           subRoutes: [
+            {
+              title: "Add Employee",
+              path: "/hr/home/addemployee",
+              dash:""
+            },
             {
               title: "View Employee",
               path: "/hr/home/viewemployee",
               dash:""
             },
+            {
+              title: "Employee Attendance",
+              path: "/hr/home/emp/attendance",
+              dash:<RiGitBranchFill size={25} />
+            },
           ]
         },
-        {
-         title: "Employee Attendance",
-         path: "/hr/home/emp/attendance",
-         logo: <RiGitBranchFill size={25} />
-       },
+
         {
           title: "Add Salary",
           path: "/hr/home/addsalary",
@@ -149,6 +164,7 @@ function DashboardHr() {
                         >
                           <span className="">{route.logo}</span>
                           <span className="ms-6">{route.title}</span>
+                          <span className="ms-2"><IoMdArrowDropdown/></span>
                         </NavLink>
                         <ul
                           onClick={() => toggleSubmenu(idx)}
@@ -159,7 +175,7 @@ function DashboardHr() {
                             <li key={subIdx}>
                               <NavLink
                                 to={subRoute.path}
-                                className="flex 2 p-2 text-white text-start mx-6 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                                className="flex  p-2 text-white text-start mx-6 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
                               >
                                 {<IoMdArrowDropright size={30}/>}{subRoute.title}
                               </NavLink>
@@ -172,6 +188,7 @@ function DashboardHr() {
                       <NavLink to={route.path} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <span className="">{route.logo}</span>
                         <span className="ms-6">{route.title}</span>
+                        
                       </NavLink>
                     )}
                   </li>

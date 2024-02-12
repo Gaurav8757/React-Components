@@ -74,7 +74,7 @@ function AddBranch() {
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={branch}
+                value={branch.toUpperCase()}
                 onChange={(e) => setBranch(e.target.value)}
                 placeholder="Enter Branch Name"
               />
@@ -85,7 +85,7 @@ function AddBranch() {
                 className="input-style rounded-lg"
                 type="text"
                 rows={2}
-                value={address}
+                value={address.toUpperCase()}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Enter Your Address"
               />
@@ -95,7 +95,7 @@ function AddBranch() {
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={state}
+                value={state.toUpperCase()}
                 onChange={(e) => setState(e.target.value)}
                 placeholder="Enter Your State Name"
               />
@@ -115,7 +115,7 @@ function AddBranch() {
               <input
                 className="input-style rounded-lg"
                 type="email"
-                value={email}
+                value={email.toUpperCase()}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="abc@gmail.com"
               />
@@ -139,7 +139,7 @@ function AddBranch() {
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={district}
+                value={district.toUpperCase()}
                 onChange={(e) => setDistrict(e.target.value)}
                 placeholder="Enter Your District Name"
               />
@@ -170,7 +170,7 @@ function AddBranch() {
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={person}
+                value={person.toUpperCase()}
                 onChange={(e) => setPerson(e.target.value)}
                 placeholder="Enter Name"
               />

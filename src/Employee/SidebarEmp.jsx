@@ -2,32 +2,40 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { FcTodoList, FcPlanner } from "react-icons/fc";
+import {  FcPlanner } from "react-icons/fc";
 import { MdOutlinePolicy } from "react-icons/md";
-
+import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 
 function DashboardEmp() {
     const dashboardRouted = [
         {
-          title: "Dashboard",
+          title: "Home",
           path: "/employee/home",
           logo: <RxDashboard size={25} />
         },
         {
-          title: "Add Attendance",
-          path: "/employee/home/add/attendance",
-          logo: <FcPlanner size={25} />
+          title: "Attendance",
+          path: "#",
+          logo: <FcPlanner size={25} />,
+          subRoutes: [
+            {
+              title: "Add Attendance",
+              path: "/employee/home/add/attendance",
+              dash:""
+            },
+            {
+              title: "View Attendance",
+              path: "/employee/home/attendance",
+              dash:""
+            },
+          ]
         },
         {
           title: "Policy Lists",
           path: "/employee/home/policy",
           logo: <MdOutlinePolicy size={25} />
         },
-        {
-          title: "View Attendance",
-          path: "/employee/home/attendance",
-          logo: <FcTodoList size={25} />
-        },
+       
        
       ];
     
@@ -123,7 +131,8 @@ function DashboardEmp() {
                           className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                         >
                           <span className="">{route.logo}</span>
-                          <span className="ms-10">{route.title}</span>
+                          <span className="ms-6">{route.title}</span>
+                          <span className="ms-2"><IoMdArrowDropdown/></span>
                         </NavLink>
                         <ul
                           onClick={() => toggleSubmenu(idx)}
@@ -134,9 +143,9 @@ function DashboardEmp() {
                             <li key={subIdx}>
                               <NavLink
                                 to={subRoute.path}
-                                className="block p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                                className="flex p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
                               >
-                                {subRoute.title}
+                                {<IoMdArrowDropright size={30}/>}{subRoute.title}
                               </NavLink>
                             </li>
                           ))}

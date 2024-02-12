@@ -32,6 +32,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         setIsModalOpen(false);
     };
 
+    const isValidEngineChassis = (value) => {
+        return /^[A-Za-z0-9]{6}$/.test(value);
+    };
 
     const updateNetPremium = () => {
         const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
@@ -110,9 +113,12 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         }));
     };
 
+    
+
     const updateInsuranceAPI = async () => {
         try {
             setLoading(true);
+    
             // Use the selected category ID in the patch method
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
             onUpdates();
@@ -171,7 +177,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
-                                                    value={allDetails.policyNo}
+                                                    value={allDetails.policyNo.toUpperCase()}
                                                     onChange={handleInputChange}
                                                     name="policyNo"
                                                     placeholder="Enter Policy No"
@@ -183,29 +189,31 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
-                                                    value={allDetails.engNo}
+                                                    value={allDetails.engNo.toUpperCase()}
                                                     onChange={handleInputChange}
                                                     name="engNo"
                                                     placeholder="Enter Engine No" />
+                                                     {!isValidEngineChassis(allDetails.engNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
                                             </div>
                                             {/* FIELD - 3 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Chassis No:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className={`input-style rounded-lg `}
                                                     type="text"
-                                                    value={allDetails.chsNo}
+                                                    value={allDetails.chsNo.toUpperCase()}
                                                     onChange={handleInputChange}
                                                     name="chsNo"
                                                     placeholder="Enter Chassis No"
                                                 />
+                                                 {!isValidEngineChassis(allDetails.chsNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
                                             </div>
                                             {/* FIELD - 4 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Policy Type:</label>
                                                 <select
                                                     className="input-style rounded-lg"
-                                                    value={allDetails.policyType}
+                                                    value={allDetails.policyType.toUpperCase()}
                                                     onChange={handleInputChange}
                                                     name="policyType">
                                                     <option className="w-1" value="">--- Select Policy Type ---</option>
@@ -347,7 +355,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <label className="text-base mx-1">Policy Made By:</label>
                                                 <select
                                                     className="input-style rounded-lg"
-                                                    value={allDetails.policyMadeBy}
+                                                    value={allDetails.policyMadeBy.toUpperCase()}
                                                     onChange={handleInputChange}
                                                     name="policyMadeBy">
                                                     <option className="w-1" value="" >--- Policy Made By ---</option>

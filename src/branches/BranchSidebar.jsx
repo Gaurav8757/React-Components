@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import BranchLogout from "./BranchLogout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import { IoPeopleOutline } from "react-icons/io5";
-// import { TbMoneybag, TbReport } from "react-icons/tb";
-// import { FcMoneyTransfer } from "react-icons/fc"; 
+import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
+
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -15,46 +14,22 @@ const BranchSidebar = () => {
     },
 
     {
-      title: "Add Policy",
-      path: "/branches/home/add/policy",
-      logo: <IoPeopleOutline size={25} />
-    },
-    {
-       title: "Policy Lists",
-      path: "/branches/home/viewinsurance",
-      logo: <RiGitBranchFill size={25} />
-    },
-    // {
-    //   title: "Add Employee",
-    //   path: "/branches",
-    //   logo: <IoPeopleOutline size={25} />
-    // },
-    {
-    //   title: "Add Salary",
-      path: "/branches",
-      // logo: <TbMoneybag size={25} />
-    },
-    {
-    //   title: "Generate Salary",
-      path: "/branches",
-      // logo: <FcMoneyTransfer size={25} />
-    },
-    {
-    //   title: "Report",
-      path: "/branches",
-      // logo: <TbReport size={25} />,
+      title: "Policy",
+      path: "#",
+      logo: <RiGitBranchFill size={25} />,
       subRoutes: [
         {
-        //   title: "Policy",
-          path: "/branches"
+          title: "Add Policy",
+          path: "/branches/home/add/policy"
         },
         {
-        //   title: "Add Policy Details",
-          path: "/branches"
+          title: "Policy Lists",
+          path: "/branches/home/viewinsurance"
         }
         // Add more sub-routes as needed
       ]
-    }
+    },
+   
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -150,7 +125,8 @@ const BranchSidebar = () => {
                       className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-10">{route.title}</span>
+                      <span className="ms-6">{route.title}</span>
+                      <span className="ms-2"><IoMdArrowDropdown/></span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -161,9 +137,9 @@ const BranchSidebar = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="block p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                            className="flex p-2 text-white text-start mx-8 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
                           >
-                            {subRoute.title}
+                             {<IoMdArrowDropright size={30}/>}{subRoute.title}
                           </NavLink>
                         </li>
                       ))}
@@ -173,7 +149,7 @@ const BranchSidebar = () => {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-10">{route.title}</span>
+                    <span className="ms-6">{route.title}</span>
                   </NavLink>
                 )}
               </li>
