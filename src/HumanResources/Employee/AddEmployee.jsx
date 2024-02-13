@@ -390,7 +390,7 @@ function AddEmployee() {
                   type="file"
                   name="panno"
                   accept="/*" //accepting all type of images
-                  onChange={(e) => setAadhar(e.target.files[0])}
+                  onChange={(e) => setPanno(e.target.files[0])}
                   autoComplete="off"
                 />
                 {errors.panno && <span className="text-red-600 text-sm ">{errors.panno}</span>}

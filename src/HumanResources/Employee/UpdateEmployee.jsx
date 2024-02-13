@@ -21,7 +21,12 @@ function UpdateEmployee({ employee, onUpdate }) {
         empaadharno: "",
         empdesignation: "",
         empaadharfile: "",
-        staffType: ""
+        staffType: "",
+        panno: "",
+        pan: "",
+        accNumber: "",
+        ifsc: "",
+        bankName: ""
     });
     // OPEN MODAL
     const openModal = () => {
@@ -50,9 +55,10 @@ function UpdateEmployee({ employee, onUpdate }) {
         const { name, value } = e.target;
         setData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: value.toUpperCase(),
         }));
     };
+
     const updateEmpAPI = async () => {
         try {
             setLoading(true);
@@ -110,191 +116,226 @@ function UpdateEmployee({ employee, onUpdate }) {
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap ">
-                                    {/* ... other form elements ... */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
-                                            <label className="text-base mx-1 ">Employee Name:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.empname}
-                                                onChange={handleInputChange}
-                                                name="empname"
-                                                placeholder="Enter Name"
-                                            />
-                                        </div>
+                                <form className="flex flex-wrap justify-between">
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">DOB:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="date"
-                                                value={data.empdob}
-                                                onChange={handleInputChange}
-                                                name="empdob"
-                                                placeholder="Enter Branch Code"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1 ">Employee Name:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.empname}
+                                            onChange={handleInputChange}
+                                            name="empname"
+                                            placeholder="Enter Name"
+                                        />
+                                    </div>
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Mobile No:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="1"
-                                                value={data.empmobile}
-                                                onChange={handleInputChange}
-                                                name="empmobile"
-                                                placeholder="+91"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">DOB:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="date"
+                                            value={data.empdob}
+                                            onChange={handleInputChange}
+                                            name="empdob"
+                                            placeholder="Enter Branch Code"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Gender:</label>
+                                        <select
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.empgender}
+                                            onChange={handleInputChange}
+                                            name="empgender"
+                                            placeholder="Enter Your District Name"
+                                        >
+                                            <option value="">----- Select Gender -----</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="others">Others</option>
+                                        </select>
+                                    </div>
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Aadhar No.:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.empaadharno}
-                                                onChange={handleInputChange}
-                                                name="aadharno"
-                                                placeholder=""
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Email ID:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="email"
+                                            name="empemail"
+                                            value={data.empemail}
+                                            onChange={handleInputChange}
+                                            placeholder="abc@gmail.com"
+                                        />
+                                    </div>
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Joining Date:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="date"
-                                                value={data.empjoiningdate}
-                                                onChange={handleInputChange}
-                                                name="empjoiningdate"
-                                                placeholder=""
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">  Branch:</label>
+                                        <select
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.empbranch}
+                                            onChange={handleInputChange}
+                                            name="empbranch"
+                                            placeholder="Enter Branch Name">
+                                            <option value="0">----- Select Branch -----</option>
+                                            <option value={data.empbranch}>
+                                                {data.empbranch}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Mobile No:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="1"
+                                            value={data.empmobile}
+                                            onChange={handleInputChange}
+                                            name="empmobile"
+                                            placeholder="+91"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Account No.:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            name="accNumber"
+                                            value={data.accNumber}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter Account Number"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">IFSC Code:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            name="ifsc"
+                                            value={data.ifsc}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter IFSC Code"
+                                        />
+                                    </div>
 
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Current Address:</label>
-                                            <textarea
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                rows={2}
-                                                name="currentempaddress"
-                                                value={data.currentempaddress}
-                                                onChange={handleInputChange}
-                                                placeholder="Enter Your Address"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Bank Name:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            name="bankName"
+                                            value={data.bankName}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter Bank Name"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Pan No.:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            name="pan"
+                                            value={data.pan}
+                                            onChange={handleInputChange}
+                                            placeholder="AKRPD1222Q"
+                                            min="10"
+                                        />
+                                    </div>
 
-                                        {/* <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Designation:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Upload Pan Card:</label>
+                                        <input
+                                            className="input-style border w-full h-10 items-center rounded-lg"
+                                            type="file"
+                                            name="panno"
+                                            accept="/*" //accepting all type of images
+                                            onChange={handleInputChange}
+                                            autoComplete="off"
+                                        />
+                                    </div>
 
-                                                value={data.empdesignation}
-                                                onChange={handleInputChange}
-                                                name="empdesignation"
-                                                placeholder=""
-                                            />
-                                        </div> */}
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Joining Date:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="date"
+                                            value={data.empjoiningdate}
+                                            onChange={handleInputChange}
+                                            name="empjoiningdate"
+                                            placeholder=""
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Aadhar No.:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.empaadharno}
+                                            onChange={handleInputChange}
+                                            name="aadharno"
+                                            placeholder=""
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Upload Aadhar Card:</label>
+                                        <input
+                                            className="input-style border w-full h-10 items-center rounded-lg"
+                                            type="file"
+                                            accept="/*" //accepting all type of images
+                                            onChange={handleInputChange}
+                                            name="empaadharfile"
+                                        />
+                                    </div>
 
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Designation:</label>
+                                        <select
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.staffType}
+                                            name="staffType"
+                                            onChange={handleInputChange}>
+                                            <option value="">----- Select -----</option>
+                                            {
+                                                type.map((data) => (
+                                                    <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                                                ))
+                                            }
+                                        </select>
 
                                     </div>
 
 
-                                    {/* part-2 */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col ">
-                                            <label className="text-base mx-1">Designation:</label>
-                                            <select
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.staffType}
-                                                name="staffType"
-                                                onChange={handleInputChange}>
-                                                <option value="">----- Select -----</option>
-                                                {
-                                                    type.map((data) => (
-                                                        <option key={data._id} value={data.s_type}>{data.s_type}</option>
-                                                    ))
-                                                }
-                                            </select>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Permanent Address:</label>
+                                        <textarea
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            rows={2}
+                                            value={data.permanentempaddress}
+                                            onChange={handleInputChange}
+                                            name="permanentempaddress"
+                                            placeholder="Enter Your Address"
+                                        />
+                                    </div>
 
-                                        </div>
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Gender:</label>
-                                            <select
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.empgender}
-                                                onChange={handleInputChange}
-                                                name="empgender"
-                                                placeholder="Enter Your District Name"
-                                            >
-                                                <option value="">----- Select Gender -----</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="others">Others</option>
-                                            </select>
-
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Email ID:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="email"
-                                                name="empemail"
-                                                value={data.empemail}
-                                                onChange={handleInputChange}
-                                                placeholder="abc@gmail.com"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                        <label className="text-base mx-1">Current Address:</label>
+                                        <textarea
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            rows={2}
+                                            name="currentempaddress"
+                                            value={data.currentempaddress}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter Your Address"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                                        
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Upload Aadhar Card:</label>
-                                            <input
-                                                className="input-style border w-full h-10 items-center rounded-lg"
-                                                type="file"
-                                                accept="/*" //accepting all type of images
-                                                onChange={handleInputChange}
-                                                name="empaadharfile"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col ">
-                                            <label className="text-base mx-1">  Branch:</label>
-                                            <select
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.empbranch}
-                                                onChange={handleInputChange}
-                                                name="empbranch"
-                                                placeholder="Enter Branch Name">
-                                                <option value="0">----- Select Branch -----</option>
-                                                <option value={data.empbranch}>
-                                                    {data.empbranch}
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Permanent Address:</label>
-                                            <textarea
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                rows={2}
-                                                value={data.permanentempaddress}
-                                                onChange={handleInputChange}
-                                                name="permanentempaddress"
-                                                placeholder="Enter Your Address"
-                                            />
-                                        </div>
                                     </div>
-
 
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button

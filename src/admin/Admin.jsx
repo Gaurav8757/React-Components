@@ -55,7 +55,7 @@ function Admin() {
           </div>
           <div className="flex-shrink-1 px-6  md:h-full h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/2 xl:w-1/2 xl:py-20">
             <div className="w-full max-w-xl p-6 space-y-14 sm:p-8  rounded-lg shadow bg-slate-900 ">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-2xl font-bold  text-white">
                 Sign in as Admin
               </h2>
               <form
