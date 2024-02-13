@@ -10,7 +10,7 @@ export default function BranchLogout() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.clear();
-    navigate("/branches");
+    navigate("/login");
     toast.success("Logout Successfully !");
   };
   if (isLoggedIn && location.pathname !== "") {

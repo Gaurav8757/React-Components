@@ -9,7 +9,7 @@ function LogoutHr() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.clear();
-    navigate("/hr");
+    navigate("/login");
     toast.success("Logout Successfully !");
   };
   if (isLoggedIn && location.pathname !== "") {

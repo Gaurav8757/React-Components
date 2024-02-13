@@ -165,6 +165,7 @@ const Sidebar = () => {
   };
 // set email
 const loginemail = sessionStorage.getItem("email");
+// const name = sessionStorage.getItem("")
   return (
     <>
       <nav className="fixed top-0 z-50 w-full  bg-black">

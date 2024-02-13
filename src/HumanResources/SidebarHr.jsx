@@ -103,7 +103,7 @@ function DashboardHr() {
         setOpenSubmenu(null);
       };
     
-      const loginBranch = sessionStorage.getItem("hremail");
+      const loginBranch = sessionStorage.getItem("email");
       const name = sessionStorage.getItem("name");
       return (
         <>
