@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 function AddEmployee() {
@@ -24,14 +23,13 @@ function AddEmployee() {
   const [branchList, setBranchList] = useState([]);
   const [staffType, setStaffType] = useState("");
   const [type, setType] = useState([]);
-  const [view, setView] = useState("");
+  // const [view, setView] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [pan, setPan] = useState("");
   const [isChecked, setIsChecked] = useState(false);
 
 
-  
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
@@ -166,7 +164,7 @@ function AddEmployee() {
           },
         }
       );
-      setView(response.data);
+     
       if (response.data) {
         toast.success("Employee added successfully!");
         setFormSubmitted(true);
@@ -235,7 +233,7 @@ function AddEmployee() {
                 <select
                   className="input-style rounded-lg"
                   type="text"
-                  value={staffType.toUpperCase()}
+                  value={staffType}
                   name="staffType"
                   onChange={(e) => setStaffType(e.target.value)}>
                   <option value="">----- Select -----</option>
@@ -258,9 +256,9 @@ function AddEmployee() {
                   placeholder="Enter Your District Name"
                 >
                   <option value="">----- Select Gender -----</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="others">Others</option>
+                  <option value="MALE">Male</option>
+                  <option value="FEMALE">Female</option>
+                  <option value="OTHERS">Others</option>
                 </select>
                 {errors.gender && <span className="text-red-600 text-sm ">{errors.gender}</span>}
               </div>
@@ -383,7 +381,7 @@ function AddEmployee() {
               </div>
 
              
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Upload Pan Card:</label>
                 <input
                   className="input-style border w-full h-10 items-center rounded-lg"
@@ -394,7 +392,7 @@ function AddEmployee() {
                   autoComplete="off"
                 />
                 {errors.panno && <span className="text-red-600 text-sm ">{errors.panno}</span>}
-              </div>
+              </div> */}
               
 
               <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
@@ -428,7 +426,7 @@ function AddEmployee() {
                 </select>
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <div className="flex flex-col mt-5 p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Permanent Address:</label>
                 <textarea
                   className="input-style rounded-lg"
@@ -461,11 +459,11 @@ function AddEmployee() {
                   placeholder="Enter Your Address"
                 />
               </div>
-
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/3"> </div>
            
             <div className="w-full p-2 mt-10">
               <button
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
                 onClick={handleSubmit}
                 type="button"
                 disabled={formSubmitted}
@@ -473,11 +471,7 @@ function AddEmployee() {
                 {formSubmitted ? "Submitted" : "Submit"}
               </button>
 
-              {view &&
-                <NavLink to="/hr/home/viewemployee" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2 text-center me-2 mb-2">
-                  {/* <ViewBranch/> */}
-                  View
-                </NavLink>}
+             
             </div>
           </form>
         </div>

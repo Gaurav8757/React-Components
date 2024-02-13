@@ -5,10 +5,10 @@ import Logout from "./logout/Logout.jsx";
 // import { FaCodePullRequest } from "react-icons/fa6";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import { IoPeopleOutline } from "react-icons/io5";
-import { TbMoneybag, TbReport } from "react-icons/tb";
+// import { IoPeopleOutline } from "react-icons/io5";
+import {  TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
-import { FcMoneyTransfer, FcPlanner } from "react-icons/fc";
+// import { FcMoneyTransfer} from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
@@ -32,16 +32,16 @@ const Sidebar = () => {
       path: "/dashboard/addbranch",
       logo: <RiGitBranchFill size={24}/>
     },
-    {
-      title: "Add HR",
-      path: "/dashboard/addhr",
-      logo: <IoPeopleOutline size={24}/>
-    },
-    {
-      title: "HR Attendance",
-      path: "/dashboard/view/attendance",
-      logo: < FcPlanner size={24}/>
-    },
+    // {
+    //   title: "Add HR",
+    //   path: "/dashboard/addhr",
+    //   logo: <IoPeopleOutline size={24}/>
+    // },
+    // {
+    //   title: "HR Attendance",
+    //   path: "/dashboard/view/attendance",
+    //   logo: < FcPlanner size={24}/>
+    // },
     // {
     //   title: "Operation Head",
     //   path: "#",
@@ -66,11 +66,11 @@ const Sidebar = () => {
     // },
 
     
-    {
-      title: "Add Salary",
-      path: "/dashboard/addhrsalary",
-      logo: <TbMoneybag size={24}/>
-    },
+    // {
+    //   title: "Add Salary",
+    //   path: "/dashboard/addhrsalary",
+    //   logo: <TbMoneybag size={24}/>
+    // },
     {
       title: "Add Carousel",
       path: "/dashboard/addcarousel",
@@ -81,11 +81,11 @@ const Sidebar = () => {
       path: "/dashboard/masterform",
       logo: < FcViewDetails size={24}/>
     },
-    {
-      title: "Generate Salary",
-      path: "/dashboard/generate/salary",
-      logo: <FcMoneyTransfer size={24}/>
-    },
+    // {
+    //   title: "Generate Salary",
+    //   path: "/dashboard/generate/salary",
+    //   logo: <FcMoneyTransfer size={24}/>
+    // },
 
     {
       title: "Staff",

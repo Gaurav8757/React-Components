@@ -12,18 +12,17 @@ function HrLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://eleedomimf.onrender.com/hr/login", {
-                hrmobile: mobile,
-                hremail: email,
-                hrpassword: password,
+            const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
+                empmobile: mobile,
+                empemail: email,
+                emppassword: password,
             });
             const token = response.data.token;
-            const emails = response.data.user.hremail;
-            console.log(emails);
+            const emails = response.data.user.empemail;
             const hrId = response.data.user._id;
-            console.log(hrId);
-            const name = response.data.user.hrname;
-            console.log(name);
+            
+            const name = response.data.user.empname;
+           
            sessionStorage.setItem("token", token);
            sessionStorage.setItem("hremail", emails);
            sessionStorage.setItem("hrId", hrId);
@@ -31,7 +30,7 @@ function HrLogin() {
            navigate("/");
 
            // Check if the user is an token based on your backend response
-            if (response.data) {
+            if (response.data.user.staffType === "HR MANAGER || HR || BRANCH HR MANAGER") {
                 const { token } = response.data;
                 sessionStorage.getItem("token", token);
                     navigate("/hr/home");
@@ -89,7 +88,7 @@ function HrLogin() {
                                         name="email"
                                         autoComplete="email"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="name@company.com"
+                                        placeholder="name@hr.com"
                                         required
                                     />
                                 </div>

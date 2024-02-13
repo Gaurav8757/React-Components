@@ -4,8 +4,7 @@ import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { FcPlanner } from "react-icons/fc";
-import { TbMoneybag } from "react-icons/tb";
-import { FcMoneyTransfer } from "react-icons/fc"; 
+import { TbMoneybag } from "react-icons/tb"; 
 import { FaUserGroup } from "react-icons/fa6";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 
@@ -59,16 +58,34 @@ function DashboardHr() {
         },
 
         {
-          title: "Add Salary",
-          path: "/hr/home/addsalary",
-          logo: <TbMoneybag  size={25} />
+          title: "Salary",
+          path: "#",
+          logo: <TbMoneybag  size={25} />,
+          subRoutes: [
+            {
+              title: "Add Salary",
+              path: "/hr/home/addsalary",
+              dash:""
+            },
+            {
+              title: "View Salary",
+              path: "/hr/home/viewsalary",
+              dash:""
+            },
+            {
+              title: "Generate Salary",
+              path: "/hr/home/generate/salary",
+              dash:<RiGitBranchFill size={25} />
+            },
+            {
+              title: "View Final Salary",
+              path: "/hr/home/view/generate/salary",
+              dash: ""
+            }
+          ]
         },
        
-        {
-          title: "Generate Salary",
-          path: "/hr/home/generate/salary",
-          logo: <FcMoneyTransfer size={25} />
-        },
+       
       ];
     
       const [sidebarOpen, setSidebarOpen] = useState(false);

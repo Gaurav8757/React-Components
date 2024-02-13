@@ -10,7 +10,7 @@ export default function Button() {
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     sessionStorage.clear();
-    navigate("/admin");
+    navigate("/login");
     toast.success("Logout Successfully !");
   };
   if (isLoggedIn && location.pathname !== "") {

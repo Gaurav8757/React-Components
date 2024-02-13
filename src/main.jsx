@@ -121,6 +121,7 @@ import ProtectOps from "./opsAdmin/ProtectOps.jsx";
 import LayoutOps from "./opsAdmin/LayoutOps.jsx";
 import DashboardOps from "./opsAdmin/DashboardOps.jsx";
 import AllOpsDetails from "./opsAdmin/AllOpsDetails/AllOpsDetails.jsx";
+import LoginAll from "./Login/LoginAll.jsx";
 // import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
 
 
@@ -177,6 +178,11 @@ const router = createBrowserRouter(
         {/* challans */}
         <Route path="/challans" element={<ChallanView />} />
       </Route>
+
+      {/* all departments can login from here */}
+      <Route path="/login" element={<LoginAll />} />
+
+
 
 
 
