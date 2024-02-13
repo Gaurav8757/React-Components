@@ -61,21 +61,48 @@ function MasterView() {
   }
 };
 
+
+
 const exportToExcel = () => {
-  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileExtension = '.xlsx';
-  const fileName = 'all_details_data';
-  const ws = XLSX.utils.json_to_sheet(allDetailsData);
-  const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-  const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-  const data = new Blob([excelBuffer], { type: fileType });
-  const url = URL.createObjectURL(data);
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', fileName + fileExtension);
-  document.body.appendChild(link);
-  link.click();
+  try {
+      const fileType =
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = "all_branch_data";
+
+      // Get all table headers and rows
+      const tableHeaders = document.querySelectorAll(".table th");
+      const tableRows = document.querySelectorAll(".table tbody tr");
+
+      // Include only the first 26 columns and all rows
+      const columnsToInclude = Array.from(tableHeaders).slice(0, 39);
+      const rowsToInclude = Array.from(tableRows).map(row => {
+          const cells = Array.from(row.querySelectorAll("td")).slice(0, 39);
+          return cells.map(cell => cell.textContent);
+      });
+
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+          bookType: "xlsx",
+          type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+  } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+  }
 };
+
 const handleExportClick = () => {
   exportToExcel();
   // exportToPDF();
@@ -96,7 +123,7 @@ const handleExportClick = () => {
             <hr />
           </div>
           <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-6  overflow-x-auto">
-            <table className="min-w-full text-center text-sm font-light ">
+            <table className="min-w-full text-center text-sm font-light table ">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr className="text-blue-700">
                 <th scope="col" className="px-5 py-4">Reference ID</th>

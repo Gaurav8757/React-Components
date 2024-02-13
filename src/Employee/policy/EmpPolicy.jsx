@@ -21,7 +21,9 @@ function EmpPolicy() {
           },
         })
         .then((response) => {
+        //   console.log(response.data);
           setAPIData(response.data);
+          
         })
         .catch((error) => {
           toast.error(error);
@@ -54,21 +56,122 @@ function EmpPolicy() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
-  const exportToExcel = () => {
-    const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const fileExtension = '.xlsx';
-    const fileName = 'all_details_data';
-    const ws = XLSX.utils.json_to_sheet(APIData);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], { type: fileType });
-    const url = URL.createObjectURL(data);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', fileName + fileExtension);
-    document.body.appendChild(link);
-    link.click();
-  };
+
+//   const exportToExcel = () => {
+//     try {
+//         const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+//         const fileExtension = '.xlsx';
+//         const fileName = 'policy_data';
+
+//         // Include only the data you want to export
+//         const dataToExport = APIData.map(data => [
+//             data._id,
+//             data.entryDate,
+//             data.branch,
+//             data.category,
+//             data.company,
+//             data.vehRegNo,
+//             data.segment,
+//             data.sourcing,
+//             data.hypo,
+//             data.contactNo,
+//             data.advisorName,
+//             data.subAdvisor,
+//             data.insuredName,
+//             data.policyNo,
+//             data.engNo,
+//             data.chsNo,
+//             data.policyType,
+//             data.odPremium,
+//             data.liabilityPremium,
+//             data.netPremium,
+//             data.taxes,
+//             data.finalEntryFields,
+//             data.odDiscount,
+//             data.ncb,
+//             data.policyMadeBy
+//         ]);
+
+//         // Create worksheet
+//         const ws = XLSX.utils.aoa_to_sheet([[
+//             'Reference ID',
+//             'Entry Date',
+//             'Branch',
+//             'Category',
+//             'Company',
+//             'Vehicle No.',
+//             'Segment',
+//             'Sourcing',
+//             'Hypothinition',
+//             'Contact No.',
+//             'Advisor Name',
+//             'Sub-Advisor Name',
+//             'Insured By',
+//             'Policy No.',
+//             'Engine No.',
+//             'Chassis No',
+//             'Policy Type',
+//             'OD Premium',
+//             'Liability Premium',
+//             'Net Premium',
+//             'GST(%)',
+//             'Final Premium(GST%)',
+//             'OD Discount(%)',
+//             'NCB',
+//             'Policy Made By'
+//         ], ...dataToExport]);
+
+//         // Create workbook and export
+//         const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+//         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+//         const data = new Blob([excelBuffer], { type: fileType });
+//         const url = URL.createObjectURL(data);
+//         const link = document.createElement('a');
+//         link.href = url;
+//         link.setAttribute('download', fileName + fileExtension);
+//         document.body.appendChild(link);
+//         link.click();
+//     } catch (error) {
+//         console.error('Error exporting to Excel:', error);
+//         toast.error('Error exporting to Excel');
+//     }
+// };
+
+const exportToExcel = () => {
+    try {
+        const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+        const fileExtension = '.xlsx';
+        const fileName = 'policy_data';
+
+        // Get all table rows
+        const tableRows = document.querySelectorAll('.table tbody tr');
+        
+        // Extract data from each row and cell
+        const dataToExport = Array.from(tableRows).map(row => {
+            const cells = Array.from(row.querySelectorAll('td'));
+            return cells.map(cell => cell.textContent.trim());
+        });
+
+        // Create worksheet
+        const ws = XLSX.utils.aoa_to_sheet(dataToExport);
+
+        // Create workbook and export
+        const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+        const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const data = new Blob([excelBuffer], { type: fileType });
+        const url = URL.createObjectURL(data);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName + fileExtension);
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.error('Error exporting to Excel:', error);
+        toast.error('Error exporting to Excel');
+    }
+};
+
+
   const handleExportClick = () => {
     exportToExcel();
     // exportToPDF();
@@ -82,7 +185,7 @@ function EmpPolicy() {
                     <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-                    <table className="min-w-full text-center text-sm font-light ">
+                    <table className="min-w-full text-center text-sm font-light table ">
                         <thead className="border-b font-medium dark:border-neutral-500">
                             <tr className="text-blue-700">
                             <th scope="col" className="px-4 py-4">
