@@ -1,17 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {toast} from "react-toastify";
 
 
 function AdpassUpdate() {
+const { userId, token } = useParams();
+console.log(userId);
+console.log(token);
 const [password, setPassword] = useState("");
 const [confirmpass, setConfirmpass] = useState("");
 const navigate = useNavigate();
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post("https://eleedomimf.onrender.com/admin/pass/", {
+        const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${userId}/${token}`, {
           password,
           confirm_password:confirmpass,
         });
