@@ -5,8 +5,8 @@ import {toast} from "react-toastify";
 
 
 function AdpassUpdate() {
-const { userId, token } = useParams();
-console.log(userId);
+const { _id, token } = useParams();
+console.log(_id);
 console.log(token);
 const [password, setPassword] = useState("");
 const [confirmpass, setConfirmpass] = useState("");
@@ -14,7 +14,7 @@ const navigate = useNavigate();
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${userId}/${token}`, {
+        const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${_id}/${token}`, {
           password,
           confirm_password:confirmpass,
         });
