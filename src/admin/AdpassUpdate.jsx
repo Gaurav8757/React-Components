@@ -5,8 +5,8 @@ import {toast} from "react-toastify";
 
 
 function AdpassUpdate() {
-const { _id, token } = useParams();
-console.log(_id);
+const { userId, token } = useParams();
+console.log(userId);
 console.log(token);
 const [password, setPassword] = useState("");
 const [confirmpass, setConfirmpass] = useState("");
@@ -14,18 +14,19 @@ const navigate = useNavigate();
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${_id}/${token}`, {
+        const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${userId}/${token}`, {
           password,
           confirm_password:confirmpass,
+          
         });
-       
+        console.log(response.data); // Handle response accordingly
         if (response) {
             navigate("/admin");
-            toast.success("Forgot Request Sent Successfully...!");
+            toast.success("Password Updated Successfully...!");
           } else {
             // For non-admin users, you might want to redirect to a different page
-            navigate("/admin");
-            toast.error("User Not Found!");
+            navigate("/admin/forget");
+            toast.error("Error Occured. Try Again...!");
           }
        
     } catch (error) {
@@ -71,6 +72,7 @@ const handleSubmit = async (e) => {
                                     type="password"
                                     id="password"
                                     name="password"
+                                    value={password}
                                     onChange={(e)=> setPassword(e.target.value)}
                                     placeholder="New Password"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
@@ -81,7 +83,9 @@ const handleSubmit = async (e) => {
                                     <input 
                                         type="password"
                                         id="confirm-password"
+                                        value={confirmpass} 
                                         name="confirm_password"
+
                                         placeholder="Confirm New Password"
                                         onChange={(e) => setConfirmpass(e.target.value)}
                                         autoComplete="current-password"
