@@ -122,6 +122,8 @@ import LayoutOps from "./opsAdmin/LayoutOps.jsx";
 import DashboardOps from "./opsAdmin/DashboardOps.jsx";
 import AllOpsDetails from "./opsAdmin/AllOpsDetails/AllOpsDetails.jsx";
 import LoginAll from "./Login/LoginAll.jsx";
+import AdminForgot from "./admin/AdminForgot.jsx";
+import AdpassUpdate from "./admin/AdpassUpdate.jsx";
 // import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
 
 
@@ -182,12 +184,10 @@ const router = createBrowserRouter(
       {/* all departments can login from here */}
       <Route path="/login" element={<LoginAll />} />
 
-
-
-
-
       {/* admin routes */}
       <Route path="/admin" element={<LoginAll />} />
+      <Route path="/admin/forget" element={<AdminForgot />} />
+      <Route path="/admin/pass/update" element={<AdpassUpdate />} />
       <Route element={<ProtectRoute />}>
         <Route path="/dashboard" element={<Layout />}>
           <Route path="" element={<Dashboard />} />
@@ -259,13 +259,13 @@ const router = createBrowserRouter(
           <Route path="/employee/home/add/attendance" element={<AddAttendance />} />
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
-          {/* <Route path="/employee/home/policy/add" element = {<AddPolicyDetail/>}/> */}
         </Route>
       </Route>
 
       {/* HR Routes */}
       <Route path="/hr" element={<LoginAll />} />
       <Route path="/hr/forget" element={<ForgetHr />} />
+      
       <Route element={<ProtectedHr />}>
         <Route path="/hr/home" element={<LayoutHr />}>
           <Route path="" element={<DashboardHr />} />
