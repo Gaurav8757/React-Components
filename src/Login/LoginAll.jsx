@@ -155,10 +155,10 @@ function LoginAll() {
                     <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
                         <img
                             src="/logo.jpg"
-                            className="h-1/4 w-2/5 rounded-full mx-auto "
+                            className="h-1/4 w-2/5 rounded-md mx-auto "
                             alt="Logo"
                         />
-                        <div className="text-4xl font-bold mt-6 w-64 mx-auto  text-black-700 flex justify-center">Login</div>
+                        <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div>
                     </div>
 
                     <div className="flex-shrink-1  md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-20">
@@ -214,10 +214,10 @@ function LoginAll() {
                                     />
                                 </div>
 
-                                <div className="flex text-justify mt-4 ml-1">
+                                <div className="flex text-justify mt-4 ml-0">
                                     <label className="text-base font-bold mt-4  text-blue-900">Login Type:</label>
                                     <select
-                                        className="input-style w-80 rounded-lg ml-2 mt-2 text-center"
+                                        className="input-style w-80 rounded-lg ml-1 mt-2 text-center"
                                         value={loginType}
                                         onChange={handleLoginTypeChange}
                                     >
