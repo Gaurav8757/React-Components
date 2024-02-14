@@ -38,7 +38,7 @@ const handleSubmit = async (e) => {
                 <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between" style={{ backgroundColor: "#A31217" }}>
                     <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
                         <img
-                            src="/public/logo.jpg"
+                            src="/logo.jpg"
                             className="h-1/4 w-2/5 rounded-md mx-auto "
                             alt="Logo"
                         />
@@ -48,7 +48,7 @@ const handleSubmit = async (e) => {
                     <div className="flex-shrink-1 xl:px-0 lg:px-0 md:px-0 sm:px-0 xs:px-0  px-16 md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 py-20 ">
                         <div className="w-full max-w-lg p-6 space-y-18 sm:p-8  rounded-lg shadow bg-slate-100 ">
                             <img
-                                src="/public/cname.png"
+                                src="/cname.png"
                                 className="h-1/4 w-2/4  mx-auto mb-10"
                                 alt="Logo"
                             />
