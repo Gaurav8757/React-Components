@@ -217,7 +217,7 @@ function LoginAll() {
                                 <div className="flex text-justify mt-4 ml-0">
                                     <label className="text-base font-bold mt-4  text-blue-900">Login Type:</label>
                                     <select
-                                        className="input-style w-80 rounded-lg ml-1 mt-2 text-center"
+                                        className="input-style w-72 rounded-lg ml-1 mt-2 text-center"
                                         value={loginType}
                                         onChange={handleLoginTypeChange}
                                     >
