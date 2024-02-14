@@ -128,7 +128,7 @@ function LoginAll() {
 
 
     const forgotPasswordLink = () => {
-        
+
         switch (loginType) {
             case "admin":
                 return "/admin/forget";
@@ -233,6 +233,7 @@ function LoginAll() {
                                     <NavLink
                                         to={forgotPasswordLink()}
                                         className="ml-auto text-base font-semibold text-red-200 hover:underline dark:text-red-500"
+                                        target="_blank"
                                     >
                                         Forgot Password?
                                     </NavLink>

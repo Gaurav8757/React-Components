@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
        
     } catch (error) {
         console.log(error);
-        toast.warn("Admin Not Registered Yet...! ");
+        toast.warn("Admin Not Registered Yet...! ", error);
     }
 };
 
