@@ -20,9 +20,8 @@ function AdpassUpdate() {
                 password,
                 confirm_password: confirmpass,
             });
-            console.log(response.data); // Handle response accordingly
             if (response) {
-                navigate("/admin");
+                navigate("/login");
                 toast.success("Password Updated Successfully...!");
             } else {
                 navigate("/admin/forget");
