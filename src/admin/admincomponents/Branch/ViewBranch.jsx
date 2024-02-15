@@ -88,9 +88,9 @@ export default function ViewBranch() {
                                     <th scope="col" className="px-5 py-4">
                                         Email ID
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    {/* <th scope="col" className="px-5 py-4">
                                         Password
-                                    </th>
+                                    </th> */}
                                     <th scope="col" className="px-5 py-4">
                                         Mobile No.
                                     </th>
@@ -135,9 +135,9 @@ export default function ViewBranch() {
                                             <td className="whitespace-nowrap px4 py-4">
                                                 {data.branchemail}
                                             </td>
-                                            <td className="whitespace-wrap px-4 py-4">
+                                            {/* <td className="whitespace-wrap px-4 py-4">
                                                 {data.password}
-                                            </td>
+                                            </td> */}
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.branchmobile}
                                             </td>
