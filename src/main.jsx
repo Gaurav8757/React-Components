@@ -124,6 +124,7 @@ import AllOpsDetails from "./opsAdmin/AllOpsDetails/AllOpsDetails.jsx";
 import LoginAll from "./Login/LoginAll.jsx";
 import AdminForgot from "./admin/AdminForgot.jsx";
 import AdpassUpdate from "./admin/AdpassUpdate.jsx";
+import BrpassUpdate from "./branches/BrpassUpdate.jsx";
 // import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
 
 
@@ -231,6 +232,7 @@ const router = createBrowserRouter(
       {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginAll />} />
       <Route path="/branches/forget" element={<ForgetPassBranch />} />
+      <Route path="/branch/reset/password/:userId/:token" element={<BrpassUpdate />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />

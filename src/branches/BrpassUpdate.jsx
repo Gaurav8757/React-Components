@@ -3,11 +3,11 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
-function AdpassUpdate() {
+function BrpassUpdate() {
     const navigate = useNavigate();
     const { userId, token } = useParams();
-   
+    console.log(userId);
+    console.log(token);
     const [password, setPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
 
@@ -15,7 +15,7 @@ function AdpassUpdate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/admin/pass/${userId}/${token}`, {
+            const response = await axios.post(`https://eleedomimf.onrender.com/branch/pass/${userId}/${token}`, {
                 password,
                 confirm_password: confirmpass,
             });
@@ -23,12 +23,12 @@ function AdpassUpdate() {
                 navigate("/login");
                 toast.success("Password Updated Successfully...!");
             } else {
-                navigate("/admin/forget");
+                navigate("/branches/forget");
                 toast.error("Error Occured. Try Again...!");
             }
         } catch (error) {
             console.log(error);
-            toast.warn("Admin Not Registered Yet...! ", error);
+            toast.warn("Branch Not Registered Yet...! ", error);
         }
     };
 
@@ -106,4 +106,4 @@ function AdpassUpdate() {
     )
 }
 
-export default AdpassUpdate;
+export default BrpassUpdate;
