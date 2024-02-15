@@ -7,8 +7,6 @@ import { toast } from "react-toastify";
 function AdpassUpdate() {
     const navigate = useNavigate();
     const { adminId, token } = useParams();
-   console.log(adminId);
-   console.log(token);
     const [password, setPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
 

@@ -1,6 +1,34 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import {toast} from "react-toastify";
+import { useState } from "react";
 
 function ForgetPassOps() {
+  const navigate = useNavigate();
+  const [opsemail, setOpsEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post("https://eleedomimf.onrender.com/forgot/ops/pass", {
+          opsemail
+        });
+       
+        if (response) {
+            navigate("/branches");
+            toast.success("Forgot Request Sent Successfully...!");
+          } else {
+            // For non-admin users, you might want to redirect to a different page
+            navigate("/ops/forget");
+            toast.error("Branch Not Found!");
+          }
+       
+    } catch (error) {
+        console.log(error);
+        toast.warn("Branch Not Registered Yet...! ");
+    }
+};
+
   return (
     <>
     <section className="container-fluid h-screen relative bg-white">
@@ -31,14 +59,10 @@ function ForgetPassOps() {
                 </label>
                 <input
                   type="text"
-                  name="email "
-                  id="email"
-                //   value={email }
-                //   onChange={(e) => {
-                //     const inputValue = e.target.value;
-                //     setEmail(inputValue);
-                //    // Assuming you want to set mobile to the same value as email
-                //   }}
+                  name="opsemail"
+                  id="opsemail"
+                  value={opsemail}
+                  onChange={(e)=> setOpsEmail(e.target.value)}
                   autoComplete="email || mobile"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="forgot@gmail.com"
@@ -54,6 +78,7 @@ function ForgetPassOps() {
             
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="w-full flex justify-center py-2 px-4 rounded-md bg-blue-600 hover:bg-blue-700 focus:ring-1 focus:ring-blue-900 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-600 focus-visible:ring-opacity-50"
               >
                 Send Reset Link

@@ -98,7 +98,7 @@ export default function ViewBranch() {
                                         Phone No.
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Concern Person
+                                        Branch Manager
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         Address
