@@ -26,7 +26,7 @@ function OpspassUpdate() {
             }
         } catch (error) {
             console.log(error);
-            toast.warn("Branch Not Registered Yet...! ", error);
+            toast.warn("OPS Admin Not Registered Yet...! ", error);
         }
     };
   return (
