@@ -188,7 +188,7 @@ const router = createBrowserRouter(
       {/* admin routes */}
       <Route path="/admin" element={<LoginAll />} />
       <Route path="/admin/forget" element={<AdminForgot />} />
-      <Route path="/admin/reset/password/:userId/:token" element={<AdpassUpdate />} />
+      <Route path="/reset/password/:userId/:token" element={<AdpassUpdate />} />
       <Route element={<ProtectRoute />}>
         <Route path="/dashboard" element={<Layout />}>
           <Route path="" element={<Dashboard />} />
@@ -232,7 +232,7 @@ const router = createBrowserRouter(
       {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginAll />} />
       <Route path="/branches/forget" element={<ForgetPassBranch />} />
-      <Route path="/branch/reset/password/:userId/:token" element={<BrpassUpdate />} />
+      <Route path="/reset/password/:userId/:token" element={<BrpassUpdate />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
