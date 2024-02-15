@@ -15,7 +15,7 @@ function AddBranch() {
   const [phone, setPhone] = useState();
   const [person, setPerson] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [password, setPassword] = useState("");
   const handleSubmit = async(e) => {
       e.preventDefault();
       setLoading(true);
@@ -28,6 +28,7 @@ function AddBranch() {
           branchemail: email,
           branchmobile: mobile,
           branchphone: phone,
+          password: password,
           branchaddress: address,
           branchdistrict: district,
           branchstate: state,
@@ -44,6 +45,7 @@ function AddBranch() {
         setState("");
         setPincode("");
         setEmail("");
+        setPassword("");
         setMobile("");
         setPhone("");
         setPerson("");
@@ -67,9 +69,9 @@ function AddBranch() {
     <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
       <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-400">
       <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Branch</h1>
-        <form className="flex flex-wrap ">
-          <div className="w-full lg:w-1/2 p-2 text-start">
-          <div className="flex flex-col ">
+        <form className="flex flex-wrap justify-between">
+          
+          <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Branch Name:</label>
               <input
                 className="input-style rounded-lg"
@@ -79,7 +81,68 @@ function AddBranch() {
                 placeholder="Enter Branch Name"
               />
             </div>
-            <div className="flex flex-col my-5">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">Email ID:</label>
+              <input
+                className="input-style rounded-lg"
+                type="email"
+                value={email.toUpperCase()}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="abc@gmail.com"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">Mobile No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="+91"
+              />
+            </div>
+          
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">Phone No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder=""
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">Branch Code:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={code.toUpperCase()}
+                onChange={(e) => setCode(e.target.value)}
+                placeholder="Enter Branch Code"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">New Password</label>
+              <input
+                className="input-style rounded-lg"
+                type="password"
+                value={password.toUpperCase()}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="**************"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">Branch Manager</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={person.toUpperCase()}
+                onChange={(e) => setPerson(e.target.value)}
+                placeholder="Enter Name"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Address:</label>
               <textarea
                 className="input-style rounded-lg"
@@ -90,51 +153,8 @@ function AddBranch() {
                 placeholder="Enter Your Address"
               />
             </div>
-            <div className="flex flex-col">
-              <label className="text-base mx-1">State:</label>
-              <input
-                className="input-style rounded-lg"
-                type="text"
-                value={state.toUpperCase()}
-                onChange={(e) => setState(e.target.value)}
-                placeholder="Enter Your State Name"
-              />
-            </div>
-            <div className="flex flex-col my-5">
-              <label className="text-base mx-1">Phone No:</label>
-              <input
-                className="input-style rounded-lg"
-                type="number"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder=""
-              />
-            </div>
-            <div className="flex flex-col my-5">
-              <label className="text-base mx-1">Email ID:</label>
-              <input
-                className="input-style rounded-lg"
-                type="email"
-                value={email.toUpperCase()}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="abc@gmail.com"
-              />
-            </div>
-
-          </div>
-          <div className="w-full lg:w-1/2 p-2 text-start">
-            <div className="flex flex-col">
-              <label className="text-base mx-1">Branch Code:</label>
-              <input
-                className="input-style rounded-lg"
-                type="text"
-                value={code.toUpperCase()}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Enter Branch Code"
-              />
-            </div>
-
-            <div className="flex flex-col my-5">
+            
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">District:</label>
               <input
                 className="input-style rounded-lg"
@@ -144,8 +164,19 @@ function AddBranch() {
                 placeholder="Enter Your District Name"
               />
             </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <label className="text-base mx-1">State:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={state.toUpperCase()}
+                onChange={(e) => setState(e.target.value)}
+                placeholder="Enter Your State Name"
+              />
+            </div>
+           
 
-            <div className="flex flex-col my-5">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Pincode:</label>
               <input
                 className="input-style rounded-lg"
@@ -155,27 +186,9 @@ function AddBranch() {
                 placeholder="805110"
               />
             </div>
-            <div className="flex flex-col my-5">
-              <label className="text-base mx-1">Mobile No:</label>
-              <input
-                className="input-style rounded-lg"
-                type="number"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                placeholder="+91"
-              />
-            </div>
-            <div className="flex flex-col my-5">
-              <label className="text-base mx-1">Branch Manager</label>
-              <input
-                className="input-style rounded-lg"
-                type="text"
-                value={person.toUpperCase()}
-                onChange={(e) => setPerson(e.target.value)}
-                placeholder="Enter Name"
-              />
-            </div>
-          </div>
+           
+            
+         
           <div className="w-full p-2">
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
