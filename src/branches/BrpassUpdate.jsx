@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 
 function BrpassUpdate() {
     const navigate = useNavigate();
-    const { id, token } = useParams();
-    console.log(id);
+    const { userId, token } = useParams();
+    console.log(userId);
     console.log(token);
     const [password, setPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
@@ -15,7 +15,7 @@ function BrpassUpdate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/branch/pass/${id}/${token}`, {
+            const response = await axios.post(`https://eleedomimf.onrender.com/branch/pass/${userId}/${token}`, {
                 password,
                 confirm_password: confirmpass,
             });
