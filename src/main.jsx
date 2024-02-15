@@ -232,7 +232,7 @@ const router = createBrowserRouter(
       {/* BRANCHES ROUTES */}
       <Route path="/branches" element={<LoginAll />} />
       <Route path="/branches/forget" element={<ForgetPassBranch />} />
-      <Route path="/reset/password/:userId/:token" element={<BrpassUpdate />} />
+      <Route path="/reset/password/:id/:token" element={<BrpassUpdate />} />
       <Route element={<BranchProtected />}>
         <Route path="/branches/home" element={<BranchLayout />}>
           <Route path="/branches/home" element={<BranchDashboard />} />
