@@ -8,12 +8,12 @@ function OpspassUpdate() {
     const { opsId, token } = useParams();
     const [opspassword, setOpsPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
-    
+
      // Update the API endpoint URL to match your backend route
      const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/branch/pass/${opsId}/${token}`, {
+            const response = await axios.post(`https://eleedomimf.onrender.com/ops/pass/${opsId}/${token}`, {
                 opspassword,
                 confirm_opspassword: confirmpass,
             });
