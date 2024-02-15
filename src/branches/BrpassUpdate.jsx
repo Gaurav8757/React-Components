@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 function BrpassUpdate() {
     const navigate = useNavigate();
     const { userId, token } = useParams();
-    console.log(userId);
-    console.log(token);
     const [password, setPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
 

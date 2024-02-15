@@ -188,7 +188,7 @@ const router = createBrowserRouter(
       {/* admin routes */}
       <Route path="/admin" element={<LoginAll />} />
       <Route path="/admin/forget" element={<AdminForgot />} />
-      <Route path="/reset/password/admin/:userId/:token" element={<AdpassUpdate />} />
+      <Route path="/reset/password/admin/:adminId/:token" element={<AdpassUpdate />} />
       <Route element={<ProtectRoute />}>
         <Route path="/dashboard" element={<Layout />}>
           <Route path="" element={<Dashboard />} />
