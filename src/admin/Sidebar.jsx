@@ -10,7 +10,7 @@ import {  TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
 // import { FcMoneyTransfer} from "react-icons/fc";
 import { FaImages } from "react-icons/fa";
-import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
 // import { BiLogoMicrosoftTeams } from "react-icons/bi";
 import { MdOutlineCategory } from "react-icons/md";
@@ -28,9 +28,21 @@ const Sidebar = () => {
       logo: <FaRegBuilding size={24}/>
     },
     {
-      title: "Add Branch",
-      path: "/dashboard/addbranch",
-      logo: <RiGitBranchFill size={24}/>
+      title: "Branch",
+      path: "#",
+      logo: <RiGitBranchFill size={24}/>,
+      subRoutes: [
+            {
+              title: "Add Branch",
+              path: "/dashboard/addbranch",
+              dash:""
+            }, 
+            {
+              title: "View Branch",
+              path: "/dashboard/viewbranch",
+              dash:""
+            }, 
+          ]
     },
     // {
     //   title: "Add HR",
@@ -197,7 +209,7 @@ const loginemail = sessionStorage.getItem("email");
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <div className="px-4 py-3" role="none">
                     <p className="text-sm text-gray-900 dark:text-white" role="none">
-                      Neil Sims
+                      .
                     </p>
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                      {loginemail}
@@ -242,7 +254,7 @@ const loginemail = sessionStorage.getItem("email");
                       className={`flex items-center p-2 text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-6">{route.title}</span>
+                      <span className="ms-6  flex">{route.title}{<IoMdArrowDropdown size={20} className="mx-4"/>}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}

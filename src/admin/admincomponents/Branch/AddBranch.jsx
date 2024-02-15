@@ -1,6 +1,4 @@
 import { useState } from "react";
-// import ViewBranch from "./ViewBranch";
-import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 function AddBranch() {
@@ -14,11 +12,58 @@ function AddBranch() {
   const [mobile, setMobile] = useState();
   const [phone, setPhone] = useState();
   const [person, setPerson] = useState("");
-  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+
+
   const handleSubmit = async(e) => {
       e.preventDefault();
-      setLoading(true);
+      // Prevent multiple submissions
+ if (formSubmitted) {
+  return;
+}
+setErrors({}); // Clear previous errors
+
+        const errors = {};
+        if (!branch) {
+            errors.branch = "required*";
+        }
+        if (!code) {
+            errors.code = "required*";
+        }
+        if (!address) {
+            errors.address = "required*";
+        }
+        if (!district) {
+            errors.district = "required*";
+        }
+        if (!state) {
+            errors.state = "required*";
+        }
+        if (!pincode) {
+            errors.pincode = "required*";
+        }
+        if (!email) {
+            errors.email = "required*";
+        }
+        if (!mobile) {
+            errors.mobile = "required*";
+        }
+        if (!person) {
+            errors.person = "required*";
+        }
+        if (!password) {
+          errors.password = "required*";
+      }
+        if (Object.keys(errors).length > 0) {
+            setErrors(errors);
+            return;
+        }
+
+
+
       try {
         // Make sure to replace this URL with your actual API endpoint
         const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addbranch", {
@@ -36,7 +81,7 @@ function AddBranch() {
         });
   if(response.data){
     toast.success("Added Successfully !");
-   
+    setFormSubmitted(true);
         // Reset the form and loading state on successful submission
         setBranch("");
         setCode("");
@@ -49,15 +94,14 @@ function AddBranch() {
         setMobile("");
         setPhone("");
         setPerson("");
-        setLoading(false);
+        
       }
        else{
         toast.error("Error Occurred. Try again...! ");
        }
       } catch (error) {
         console.error("Error during branch registration:", error.response);
-        // setError("Error during branch registration. Please try again.");
-        setLoading(false);
+        
       }
     };
   
@@ -80,6 +124,7 @@ function AddBranch() {
                 onChange={(e) => setBranch(e.target.value)}
                 placeholder="Enter Branch Name"
               />
+              {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Email ID:</label>
@@ -90,6 +135,7 @@ function AddBranch() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="abc@gmail.com"
               />
+              {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Mobile No:</label>
@@ -100,6 +146,7 @@ function AddBranch() {
                 onChange={(e) => setMobile(e.target.value)}
                 placeholder="+91"
               />
+              {errors.number && <span className="text-red-600 text-sm ">{errors.number}</span>}
             </div>
           
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
@@ -111,6 +158,7 @@ function AddBranch() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder=""
               />
+              
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Branch Code:</label>
@@ -121,9 +169,10 @@ function AddBranch() {
                 onChange={(e) => setCode(e.target.value)}
                 placeholder="Enter Branch Code"
               />
+              {errors.code && <span className="text-red-600 text-sm ">{errors.code}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-              <label className="text-base mx-1">New Password</label>
+              <label className="text-base mx-1">New Password:</label>
               <input
                 className="input-style rounded-lg"
                 type="password"
@@ -131,9 +180,10 @@ function AddBranch() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="**************"
               />
+              {errors.password && <span className="text-red-600 text-sm ">{errors.password}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-              <label className="text-base mx-1">Branch Manager</label>
+              <label className="text-base mx-1">Branch Manager:</label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -141,6 +191,7 @@ function AddBranch() {
                 onChange={(e) => setPerson(e.target.value)}
                 placeholder="Enter Name"
               />
+              {errors.person && <span className="text-red-600 text-sm ">{errors.person}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">Address:</label>
@@ -152,6 +203,7 @@ function AddBranch() {
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Enter Your Address"
               />
+              {errors.address && <span className="text-red-600 text-sm ">{errors.address}</span>}
             </div>
             
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
@@ -163,6 +215,7 @@ function AddBranch() {
                 onChange={(e) => setDistrict(e.target.value)}
                 placeholder="Enter Your District Name"
               />
+              {errors.district && <span className="text-red-600 text-sm ">{errors.district}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">State:</label>
@@ -173,6 +226,7 @@ function AddBranch() {
                 onChange={(e) => setState(e.target.value)}
                 placeholder="Enter Your State Name"
               />
+              {errors.state && <span className="text-red-600 text-sm ">{errors.state}</span>}
             </div>
            
 
@@ -185,23 +239,20 @@ function AddBranch() {
                 onChange={(e) => setPincode(e.target.value)}
                 placeholder="805110"
               />
+              {errors.pincode && <span className="text-red-600 text-sm ">{errors.pincode}</span>}
             </div>
-           
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3"></div>
             
          
-          <div className="w-full p-2">
+          <div className="w-full p-2 mt-10">
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               onClick={handleSubmit}
               type="button"
+              disabled={formSubmitted}
             >
-              {loading ? "Submitting..." : "Submit"}
+               {formSubmitted ? "Submitted" : "Submit"}
             </button>
-
-            <NavLink to="/dashboard/viewbranch" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2">
-              {/* <ViewBranch/> */}
-              View
-              </NavLink>
           </div>
         </form>
       </div>
