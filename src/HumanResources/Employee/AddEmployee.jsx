@@ -466,7 +466,7 @@ function AddEmployee() {
                   placeholder="Enter Your Address"
                 />
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              <div className="flex flex-col mt-5 p-2 text-start w-full lg:w-1/3">
               
                 <label className="text-base mx-1">Create Password:</label>
                 <input

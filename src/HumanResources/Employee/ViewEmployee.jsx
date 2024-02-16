@@ -100,9 +100,9 @@ const staffSend = (_id) => {
                                     <th scope="col" className="px-5 py-4">
                                     Email ID
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    {/* <th scope="col" className="px-5 py-4">
                                     Password
-                                    </th>
+                                    </th> */}
                                     <th scope="col" className="px-5 py-4">
                                     Mobile No.
                                     </th>
@@ -178,9 +178,9 @@ const staffSend = (_id) => {
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empemail}
                                             </td>
-                                            <td className="whitespace-wrap px-4 py-4">
+                                            {/* <td className="whitespace-wrap px-4 py-4">
                                                 {data.emppassword}
-                                            </td>
+                                            </td> */}
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empmobile}
                                             </td>
