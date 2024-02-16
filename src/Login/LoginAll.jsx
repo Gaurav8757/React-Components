@@ -164,10 +164,11 @@ function LoginAll() {
                     <div className="flex-shrink-1  md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-20">
                         <div className="w-full max-w-xl p-6 space-y-18 sm:p-8  rounded-lg shadow bg-slate-100 ">
                             <img
-                                src="/cname.png"
-                                className="h-1/4 w-2/4  mx-auto "
+                                src="/logo.jpg"
+                                className="h-1/4 w-1/4  mx-auto "
                                 alt="Logo"
                             />
+                            <div className="text-base font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
                             <form
                                 className="mt-8 space-y-10"
                                 method="POST"
@@ -214,10 +215,10 @@ function LoginAll() {
                                     />
                                 </div>
 
-                                <div className="flex text-justify mt-4 ml-0">
-                                    <label className="text-base font-bold mt-3  text-blue-900">Login Type:</label>
+                                <div className=" text-justify mt-1 ml-0">
+                                    <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type:</label>
                                     <select
-                                        className="input-style w-64 h-10 rounded-lg  mt-2 text-center ml-5"
+                                        className="input-style g-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         value={loginType}
                                         onChange={handleLoginTypeChange}
                                     >
