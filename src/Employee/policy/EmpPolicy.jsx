@@ -190,7 +190,7 @@ function EmpPolicy() {
                                             Policy Made By
                                         </th>
                                         <th scope="col" className="px-4 py-4 bg-green-100">
-                                            Edit
+                                            Update
                                         </th>
                                         {/* <th scope="col" className="px-4 py-4">
                                     Delete

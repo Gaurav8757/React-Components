@@ -151,13 +151,13 @@ const staffSend = (_id) => {
                                     </th>
                                    
                                     <th scope="col" className="px-5 py-4">
-                                        Edit
+                                        Update
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         Attendance
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Delete
+                                        Status
                                     </th>
                                 </tr>
                             </thead>
