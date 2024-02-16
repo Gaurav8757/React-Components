@@ -198,7 +198,7 @@ function EmpPolicy() {
                                     </tr>
                                 </thead>
                                 {APIData.length === 0 ? ( // Conditional rendering when there are no policies
-                <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
+                <p className='mt-20 text-2xl font-bold flex col-span-4 justify-center text-center'>No policies found.</p>
               ) : (
                                 <tbody>
                                     

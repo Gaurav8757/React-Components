@@ -150,8 +150,8 @@ function LoginAll() {
 
     return (
         <>
-            <section className="container-fluid h-screen relative" style={{ backgroundColor: "#fe8101" }}>
-                <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between" style={{ backgroundColor: "#fe8101" }}>
+            <section className="container-fluid h-screen relative" style={{ backgroundColor: "#f37e20" }}>
+                <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between" style={{ backgroundColor: "#f37e20" }}>
                     <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
                         <img
                             src="/logo.jpg"
@@ -216,9 +216,9 @@ function LoginAll() {
                                 </div>
 
                                 <div className=" text-justify mt-1 ml-0">
-                                    <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type:</label>
+                                    <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type</label>
                                     <select
-                                        className="input-style g-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                                        className="input-style g-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         value={loginType}
                                         onChange={handleLoginTypeChange}
                                     >
