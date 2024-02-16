@@ -126,6 +126,7 @@ import AdminForgot from "./admin/AdminForgot.jsx";
 import AdpassUpdate from "./admin/AdpassUpdate.jsx";
 import BrpassUpdate from "./branches/BrpassUpdate.jsx";
 import OpspassUpdate from "./opsAdmin/OpspassUpdate.jsx";
+import EmpPassUpdate from "./employee/EmpPassUpdate.jsx";
 // import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
 
 
@@ -256,6 +257,7 @@ const router = createBrowserRouter(
       {/* Employee Routes */}
       <Route path="/employee" element={<LoginAll />} />
       <Route path="/employee/forget" element={<ForgotEmpPassword />} />
+      <Route path="/reset/password/emp/:empId/:token" element={<EmpPassUpdate />} />
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
           <Route path="" element={<DashboardEmp />} />

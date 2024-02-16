@@ -93,4 +93,4 @@ function ForgotEmpPassword() {
       )
     }
 
-export default ForgotEmpPassword
+export default ForgotEmpPassword;
