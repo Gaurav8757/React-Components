@@ -126,8 +126,8 @@ import AdminForgot from "./admin/AdminForgot.jsx";
 import AdpassUpdate from "./admin/AdpassUpdate.jsx";
 import BrpassUpdate from "./branches/BrpassUpdate.jsx";
 import OpspassUpdate from "./opsAdmin/OpspassUpdate.jsx";
-import EmpPassUpdate from "./employee/EmpPassUpdate.jsx";
-// import AddPolicyDetail from "./employee/policy/AddPolicyDetail.jsx";
+import EmpPassUpdate from "./Employee/EmpPassUpdate.jsx";
+
 
 
 
