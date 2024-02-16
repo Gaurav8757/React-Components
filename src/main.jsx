@@ -257,7 +257,7 @@ const router = createBrowserRouter(
       {/* Employee Routes */}
       <Route path="/employee" element={<LoginAll />} />
       <Route path="/employee/forget" element={<ForgotEmpPassword />} />
-      <Route path="/reset/password/emp/:empId/:token" element={<EmpPassUpdate />} />
+      <Route path="/reset/password/emp/:empsId/:token" element={<EmpPassUpdate />} />
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
           <Route path="" element={<DashboardEmp />} />

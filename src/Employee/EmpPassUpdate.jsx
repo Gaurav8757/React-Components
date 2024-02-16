@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 function EmpPassUpdate() {
   const navigate = useNavigate();
-    const { empId, token } = useParams();
+    const { empsId, token } = useParams();
     const [emppassword, setEmpPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
 
@@ -13,7 +13,7 @@ function EmpPassUpdate() {
      const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post(`https://eleedomimf.onrender.com/emp/pass/${empId}/${token}`, {
+          const response = await axios.post(`https://eleedomimf.onrender.com/emp/pass/${empsId}/${token}`, {
               emppassword,
               confirmemp_password: confirmpass,
           });
