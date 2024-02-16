@@ -177,7 +177,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
-                                                    value={allDetails.policyNo.toUpperCase()}
+                                                    value={allDetails.policyNo}
                                                     onChange={handleInputChange}
                                                     name="policyNo"
                                                     placeholder="Enter Policy No"
@@ -189,7 +189,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
-                                                    value={allDetails.engNo.toUpperCase()}
+                                                    value={allDetails.engNo}
                                                     onChange={handleInputChange}
                                                     name="engNo"
                                                     placeholder="Enter Engine No" />
@@ -201,7 +201,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <input
                                                     className={`input-style rounded-lg `}
                                                     type="text"
-                                                    value={allDetails.chsNo.toUpperCase()}
+                                                    value={allDetails.chsNo}
                                                     onChange={handleInputChange}
                                                     name="chsNo"
                                                     placeholder="Enter Chassis No"
@@ -213,7 +213,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <label className="text-base mx-1">Policy Type:</label>
                                                 <select
                                                     className="input-style rounded-lg"
-                                                    value={allDetails.policyType.toUpperCase()}
+                                                    value={allDetails.policyType}
                                                     onChange={handleInputChange}
                                                     name="policyType">
                                                     <option className="w-1" value="">--- Select Policy Type ---</option>
@@ -355,7 +355,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <label className="text-base mx-1">Policy Made By:</label>
                                                 <select
                                                     className="input-style rounded-lg"
-                                                    value={allDetails.policyMadeBy.toUpperCase()}
+                                                    value={allDetails.policyMadeBy}
                                                     onChange={handleInputChange}
                                                     name="policyMadeBy">
                                                     <option className="w-1" value="" >--- Policy Made By ---</option>

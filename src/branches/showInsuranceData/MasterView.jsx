@@ -10,11 +10,12 @@ import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
 
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
+  const branch = sessionStorage.getItem('name');
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Retrieve branch from sessionStorage
-        const branch = sessionStorage.getItem('name');
+        
 
         if (!branch) {
           console.error('Branch information not found in sessionStorage');
@@ -68,7 +69,7 @@ const exportToExcel = () => {
       const fileType =
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
-      const fileName = "all_branch_data";
+      const fileName = branch;
 
       // Get all table headers and rows
       const tableHeaders = document.querySelectorAll(".table th");
@@ -116,7 +117,7 @@ const handleExportClick = () => {
             <NavLink to="/branches/home" className="absolute top-30 right-10">
               <TiArrowBack size={30} color="red" />
             </NavLink>
-            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
+            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
             <h1 className="flex justify-center font-semibold text-3xl w-full mb-4">
               View All Details
             </h1>
@@ -165,7 +166,7 @@ const handleExportClick = () => {
                   <th scope="col" className="px-5 py-4">GVW</th>
                   <th scope="col" className="px-5 py-4">C.C.</th>
                   <th scope="col" className="px-5 py-4">Product Code</th>
-                  <th scope="col" className="px-5 py-4">Edit</th>
+                  <th scope="col" className="px-5 py-4">Update</th>
                   {/* <th scope="col" className="px-5 py-4">Delete</th> */}
                 </tr>
               </thead>

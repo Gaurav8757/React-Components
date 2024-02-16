@@ -128,7 +128,7 @@ function ViewMasterForm() {
             <NavLink to="/dashboard/masterform" className="absolute top-30 right-10">
               <TiArrowBack size={30} color="red" />
             </NavLink>
-            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
+            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
             <h1 className="flex justify-center font-semibold text-3xl w-full mb-4">
               View All Policy Details
             </h1>

@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import * as XLSX from 'xlsx';
 import {  NavLink } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee.jsx";
 import EmpAttendanceModal from "./EmpAttendanceModal.jsx";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+
 export default function ViewEmployee() {
     const [APIData, setAPIData] = useState([]);
     const [sendStaffId, setSendStaffId] = useState(null);
-
+    const name = sessionStorage.getItem("name");
 // popup
 const staffSend = (_id) => {
     setSendStaffId(_id);
@@ -62,7 +64,50 @@ const staffSend = (_id) => {
       console.error("Error fetching updated Employee data:", error);
     }
   };
+  const exportToExcel = () => {
+    try {
+        const fileType =
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        const fileExtension = ".xlsx";
+        const fileName = name;
+  
+        // Get all table headers and rows
+        const tableHeaders = document.querySelectorAll(".table th");
+        const tableRows = document.querySelectorAll(".table tbody tr");
+  
+        // Include only the first 26 columns and all rows
+        const columnsToInclude = Array.from(tableHeaders).slice(0, 18);
+        const rowsToInclude = Array.from(tableRows).map(row => {
+            const cells = Array.from(row.querySelectorAll("td")).slice(0, 18);
+            return cells.map(cell => cell.textContent);
+        });
+  
+        // Create worksheet
+        const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+  
+        // Create workbook and export
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+        });
+        const data = new Blob([excelBuffer], { type: fileType });
+        const url = URL.createObjectURL(data);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName + fileExtension);
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.error("Error exporting to Excel:", error);
+        toast.error("Error exporting to Excel");
+    }
+  };
 
+const handleExportClick = () => {
+    exportToExcel();
+    // exportToPDF();
+};
 
   
 
@@ -83,12 +128,13 @@ const staffSend = (_id) => {
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-blue-500"
-                    ><NavLink to = "/hr/home/addemployee" className="flex justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
-                        <h1 className="flex justify-center text-3xl w-full font-semibold mb-8">All Employee Lists</h1><hr></hr>
+                    <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
+                        <h1 className="flex justify-center text-3xl w-full font-semibold">All Employee Lists</h1>
+                        <button className="absolute top-2 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                        <NavLink to = "/hr/home/addemployee" className=" justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
                         </div>
-                        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-                        <table className="min-w-full text-center text-sm font-light ">
+                        <div className="inline-block min-w-full w-full py-3 sm:px-6 lg:px-8 overflow-x-auto">
+                        <table className="min-w-full text-center text-sm font-light table ">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
@@ -246,7 +292,7 @@ const staffSend = (_id) => {
 
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {/* to enable delete from here */}
-                                                <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Active</button>
                                             </td>
                                         </tr>
                                     );

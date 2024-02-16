@@ -67,7 +67,7 @@ const BranchSidebar = () => {
               </NavLink>
             </div>
             <div>
-              <span className="text-2xl text-white font-medium font-serif ">Branch</span>
+              <span className="text-2xl text-white font-medium font-serif ">{name}</span>
             </div>
             <div className="flex items-center">
               <div className="flex items-center ">

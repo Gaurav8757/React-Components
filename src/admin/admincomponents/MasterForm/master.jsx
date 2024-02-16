@@ -12,3 +12,6 @@ export const POLICY_TYPES = {
     transactions: ["HEALTH", "NAME TRANSFER", "INDORSEMENT", "SME", "W C", "TRANSIT", "CAR", "CPM", "CPA", "LIFE"]
   }
 };
+
+
+

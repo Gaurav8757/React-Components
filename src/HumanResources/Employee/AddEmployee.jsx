@@ -30,8 +30,8 @@ function AddEmployee() {
   const [errors, setErrors] = useState({});
   const [pan, setPan] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-
-
+const emp = empid.toUpperCase();
+console.log(emp);
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
@@ -290,7 +290,7 @@ function AddEmployee() {
                   className="input-style rounded-lg"
                   type="text"
                   name="empid"
-                  value={empid.toUpperCase()}
+                  value={emp}
                   onChange={(e) => setEmpid(e.target.value)}
                   placeholder="EIPL-000"
                 />

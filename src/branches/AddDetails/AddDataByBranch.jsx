@@ -194,7 +194,7 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 type="text"
                                 name="insuredName"
-                                value={insuredName}
+                                value={insuredName.toUpperCase()}
                                 onChange={(e) => setInsuredName(e.target.value)}
                                 placeholder="Enter Insured Name"
                             />
@@ -219,7 +219,7 @@ function AddDataByBranch() {
                             <input
                                 className="input-style rounded-lg"
                                 type="text"
-                                value={vehRegNo}
+                                value={vehRegNo.toUpperCase()}
                                 name="vehRegNo"
                                 onChange={(e) => setVehRegNo(e.target.value)}
                                 placeholder="Enter Vehicle Reg No"
@@ -234,7 +234,7 @@ function AddDataByBranch() {
                             <input
                                 className="input-style rounded-lg"
                                 type="text"
-                                value={hypo}
+                                value={hypo.toUpperCase()}
                                 name="hypo"
                                 onChange={(e) => setHypo(e.target.value)}
                                 placeholder="Enter Hypothication"
@@ -261,7 +261,7 @@ function AddDataByBranch() {
                             <input
                                 className="input-style rounded-lg"
                                 type="text"
-                                value={advisorName}
+                                value={advisorName.toUpperCase()}
                                 name="advisorName"
                                 onChange={(e) => setAdvisorName(e.target.value)}
                                 placeholder="Enter Advisor Name"
@@ -276,7 +276,7 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 type="text"
                                 name="subAdvisor"
-                                value={subAdvisor}
+                                value={subAdvisor.toUpperCase()}
                                 onChange={(e) => setSubAdvisor(e.target.value)}
                                 placeholder="Enter Sub Advisor"
                             />

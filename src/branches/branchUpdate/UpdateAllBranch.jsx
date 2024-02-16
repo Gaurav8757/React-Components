@@ -320,22 +320,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Hypothication"
                                                 />
                                             </div>
-                                            {/* FIELD - 10 */}
-                                            {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-                                                <label className="text-base mx-1">Branch:</label>
-                                                <select
-                                                    id="branch"
-                                                    className="input-style rounded-lg mt-1"
-                                                    value={allDetails.branch}
-                                                    onChange={handleInputChange}
-                                                    name="branch"
-                                                >
-                                                    <option className="w-1" value="" >--- Select Branch ---</option>
-                                                    <option value="PATNA">PATNA</option>
-                                                    <option value="HAJIPUR">HAJIPUR</option>
-                                                    <option value="SAMASTIPUR">SAMASTIPUR</option>
-                                                </select>
-                                            </div> */}
+                                          
                                             {/* FIELD - 11 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Advisor Name:</label>
@@ -539,7 +524,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     value={allDetails.productCode}
                                                     onChange={handleInputChange} name="productCode">
 
-                                                    <option className="w-1" value="" disabled>--- Select Product Code ---</option>
+                                                    <option className="w-1" value="">-Select Product Code ---</option>
                                                     {allDetails.policyType &&
                                                         POLICY_TYPES[updateBranch.policyType].transactions.map((transaction) => (
                                                             <option key={transaction} value={transaction}>

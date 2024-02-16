@@ -5,6 +5,7 @@ import axios from 'axios';
 import * as XLSX from 'xlsx';
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
+    const name = sessionStorage.getItem("name");
     // POLICY DATA LISTS
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -70,7 +71,7 @@ const exportToExcel = () => {
         const fileType =
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
         const fileExtension = ".xlsx";
-        const fileName = "all_ops_data";
+        const fileName = `${name}_opsAdmin` ;
 
         // Get all table headers and rows
         const tableHeaders = document.querySelectorAll(".table th");
@@ -119,7 +120,7 @@ const exportToExcel = () => {
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-blue-500">
                         <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policies Lists</h1><hr></hr>
-                        <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-16" /></button>
+                        <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light table ">

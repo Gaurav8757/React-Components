@@ -1,18 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
 function AllOpsData({ data, policy }) {
-    const [status, setStatus] = useState("Pending");
+    const [status, setStatus] = useState("");
     const [staffName, setStaffName] = useState("");
     const [employee_id, setEmployeeId] = useState("");
     const [staffId, setStaffId] = useState("");
     const [sendStaffId, setSendStaffId] = useState(null);
-   
+  
 // popup
     const staffSend = (_id) => {
         setSendStaffId(_id);
+        setStatus("Sent");
     };
     const allDetails = {
         staffName,
@@ -25,7 +26,7 @@ function AllOpsData({ data, policy }) {
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${staffId}`, allDetails);
             toast.success(`${resp.data.status}${staffName}`);
             if (resp.data.status) {
-                setStatus("Sent");
+                
                 policy();
             }
         } catch (error) {
@@ -33,12 +34,7 @@ function AllOpsData({ data, policy }) {
             console.error("Error updating insurance details:", error);
         }
     };
-    // SHOW STATUS
-    useEffect(() => {
-        if (data.staffName) {
-            setStatus("Sent");
-        }
-    }, [data.staffName]);
+   
 
     return (
         <tr
@@ -142,7 +138,7 @@ function AllOpsData({ data, policy }) {
                     <option className="w-1" value="">--- Select ---</option>
                     {
     data.allpolicyemployee
-        .filter(emp => emp.staffType === "OPS Executive")
+        .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
         .map((emp) => (
             <option key={emp._id} value={emp.empname}>
                 {emp.empid} - {emp.empname}
