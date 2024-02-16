@@ -18,6 +18,8 @@ function AddEmployee() {
   const [joining, setJoining] = useState("");
   const [accNumber, setAccNumber] = useState("");
   const [ifsc, setIfsce] = useState("");
+  const [emppassword, setEmpPassword] = useState("");
+
   const [bankName, setBankName] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
   const [branchList, setBranchList] = useState([]);
@@ -76,6 +78,9 @@ function AddEmployee() {
     }
     if (!empname) {
       errors.empname = "required*";
+    }
+    if (!emppassword) {
+      errors.emppassword= "required*";
     }
 
     if (!calendar) {
@@ -153,6 +158,7 @@ function AddEmployee() {
       formData.append("ifsc", ifsc);
       formData.append("pan", pan);
       formData.append("panno", panno);
+      formData.append("emppassword", emppassword);
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
@@ -171,6 +177,7 @@ function AddEmployee() {
         // Reset the form on successful submission
         setAccNumber("");
         setIfsce("");
+        setEmpPassword("");
         setBankName("");
         setAddress("");
         setGender("");
@@ -459,7 +466,21 @@ function AddEmployee() {
                   placeholder="Enter Your Address"
                 />
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3"> </div>
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              
+                <label className="text-base mx-1">Create Password:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="password"
+                  value={emppassword}
+                  name="emppassword"
+                  onChange={(e) => setEmpPassword(e.target.value)}
+                  placeholder="ENTER NEW PASSWORD"
+                />
+                {errors.emppassword && <span className="text-red-600 text-sm ">{errors.emppassword}</span>}
+              </div>
+                
+                
            
             <div className="w-full p-2 mt-10">
               <button
