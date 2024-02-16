@@ -167,10 +167,10 @@ const staffSend = (_id) => {
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data.uniqueid}
+                                            key={data.empid}
                                         >
                                              <td className="whitespace-nowrap px-4 py-4">
-                                                {data. empid}
+                                                {data.empid}
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 {data.empname}
