@@ -107,10 +107,13 @@ function EmpPolicy() {
                         <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1>
                         <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-16" /></button>
                     </div>
-                    <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-                        {isLoading ? ( // Conditional rendering for loading state
+                    {isLoading ? ( // Conditional rendering for loading state
                             <p className='mt-20 text-2xl font-bold'>Loading policies...</p>
                         ) : (
+                    <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+                        {APIData.length === 0 ? ( // Conditional rendering when there are no policies
+                <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
+              ) : (
                             <table className="min-w-full text-center text-sm font-light table ">
                                 <thead className="border-b font-medium dark:border-neutral-500">
                                     <tr className="text-blue-700">
@@ -197,9 +200,7 @@ function EmpPolicy() {
                                 </th> */}
                                     </tr>
                                 </thead>
-                                {APIData.length === 0 ? ( // Conditional rendering when there are no policies
-                <p className='mt-20 text-2xl font-bold flex col-span-4 justify-center text-center'>No policies found.</p>
-              ) : (
+                               
                                 <tbody>
                                     
                                     {APIData.map((data) => {
@@ -295,10 +296,11 @@ function EmpPolicy() {
                                         );
                                     })}
                                 </tbody>
-                                )}
+                               
                             </table>
-                        )}
+                         )}
                     </div>
+                    )}
                 </div>
             </div>
         </section>
