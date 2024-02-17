@@ -84,7 +84,7 @@ import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
-import ForgetHrAdmin from "./HumanResources/ForgetHrAdmin.jsx.jsx";
+
 import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
@@ -121,6 +121,7 @@ import AdpassUpdate from "./admin/AdpassUpdate.jsx";
 import BrpassUpdate from "./branches/BrpassUpdate.jsx";
 import OpspassUpdate from "./opsAdmin/OpspassUpdate.jsx";
 import EmpPassUpdate from "./Employee/EmpPassUpdate.jsx";
+import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
 
 
 
@@ -263,7 +264,8 @@ const router = createBrowserRouter(
 
       {/* HR Routes */}
       <Route path="/hr" element={<LoginAll />} />
-      <Route path="/hradmin/forget" element={<ForgetHrAdmin />} />
+      
+      <Route path="/hradmin/forget" element={<HrForgetAdmin />} />
       
       <Route element={<ProtectedHr />}>
         <Route path="/hr/home" element={<LayoutHr />}>

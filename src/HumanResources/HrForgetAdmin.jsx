@@ -3,36 +3,34 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
 
+function HrForgetAdmin() {
+    const navigate = useNavigate();
+    const [hrademail, setHrAdEmail] = useState("");
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axios.post("https://eleedomimf.onrender.com/forgot/hradmin/pass", {
+            hrademail
+          });
+         
+          if (response) {
+              navigate("/login");
+              toast.success("Forgot Request Sent Successfully...!");
+            } else {
+              // For non-admin users, you might want to redirect to a different page
+              navigate("/hradmin/forget");
+              toast.error("HR Admin Not Found!");
+            }
+         
+      } catch (error) {
+          console.log(error);
+          toast.warn("HR Admin Not Registered Yet...! ");
+      }
+  };
 
-function ForgetHrAdmin() {
-  const navigate = useNavigate();
-  const [hrademail, setHrAdEmail] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post("https://eleedomimf.onrender.com/forgot/hradmin/pass", {
-          hrademail
-        });
-       
-        if (response) {
-            navigate("/login");
-            toast.success("Forgot Request Sent Successfully...!");
-          } else {
-            // For non-admin users, you might want to redirect to a different page
-            navigate("/hradmin/forget");
-            toast.error("HR Admin Not Found!");
-          }
-       
-    } catch (error) {
-        console.log(error);
-        toast.warn("HR Admin Not Registered Yet...! ");
-    }
-};
-
-    return (
-        <>
-        <section className="container-fluid h-screen relative bg-white">
+  return (
+    <section className="container-fluid h-screen relative bg-white">
           <div className="container-fluid pt-5 flex flex-col md:flex-row items-center  justify-between bg-white">
             <div className="flex-shrink-4  mx-20 mt-16  md:h-full h-full pb-40">
               <img
@@ -89,8 +87,7 @@ function ForgetHrAdmin() {
             </div>
           </div>
         </section>
-      </>
-      )
-    }
+  )
+}
 
-export default ForgetHrAdmin;
+export default HrForgetAdmin;
