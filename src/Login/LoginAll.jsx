@@ -180,15 +180,15 @@ function LoginAll() {
     return (
         <>
             <section className="container-fluid h-screen relative" style={{ backgroundColor: "#f37e20" }}>
-                <div className="container-fluid pt-1 flex flex-col md:flex-row items-center pb-16 justify-between" style={{ backgroundColor: "#f37e20" }}>
-                    <div className="flex-shrink-4 md:h-full h-full w-full xs:w-full  sm:w-full md:w-full mx-auto lg:w-2/5 xl:py-20">
+                <div className="container-fluid pt-1 flex flex-col md:flex-row items-center pb-0 justify-between" style={{ backgroundColor: "#f37e20" }}>
+                    {/* <div className="flex-shrink-4  md:h-full h-full w-full xs:w-full   sm:w-full md:w-full mx-auto  lg:w-2/5 xl:py-20"> */}
                         <img
                             src="/ins.png"
-                            className="h-full mt-20 w-full rounded-md mx-auto "
+                            className="h-full mt-96  w-3/4 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-2/5 "
                             alt="Logo"
                         />
-                        <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div>
-                    </div>
+                        {/* <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div> */}
+                    
 
                     <div className="flex-shrink-1 mt-10 md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-20">
                         <div className="w-full max-w-xl p-6 space-y-1 sm:p-8 mx-auto  rounded-lg shadow bg-slate-100 ">
