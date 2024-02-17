@@ -52,7 +52,7 @@ function LoginAll() {
                         });
                         sessionStorage.setItem("token", response.data.token);
                         sessionStorage.setItem("email", response.data.user.hrademail);
-                        sessionStorage.setItem("employeeId", response.data.user._id);
+                        sessionStorage.setItem("hrId", response.data.user._id);
                         sessionStorage.setItem("name", response.data.user.hradname);
                         break;
 
@@ -156,7 +156,7 @@ function LoginAll() {
                 return "/employee/forget";
 
                 case "hradmin":
-                    return "/employee/forget";
+                    return "/hradmin/forget";
             case "branches":
                 return "/branches/forget";
             case "ops":
