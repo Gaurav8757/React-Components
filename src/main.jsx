@@ -84,7 +84,7 @@ import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
-import ForgetHrAdmin from "./HumanResources/ForgetHrADMIN.jsx";
+import ForgetHrAdmin from "./HumanResources/ForgetHrAdmin.jsx.jsx";
 import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
