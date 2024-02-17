@@ -122,6 +122,7 @@ import BrpassUpdate from "./branches/BrpassUpdate.jsx";
 import OpspassUpdate from "./opsAdmin/OpspassUpdate.jsx";
 import EmpPassUpdate from "./Employee/EmpPassUpdate.jsx";
 import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
+import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
 
 
 
@@ -266,7 +267,7 @@ const router = createBrowserRouter(
       <Route path="/hr" element={<LoginAll />} />
       
       <Route path="/hradmin/forget" element={<HrForgetAdmin />} />
-      
+      <Route path="/reset/password/hradmin/:hradId/:token" element={<HrPassUpdate />} />
       <Route element={<ProtectedHr />}>
         <Route path="/hr/home" element={<LayoutHr />}>
           <Route path="" element={<DashboardHr />} />
