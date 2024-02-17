@@ -23,7 +23,6 @@ import Branch from "./components/branch/Branch.jsx";
 import TrackRequest from "./components/track-request/TrackRequest.jsx";
 import ComplaintForm from "./components/complaint/ComplaintForm.jsx";
 import ContactUs from "./components/contact/ContactUs.jsx";
-// import Admin from "./admin/Admin.jsx";
 import Dashboard from "./admin/admincomponents/Dashboard.jsx";
 import AddBranch from "./admin/admincomponents/Branch/AddBranch.jsx";
 import AddEmployee from "./HumanResources/Employee/AddEmployee.jsx";
@@ -40,7 +39,6 @@ import UpdateHRSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx";
 import ViewPolicy from "./admin/admincomponents/PolicyLists/ViewPolicy.jsx";
 import ViewGenSalary from "./HumanResources/GenerateSalary/ViewGenSalary.jsx";
 import ProtectRoute from "./admin/Protected.jsx";
-// import LoginBranch from "./branches/LoginBranch.jsx";
 import BranchLayout from "./branches/BranchLayout.jsx";
 import BranchDashboard from "./branches/BranchDashboard.jsx";
 import BranchProtected from "./branches/BranchProtect.jsx";
@@ -71,7 +69,6 @@ import Careers from "./components/careers/Careers.jsx";
 import MasterForm from "./admin/admincomponents/MasterForm/MasterForm.jsx";
 import ViewMasterForm from "./admin/admincomponents/MasterForm/ViewMasterForm.jsx";
 import MasterView from "./branches/showInsuranceData/MasterView.jsx";
-// import LoginAdvisor from "./advisor/LoginAdvisor.jsx";
 import ProtectedAdvisor from "./advisor/ProtectedAdvisor.jsx";
 import InsuranceLists from "./advisor/showInsurance/InsuranceLists.jsx";
 import LayoutAdvisor from "./advisor/LayoutAdvisor.jsx";
@@ -84,11 +81,9 @@ import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./HumanResources/Employee/UpdateEmployee.jsx";
 import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx";
-// import LoginEmployee from "./Employee/LoginEmp.jsx";
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
-// import HrLogin from "./HumanResources/HrLogin.jsx";
 import ForgetHr from "./HumanResources/ForgetHr.jsx";
 import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
@@ -115,7 +110,6 @@ import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
 import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
 import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
-// import LoginOps from "./opsAdmin/LoginOps.jsx";
 import ForgetPassOps from "./opsAdmin/ForgetPassOps.jsx";
 import ProtectOps from "./opsAdmin/ProtectOps.jsx";
 import LayoutOps from "./opsAdmin/LayoutOps.jsx";
@@ -269,7 +263,7 @@ const router = createBrowserRouter(
 
       {/* HR Routes */}
       <Route path="/hr" element={<LoginAll />} />
-      <Route path="/hr/forget" element={<ForgetHr />} />
+      <Route path="/hradmin/forget" element={<ForgetHr />} />
       
       <Route element={<ProtectedHr />}>
         <Route path="/hr/home" element={<LayoutHr />}>

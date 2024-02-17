@@ -38,6 +38,7 @@ function LoginAll() {
                         empmobile: mobile,
                         emppassword: password,
                     });
+                    
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
@@ -50,10 +51,11 @@ function LoginAll() {
                             hradmobile: mobile,
                             hradpassword: password,
                         });
+                        console.log(response.data);
                         sessionStorage.setItem("token", response.data.token);
-                        sessionStorage.setItem("email", response.data.user.hrademail);
-                        sessionStorage.setItem("hrId", response.data.user._id);
-                        sessionStorage.setItem("name", response.data.user.hradname);
+                        sessionStorage.setItem("email", response.data.email);
+                        sessionStorage.setItem("hrId", response.data.id);
+                        sessionStorage.setItem("name", response.data.name);
                         break;
 
                 case "branches":
