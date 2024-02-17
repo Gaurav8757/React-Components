@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 function LoginAll() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function LoginAll() {
     const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
     const [loginType, setLoginType] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLoginTypeChange = (e) => {
         setLoginType(e.target.value);
@@ -38,25 +40,25 @@ function LoginAll() {
                         empmobile: mobile,
                         emppassword: password,
                     });
-                    
+
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
                     sessionStorage.setItem("name", response.data.user.empname);
                     break;
 
-                    case "hradmin":
-                        response = await axios.post("https://eleedomimf.onrender.com/hradmin/login", {
-                            hrademail: email,
-                            hradmobile: mobile,
-                            hradpassword: password,
-                        });
-                        
-                        sessionStorage.setItem("token", response.data.token);
-                        sessionStorage.setItem("email", response.data.email);
-                        sessionStorage.setItem("hrId", response.data.id);
-                        sessionStorage.setItem("name", response.data.name);
-                        break;
+                case "hradmin":
+                    response = await axios.post("https://eleedomimf.onrender.com/hradmin/login", {
+                        hrademail: email,
+                        hradmobile: mobile,
+                        hradpassword: password,
+                    });
+
+                    sessionStorage.setItem("token", response.data.token);
+                    sessionStorage.setItem("email", response.data.email);
+                    sessionStorage.setItem("hrId", response.data.id);
+                    sessionStorage.setItem("name", response.data.name);
+                    break;
 
                 case "branches":
                     response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
@@ -93,7 +95,7 @@ function LoginAll() {
                     case "admin":
                         sessionStorage.getItem("token");
                         navigate("/dashboard");
-                       
+
                         toast.success("Logged In Successfully !");
                         break;
 
@@ -109,10 +111,10 @@ function LoginAll() {
                         // if (response.data.user.staffType !== "HR MANAGER" ||
                         //     response.data.user.staffType !== "HR" ||
                         //     response.data.user.staffType !== "BRANCH HR MANAGER") {
-                            // For non-token users, you might want to redirect to a different page
-                            sessionStorage.getItem("token");
-                            navigate("/employee/home");
-                            toast.success("Logged In Successfully !");
+                        // For non-token users, you might want to redirect to a different page
+                        sessionStorage.getItem("token");
+                        navigate("/employee/home");
+                        toast.success("Logged In Successfully !");
                         // } else {
                         //     navigate("/login");
                         //     toast.error("User Not Found!");
@@ -120,12 +122,12 @@ function LoginAll() {
                         break;
 
                     case "hradmin":
-                            sessionStorage.getItem("token");
-                            navigate("/hr/home");
-                            toast.success("Logged In Successfully !");
-                            break;
+                        sessionStorage.getItem("token");
+                        navigate("/hr/home");
+                        toast.success("Logged In Successfully !");
+                        break;
 
-                            
+
                     case "branches":
                         sessionStorage.getItem("token");
                         navigate("/branches/home");
@@ -157,8 +159,8 @@ function LoginAll() {
             case "employee":
                 return "/employee/forget";
 
-                case "hradmin":
-                    return "/hradmin/forget";
+            case "hradmin":
+                return "/hradmin/forget";
             case "branches":
                 return "/branches/forget";
             case "ops":
@@ -168,7 +170,10 @@ function LoginAll() {
         }
     };
 
-
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+        setTimeout(() => setShowPassword(false), 4000);
+    };
 
 
 
@@ -226,8 +231,9 @@ function LoginAll() {
                                         className="block mb-2 text-base text-start font-medium text-gray-900 ">
                                         Your password
                                     </label>
+                                    <div className="relative">
                                     <input
-                                        type="password"
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         id="password"
                                         placeholder="••••••••"
@@ -237,6 +243,18 @@ function LoginAll() {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
                                         required
                                     />
+                                    <button
+                                        type="button"
+                                        onClick={handleTogglePassword}
+                                        className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
+                                    >
+                                        {showPassword ? (
+                                            <IoEyeOutline size={25}/>
+                                        ) : (
+                                            <IoEyeOffOutline size={25}/>
+                                        )}
+                                    </button>
+                                    </div>
                                 </div>
 
                                 <div className=" text-justify mt-1 ml-0">
