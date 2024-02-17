@@ -37,7 +37,7 @@ function MasterView() {
       }
     };
     fetchData();
-  }, []);
+  }, [branch]);
 
  // refreshing page after updating data
  const onUpdatePolicy = async () => {
@@ -127,7 +127,7 @@ const handleExportClick = () => {
             <table className="min-w-full text-center text-sm font-light table ">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr className="text-blue-700">
-                <th scope="col" className="px-5 py-4">Reference ID</th>
+                <th scope="col" className="px-5 py-4 ">Reference ID</th>
                   <th scope="col" className="px-5 py-4">Entry Date</th>
                   <th scope="col" className="px-5 py-4">Company</th>
                   <th scope="col" className="px-5 py-4">Category</th>

@@ -44,6 +44,18 @@ function LoginAll() {
                     sessionStorage.setItem("name", response.data.user.empname);
                     break;
 
+                    case "hradmin":
+                        response = await axios.post("https://eleedomimf.onrender.com/hradmin/login", {
+                            hrademail: email,
+                            hradmobile: mobile,
+                            hradpassword: password,
+                        });
+                        sessionStorage.setItem("token", response.data.token);
+                        sessionStorage.setItem("email", response.data.user.hrademail);
+                        sessionStorage.setItem("employeeId", response.data.user._id);
+                        sessionStorage.setItem("name", response.data.user.hradname);
+                        break;
+
                 case "branches":
                     response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
                         branchemail: email,
@@ -84,26 +96,34 @@ function LoginAll() {
                         break;
 
                     case "employee":
-                        if (response.data.user.staffType === "HR MANAGER" ||
-                            response.data.user.staffType === "HR" ||
-                            response.data.user.staffType === "BRANCH HR MANAGER") {
-                            sessionStorage.getItem("token");
-                            navigate("/hr/home");
-                            toast.success("Logged In Successfully !");
+                        // if (response.data.user.staffType === "HR MANAGER" ||
+                        //     response.data.user.staffType === "HR" ||
+                        //     response.data.user.staffType === "BRANCH HR MANAGER") {
+                        //     sessionStorage.getItem("token");
+                        //     navigate("/hr/home");
+                        //     toast.success("Logged In Successfully !");
 
-                        } else if (response.data.user.staffType !== "HR MANAGER" ||
-                            response.data.user.staffType !== "HR" ||
-                            response.data.user.staffType !== "BRANCH HR MANAGER") {
+                        // } 
+                        // if (response.data.user.staffType !== "HR MANAGER" ||
+                        //     response.data.user.staffType !== "HR" ||
+                        //     response.data.user.staffType !== "BRANCH HR MANAGER") {
                             // For non-token users, you might want to redirect to a different page
                             sessionStorage.getItem("token");
                             navigate("/employee/home");
                             toast.success("Logged In Successfully !");
-                        } else {
-                            navigate("/login");
-                            toast.error("User Not Found!");
-                        }
+                        // } else {
+                        //     navigate("/login");
+                        //     toast.error("User Not Found!");
+                        // }
                         break;
 
+                    case "hradmin":
+                            sessionStorage.getItem("token");
+                            navigate("/hr/home");
+                            toast.success("Logged In Successfully !");
+                            break;
+
+                            
                     case "branches":
                         sessionStorage.getItem("token");
                         navigate("/branches/home");
@@ -135,6 +155,8 @@ function LoginAll() {
             case "employee":
                 return "/employee/forget";
 
+                case "hradmin":
+                    return "/employee/forget";
             case "branches":
                 return "/branches/forget";
             case "ops":
@@ -226,6 +248,7 @@ function LoginAll() {
                                         <option value="admin">Admin</option>
                                         <option value="branches">Branch</option>
                                         <option value="employee">Employee</option>
+                                        <option value="hradmin">HR Admin</option>
                                         <option value="ops">OPS Admin</option>
                                     </select>
                                 </div>

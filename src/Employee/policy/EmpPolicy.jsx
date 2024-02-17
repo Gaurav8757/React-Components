@@ -122,8 +122,8 @@ function EmpPolicy() {
               ) : (
                             <table className="min-w-full  border text-center text-sm font-light table ">
                                 <thead className="border-b  border-neutral-900 font-medium dark:border-neutral-900">
-                                    <tr className="text-blue-700">
-                                        <th scope="col" className="px-4 py-4">
+                                    <tr className="text-blue-700 font-bold">
+                                        <th scope="col" className="px-4 py-4 f">
                                             Reference ID
                                         </th>
                                         <th scope="col" className="px-4 py-4">
