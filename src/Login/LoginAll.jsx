@@ -172,7 +172,7 @@ function LoginAll() {
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
-        setTimeout(() => setShowPassword(false), 4000);
+        setTimeout(() => setShowPassword(false), 10000);
     };
 
 
