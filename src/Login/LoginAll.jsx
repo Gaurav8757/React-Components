@@ -51,7 +51,7 @@ function LoginAll() {
                             hradmobile: mobile,
                             hradpassword: password,
                         });
-                        console.log(response.data);
+                        
                         sessionStorage.setItem("token", response.data.token);
                         sessionStorage.setItem("email", response.data.email);
                         sessionStorage.setItem("hrId", response.data.id);

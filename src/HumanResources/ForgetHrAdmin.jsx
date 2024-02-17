@@ -4,9 +4,9 @@ import {toast} from "react-toastify";
 import { useState } from "react";
 
 
-function ForgetHr() {
+function ForgetHrAdmin() {
   const navigate = useNavigate();
-  const [hrademail, setHrEmail] = useState("");
+  const [hrademail, setHrAdEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ function ForgetHr() {
                 <form
                   className="mt-0 space-y-6"
                   method="POST"
-                //   onSubmit={(e) => handleSubmit(e)}
+               
                 >
                   <div>
                     <label
@@ -63,8 +63,8 @@ function ForgetHr() {
                       name="hrademail "
                       id="hrademail"
                       value={hrademail}
-                      onChange={(e)=> setHrEmail(e.target.value)}
-                      autoComplete="hrademail || hradmobile"
+                      onChange={(e)=> setHrAdEmail(e.target.value)}
+                      autoComplete="hrademail "
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       placeholder="forgot@gmail.com"
                       required
@@ -93,4 +93,4 @@ function ForgetHr() {
       )
     }
 
-export default ForgetHr;
+export default ForgetHrAdmin;
