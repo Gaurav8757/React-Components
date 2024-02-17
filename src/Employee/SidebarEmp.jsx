@@ -74,7 +74,7 @@ function DashboardEmp() {
                   </NavLink>
                 </div>
                 <div>
-                  <span className="text-2xl text-white font-medium font-serif ">Employee</span>
+                  <span className="text-2xl text-white font-medium font-serif ">{name}</span>
                 </div>
                 <div className="flex  justify-between items-center">
                   <div className="flex items-center mx-5">

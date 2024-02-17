@@ -54,7 +54,7 @@ const SidebarOps = () => {
               </NavLink>
             </div>
             <div>
-              <span className="text-2xl text-white font-medium font-serif ">OPS Admin</span>
+              <span className="text-2xl text-white font-medium font-serif ">{name}</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center mx-5">

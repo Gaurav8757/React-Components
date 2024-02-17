@@ -123,7 +123,7 @@ function DashboardHr() {
                   </NavLink>
                 </div>
                 <div>
-                  <span className="text-2xl text-white font-medium font-serif ">HR</span>
+                  <span className="text-2xl text-white font-medium font-serif ">{name}</span>
                 </div>
                
                 <div className="flex justify-between  items-center">
