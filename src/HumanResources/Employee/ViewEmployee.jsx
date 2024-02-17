@@ -5,7 +5,7 @@ import {  NavLink } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee.jsx";
 import EmpAttendanceModal from "./EmpAttendanceModal.jsx";
 import { toast } from "react-toastify";
-import { TiArrowBack } from "react-icons/ti";
+// import { TiArrowBack } from "react-icons/ti";
 
 export default function ViewEmployee() {
     const [APIData, setAPIData] = useState([]);
@@ -131,8 +131,11 @@ const handleExportClick = () => {
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
                         <h1 className="flex justify-center text-3xl w-full font-semibold">All Employee Lists</h1>
-                        <button className="absolute top-2 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-                        <NavLink to = "/hr/home/addemployee" className=" justify-end text-red-700"><TiArrowBack size={30}/></NavLink>
+                        <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                       
+                        <NavLink to = "/hr/home/addemployee" >
+                        <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                        </NavLink>
                         </div>
                         <div className="inline-block min-w-full w-full py-3 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light table ">

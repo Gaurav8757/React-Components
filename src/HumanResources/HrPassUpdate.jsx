@@ -45,7 +45,7 @@ function HrPassUpdate() {
         <div className="flex-shrink-1 xl:px-0 lg:px-0 md:px-0 sm:px-0 xs:px-0  px-16 md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 py-20 ">
             <div className="w-full max-w-lg p-6 space-y-18 sm:p-8  rounded-lg shadow bg-slate-100 ">
                 <img
-                    src="/logo.png"
+                    src="/logo.jpg"
                     className="h-1/4 w-1/4  mx-auto "
                     alt="Logo"
                 />

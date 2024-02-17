@@ -47,9 +47,9 @@ function ListStaffType() {
                 <table className="min-w-full text-center text-sm font-light ">
                     <thead className="border-b font-medium dark:border-neutral-500">
                         <tr className="text-blue-700">
-                            <th scope="col" className="px-4 py-4">
+                            {/* <th scope="col" className="px-4 py-4">
                                 S.No
-                            </th>
+                            </th> */}
                             <th scope="col" className="px-4 py-4">
                                 Staff Type
                             </th>

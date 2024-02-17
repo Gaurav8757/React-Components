@@ -125,8 +125,10 @@ function DashboardHr() {
                 <div>
                   <span className="text-2xl text-white font-medium font-serif ">HR</span>
                 </div>
-                <div className="flex items-center">
-                  <div className="flex items-center ">
+               
+                <div className="flex justify-between  items-center">
+                
+                  <div className="flex items-center mx-5">
                     <div>
                       <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                         <span className="sr-only">Open user menu</span>
@@ -142,6 +144,7 @@ function DashboardHr() {
                         <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                          {loginBranch}
                         </p>
+                       
                       </div>
                       <ul className="py-1" role="none">
                         <li>
@@ -156,6 +159,12 @@ function DashboardHr() {
                       </ul>
                     </div>
                   </div>
+
+                  <span className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                        <LogoutHr />
+                        </span>
+
+
                 </div>
               </div>
             </div>

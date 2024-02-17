@@ -23,9 +23,21 @@ const Sidebar = () => {
       logo: <RxDashboard size={24}/>
     },
     {
-      title: "Add Company",
-      path: "/dashboard/addcompanies",
-      logo: <FaRegBuilding size={24}/>
+      title: "Company",
+      path: "#",
+      logo: <FaRegBuilding size={24}/>,
+      subRoutes: [
+        {
+          title: "Add Company",
+          path: "/dashboard/addcompanies",
+          dash:""
+        }, 
+        {
+          title: "View Company",
+          path: "/dashboard/viewcompanies",
+          dash:""
+        }, 
+      ]
     },
     {
       title: "Branch",
@@ -84,14 +96,39 @@ const Sidebar = () => {
     //   logo: <TbMoneybag size={24}/>
     // },
     {
-      title: "Add Carousel",
-      path: "/dashboard/addcarousel",
-      logo: <FaImages size={24}/>
+      title: "Carousel",
+      path: "#",
+      logo: <FaImages size={24}/>,
+      subRoutes: [
+        {
+          title: "Add Carousel",
+          path: "/dashboard/addcarousel",
+          dash:""
+        }, 
+        {
+          title: "View Carousel",
+          path: "/dashboard/firstview/carousel",
+          dash:""
+        }, 
+      ]
+
     },
     {
-      title: "Add Policy Details",
-      path: "/dashboard/masterform",
-      logo: < FcViewDetails size={24}/>
+      title: "Policy",
+      path: "#",
+      logo: < FcViewDetails size={24}/>,
+      subRoutes: [
+        {
+          title: "Add Policy",
+          path: "/dashboard/masterform",
+          dash:""
+        }, 
+        {
+          title: "View Policies",
+          path: "/dashboard/viewmasterform",
+          dash:""
+        }, 
+      ]
     },
     // {
     //   title: "Generate Salary",
@@ -122,7 +159,7 @@ const Sidebar = () => {
       logo: <TbReport size={24}/>,
       subRoutes: [
         {
-          title: "Policy",
+          title: "Policies",
           path: "/dashboard/policy",
           dash:""
         },
@@ -198,8 +235,8 @@ const loginemail = sessionStorage.getItem("email");
             <div>
               <span className="text-2xl text-white font-medium font-serif ">Admin Dashboard</span>
             </div>
-            <div className="flex items-center">
-              <div className="flex items-center ">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center mx-5">
                 <div>
                   <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span className="sr-only">Open user menu</span>
@@ -230,6 +267,10 @@ const loginemail = sessionStorage.getItem("email");
                   </ul>
                 </div>
               </div>
+              <span>
+                      <Logout />
+                      {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
+                    </span>
             </div>
           </div>
         </div>

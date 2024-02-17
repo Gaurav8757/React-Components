@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import UpdateMaster from "./UpdateMaster.jsx";
 import { NavLink } from "react-router-dom";
-import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
 
@@ -125,13 +124,14 @@ function ViewMasterForm() {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 sm:px-6 lg:px-8">
           <div className="overflow-x-auto text-blue-500">
-            <NavLink to="/dashboard/masterform" className="absolute top-30 right-10">
-              <TiArrowBack size={30} color="red" />
+            <NavLink to="/dashboard/masterform">
+            <button type="button" className="text-white absolute top-3 mt-2 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
             </NavLink>
-            <button className="absolute top-30 right-20" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
             <h1 className="flex justify-center font-semibold text-3xl w-full mb-4">
               View All Policy Details
             </h1>
+            <button className="absolute top-3 mt-1 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
+            
             <hr />
           </div>
           <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-6  overflow-x-auto">

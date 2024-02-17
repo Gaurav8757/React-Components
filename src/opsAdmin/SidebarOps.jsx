@@ -56,8 +56,8 @@ const SidebarOps = () => {
             <div>
               <span className="text-2xl text-white font-medium font-serif ">OPS Admin</span>
             </div>
-            <div className="flex items-center">
-              <div className="flex items-center ">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center mx-5">
                 <div>
                   <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span className="sr-only">Open user menu</span>
@@ -88,7 +88,12 @@ const SidebarOps = () => {
                   </ul>
                 </div>
               </div>
+              <span>
+                      <LogoutOps />
+                      {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
+                    </span>
             </div>
+
           </div>
         </div>
       </nav>

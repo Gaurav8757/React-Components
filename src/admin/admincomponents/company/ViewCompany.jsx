@@ -2,7 +2,8 @@ import UpdateCompanyModal from "./updateCompany";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {  NavLink } from "react-router-dom";
-import { TiArrowBack } from "react-icons/ti";
+// import { TiArrowBack } from "react-icons/ti";
+import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
 
 
@@ -53,6 +54,50 @@ export default function ViewCompany() {
       console.error("Error fetching updated company data:", error);
     }
   };
+  const exportToExcel = () => {
+    try {
+        const fileType =
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        const fileExtension = ".xlsx";
+        const fileName = "all_company_lists";
+  
+        // Get all table headers and rows
+        const tableHeaders = document.querySelectorAll(".table th");
+        const tableRows = document.querySelectorAll(".table tbody tr");
+  
+        // Include only the first 26 columns and all rows
+        const columnsToInclude = Array.from(tableHeaders).slice(0, 3);
+        const rowsToInclude = Array.from(tableRows).map(row => {
+            const cells = Array.from(row.querySelectorAll("td")).slice(0, 3);
+            return cells.map(cell => cell.textContent);
+        });
+  
+        // Create worksheet
+        const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+  
+        // Create workbook and export
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+        });
+        const data = new Blob([excelBuffer], { type: fileType });
+        const url = URL.createObjectURL(data);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName + fileExtension);
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.error("Error exporting to Excel:", error);
+        toast.error("Error exporting to Excel");
+    }
+  };
+
+const handleExportClick = () => {
+    exportToExcel();
+    // exportToPDF();
+};
     
 
     // ******************** Delete Functions *************************************/
@@ -71,9 +116,12 @@ export default function ViewCompany() {
             <div className="container-fluid flex justify-center p-2   rounded-lg   bg-slate-200">
 
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-blue-500"
-                    ><NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 "><TiArrowBack size={30}/></NavLink>
+                <div className="inline-block min-w-full w-full py-2 sm:px-6 lg:px-8">
+                    <div className="overflow-x-auto w-xl  text-blue-500">
+                        <button className="absolute top-2 mt-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                        <NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 ">
+                        <button type="button" className="text-white absolute top-3 mt-2 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                        </NavLink>
                         <h1 className="flex justify-center text-3xl  font-semibold w-full mb-8">All Company Lists</h1>
                           {/* search */}
                      <form className="flex justify-end">
@@ -85,7 +133,7 @@ export default function ViewCompany() {
                     </div>
                    
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-                        <table className="min-w-full text-center text-sm font-light ">
+                        <table className="min-w-full text-center text-sm font-light table">
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
 
@@ -105,10 +153,10 @@ export default function ViewCompany() {
                                         Files
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Edit
+                                        Update
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                        Delete
+                                       Status
                                     </th>
                                 </tr>
                             </thead>
@@ -148,7 +196,7 @@ export default function ViewCompany() {
                                             </td>
                                         
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDeleteCompany(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                                <button type="button" onClick={() => onDeleteCompany(data.id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Active</button>
                                             </td>
                                         </tr>
                                     );
