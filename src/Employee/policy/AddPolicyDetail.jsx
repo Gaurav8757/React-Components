@@ -297,7 +297,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
                                             {/* FIELD - 8 */}
                                             <div className="flex flex-col my-5 p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">GST% :</label>
+                                                <label className="text-base mx-1">GST:</label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
