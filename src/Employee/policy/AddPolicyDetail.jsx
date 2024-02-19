@@ -59,7 +59,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
       const calculateFinalAmount = () => {
         const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
         const taxesValue = parseFloat(allDetails.taxes) || 0;
-        const finalAmountValue = netPremiumValue + (netPremiumValue + taxesValue);
+        const finalAmountValue = netPremiumValue +  taxesValue;
     
         setAllDetails(prevDetails => ({
           ...prevDetails,
