@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
+// import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function UpdateAllBranch({ updateBranch, onUpdate }) {
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +35,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         fuel: '',
         gvw: '',
         cc: '',
-        productCode: '',
+        // productCode: '',
     });
 
     // OPEN MODAL
@@ -90,10 +90,10 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         const today = new Date();
         const birthdateDate = new Date(allDetails.registrationDate);
     
-        if (isNaN(birthdateDate.getTime())) {
-          console.error('Invalid date format for registrationDate');
-          return;
-        }
+        // if (isNaN(birthdateDate.getTime())) {
+        //   console.error('Invalid date format for registrationDate');
+        //   return;
+        // }
     
         let ageYears = today.getFullYear() - birthdateDate.getFullYear();
         let ageMonths = today.getMonth() - birthdateDate.getMonth();
@@ -486,6 +486,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     <option value="Diesel">Diesel</option>
                                                     <option value="Petrol">Petrol</option>
                                                     <option value="Electric">Electric</option>
+                                                    <option value="Electric">CNG</option>
                                                     {/* Add more fuel options */}
                                                 </select>
                                             </div>
@@ -516,23 +517,7 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                             </div>
 
                                             {/* FIELD - 26 */}
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-                                                <label className="text-base mx-1">Product Code:</label>
-                                                <select
-                                                    id="productCode"
-                                                    className="input-style rounded-lg mt-1"
-                                                    value={allDetails.productCode}
-                                                    onChange={handleInputChange} name="productCode">
-
-                                                    <option className="w-1" value="">-Select Product Code ---</option>
-                                                    {allDetails.policyType &&
-                                                        POLICY_TYPES[updateBranch.policyType].transactions.map((transaction) => (
-                                                            <option key={transaction} value={transaction}>
-                                                                {transaction}
-                                                            </option>
-                                                        ))}
-                                                </select>
-                                            </div>
+                                           
                                             {/* FIELD - 27 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
                                             {/* FIELD - 28 */}

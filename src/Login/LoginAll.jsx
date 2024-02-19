@@ -276,7 +276,7 @@ function LoginAll() {
                                 <div className="flex items-start">
                                     <NavLink
                                         to={forgotPasswordLink()}
-                                        className="ml-auto text-base font-semibold text-red-200 hover:underline dark:text-red-500"
+                                        className="ml-auto text-base font-semibold text-red-600 hover:underline "
                                         target="_blank"
                                     >
                                         Forgot Password?

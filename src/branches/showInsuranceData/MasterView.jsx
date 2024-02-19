@@ -144,10 +144,11 @@ const handleExportClick = () => {
                   <th scope="col" className="px-5 py-4">Branch</th>
                   <th scope="col" className="px-5 py-4">Advisor</th>
                   <th scope="col" className="px-5 py-4">Sub Advisor</th>
+                  <th scope="col" className="px-5 py-4">Policy Type</th>
+                  <th scope="col" className="px-5 py-4">Product Code</th>
                   <th scope="col" className="px-5 py-4">Policy No</th>
                   <th scope="col" className="px-5 py-4">Engine No.</th>
                   <th scope="col" className="px-5 py-4">Chassis No</th>
-                  <th scope="col" className="px-5 py-4">Policy Type</th>
                   <th scope="col" className="px-5 py-4">OD Premium</th>
                   <th scope="col" className="px-5 py-4">Liability Premium</th>
                   <th scope="col" className="px-5 py-4">Net Premium</th>
@@ -169,7 +170,7 @@ const handleExportClick = () => {
                   <th scope="col" className="px-5 py-4">Fuel Type</th>
                   <th scope="col" className="px-5 py-4">GVW</th>
                   <th scope="col" className="px-5 py-4">C.C.</th>
-                  <th scope="col" className="px-5 py-4">Product Code</th>
+                  
                   <th scope="col" className="px-5 py-4">Update</th>
                   {/* <th scope="col" className="px-5 py-4">Delete</th> */}
                 </tr>
@@ -191,10 +192,11 @@ const handleExportClick = () => {
                     <td className="whitespace-nowrap px-4 py-4">{data.branch}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.subAdvisor}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{data.policyType}</td>
+                    <td className="whitespace-nowrap px-4 py-4">{data.productCode}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.policyNo}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.engNo}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.chsNo}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{data.policyType}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.odPremium}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.liabilityPremium}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.netPremium}</td>
@@ -216,7 +218,7 @@ const handleExportClick = () => {
                     <td className="whitespace-nowrap px-4 py-4">{data.fuel}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.gvw}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.cc}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{data.productCode}</td>
+                    
                     <td className="whitespace-nowrap px-4 py-4">
                       <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy}/>
                     </td>

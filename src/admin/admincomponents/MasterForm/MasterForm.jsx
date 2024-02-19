@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { POLICY_TYPES } from "./master";
-
 function MasterForm() {
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
@@ -638,11 +637,12 @@ function MasterForm() {
                   value={productCode}
                   onChange={(e) => setProductCode(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Product Code ---</option>
+                  <option className="w-1" value="" >--- Select Product Code ---</option>
                   {policyType &&
                     POLICY_TYPES[policyType].transactions.map((transaction) => (
+                      console.log(transaction),
                       <option key={transaction} value={transaction}>
-                        {transaction}
+                        {console.log(transaction)}
                       </option>
                     ))}
 

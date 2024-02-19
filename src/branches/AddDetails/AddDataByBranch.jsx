@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -14,16 +15,18 @@ function AddDataByBranch() {
     const [advisorName, setAdvisorName] = useState('');
     const [subAdvisor, setSubAdvisor] = useState('');
     const [errors, setErrors] = useState({});
+    const [policyType, setPolicyType] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [productCode, setProductCode] = useState("");
     const name = sessionStorage.getItem("name");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
- // Prevent multiple submissions
- if (formSubmitted) {
-    return;
-}
+        // Prevent multiple submissions
+        if (formSubmitted) {
+            return;
+        }
 
         setErrors({}); // Clear previous errors
 
@@ -52,6 +55,7 @@ function AddDataByBranch() {
         if (!subAdvisor) {
             errors.subAdvisor = "required*";
         }
+
         if (!vehRegNo) {
             errors.vehRegNo = "required*";
         }
@@ -72,6 +76,8 @@ function AddDataByBranch() {
                 contactNo,
                 vehRegNo,
                 hypo,
+                productCode,
+                policyType,
                 advisorName,
                 subAdvisor,
                 branch: name,
@@ -187,6 +193,39 @@ function AddDataByBranch() {
                                 <option value="ROLL OVER">ROLL OVER</option>
                             </select>
                         </div>
+
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                            <label className="text-base mx-1">Policy Type:</label>
+                            <select
+                                className="input-style rounded-lg"
+                                value={policyType}
+                                name="policyType"
+                                onChange={(e) => setPolicyType(e.target.value)}
+                            ><option className="w-1" value="" >--- Select Policy Type ---</option>
+                                {/* POLICY TYPES */}
+                                {Object.keys(POLICY_TYPES).map(category => (
+                                    <option key={category} value={category}>{category}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
+                            <label className="text-base mx-1">Product Code:</label>
+                            <select
+                                id="productCode"
+                                className="input-style rounded-lg mt-1"
+                                value={productCode}
+                                onChange={(e) => setProductCode(e.target.value)} name="productCode">
+
+                                <option className="w-1" value="">-Select Product Code ---</option>
+                                {policyType &&
+                                    POLICY_TYPES[policyType].transactions.map((transaction) => (
+                                        <option key={transaction} value={transaction}>
+                                            {transaction}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+
                         {/* FIELD - 7 */}
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Insured Name<span className="text-red-600 font-bold">*</span></label>
@@ -282,6 +321,7 @@ function AddDataByBranch() {
                             />
                             {errors.subAdvisor && <span className="text-red-600 text-sm">{errors.subAdvisor}</span>}
                         </div>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3"></div>
                     </div>
 
 
@@ -295,7 +335,7 @@ function AddDataByBranch() {
                             {formSubmitted ? "Submitted" : "Submit"}
                         </button>
 
-                        
+
                     </div>
                 </div>
             </div>

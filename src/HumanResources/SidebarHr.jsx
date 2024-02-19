@@ -107,7 +107,7 @@ function DashboardHr() {
       const name = sessionStorage.getItem("name");
       return (
         <>
-          <nav className="fixed top-0 z-50 w-full bg-black">
+          <nav className="fixed top-0 z-50 w-full bg-cyan-700">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center justify-start rtl:justify-end">
@@ -119,7 +119,7 @@ function DashboardHr() {
                   </button>
                   <NavLink to="/hr/home" className="flex ms-2 md:me-24">
                     <img src="/logo.png " className="h-10 me-1 rounded-full" alt="Logo" />
-                    <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap dark:text-white">ELEEDOM IMF</span>
+                    <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
                   </NavLink>
                 </div>
                 <div>
@@ -173,10 +173,10 @@ function DashboardHr() {
           {/* aside bar */}
           <aside
             id="logo-sidebar"
-            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-gradient-to-r from-black to-slate-500 border-r   sm:translate-x-0 `}
+            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r   sm:translate-x-0 `}
             aria-label="Sidebar"
           >
-            <div className="h-full px-3 pb-4 overflow-y-auto bg-gradient-to-r from-black to-slate-500">
+            <div className="h-full px-3 pb-4 overflow-y-auto bg-cyan-900">
               <ul className="space-y-2 font-medium">
                 {dashboardRouted.map((route, idx) => (
                   <li key={idx}>
@@ -186,7 +186,7 @@ function DashboardHr() {
                         <NavLink
                           to={route.path}
                           onClick={() => toggleSubmenu(idx)}
-                          className={`flex items-center p-2  rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
+                          className={`flex items-center p-2  rounded-lg dark:text-white text-white hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                         >
                           <span className="">{route.logo}</span>
                           <span className="ms-6">{route.title}</span>
@@ -201,7 +201,7 @@ function DashboardHr() {
                             <li key={subIdx}>
                               <NavLink
                                 to={subRoute.path}
-                                className="flex  p-2 text-white text-start mx-6 hover:bg-gray-100 hover:rounded-xl dark:hover:bg-gray-700"
+                                className="flex  p-2 text-white text-start mx-6  hover:rounded-xl hover:bg-gray-500"
                               >
                                 {<IoMdArrowDropright size={30}/>}{subRoute.title}
                               </NavLink>
@@ -211,7 +211,7 @@ function DashboardHr() {
                       </div>
                     ) : (
                       // Render regular route without sub-routes
-                      <NavLink to={route.path} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                      <NavLink to={route.path} className="flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group">
                         <span className="">{route.logo}</span>
                         <span className="ms-6">{route.title}</span>
                         
