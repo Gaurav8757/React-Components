@@ -155,7 +155,7 @@ const Sidebar = () => {
       ]
     },
     {
-      title: "Policy Type",
+      title: "Master",
       path: "#",
       logo: <MdOutlinePolicy size={24}/>,
       subRoutes: [
@@ -164,11 +164,11 @@ const Sidebar = () => {
           path: "/dashboard/policy/type",
           dash:""
         },
-        // {
-        //   title: "View Staff Type",
-        //   path: "/dashboard/policy/type/lists",
-        //   dash:""
-        // },
+        {
+          title: "Add Product Type",
+          path: "/dashboard/policy/lists",
+          dash:""
+        },
       ]
     },
 

@@ -124,6 +124,7 @@ import EmpPassUpdate from "./Employee/EmpPassUpdate.jsx";
 import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
 import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
 import AddPolicyType from "./admin/admincomponents/PolicyType/AddPolicyType.jsx";
+import AddProductType from "./admin/admincomponents/PolicyType/AddProductType.jsx";
 
 
 
@@ -226,6 +227,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/staff/type" element={<StaffType />} />
           <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
           <Route path="/dashboard/policy/type" element={<AddPolicyType />} />
+          <Route path="/dashboard/policy/lists" element={<AddProductType />} />
         </Route>
       </Route>
 
