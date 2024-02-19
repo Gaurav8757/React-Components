@@ -18,6 +18,7 @@ function AddDataByBranch() {
     const [policyType, setPolicyType] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [productCode, setProductCode] = useState("");
+   
     const name = sessionStorage.getItem("name");
 
     const handleSubmit = async (e) => {

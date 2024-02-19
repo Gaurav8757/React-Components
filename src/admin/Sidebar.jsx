@@ -6,6 +6,7 @@ import Logout from "./logout/Logout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 // import { IoPeopleOutline } from "react-icons/io5";
+import { MdOutlinePolicy } from "react-icons/md";
 import {  TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
 // import { FcMoneyTransfer} from "react-icons/fc";
@@ -154,6 +155,25 @@ const Sidebar = () => {
       ]
     },
     {
+      title: "Policy Type",
+      path: "#",
+      logo: <MdOutlinePolicy size={24}/>,
+      subRoutes: [
+        {
+          title: "Add Policy Type",
+          path: "/dashboard/policy/type",
+          dash:""
+        },
+        // {
+        //   title: "View Staff Type",
+        //   path: "/dashboard/policy/type/lists",
+        //   dash:""
+        // },
+      ]
+    },
+
+
+    {
       title: "Report",
       path: "#",
       logo: <TbReport size={24}/>,
@@ -193,7 +213,7 @@ const Sidebar = () => {
           path: "/dashboard/viewfilledform",
           dash:""
         }
-        // Add more sub-routes as needed
+        
       ]
     }
   ];
@@ -306,7 +326,7 @@ const loginemail = sessionStorage.getItem("email");
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex p-2 text-white text-start mx-3 hover:bg-gray-500 hover:rounded-xl dark:hover:bg-gray-700"
+                            className="flex p-2 text-white text-start mx-3 hover:bg-gray-500 hover:rounded-xl "
                           >
                            {<IoMdArrowDropright size={30}/>} {subRoute.title}
                           </NavLink>

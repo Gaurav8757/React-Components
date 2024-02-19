@@ -123,6 +123,7 @@ import OpspassUpdate from "./opsAdmin/OpspassUpdate.jsx";
 import EmpPassUpdate from "./Employee/EmpPassUpdate.jsx";
 import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
 import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
+import AddPolicyType from "./admin/admincomponents/PolicyType/AddPolicyType.jsx";
 
 
 
@@ -224,6 +225,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/team/operation" element={<TeamLead />} />
           <Route path="/dashboard/staff/type" element={<StaffType />} />
           <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
+          <Route path="/dashboard/policy/type" element={<AddPolicyType />} />
         </Route>
       </Route>
 

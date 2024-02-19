@@ -112,7 +112,7 @@ const BranchSidebar = () => {
       {/* aside bar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r  sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700`}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r  sm:translate-x-0  `}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-cyan-900">
@@ -125,7 +125,7 @@ const BranchSidebar = () => {
                     <NavLink
                       to={route.path}
                       onClick={() => toggleSubmenu(idx)}
-                      className={`flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
+                      className={`flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-6">{route.title}</span>

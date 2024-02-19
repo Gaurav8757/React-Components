@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 function AddBranch() {
   const [branch, setBranch] = useState("");
   const [code, setCode] = useState("");
@@ -15,8 +16,8 @@ function AddBranch() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
-
-
+  const [showPassword, setShowPassword] = useState(false);
+ console.log(password);
 
   const handleSubmit = async(e) => {
       e.preventDefault();
@@ -62,8 +63,7 @@ setErrors({}); // Clear previous errors
             return;
         }
 
-
-
+       
       try {
         // Make sure to replace this URL with your actual API endpoint
         const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addbranch", {
@@ -101,10 +101,14 @@ setErrors({}); // Clear previous errors
        }
       } catch (error) {
         console.error("Error during branch registration:", error.response);
-        
+        toast.error(`${error.response}`);
       }
     };
-  
+    const handleTogglePassword = () => {
+      setShowPassword(!showPassword);
+      setTimeout(() => setShowPassword(false), 10000);
+  };
+
   
 
 
@@ -171,15 +175,30 @@ setErrors({}); // Clear previous errors
               />
               {errors.code && <span className="text-red-600 text-sm ">{errors.code}</span>}
             </div>
+
+
+
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
               <label className="text-base mx-1">New Password:</label>
+              <div className="relative">
               <input
-                className="input-style rounded-lg"
-                type="password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                type={showPassword ? 'text' : 'password'}
                 value={password.toUpperCase()}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="**************"
               />
+              <button
+                                        type="button"
+                                        onClick={handleTogglePassword}
+                                        className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
+                                    >
+                                        {showPassword ? (
+                                            <IoEyeOutline size={25}/>
+                                        ) : (
+                                            <IoEyeOffOutline size={25}/>
+                                        )}
+                                    </button></div>
               {errors.password && <span className="text-red-600 text-sm ">{errors.password}</span>}
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
