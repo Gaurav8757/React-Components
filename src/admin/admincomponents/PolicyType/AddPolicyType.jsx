@@ -26,7 +26,7 @@ function AddPolicyType() {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [formSubmitted]);
 
 
     const handleSubmit = async() => {
@@ -43,6 +43,7 @@ function AddPolicyType() {
             });
             // Handle success (e.g., show a success message)
             toast.success('Policy Type Added Successfully!');
+            setPolicyType("");
           } catch (error) {
             // Handle error (e.g., show an error message)
             console.error(
@@ -76,7 +77,7 @@ function AddPolicyType() {
                             className="input-style rounded-lg"
                             type="text"
                             name="policyType"
-                            value={policyType.toUpperCase()}
+                            value={policyType}
                             onChange={(e) => setPolicyType(e.target.value)}
                             placeholder="Add Policy Type"
                         />
@@ -97,17 +98,17 @@ function AddPolicyType() {
                 <div className="inline-block my-6 min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                     <h1 className="font-semibold text-3xl mb-3">Policy Type Lists</h1>
                     <table className="min-w-full text-center text-base font-light table">
-                        <thead className="border-b font-medium dark:border-neutral-500">
+                        <thead className="border-b font-medium dark:border-neutral-200 ">
                             <tr className="text-blue-700">
-                                <th scope="col" className="px-5 py-4">
+                                {/* <th scope="col" className="px-5 py-4">
                                     Sr No.
-                                </th>
-                                <th scope="col" className="px-5 py-4">
+                                </th> */}
+                                <th scope="col" className=" px-5 py-4">
                                     Policy Type
                                 </th>
-                                <th scope="col" className="px-5 py-4">
+                                {/* <th scope="col" className="px-5 py-4">
                                     Update
-                                </th>
+                                </th> */}
                                 <th scope="col" className="px-5 py-4">
                                     Delete
                                 </th>
@@ -123,15 +124,16 @@ function AddPolicyType() {
                                         <td className="whitespace-nowrap px-4 py-4">
                                             {data.p_type}
                                         </td>
-                                        <td className="whitespace-nowrap px-4 py-4">
-                                            {/* Your Update button */}
-                                        </td>
+                                        {/* <td className="whitespace-nowrap px-4 py-4">
+                                            Your Update button
+                                        </td> */}
                                         <td className="whitespace-nowrap px-4 py-4">
                                             <button 
                                                 type="button" 
+                                                // _ID MADE TO DELETE
                                                 onClick={() => deletePolicyTypes(data.id)} 
                                                 className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">
-                                                Active
+                                                Delete
                                             </button>
                                         </td>
                                     </tr>
