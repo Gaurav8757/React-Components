@@ -642,7 +642,7 @@ function MasterForm() {
                     POLICY_TYPES[policyType].transactions.map((transaction) => (
                       console.log(transaction),
                       <option key={transaction} value={transaction}>
-                        {console.log(transaction)}
+                        {transaction}
                       </option>
                     ))}
 

@@ -125,6 +125,7 @@ import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
 import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
 import AddPolicyType from "./admin/admincomponents/PolicyType/AddPolicyType.jsx";
 import AddProductType from "./admin/admincomponents/PolicyType/AddProductType.jsx";
+import ProfileUpdate from "./employee/updateProfile/ProfileUpdate.jsx";
 
 
 
@@ -261,6 +262,7 @@ const router = createBrowserRouter(
       <Route element={<ProtectedEmp />}>
         <Route path="/employee/home" element={<LayoutEmp />}>
           <Route path="" element={<DashboardEmp />} />
+          <Route path="/employee/home/profile" element={<ProfileUpdate />} />
           <Route path="/employee/home/add/attendance" element={<AddAttendance />} />
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />

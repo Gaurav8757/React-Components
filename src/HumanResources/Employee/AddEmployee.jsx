@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 function AddEmployee() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
@@ -19,7 +19,7 @@ function AddEmployee() {
   const [accNumber, setAccNumber] = useState("");
   const [ifsc, setIfsce] = useState("");
   const [emppassword, setEmpPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const [bankName, setBankName] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
   const [branchList, setBranchList] = useState([]);
@@ -29,7 +29,7 @@ function AddEmployee() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [pan, setPan] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  // const [isChecked, setIsChecked] = useState(false);
 const emp = empid.toUpperCase();
 console.log(emp);
   useEffect(() => {
@@ -47,14 +47,14 @@ console.log(emp);
     });
   }, []);
 
-  const handleCheckboxChange = () => {
-    if (!isChecked) {
-      setAddress(permanentaddress);
-    } else {
-      setAddress("");
-    }
-    setIsChecked(!isChecked);
-  };
+  // const handleCheckboxChange = () => {
+  //   if (!isChecked) {
+  //     setAddress(permanentaddress);
+  //   } else {
+  //     setAddress("");
+  //   }
+  //   setIsChecked(!isChecked);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -203,6 +203,13 @@ console.log(emp);
     }
   };
 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+
+};
+
+
+
   return (
     <section className="container-fluid relative p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2   rounded-lg   bg-white">
@@ -223,7 +230,7 @@ console.log(emp);
                 {errors.empname && <span className="text-red-600 text-sm ">{errors.empname}</span>}
               </div>
 
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">DOB:</label>
                 <input
                   className="input-style rounded-lg"
@@ -234,7 +241,45 @@ console.log(emp);
                   placeholder="Enter Branch Code"
                 />
                 {errors.calendar && <span className="text-red-600 text-sm ">{errors.calendar}</span>}
+              </div> */}
+ <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                <label className="text-base mx-1">Email ID:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="email"
+                  name="empemail"
+                  value={email.toUpperCase()}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="abc@gmail.com"
+                />
+                {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}
               </div>
+
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                <label className="text-base mx-1">Employee ID:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="empid"
+                  value={emp}
+                  onChange={(e) => setEmpid(e.target.value)}
+                  placeholder="EIPL-000"
+                />
+                {errors.empid && <span className="text-red-600 text-sm ">{errors.empid}</span>}
+              </div>
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                <label className="text-base mx-1">Joining Date:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="date"
+                  value={joining}
+                  name="empjoiningdate"
+                  onChange={(e) => setJoining(e.target.value)}
+                  placeholder=""
+                />
+                {errors.joining && <span className="text-red-600 text-sm ">{errors.joining}</span>}
+              </div>
+
               <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                 <label className="text-base mx-1">Designation:</label>
                 <select
@@ -243,7 +288,7 @@ console.log(emp);
                   value={staffType}
                   name="staffType"
                   onChange={(e) => setStaffType(e.target.value)}>
-                  <option value="">----- Select -----</option>
+                  <option value="">----------------------------- Select Designation -----------------------------------------</option>
                   {
                     type.map((data) => (
                       <option key={data._id} value={data.s_type}>{data.s_type}</option>
@@ -252,7 +297,7 @@ console.log(emp);
                 </select>
                 {errors.staffType && <span className="text-red-600 text-sm ">{errors.staffType}</span>}
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Gender:</label>
                 <select
                   className="input-style rounded-lg"
@@ -268,35 +313,13 @@ console.log(emp);
                   <option value="OTHERS">Others</option>
                 </select>
                 {errors.gender && <span className="text-red-600 text-sm ">{errors.gender}</span>}
-              </div>
+              </div> */}
 
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                <label className="text-base mx-1">Email ID:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="email"
-                  name="empemail"
-                  value={email.toUpperCase()}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="abc@gmail.com"
-                />
-                {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}
-              </div>
+             
              
 
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                <label className="text-base mx-1">Employee Id:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="empid"
-                  value={emp}
-                  onChange={(e) => setEmpid(e.target.value)}
-                  placeholder="EIPL-000"
-                />
-                {errors.empid && <span className="text-red-600 text-sm ">{errors.empid}</span>}
-              </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+             
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Mobile No:</label>
                 <input
                   className="input-style rounded-lg"
@@ -308,9 +331,9 @@ console.log(emp);
                   placeholder="+91"
                 />
                 {errors.mobile && <span className="text-red-600 text-sm ">{errors.mobile}</span>}
-              </div>
+              </div> */}
 
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Aadhar No.:</label>
                 <input
                   className="input-style rounded-lg"
@@ -322,8 +345,8 @@ console.log(emp);
                   max="12"
                 />
                 {errors.aadharno && <span className="text-red-600 text-sm ">{errors.aadharno}</span>}
-              </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              </div> */}
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Upload Aadhar Card:</label>
                 <input
                   className="input-style border w-full h-10 items-center rounded-lg"
@@ -334,8 +357,8 @@ console.log(emp);
                   autoComplete="off"
                 />
                 {errors.aadhar && <span className="text-red-600 text-sm ">{errors.aadhar}</span>}
-              </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              </div> */}
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Account No.:</label>
                 <input
                   className="input-style rounded-lg"
@@ -358,8 +381,8 @@ console.log(emp);
                   placeholder="Enter IFSC Code"
                 />
                 {errors.ifsc && <span className="text-red-600 text-sm ">{errors.ifsc}</span>}
-              </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+              </div> */}
+              {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Bank Name:</label>
                 <input
                   className="input-style rounded-lg"
@@ -385,7 +408,7 @@ console.log(emp);
                   min="10"
                 />
                 {errors.pan && <span className="text-red-600 text-sm ">{errors.pan}</span>}
-              </div>
+              </div> */}
 
              
               {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
@@ -402,18 +425,8 @@ console.log(emp);
               </div> */}
               
 
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                <label className="text-base mx-1">Joining Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  value={joining}
-                  name="empjoiningdate"
-                  onChange={(e) => setJoining(e.target.value)}
-                  placeholder=""
-                />
-                {errors.joining && <span className="text-red-600 text-sm ">{errors.joining}</span>}
-              </div>
+              
+
               <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                 <label className="text-base mx-1">  Branch:</label>
                 <select
@@ -424,7 +437,7 @@ console.log(emp);
                   onChange={(e) => setBranch(e.target.value)}
                   placeholder="Enter Branch Name"
                 >
-                  <option value="0">----- Select Branch -----</option>
+                  <option value="0">-------------------------------- Select Branch -----------------------------------------</option>
                   {branchList.map((branchItem) => (
                     <option key={branchItem._id} value={branchItem.branchname}>
                       {branchItem.branchname}
@@ -433,7 +446,8 @@ console.log(emp);
                 </select>
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>
-              <div className="flex flex-col mt-5 p-2 text-start w-full lg:w-1/3">
+
+              {/* <div className="flex flex-col mt-5 p-2 text-start w-full lg:w-1/3">
                 <label className="text-base mx-1">Permanent Address:</label>
                 <textarea
                   className="input-style rounded-lg"
@@ -453,7 +467,7 @@ console.log(emp);
                  id="green-checkbox"
                   onChange={handleCheckboxChange}/>
                     </label>
-                  {/* </input> */}
+                  
 
                 <label className="text-base mx-1">Current Address:</label>
                 <textarea
@@ -465,18 +479,32 @@ console.log(emp);
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="Enter Your Address"
                 />
-              </div>
-              <div className="flex flex-col mt-5 p-2 text-start w-full lg:w-1/3">
+              </div> */}
+
+
+              <div className="flex flex-col mt-0 p-2 text-start w-full lg:w-1/3">
               
                 <label className="text-base mx-1">Create Password:</label>
+                <div className="relative">
                 <input
-                  className="input-style rounded-lg"
-                  type="password"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                  type={showPassword ? 'text' : 'password'}
                   value={emppassword.toUpperCase()}
                   name="emppassword"
                   onChange={(e) => setEmpPassword(e.target.value)}
                   placeholder="ENTER NEW PASSWORD"
                 />
+                <button
+                                        type="button"
+                                        onClick={handleTogglePassword}
+                                        className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
+                                    >
+                                        {showPassword ? (
+                                            <IoEyeOutline size={25}/>
+                                        ) : (
+                                            <IoEyeOffOutline size={25}/>
+                                        )}
+                                    </button></div>
                 {errors.emppassword && <span className="text-red-600 text-sm ">{errors.emppassword}</span>}
               </div>
                 

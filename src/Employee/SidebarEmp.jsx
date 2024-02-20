@@ -5,6 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import {  FcPlanner } from "react-icons/fc";
 import { MdOutlinePolicy } from "react-icons/md";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
+import { RxAvatar } from "react-icons/rx";
 
 function DashboardEmp() {
     const dashboardRouted = [
@@ -12,6 +13,11 @@ function DashboardEmp() {
           title: "Home",
           path: "/employee/home",
           logo: <RxDashboard size={25} />
+        },
+        {
+          title: "Update Profile",
+          path: "/employee/home/profile",
+          logo: <RxAvatar size={25} />
         },
         {
           title: "Attendance",
