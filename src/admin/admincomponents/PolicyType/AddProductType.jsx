@@ -39,6 +39,19 @@ function AddProductType() {
       setFormSubmitted(false);
     }
   }
+  // delete codes
+  const deleteProductTypes = async (_id) => {
+    try {
+        await axios.delete(`http://localhost:7000/api/policy/products/${_id}/delete`);
+        toast.warn("Policy Type Deleted.....!", { theme: "dark", position: "top-right" });
+        setData((prevData) => prevData.filter((data) => data._id !== _id));
+    } catch (error) {
+        console.error('Error Deleting Policy Type', error);
+    } 
+};
+
+
+
 
 
   return (
@@ -119,7 +132,7 @@ function AddProductType() {
                     </thead>
                     <tbody>
                         {data.map((data) => {
-                            console.log(data);
+                            
                             return (
                                 <tr
                                     className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -146,7 +159,7 @@ function AddProductType() {
 
                                     <td className="whitespace-nowrap px-3 py-4">
                                         <button type="button" 
-                                        // onClick={() => deleteStaff(data._id)}
+                                        onClick={() => deleteProductTypes(data._id)}
                                          className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                     </td>
                                 </tr>
