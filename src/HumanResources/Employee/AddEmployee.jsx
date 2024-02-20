@@ -240,7 +240,7 @@ console.log(emp);
                 <select
                   className="input-style rounded-lg"
                   type="text"
-                  value={staffType}
+                  value={staffType.toUpperCase()}
                   name="staffType"
                   onChange={(e) => setStaffType(e.target.value)}>
                   <option value="">----- Select -----</option>
@@ -303,7 +303,7 @@ console.log(emp);
                   type="number"
                   min="1"
                   name="empmobile"
-                  value={mobile.toUpperCase()}
+                  value={mobile}
                   onChange={(e) => setMobile(e.target.value)}
                   placeholder="+91"
                 />
@@ -472,7 +472,7 @@ console.log(emp);
                 <input
                   className="input-style rounded-lg"
                   type="password"
-                  value={emppassword}
+                  value={emppassword.toUpperCase()}
                   name="emppassword"
                   onChange={(e) => setEmpPassword(e.target.value)}
                   placeholder="ENTER NEW PASSWORD"

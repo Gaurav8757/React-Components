@@ -160,7 +160,7 @@ function DashboardHr() {
                     </div>
                   </div>
 
-                  <span className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                  <span className="text-sm font-medium " role="none">
                         <LogoutHr />
                         </span>
 
