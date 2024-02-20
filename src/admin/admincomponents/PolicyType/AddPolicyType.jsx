@@ -78,7 +78,7 @@ function AddPolicyType() {
                             type="text"
                             name="policyType"
                             value={policyType}
-                            onChange={(e) => setPolicyType(e.target.value)}
+                            onChange={(e) => setPolicyType(e.target.value.toUpperCase())}
                             placeholder="Add Policy Type"
                         />
                        

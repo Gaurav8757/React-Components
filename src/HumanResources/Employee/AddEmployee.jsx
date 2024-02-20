@@ -223,8 +223,8 @@ console.log(emp);
                   className="input-style rounded-lg"
                   type="text"
                   name="empname"
-                  value={empname.toUpperCase()}
-                  onChange={(e) => setEmpname(e.target.value)}
+                  value={empname}
+                  onChange={(e) => setEmpname(e.target.value.toUpperCase())}
                   placeholder="Enter Name"
                 />
                 {errors.empname && <span className="text-red-600 text-sm ">{errors.empname}</span>}
@@ -248,8 +248,8 @@ console.log(emp);
                   className="input-style rounded-lg"
                   type="email"
                   name="empemail"
-                  value={email.toUpperCase()}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value.toUpperCase())}
                   placeholder="abc@gmail.com"
                 />
                 {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}
@@ -433,8 +433,8 @@ console.log(emp);
                   className="input-style rounded-lg"
                   type="text"
                   name="empbranch"
-                  value={branch.toUpperCase()}
-                  onChange={(e) => setBranch(e.target.value)}
+                  value={branch}
+                  onChange={(e) => setBranch(e.target.value.toUpperCase())}
                   placeholder="Enter Branch Name"
                 >
                   <option value="0">-------------------------------- Select Branch -----------------------------------------</option>
@@ -489,9 +489,9 @@ console.log(emp);
                 <input
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
                   type={showPassword ? 'text' : 'password'}
-                  value={emppassword.toUpperCase()}
+                  value={emppassword}
                   name="emppassword"
-                  onChange={(e) => setEmpPassword(e.target.value)}
+                  onChange={(e) => setEmpPassword(e.target.value.toUpperCase())}
                   placeholder="ENTER NEW PASSWORD"
                 />
                 <button

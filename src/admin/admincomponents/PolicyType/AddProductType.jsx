@@ -19,7 +19,7 @@ function AddProductType() {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, []);
+  }, [data]);
 
   const handleSubmit = async () => {
     setFormSubmitted(true);
