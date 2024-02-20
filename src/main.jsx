@@ -125,7 +125,7 @@ import HrForgetAdmin from "./HumanResources/HrForgetAdmin.jsx";
 import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
 import AddPolicyType from "./admin/admincomponents/PolicyType/AddPolicyType.jsx";
 import AddProductType from "./admin/admincomponents/PolicyType/AddProductType.jsx";
-import ProfileUpdate from "./employee/updateProfile/ProfileUpdate.jsx";
+import ProfileUpdate from "./Employee/updateProfile/ProfileUpdate.jsx";
 
 
 
