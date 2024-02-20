@@ -240,7 +240,7 @@ console.log(emp);
                 <select
                   className="input-style rounded-lg"
                   type="text"
-                  value={staffType.toUpperCase()}
+                  value={staffType}
                   name="staffType"
                   onChange={(e) => setStaffType(e.target.value)}>
                   <option value="">----- Select -----</option>
