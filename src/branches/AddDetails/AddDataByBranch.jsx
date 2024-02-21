@@ -20,7 +20,7 @@ function AddDataByBranch() {
     const [data, setData] = useState([]);
     const [products, setProducts] = useState([]);
     const name = sessionStorage.getItem("name");
-    console.log(data.map((product) => product.products));
+    
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
             .then((resp) => {
@@ -257,8 +257,8 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 type="text"
                                 name="insuredName"
-                                value={insuredName.toUpperCase()}
-                                onChange={(e) => setInsuredName(e.target.value)}
+                                value={insuredName}
+                                onChange={(e) => setInsuredName(e.target.value.toUpperCase())}
                                 placeholder="Enter Insured Name"
                             />
                             {errors.insuredName && <span className="text-red-600 text-sm">{errors.insuredName}</span>}
@@ -324,9 +324,9 @@ function AddDataByBranch() {
                             <input
                                 className="input-style rounded-lg"
                                 type="text"
-                                value={advisorName.toUpperCase()}
+                                value={advisorName}
                                 name="advisorName"
-                                onChange={(e) => setAdvisorName(e.target.value)}
+                                onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
                                 placeholder="Enter Advisor Name"
                             />
                             {errors.advisorName && <span className="text-red-600 text-sm">{errors.advisorName}</span>}
@@ -339,8 +339,8 @@ function AddDataByBranch() {
                                 className="input-style rounded-lg"
                                 type="text"
                                 name="subAdvisor"
-                                value={subAdvisor.toUpperCase()}
-                                onChange={(e) => setSubAdvisor(e.target.value)}
+                                value={subAdvisor}
+                                onChange={(e) => setSubAdvisor(e.target.value.toUpperCase())}
                                 placeholder="Enter Sub Advisor"
                             />
                             {errors.subAdvisor && <span className="text-red-600 text-sm">{errors.subAdvisor}</span>}

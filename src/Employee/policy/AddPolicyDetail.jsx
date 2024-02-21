@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function AddPolicyDetail({ insurance, onUpdates }) {
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -211,17 +210,16 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                             {/* FIELD - 4 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Policy Type:</label>
-                                                <select
+                                                <input
                                                     className="input-style rounded-lg"
                                                     value={allDetails.policyType}
                                                     onChange={handleInputChange}
-                                                    name="policyType">
-                                                    <option className="w-1" value="">--- Select Policy Type ---</option>
-                                                    {/* here check */}
-                                                    {Object.keys(POLICY_TYPES).map(category => (
-                                                        <option key={category} value={category}>{category}</option>
-                                                    ))}
-                                                </select>
+                                                    name="policyType"
+                                                    disabled
+                                                    >
+                                                    
+                                                   
+                                                </input>
                                             </div>
 
                                             {/* FIELD - 5 */}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { POLICY_TYPES } from "./master";
+
 function MasterForm() {
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
@@ -53,7 +53,20 @@ function MasterForm() {
   const [branchPayableAmount, setBranchPayableAmount] = useState('');
   const [companyPayout, setCompanyPayout] = useState('');
   const [profitLoss, setProfitLoss] = useState('');
+  const [data, setData] = useState([]);
+  const [products, setProducts] = useState([]);
 
+  useEffect(() => {
+    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+        .then((resp) => {
+            const PolicyType = resp.data;
+
+            setData(PolicyType);
+        })
+        .catch((error) => {
+            console.error("Error fetching policy types:", error);
+        });
+}, [data]);
   // Function to update netPremium when odPremium or liabilityPremium changes
   const updateNetPremium = () => {
     const odPremiumValue = parseFloat(odPremium) || 0;
@@ -355,12 +368,21 @@ function MasterForm() {
                   className="input-style rounded-lg"
                   value={policyType}
                   name="policyType"
-                  onChange={(e) => setPolicyType(e.target.value)}
-                ><option className="w-1" value="" disabled>--- Select Policy Type ---</option>
-                  {/* POLICY TYPES */}
-                  {Object.keys(POLICY_TYPES).map(category => (
-                    <option key={category} value={category}>{category}</option>
-                  ))}
+                  // onChange={(e) => setPolicyType(e.target.value)}
+                  onChange={(e) => {
+                    const selectedPolicyType = e.target.value;
+                    setPolicyType(selectedPolicyType);
+                    // Filter products based on selected policy type
+                    const filteredProducts = data.find(category => category.p_type === selectedPolicyType)?.products;
+                    setProducts(filteredProducts);
+                    // Reset product code when policy type changes
+                    setProductCode('');
+                }}
+                > <option value="">--- Select Policy Type ---</option>
+                {data.map(category => (
+                    <option key={category._id} value={category.p_type}>{category.p_type}</option>
+                ))}
+                 
                 </select>
               </div>
               {/* FIELD - 28 */}
@@ -638,13 +660,11 @@ function MasterForm() {
                   onChange={(e) => setProductCode(e.target.value)}
                 >
                   <option className="w-1" value="" >--- Select Product Code ---</option>
-                  {policyType &&
-                    POLICY_TYPES[policyType].transactions.map((transaction) => (
-                      console.log(transaction),
-                      <option key={transaction} value={transaction}>
-                        {transaction}
-                      </option>
-                    ))}
+                  {products.map((product) => (
+                                    <option key={product} value={product}>
+                                        {product}
+                                    </option>
+                                ))}
 
                 </select>
               </div>

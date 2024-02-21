@@ -39,6 +39,7 @@ function AddEmployee() {
     });
 
   }, []);
+  
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
