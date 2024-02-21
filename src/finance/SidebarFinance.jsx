@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import LogoutOps from "./LogoutOps.jsx";
+import LogoutFinance from "./LogoutFinance.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { IoPeopleOutline } from "react-icons/io5"; 
-const SidebarOps = () => {
+const SidebarFinance = () => {
   const dashboardRouted = [
     {
       title: "Home",
-      path: "/ops/home",
+      path: "/finance/home",
       logo: <RxDashboard size={25} />
     },
 
     {
-      title: "Policy Lists",
-      path: "/ops/home/policy",
+      title: "Finance Lists",
+      path: "/finance/home",
       logo: <IoPeopleOutline size={25} />
     },
     
@@ -48,7 +48,7 @@ const SidebarOps = () => {
                   <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
               </button>
-              <NavLink to="/ops" className="flex ms-2 md:me-24">
+              <NavLink to="/finance" className="flex ms-2 md:me-24">
                 <img src="/logo.png " className="h-10 me-1 rounded-full" alt="Logo" />
                 <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
               </NavLink>
@@ -81,7 +81,7 @@ const SidebarOps = () => {
                       <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
                     </li>
                     <li>
-                      <LogoutOps />
+                      <LogoutFinance />
                       {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </li>
 
@@ -89,7 +89,7 @@ const SidebarOps = () => {
                 </div>
               </div>
               <span>
-                      <LogoutOps />
+                      <LogoutFinance />
                       {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </span>
             </div>
@@ -157,4 +157,4 @@ const SidebarOps = () => {
   );
 };
 
-export default SidebarOps;
+export default SidebarFinance;

@@ -126,6 +126,10 @@ import HrPassUpdate from "./HumanResources/HrPassUpdate.jsx";
 import AddPolicyType from "./admin/admincomponents/PolicyType/AddPolicyType.jsx";
 import AddProductType from "./admin/admincomponents/PolicyType/AddProductType.jsx";
 import ProfileUpdate from "./Employee/updateProfile/ProfileUpdate.jsx";
+import ForgetFinance from "./finance/ForgetFinance.jsx";
+import ProtectFinance from "./finance/ProtectFinance.jsx";
+import LayoutFinance from "./finance/LayoutFinance.jsx";
+import DashboardFinance from "./finance/DashboardFinance.jsx";
 
 
 
@@ -302,6 +306,15 @@ const router = createBrowserRouter(
         <Route path="" element={<DashboardOps />} />
         <Route path="/ops/home/policy" element={<AllOpsDetails />} />
         </Route>
+      </Route>
+
+      <Route path="/finance" element={<LoginAll />} />
+      <Route path="/finance/forget" element={<ForgetFinance />} />
+      <Route element={<ProtectFinance />}>
+      <Route path="/finance/home" element={<LayoutFinance />}>
+      <Route path="" element={<DashboardFinance />} />
+
+      </Route>
       </Route>
     </>
   )

@@ -125,7 +125,7 @@ function DashboardEmp() {
           {/* aside bar */}
           <aside
             id="logo-sidebar"
-            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r  sm:translate-x-0  dark:border-gray-700`}
+            className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r  sm:translate-x-0  `}
             aria-label="Sidebar"
           >
             <div className="h-full px-3 pb-4 overflow-y-auto  bg-cyan-900">
