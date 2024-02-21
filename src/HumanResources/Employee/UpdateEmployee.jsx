@@ -244,7 +244,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                                         <label className="text-base mx-1">Upload Pan Card:</label>
                                         <input
                                             className="input-style border w-full h-10 items-center rounded-lg"
@@ -254,7 +254,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             onChange={handleInputChange}
                                             autoComplete="off"
                                         />
-                                    </div>
+                                    </div> */}
 
                                     <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                                         <label className="text-base mx-1">Joining Date:</label>

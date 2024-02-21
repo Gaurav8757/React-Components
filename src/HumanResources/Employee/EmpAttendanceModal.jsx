@@ -37,7 +37,18 @@ function EmpAttendanceModal({emp}) {
             <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
               <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto ">
                 <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-                  <h3 className="font-medium text-xl text-gray-800 ">View Attendance</h3>
+
+                  <div className="flex justify-between flex-col items-center py-3 px-4  dark:border-gray-700">
+                  <h3 className="font-medium text-base text-gray-800 ">View Attendance</h3>
+                  <p className="font-medium text-base text-gray-800 ">Total Days:</p>
+                  <p className="font-medium text-base text-gray-800 ">Present Days:</p>
+                  <p className="font-medium text-base text-gray-800 ">Absent Days:</p>
+                  </div>
+
+
+
+
+
                   <button
                     onClick={closeModal}
                     type="button"
