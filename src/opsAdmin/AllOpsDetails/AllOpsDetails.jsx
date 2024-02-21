@@ -166,6 +166,9 @@ const exportToExcel = () => {
                                         Insured By
                                     </th>
                                     <th scope="col" className="px-4 py-4">
+                                        Policy Type
+                                    </th>
+                                    <th scope="col" className="px-4 py-4">
                                         Policy No.
                                     </th>
                                     <th scope="col" className="px-4 py-4">
@@ -174,9 +177,7 @@ const exportToExcel = () => {
                                     <th scope="col" className="px-4 py-4">
                                         Chassis No
                                     </th>
-                                    <th scope="col" className="px-4 py-4">
-                                        Policy Type
-                                    </th>
+                                   
                                     <th scope="col" className="px-4 py-4">
                                         OD Premium
                                     </th>

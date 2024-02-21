@@ -79,6 +79,9 @@ function AllOpsData({ data, policy }) {
                 {data.insuredName}
             </td>
             <td className="whitespace-nowrap px-3 py-4">
+                {data.policyType}
+            </td>
+            <td className="whitespace-nowrap px-3 py-4">
                 {data.policyNo}
             </td>
             <td className="whitespace-nowrap px-3 py-4">
@@ -87,9 +90,7 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-3 py-4">
                 {data.chsNo}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
-                {data.policyType}
-            </td>
+           
             <td className="whitespace-nowrap px-3 py-4">
                 {data.odPremium}
             </td>
