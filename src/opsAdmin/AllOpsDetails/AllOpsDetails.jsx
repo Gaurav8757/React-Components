@@ -123,9 +123,9 @@ const exportToExcel = () => {
                         <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-                        <table className="min-w-full text-center text-sm font-light table ">
+                        <table className="min-w-full sticky text-center text-sm font-light table ">
                             <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700">
+                                <tr className="text-blue-700 ">
                                 <th scope="col" className="px-4 py-4">
                                         Reference ID
                                     </th>

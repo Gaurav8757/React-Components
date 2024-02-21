@@ -138,8 +138,8 @@ const handleExportClick = () => {
                         </NavLink>
                         </div>
                         <div className="inline-block min-w-full w-full py-3 sm:px-6 lg:px-8 overflow-x-auto">
-                        <table className="min-w-full text-center text-sm font-light table ">
-                            <thead className="border-b font-medium dark:border-neutral-500">
+                        <table className="min-w-full bg-fixed text-center text-sm font-light table ">
+                            <thead className="border-b sticky font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-5 py-4">
                                     Employee ID

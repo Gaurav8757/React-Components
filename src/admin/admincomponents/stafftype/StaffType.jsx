@@ -35,7 +35,7 @@ function StaffType() {
     <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
       <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-gradient-to-r from-slate-400 to-slate-400">
       <div className="flex flex-col  p-2 text-start w-full lg:w-1/3">
-                            <label className="text-base  my-2">Staff Type:</label>
+                            <label className="text-base  my-2">Employee Type:</label>
                             <input
                                 className="input-style rounded-lg "
                                 value={type.toUpperCase()}

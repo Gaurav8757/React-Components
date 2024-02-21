@@ -20,18 +20,18 @@ function AddDataByBranch() {
     const [data, setData] = useState([]);
     const [products, setProducts] = useState([]);
     const name = sessionStorage.getItem("name");
-console.log(data.map((product)=>product.products));
+    console.log(data.map((product) => product.products));
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
-          .then((resp) => {
-            const PolicyType = resp.data;
-            
-            setData(PolicyType);
-          })
-          .catch((error) => {
-            console.error("Error fetching policy types:", error);
-          });
-      }, [data]);
+            .then((resp) => {
+                const PolicyType = resp.data;
+
+                setData(PolicyType);
+            })
+            .catch((error) => {
+                console.error("Error fetching policy types:", error);
+            });
+    }, [data]);
 
 
 
@@ -215,39 +215,39 @@ console.log(data.map((product)=>product.products));
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Policy Type:</label>
                             <select
-        className="input-style p-1 rounded-lg"
-        value={policyType}
-        onChange={(e) => {
-            const selectedPolicyType = e.target.value;
-            setPolicyType(selectedPolicyType);
-            // Filter products based on selected policy type
-            const filteredProducts = data.find(category => category.p_type === selectedPolicyType)?.products;
-            setProducts(filteredProducts);
-            // Reset product code when policy type changes
-            setProductCode('');
-        }}
-    >
-        <option value="">--- Select Policy Type ---</option>
-        {data.map(category => (
-            <option key={category._id} value={category.p_type}>{category.p_type}</option>
-        ))}
-    </select>
+                                className="input-style p-1 rounded-lg"
+                                value={policyType}
+                                onChange={(e) => {
+                                    const selectedPolicyType = e.target.value;
+                                    setPolicyType(selectedPolicyType);
+                                    // Filter products based on selected policy type
+                                    const filteredProducts = data.find(category => category.p_type === selectedPolicyType)?.products;
+                                    setProducts(filteredProducts);
+                                    // Reset product code when policy type changes
+                                    setProductCode('');
+                                }}
+                            >
+                                <option value="">--- Select Policy Type ---</option>
+                                {data.map(category => (
+                                    <option key={category._id} value={category.p_type}>{category.p_type}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                             <label className="text-base mx-1">Product Code:</label>
                             <select
-        id="productCode"
-        className="input-style p-1 rounded-lg mt-1"
-        value={productCode}
-        onChange={(e) => setProductCode(e.target.value)}
-    >
-        <option value="">--- Select Product Code ---</option>
-        {products.map((product) => (
-            <option key={product} value={product}>
-                {product}
-            </option>
-        ))}
-    </select>
+                                id="productCode"
+                                className="input-style p-1 rounded-lg mt-1"
+                                value={productCode}
+                                onChange={(e) => setProductCode(e.target.value)}
+                            >
+                                <option value="">--- Select Product Code ---</option>
+                                {products.map((product) => (
+                                    <option key={product} value={product}>
+                                        {product}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         {/* FIELD - 7 */}

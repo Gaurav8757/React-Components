@@ -97,17 +97,17 @@ const Sidebar = () => {
     //   logo: <TbMoneybag size={24}/>
     // },
     {
-      title: "Carousel",
+      title: "Snap",
       path: "#",
       logo: <FaImages size={24}/>,
       subRoutes: [
         {
-          title: "Add Carousel",
+          title: "Add Snap",
           path: "/dashboard/addcarousel",
           dash:""
         }, 
         {
-          title: "View Carousel",
+          title: "View Snap",
           path: "/dashboard/firstview/carousel",
           dash:""
         }, 

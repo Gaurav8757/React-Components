@@ -44,11 +44,6 @@ function EmpAttendanceModal({emp}) {
                   <p className="font-medium text-base text-gray-800 ">Present Days:</p>
                   <p className="font-medium text-base text-gray-800 ">Absent Days:</p>
                   </div>
-
-
-
-
-
                   <button
                     onClick={closeModal}
                     type="button"

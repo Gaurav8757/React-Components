@@ -51,7 +51,7 @@ function ListStaffType() {
                                 S.No
                             </th> */}
                             <th scope="col" className="px-4 py-4">
-                                Staff Type
+                                Employee Type
                             </th>
                             <th scope="col" className="px-4 py-4">
                                 Delete
