@@ -30,8 +30,8 @@ function AddEmployee() {
   const [errors, setErrors] = useState({});
   const [pan, setPan] = useState("");
   // const [isChecked, setIsChecked] = useState(false);
-const emp = empid.toUpperCase();
-console.log(emp);
+  const emp = empid.toUpperCase();
+
   useEffect(() => {
     // Fetch the list of branches when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
@@ -66,12 +66,7 @@ console.log(emp);
     setErrors({}); // Clear previous errors
 
     const errors = {};
-    if (!aadhar) {
-      errors.aadhar = "required*";
-    }
-    if (panno) {
-      errors.panno = "required*";
-    }
+   
 
     if (!empid) {
       errors.empid = "required*";
@@ -83,49 +78,22 @@ console.log(emp);
       errors.emppassword= "required*";
     }
 
-    if (!calendar) {
-      errors.calendar = "required*";
-    }
-    if (!gender) {
-      errors.gender = "required*";
-    }
-    if (!mobile) {
-      errors.mobile = "required*";
-    }
+    
     if (!email) {
       errors.email = "required*";
     }
-    if (!aadharno) {
-      errors.aadharno = "required*";
-    }else if(!/^[0-9]{12}$/.test(aadharno) ){
-      errors.aadharno = "should be only 12 numbers*";
-    }
+   
     if (!branch) {
       errors.branch = "required*";
     }
     if (!joining) {
       errors.joining = "required*";
     }
-    if (!accNumber) {
-      errors.accNumber = "required*";
-    }
-    if (!ifsc) {
-      errors.ifsc = "required*";
-    }
-    if (!bankName) {
-      errors.bankName = "required*";
-    }
+    
     if (!staffType) {
     errors.staffType = "required*";
     }
-    if (!permanentaddress) {
-      errors.permanentaddress = "required*";
-      }
-    if (!pan ) {
-    errors.pan = "required*";
-    }else if(!/^[A-Za-z0-9]{10}$/.test(pan) ){
-      errors.pan = "should be only 10 characters*";
-    }
+   
 
 
 
@@ -515,7 +483,7 @@ console.log(emp);
                 className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
                 onClick={handleSubmit}
                 type="button"
-                disabled={formSubmitted}
+                // disabled={formSubmitted}
               >
                 {formSubmitted ? "Submitted" : "Submit"}
               </button>

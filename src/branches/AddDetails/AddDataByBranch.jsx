@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -18,8 +17,26 @@ function AddDataByBranch() {
     const [policyType, setPolicyType] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [productCode, setProductCode] = useState("");
-   
+    const [data, setData] = useState([]);
+    const [products, setProducts] = useState([]);
     const name = sessionStorage.getItem("name");
+console.log(data.map((product)=>product.products));
+    useEffect(() => {
+        axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+          .then((resp) => {
+            const PolicyType = resp.data;
+            
+            setData(PolicyType);
+          })
+          .catch((error) => {
+            console.error("Error fetching policy types:", error);
+          });
+      }, [data]);
+
+
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -125,7 +142,7 @@ function AddDataByBranch() {
                             <label className="text-base mx-1">Company Name<span className="text-red-600 font-bold">*</span></label>
                             <select
                                 id="company" name="company"
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 value={company}
                                 onChange={(e) => setCompany(e.target.value)}
                             >
@@ -150,7 +167,7 @@ function AddDataByBranch() {
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Category<span className="text-red-600 font-bold">*</span></label>
                             <select
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 value={category}
                                 name="category"
                                 onChange={(e) => setCategory(e.target.value)}>
@@ -165,7 +182,7 @@ function AddDataByBranch() {
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Segment<span className="text-red-600 font-bold">*</span></label>
                             <select
-                                className="rounded-lg"
+                                className="rounded-lg p-1"
                                 name="segment"
                                 value={segment}
                                 onChange={(e) => setSegment(e.target.value)}>
@@ -184,7 +201,7 @@ function AddDataByBranch() {
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Sourcing</label>
                             <select
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 value={sourcing}
                                 name="sourcing"
                                 onChange={(e) => setSourcing(e.target.value)}>
@@ -198,33 +215,39 @@ function AddDataByBranch() {
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                             <label className="text-base mx-1">Policy Type:</label>
                             <select
-                                className="input-style rounded-lg"
-                                value={policyType}
-                                name="policyType"
-                                onChange={(e) => setPolicyType(e.target.value)}
-                            ><option className="w-1" value="" >--- Select Policy Type ---</option>
-                                {/* POLICY TYPES */}
-                                {Object.keys(POLICY_TYPES).map(category => (
-                                    <option key={category} value={category}>{category}</option>
-                                ))}
-                            </select>
+        className="input-style p-1 rounded-lg"
+        value={policyType}
+        onChange={(e) => {
+            const selectedPolicyType = e.target.value;
+            setPolicyType(selectedPolicyType);
+            // Filter products based on selected policy type
+            const filteredProducts = data.find(category => category.p_type === selectedPolicyType)?.products;
+            setProducts(filteredProducts);
+            // Reset product code when policy type changes
+            setProductCode('');
+        }}
+    >
+        <option value="">--- Select Policy Type ---</option>
+        {data.map(category => (
+            <option key={category._id} value={category.p_type}>{category.p_type}</option>
+        ))}
+    </select>
                         </div>
                         <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                             <label className="text-base mx-1">Product Code:</label>
                             <select
-                                id="productCode"
-                                className="input-style rounded-lg mt-1"
-                                value={productCode}
-                                onChange={(e) => setProductCode(e.target.value)} name="productCode">
-
-                                <option className="w-1" value="">-Select Product Code ---</option>
-                                {policyType &&
-                                    POLICY_TYPES[policyType].transactions.map((transaction) => (
-                                        <option key={transaction} value={transaction}>
-                                            {transaction}
-                                        </option>
-                                    ))}
-                            </select>
+        id="productCode"
+        className="input-style p-1 rounded-lg mt-1"
+        value={productCode}
+        onChange={(e) => setProductCode(e.target.value)}
+    >
+        <option value="">--- Select Product Code ---</option>
+        {products.map((product) => (
+            <option key={product} value={product}>
+                {product}
+            </option>
+        ))}
+    </select>
                         </div>
 
                         {/* FIELD - 7 */}
