@@ -140,7 +140,7 @@ const handleExportClick = () => {
                         <div className="inline-block min-w-full w-full py-3 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light table ">
                             <thead className="border-b  font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700 sticky">
+                                <tr className="text-blue-700 ">
                                     <th scope="col" className="px-5 py-4">
                                     Employee ID
                                     </th>
@@ -216,7 +216,7 @@ const handleExportClick = () => {
                                     
                                     return (
                                         <tr
-                                            className="border-b sticky dark:border-neutral-200 text-sm font-medium"
+                                            className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data.empid}
                                         >
                                              <td className="whitespace-nowrap px-4 py-4">
