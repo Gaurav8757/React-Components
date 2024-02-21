@@ -459,7 +459,7 @@ function AddEmployee() {
                   type={showPassword ? 'text' : 'password'}
                   value={emppassword}
                   name="emppassword"
-                  onChange={(e) => setEmpPassword(e.target.value.toUpperCase())}
+                  onChange={(e) => setEmpPassword(e.target.value)}
                   placeholder="ENTER NEW PASSWORD"
                 />
                 <button
