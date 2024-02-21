@@ -22,7 +22,7 @@ function UpdateEmployee({ employee, onUpdate }) {
         empdesignation: "",
         empaadharfile: "",
         staffType: "",
-        panno: "",
+        // panno: "",
         pan: "",
         accNumber: "",
         ifsc: "",
