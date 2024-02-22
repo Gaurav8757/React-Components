@@ -169,6 +169,36 @@ const Sidebar = () => {
           path: "/dashboard/policy/lists",
           dash:""
         },
+        {
+          title: "Add Company Name",
+          path: "/dashboard/company/type",
+          dash:""
+        },
+        {
+          title: "Add Category Type",
+          path: "/dashboard/company/lists",
+          dash:""
+        },
+        {
+          title: "Add Segment",
+          path: "/dashboard/segment/add",
+          dash:""
+        },
+        {
+          title: "Add Fuel Type",
+          path: "/dashboard/fuel/type",
+          dash:""
+        },
+        {
+          title: "Add Payout On",
+          path: "/dashboard/payout/type",
+          dash:""
+        },
+        {
+          title: "Add Payment Mode",
+          path: "/dashboard/payment/type",
+          dash:""
+        },
       ]
     },
 
@@ -212,7 +242,8 @@ const Sidebar = () => {
           title: "View All User's List",
           path: "/dashboard/viewfilledform",
           dash:""
-        }
+        },
+        
         
       ]
     }

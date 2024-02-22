@@ -67,6 +67,12 @@ function MasterForm() {
             console.error("Error fetching policy types:", error);
         });
 }, [data]);
+
+
+
+
+
+
   // Function to update netPremium when odPremium or liabilityPremium changes
   const updateNetPremium = () => {
     const odPremiumValue = parseFloat(odPremium) || 0;
@@ -660,11 +666,12 @@ function MasterForm() {
                   onChange={(e) => setProductCode(e.target.value)}
                 >
                   <option className="w-1" value="" >--- Select Product Code ---</option>
-                  {products.map((product) => (
-                                    <option key={product} value={product}>
-                                        {product}
-                                    </option>
-                                ))}
+                  {data.map((policy) => (
+                policy.p_type === policyType &&
+                products.map((product, idx) => (
+                  <option key={idx} value={product}>{product}</option>
+                ))
+              ))}
 
                 </select>
               </div>

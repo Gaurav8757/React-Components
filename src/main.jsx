@@ -130,6 +130,12 @@ import ForgetFinance from "./finance/ForgetFinance.jsx";
 import ProtectFinance from "./finance/ProtectFinance.jsx";
 import LayoutFinance from "./finance/LayoutFinance.jsx";
 import DashboardFinance from "./finance/DashboardFinance.jsx";
+import CompanyType from "./admin/admincomponents/companyType/CompanyType.jsx";
+import CategoryType from "./admin/admincomponents/companyType/CategoryType.jsx";
+import AddSegment from "./admin/admincomponents/Segment/AddSegment.jsx";
+import AddFuel from "./admin/admincomponents/Fuel/AddFuel.jsx";
+import AddPayoutOn from "./admin/admincomponents/PayoutOn/AddPayoutOn.jsx";
+import AddPaymentMode from "./admin/admincomponents/PaymentMode/AddPaymentMode.jsx";
 
 
 
@@ -233,6 +239,12 @@ const router = createBrowserRouter(
           <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
           <Route path="/dashboard/policy/type" element={<AddPolicyType />} />
           <Route path="/dashboard/policy/lists" element={<AddProductType />} />
+          <Route path="/dashboard/company/type" element={<CompanyType />} />
+          <Route path="/dashboard/company/lists" element={<CategoryType />} />
+          <Route path="/dashboard/segment/add" element={<AddSegment />} />
+          <Route path="/dashboard/fuel/type" element={<AddFuel />} />
+          <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
+          <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
         </Route>
       </Route>
 

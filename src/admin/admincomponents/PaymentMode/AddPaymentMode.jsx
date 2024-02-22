@@ -1,84 +1,87 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
-function CompanyType() {
-    const [cType, setCType] = useState('');
+
+function AddPaymentMode() {
+  const [paymentMode, setPaymentMode] = useState('');
     const [APIData, setAPIData] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`https://eleedomimf.onrender.com/view/company/lists`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    },
-                })
-                .then((response) => {
-                    setAPIData(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, [formSubmitted]);
 
-    const handleSubmit = async() => {
-        setFormSubmitted(true);
-        try {  
-            // Check if a valid attendance status is selected
-            if (!cType) {
-              toast.error('Please Enter Company Name...!');
-              return;
-            }
-            // Make a POST request to mark attendance
-           await axios.post(`https://eleedomimf.onrender.com/add/comapny/type`, {
-              c_type: cType,
-            });
-            // Handle success (e.g., show a success message)
-            toast.success('Company Added Successfully....!');
-            setCType("");
-          } catch (error) {
-            // Handle error (e.g., show an error message)
-            console.error(
-              'Error marking Company',
-              error.response ? error.response.data.message : error.message
-            );
-          } finally {
-            setFormSubmitted(false);
-          }
-    }
+    useEffect(() => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+          toast.error("Not Authorized yet.. Try again! ");
+      } else {
+          // The user is authenticated, so you can make your API request here.
+          axios
+              .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+                  headers: {
+                      Authorization: `${token}`, // Send the token in the Authorization header
+                  },
+              })
+              .then((response) => {
+                  setAPIData(response.data);
+              })
+              .catch((error) => {
+                  console.error(error);
+              });
+      }
+  }, [formSubmitted]);
+
+  const handleSubmit = async() => {
+    setFormSubmitted(true);
+    try {  
+        // Check if a valid attendance status is selected
+        if (!paymentMode) {
+          toast.error('Please Enter PaymentMode...!');
+          return;
+        }
+        // Make a POST request to mark attendance
+       await axios.post(`https://eleedomimf.onrender.com/add/payment/mode`, {
+          paymentmode: paymentMode,
+        });
+        // Handle success (e.g., show a success message)
+        toast.success('PaymentMode Added Successfully....!');
+        setPaymentMode("");
+      } catch (error) {
+        // Handle error (e.g., show an error message)
+        console.error(
+          'Error Adding PaymentMode',
+          error.response ? error.response.data.message : error.message
+        );
+      } finally {
+        setFormSubmitted(false);
+      }
+}
 
 // Delete Functions
-const deleteCompanyTypes = async (_id) => {
-    try {
-        await axios.delete(`https://eleedomimf.onrender.com/policy/company/${_id}`);
-        toast.warn("Company Name Deleted.....!", { theme: "dark", position: "top-right" });
-        setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
-    } catch (error) {
-        console.error('Error Deleting Company', error);
-    } 
+const deletePaymentMode = async (_id) => {
+  try {
+      await axios.delete(`https://eleedomimf.onrender.com/payment/delete/${_id}`);
+      toast.warn("PaymentMode Name Deleted.....!", { theme: "dark", position: "top-right" });
+      setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+  } catch (error) {
+      console.error('Error Deleting PaymentMode Name', error);
+  } 
 };
+
 
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
     <div className="container-fluid flex-col  flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
         <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
-            <h1 className="font-semibold text-3xl mb-3">Add Company</h1>
+            <h1 className="font-semibold text-3xl mb-3">Add PaymentMode</h1>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
-                <label className="text-base mx-1 mb-2">Enter Company Name<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1 mb-2">Enter PaymentMode Name<span className="text-red-600 font-bold">*</span></label>
                 <input
                     className="input-style rounded-lg"
                     type="text"
-                    name="cType"
-                    value={cType}
-                    onChange={(e) => setCType(e.target.value.toUpperCase())}
-                    placeholder="Add Company"
+                    name="paymentMode"
+                    value={paymentMode}
+                    onChange={(e) => setPaymentMode(e.target.value.toUpperCase())}
+                    placeholder="Add Payment Mode"
                 />
                
             </div>
@@ -95,7 +98,7 @@ const deleteCompanyTypes = async (_id) => {
         </div>
 
         <div className="inline-block my-6 min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-            <h1 className="font-semibold text-3xl mb-3">Company Lists</h1>
+            <h1 className="font-semibold text-3xl mb-3">PaymentMode Lists</h1>
             <table className="min-w-full text-center text-base font-light table">
                 <thead className="border-b font-medium dark:border-neutral-200 ">
                     <tr className="text-blue-700">
@@ -103,7 +106,7 @@ const deleteCompanyTypes = async (_id) => {
                             Sr No.
                         </th> */}
                         <th scope="col" className=" px-5 py-4">
-                            Company Name
+                            Payment Mode Name
                         </th>
                         {/* <th scope="col" className="px-5 py-4">
                             Update
@@ -121,7 +124,7 @@ const deleteCompanyTypes = async (_id) => {
                                 key={data._id}
                             >
                                 <td className="whitespace-nowrap px-4 py-4">
-                                    {data.c_type}
+                                    {data.paymentmode}
                                 </td>
                                 {/* <td className="whitespace-nowrap px-4 py-4">
                                     Your Update button
@@ -130,7 +133,7 @@ const deleteCompanyTypes = async (_id) => {
                                     <button 
                                         type="button" 
                                         // _ID MADE TO DELETE
-                                        onClick={() => deleteCompanyTypes(data._id)} 
+                                        onClick={() => deletePaymentMode(data._id)} 
                                         className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">
                                         Delete
                                     </button>
@@ -146,4 +149,4 @@ const deleteCompanyTypes = async (_id) => {
   )
 }
 
-export default CompanyType;
+export default AddPaymentMode;
