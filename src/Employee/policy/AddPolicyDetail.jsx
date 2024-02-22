@@ -6,6 +6,7 @@ import axios from "axios";
 function AddPolicyDetail({ insurance, onUpdates }) {
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [APIData, setAPIData] = useState([]);
     const [allDetails, setAllDetails] = useState({
         policyNo: '',
         engNo: '',
@@ -34,6 +35,32 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const isValidEngineChassis = (value) => {
         return /^[A-Za-z0-9]{6}$/.test(value);
     };
+
+
+
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+               
+                    setAPIData(response.data);
+                   
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [APIData]);
 
     const updateNetPremium = () => {
         const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
@@ -357,13 +384,15 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     onChange={handleInputChange}
                                                     name="policyMadeBy">
                                                     <option className="w-1" value="" >--- Policy Made By ---</option>
-                                                    <option value="RAHUL KUMAR">RAHUL KUMAR</option>
-                                                    <option value="CHOTU KUMAR">CHOTU KUMAR</option>
-                                                    <option value="HARSH KUMAR">HARSH KUMAR</option>
-                                                    <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
-                                                    <option value="SAMRIN NAZ">SAMRIN NAZ</option>
-                                                    <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
-                                                    <option value="ADITYA RANJAN">ADITYA RANJAN</option>
+                                                    {
+                                                        APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                                                        .map((emp) => (console.log(emp),
+                                                            <option key={emp._id} value={emp.empname}>
+                                                                {emp.empid} - {emp.empname}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                   
                                                 </select>
                                             </div>
                                         </div>

@@ -56,7 +56,34 @@ function MasterForm() {
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
   const [pdata, setPdata] = useState([]);
+  const [APIData, setAPIData] = useState([]);
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+
+console.log(catTypesForSelectedPolicy);
+
+
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+  } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+          .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+              headers: {
+                  Authorization: `${token}`, // Send the token in the Authorization header
+              },
+          })
+          .then((response) => {
+         
+              setAPIData(response.data);
+             
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+  }
+}, [APIData]);
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
@@ -69,6 +96,7 @@ function MasterForm() {
             console.error("Error fetching policy types:", error);
         });
 }, [data]);
+
 
 useEffect(() => {
   axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -474,12 +502,14 @@ useEffect(() => {
                   onChange={(e) => setPolicyMadeBy(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Policy Made By ---</option>
-                  <option value="RAHUL KUMAR">RAHUL KUMAR</option>
-                  <option value="CHOTU KUMAR">CHOTU KUMAR</option>
-                  <option value="HARSH KUMAR">HARSH KUMAR</option>
-                  <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
-                  <option value="SAMRIN NAZ">SAMRIN NAZ</option>
-                  <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
+                  {
+                                                        APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                                                        .map((emp) => (console.log(emp),
+                                                            <option key={emp._id} value={emp.empname}>
+                                                                {emp.empid} - {emp.empname}
+                                                            </option>
+                                                        ))
+                                                    }
                 </select>
               </div>
 
@@ -493,7 +523,7 @@ useEffect(() => {
                   name="paymentDoneBy"
                   onChange={(e) => setPaymentDoneBy(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Payment Done By ---</option>
+                  <option className="w-1" value="" >--- Select Payment Done By ---</option>
                   <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
                   <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
                   <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
@@ -801,18 +831,18 @@ useEffect(() => {
                 <label className="text-base mx-1">Category:</label>
 
                 <select
-              className="input-style w-full p-2 rounded-lg"
+              className="input-style w-full p-1 rounded-lg"
               value={category}
               name="category"
               onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">---- Select Product Type ------</option>
-              {data.map((policy) => (
-                policy.p_type === policyType &&
-                policy.products.map((product, idx) => (console.log(idx),
-                  <option key={idx} value={product}>{product}</option>
+              {pdata.map((cat) => ( 
+                cat._id === catTypesForSelectedPolicy &&
+                // category.map((product, idx) => (console.log(idx, product),
+                  <option key={cat._id} value={cat.category}>{cat.category}</option>
                 ))
-              ))}
+              }
             </select>
               </div>
              
