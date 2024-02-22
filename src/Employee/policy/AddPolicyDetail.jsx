@@ -363,6 +363,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
                                                     <option value="SAMRIN NAZ">SAMRIN NAZ</option>
                                                     <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
+                                                    <option value="ADITYA RANJAN">ADITYA RANJAN</option>
                                                 </select>
                                             </div>
                                         </div>

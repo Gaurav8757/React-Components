@@ -55,6 +55,8 @@ function MasterForm() {
   const [profitLoss, setProfitLoss] = useState('');
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [pdata, setPdata] = useState([]);
+  const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
@@ -68,6 +70,17 @@ function MasterForm() {
         });
 }, [data]);
 
+useEffect(() => {
+  axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    .then((resp) => {
+      const cType = resp.data;
+      
+      setPdata(cType);
+    })
+    .catch((error) => {
+      console.error("Error fetching company names:", error);
+    });
+}, [pdata]);
 
 
 
@@ -539,27 +552,24 @@ function MasterForm() {
             <div className="p-2 text-start">
               {/* FIELD - 2 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Company Name:</label>
+                <label className="text-base  mx-1">Company Name:</label>
                 <select
                   id="company" name="company"
-                  className="input-style  rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   value={company}
-
-                  onChange={(e) => setCompany(e.target.value)}
+                  // onChange={(e) => setCompany(e.target.value)}
+                  onChange={(e) => {
+                    setCompany(e.target.value);
+                    const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                    setCatTypesForSelectedPolicy(selectedCatId);
+                  }}
                 >
                   <option className="w-1" value="" disabled>--- Select Company ---</option>
-                  <option value="TATA AIG">TATA AIG</option>
-                  <option value="MAGMA-HDI">MAGMA HDI</option>
-                  <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
-                  <option value="GO-DIGIT">GO-DIGIT</option>
-                  <option value="HDFC ERGO">HDFC ERGO</option>
-                  <option value="ICICI LOMBARD">ICICI LOMBARD</option>
-                  <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
-                  <option value="RELIANCE">RELIANCE</option>
-                  <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
-                  <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
-                  <option value="PNB MET LIFE">PNB MET LIFE</option>
-                  <option value="LIC">LIC</option>
+                  {pdata.map((comp) => (
+                  <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                    {comp.c_type}
+                  </option>
+                ))}
                   {/* Add more company options */}
                 </select>
 
@@ -569,7 +579,7 @@ function MasterForm() {
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Sourcing:</label>
                 <select
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   value={sourcing}
                   name="sourcing"
                   onChange={(e) => setSourcing(e.target.value)}
@@ -789,15 +799,21 @@ function MasterForm() {
               {/* FIELD - 3 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Category:</label>
+
                 <select
-                  className="input-style rounded-lg"
-                  value={category}
-                  name="category"
-                  onChange={(e) => setCategory(e.target.value)}
-                > <option className="w-1" value="" disabled>--- Select Category ---</option>
-                  <option value="GIC">GIC</option>
-                  <option value="LIFE">LIFE</option>
-                </select>
+              className="input-style w-full p-2 rounded-lg"
+              value={category}
+              name="category"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">---- Select Product Type ------</option>
+              {data.map((policy) => (
+                policy.p_type === policyType &&
+                policy.products.map((product, idx) => (console.log(idx),
+                  <option key={idx} value={product}>{product}</option>
+                ))
+              ))}
+            </select>
               </div>
              
               {/* FIELD - 9 */}
