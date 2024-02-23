@@ -18,9 +18,10 @@ function AddDataByBranch() {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [productCode, setProductCode] = useState("");
     const [data, setData] = useState([]);
+    const [pdata, setPdata] = useState([]);
+    const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
     const [products, setProducts] = useState([]);
     const name = sessionStorage.getItem("name");
-    
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
             .then((resp) => {
@@ -34,7 +35,18 @@ function AddDataByBranch() {
     }, [data]);
 
 
-
+    useEffect(() => {
+        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+          .then((resp) => {
+            const cType = resp.data;
+            
+            setPdata(cType);
+          })
+          .catch((error) => {
+            console.error("Error fetching company names:", error);
+          });
+      }, [pdata]);
+      
 
 
 
@@ -144,21 +156,18 @@ function AddDataByBranch() {
                                 id="company" name="company"
                                 className="input-style p-1 rounded-lg"
                                 value={company}
-                                onChange={(e) => setCompany(e.target.value)}
+                                onChange={(e) => {
+                                    setCompany(e.target.value);
+                                    const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                                    setCatTypesForSelectedPolicy(selectedCatId);
+                                  }}
                             >
-                                <option className="" value="" disabled>--- Select Company ---</option>
-                                <option value="TATA AIG">TATA AIG</option>
-                                <option value="MAGMA-HDI">MAGMA HDI</option>
-                                <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
-                                <option value="GO-DIGIT">GO-DIGIT</option>
-                                <option value="HDFC ERGO">HDFC ERGO</option>
-                                <option value="ICICI LOMBARD">ICICI LOMBARD</option>
-                                <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
-                                <option value="RELIANCE">RELIANCE</option>
-                                <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
-                                <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
-                                <option value="PNB MET LIFE">PNB MET LIFE</option>
-                                <option value="LIC">LIC</option>
+                                <option className="" value="" >--- Select Company ---</option>
+                                            {pdata.map((comp) => (
+                            <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                                {comp.c_type}
+                            </option>
+                            ))}
                             </select>
                             {errors.company && <span className="text-red-600 text-sm">{errors.company}</span>}
                         </div>
@@ -171,9 +180,14 @@ function AddDataByBranch() {
                                 value={category}
                                 name="category"
                                 onChange={(e) => setCategory(e.target.value)}>
-                                <option className="w-1" value="" disabled>--- Select Category ---</option>
-                                <option value="GIC">GIC</option>
-                                <option value="LIFE">LIFE</option>
+                                <option className="w-1" value="" >--- Select Category ---</option>
+                                                {pdata.map((cat) => ( 
+                                cat._id === catTypesForSelectedPolicy &&
+                                cat.category.map((product, idx) => (
+                                <option key={idx} value={product}>{product}</option>
+                                ))))
+                            }
+                                    
                             </select>
                             {errors.category && <span className="text-red-600 text-sm">{errors.category}</span>}
                         </div>

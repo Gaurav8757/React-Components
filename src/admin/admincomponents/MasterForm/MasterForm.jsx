@@ -58,9 +58,53 @@ function MasterForm() {
   const [pdata, setPdata] = useState([]);
   const [APIData, setAPIData] = useState([]);
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+  const [fuelType, setFuelType] = useState([]);
+  const [payoutOnList, setPayoutOnList] = useState([]);
+  const [payMode, setPayMode] = useState([]);
 
-console.log(catTypesForSelectedPolicy);
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`https://eleedomimf.onrender.com/view/payouton`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+                setPayoutOnList(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, [payoutOnList]);
 
+
+
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+  } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+          .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+              headers: {
+                  Authorization: `${token}`, // Send the token in the Authorization header
+              },
+          })
+          .then((response) => {
+              setPayMode(response.data);
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+  }
+}, [payMode]);
 
 useEffect(() => {
   const token = sessionStorage.getItem("token");
@@ -84,6 +128,27 @@ useEffect(() => {
           });
   }
 }, [APIData]);
+
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+  } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+          .get(`https://eleedomimf.onrender.com/view/fuel`, {
+              headers: {
+                  Authorization: `${token}`, // Send the token in the Authorization header
+              },
+          })
+          .then((response) => {
+              setFuelType(response.data);
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+  }
+}, [fuelType]);
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
@@ -206,17 +271,18 @@ useEffect(() => {
     const startDate = e.target.value;
     // Update odExpiry by adding 1 year to the selected policyStartDate
     const odExpiryDate = new Date(startDate);
-    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
+    // odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
+    odExpiryDate.setFullYear(odExpiryDate.getFullYear()+1, odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
     setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
 
     // Update policyEndDate by adding 1 year to the selected policyStartDate
     const policyEndDateValue = new Date(startDate);
-    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
+    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1, policyEndDateValue.getMonth(), policyEndDateValue.getDate()-1);
     setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
 
      // Update TP Expiry by adding 1 year to the selected policyStartDate
      const tpExpiryDate = new Date(startDate);
-     tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
+     tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3, tpExpiryDate.getMonth(), tpExpiryDate.getDate()-1);
      setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
     // Set the selected policyStartDate
     setPolicyStartDate(startDate);
@@ -420,14 +486,14 @@ useEffect(() => {
                     const selectedPolicyType = e.target.value;
                     setPolicyType(selectedPolicyType);
                     // Filter products based on selected policy type
-                    const filteredProducts = data.find(category => category.p_type === selectedPolicyType)?.products;
+                    const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
                     setProducts(filteredProducts);
                     // Reset product code when policy type changes
                     setProductCode('');
                 }}
                 > <option value="">--- Select Policy Type ---</option>
-                {data.map(category => (
-                    <option key={category._id} value={category.p_type}>{category.p_type}</option>
+                {data.map(prod => (
+                    <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                 ))}
                  
                 </select>
@@ -504,7 +570,7 @@ useEffect(() => {
                   <option className="w-1" value="" disabled>--- Policy Made By ---</option>
                   {
                                                         APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                                                        .map((emp) => (console.log(emp),
+                                                        .map((emp) => (
                                                             <option key={emp._id} value={emp.empname}>
                                                                 {emp.empid} - {emp.empname}
                                                             </option>
@@ -594,7 +660,7 @@ useEffect(() => {
                     setCatTypesForSelectedPolicy(selectedCatId);
                   }}
                 >
-                  <option className="w-1" value="" disabled>--- Select Company ---</option>
+                  <option className="w-1" value="" >--- Select Company ---</option>
                   {pdata.map((comp) => (
                   <option key={comp._id} value={comp.c_type} data-id={comp._id}>
                     {comp.c_type}
@@ -677,10 +743,14 @@ useEffect(() => {
                   name="fuel"
                   onChange={(e) => setFuel(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Fuel Type ---</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Electric">Electric</option>
+                  <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                  {
+                   fuelType.map((fuel)=>(
+
+                      <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                    ))
+                    
+                  }
                   {/* Add more fuel options */}
                 </select>
               </div>
@@ -767,9 +837,11 @@ useEffect(() => {
                   onChange={(e) => setPayoutOn(e.target.value)}
                 >
                   <option className="w-1" value="" disabled>--- Select Payout on ---</option>
-                  <option value="NET">NET</option>
-                  <option value="OD">OD</option>
-                  <option value="LIABILITY">LIABILITY</option>
+                {
+                  payoutOnList.map((pay)=>(
+                    <option key={pay._id}  value={pay.payouton} >{pay.payouton}</option>
+                  ))
+                }
                 </select>
               </div>
               {/* FIELD - 41 */}
@@ -839,9 +911,9 @@ useEffect(() => {
               <option value="">---- Select Product Type ------</option>
               {pdata.map((cat) => ( 
                 cat._id === catTypesForSelectedPolicy &&
-                // category.map((product, idx) => (console.log(idx, product),
-                  <option key={cat._id} value={cat.category}>{cat.category}</option>
-                ))
+                cat.category.map((product, idx) => (
+                  <option key={idx} value={product}>{product}</option>
+                ))))
               }
             </select>
               </div>
@@ -1016,19 +1088,12 @@ useEffect(() => {
                   name="policyPaymentMode"
                   onChange={(e) => setPolicyPaymentMode(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
-                  <option value="LINK">LINK</option>
-                  <option value="ONLINE">ONLINE</option>
-                  <option value="CREDIT CARD">CREDIT CARD</option>
-                  <option value="NET BANKING">NET BANKING</option>
-                  <option value="CHQ">CHQ</option>
-                  <option value="CUSTOMER LINK">CUSTOMER LINK</option>
-                  <option value="FLOAT PAYMENT">FLOAT PAYMENT</option>
-                  <option value="UPI">UPI</option>
-                  <option value="QR SCAN">QR SCAN</option>
-                  <option value="DD">DD</option>
-                  <option value="NEFT">NEFT</option>
-                  <option value="RTGS">RTGS</option>
+                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
+                  {
+                    payMode.map((mode)=>(
+                      <option key={mode._id}  value= {mode.paymentmode} >{mode.paymentmode}</option>
+                    ))
+                  }
                 </select>
               </div>
               {/* FIELD - 42 */}

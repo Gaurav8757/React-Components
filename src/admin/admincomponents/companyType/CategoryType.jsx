@@ -46,7 +46,7 @@ function CategoryType() {
   const deleteCategoryTypes = async (_id) => {
     try {
         await axios.delete(`https://eleedomimf.onrender.com/api/company/category/${_id}/delete`);
-        toast.warn("Category Type Deleted.....!", { theme: "dark", position: "top-right" });
+        toast.error("Category Type Deleted.....!", { theme: "dark", position: "top-right" });
         setData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
         console.error('Error Deleting Category Type', error);

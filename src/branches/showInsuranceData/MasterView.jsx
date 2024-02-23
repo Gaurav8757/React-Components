@@ -53,6 +53,9 @@ function MasterView() {
           headers: {
             Authorization: `${token}`,
           },
+          params: {
+            branch: branch
+          }
         }
       );
       setAllDetailsData(response.data);

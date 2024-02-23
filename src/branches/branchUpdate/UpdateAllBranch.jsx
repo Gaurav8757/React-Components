@@ -7,6 +7,10 @@ import axios from "axios";
 function UpdateAllBranch({ updateBranch, onUpdate }) {
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [pdata, setPdata] = useState([]);
+    const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+    const [fuelType, setFuelType] = useState([]);
+  
     const [allDetails, setAllDetails] = useState({
         entryDate: '',
         company: '',
@@ -47,8 +51,38 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`https://eleedomimf.onrender.com/view/fuel`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setFuelType(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+      }, [fuelType]);
 
-
+    useEffect(() => {
+        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+          .then((resp) => {
+            const cType = resp.data;
+            
+            setPdata(cType);
+          })
+          .catch((error) => {
+            console.error("Error fetching company names:", error);
+          });
+      }, [pdata]);
 
     const handlePolicyStartDateChange = (e) => {
         const startDate = e.target.value;
@@ -141,12 +175,15 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
             // Use the selected category ID in the patch method
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${updateBranch._id}`, allDetails);
             toast.success(`${resp.data.status}`);
+           
+            
             // Close the modal after successful submission
             closeModal();
-            onUpdate();
+           
         } catch (error) {
             console.error("Error updating insurance details:", error);
         } finally {
+            onUpdate();
             setLoading(false);
         }
     };
@@ -207,21 +244,19 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                 <select
                                                     className="input-style  rounded-lg mt-1"
                                                     value={allDetails.company}
-                                                    onChange={handleInputChange}
+                                                    // onChange={handleInputChange}
+                                                    onChange={(e) => {
+                                                        handleInputChange(e);
+                                                        const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                                                        setCatTypesForSelectedPolicy(selectedCatId);
+                                                      }}
                                                     name="company">
                                                     <option className="w-1" value="">--- Select Company ---</option>
-                                                    <option value="TATA AIG">TATA AIG</option>
-                                                    <option value="MAGMA-HDI">MAGMA HDI</option>
-                                                    <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
-                                                    <option value="GO-DIGIT">GO-DIGIT</option>
-                                                    <option value="HDFC ERGO">HDFC ERGO</option>
-                                                    <option value="ICICI LOMBARD">ICICI LOMBARD</option>
-                                                    <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
-                                                    <option value="RELIANCE">RELIANCE</option>
-                                                    <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
-                                                    <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
-                                                    <option value="PNB MET LIFE">PNB MET LIFE</option>
-                                                    <option value="LIC">LIC</option>
+                                                    {pdata.map((comp) => (
+                            <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                                {comp.c_type}
+                            </option>
+                            ))}
                                                 </select>
                                             </div>
 
@@ -235,8 +270,15 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     onChange={handleInputChange}
                                                     name="category"
                                                 > <option className="w-1" value="" >--- Select Category ---</option>
-                                                    <option value="GIC">GIC</option>
-                                                    <option value="LIFE">LIFE</option>
+                                                   {pdata.map((cat) => {
+        if (cat._id === catTypesForSelectedPolicy) {
+            return cat.category.map((product, idx) => (
+                <option key={idx} value={product}>{product}</option>
+            ));
+        } else {
+            return null;
+        }
+    })}
                                                 </select>
 
                                             </div>
@@ -482,12 +524,12 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     className="input-style rounded-lg mt-1"
                                                     value={allDetails.fuel}
                                                     onChange={handleInputChange} name="fuel">
-                                                    <option className="w-1" value="" >--- Select Fuel Type ---</option>
-                                                    <option value="Diesel">Diesel</option>
-                                                    <option value="Petrol">Petrol</option>
-                                                    <option value="Electric">Electric</option>
-                                                    <option value="Electric">CNG</option>
-                                                    {/* Add more fuel options */}
+                                                    <option className="w-1" >--- Select Fuel Type ---</option>
+                                                    {
+                                                        fuelType.map((fuel)=>(
+                                                            <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                                                            ))
+                                                        }
                                                 </select>
                                             </div>
 

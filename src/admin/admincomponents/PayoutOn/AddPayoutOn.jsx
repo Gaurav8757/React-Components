@@ -14,7 +14,7 @@ function AddPayoutOn() {
       } else {
           // The user is authenticated, so you can make your API request here.
           axios
-              .get(`http://localhost:7000/view/payouton`, {
+              .get(`https://eleedomimf.onrender.com/view/payouton`, {
                   headers: {
                       Authorization: `${token}`, // Send the token in the Authorization header
                   },
@@ -37,7 +37,7 @@ function AddPayoutOn() {
           return;
         }
         // Make a POST request to mark attendance
-       await axios.post(`http://localhost:7000/add/payouton`, {
+       await axios.post(`https://eleedomimf.onrender.com/add/payouton`, {
           payouton: payoutOn,
         });
         // Handle success (e.g., show a success message)
@@ -57,7 +57,7 @@ function AddPayoutOn() {
 // Delete Functions
 const deletePayoutOn = async (_id) => {
   try {
-      await axios.delete(`http://localhost:7000/payouton/delete/${_id}`);
+      await axios.delete(`https://eleedomimf.onrender.com/payouton/delete/${_id}`);
       toast.warn("payoutOn Name Deleted.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
   } catch (error) {

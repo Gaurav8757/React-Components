@@ -57,7 +57,7 @@ function CompanyType() {
 const deleteCompanyTypes = async (_id) => {
     try {
         await axios.delete(`https://eleedomimf.onrender.com/policy/company/${_id}`);
-        toast.warn("Company Name Deleted.....!", { theme: "dark", position: "top-right" });
+        toast.error("Company Name Deleted.....!", { theme: "dark", position: "top-right" });
         setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
         console.error('Error Deleting Company', error);
