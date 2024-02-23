@@ -165,10 +165,10 @@ function AddEmployee() {
         setPanno("");
         setPan("");
       } else {
-        toast.error("Error Occurred. Try again!");
+        toast.error("Error Occurred. Try again!", );
       }
     } catch (error) {
-      toast.error("Error during employee registration. Please try again.");
+      toast.error(`${error.response.data.message}`);
     }
   };
 
