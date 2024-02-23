@@ -20,7 +20,7 @@ function CategoryType() {
           .catch((error) => {
             console.error("Error fetching Category Types:", error);
           });
-      }, [data]);
+      }, []);
 
 
       const handleSubmit = async () => {

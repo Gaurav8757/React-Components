@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 function AddSegment() {
   const [data, setData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [productType, setProductType] = useState("");
+  const [catType, setCatType] = useState("");
   const [segment, setSegment] = useState("");
-  const [policyType, setPolicyType] = useState("");
+  const [cType, setCType] = useState();
   const [productTypesForSelectedPolicy, setProductTypesForSelectedPolicy] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -20,29 +20,22 @@ function AddSegment() {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
 
-
-
-
-
-
-
-
-
+// console.log(data.map((comp)=>comp.c_type));
 
   const handleSubmit = async () => {
     setFormSubmitted(true);
     try {
-      if (!productType) {
-        toast.error('Please select a Product Type!');
+      if (!catType) {
+        toast.error('Please select a Category Name!');
         return;
       }
-      await axios.put(`https://eleedomimf.onrender.com/api/plicy/tyes/${productTypesForSelectedPolicy}/products`, {
+      await axios.put(`https://eleedomimf.onrender.com/api/comp/${productTypesForSelectedPolicy}/segment`, {
         segment
       });
       toast.success('Product added successfully!');
-      setProductType("");
+      setCatType("");
     } catch (error) {
       console.error('Error adding product:', error.response ? error.response.data.message : error.message);
     } finally {
@@ -76,42 +69,44 @@ function AddSegment() {
           {/* <form className="flex flex-wrap justify-between"> */}
 
           <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-            <label className="text-base mx-1 my-1">Policy Type:</label>
+            <label className="text-base mx-1 my-1">Company Name:</label>
             <select
               className="input-style p-2 w-full rounded-lg"
-              name="p_type"
-              value={policyType}
+              name="c_type"
+              value={cType}
               onChange={(e) => {
-                setPolicyType(e.target.value);
-                const selectedPolicyId = e.target.selectedOptions[0].getAttribute("data-id");
-                setProductTypesForSelectedPolicy(selectedPolicyId);
+                setCType(e.target.value);
+                const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                setProductTypesForSelectedPolicy(selectedCatId);
               }}
             >
               <option className="w-1" value="">
-                --------------------------- Select Policy Type -----------------------------
+                ------------------------------ Select Company --------------------------
               </option>
-              {data.map((policy) => (
-                <option key={policy._id} value={policy.p_type} data-id={policy._id}>
-                  {policy.p_type}
+              
+              {data.map((comp) => ( 
+                <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                  {comp.c_type}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="flex flex-col   p-2 text-start w-full lg:w-1/3">
-            <label className="text-base mx-1 my-1">Product Type:</label>
+            <label className="text-base mx-1 my-1">Category Name:</label>
             <select
               className="input-style w-full p-2 rounded-lg"
-              value={productType}
-              onChange={(e) => setProductType(e.target.value)}
+              value={catType}
+              name="catType"
+              onChange={(e) => setCatType(e.target.value)}
             >
-              <option value="">--------------------------- Select Product Type -----------------------------</option>
-              {data.map((policy) => (
-                policy.p_type === policyType &&
-                policy.products.map((product, idx) => (console.log(idx),
+              <option value="">---------------------------- Select Category Name -----------------------</option>
+              {data.map((cat) => ( 
+                cat._id === productTypesForSelectedPolicy &&
+                cat.category.map((product, idx) => (
                   <option key={idx} value={product}>{product}</option>
-                ))
-              ))}
+                ))))
+              }
             </select>
           </div>
 
@@ -144,17 +139,17 @@ function AddSegment() {
         </div>
       </div>
       <div className="container-fluid  flex flex-col   justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 mt-10 tracking-wider text-gray-900 font-medium">List of Segment with Products</span>
+        <span className="text-3xl p-2 mt-10 tracking-wider text-gray-900 font-medium">Segment with Company-Category</span>
 
         <div className="container-fluid flex justify-center p-2   border-gray-200 border-dashed rounded-lg   bg-slate-200">
           <table className="min-w-full text-center text-sm font-light ">
             <thead className="border-b font-medium dark:border-neutral-500">
               <tr className="text-blue-700">
                 <th scope="col" className="px-4 py-4">
-                  Policy Type
+                  Company Name
                 </th>
                 <th scope="col" className="px-4 py-4">
-                  Product Type
+                  Category Name
                 </th>
                 <th scope="col" className="px-4 py-4">
                   Segments
@@ -173,14 +168,14 @@ function AddSegment() {
                     key={data._id}
                   >
                     <td className="whitespace-nowrap px-3 py-4">
-                      {data.p_type}
+                      {data.c_type}
                     </td>
 
-                    {data.p_type &&
+                    {data.c_type &&
                       <td className="whitespace-nowrap px-3 py-4">
                         <select className="w-1/3 p-2  rounded-lg">
-                          <option value="" defaultChecked >-----Select Product-----</option>
-                          {data.products.map((product, index) => (
+                          <option value="" defaultChecked >-----Select Category-----</option>
+                          {data.category.map((product, index) => (
                             <option key={index} value={product}>
                               {product}
                             </option>
@@ -189,11 +184,11 @@ function AddSegment() {
                       </td>
                     }
 
-                    {data.p_type && data.products &&
+                    {data.c_type &&
                       <td className="whitespace-nowrap px-3 py-4">
                         <select className="w-1/3 p-2  rounded-lg">
                           <option value="" defaultChecked >ADD MORE SEGMENT</option>
-                          {data.products.map((segment, index) => (
+                          {data.category.map((segment, index) => (
                             <option key={index} value={segment}>
                               {segment}
                             </option>

@@ -164,7 +164,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             className="input-style rounded-lg"
                                             type="email"
                                             name="empemail"
-                                            value={data.empemail}
+                                            value={data.empemail.toLowerCase()}
                                             onChange={handleInputChange}
                                             placeholder="abc@gmail.com"
                                         />
