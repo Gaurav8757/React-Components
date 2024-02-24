@@ -7,7 +7,7 @@ import { FcPlanner } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb"; 
 import { FaUserGroup } from "react-icons/fa6";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-
+import { IoCalendarNumberOutline } from "react-icons/io5";
 function DashboardHr() {
     const dashboardRouted = [
         {
@@ -32,7 +32,11 @@ function DashboardHr() {
             },
           ]
         },
-         
+        {
+          title: "Report",
+          path: "/hr/home/attendance/report",
+          logo: <IoCalendarNumberOutline  size={25} />
+        },
 
         {
           title: "Employee",

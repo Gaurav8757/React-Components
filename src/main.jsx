@@ -136,6 +136,7 @@ import AddSegment from "./admin/admincomponents/Segment/AddSegment.jsx";
 import AddFuel from "./admin/admincomponents/Fuel/AddFuel.jsx";
 import AddPayoutOn from "./admin/admincomponents/PayoutOn/AddPayoutOn.jsx";
 import AddPaymentMode from "./admin/admincomponents/PaymentMode/AddPaymentMode.jsx";
+import ReportEmp from "./HumanResources/attendanceReport/ReportEmp.jsx";
 
 
 
@@ -306,6 +307,7 @@ const router = createBrowserRouter(
           <Route path="/hr/home/view/generate/salary" element={<ViewGenSalary />} />
           <Route path="/hr/home/attendance" element={<HrAttendance />} />
           <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
+          <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
         </Route>
       </Route>
 

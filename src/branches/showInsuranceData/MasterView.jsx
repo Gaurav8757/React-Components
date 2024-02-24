@@ -67,45 +67,107 @@ function MasterView() {
 
 
 
+// const exportToExcel = () => {
+//   try {
+//       const fileType =
+//           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+//       const fileExtension = ".xlsx";
+//       const fileName = branch;
+
+//       // Get all table headers and rows
+//       const tableHeaders = document.querySelectorAll(".table th");
+//       const tableRows = document.querySelectorAll(".table tbody tr");
+
+//       // Include only the first 26 columns and all rows
+//       const columnsToInclude = Array.from(tableHeaders).slice(0, 39);
+//       const rowsToInclude = Array.from(tableRows).map(row => {
+//           const cells = Array.from(row.querySelectorAll("td")).slice(0, 39);
+//           return cells.map(cell => cell.textContent);
+//       });
+
+//       // Create worksheet
+//       const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+
+//       // Create workbook and export
+//       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+//       const excelBuffer = XLSX.write(wb, {
+//           bookType: "xlsx",
+//           type: "array",
+//       });
+//       const data = new Blob([excelBuffer], { type: fileType });
+//       const url = URL.createObjectURL(data);
+//       const link = document.createElement("a");
+//       link.href = url;
+//       link.setAttribute("download", fileName + fileExtension);
+//       document.body.appendChild(link);
+//       link.click();
+//   } catch (error) {
+//       console.error("Error exporting to Excel:", error);
+//       toast.error("Error exporting to Excel");
+//   }
+// };
+
 const exportToExcel = () => {
   try {
-      const fileType =
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-      const fileExtension = ".xlsx";
-      const fileName = branch;
+    const fileType =
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const fileName = branch;
 
-      // Get all table headers and rows
-      const tableHeaders = document.querySelectorAll(".table th");
-      const tableRows = document.querySelectorAll(".table tbody tr");
+    // Get all table headers and rows
+    const tableHeaders = document.querySelectorAll(".table th");
+    const tableRows = document.querySelectorAll(".table tbody tr");
 
-      // Include only the first 26 columns and all rows
-      const columnsToInclude = Array.from(tableHeaders).slice(0, 39);
-      const rowsToInclude = Array.from(tableRows).map(row => {
-          const cells = Array.from(row.querySelectorAll("td")).slice(0, 39);
-          return cells.map(cell => cell.textContent);
-      });
+    // Include only the first 26 columns and all rows
+    const columnsToInclude = Array.from(tableHeaders).slice(0, 39);
+    const rowsToInclude = Array.from(tableRows).map(row => {
+      const cells = Array.from(row.querySelectorAll("td")).slice(0, 39);
+      return cells.map(cell => cell.textContent);
+    });
 
-      // Create worksheet
-      const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+    // Create worksheet
+    const wsData = [Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude];
+    
+    // Add border style
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    const borderStyle = {
+      top: { style: "bold", color: { rgb: "000000" } },
+      bottom: { style: "medium", color: { rgb: "000000" } },
+      left: { style: "medium", color: { rgb: "000000" } },
+      right: { style: "medium", color: { rgb: "000000" } }
+    };
+    alert(borderStyle)
+    const range = XLSX.utils.decode_range(ws["!ref"]);
+    for (let R = range.s.r; R <= range.e.r; ++R) {
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        const cell = XLSX.utils.encode_cell({ r: R, c: C });
+        if (!ws[cell]) continue;
+        if (!ws[cell].s) ws[cell].s = {};
+        Object.assign(ws[cell].s, borderStyle);
+      }
+    }
 
-      // Create workbook and export
-      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-      const excelBuffer = XLSX.write(wb, {
-          bookType: "xlsx",
-          type: "array",
-      });
-      const data = new Blob([excelBuffer], { type: fileType });
-      const url = URL.createObjectURL(data);
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", fileName + fileExtension);
-      document.body.appendChild(link);
-      link.click();
+    // Create workbook and export
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const data = new Blob([excelBuffer], { type: fileType });
+    const url = URL.createObjectURL(data);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", fileName + fileExtension);
+    document.body.appendChild(link);
+    link.click();
   } catch (error) {
-      console.error("Error exporting to Excel:", error);
-      toast.error("Error exporting to Excel");
+    console.error("Error exporting to Excel:", error);
+    toast.error("Error exporting to Excel");
   }
 };
+
+
+
 
 const handleExportClick = () => {
   exportToExcel();
@@ -179,9 +241,9 @@ const handleExportClick = () => {
                 </tr>
               </thead>
 
-              <tbody className="overflow-hidden">
+              <tbody className="overflow-hidden ">
                 {allDetailsData.map((data) => (
-                  <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium">
+                  <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
                     <td className="whitespace-nowrap px-4 py-4">{data._id}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.company}</td>

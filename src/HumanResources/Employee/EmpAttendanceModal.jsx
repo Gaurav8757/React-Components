@@ -34,7 +34,7 @@ function EmpAttendanceModal({emp}) {
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50"
         >
           {/* <div className={` fixed top-0 left-0 z-80 w-full h-full overflow-x-hidden overflow-y-auto`}> */}
-            <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
+            <div className="relative p-4 w-full max-w-9xl max-h-7xl mx-auto my-20 backdrop-blur-lg">
               <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto ">
                 <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
 
