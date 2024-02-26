@@ -25,7 +25,7 @@ export default function Navbar({ navigation }) {
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  sm:hidden">
               {/* Mobile menu button*/}
               <button
-                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-200 hover:bg-green-200 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200"
+                className="relative inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-800"
                 onClick={toggleSidebar}
               >
                 <span className="absolute -inset-0.5" />
