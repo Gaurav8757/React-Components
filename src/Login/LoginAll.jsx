@@ -80,6 +80,19 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.user.opsemail);
                     sessionStorage.setItem("name", response.data.user.opsname);
                     break;
+
+
+                    case "finance":
+                        response = await axios.post("http://eleedomimf.onrender.com/finance/login", {
+                           email,
+                           password,
+                        });
+                        sessionStorage.setItem("token", response.data.token);
+                        sessionStorage.setItem("email", response.data.email);
+                        sessionStorage.setItem("name", response.data.name);
+                        break;
+
+
                 default:
                     response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
                         opsemail: email,
@@ -100,25 +113,9 @@ function LoginAll() {
                         break;
 
                     case "employee":
-                        // if (response.data.user.staffType === "HR MANAGER" ||
-                        //     response.data.user.staffType === "HR" ||
-                        //     response.data.user.staffType === "BRANCH HR MANAGER") {
-                        //     sessionStorage.getItem("token");
-                        //     navigate("/hr/home");
-                        //     toast.success("Logged In Successfully !");
-
-                        // } 
-                        // if (response.data.user.staffType !== "HR MANAGER" ||
-                        //     response.data.user.staffType !== "HR" ||
-                        //     response.data.user.staffType !== "BRANCH HR MANAGER") {
-                        // For non-token users, you might want to redirect to a different page
                         sessionStorage.getItem("token");
                         navigate("/employee/home");
                         toast.success("Logged In Successfully !");
-                        // } else {
-                        //     navigate("/login");
-                        //     toast.error("User Not Found!");
-                        // }
                         break;
 
                     case "hradmin":
@@ -139,6 +136,15 @@ function LoginAll() {
                         navigate("/ops/home");
                         toast.success("Logged In Successfully !");
                         break;
+
+                        case "finance":
+                            sessionStorage.getItem("token");
+                            navigate("/finance/home");
+                            toast.success("Logged In Successfully !");
+                            break;
+
+
+
                     default:
                         toast.warn("Please Select Login Type..! ");
                         break;
@@ -165,6 +171,10 @@ function LoginAll() {
                 return "/branches/forget";
             case "ops":
                 return "/ops/forget";
+
+            case "finance":
+                return "/finance/forget";
+
             default:
                 return "/login";
         }
@@ -270,6 +280,7 @@ function LoginAll() {
                                         <option value="employee">Employee</option>
                                         <option value="hradmin">HR Admin</option>
                                         <option value="ops">OPS Admin</option>
+                                        <option value="finance">Finance Admin</option>
                                     </select>
                                 </div>
 

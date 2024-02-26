@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Modal from "react-modal";
 import { toast } from "react-toastify";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
@@ -19,9 +20,11 @@ function AddDataByBranch() {
     const [productCode, setProductCode] = useState("");
     const [data, setData] = useState([]);
     const [pdata, setPdata] = useState([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
     const [products, setProducts] = useState([]);
     const name = sessionStorage.getItem("name");
+
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
             .then((resp) => {
@@ -114,8 +117,9 @@ function AddDataByBranch() {
             });
 
             if (response.data) {
-                toast.success("Data Added Successfully !");
+                toast.success("Policy Created Successfully !");
                 setFormSubmitted(true);
+                setModalIsOpen(true); 
             }
             else {
                 toast.error("Error Occurred. Try again...! ");
@@ -125,10 +129,31 @@ function AddDataByBranch() {
         }
     };
 
-
-
-
+   
     return (
+        <>
+         <Modal
+       isOpen={modalIsOpen}
+       onRequestClose={() => setModalIsOpen(false)}
+       contentLabel="Submitted Modal"
+       shouldCloseOnOverlayClick={true} // Allow closing when clicking outside the modal
+       className="Modal"
+       overlayClassName="Overlay"
+       style={{
+           content: {
+               top: "50%",
+               left: "50%",
+               right: "auto",
+               bottom: "auto",
+               marginRight: "-50%",
+               transform: "translate(-50%, -50%)",
+               // Add any additional styling properties as needed
+           },
+       }}
+   >
+       <h2>Form Submitted Successfully</h2>
+       <button onClick={() => setModalIsOpen(false)}>Close</button>
+   </Modal>
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
             <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
 
@@ -377,7 +402,11 @@ function AddDataByBranch() {
                     </div>
                 </div>
             </div>
+           
         </section>
+      
+</>   
+        
     )
 }
 
