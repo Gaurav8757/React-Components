@@ -231,7 +231,8 @@ const Sidebar = () => {
               <img src="/logo.jpg " className="h-10 w-20 me-1 " alt="Logo" />
               <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap dark:text-white">ELEEDOM IMF</span>
             </NavLink>
-            <span className="text-2xl text-white font-medium font-serif xs:hidden ">Admin Dashboard</span>
+            <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">Admin Dashboard</span>
+            <div className="flex">
             <div className="flex items-center mx-5">
               <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                 <span className="sr-only">Open user menu</span>
@@ -259,6 +260,10 @@ const Sidebar = () => {
                 </ul>
               </div>
             </div>
+            <span>
+                      <Logout />
+                    </span>
+                    </div>
           </div>
         </div>
       </nav>
