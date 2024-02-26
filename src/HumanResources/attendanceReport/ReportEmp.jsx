@@ -141,18 +141,7 @@ function ReportEmp() {
         return months;
     };
 
-    // const daysInMonth = new Date(year, month, 0).getDate();
-
-    // const renderTableHeaders = () => {
-    //     const headers = [];
-    //     for (let i = 1; i <= daysInMonth; i++) {
-    //         const formattedDate = i.toString().padStart(2, '0'); // Format date as '01', '02', ...
-            
-    //         headers.push(<th className="border border-blue-700 text-lg" key={i}>{formattedDate}</th>);
-    //     }
-    //     return headers;
-    // };
-   
+ 
     const renderTableHeaders = () => {
         const headers = [];
         const daysInMonth = new Date(year, month, 0).getDate();

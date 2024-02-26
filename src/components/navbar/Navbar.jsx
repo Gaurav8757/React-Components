@@ -22,7 +22,7 @@ export default function Navbar({ navigation }) {
       <nav style={{backgroundColor: "#A31217"}}>
         <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
-            <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  md:hidden">
+            <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  sm:hidden">
               {/* Mobile menu button*/}
               <button
                 className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-200 hover:bg-green-200 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-200"
@@ -43,7 +43,7 @@ export default function Navbar({ navigation }) {
                 
               </NavLink>
 
-              <div className="hidden sm:ml-2  items-center lg:block py-10">
+              <div className="hidden sm:ml-2  items-center sm:block md:block py-10">
                 <div className="flex lg:space-x-2  xl:space-x-3 ">
                   {navigation.map((item, idx) => (
                     <div key={idx} className="relative group text-lg">

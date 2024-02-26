@@ -26,7 +26,7 @@ const Carousel = () => {
   })
 
   return (
-    <section className="container-fluid   max-w-lg">
+    <section className="container-fluid   max-w-sm">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         spaceBetween={5}
@@ -37,7 +37,7 @@ const Carousel = () => {
           delay: 4000, // Set the delay in milliseconds between slides
           disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
         }}
-        className='container-fluid   items-center mb-5   w-1/2 mt-5 xs:w-1/3 sm:w-3/4 md:w-3/4 lg:w-3/4 xl:w-full'>
+        className='container-fluid   mb-5   w-1/2 mt-5 xs:w-1/3 sm:w-1/3 md:w-3/4 lg:w-3/4 xl:w-full'>
         {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
         {APIData.map((obj, idx) => (
           <SwiperSlide className='  rounded-2xl ' key={idx}>
