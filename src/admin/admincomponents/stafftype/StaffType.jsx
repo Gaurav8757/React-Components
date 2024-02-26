@@ -38,9 +38,9 @@ function StaffType() {
                             <label className="text-base  my-2">Employee Type:</label>
                             <input
                                 className="input-style rounded-lg "
-                                value={type.toUpperCase()}
+                                value={type}
                                 name="type"
-                                onChange={(e) => setType(e.target.value)}
+                                onChange={(e) => setType(e.target.value.toUpperCase())}
                                 placeholder="Enter Staff Type"
                             />
                         </div>
