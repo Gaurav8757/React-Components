@@ -64,10 +64,9 @@ function DashboardEmp() {
       const name = sessionStorage.getItem("name");
       return (
         <>
-          <nav className="fixed top-0 z-50 w-full bg-cyan-700">
+          <nav className="absolute top-0 z-50 w-full bg-cyan-700">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
               <div className="flex items-center justify-between">
-                {/* <div className="flex items-center justify-start rtl:justify-end"> */}
                   <button onClick={toggleSidebar}  type="button" className="inline-flex items-center p-2 text-sm text-black rounded-lg sm:hidden hover:bg-gradient-to-r from-cyan-400 to-cyan-600 focus:outline-none focus:ring-1 focus:ring-black">
                     <span className="sr-only">Open sidebar</span>
                     <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +77,6 @@ function DashboardEmp() {
                     <img src="/logo.jpg " className="h-10 w-20 me-2 " alt="Logo" />
                     <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white dark:text-white">ELEEDOM IMF</span>
                   </NavLink>
-                {/* </div> */}
                 <div>
                   <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">{name}</span>
                 </div>
