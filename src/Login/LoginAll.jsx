@@ -83,7 +83,7 @@ function LoginAll() {
 
 
                     case "finance":
-                        response = await axios.post("http://eleedomimf.onrender.com/finance/login", {
+                        response = await axios.post("https://eleedomimf.onrender.com/finance/login", {
                            finemail: email,
                            finpassword:password,
                         });
