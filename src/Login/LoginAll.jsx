@@ -84,12 +84,12 @@ function LoginAll() {
 
                     case "finance":
                         response = await axios.post("http://eleedomimf.onrender.com/finance/login", {
-                           email,
-                           password,
+                           finemail: email,
+                           finpassword:password,
                         });
                         sessionStorage.setItem("token", response.data.token);
-                        sessionStorage.setItem("email", response.data.email);
-                        sessionStorage.setItem("name", response.data.name);
+                        sessionStorage.setItem("email", response.data.finemail);
+                        sessionStorage.setItem("name", response.data.finname);
                         break;
 
 
