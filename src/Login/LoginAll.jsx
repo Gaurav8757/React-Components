@@ -87,9 +87,11 @@ function LoginAll() {
                            finemail: email,
                            finpassword:password,
                         });
+                        
                         sessionStorage.setItem("token", response.data.token);
-                        sessionStorage.setItem("email", response.data.user.finemail);
-                        sessionStorage.setItem("name", response.data.user.finname);
+                        sessionStorage.setItem("finemail", response.data.email);
+                        sessionStorage.setItem("finname", response.data.name);
+                        console.log(response.data);
                         break;
 
 
@@ -137,7 +139,7 @@ function LoginAll() {
                         toast.success("Logged In Successfully !");
                         break;
 
-                        case "finance":
+                    case "finance":
                             sessionStorage.getItem("token");
                             navigate("/finance/home");
                             toast.success("Logged In Successfully !");

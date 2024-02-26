@@ -34,8 +34,8 @@ const SidebarFinance = () => {
     setOpenSubmenu(null);
   };
 
-  const loginBranch = sessionStorage.getItem("email");
-  const name = sessionStorage.getItem("name");
+  const loginBranch = sessionStorage.getItem("finemail");
+  const name = sessionStorage.getItem("finname");
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-cyan-700">
