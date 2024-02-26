@@ -88,8 +88,8 @@ function LoginAll() {
                            finpassword:password,
                         });
                         sessionStorage.setItem("token", response.data.token);
-                        sessionStorage.setItem("email", response.data.finemail);
-                        sessionStorage.setItem("name", response.data.finname);
+                        sessionStorage.setItem("email", response.data.user.finemail);
+                        sessionStorage.setItem("name", response.data.user.finname);
                         break;
 
 
