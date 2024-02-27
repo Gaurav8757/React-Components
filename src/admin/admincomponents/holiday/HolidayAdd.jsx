@@ -7,6 +7,19 @@ function HolidayAdd() {
   const [APIData, setAPIData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+
+
+  const handleDateChange = (e) => {
+    // Get the selected date from the input
+    const selectedDate = e.target.value;
+    // Split the date string by "-"
+    const parts = selectedDate.split("-");
+    // Rearrange the parts to form the "DD/MM/YYYY" format
+    const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+    // Update the state with the formatted date
+    setDate(formattedDate);
+};
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -38,11 +51,13 @@ function HolidayAdd() {
       }
       // Make a POST request to mark attendance
       await axios.post(`https://eleedomimf.onrender.com/holidays/add`, {
-        fuels: hType,
+        hdate: date,
+        hdays: hType
       });
       // Handle success (e.g., show a success message)
       toast.success('Holiday Added Successfully....!');
       setHType("");
+      setDate("");
     } catch (error) {
       // Handle error (e.g., show an error message)
       console.error(
@@ -80,7 +95,7 @@ function HolidayAdd() {
               type="date"
               name="date"
               value={date}
-              onChange={(e) => setDate(e.target.value)} />
+              onChange={handleDateChange} />
           </div>
 
           <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
@@ -134,11 +149,11 @@ function HolidayAdd() {
                     key={data._id}
                   >
                     <td className="whitespace-nowrap px-4 py-4">
-                      {data.fuels}
+                      {data.hdate}
                     </td>
-                    {/* <td className="whitespace-nowrap px-4 py-4">
-                                    Your Update button
-                                </td> */}
+                    <td className="whitespace-nowrap px-4 py-4">
+                    {data.hdays}
+                                </td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <button
                         type="button"
