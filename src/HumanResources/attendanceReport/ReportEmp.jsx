@@ -9,7 +9,6 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 function ReportEmp() {
     const [APIData, setAPIData] = useState([]);
     const [sendStaffId, setSendStaffId] = useState(null);
- 
     const [calendarData, setCalendarData] = useState([]);
     const name = sessionStorage.getItem("name");
     const [year, setYear] = useState(new Date().getFullYear());
@@ -41,7 +40,9 @@ function ReportEmp() {
             let absentCount = 0;
             let halfDayCount = 0;
             let holiDayCount = 0;
-    
+            let workingDaysCount = 0;
+
+
             return (
                 <tr key={employeeIndex}>
                     <td className="whitespace-nowrap px-4 py-4 border border-black text-lg font-semibold">
@@ -51,6 +52,7 @@ function ReportEmp() {
                         {employee.empname}
                     </td>
                     {calendarData.map((date, dateIndex) => {
+                        
                         const attendance = employee.employeeDetails.find(emp => emp.date === date);
                         const hasAttendance = !!attendance;
                         const status = hasAttendance ? attendance.status : ''; // Default to absent if no attendance record
@@ -73,6 +75,18 @@ function ReportEmp() {
                                 break;
                         }
     
+                         // Count working days (exclude Sundays)
+                         const startDate = startOfMonth(new Date(year, month - 1));
+                         const endDate = endOfMonth(new Date(year, month - 1));
+                         const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
+                         const formattedDays = daysOfMonth.map((day) => day.getDay());
+                    console.log(daysOfMonth.map((month)=>month.getYear()));
+                        if (formattedDays[dateIndex] !== 0){
+                            workingDaysCount++ ;
+                        }
+                      
+                       
+                   
                         // Define the text to display based on status
                         let text = '';
                         switch (status) {
@@ -102,6 +116,9 @@ function ReportEmp() {
                             </td>
                         );
                     })}
+                     <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                        {workingDaysCount} {/* Display present count */}
+                    </td>
                     <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
                         {presentCount} {/* Display present count */}
                     </td>
@@ -114,6 +131,9 @@ function ReportEmp() {
                     <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
                         {holiDayCount} {/* Display holiday count */}
                     </td>
+                    {/* <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                        {percent} 
+                    </td> */}
                 </tr>
             );
         });
@@ -301,21 +321,24 @@ function ReportEmp() {
                                     </th>
                                     {renderTableHeaders()}
                                     {/* {renderTableRows()} */}
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                    <th scope="col" className="px-5 py-4 border border-blue-700 ">
+                                       Total Working Days
+                                    </th>
+                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-green-400">
                                         Present Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-red-500">
                                         Absent Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-yellow-400">
                                         Half Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-cyan-300">
                                         HoliDays
                                     </th>
-                                    {/* <th scope="col" className="px-5 py-4 border border-blue-700">
-                                        Status
-                                    </th> */}
+                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                        Attendance(%)
+                                    </th>
                                 </tr></thead>
 
                             {/* td data */}

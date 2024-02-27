@@ -151,6 +151,11 @@ const Sidebar = () => {
           path: "/dashboard/payment/type",
           dash:""
         },
+        {
+          title: "Add Holiday ",
+          path: "/dashboard/holiday/add",
+          dash:""
+        },
       ]
     },
 

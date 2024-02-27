@@ -138,6 +138,7 @@ import AddPayoutOn from "./admin/admincomponents/PayoutOn/AddPayoutOn.jsx";
 import AddPaymentMode from "./admin/admincomponents/PaymentMode/AddPaymentMode.jsx";
 import ReportEmp from "./HumanResources/attendanceReport/ReportEmp.jsx";
 import FinPassUpdate from "./finance/FinPassUpdate.jsx";
+import HolidayAdd from "./admin/admincomponents/holiday/HolidayAdd.jsx";
 
 
 
@@ -247,6 +248,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/fuel/type" element={<AddFuel />} />
           <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
+          <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
         </Route>
       </Route>
 
