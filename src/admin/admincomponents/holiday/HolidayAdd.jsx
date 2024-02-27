@@ -55,13 +55,13 @@ function HolidayAdd() {
         hdays: hType
       });
       // Handle success (e.g., show a success message)
-      toast.success('Holiday Added Successfully....!');
+      toast.success('Holiday Date & Name Added Successfully....!');
       setHType("");
       setDate("");
     } catch (error) {
       // Handle error (e.g., show an error message)
       console.error(
-        'Errorto Adding Holiday...!',
+        'Error to Adding Holiday...!',
         error.response ? error.response.data.message : error.message
       );
     } finally {
@@ -70,13 +70,13 @@ function HolidayAdd() {
   }
 
   // Delete Functions
-  const deleteFuelTypes = async (_id) => {
+  const deleteHolidays = async (_id) => {
     try {
       await axios.delete(`https://eleedomimf.onrender.com/holidays/${_id}/delete`);
-      toast.warn("Fuel Name Deleted.....!", { theme: "dark", position: "top-right" });
+      toast.warn("Holiday Date & Name Deleted.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
-      console.error('Error Deleting Fuel Name', error);
+      console.error('Error Deleting ', error);
     }
   };
 
@@ -158,7 +158,7 @@ function HolidayAdd() {
                       <button
                         type="button"
                         // _ID MADE TO DELETE
-                        onClick={() => deleteFuelTypes(data._id)}
+                        onClick={() => deleteHolidays(data._id)}
                         className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">
                         Delete
                       </button>
