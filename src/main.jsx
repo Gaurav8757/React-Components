@@ -137,6 +137,7 @@ import AddFuel from "./admin/admincomponents/Fuel/AddFuel.jsx";
 import AddPayoutOn from "./admin/admincomponents/PayoutOn/AddPayoutOn.jsx";
 import AddPaymentMode from "./admin/admincomponents/PaymentMode/AddPaymentMode.jsx";
 import ReportEmp from "./HumanResources/attendanceReport/ReportEmp.jsx";
+import FinPassUpdate from "./finance/FinPassUpdate.jsx";
 
 
 
@@ -324,6 +325,7 @@ const router = createBrowserRouter(
 
       <Route path="/finance" element={<LoginAll />} />
       <Route path="/finance/forget" element={<ForgetFinance />} />
+      <Route path="/reset/password/finance/:fId/:token" element={<FinPassUpdate />} />
       <Route element={<ProtectFinance />}>
       <Route path="/finance/home" element={<LayoutFinance />}>
       <Route path="" element={<DashboardFinance />} />
