@@ -33,11 +33,23 @@ function DashboardHr() {
           ]
         },
         {
-          title: "Report",
-          path: "/hr/home/attendance/report",
-          logo: <IoCalendarNumberOutline  size={25} />
+          title: "Attendance Report",
+          path: "#",
+          logo: <IoCalendarNumberOutline  size={25} />,
+          subRoutes: [
+            {
+              title: "All Report",
+              path: "/hr/home/attendance/report",
+              dash:""
+            },
+            {
+              title: "Today's Attendance",
+              path: "/hr/home/attendance/current/date",
+              dash:""
+            },
+          ]
         },
-
+       
         {
           title: "Employee",
           path: "#",
@@ -53,11 +65,11 @@ function DashboardHr() {
               path: "/hr/home/viewemployee",
               dash:""
             },
-            {
-              title: "Employee Attendance",
-              path: "/hr/home/emp/attendance",
-              dash:<RiGitBranchFill size={25} />
-            },
+            // {
+            //   title: "Employee Attendance",
+            //   path: "/hr/home/emp/attendance",
+            //   dash:<RiGitBranchFill size={25} />
+            // },
           ]
         },
 

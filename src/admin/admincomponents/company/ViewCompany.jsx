@@ -130,7 +130,7 @@ const handleExportClick = () => {
                      
                     </div>
                    
-                    <div className="inline-block min-w-full w-full py-0  ">
+                    <div className="inline-block min-w-full w-full py-0">
                         <table className="min-w-full text-center text-sm font-light table">
                             <thead className="border-b font-medium bg-slate-300 sticky top-2">
                                 <tr className="text-blue-700 bg-slate-300 sticky top-2">

@@ -139,6 +139,7 @@ import AddPaymentMode from "./admin/admincomponents/PaymentMode/AddPaymentMode.j
 import ReportEmp from "./HumanResources/attendanceReport/ReportEmp.jsx";
 import FinPassUpdate from "./finance/FinPassUpdate.jsx";
 import HolidayAdd from "./admin/admincomponents/holiday/HolidayAdd.jsx";
+import CurrentAttendance from "./HumanResources/attendanceReport/CurrentAttendance.jsx";
 
 
 
@@ -311,6 +312,8 @@ const router = createBrowserRouter(
           <Route path="/hr/home/attendance" element={<HrAttendance />} />
           <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
           <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
+          <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance/>} />
+
         </Route>
       </Route>
 
