@@ -18,7 +18,7 @@ function HolidayAdd() {
     const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
     // Update the state with the formatted date
     setDate(formattedDate);
-};
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -84,32 +84,32 @@ function HolidayAdd() {
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex-col  flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-       
+
         <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
-        <h1 className="font-semibold text-3xl mb-3">Add Holiday </h1>
-        <div className="flex mt-10">
-          <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
-            <label className="text-base mx-1 mb-2">Choose Holiday Date<span className="text-red-600 font-bold">*</span></label>
-            <input
-              className="input-style rounded-lg"
-              type="date"
-              name="date"
-              value={date}
-              onChange={handleDateChange} />
-          </div>
+          <h1 className="font-semibold text-3xl mb-3">Add Holiday </h1>
+          <div className="flex mt-10">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
+              <label className="text-base mx-1 mb-2">Choose Holiday Date<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="date"
+                // value={date}
+                onChange={handleDateChange} />
+            </div>
 
-          <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
-            <label className="text-base mx-1 mb-2">Enter Holiday Name<span className="text-red-600 font-bold">*</span></label>
-            <input
-              className="input-style rounded-lg"
-              type="text"
-              name="hType"
-              value={hType}
-              onChange={(e) => setHType(e.target.value.toUpperCase())}
-              placeholder="Add Holiday"
-            />
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
+              <label className="text-base mx-1 mb-2">Enter Holiday Name<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="hType"
+                value={hType}
+                onChange={(e) => setHType(e.target.value.toUpperCase())}
+                placeholder="Add Holiday"
+              />
 
-          </div>
+            </div>
           </div>
           <div className="block justify-center p-2 text-center w-full my-2 mt-10 gap-10">
             <button
@@ -124,18 +124,17 @@ function HolidayAdd() {
         </div>
 
         <div className="inline-block my-6 min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
-          <h1 className="font-semibold text-3xl mb-3">Holiday List&apos;s</h1>
-          <table className="min-w-full text-center text-base font-light table">
-            <thead className="border-b font-medium dark:border-neutral-200 ">
+          <h1 className="font-semibold text-3xl mb-3 mt-5">Holiday List&apos;s</h1>
+          <table className="min-w-full text-center text-base font-light table mt-5">
+            <thead className="border-b font-medium  dark:border-neutral-200 ">
               <tr className="text-blue-700">
-              <th scope="col" className="px-5 py-4">
-                           Holiday Date
-                        </th>
+                <th scope="col" className="px-5 py-4">
+                  Holiday Date
+                </th>
 
                 <th scope="col" className=" px-5 py-4">
                   Holiday Name
                 </th>
-               
                 <th scope="col" className="px-5 py-4">
                   Delete
                 </th>
@@ -152,8 +151,8 @@ function HolidayAdd() {
                       {data.hdate}
                     </td>
                     <td className="whitespace-nowrap px-4 py-4">
-                    {data.hdays}
-                                </td>
+                      {data.hdays}
+                    </td>
                     <td className="whitespace-nowrap px-4 py-4">
                       <button
                         type="button"

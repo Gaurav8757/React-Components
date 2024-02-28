@@ -2,7 +2,6 @@ import UpdateCompanyModal from "./updateCompany";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {  NavLink } from "react-router-dom";
-// import { TiArrowBack } from "react-icons/ti";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
 

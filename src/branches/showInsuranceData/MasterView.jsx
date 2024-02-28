@@ -10,6 +10,7 @@ import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
 
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
+  const [search, setSearch] = useState("");
   const branch = sessionStorage.getItem('name');
   useEffect(() => {
     const fetchData = async () => {
@@ -177,19 +178,20 @@ const handleExportClick = () => {
   return (
     <section className="container-fluid relative p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid relative flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
-        <div className="inline-block min-w-full  w-full py-3 sm:px-6 lg:px-1">
-          <div className="flex mt-2 text-blue-500 ">
+        <div className="inline-block min-w-full  w-full py-3 sm:px-2 lg:px-1">
+          <div className="flex mt-2 text-blue-500  justify-between">
+          <form className="flex justify-start">
+                            <label className=" my-2  text-xl font-medium text-gray-900" > Filter:</label>
+                            <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-0 px-0 mb-2 ml-2" placeholder="ID Date Branch InsuredName" />
+                        </form>
           <h1 className="flex justify-center font-semibold text-3xl w-full mb-4 ">
               View All Details
             </h1>
+           
             <button className="absolute top-2 mt-3 right-24 mx-2" onClick={handleExportClick}><img src="/excel.png" alt="download"  className="w-12" /></button>
             <NavLink to="/branches/home">
             <button type="button" className="text-white absolute top-3 mt-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-            </NavLink>
-          
-            
-            
-           
+            </NavLink>    
             <hr />
           </div>
           <div className="min-w-full w-full py-0 sm:px-6 lg:px-6  block  overflow-x-auto">
@@ -241,8 +243,23 @@ const handleExportClick = () => {
                 </tr>
               </thead>
 
-              <tbody className="overflow-hidden ">
-                {allDetailsData.map((data) => (
+              <tbody className="overflow-hidden">
+                {allDetailsData.filter((data) => {
+                  const searchLower = search.toLowerCase();
+                  const entryDateLower = data.entryDate.toLowerCase();
+                  const idLower = data._id.toLowerCase();
+                  const insuredNameLower = data.insuredName.toLowerCase();
+                  const branchLower = data.branch.toLowerCase();
+                  return (
+                    entryDateLower.includes(searchLower) ||
+                    idLower.includes(searchLower) ||
+                    insuredNameLower.includes(searchLower) ||
+                    branchLower.includes(searchLower) ||
+                    searchLower === ''
+                );
+
+                 
+                  }).map((data) => (
                   <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
                     <td className="whitespace-nowrap px-4 py-4">{data._id}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.entryDate}</td>
@@ -288,7 +305,7 @@ const handleExportClick = () => {
                       <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy}/>
                     </td>
                   </tr>
-                ))}
+))}
               </tbody>
             </table>
           </div>
