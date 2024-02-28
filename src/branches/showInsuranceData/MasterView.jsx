@@ -184,7 +184,7 @@ const handleExportClick = () => {
                             <label className=" my-2  text-xl font-medium text-gray-900" > Filter:</label>
                             <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-0 px-0 mb-2 ml-2" placeholder="ID Date Branch InsuredName" />
                         </form>
-          <h1 className="flex justify-center font-semibold text-3xl w-full mb-4 ">
+          <h1 className="flex justify-center font-semibold text-3xl w-auto mb-4 ">
               View All Details
             </h1>
            
