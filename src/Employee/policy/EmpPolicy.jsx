@@ -121,8 +121,8 @@ function EmpPolicy() {
                 <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
               ) : (
                             <table className="min-w-full  border text-center text-sm font-light table ">
-                                <thead className="border-b  border-neutral-900 font-medium dark:border-neutral-900">
-                                    <tr className="text-blue-700 font-bold">
+                                <thead className="   font-medium sticky top-20">
+                                    <tr className="text-blue-700 font-bold sticky top-20">
                                         <th scope="col" className="px-4 py-4 f">
                                             Reference ID
                                         </th>
@@ -207,7 +207,7 @@ function EmpPolicy() {
                                     </tr>
                                 </thead>
                                
-                                <tbody>
+                                <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                     
                                     {APIData.map((data) => {
                                         return (

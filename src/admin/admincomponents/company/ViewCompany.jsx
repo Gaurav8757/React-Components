@@ -115,26 +115,25 @@ const handleExportClick = () => {
             <div className="container-fluid flex justify-center p-2   rounded-lg   bg-slate-200">
 
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-2 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-blue-500">
-                        <button className="absolute top-2 mt-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-                        <NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 ">
-                        <button type="button" className="text-white absolute top-3 mt-2 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-                        </NavLink>
-                        <h1 className="flex justify-center text-3xl  font-semibold w-full mb-8">All Company Lists</h1>
-                          {/* search */}
-                     <form className="flex justify-end">
-                            <label className=" my-0  mb-2 text-2xl font-medium text-gray-900" > Filter:</label>
-                            <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-40 p-3 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-100 dark:border-gray-600 dark:placeholder-blue-700  dark:focus:ring-blue-500 dark:focus:border-blue-500  appearance-none py-2 px-1 mb-4 ml-4" placeholder="Search Category" />
+                <div className="flex flex-col min-w-full w-full py-2 ">
+                    <div className=" flex relative text-blue-500 min-w-full w-full pt-5  justify-between">
+
+                    <form className="flex justify-start ">
+                            <label className=" my-2  text-xl font-medium text-gray-900" > Filter:</label>
+                            <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-0 px-0 mb-2 ml-2" placeholder="ID Date Branch InsuredName" />
                         </form>
-                        
-                        <hr></hr>
+                        <h1 className="flex justify-center text-3xl  font-semibold w-full mb-8">All Company Lists</h1>
+                        <button className=" mt-2 " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                        <NavLink to="/dashboard/addcompanies" className="flex justify-end text-red-700 ">
+                        <button type="button" className="text-white  justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                        </NavLink>
+                     
                     </div>
                    
-                    <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+                    <div className="inline-block min-w-full w-full py-0  ">
                         <table className="min-w-full text-center text-sm font-light table">
-                            <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-2">
+                                <tr className="text-blue-700 bg-slate-300 sticky top-2">
 
                                     <th scope="col" className="px-5 py-4">
                                         Company Name

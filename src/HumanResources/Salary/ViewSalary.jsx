@@ -70,17 +70,17 @@ export default function ViewSalary() {
         <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-blue-500"
+                <div className="inline-block min-w-full w-full py-0 ">
+                    <div className=" w-xl  text-blue-500"
                     ><NavLink to = "/hr/home/addsalary" className="flex justify-end text-red-700">
                         <button type="button" className="text-white absolute top-4 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
                         </NavLink>
-                        <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Employee Salary Lists</h1><hr></hr>
+                        <h1 className="flex justify-center text-3xl font-semibold w-full m-5">Employee Salary Lists</h1>
                         </div>
-                        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+                        <div className="inline-block min-w-full w-full py-0  overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
-                            <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-2">
+                                <tr className="text-blue-700 sticky top-2">
                                    
                                     <th scope="col" className="px-5 py-4">
                                     Employee Name
@@ -102,7 +102,7 @@ export default function ViewSalary() {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                 {APIData.map((data) => {
                                    
                                     return (

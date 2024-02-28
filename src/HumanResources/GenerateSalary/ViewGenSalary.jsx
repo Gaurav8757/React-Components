@@ -64,21 +64,21 @@ export default function ViewGenPolicy() {
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
             const fileName = `${name}_final_salary`;
-      
+
             // Get all table headers and rows
             const tableHeaders = document.querySelectorAll(".table th");
             const tableRows = document.querySelectorAll(".table tbody tr");
-      
+
             // Include only the first 26 columns and all rows
             const columnsToInclude = Array.from(tableHeaders).slice(0, 21);
             const rowsToInclude = Array.from(tableRows).map(row => {
                 const cells = Array.from(row.querySelectorAll("td")).slice(0, 21);
                 return cells.map(cell => cell.textContent);
             });
-      
+
             // Create worksheet
             const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
-      
+
             // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
@@ -96,7 +96,7 @@ export default function ViewGenPolicy() {
             console.error("Error exporting to Excel:", error);
             toast.error("Error exporting to Excel");
         }
-      };
+    };
 
     const handleExportClick = () => {
         exportToExcel();
@@ -117,21 +117,31 @@ export default function ViewGenPolicy() {
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
-
-                {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-none w-xl flex  text-blue-500"
-                    >
-                        <h1 className="flex justify-center text-4xl w-full mb-8"> Employee Generate Salary Lists</h1>
-                        <button className="absolute top-3 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-                        <NavLink to="/hr/home/generate/salary" className="flex mt-4 justify-end text-red-700"> 
-                        <button type="button" className="text-white absolute top-4 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-                        </NavLink>
+                <div className=" relative text-blue-500 min-w-full w-full py-4 ">
+                    <div className="flex justify-between mb-4">
+                        <h1></h1>
+                        <h1 className="  font-semibold text-3xl w-auto mb-0 hidden sm:hidden md:block lg:block xl:block">
+                            Employee Generate Salary Lists
+                        </h1>
+                        <div className="flex">
+                            <button className="flex justify-center mx-4" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                            <NavLink to="/hr/home/generate/salary" className="flex justify-center">
+                                <button type="button" className="text-white justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                            </NavLink>
+                        </div>
                     </div>
-                    <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+
+
+
+
+
+
+
+
+                    <div className="inline-block min-w-full w-full py-0  ">
                         <table className="min-w-full text-center text-sm font-light table">
-                            <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-20 ">
+                                <tr className="text-blue-700 sticky top-20">
                                     <th scope="col" className="px-5 py-4">
                                         Employee Name
                                     </th>
@@ -169,28 +179,28 @@ export default function ViewGenPolicy() {
                                         Basic Salary
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                       HRA
+                                        HRA
                                     </th>
                                     <th scope="col" className="px-5 py-4">
                                         CA
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                       Medical Allowance
+                                        Medical Allowance
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Tiffin Allowance
+                                        Tiffin Allowance
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Company PF
+                                        Company PF
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                       Employee PF
+                                        Employee PF
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    ESI
+                                        ESI
                                     </th>
                                     <th scope="col" className="px-5 py-4">
-                                    Loan EMI
+                                        Loan EMI
                                     </th>
 
                                     <th scope="col" className="px-5 py-4">
@@ -205,9 +215,9 @@ export default function ViewGenPolicy() {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                 {APIData.map((data) => {
-                                    
+
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
@@ -286,7 +296,7 @@ export default function ViewGenPolicy() {
                                             </td>
 
                                             <td className="whitespace-nowrap px-4 py-4">
-                                                <UpdateGenSalary genSalaries = {data} onUpdate={updateGenSalary} />
+                                                <UpdateGenSalary genSalaries={data} onUpdate={updateGenSalary} />
                                             </td>
                                             <td className="whitespace-nowrap px-4 py-4">
                                                 <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>

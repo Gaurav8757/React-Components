@@ -128,7 +128,7 @@ const handleExportClick = () => {
         <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
             
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
+                <div className="inline-block min-w-full w-full py-0 ">
                     <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
                         <h1 className="flex justify-center text-3xl w-full font-semibold">All Employee Lists</h1>
                         <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
@@ -137,86 +137,84 @@ const handleExportClick = () => {
                         <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
                         </NavLink>
                         </div>
-                        <div className="inline-block min-w-full w-full py-3 sm:px-6 lg:px-8 overflow-x-auto">
+                        <div className=" relative mt-2">
+                        <div className="inline-block min-w-full w-full py-3  ">
                         <table className="min-w-full text-center text-sm font-light table ">
-                            <thead className="border-b  font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700 ">
+                            <thead className="border-b  font-medium bg-slate-300  sticky top-16">
+                                <tr className="text-blue-700 sticky top-16">
                                     <th scope="col" className="px-5 py-4">
                                     Employee ID
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Employee Name
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Email ID
                                     </th>
-                                    {/* <th scope="col" className="px-5 py-4">
-                                    Password
-                                    </th> */}
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Mobile No.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     DOB.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Gender
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Aadhar No.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Aadhar Card
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     PAN No.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     PAN Card
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                    Account Number
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                    IFSC Code
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                    Bank Name
                                     </th>
                                     
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Joining Date
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Branch 
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Current Address
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Permanent Address
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                     Designation
                                     </th>
                                    
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Update
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Attendance
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-5 py-4 sticky">
                                         Status
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                 {APIData.map((data) => {
                                     
                                     return (
                                         <tr
-                                            className="border-b dark:border-neutral-200 text-sm font-medium"
+                                            className=":border-neutral-200 text-sm font-medium"
                                             key={data.empid}
                                         >
                                              <td className="whitespace-nowrap px-4 py-4">
@@ -303,6 +301,7 @@ const handleExportClick = () => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
                     </div>
                     {sendStaffId && (
                     <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

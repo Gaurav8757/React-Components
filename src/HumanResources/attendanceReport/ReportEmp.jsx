@@ -55,106 +55,7 @@ function ReportEmp() {
     }, [year, month]);
 
 
-    // const renderCalendar = () => {
-    //     return APIData.map((employee, employeeIndex) => {
-    //         // Initialize present, absent, half-day, and holiday counts
-    //         let presentCount = 0;
-    //         let absentCount = 0;
-    //         let halfDayCount = 0;
-    //         let holiDayCount = 0;
-    //         let workingDaysCount = 0;
-    //         // color all sundays
-    //         return (
-    //             <tr key={employeeIndex}>
-    //                 <td className="whitespace-nowrap px-4 py-4 border border-black text-lg font-semibold">
-    //                     {employee.empid}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 border border-black text-lg font-semibold">
-    //                     {employee.empname}
-    //                 </td>
-    //                 {calendarData.map((date, dateIndex) => {
-                      
-    //                     const holiday = holidayData.find(holiday => holiday.hdate === date);
-    //                     const isHoliday = !!holiday;
-    //                     let text = '';
-    //                     if (isHoliday) {
-    //                         // Display the holiday name
-    //                         text = holiday.hdays;
-    //                         holiDayCount++;
-    //                     }
-    //                     const attendance = employee.employeeDetails.find(emp => emp.date === date);
-    //                     const hasAttendance = !!attendance;
-    //                     const status = hasAttendance ? attendance.status : ''; // Default to absent if no attendance record
-    //                     // Update counts based on status
-    //                     switch (status) {
-    //                         case 'present':
-    //                             presentCount++;
-    //                             break;
-    //                         case 'absent':
-    //                             absentCount++;
-    //                             break;
-    //                         case 'halfday':
-    //                             halfDayCount++;
-    //                             break;
-    //                         default:
-    //                             break;
-    //                     }
-    //                     // Count working days (exclude Sundays)
-    //                     const startDate = startOfMonth(new Date(year, month - 1));
-    //                     const endDate = endOfMonth(new Date(year, month - 1));
-    //                     const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
-    //                     // days 
-    //                     const formattedDays = daysOfMonth.map((day) => day.getDay());
-    //                     // days of idex value
-    //                     if (formattedDays[dateIndex] !== 0) {
-    //                         workingDaysCount++;
-    //                     }
-    //                     // Define the text to display based on status
-    //                     switch (status) {
-    //                         case 'present':
-    //                             text = 'P';
-    //                             break;
-    //                         case 'absent':
-    //                             text = 'A';
-    //                             break;
-    //                         case 'halfday':
-    //                             text = 'H';
-    //                             break;
-    //                         default:
-    //                             break;
-    //                     }
-    //                     // Render the cell
-    //                     return (
-    //                         <td key={dateIndex} className={`relative border border-black px-16 py-8 text-lg font-bold text-slate-200 ${formattedDays[dateIndex] === 0 ? `bg-red-300` :status === 'present' ? 'bg-green-600' : status === 'absent' ? 'bg-red-600' : status === 'halfday' ? 'bg-yellow-600' : isHoliday === true ? 'bg-cyan-400' :  ''}`}>
-    //                             {text}
-    //                             <div className="absolute -bottom-0.5 right-0.5">
-    //                                 <span className="text-xs font-normal">{hasAttendance ? attendance.time : ''}</span>
-    //                             </div>
-    //                         </td>
-    //                     );
-    //                 })}
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {workingDaysCount-holiDayCount} {/* Display WORKING count */}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {presentCount} {/* Display present count */}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {absentCount} {/* Display absent count */}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {halfDayCount} {/* Display half-day count */}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {holiDayCount} {/* Display holiday count */}
-    //                 </td>
-    //                 <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
-    //                     {(presentCount / workingDaysCount * 100).toFixed(2)}%
-    //                 </td>
-    //             </tr>
-    //         );
-    //     });
-    // };
+  
     const renderCalendar = () => {
         // Sort APIData by empid in ascending order
         const sortedAPIData = APIData.slice().sort((a, b) => {
@@ -174,10 +75,10 @@ function ReportEmp() {
             // color all Sundays
             return (
                 <tr key={employeeIndex}>
-                    <td className="whitespace-nowrap px-4 py-4 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap  border border-black text-lg font-semibold">
                         {employee.empid}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap border border-black text-lg font-semibold">
                         {employee.empname}
                     </td>
                     {calendarData.map((date, dateIndex) => {
@@ -239,30 +140,31 @@ function ReportEmp() {
     
                         // Render the cell
                         return (
-                            <td key={dateIndex} className={`relative border border-black px-16 py-8 text-lg font-bold text-slate-200 ${formattedDays[dateIndex] === 0 ? `bg-red-300` :status === 'present' ? 'bg-green-600' : status === 'absent' ? 'bg-red-600' : status === 'halfday' ? 'bg-yellow-600' : isHoliday === true ? 'bg-cyan-400' :  ''}`}>
+                           
+                            <td key={dateIndex} className={`z-1  border border-black px-4 py-4 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` :status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' :  ''}`}>
                                 {text}
-                                <div className="absolute -bottom-0.5 right-0.5">
-                                    <span className="text-xs font-normal">{hasAttendance ? attendance.time : ''}</span>
-                                </div>
+                               
+                                    <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
+                               
                             </td>
                         );
                     })}
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-wrap  text-lg font-bold border border-black">
                         {workingDaysCount - holiDayCount} {/* Display WORKING count */}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-nowrap  text-lg font-bold border border-black">
                         {presentCount} {/* Display present count */}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-nowrap  text-lg font-bold border border-black">
                         {absentCount} {/* Display absent count */}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-nowrap  text-lg font-bold border border-black">
                         {halfDayCount} {/* Display half-day count */}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-nowrap  text-lg font-bold border border-black">
                         {holiDayCount} {/* Display holiday count */}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4 text-lg font-bold border border-black">
+                    <td className="whitespace-nowrap  text-lg font-bold border border-black">
                         {(presentCount / workingDaysCount * 100).toFixed(2)}%
                     </td>
                 </tr>
@@ -310,11 +212,11 @@ function ReportEmp() {
         const isHoliday = !!holiday;
            
             headers.push(
-                <th  className={`border border-blue-700 text-lg ${isHoliday === true ? 'bg-cyan-400 ': weekdayIndex === 0 ? 'bg-red-300 text-red-700': ''}`}
+                <th  className={`border   border-blue-700 text-lg  sticky  ${isHoliday === true ? 'bg-cyan-400 ': weekdayIndex === 0 ? 'bg-red-300 text-red-700': ''}`}
                 key={i} >
-                    <div>{formattedDate}</div>
+                    <div >{formattedDate}</div>
                     <div>{weekday}</div>
-                    <span className="text-red-700">{isHoliday ? holiday.hdays : ''}</span>
+                    <span className="text-red-700 ">{isHoliday ? holiday.hdays : ''}</span>
                 </th>
             )   
 }
@@ -477,7 +379,7 @@ function ReportEmp() {
                     </div>
 
                     {/* year */}
-                    <div className="flex justify-between items-center my-5 mt-10  text-blue-600  ">
+                    <div className="flex justify-between items-center my-5 mt-5  text-blue-600  ">
                         <h1 className="font-bold text-lg flex-wrap xl:flex-nowrap">Selected MM-YY: <span className="text-green-600 ">{month} - {year}</span></h1>
                         <div className="flex">
                             <div>
@@ -499,40 +401,41 @@ function ReportEmp() {
 
 
                     {/* part-3 */}
-                    <div className="flex min-w-full w-full py-3 sm:px-4 lg:px-1   overflow-x-auto">
-                        <table className="min-w-full text-center text-sm font-light table border  border-black">
-                            <thead>
-                                <tr className="border border-black text-lg text-blue-700">
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                    <div className=" relative ">
+                    <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1   ">
+                        <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
+                            <thead className="sticky bg-slate-300 top-16">
+                                <tr className="border border-black text-lg z-50 text-blue-700  ">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
                                         Employee ID
                                     </th>
-                                    <th scope="col" className="px-4 py-4 border border-blue-700">
+                                    <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
                                         Employee Name
                                     </th>
                                     {renderTableHeaders()}
                                     {/* {renderTableRows()} */}
-                                    <th scope="col" className="px-5 py-4 border border-blue-700 ">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 ">
                                         Total Working Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-green-400">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-green-400">
                                         Present Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-red-500">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-red-500">
                                         Absent Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-yellow-400">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-yellow-400">
                                         Half Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700 bg-cyan-300">
+                                    <th scope="col" className="sticky  whitespace-nowrap border border-blue-700 bg-cyan-300">
                                         HoliDays
                                     </th>
-                                    <th scope="col" className="px-5 py-4 border border-blue-700">
+                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
                                         Attendance(%)
                                     </th>
                                 </tr></thead>
 
                             {/* td data */}
-                            <tbody className="bg-white divide ">
+                            <tbody className="bg-white divide-y  overflow-hidden">
                                 {renderCalendar()}
                             </tbody>
 
@@ -558,7 +461,7 @@ function ReportEmp() {
                     )}
                 </div>
             </div>
-            {/* </div> */}
+            </div>
         </section >
     );
 }

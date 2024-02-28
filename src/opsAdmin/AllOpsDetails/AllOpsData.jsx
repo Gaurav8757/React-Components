@@ -38,7 +38,7 @@ function AllOpsData({ data, policy }) {
 
     return (
         <tr
-            className="border-b dark:border-neutral-200 text-sm font-medium">
+            className="divide-y divide-gray-200 overflow-y-hidden  text-sm font-medium">
                 <td className="whitespace-nowrap px-3 py-4">
                 {data._id}
             </td>

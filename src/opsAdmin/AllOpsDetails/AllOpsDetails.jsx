@@ -109,11 +109,11 @@ function AllOpsDetails() {
                         <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policies Lists</h1><hr></hr>
                         <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                     </div>
-                    <div className="inline-block min-w-full w-full py-0 sm:px-3 lg:px-3 overflow-x-scroll">
+                    <div className="inline-block min-w-full w-full pt-2 ">
                         {/* <div className="pane-hScroll"> */}
-                            <table className="min-w-full  text-center text-sm font-light table">
-                                <thead className="border-b font-medium dark:border-neutral-500">
-                                    <tr className="text-blue-700 ">
+                            <table className="min-w-full  text-center text-sm font-light table bg-slate-200">
+                                <thead className="border-b font-medium bg-slate-300  sticky top-16">
+                                    <tr className="text-blue-700 sticky ">
                                         <th scope="col" className="px-4 py-4">
                                             Reference ID
                                         </th>
@@ -204,7 +204,7 @@ function AllOpsDetails() {
                             {/* </table> */}
                             {/* <div className="pane-vScroll"> */}
                                 {/* <table className="min-w-full  text-center text-sm font-light table "> */}
-                                    <tbody>
+                                    <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                         {APIData.map((data) => (
                                             <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
                                         ))}
