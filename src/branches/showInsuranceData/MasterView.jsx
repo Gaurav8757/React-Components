@@ -67,47 +67,6 @@ function MasterView() {
 };
 
 
-
-// const exportToExcel = () => {
-//   try {
-//       const fileType =
-//           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-//       const fileExtension = ".xlsx";
-//       const fileName = branch;
-
-//       // Get all table headers and rows
-//       const tableHeaders = document.querySelectorAll(".table th");
-//       const tableRows = document.querySelectorAll(".table tbody tr");
-
-//       // Include only the first 26 columns and all rows
-//       const columnsToInclude = Array.from(tableHeaders).slice(0, 39);
-//       const rowsToInclude = Array.from(tableRows).map(row => {
-//           const cells = Array.from(row.querySelectorAll("td")).slice(0, 39);
-//           return cells.map(cell => cell.textContent);
-//       });
-
-//       // Create worksheet
-//       const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
-
-//       // Create workbook and export
-//       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-//       const excelBuffer = XLSX.write(wb, {
-//           bookType: "xlsx",
-//           type: "array",
-//       });
-//       const data = new Blob([excelBuffer], { type: fileType });
-//       const url = URL.createObjectURL(data);
-//       const link = document.createElement("a");
-//       link.href = url;
-//       link.setAttribute("download", fileName + fileExtension);
-//       document.body.appendChild(link);
-//       link.click();
-//   } catch (error) {
-//       console.error("Error exporting to Excel:", error);
-//       toast.error("Error exporting to Excel");
-//   }
-// };
-
 const exportToExcel = () => {
   try {
     const fileType =
@@ -194,56 +153,57 @@ const handleExportClick = () => {
             </NavLink>    
             <hr />
           </div>
-          <div className="min-w-full w-full py-0 sm:px-6 lg:px-6  block  overflow-x-auto">
-            <table className="min-w-full   text-center text-sm font-light table  ">
-              <thead className="border-b  font-medium border border-slate-700 bg-slate-300 sticky top-0">
-                <tr className="text-blue-700 ">
-                <th scope="col" className="px-5 py-4 ">Reference ID</th>
-                  <th scope="col" className="px-5 py-4">Entry Date</th>
-                  <th scope="col" className="px-5 py-4">Company</th>
-                  <th scope="col" className="px-5 py-4">Category</th>
-                  <th scope="col" className="px-5 py-4">Segment</th>
-                  <th scope="col" className="px-5 py-4">Sourcing</th>
-                  <th scope="col" className="px-5 py-4">Insured Name</th>
-                  <th scope="col" className="px-5 py-4">Contact No</th>
-                  <th scope="col" className="px-5 py-4">Vehicle Reg No</th>
-                  <th scope="col" className="px-5 py-4">Hypothiniton</th>
-                  <th scope="col" className="px-5 py-4">Branch</th>
-                  <th scope="col" className="px-5 py-4">Advisor</th>
-                  <th scope="col" className="px-5 py-4">Sub Advisor</th>
-                  <th scope="col" className="px-5 py-4">Policy Type</th>
-                  <th scope="col" className="px-5 py-4">Product Code</th>
-                  <th scope="col" className="px-5 py-4">Policy No</th>
-                  <th scope="col" className="px-5 py-4">Engine No.</th>
-                  <th scope="col" className="px-5 py-4">Chassis No</th>
-                  <th scope="col" className="px-5 py-4">OD Premium</th>
-                  <th scope="col" className="px-5 py-4">Liability Premium</th>
-                  <th scope="col" className="px-5 py-4">Net Premium</th>
-                  <th scope="col" className="px-5 py-4">GST%</th>
-                  <th scope="col" className="px-5 py-4">Final Premium(GST%)</th>
-                  <th scope="col" className="px-5 py-4">OD Discount(%)</th>
-                  <th scope="col" className="px-5 py-4">NCB(%)</th>
-                  <th scope="col" className="px-5 py-4">Policy Made By</th>
-                  <th scope="col" className="px-5 py-4">Policy Start Date</th>
-                  <th scope="col" className="px-5 py-4">Policy End Date</th>
-                  <th scope="col" className="px-5 py-4">OD Expiry</th>
-                  <th scope="col" className="px-5 py-4">TP Expiry</th>
-                  <th scope="col" className="px-5 py-4">IDV</th>
-                  <th scope="col" className="px-5 py-4">Body Type</th>
-                  <th scope="col" className="px-5 py-4">Make & Model</th>
-                  <th scope="col" className="px-5 py-4">Registration Date</th>
-                  <th scope="col" className="px-5 py-4">Vehicle Age</th>
-                  <th scope="col" className="px-5 py-4">MFG Year</th>
-                  <th scope="col" className="px-5 py-4">Fuel Type</th>
-                  <th scope="col" className="px-5 py-4">GVW</th>
-                  <th scope="col" className="px-5 py-4">C.C.</th>
+          <div className=" relative ">
+          <div className="min-w-full w-full py-0 sm:px-6 lg:px-6 block">
+            <table className="min-w-full text-center text-sm font-light table bg-white border border-gray-200 divide-y divide-gray-200 border-separate border-spacing-0">
+              <thead className="border-b  font-medium border border-slate-700 bg-slate-300 sticky top-16">
+                <tr className="text-blue-700 sticky top-16">
+                  <th scope="col" className="px-5 py-4 sticky">Reference ID</th>
+                  <th scope="col" className="px-5 py-4 sticky">Entry Date</th>
+                  <th scope="col" className="px-5 py-4 sticky">Company</th>
+                  <th scope="col" className="px-5 py-4 sticky">Category</th>
+                  <th scope="col" className="px-5 py-4 sticky">Segment</th>
+                  <th scope="col" className="px-5 py-4 sticky">Sourcing</th>
+                  <th scope="col" className="px-5 py-4 sticky">Insured Name</th>
+                  <th scope="col" className="px-5 py-4 sticky">Contact No</th>
+                  <th scope="col" className="px-5 py-4 sticky">Vehicle Reg No</th>
+                  <th scope="col" className="px-5 py-4 sticky">Hypothiniton</th>
+                  <th scope="col" className="px-5 py-4 sticky">Branch</th>
+                  <th scope="col" className="px-5 py-4 sticky">Advisor</th>
+                  <th scope="col" className="px-5 py-4 sticky">Sub Advisor</th>
+                  <th scope="col" className="px-5 py-4 sticky">Policy Type</th>
+                  <th scope="col" className="px-5 py-4 sticky">Product Code</th>
+                  <th scope="col" className="px-5 py-4 sticky">Policy No</th>
+                  <th scope="col" className="px-5 py-4 sticky">Engine No.</th>
+                  <th scope="col" className="px-5 py-4 sticky">Chassis No</th>
+                  <th scope="col" className="px-5 py-4 sticky">OD Premium</th>
+                  <th scope="col" className="px-5 py-4 sticky">Liability Premium</th>
+                  <th scope="col" className="px-5 py-4 sticky">Net Premium</th>
+                  <th scope="col" className="px-5 py-4 sticky">GST%</th>
+                  <th scope="col" className="px-5 py-4 sticky">Final Premium(GST%)</th>
+                  <th scope="col" className="px-5 py-4 sticky">OD Discount(%)</th>
+                  <th scope="col" className="px-5 py-4 sticky">NCB(%)</th>
+                  <th scope="col" className="px-5 py-4 sticky">Policy Made By</th>
+                  <th scope="col" className="px-5 py-4 sticky">Policy Start Date</th>
+                  <th scope="col" className="px-5 py-4 sticky">Policy End Date</th>
+                  <th scope="col" className="px-5 py-4 sticky">OD Expiry</th>
+                  <th scope="col" className="px-5 py-4 sticky">TP Expiry</th>
+                  <th scope="col" className="px-5 py-4 sticky">IDV</th>
+                  <th scope="col" className="px-5 py-4 sticky">Body Type</th>
+                  <th scope="col" className="px-5 py-4 sticky">Make & Model</th>
+                  <th scope="col" className="px-5 py-4 sticky">Registration Date</th>
+                  <th scope="col" className="px-5 py-4 sticky">Vehicle Age</th>
+                  <th scope="col" className="px-5 py-4 sticky">MFG Year</th>
+                  <th scope="col" className="px-5 py-4 sticky">Fuel Type</th>
+                  <th scope="col" className="px-5 py-4 sticky">GVW</th>
+                  <th scope="col" className="px-5 py-4 sticky">C.C.</th>
                   
                   <th scope="col" className="px-5 py-4">Update</th>
                   {/* <th scope="col" className="px-5 py-4">Delete</th> */}
                 </tr>
               </thead>
 
-              <tbody className="overflow-hidden">
+              <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                 {allDetailsData.filter((data) => {
                   const searchLower = search.toLowerCase();
                   const entryDateLower = data.entryDate.toLowerCase();
@@ -308,6 +268,7 @@ const handleExportClick = () => {
 ))}
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       </div>
