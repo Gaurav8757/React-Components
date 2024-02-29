@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutFinance from "./LogoutFinance.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { IoPeopleOutline } from "react-icons/io5"; 
+import { GiTakeMyMoney, GiMoneyStack } from "react-icons/gi";
 const SidebarFinance = () => {
   const dashboardRouted = [
     {
@@ -12,9 +12,14 @@ const SidebarFinance = () => {
     },
 
     {
-      title: "Finance Lists",
-      path: "/finance/home",
-      logo: <IoPeopleOutline size={25} />
+      title: "Finance",
+      path: "/finance/home/new",
+      logo: <GiTakeMyMoney size={25} />
+    },
+    {
+      title: "View Finance",
+      path: "/finance/home/view",
+      logo: <GiMoneyStack size={25} />
     },
     
   ];
@@ -82,15 +87,12 @@ const SidebarFinance = () => {
                     </li>
                     <li>
                       <LogoutFinance />
-                      {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </li>
-
                   </ul>
                 </div>
               </div>
               <span>
                       <LogoutFinance />
-                      {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </span>
             </div>
 
@@ -117,7 +119,7 @@ const SidebarFinance = () => {
                       className={`flex items-center p-2  rounded-lg text-white hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-10">{route.title}</span>
+                      <span className="ms-6">{route.title}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -140,7 +142,7 @@ const SidebarFinance = () => {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white  hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-10">{route.title}</span>
+                    <span className="ms-4">{route.title}</span>
                   </NavLink>
                 )}
               </li>

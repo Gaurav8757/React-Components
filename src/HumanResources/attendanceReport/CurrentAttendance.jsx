@@ -120,9 +120,6 @@ function CurrentAttendance() {
         return headers;
     };
 
-
-
-
     const renderCalendar = () => {
         const sortedAPIData = APIData.slice().sort((a, b) => {
             const empidA = parseInt(a.empid.split('-')[1]);
@@ -157,20 +154,19 @@ function CurrentAttendance() {
     
             calendarRows.push(
                 <tr key={employee.empid}>
-                    <td className="whitespace-nowrap px-0 py-5 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-2 border border-black text-lg font-semibold">
                         {employee.empid}
                     </td>
-                    <td className="whitespace-nowrap px-0 py-5 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-2  border border-black text-lg font-semibold">
                         {employee.empname}
                     </td>
-                    <td className={`z-1 border border-black px-0 py-5 text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
+                    <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
                         {text}
                         <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div>
                     </td>
                 </tr>
             );
         }
-    
         return calendarRows;
     };
     

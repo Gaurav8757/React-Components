@@ -140,6 +140,8 @@ import ReportEmp from "./HumanResources/attendanceReport/ReportEmp.jsx";
 import FinPassUpdate from "./finance/FinPassUpdate.jsx";
 import HolidayAdd from "./admin/admincomponents/holiday/HolidayAdd.jsx";
 import CurrentAttendance from "./HumanResources/attendanceReport/CurrentAttendance.jsx";
+import AddFinance from "./finance/FinanceData/AddFinance.jsx";
+import ViewFinance from "./finance/FinanceData/ViewFinance.jsx";
 
 
 
@@ -334,7 +336,8 @@ const router = createBrowserRouter(
       <Route element={<ProtectFinance />}>
       <Route path="/finance/home" element={<LayoutFinance />}>
       <Route path="" element={<DashboardFinance />} />
-
+      <Route path="/finance/home/new" element={<AddFinance />} />
+      <Route path="/finance/home/view" element={<ViewFinance/>} />
       </Route>
       </Route>
     </>
