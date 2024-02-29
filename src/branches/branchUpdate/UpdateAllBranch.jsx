@@ -4,13 +4,13 @@ import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
 // import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
-function UpdateAllBranch({ updateBranch, onUpdate }) {
+function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pdata, setPdata] = useState([]);
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
     const [fuelType, setFuelType] = useState([]);
-  
+
     const [allDetails, setAllDetails] = useState({
         entryDate: '',
         company: '',
@@ -70,19 +70,19 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                     console.error(error);
                 });
         }
-      }, [fuelType]);
+    }, [fuelType]);
 
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
-          .then((resp) => {
-            const cType = resp.data;
-            
-            setPdata(cType);
-          })
-          .catch((error) => {
-            console.error("Error fetching company names:", error);
-          });
-      }, [pdata]);
+            .then((resp) => {
+                const cType = resp.data;
+
+                setPdata(cType);
+            })
+            .catch((error) => {
+                console.error("Error fetching company names:", error);
+            });
+    }, [pdata]);
 
     const handlePolicyStartDateChange = (e) => {
         const startDate = e.target.value;
@@ -117,42 +117,42 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         const today = new Date();
         return today.toISOString().split('T')[0];
     };
- // // VEHICLE AGE CALCULATED
- 
- useEffect(() => {
-    const calculateAge = () => {
-        const today = new Date();
-        const birthdateDate = new Date(allDetails.registrationDate);
-    
-        // if (isNaN(birthdateDate.getTime())) {
-        //   console.error('Invalid date format for registrationDate');
-        //   return;
-        // }
-    
-        let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-        let ageMonths = today.getMonth() - birthdateDate.getMonth();
-        let ageDays = today.getDate() - birthdateDate.getDate();
-    
-        if (ageDays < 0) {
-          const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-          ageDays = lastDayOfPreviousMonth + ageDays;
-          ageMonths--;
-        }
-    
-        if (ageMonths < 0) {
-          ageYears--;
-          ageMonths = 12 + ageMonths;
-        }
-    
-        setAllDetails(prevDetails => ({
-          ...prevDetails,
-          vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
-        }));
-    };
-    
-    calculateAge(); // Call calculateAge directly here
+    // // VEHICLE AGE CALCULATED
 
-}, [allDetails.registrationDate]); // Include the dependencies of calculateAge here
+    useEffect(() => {
+        const calculateAge = () => {
+            const today = new Date();
+            const birthdateDate = new Date(allDetails.registrationDate);
+
+            // if (isNaN(birthdateDate.getTime())) {
+            //   console.error('Invalid date format for registrationDate');
+            //   return;
+            // }
+
+            let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+            let ageMonths = today.getMonth() - birthdateDate.getMonth();
+            let ageDays = today.getDate() - birthdateDate.getDate();
+
+            if (ageDays < 0) {
+                const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                ageDays = lastDayOfPreviousMonth + ageDays;
+                ageMonths--;
+            }
+
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths = 12 + ageMonths;
+            }
+
+            setAllDetails(prevDetails => ({
+                ...prevDetails,
+                vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+            }));
+        };
+
+        calculateAge(); // Call calculateAge directly here
+
+    }, [allDetails.registrationDate]); // Include the dependencies of calculateAge here
 
 
     // show all data inside input tag
@@ -173,13 +173,13 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         try {
             setLoading(true);
             // Use the selected category ID in the patch method
-            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${updateBranch._id}`, allDetails);
+            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${allDetails._id}`, allDetails);
             toast.success(`${resp.data.status}`);
-           
-            
+
+
             // Close the modal after successful submission
             closeModal();
-           
+
         } catch (error) {
             console.error("Error updating insurance details:", error);
         } finally {
@@ -188,10 +188,11 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         }
     };
 
+
     return (
         <>
             {/* <!-- Modal toggle --> */}
-            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
+            <button onClick={() => { onUpdateClick(updateBranch); openModal(); }} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
                 Update
             </button>
 
@@ -249,14 +250,14 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                         handleInputChange(e);
                                                         const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
                                                         setCatTypesForSelectedPolicy(selectedCatId);
-                                                      }}
+                                                    }}
                                                     name="company">
                                                     <option className="w-1" value="">--- Select Company ---</option>
                                                     {pdata.map((comp) => (
-                            <option key={comp._id} value={comp.c_type} data-id={comp._id}>
-                                {comp.c_type}
-                            </option>
-                            ))}
+                                                        <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                                                            {comp.c_type}
+                                                        </option>
+                                                    ))}
                                                 </select>
                                             </div>
 
@@ -270,19 +271,17 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     onChange={handleInputChange}
                                                     name="category"
                                                 > <option className="w-1" value="" >--- Select Category ---</option>
-                                                   {pdata.map((cat) => {
-        if (cat._id === catTypesForSelectedPolicy) {
-            return cat.category.map((product, idx) => (
-                <option key={idx} value={product}>{product}</option>
-            ));
-        } else {
-            return null;
-        }
-    })}
+                                                    {pdata.map((cat) => {
+                                                        if (cat._id === catTypesForSelectedPolicy) {
+                                                            return cat.category.map((product, idx) => (
+                                                                <option key={idx} value={product}>{product}</option>
+                                                            ));
+                                                        } else {
+                                                            return null;
+                                                        }
+                                                    })}
                                                 </select>
-
                                             </div>
-
                                             {/* FIELD - 4 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Segment:</label>
@@ -300,7 +299,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     <option value="LIFE">LIFE</option>
                                                 </select>
                                             </div>
-
                                             {/* FIELD - 5 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Sourcing:</label>
@@ -308,14 +306,12 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     className="input-style rounded-lg mt-1"
                                                     value={allDetails.sourcing}
                                                     onChange={handleInputChange} name="sourcing">
-
                                                     <option className="w-1" value="">--- Select Sourcing Type ---</option>
                                                     <option value="NEW">NEW</option>
                                                     <option value="RENEWAL">RENEWAL</option>
                                                     <option value="ROLL OVER">ROLL OVER</option>
                                                 </select>
                                             </div>
-
                                             {/* FIELD - 6 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Insured Name:</label>
@@ -362,7 +358,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Hypothication"
                                                 />
                                             </div>
-                                          
                                             {/* FIELD - 11 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Advisor Name:</label>
@@ -375,7 +370,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Enter Advisor Name"
                                                 />
                                             </div>
-
                                             {/* FIELD - 12 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Sub Advisor:</label>
@@ -388,7 +382,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Enter Sub Advisor"
                                                 />
                                             </div>
-
                                             {/* FIELD - 13 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Policy Start Date:</label>
@@ -402,7 +395,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     }
                                                 />
                                             </div>
-
                                             {/* FIELD - 14 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Policy End Date:</label>
@@ -427,7 +419,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     min="2025-01-01"
                                                 />
                                             </div>
-
                                             {/* FIELD - 16 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">TP Expiry:</label>
@@ -440,7 +431,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     min="2025-01-01"
                                                 />
                                             </div>
-
                                             {/* FIELD - 17 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">IDV:</label>
@@ -452,8 +442,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     name="idv"
                                                     placeholder="Enter IDV" />
                                             </div>
-
-
                                             {/* FIELD - 18 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Body Type:</label>
@@ -466,7 +454,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Enter Body Type"
                                                 />
                                             </div>
-
                                             {/* FIELD - 19 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Make & Model:</label>
@@ -478,7 +465,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     name="makeModel"
                                                 />
                                             </div>
-
                                             {/* FIELD - 20 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Registration Date:</label>
@@ -515,8 +501,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     name="mfgYear"
                                                     placeholder="Enter Manufacturing Year" />
                                             </div>
-
-
                                             {/* FIELD - 23 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">Fuel:</label>
@@ -526,13 +510,12 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     onChange={handleInputChange} name="fuel">
                                                     <option className="w-1" >--- Select Fuel Type ---</option>
                                                     {
-                                                        fuelType.map((fuel)=>(
+                                                        fuelType.map((fuel) => (
                                                             <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
-                                                            ))
-                                                        }
+                                                        ))
+                                                    }
                                                 </select>
                                             </div>
-
                                             {/* FIELD - 24 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">GVW (kg):</label>
@@ -545,7 +528,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     placeholder="Enter GVW"
                                                 />
                                             </div>
-
                                             {/* FIELD - 25 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
                                                 <label className="text-base mx-1">C.C.:</label>
@@ -557,10 +539,6 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
                                                     name="cc"
                                                 />
                                             </div>
-
-                                            {/* FIELD - 26 */}
-                                           
-                                            {/* FIELD - 27 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
                                             {/* FIELD - 28 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
@@ -581,6 +559,4 @@ function UpdateAllBranch({ updateBranch, onUpdate }) {
         </>
     );
 }
-
-
 export default UpdateAllBranch;

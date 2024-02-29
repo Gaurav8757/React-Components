@@ -65,7 +65,11 @@ function MasterView() {
     console.error("Error fetching updated insurance data:", error);
   }
 };
-
+const handleUpdateClick = (selectedPolicyData) => {
+  // Handle click event, e.g., pass data to another component
+  console.log("Selected policy data:", selectedPolicyData);
+  // Here, you can pass the selected policy data to another component or perform any other action you need.
+};
 
 const exportToExcel = () => {
   try {
@@ -265,7 +269,7 @@ const handleExportClick = () => {
                     <td className="whitespace-nowrap px-4 py-4">{data.gvw}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.cc}</td>
                     <td className="whitespace-nowrap px-4 py-4">
-                      <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy}/>
+                      <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy} onUpdateClick={handleUpdateClick}/>
                     </td>
                   </tr>
 ))}
