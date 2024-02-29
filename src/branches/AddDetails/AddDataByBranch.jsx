@@ -120,6 +120,24 @@ function AddDataByBranch() {
                 toast.success("Policy Created Successfully !");
                 setFormSubmitted(true);
                 setModalIsOpen(true); 
+                setEntryDate("");
+                setCompany("");
+                setCategory("");
+                setSegment("");
+                setSourcing("");
+                setInsuredName("");
+                setContactNo("");
+                setVehRegNo("");
+                setHypo("");
+                setProductCode("");
+                advisorName("");
+                subAdvisor("");
+                policyType("");
+                
+
+
+
+
             }
             else {
                 toast.error("Error Occurred. Try again...! ");

@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,24 +8,20 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, addDays } from 'da
 function CurrentAttendance() {
     const [APIData, setAPIData] = useState([]);
     const [calendarData, setCalendarData] = useState([]);
-    const name = sessionStorage.getItem("name");
+    const [holidayData, setHolidayData] = useState([]);
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
-    const [date, setDate] = useState(new Date().getDate())
-    const [holidayData, setHolidayData] = useState([]);
-
-
+    const [date, setDate] = useState(new Date().getDate());
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
-            // The user is authenticated, so you can make your API request here.
             axios
                 .get(`https://eleedomimf.onrender.com/holidays/alllists`, {
                     headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
+                        Authorization: `${token}`,
                     },
                 })
                 .then((response) => {
@@ -37,20 +33,22 @@ function CurrentAttendance() {
         }
     }, []);
 
-    // add above [APIData]
-    const handleYearChange = (e) => {
-        setYear(parseInt(e.target.value));
-    };
-
-    const handleMonthChange = (e) => {
-        setMonth(parseInt(e.target.value));
-    };
-    const handleDateChange = (e) => {
-        setDate(parseInt(e.target.value));
-    };
-    // DATE OF CALENDAR LIKE 01/01/2000 FORMAT
     useEffect(() => {
-        // Generate calendar data for the selected month
+        axios
+            .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                headers: {
+                    Authorization: `${sessionStorage.getItem("token")}`,
+                },
+            })
+            .then((response) => {
+                setAPIData(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
+
+    useEffect(() => {
         const startDate = startOfMonth(new Date(year, month - 1));
         const endDate = endOfMonth(new Date(year, month - 1));
         const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
@@ -58,103 +56,16 @@ function CurrentAttendance() {
         setCalendarData(formattedDays);
     }, [year, month]);
 
-    const renderCalendar = () => {
-        // Sort APIData by empid in ascending order
-        const sortedAPIData = APIData.slice().sort((a, b) => {
-            const empidA = parseInt(a.empid.split('-')[1]);
-            const empidB = parseInt(b.empid.split('-')[1]);
-            return empidA - empidB;
-        });
+    const handleYearChange = (e) => {
+        setYear(parseInt(e.target.value));
+    };
 
-        return sortedAPIData.map((employee, employeeIndex) => {
-            // Initialize present, absent, half-day, and holiday counts
-            // let presentCount = 0;
-            // let absentCount = 0;
-            // let halfDayCount = 0;
-            // let holiDayCount = 0;
-            // let workingDaysCount = 0;
+    const handleMonthChange = (e) => {
+        setMonth(parseInt(e.target.value));
+    };
 
-            // color all Sundays
-            return (
-                <tr key={employeeIndex}>
-                    <td className="whitespace-nowrap  border border-black text-lg font-semibold">
-                        {employee.empid}
-                    </td>
-                    <td className="whitespace-nowrap border border-black text-lg font-semibold">
-                        {employee.empname}
-                    </td>
-                    {calendarData.map((date, dateIndex) => {
-                        const holiday = holidayData.find(holiday => holiday.hdate === date);
-                        const isHoliday = !!holiday;
-                        let text = '';
-                        if (isHoliday) {
-                            // Display the holiday name
-                            text = holiday.hdays;
-                            // holiDayCount++;
-                        }
-
-                        const attendance = employee.employeeDetails.find(emp => emp.date === date);
-                        const hasAttendance = !!attendance;
-                        const status = hasAttendance ? attendance.status : ''; // Default to absent if no attendance record
-
-                        // Update counts based on status
-                        // switch (status) {
-                        //     case 'present':
-                        //         presentCount++;
-                        //         break;
-                        //     case 'absent':
-                        //         absentCount++;
-                        //         break;
-                        //     case 'halfday':
-                        //         halfDayCount++;
-                        //         break;
-                        //     default:
-                        //         break;
-                        // }
-
-                        // Count working days (exclude Sundays)
-                        const startDate = startOfMonth(new Date(year, month - 1));
-                        const endDate = endOfMonth(new Date(year, month - 1));
-                        const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
-
-                        // days 
-                        const formattedDays = daysOfMonth.map((day) => day.getDay());
-
-                        // days of index value
-                        if (formattedDays[dateIndex] !== 0) {
-                            // workingDaysCount++;
-                        }
-
-                        // Define the text to display based on status
-                        switch (status) {
-                            case 'present':
-                                text = 'P';
-                                break;
-                            case 'absent':
-                                text = 'A';
-                                break;
-                            case 'halfday':
-                                text = 'H';
-                                break;
-                            default:
-                                break;
-                        }
-
-                        // Render the cell
-                        return (
-
-                            <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' : ''}`}>
-                                {text}
-
-                                <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
-
-                            </td>
-                        );
-                    })}
-                   
-                </tr>
-            );
-        });
+    const handleDateChange = (e) => {
+        setDate(parseInt(e.target.value));
     };
 
     const renderYears = () => {
@@ -180,209 +91,217 @@ function CurrentAttendance() {
         const startDate = startOfMonth(new Date(year, month - 1));
         const endDate = endOfMonth(new Date(year, month - 1));
         const dates = [];
-
-        // Iterate through each day of the month and generate an option for each date
         for (let date = startDate; date <= endDate; date = addDays(date, 1)) {
             const formattedDate = format(date, 'dd');
             dates.push(<option key={formattedDate} value={formattedDate}>{formattedDate}</option>);
         }
-
         return dates;
     };
 
-
     const renderTableHeaders = () => {
         const headers = [];
-        const daysInMonth = new Date(year, month, 0).getDate();
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        for (let i = 1; i <= daysInMonth; i++) {
-            const currentDate = new Date(year, month - 1, i);
 
-            const formattedDate = i.toString().padStart(2, '0'); // Format date as '01', '02', ...
-            const weekdayIndex = currentDate.getDay(); // Get the index of the day of the week (0 for Sunday, 1 for Monday, etc.)
-            const weekday = weekdays[weekdayIndex]; // Get the corresponding weekday from the array
+        for (let i = 1; i <= 1; i++) { // Loop only once to generate one column
+            const currentDate = new Date(year, month - 1, date); // Construct date for the selected date
 
-            // Find holiday data for the current date
-            const formattedDateStr = currentDate.toLocaleDateString('en-GB'); // Format date as 'dd/MM/yyyy'
+            const formattedDate = date.toString().padStart(2, '0');
+            const weekdayIndex = currentDate.getDay();
+            const weekday = weekdays[weekdayIndex];
+
+            const formattedDateStr = currentDate.toLocaleDateString('en-GB');
             const holiday = holidayData.find(holiday => holiday.hdate === formattedDateStr);
             const isHoliday = !!holiday;
 
             headers.push(
-                <th className={`border   border-blue-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
+                <th className={`border border-blue-700 text-lg p-0 py-2 sticky ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
                     key={i} >
-                    <div >{formattedDate}</div>
+                    <div>{formattedDate}</div>
                     <div>{weekday}</div>
-                    <span className="text-red-700  ">{isHoliday ? holiday.hdays : ''}</span>
+                    <span className="text-red-700 ">{isHoliday ? holiday.hdays : ''}</span>
+
                 </th>
-            )
+            );
         }
         return headers;
     };
 
-    // LISTS OF EMPLOYEE
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    },
-                })
-                .then((response) => {
 
-                    setAPIData(response.data);
 
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, []);
 
-    const exportToExcel = () => {
-        try {
-            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-            const fileExtension = ".xlsx";
-            const fileName = name;
-
-            // Get all table headers and rows
-            const tableHeaders = document.querySelectorAll(".table th");
-            const tableRows = document.querySelectorAll(".table tbody tr");
-
-            // Include only the first 26 columns and all rows
-            const columnsToInclude = Array.from(tableHeaders).map(header => header.textContent);
-            const rowsToInclude = Array.from(tableRows).map(row => {
-                const cells = Array.from(row.querySelectorAll("td"));
-                return cells.map(cell => cell.textContent);
-            });
-
-            // Create worksheet
-            const wsData = [columnsToInclude, ...rowsToInclude];
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-
-            // Create workbook and export
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-
-            // Generate Excel file in memory
-            const excelBuffer = XLSX.write(wb, {
-                bookType: "xlsx",
-                type: "array",
-            });
-
-            // Convert to Blob
-            const data = new Blob([excelBuffer], { type: fileType });
-
-            // Create download link
-            const url = URL.createObjectURL(data);
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", fileName + fileExtension);
-
-            // Append link to the body and trigger download
-            document.body.appendChild(link);
-            link.click();
-
-            // Cleanup
-            setTimeout(() => {
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
-            }, 100);
-        } catch (error) {
-            console.error("Error exporting to Excel:", error);
-            toast.error("Error exporting to Excel");
-        }
+    const renderCalendar = () => {
+        const sortedAPIData = APIData.slice().sort((a, b) => {
+            const empidA = parseInt(a.empid.split('-')[1]);
+            const empidB = parseInt(b.empid.split('-')[1]);
+            return empidA - empidB;
+        });
+    
+        const calendarRows = sortedAPIData.map((employee) => {
+            return (
+                <tr key={employee.empid}>
+                    <td className="whitespace-nowrap p-0 border border-black text-lg font-semibold">
+                        {employee.empid}
+                    </td>
+                    <td className="whitespace-nowrap p-0 border border-black text-lg font-semibold">
+                        {employee.empname}
+                    </td>
+                    {calendarData.map((date) => {
+                        const currentDate = new Date(year, month - 1, date);
+                        const formattedDate = currentDate.toLocaleDateString('en-GB');
+                        const holiday = holidayData.find(holiday => holiday.hdate === formattedDate && date);
+    
+                        const isHoliday = !!holiday;
+                        let text = '';
+                        if (isHoliday) {
+                            text = holiday.hdays;
+                        }
+    
+                        const attendance = employee.employeeDetails.find(emp => emp.date === date);
+                        const hasAttendance = !!attendance;
+                        const status = hasAttendance ? attendance.status : '';
+    
+                        switch (status) {
+                            case 'present':
+                                text = 'P';
+                                break;
+                            case 'absent':
+                                text = 'A';
+                                break;
+                            case 'halfday':
+                                text = 'H';
+                                break;
+                            default:
+                                break;
+                        }
+    
+                        return (
+                            <td key={date} className={`z-1 border border-black px-10 py-8 text-lg font-bold text-slate-200 ${new Date(date).getDay() === 0 ? `bg-red-300 ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
+                                {text}
+                                <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div>
+                            </td>
+                        );
+                    })}
+                </tr>
+            );
+        });
+    
+        return calendarRows;
     };
+    
 
 
-    const handleExportClick = () => {
-        exportToExcel();
-        // exportToPDF();
-    };
 
-    return (
-        <section className={`container-fluid relative  p-0 sm:ml-64 bg-slate-200`}>
-            <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200`}>
-                <div className="inline-block max-w-full w-full py-6 sm:px-6 lg:px-8">
-                    <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Todays Attendance </h1>
-                    <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
+const exportToExcel = () => {
+    try {
+        const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        const fileExtension = ".xlsx";
+        const fileName = "Attendance";
 
-                        <button className="absolute top-2 right-24" onClick={handleExportClick}>
-                            <img src="/excel.png" alt="download" className="w-12" />
-                        </button>
+        const tableHeaders = document.querySelectorAll(".table th");
+        const tableRows = document.querySelectorAll(".table tbody tr");
 
-                        <NavLink to="/hr/home/addemployee" >
-                            <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-                        </NavLink>
-                    </div>
+        const columnsToInclude = Array.from(tableHeaders).map(header => header.textContent);
+        const rowsToInclude = Array.from(tableRows).map(row => {
+            const cells = Array.from(row.querySelectorAll("td"));
+            return cells.map(cell => cell.textContent);
+        });
 
-                    {/* year */}
-                    <div className="flex justify-between items-center my-4 mt-5  text-blue-600  ">
-                        <h1 className="font-bold text-md flex-wrap xl:flex-nowrap"> DD-MM-YY: <span className="text-green-600 text-lg ">{date}-{month}-{year}</span></h1>
-                        <div className="flex">
-                            {/* DATES */}
-                            <div className="mx-3">
-                                <label htmlFor="date" className="font-bold text-lg">Date:</label>
-                                <select id="date" value={date} onChange={handleDateChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
-                                    {renderDates()}
-                                </select>
-                            </div>
+        const wsData = [columnsToInclude, ...rowsToInclude];
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-                            {/* months */}
-                            <div className="mr-3">
-                                <label htmlFor="month" className="font-bold text-lg">Month:</label>
-                                <select id="month" value={month} onChange={handleMonthChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
-                                    {renderMonths()}
-                                </select>
-                            </div>
-                            {/* YEARS */}
-                            <div>
-                                <label htmlFor="year" className="font-bold text-lg">Year:</label>
-                                <select id="year" value={year} onChange={handleYearChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
-                                    {renderYears()}
-                                </select>
-                            </div>
+        const excelBuffer = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+        });
 
+        const data = new Blob([excelBuffer], { type: fileType });
 
+        const url = URL.createObjectURL(data);
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName + fileExtension);
+
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    } catch (error) {
+        console.error("Error exporting to Excel:", error);
+        toast.error("Error exporting to Excel");
+    }
+};
+
+const handleExportClick = () => {
+    exportToExcel();
+};
+
+return (
+    <section className={`container-fluid relative p-0 sm:ml-64 bg-slate-200`}>
+        <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200`}>
+            <div className="inline-block max-w-full w-full py-6 sm:px-6 lg:px-8">
+                <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Todays Attendance </h1>
+                <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
+                    <button className="absolute top-2 right-24" onClick={handleExportClick}>
+                        Export to Excel
+                    </button>
+                    <NavLink to="/hr/home/addemployee">
+                        <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                    </NavLink>
+                </div>
+
+                <div className="flex justify-between items-center my-4 mt-5  text-blue-600">
+                    <h1 className="font-bold text-md flex-wrap xl:flex-nowrap"> DD-MM-YY: <span className="text-green-600 text-lg ">{date}-{month}-{year}</span></h1>
+                    <div className="flex">
+                        <div className="mx-3">
+                            <label htmlFor="date" className="font-bold text-lg">Date:</label>
+                            <select id="date" value={date} onChange={handleDateChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
+                                {renderDates()}
+                            </select>
+                        </div>
+                        <div className="mr-3">
+                            <label htmlFor="month" className="font-bold text-lg">Month:</label>
+                            <select id="month" value={month} onChange={handleMonthChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
+                                {renderMonths()}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="year" className="font-bold text-lg">Year:</label>
+                            <select id="year" value={year} onChange={handleYearChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
+                                {renderYears()}
+                            </select>
                         </div>
                     </div>
+                </div>
 
-
-
-                    {/* part-3 */}
-                    <div className=" relative ">
-                        <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1">
-                            <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
-                                <thead className="sticky bg-slate-300 top-16">
-                                    <tr className="border border-black text-lg z-50 text-blue-700  ">
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
-                                            Employee ID
-                                        </th>
-                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
-                                            Employee Name
-                                        </th>
-                                        {renderTableHeaders()}
-
-                                    </tr></thead>
-
-                                {/* td data */}
-                                <tbody className="bg-white divide-y  overflow-hidden">
-                                    {renderCalendar()}
-                                </tbody>
-
-
-                            </table>
-                        </div>
-
+                <div className="relative">
+                    <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1">
+                        <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border border-black">
+                            <thead className="sticky bg-slate-300 top-16">
+                                <tr className="border border-black text-lg z-50 text-blue-700">
+                                    <th scope="col" className="sticky p-0 whitespace-nowrap border border-blue-700">
+                                        Employee ID
+                                    </th>
+                                    <th scope="col" className="sticky p-0 whitespace-nowrap border border-blue-700">
+                                        Employee Name
+                                    </th>
+                                    {renderTableHeaders()}
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y p-0 overflow-hidden">
+                                {renderCalendar()}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </section >
-    )
+        </div>
+    </section>
+);
 }
 
 export default CurrentAttendance;
