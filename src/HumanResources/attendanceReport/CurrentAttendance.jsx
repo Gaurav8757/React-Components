@@ -3,11 +3,11 @@ import axios from "axios";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, addDays } from 'date-fns';
+import { format, startOfMonth, endOfMonth,  addDays } from 'date-fns';
 
 function CurrentAttendance() {
     const [APIData, setAPIData] = useState([]);
-    const [calendarData, setCalendarData] = useState([]);
+    // const [calendarData, setCalendarData] = useState([]);
     const [holidayData, setHolidayData] = useState([]);
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
@@ -48,13 +48,7 @@ function CurrentAttendance() {
             });
     }, []);
 
-    useEffect(() => {
-        const startDate = startOfMonth(new Date(year, month - 1));
-        const endDate = endOfMonth(new Date(year, month - 1));
-        const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
-        const formattedDays = daysOfMonth.map(day => format(day, 'dd/MM/yyyy'));
-        setCalendarData(formattedDays);
-    }, [year, month]);
+   
 
     const handleYearChange = (e) => {
         setYear(parseInt(e.target.value));
@@ -135,55 +129,47 @@ function CurrentAttendance() {
             const empidB = parseInt(b.empid.split('-')[1]);
             return empidA - empidB;
         });
+        const calendarRows = [];
     
-        const calendarRows = sortedAPIData.map((employee) => {
-            return (
+        // Iterate through the first three employees
+        for (let i = 0; i < sortedAPIData.length; i++) {
+            const currentDate = new Date(year, month - 1, date);
+            const formattedDateStr = currentDate.toLocaleDateString('en-GB');
+            const employee = sortedAPIData[i];
+            const attendance = employee.employeeDetails.find(emp => emp.date === formattedDateStr);
+            const hasAttendance = !!attendance;
+            const status = hasAttendance ? attendance.status : '';
+    
+            let text = '';
+            switch (status) {
+                case 'present':
+                    text = 'P';
+                    break;
+                case 'absent':
+                    text = 'A';
+                    break;
+                case 'halfday':
+                    text = 'H';
+                    break;
+                default:
+                    break;
+            }
+    
+            calendarRows.push(
                 <tr key={employee.empid}>
-                    <td className="whitespace-nowrap p-0 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-5 border border-black text-lg font-semibold">
                         {employee.empid}
                     </td>
-                    <td className="whitespace-nowrap p-0 border border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-5 border border-black text-lg font-semibold">
                         {employee.empname}
                     </td>
-                    {calendarData.map((date) => {
-                        const currentDate = new Date(year, month - 1, date);
-                        const formattedDate = currentDate.toLocaleDateString('en-GB');
-                        const holiday = holidayData.find(holiday => holiday.hdate === formattedDate && date);
-    
-                        const isHoliday = !!holiday;
-                        let text = '';
-                        if (isHoliday) {
-                            text = holiday.hdays;
-                        }
-    
-                        const attendance = employee.employeeDetails.find(emp => emp.date === date);
-                        const hasAttendance = !!attendance;
-                        const status = hasAttendance ? attendance.status : '';
-    
-                        switch (status) {
-                            case 'present':
-                                text = 'P';
-                                break;
-                            case 'absent':
-                                text = 'A';
-                                break;
-                            case 'halfday':
-                                text = 'H';
-                                break;
-                            default:
-                                break;
-                        }
-    
-                        return (
-                            <td key={date} className={`z-1 border border-black px-10 py-8 text-lg font-bold text-slate-200 ${new Date(date).getDay() === 0 ? `bg-red-300 ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
-                                {text}
-                                <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div>
-                            </td>
-                        );
-                    })}
+                    <td className={`z-1 border border-black px-0 py-5 text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
+                        {text}
+                        <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div>
+                    </td>
                 </tr>
             );
-        });
+        }
     
         return calendarRows;
     };
@@ -243,17 +229,19 @@ const handleExportClick = () => {
 return (
     <section className={`container-fluid relative p-0 sm:ml-64 bg-slate-200`}>
         <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200`}>
-            <div className="inline-block max-w-full w-full py-6 sm:px-6 lg:px-8">
+            <div className="inline-block max-w-full w-full py-3 ">
+                <div className="flex justify-between">
                 <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Todays Attendance </h1>
-                <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-                    <button className="absolute top-2 right-24" onClick={handleExportClick}>
-                        Export to Excel
-                    </button>
-                    <NavLink to="/hr/home/addemployee">
-                        <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-                    </NavLink>
-                </div>
 
+                <div className="flex justify-center">
+                    <button className="mx-3 my-0" onClick={handleExportClick}>
+                    <img src="/excel.png" alt="download" className="w-16" />
+                    </button>
+                    <NavLink to="/hr/home/addemployee" >
+                        <button type="button" className="text-white  justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 whitespace-nowrap text-center me-2 mb-2 ">Go Back</button>
+                    </NavLink>
+                    </div>
+                </div>
                 <div className="flex justify-between items-center my-4 mt-5  text-blue-600">
                     <h1 className="font-bold text-md flex-wrap xl:flex-nowrap"> DD-MM-YY: <span className="text-green-600 text-lg ">{date}-{month}-{year}</span></h1>
                     <div className="flex">
@@ -292,7 +280,7 @@ return (
                                     {renderTableHeaders()}
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y p-0 overflow-hidden">
+                            <tbody className="bg-white divide-y px-0 py-0 overflow-hidden">
                                 {renderCalendar()}
                             </tbody>
                         </table>

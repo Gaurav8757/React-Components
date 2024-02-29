@@ -147,10 +147,10 @@ function ViewMasterForm() {
 
 
 
-          <div className="inline-block min-w-full w-full py-0   overflow-x-auto">
+          <div className="inline-block min-w-full w-full py-0 relative">
             <table className="min-w-full text-center text-sm font-light table">
-              <thead className="border-b font-medium dark:border-neutral-500">
-                <tr className="text-blue-700">
+              <thead className="border-b font-medium bg-slate-300 sticky top-16">
+                <tr className="text-blue-700 sticky top-16">
                   <th scope="col" className="px-5 py-4">Entry Date</th>
                   <th scope="col" className="px-5 py-4">Company</th>
                   <th scope="col" className="px-5 py-4">Category</th>
@@ -203,7 +203,7 @@ function ViewMasterForm() {
                   <th scope="col" className="px-5 py-4">Delete</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
                 {allDetailsData.filter((data) => {
                   const searchLower = search.toLowerCase();
                   const entryDateLower = data.entryDate.toLowerCase();
@@ -219,7 +219,7 @@ function ViewMasterForm() {
                 );
                   }).map((data) => (
                   <tr
-                    className="border-b dark:border-neutral-200 text-sm font-medium"
+                    className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
                     key={data._id}>
                     <td className="whitespace-nowrap px-4 py-4">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.company}</td>
