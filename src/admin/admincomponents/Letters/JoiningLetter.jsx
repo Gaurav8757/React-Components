@@ -61,7 +61,7 @@ const downloadPDF = () => {
                         <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
                     </div>
                     {/* 2 */}
-                    <div className="px-4 leading-8 relative rounded-s-xl text-end text-white">
+                    <div className="px-4 leading-8 relative  rounded-s-xl text-end text-white">
                         <h2 className="text-2xl font-bold py-4">ELEEDOM IMF PVT. LTD.</h2>
                         <p>CIN No .: U66000BR2022PTC058334</p>
                         <p>GST IN : 10AAHCE0776B1Z9</p>
@@ -75,33 +75,58 @@ const downloadPDF = () => {
 
                 {/* section */}
                 <section className="">
-                    <h2 className="text-xl font-bold mb-4 text-start">Dear [Employee Name],</h2>
-                    <p className="mb-4">
-                        We are thrilled to extend this to join Eleedom IMF as a [Job Title] on our [Market Team].
-                        You will be an integral part of our mission to [Company Mission Statement].
-                    </p>
-                    <p className="mb-4">
-                        Here are the details of your offer:
-                    </p>
-                    <ul className="list-disc mb-4 ml-6">
-                        <li>Position: [Job Title]</li>
-                        <li>Salary: [Salary Amount]</li>
-                        <li>Start Date: [Start Date]</li>
-                        <li>Location: [Location]</li>
-                    </ul>
-                    <p className="mb-4">
-                        We are excited about the skills and experiences you will bring to our team, and we look forward to your contributions.
-                        Please let us know if you have any questions or concerns. We are here to support you in any way we can.
-                    </p>
-                    <p className="mb-4 flex justify-end mx-5">
-                        Sincerely,
-                        <br />
-                        [Your Name]
-                        <br />
-                        [Your Position]
-                        <br />
-                        Eleedom IMF
-                    </p>
+                <div className="bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-xl font-bold mb-4">APPOINTMENT LETTER FOR NON-EXECUTIVE DIRECTOR</h1>
+      <p className="mb-4 text-start">Date: __________</p>
+
+      <p className="mb-4 text-start">Subject: APPOINTMENT LETTER FOR NON-EXECUTIVE DIRECTOR</p>
+
+      <p className="mb-4 text-start">Dear Mr __________</p>
+
+      <p className="mb-4  font-semibold">APPOINTMENT AS NON-EXECUTIVE DIRECTOR</p>
+
+      <p className="mb-4 text-justify">I am pleased to confirm that the Board of ___________ Limited has resolved that you be offered a position as a Non-executive Director of the Company. The purpose of this letter is to confirm the basis of your appointment should you be willing to accept. Would you please sign and return the attached copy in acknowledgement?</p>
+
+      <p className="mb-4  font-semibold">Term of Appointment</p>
+      <p className="mb-4 text-justify">Your appointment will be made pursuant to the Company’s Constitution and is initially for the period expiring at the next Annual General Meeting, at which time shareholders will consider your re-election for a further period of up to 3 years.</p>
+      <p className="mb-4">Thereafter, one-third of Directors retire by rotation annually and may offer themselves for reappointment.</p>
+      <p className="mb-4">You may resign by notice in writing at any time and, under the Corporations Act and the Constitution, your appointment may cease in certain prescribed circumstances.</p>
+
+      <p className="mb-4">Role of Director</p>
+      <p className="mb-4">You will be expected to participate as an active member of the Board in:</p>
+      <ul className="list-disc list-inside mb-4">
+        <li>attendance at all Board meetings, currently 12 meetings per year</li>
+        <li>membership of Committees as agreed</li>
+        <li>attendance at General Meetings</li>
+        <li>strategic planning sessions</li>
+        <li>subsidiary company directorships as required.</li>
+      </ul>
+      <p className="mb-4">I estimate that you would need to commit to at least 2 days per month to fulfil your directorial duties, including adequately preparing for meetings, attendance and undertaking allocated follow-up tasks, office and site visits as necessary, as well as being available for ad hoc discussions from time-to-time.</p>
+
+      <p className="mb-4">Remuneration & Expenses</p>
+      <p className="mb-4">You will be entitled to a director’s fee of INR 50,000 per annum plus statutory superannuation, payable quarterly in arrears. You will be reimbursed for all approved expenses incurred in your role as a director. In addition, should you be requested to perform other work for the Company, outside the scope of usual Directors’ duties, you may be entitled to additional remuneration as agreed with the Chairman at that time.</p>
+
+      <p className="mb-4">Disclosure</p>
+      <p className="mb-4">To enable compliance with the Corporations Act, the STOCK EXCHANGE Listing Rules and the Constitution you are required to make certain disclosures related to and/or which might affect your role as a director.</p>
+      <ul className="list-disc list-inside mb-4">
+        <li>giving notice to the Board of any relevant or material personal interest or conflict in relation to the affairs or business of the Company;</li>
+        <li>promptly advising details of any interests, or changes thereto, in the Company’s securities.</li>
+      </ul>
+      <p className="mb-4">Deed of Indemnity</p>
+      <p className="mb-4">Under the Corporations Act and the Constitution, you have certain rights with respect to access to Company documents and to be indemnified for certain liabilities arising from your conduct or duties as a director. These rights are reinforced by a Deed of Access & Indemnity executed by the Company in your favour.</p>
+
+      <p className="mb-4">Directors’ Insurance</p>
+      <p className="mb-4">The Company maintains Directors & Officers Insurance for Board members and meets all premiums. The current policy provides indemnity up to a maximum of INR 10million.</p>
+
+      <p className="mb-4">Independent Advice</p>
+      <p className="mb-4">With the approval of the Chairman, you may seek independent professional advice, at the Company’s expense, on any matter connected with the discharge of your responsibilities as a director. Copies of this advice must be made available to, and for the benefit of, all Board members, unless the Chairman otherwise agrees. Company Policies As an officer of the Company, you will be expected to act at all times in accordance with the Company’s Constitution and comply with the Company’s corporate policies and procedures that relate to your role as a director covering such areas as corporate governance, privacy and travel. Copies of these will be provided to you.</p>
+
+      <p className="mb-4">Confidentiality</p>
+      <p className="mb-4">In your role as a director, you will be in possession of confidential information about the Company and its affairs. You may only use that information in the proper performance of your duties or as required by law; you must not use it to gain advantage for yourself or others, or to the detriment of the Company. We look forward to your acceptance of the abovementioned offer.</p>
+
+      <p className="mb-4 text-start">Yours sincerely,</p>
+      <p className='text-start'>Chairman</p>
+    </div>
                 </section>
 
                 {/* footer */}
