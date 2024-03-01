@@ -97,7 +97,12 @@ function DashboardHr() {
               title: "View Final Salary",
               path: "/hr/home/view/generate/salary",
               dash: ""
-            }
+            },
+            {
+              title: "Salary Slip",
+              path: "/hr/home/salary/slip",
+              dash: ""
+            },
           ]
         },
        

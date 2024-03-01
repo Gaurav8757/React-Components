@@ -142,6 +142,12 @@ import HolidayAdd from "./admin/admincomponents/holiday/HolidayAdd.jsx";
 import CurrentAttendance from "./HumanResources/attendanceReport/CurrentAttendance.jsx";
 import AddFinance from "./finance/FinanceData/AddFinance.jsx";
 import ViewFinance from "./finance/FinanceData/ViewFinance.jsx";
+import SalarySlip from "./HumanResources/Salary/SalarySlip.jsx";
+import OffersLetter from "./admin/admincomponents/Letters/OffersLetter.jsx";
+import ResignationLetter from "./admin/admincomponents/Letters/ResignationLetter.jsx";
+import TerminationLetter from "./admin/admincomponents/Letters/TerminationLetter.jsx";
+import IncrementLetter from "./admin/admincomponents/Letters/IncrementLetter.jsx";
+import JoiningLetter from "./admin/admincomponents/Letters/JoiningLetter.jsx";
 
 
 
@@ -252,6 +258,11 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
+          <Route path="/dashboard/offer/letters" element={<OffersLetter/>} />
+          <Route path="/dashboard/resign/letter" element={<ResignationLetter/>} />
+          <Route path="/dashboard/terminate/letter" element={<TerminationLetter/>} />
+          <Route path="/dashboard/increment/letter" element={<IncrementLetter/>} />
+          <Route path="/dashboard/joining/letter" element={<JoiningLetter/>} />
         </Route>
       </Route>
 
@@ -315,7 +326,8 @@ const router = createBrowserRouter(
           <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
           <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
           <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance/>} />
-
+          <Route path="/hr/home/salary/slip" element={<SalarySlip/>} />
+          
         </Route>
       </Route>
 
