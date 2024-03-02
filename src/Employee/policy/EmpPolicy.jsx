@@ -204,6 +204,7 @@ function EmpPolicy() {
                                             <th scope="col" className="px-4 py-4">
                                                 Policy Made By
                                             </th>
+                                            
 
                                             {/* <th scope="col" className="px-4 py-4">
                                     Delete
