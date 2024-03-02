@@ -48,24 +48,19 @@ const SalarySlip = () => {
           Print
         </button>
       </div>
-      <div className="max-w-auto after:p-4 p-8 pt-10 relative bg-gradient-to-br from-red-100 to-red-200    bg-white" ref={componentRef}>
+      <div className="max-w-auto after:p-4 p-8 pt-3 relative bg-gradient-to-br from-red-100 to-red-200    bg-white" ref={componentRef}>
         <header className="flex  justify-between relative overflow-hidden ">
-          {/* 1 */}
-          {/* <div className="absolute bottom-0 left-0 w-full h-full bg-black transform origin-bottom-right -skew-y-6"></div>
-                    <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div> */}
-          {/* 1 */}
-          <div className="relative z-10 p-8 text-white">
-            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
+          <div className="relative z-10 p-3 text-white">
+            <img className="h-32 w-72 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
           </div>
           {/* 2 */}
-          <div className="px-4 leading-8 relative rounded-s-xl text-end ">
-            <h2 className="text-2xl font-bold py-4">ELEEDOM IMF PVT. LTD.</h2>
+          <div className="px-4 leading-2 relative rounded-s-xl text-end ">
+            <h2 className="text-2xl font-bold py-2">ELEEDOM IMF PVT. LTD.</h2>
             <p>CIN No .: U66000BR2022PTC058334</p>
             <p>GST IN : 10AAHCE0776B1Z9</p>
             <p>Flat No.607, B-Block, Gagan Apartment
               Exhibition Road, Patna- 800001</p>
-            <p>eleedomimf@gmail.com</p>
-            <p>06224 270046, 9934337013</p>
+              <p>www.eleedomimf.com</p>
           </div>
 
         </header>
@@ -86,7 +81,7 @@ const SalarySlip = () => {
                 <h3 className="text-lg  font-semibold text-center">Employee Summary </h3>
               </div>
               <div className="p-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2">
                   <div className="font-semibold">Employee ID:</div>
                   <div>3456</div>
                   <div className="font-semibold">Employee Name:</div>
@@ -108,7 +103,7 @@ const SalarySlip = () => {
                 <h3 className="text-lg  font-semibold text-center">Working Summary</h3>
               </div>
               <div className="p-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2">
                   <div className="font-semibold">Working Days:</div>
                   <div>January 2021</div>
                   <div className="font-semibold">Sunday:</div>
@@ -146,7 +141,7 @@ const SalarySlip = () => {
 
 
               <div className="p-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2">
                   <div className="font-semibold">Basic Salary:</div>
                   <div>3456</div>
                   <div className="font-semibold">House Rent Allowance:</div>
@@ -190,7 +185,7 @@ const SalarySlip = () => {
                 </div>
                 </div>
               <div className="p-4">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2">
                   <div className="font-semibold">EPF(Emp Contribution):</div>
                   <div>January 2021</div>
                   <div className="font-semibold">GHI(Emp Contribution):</div>
@@ -232,7 +227,7 @@ const SalarySlip = () => {
                <h3 className="text-lg text-white font-semibold text-center">NET PAYABLE </h3>
               </div>
               <div className="p-4  text-center ">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-2">
                 <div className="font-semibold ">Salary:</div>
                   <div className=''>3456</div>
                   <div className="font-semibold">Fuel Expenses:</div>
@@ -248,9 +243,8 @@ const SalarySlip = () => {
         </section>
         {/* footer */}
         <div className=" flex w-full h-1.5 bg-red-700 mb-0.5 my-4"></div>
-        <footer className="flex relative  overflow-hidden">
-          <div className="z-50 py-4 w-full h-full bg-red-700 transform origin-top-left -skew-y-3"></div>
-          <div className="absolute py-4 w-full h-full bg-black transform origin-bottom-right -skew-y-4"></div>
+        <footer className="flex justify-center relative  overflow-hidden">
+          <p className='text-center'>*** This is a computer genrated statement no signature required ***</p>
         </footer>
       </div>
     </section>

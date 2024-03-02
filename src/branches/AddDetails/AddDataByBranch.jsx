@@ -223,11 +223,11 @@ function AddDataByBranch() {
                                 value={category}
                                 name="category"
                                 onChange={(e) => setCategory(e.target.value)}>
-                                {/* <option className="w-1" value=""  >--- Select Category ---</option> */}
+                                <option className="w-1" value=""  >--- Select Category ---</option>
                                                 {pdata.map((cat) => ( 
                                 cat._id === catTypesForSelectedPolicy &&
                                 cat.category.map((product, idx) => (
-                                <option key={idx} value={product} selected>{product}</option>
+                                <option key={idx} value={product} >{product}</option>
                                 ))))
                             }
                                     
