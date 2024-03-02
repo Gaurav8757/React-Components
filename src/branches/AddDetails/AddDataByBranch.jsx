@@ -55,7 +55,7 @@ function AddDataByBranch() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setFormSubmitted(true);
         // Prevent multiple submissions
         if (formSubmitted) {
             return;
@@ -144,7 +144,9 @@ function AddDataByBranch() {
             }
         } catch (error) {
             console.error("Error during branch registration:", error.response);
-        }
+        }finally {
+            setFormSubmitted(false);
+          }
     };
 
    
@@ -193,7 +195,7 @@ function AddDataByBranch() {
                         </div>
 
                         {/* FIELD - 2 */}
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                             <label className="text-base mx-1">Company Name<span className="text-red-600 font-bold">*</span></label>
                             <select
                                 id="company" name="company"
@@ -223,11 +225,11 @@ function AddDataByBranch() {
                                 value={category}
                                 name="category"
                                 onChange={(e) => setCategory(e.target.value)}>
-                                <option className="w-1" value="" >--- Select Category ---</option>
+                                {/* <option className="w-1" value=""  >--- Select Category ---</option> */}
                                                 {pdata.map((cat) => ( 
                                 cat._id === catTypesForSelectedPolicy &&
                                 cat.category.map((product, idx) => (
-                                <option key={idx} value={product}>{product}</option>
+                                <option key={idx} value={product} selected>{product}</option>
                                 ))))
                             }
                                     

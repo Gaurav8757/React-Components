@@ -106,24 +106,24 @@ function EmpPolicy() {
         // exportToPDF();
     };
     return (
-        <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
+        <section className="container-fluid relative   p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
-                <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-                    <div className="overflow-x-auto w-xl  text-blue-500">
+                <div className="inline-block min-w-full w-full py-0 bg-slate-200">
+                    <div className="flex  text-blue-500 bg-slate-200">
                         <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1>
-                        <button className="absolute top-2 right-10" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+                        <button className="" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                     </div>
                     {isLoading ? ( // Conditional rendering for loading state
                             <p className='mt-20 text-2xl font-bold'>Loading policies...</p>
                         ) : (
-                    <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+                    <div className="inline-block min-w-full w-full py-0 ">
                         {APIData.length === 0 ? ( // Conditional rendering when there are no policies
                 <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
               ) : (
-                            <table className="min-w-full  border text-center text-sm font-light table ">
-                                <thead className="   font-medium sticky top-20">
-                                    <tr className="text-blue-700 font-bold sticky top-20">
-                                        <th scope="col" className="px-4 py-4 f">
+                            <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table ">
+                                <thead className="   font-medium sticky bg-slate-200 top-16">
+                                    <tr className="text-blue-700 font-bold bg-slate-200 sticky top-16">
+                                        <th scope="col" className="px-4 py-4 ">
                                             Reference ID
                                         </th>
                                         <th scope="col" className="px-4 py-4">
@@ -194,6 +194,9 @@ function EmpPolicy() {
                                         </th>
                                         <th scope="col" className="px-4 py-4">
                                             NCB
+                                        </th>
+                                        <th scope="col" className="px-4 py-4">
+                                            Policy Payment Mode
                                         </th>
                                         <th scope="col" className="px-4 py-4">
                                             Policy Made By
@@ -288,6 +291,9 @@ function EmpPolicy() {
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4">
                                                     {data.ncb}
+                                                </td>
+                                                <td className="whitespace-nowrap px-3 py-4">
+                                                    {data.policyPaymentMode}
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4">
                                                     {data.policyMadeBy}

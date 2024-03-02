@@ -9,8 +9,14 @@ function AllOpsData({ data, policy }) {
     const [employee_id, setEmployeeId] = useState("");
     const [staffId, setStaffId] = useState("");
     const [sendStaffId, setSendStaffId] = useState(null);
+   
   
-// popup
+
+
+   
+
+
+    // popup
     const staffSend = (_id) => {
         setSendStaffId(_id);
         setStatus("Sent");
@@ -26,7 +32,7 @@ function AllOpsData({ data, policy }) {
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${staffId}`, allDetails);
             toast.success(`${resp.data.status}${staffName}`);
             if (resp.data.status) {
-                
+
                 policy();
             }
         } catch (error) {
@@ -34,33 +40,33 @@ function AllOpsData({ data, policy }) {
             console.error("Error updating insurance details:", error);
         }
     };
-   
+
 
     return (
         <tr
-            className="divide-y divide-gray-200 overflow-y-hidden  text-sm font-medium">
-                <td className="whitespace-nowrap px-3 py-4">
+            className="divide-y divide-gray-200 overflow-y-hidden  text-sm font-medium border border-black">
+            <td className="whitespace-nowrap px-3  border border-black">
                 {data._id}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.entryDate}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.branch}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.category}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.company}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.vehRegNo}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.segment}
             </td>
-            <td className="whitespace-nowrap px-3 py-4">
+            <td className="whitespace-nowrap px-3">
                 {data.sourcing}
             </td>
             <td className="whitespace-nowrap px-3 py-4">
@@ -90,7 +96,7 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-3 py-4">
                 {data.chsNo}
             </td>
-           
+
             <td className="whitespace-nowrap px-3 py-4">
                 {data.odPremium}
             </td>
@@ -113,7 +119,7 @@ function AllOpsData({ data, policy }) {
                 {data.policyMadeBy}
             </td>
             <td className={`whitespace-nowrap px-3 py-4 ${data.status === "Pending" ? "text-red-600 text-lg" : "text-green-600 text-lg font-bold"}`}>
-                    {data.status}
+                {data.status}
             </td>
             <td className="whitespace-nowrap px-3 py-4 ">
                 {data.staffName}
@@ -138,14 +144,14 @@ function AllOpsData({ data, policy }) {
                     }}>
                     <option className="w-1" value="">--- Select ---</option>
                     {
-    data.allpolicyemployee
-        .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-        .map((emp) => (
-            <option key={emp._id} value={emp.empname}>
-                {emp.empid} - {emp.empname}
-            </option>
-        ))
-}
+                        data.allpolicyemployee
+                            .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                            .map((emp) => (
+                                <option key={emp._id} value={emp.empname}>
+                                    {emp.empid} - {emp.empname}
+                                </option>
+                            ))
+                    }
 
                 </select>
             </td>
@@ -159,7 +165,7 @@ function AllOpsData({ data, policy }) {
                         <div className="bg-white p-4 rounded-lg ">
                             <h2 className="text-lg font-semibold text-gray-800">{`Are you sure you want to send this policy to ${staffName} ?`}</h2>
                             <div className="flex justify-end mt-10">
-                                <button onClick={() => { updateAPI(); setSendStaffId(null);  }} className="text-white bg-green-600 hover:bg-green-800 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
+                                <button onClick={() => { updateAPI(); setSendStaffId(null); }} className="text-white bg-green-600 hover:bg-green-800 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
                                     Yes, I&apos;m sure
                                 </button>
                                 <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
