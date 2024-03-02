@@ -9,9 +9,8 @@ function AllOpsData({ data, policy }) {
     const [employee_id, setEmployeeId] = useState("");
     const [staffId, setStaffId] = useState("");
     const [sendStaffId, setSendStaffId] = useState(null);
-   
-  
-
+    // const [time, setTime] = useState();
+//  setTime(new Date());
 
    
 
@@ -155,6 +154,11 @@ function AllOpsData({ data, policy }) {
 
                 </select>
             </td>
+
+
+            {/* <td className="whitespace-nowrap px-3 py-4 ">
+                {time}
+            </td> */}
 
             <td className="whitespace-nowrap px-3 py-4 ">
                 <button className='text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2' onClick={staffSend}>Send</button>

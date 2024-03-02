@@ -55,7 +55,7 @@ function AddDataByBranch() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormSubmitted(true);
+       
         // Prevent multiple submissions
         if (formSubmitted) {
             return;
@@ -144,9 +144,7 @@ function AddDataByBranch() {
             }
         } catch (error) {
             console.error("Error during branch registration:", error.response);
-        }finally {
-            setFormSubmitted(false);
-          }
+        }
     };
 
    

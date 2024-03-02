@@ -192,9 +192,7 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-4 py-4">
                                         Policy Made By
                                     </th>
-                                    <th scope="col" className="px-4 py-4">
-                                        Select Payment Mode
-                                    </th>
+                                   
                                     {/* <th scope="col" className="px-4 py-4">
                                          Payment Mode
                                     </th> */}
@@ -206,6 +204,9 @@ function AllOpsDetails() {
                                     </th>
                                     <th scope="col" className="px-4 py-4">
                                         Select Employee
+                                    </th>
+                                    <th scope="col" className="px-4 py-4">
+                                        Time
                                     </th>
                                     <th scope="col" className="px-4 py-4">
                                         Send to Made Policy
