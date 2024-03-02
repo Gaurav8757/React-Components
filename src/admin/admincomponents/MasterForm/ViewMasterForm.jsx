@@ -199,7 +199,7 @@ function ViewMasterForm() {
                   <th scope="col" className="px-5 py-4">Branch Payable Amount</th>
                   <th scope="col" className="px-5 py-4">Company Payout</th>
                   <th scope="col" className="px-5 py-4">Profit/Loss</th>
-                  <th scope="col" className="px-5 py-4">Edit</th>
+                  <th scope="col" className="px-5 py-4">Update</th>
                   <th scope="col" className="px-5 py-4">Delete</th>
                 </tr>
               </thead>

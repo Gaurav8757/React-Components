@@ -166,6 +166,7 @@ const handleExportClick = () => {
             <table className="min-w-full text-center text-sm font-light table  bg-white border border-gray-200 divide-y divide-gray-200  ">
               <thead className=" font-medium  bg-slate-300 sticky top-16 ">
                 <tr className="text-blue-700 sticky top-16 ">
+                <th scope="col" className="px-5 py-4">Update</th>
                   <th scope="col" className="px-5 py-4 sticky">Reference ID</th>
                   <th scope="col" className="px-5 py-4 sticky">Entry Date</th>
                   <th scope="col" className="px-5 py-4 sticky">Company</th>
@@ -206,7 +207,7 @@ const handleExportClick = () => {
                   <th scope="col" className="px-5 py-4 sticky">GVW</th>
                   <th scope="col" className="px-5 py-4 sticky">C.C.</th>
                   
-                  <th scope="col" className="px-5 py-4">Update</th>
+                  
                   {/* <th scope="col" className="px-5 py-4">Delete</th> */}
                 </tr>
               </thead>
@@ -229,6 +230,9 @@ const handleExportClick = () => {
                  
                   }).map((data) => (
                   <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
+                     <td className="whitespace-nowrap px-4 py-4">
+                      <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy} onUpdateClick={handleUpdateClick}/>
+                    </td>
                     <td className="whitespace-nowrap px-4 py-4">{data._id}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.company}</td>
@@ -268,9 +272,7 @@ const handleExportClick = () => {
                     <td className="whitespace-nowrap px-4 py-4">{data.fuel}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.gvw}</td>
                     <td className="whitespace-nowrap px-4 py-4">{data.cc}</td>
-                    <td className="whitespace-nowrap px-4 py-4">
-                      <UpdateAllBranch updateBranch = {data} onUpdate = {onUpdatePolicy} onUpdateClick={handleUpdateClick}/>
-                    </td>
+                   
                   </tr>
 ))}
               </tbody>
