@@ -7,8 +7,22 @@ import * as XLSX from 'xlsx';
 function EmpPolicy() {
     const [APIData, setAPIData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState();
+    const [searchId, setSearchId] = useState("");
+    const [searchCompany, setSearchCompany] = useState("");
+    const [searchInsuredName, setSearchInsuredName] = useState("");
+    const [contactNo, setContactNo] = useState("");
     const empid = sessionStorage.getItem("employeeId");
     const name = sessionStorage.getItem("name");
+
+    useEffect(() => {
+        setItemsPerPage(13);
+      }, []);
+
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -32,7 +46,48 @@ function EmpPolicy() {
                 });
         }
     }, [empid]);
-
+    const handleDateRangeChange = (event, type) => {
+        if (type === "start") {
+          setStartDate(event.target.value);
+        } else if (type === "end") {
+          setEndDate(event.target.value);
+        }
+      };
+      
+      const filteredData = APIData.filter(data => {
+        // Check if data is defined
+        if (!data) return false;
+        // Filter conditions
+        const idLower = data._id?.toLowerCase() || "";
+        const insuredNameLower = data.insuredName?.toLowerCase() || "";
+        const companyLower = data.company?.toLowerCase() || "";
+        const contacNoLower = data.contactNo?.toLowerCase() || "";
+        return (
+          // Filter conditions using optional chaining and nullish coalescing
+          (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
+          (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
+          (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
+          // Update the state variable for company correctly
+          (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === '') &&
+          // Ensure correct date filtering logic
+          (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
+          (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
+        );
+    });
+    
+      // Calculate total number of pages
+      const totalItems = filteredData.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+    
+    
+      // Calculate starting and ending indexes of items to be displayed on the current page
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+    
+// Handle page change
+const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
 
     // refreshing page after updating data
@@ -108,11 +163,13 @@ function EmpPolicy() {
     return (
         <section className="container-fluid relative   p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
-                <div className="inline-block min-w-full w-full py-0 bg-slate-200">
-                    <div className="flex  text-blue-500 bg-slate-200">
-                        <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1>
-                        <button className="" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-                    </div>
+                <div className="inline-block min-w-full w-full py-0 ">
+                <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
+          <h1></h1>
+          <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
+          <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+        </div>
+                    
                     {isLoading ? ( // Conditional rendering for loading state
                         <p className='mt-20 text-2xl font-bold'>Loading policies...</p>
                     ) : (
@@ -120,6 +177,56 @@ function EmpPolicy() {
                             {APIData.length === 0 ? ( // Conditional rendering when there are no policies
                                 <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
                             ) : (
+                                <div className="min-w-full w-full py-0  block z-50">
+                                <div className="flex-wrap flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+                                {/* date range filter */}
+                                <div className="flex   p-0 text-start w-full lg:w-1/4">
+                                  <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Filter by Date:</label>
+                                  <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
+                                  <span className='text-justify mx-1 my-1 '>to</span>
+                                  <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
+                                </div>
+                  
+                                <div className="flex p-0 ml-10 justify-center text-center w-full lg:w-1/4">
+                                  <label className="my-0 text-lg font-medium text-gray-900">Filter by ID:</label>
+                                  <input
+                                    type="search"
+                                    onChange={(e) => setSearchId(e.target.value)}
+                                    className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="ID"
+                                  />
+                                </div>
+                  
+                                <div className="flex justify-end p-0 text-end w-full lg:w-1/4">
+                                  <label className="my-0 text-lg font-medium text-gray-900">Filter by Company:</label>
+                                  <input
+                                    type="search"
+                                    onChange={(e) => setSearchCompany(e.target.value)}
+                                    className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Company Name"
+                                  />
+                                </div>
+                  
+                                <div className="flex justify-start  text-start w-full lg:w-1/4">
+                                  <label className="my-0 text-lg font-medium text-gray-900">Filter by Insured Name:</label>
+                                  <input
+                                    type="search"
+                                    onChange={(e) => setSearchInsuredName(e.target.value)}
+                                    className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Insured Name"
+                                  />
+                                </div>
+                  
+                                <div className="flex p-0 text-center justify-center w-1/2 lg:w-1/4">
+                                  <label className="my-0 text-lg font-medium text-gray-900">Filter by Contact No:</label>
+                                  <input
+                                    type="search"
+                                    onChange={(e) => setContactNo(e.target.value)}
+                                    className="shadow p-0 text-start w-1/2 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Contact Number"
+                                  /></div>
+                              </div>
+                  
                                 <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table ">
                                     <thead className="   font-medium sticky bg-slate-200 top-16">
                                         <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky top-16">
@@ -214,7 +321,7 @@ function EmpPolicy() {
 
                                     <tbody className="divide-y divide-gray-200 overflow-y-hidden">
 
-                                        {APIData.map((data) => {
+                                        {filteredData.slice(startIndex, endIndex).map((data) => {
                                             return (
                                                 <tr
                                                     className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium"
@@ -313,11 +420,29 @@ function EmpPolicy() {
                                     </tbody>
 
                                 </table>
+                                </div>
                             )}
                         </div>
                     )}
                 </div>
             </div>
+             {/* Pagination */}
+
+      <nav aria-label="Page navigation flex example sticky   ">
+        <ul className="flex justify-end my-0  -space-x-px text-xl">
+          <li className=''>
+            <button onClick={() => handlePageChange(currentPage - 1)} className={`flex items-center justify-end px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}>Previous</button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <li key={i} className='bg-slate-500'>
+              <button onClick={() => handlePageChange(i + 1)} className={`flex items-center justify-end px-3 h-8 leading-tight ${currentPage === i + 1 ? 'text-blue-600 font-bold border bg-blue-100' : 'text-gray-500 bg-white border'} border-gray-300 hover:bg-gray-100 hover:text-gray-700`}>{i + 1}</button>
+            </li>
+          ))}
+          <li className=''>
+            <button onClick={() => handlePageChange(currentPage + 1)} className={`flex items-center justify-end px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}>Next</button>
+          </li>
+        </ul>
+      </nav>
         </section>
     )
 }

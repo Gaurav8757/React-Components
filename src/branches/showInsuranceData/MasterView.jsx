@@ -84,6 +84,8 @@ function MasterView() {
     );
 });
 
+
+
   // Calculate total number of pages
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
