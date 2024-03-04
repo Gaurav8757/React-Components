@@ -6,6 +6,7 @@ import {  FcPlanner } from "react-icons/fc";
 import { MdOutlinePolicy } from "react-icons/md";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
+import { FcLeave } from "react-icons/fc";
 
 function DashboardEmp() {
     const dashboardRouted = [
@@ -40,6 +41,10 @@ function DashboardEmp() {
           title: "Policy Lists",
           path: "/employee/home/policy",
           logo: <MdOutlinePolicy size={25} />
+        },{
+          title: "Leave Application",
+          path: "/employee/home/leave/application",
+          logo: <FcLeave size={25} />
         },
        
        
@@ -139,7 +144,7 @@ function DashboardEmp() {
                           className={`flex items-center p-2 text-gray-100 rounded-lg dark:text-white  hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                         >
                           <span className="">{route.logo}</span>
-                          <span className="ms-6">{route.title}</span>
+                          <span className="ms-4">{route.title}</span>
                           <span className="ms-2"><IoMdArrowDropdown/></span>
                         </NavLink>
                         <ul
@@ -163,7 +168,7 @@ function DashboardEmp() {
                       // Render regular route without sub-routes
                       <NavLink to={route.path} className="flex items-center p-2 hover:bg-gray-500 text-gray-100 rounded-lg dark:text-white  group">
                         <span className="">{route.logo}</span>
-                        <span className="ms-6">{route.title}</span>
+                        <span className="ms-4">{route.title}</span>
                       </NavLink>
                     )}
                   </li>

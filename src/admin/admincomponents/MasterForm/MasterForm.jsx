@@ -599,7 +599,7 @@ useEffect(() => {
               </div>
               {/* FIELD - 43 */}
               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">CHQ / Payment Date:</label>
+                <label className="text-base mx-1">Endorsement Date:</label>
                 <input
                   className="input-style rounded-lg"
                   type="date"
@@ -609,6 +609,7 @@ useEffect(() => {
                   placeholder="Select CHQ / Payment Date"
                 />
               </div>
+              
               {/* FIELD - 46 */}
               <div className="flex flex-col my-5">
                 <label className="text-base mx-1">Branch Payout:</label>

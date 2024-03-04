@@ -148,6 +148,7 @@ import ResignationLetter from "./admin/admincomponents/Letters/ResignationLetter
 import TerminationLetter from "./admin/admincomponents/Letters/TerminationLetter.jsx";
 import IncrementLetter from "./admin/admincomponents/Letters/IncrementLetter.jsx";
 import JoiningLetter from "./admin/admincomponents/Letters/JoiningLetter.jsx";
+import LeaveApplication from "./employee/LeaveApplication/LeaveApplication.jsx";
 
 
 
@@ -300,6 +301,7 @@ const router = createBrowserRouter(
           <Route path="/employee/home/add/attendance" element={<AddAttendance />} />
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
+          <Route path="/employee/home/leave/application" element={<LeaveApplication />} />
         </Route>
       </Route>
 
