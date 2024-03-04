@@ -122,7 +122,7 @@ function EmpPolicy() {
                             ) : (
                                 <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table ">
                                     <thead className="   font-medium sticky bg-slate-200 top-16">
-                                        <tr className="text-blue-700 font-bold bg-slate-200 sticky top-16">
+                                        <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky top-16">
                                             <th scope="col" className="px-4 py-4">
                                                 Update
                                             </th>

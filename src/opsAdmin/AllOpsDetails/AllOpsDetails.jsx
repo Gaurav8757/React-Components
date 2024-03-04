@@ -6,7 +6,6 @@ import axios from 'axios';
 import * as XLSX from 'xlsx';
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
-    // const [search, setSearch] = useState("");
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -15,7 +14,6 @@ function AllOpsDetails() {
     const [searchBranch, setSearchBranch] = useState("");
     const [searchInsuredName, setSearchInsuredName] = useState("");
     const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
-    // const [searchEngineNo, setSearchEngineNo] = useState("");
     const name = sessionStorage.getItem("name");
     useEffect(() => {
         setItemsPerPage(12);
@@ -68,7 +66,7 @@ function AllOpsDetails() {
             (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
             (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
             (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
-            // (engineNoLower.includes(searchEngineNo.toLowerCase()) || searchEngineNo === '') &&
+
             (policyMadeByLower.includes(searchPolicyMadeBy.toLowerCase()) || searchPolicyMadeBy === '') &&
             (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
             (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
@@ -211,15 +209,7 @@ function AllOpsDetails() {
                                     className="shadow p-0 text-start w-1/2 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                     placeholder="Policy Made By"
                                 /></div>
-                            {/* <div className="flex p-0 text-end justify-end w-full lg:w-1/4">
-                                <label className="my-0 text-lg font-medium text-gray-900">Filter by Eng. No.:</label>
-                                <input
-                                    type="search"
-                                    onChange={(e) => setSearchEngineNo(e.target.value)}
-                                    className="shadow input-style  p-0 text-start w-full lg:w-1/2 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                    placeholder="Engine Number"
-                                />
-                            </div> */}
+                          
 
                         </div>
 
