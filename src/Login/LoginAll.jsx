@@ -91,7 +91,7 @@ function LoginAll() {
                         sessionStorage.setItem("token", response.data.token);
                         sessionStorage.setItem("finemail", response.data.email);
                         sessionStorage.setItem("finname", response.data.name);
-                        console.log(response.data);
+                       
                         break;
 
 
@@ -196,7 +196,7 @@ function LoginAll() {
                     {/* <div className="flex-shrink-4  md:h-full h-full w-full xs:w-full   sm:w-full md:w-full mx-auto  lg:w-2/5 xl:py-20"> */}
                         <img
                             src="/insurance.png"
-                            className="h-3/4 mt-4  w-3/4 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-2/5 "
+                            className="h-1/3 mt-80  w-3/4 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-1/4 "
                             alt="Logo"
                         />
                         {/* <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div> */}

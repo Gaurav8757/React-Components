@@ -18,7 +18,7 @@ function AllOpsDetails() {
     useEffect(() => {
         setItemsPerPage(12);
     }, [])
-    
+   
     // POLICY DATA LISTS
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -228,6 +228,21 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black">
                                         Branch
                                     </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Insured By
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Contact No.
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Policy Made By
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Status
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Sent Time
+                                    </th>
                                     <th scope="col" className="px-3 border border-black">
                                         Category
                                     </th>
@@ -246,18 +261,14 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Hypothinition
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Contact No.
-                                    </th>
+                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Advisor Name
                                     </th>
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sub-Advisor Name
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Insured By
-                                    </th>
+                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Type
                                     </th>
@@ -288,29 +299,19 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         NCB
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Policy Made By
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Status
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sent Time
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sent to
-                                    </th>
+                                   
+                                    
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Select Employee
                                     </th>
-                                    <th scope="col" className="px-3  border border-black sticky">
+                                    <th scope="col" className="  border border-black sticky">
                                         Send to Made Policy
                                     </th>
                                 </tr>
                             </thead>
 
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
-                                {filteredData.slice(startIndex, endIndex).map((data) => (
+                                {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
                                     <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
                                 ))}
                             </tbody>

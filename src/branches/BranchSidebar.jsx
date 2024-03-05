@@ -14,20 +14,9 @@ const BranchSidebar = () => {
     },
 
     {
-      title: "Policy",
-      path: "#",
+      title: "Policy Lists",
+      path: "/branches/home/viewinsurance",
       logo: <RiGitBranchFill size={25} />,
-      subRoutes: [
-        {
-          title: "Add Policy",
-          path: "/branches/home/add/policy"
-        },
-        {
-          title: "Policy Lists",
-          path: "/branches/home/viewinsurance"
-        }
-        // Add more sub-routes as needed
-      ]
     },
    
   ];

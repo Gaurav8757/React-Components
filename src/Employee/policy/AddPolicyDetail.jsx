@@ -2,34 +2,61 @@
 import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
-
 import axios from "axios";
+
 function AddPolicyDetail({ insurance, onUpdates }) {
-   
     const [pdata, setPdata] = useState([]);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
+
+    const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+    const [empTime, setEmpTime] = useState(getFormattedTime());
+
+    function getFormattedTime() {
+        const date = new Date();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    }
+
+    const checkFormValidity = () => {
+        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo", "odPremium", "liabilityPremium", "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
+        const emptyFields = requiredFields.filter(field => !allDetails[field]);
+        return emptyFields.length === 0;
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setEmpTime(getFormattedTime());
+        }, 1000); // Update every second
+        // Clean up interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array ensures effect runs only once on mount
+
     const [allDetails, setAllDetails] = useState({
+        company: "",
+        category: "",
+        policyType: '',
         policyNo: '',
         engNo: '',
         chsNo: '',
-        policyType: '',
         odPremium: '',
-        company: "",
         liabilityPremium: '',
         netPremium: '',
         taxes: '',
+        rsa: '',
         finalEntryFields: '',
         odDiscount: '',
         ncb: '',
-        policyMadeBy: '',
-        policyPaymentMode: ""
-
+        policyPaymentMode: "",
+        empTime: empTime
     });
 
-   
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
@@ -46,17 +73,17 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
-          .then((resp) => {
-            const cType = resp.data;
-            
-            setPdata(cType);
-          })
-          .catch((error) => {
-            console.error("Error fetching company names:", error);
-          });
-      }, [pdata]);
+            .then((resp) => {
+                const cType = resp.data;
 
-      useEffect(() => {
+                setPdata(cType);
+            })
+            .catch((error) => {
+                console.error("Error fetching company names:", error);
+            });
+    }, [pdata]);
+
+    useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
             .then((resp) => {
                 const PolicyType = resp.data;
@@ -68,7 +95,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             });
     }, [data]);
 
-   
+
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -83,9 +110,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                     },
                 })
                 .then((response) => {
-               
+
                     setAPIData(response.data);
-                   
+
                 })
                 .catch((error) => {
                     console.error(error);
@@ -100,62 +127,50 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         const newNetPremium = odPremiumValue + liabilityPremiumValue;
         // Set the updated netPremium value directly
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          netPremium: newNetPremium.toFixed(2)
+            ...prevDetails,
+            netPremium: newNetPremium.toFixed(2)
         }));
-      };
-    
-     
-    
-      // // VEHICLE AGE CALCULATED
-      
-    
-      
-    
-      // // Calculate taxes with netPremium
-      const calculateFinalAmount = () => {
+    };
+
+    // // Calculate taxes with netPremium
+    const calculateFinalAmount = () => {
         const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
         const taxesValue = parseFloat(allDetails.taxes) || 0;
-        const finalAmountValue = netPremiumValue +  taxesValue;
-    
+        const rsaValue = parseFloat(allDetails.rsa) || 0;
+        const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
+
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          finalEntryFields: finalAmountValue.toFixed(2)
+            ...prevDetails,
+            finalEntryFields: finalAmountValue.toFixed(2)
         }));
-      };
-    
-      // // Calculate branch payable amount
-      const calculateBranchPayableAmount = () => {
+    };
+
+    // // Calculate branch payable amount
+    const calculateBranchPayableAmount = () => {
         const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
         const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
         const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
-    
+
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          branchPayableAmount: branchPayableAmountValue.toFixed(2)
+            ...prevDetails,
+            branchPayableAmount: branchPayableAmountValue.toFixed(2)
         }));
-      };
-    
-     
-    
-    
-      // // Final amount set
-      const handleNetPremiumBlur = () => {
+    };
+
+    // // Final amount set
+    const handleNetPremiumBlur = () => {
         if (allDetails.calculationType === 'finalAmount') {
-          calculateFinalAmount();
+            calculateFinalAmount();
         } else if (allDetails.calculationType === 'branchPayableAmount') {
-          calculateBranchPayableAmount();
+            calculateBranchPayableAmount();
         }
         // Reset the calculation type after performing the calculation
         setAllDetails(prevDetails => ({
-          ...prevDetails,
-          calculationType: ''
+            ...prevDetails,
+            calculationType: ''
         }));
-      };
-    
-     
-    
-    
+    };
+
     // show all data inside input tag
     useEffect(() => {
         setAllDetails(insurance);
@@ -166,23 +181,28 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         const { name, value } = e.target;
         setAllDetails((prevData) => ({
             ...prevData,
+            empTime: empTime,
             [name]: value,
         }));
     };
 
-    
+
 
     const updateInsuranceAPI = async () => {
         try {
             setLoading(true);
-    
+            // Check form validity before submitting
+            if (!checkFormValidity()) {
+                toast.error("Please fill in all required fields before submitting.");
+                return;
+            }
             // Use the selected category ID in the patch method
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
             onUpdates();
             toast.success(`${resp.data.status}`);
+
             // Close the modal after successful submission
             closeModal();
-            
         } catch (error) {
             console.error("Error updating insurance details:", error);
         } finally {
@@ -193,10 +213,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     return (
         <>
             {/* <!-- Modal toggle --> */}
-            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2 ">
+            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 my-1 ">
                 Update
             </button>
-
             {/* <!-- Main modal --> */}
             {isModalOpen && (
                 <div
@@ -208,67 +227,80 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
                     <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-500 rounded-lg shadow ">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 ">
+                                <h3 className="text-xl font-semibold text-gray-100 ">
                                     Fill Policy Details
                                 </h3>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                                    className=" bg-transparent hover:text-red-500 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
-
                             {/* <!-- Modal body --> */}
-                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-                                    <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
+                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-700 to-cyan-400">
+                                <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-white to-cyan-700">
+                                    <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                                         <div className="flex flex-wrap justify-between">
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                            <label className="text-base mx-1">Company Name<span className="text-red-600 font-bold">*</span></label>
-                            <select
-                                id="company" name="company"
-                                className="input-style p-1 rounded-lg"
-                                value={allDetails.company}
-                                onChange={() => {
-                                    handleInputChange;
-                                    // const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
-                                    // setCatTypesForSelectedPolicy(selectedCatId);
-                                  }}
-                            >
-                                <option className="" value="" >--- Select Company ---</option>
-                                            {pdata.map((comp) => (
-                            <option key={comp._id} value={comp.c_type} data-id={comp._id}>
-                                {comp.c_type}
-                            </option>
-                            ))}
-                            </select>
-                            {/* {errors.company && <span className="text-red-600 text-sm">{errors.company}</span>} */}
-                        </div>
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Company Name<span className="text-red-600 font-bold">*</span></label>
+                                                <select
+                                                    id="company" name="company"
+                                                    className="input-style p-1 rounded-lg"
+                                                    value={allDetails.company}
+                                                    onChange={(e) => {
+                                                        handleInputChange(e);
+                                                        const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                                                        setCatTypesForSelectedPolicy(selectedCatId);
+                                                    }}>
+                                                    <option className="" value="" >--- Select Company ---</option>
+                                                    {pdata.map((comp) => (
+                                                        <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                                                            {comp.c_type}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
 
-                          {/* FIELD - 4 */}
-                          <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Policy Type:</label>
+                                                <select
+                                                    className="input-style w-full p-1 rounded-lg"
+                                                    value={allDetails.category}
+                                                    name="category"
+                                                    onChange={handleInputChange}
+                                                >
+                                                    <option value="">-- Select Product Type ---</option>
+                                                    {pdata.map((cat) => (
+                                                        cat._id === catTypesForSelectedPolicy &&
+                                                        cat.category.map((product, idx) => (
+                                                            <option key={idx} value={product}>{product}</option>
+                                                        ))))
+                                                    }
+                                                </select>
+                                            </div>
+                                            {/* FIELD - 4 */}
+                                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
                                                 <select
                                                     className="input-style p-1 rounded-lg"
                                                     value={allDetails.policyType}
                                                     onChange={handleInputChange}
                                                     name="policyType">
-                                                    
+
                                                     <option value="">--- Select Policy Type ---</option>
-                                {data.map(category => (
-                                    <option key={category._id} value={category.p_type}>{category.p_type}</option>
-                               
-                            ))}
+                                                    {data.map(category => (
+                                                        <option key={category._id} value={category.p_type}>{category.p_type}</option>
+                                                    ))}
                                                 </select>
                                             </div>
 
                                             {/* FIELD - 1 */}
                                             <div className="flex flex-col p-2  text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Policy No:</label>
+                                                <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -280,7 +312,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                             </div>
                                             {/* FIELD - 2 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Engine No:</label>
+                                                <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -288,11 +320,11 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     onChange={handleInputChange}
                                                     name="engNo"
                                                     placeholder="Enter Engine No" />
-                                                     {!isValidEngineChassis(allDetails.engNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
+                                                {!isValidEngineChassis(allDetails.engNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
                                             </div>
                                             {/* FIELD - 3 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
-                                                <label className="text-base mx-1">Chassis No:</label>
+                                                <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -301,14 +333,12 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     name="chsNo"
                                                     placeholder="Enter Chassis No"
                                                 />
-                                                 {!isValidEngineChassis(allDetails.chsNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
+                                                {!isValidEngineChassis(allDetails.chsNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
                                             </div>
-                                          
-
                                             {/* FIELD - 5 */}
                                             {
                                                 allDetails.policyType === "SATP" ? (<div className="flex flex-col p-2  text-start w-full lg:w-1/4">
-                                                    <label className="text-base mx-1">OD Premium:</label>
+                                                    <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                                                     <input
                                                         className="input-style rounded-lg"
                                                         type="number"
@@ -320,7 +350,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                         disabled
                                                     />
                                                 </div>) : (<div className="flex flex-col p-2  text-start w-full lg:w-1/4">
-                                                    <label className="text-base mx-1">OD Premium:</label>
+                                                    <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                                                     <input
                                                         className="input-style rounded-lg"
                                                         type="number"
@@ -331,11 +361,10 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                         onBlur={updateNetPremium}
                                                     />
                                                 </div>)}
-
                                             {/* FIELD - 6 */}
                                             {
                                                 allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-2  text-start w-full lg:w-1/4">
-                                                    <label className="text-base mx-1">Liability Premium:</label>
+                                                    <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                                                     <input
                                                         className="input-style rounded-lg"
                                                         type="number"
@@ -349,7 +378,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     />
                                                 </div>)
                                                     : (<div className="flex flex-col p-2 text-start  w-full lg:w-1/4">
-                                                        <label className="text-base mx-1">Liability Premium:</label>
+                                                        <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                                                         <input
                                                             className="input-style rounded-lg"
                                                             type="number"
@@ -363,7 +392,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                             }
                                             {/* FIELD - 7 */}
                                             <div className="flex flex-col p-2 text-start  w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Net Premium:</label>
+                                                <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="number"
@@ -374,11 +403,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     readOnly />
                                                 <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
                                             </div>
-
-
                                             {/* FIELD - 8 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">GST:</label>
+                                                <label className="text-base mx-1">GST:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -390,9 +417,21 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 />
                                             </div>
 
+                                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.rsa}
+                                                    onChange={handleInputChange}
+                                                    onBlur={calculateFinalAmount}
+                                                    name="rsa"
+                                                    placeholder="RSA"
+                                                />
+                                            </div>
                                             {/* FIELD - 9 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Final Amount:</label>
+                                                <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -403,12 +442,11 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     placeholder=" Final Amount"
                                                     readOnly
                                                 />
-                                                 <span className="mx-1 text-xs text-green-600">(netPremium + GST%)</span>
+                                                <span className="mx-1 text-xs text-green-600">(netPremium + GST%)</span>
                                             </div>
-
                                             {/* FIELD - 10 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">OD Discount% :</label>
+                                                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -419,7 +457,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                             </div>
                                             {/* FIELD - 11 */}
                                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">NCB% :</label>
+                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style rounded-lg"
                                                     type="text"
@@ -429,58 +467,24 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     placeholder="Enter NCB"
                                                 />
                                             </div>
-
-
-                                            {/* FIELD - 12 */}
-                                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">Policy Made By:</label>
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
                                                 <select
+                                                    id="policyPaymentMode"
                                                     className="input-style p-1 rounded-lg"
-                                                    value={allDetails.policyMadeBy}
+                                                    value={allDetails.policyPaymentMode}
+                                                    name="policyPaymentMode"
                                                     onChange={handleInputChange}
-                                                    name="policyMadeBy">
-                                                    <option className="w-1" value="" >--- Policy Made By ---</option>
-                                                    {
-                                                        APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                                                        .map((emp) => (
-                                                            <option key={emp._id} value={emp.empname}>
-                                                                {emp.empid} - {emp.empname}
-                                                            </option>
-                                                        ))
-                                                    }
-                                                   
+                                                >
+                                                    <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
+                                                    <option className="w-1" value="insta payment" >Insta Payment</option>
+                                                    <option className="w-1" value="customer link" >Customer Link</option>
+                                                    <option className="w-1" value="customer cheque" >Customer Cheque</option>
+                                                    <option className="w-1" value="eleedom single cheque" >Eleedom Single Cheque</option>
                                                 </select>
                                             </div>
-
-
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Policy Payment Mode:</label>
-                <select
-                  id="policyPaymentMode"
-
-                  className="input-style p-1 rounded-lg"
-                  value={allDetails.policyPaymentMode}
-                  name="policyPaymentMode"
-                  onChange={handleInputChange}
-                >
-                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
-                  <option className="w-1" value="insta payment" >Insta Payment</option>
-                  <option className="w-1" value="customer link" >Customer Link</option>
-                  <option className="w-1" value="customer cheque" >Customer Cheque</option>
-                  <option className="w-1" value="eleedom single cheque" >Eleedom Single Cheque</option>
-                  {/* {
-                    payMode.map((mode)=>(
-                      <option key={mode._id}  value= {mode.paymentmode} >{mode.paymentmode}</option>
-                    ))
-                  } */}
-                </select>
-              </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
-
-
-
-
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
                                         </div>
                                         {/* button */}
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
@@ -498,5 +502,4 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         </>
     );
 }
-
 export default AddPolicyDetail;

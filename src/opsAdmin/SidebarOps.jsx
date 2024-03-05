@@ -2,7 +2,8 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutOps from "./LogoutOps.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { IoPeopleOutline } from "react-icons/io5"; 
+import { IoPeopleOutline } from "react-icons/io5";
+import { FcViewDetails } from "react-icons/fc"; 
 const SidebarOps = () => {
   const dashboardRouted = [
     {
@@ -10,7 +11,11 @@ const SidebarOps = () => {
       path: "/ops/home",
       logo: <RxDashboard size={25} />
     },
-
+    {
+      title: "Made Policy",
+      path: "/ops/home/add/policy",
+      logo: < FcViewDetails size={24}/>
+    },
     {
       title: "Policy Lists",
       path: "/ops/home/policy",
@@ -117,7 +122,7 @@ const SidebarOps = () => {
                       className={`flex items-center p-2  rounded-lg text-white hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-10">{route.title}</span>
+                      <span className="ms-4">{route.title}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -140,7 +145,7 @@ const SidebarOps = () => {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white  hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-10">{route.title}</span>
+                    <span className="ms-4">{route.title}</span>
                   </NavLink>
                 )}
               </li>

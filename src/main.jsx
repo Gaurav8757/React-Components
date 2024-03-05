@@ -149,6 +149,7 @@ import TerminationLetter from "./admin/admincomponents/Letters/TerminationLetter
 import IncrementLetter from "./admin/admincomponents/Letters/IncrementLetter.jsx";
 import JoiningLetter from "./admin/admincomponents/Letters/JoiningLetter.jsx";
 import LeaveApplication from "./employee/LeaveApplication/LeaveApplication.jsx";
+import AddPolicy from "./opsAdmin/AddPolicyByOPS/AddPolicy.jsx";
 
 
 
@@ -340,6 +341,7 @@ const router = createBrowserRouter(
       <Route element={<ProtectOps />}>
         <Route path="/ops/home" element={<LayoutOps />}>
         <Route path="" element={<DashboardOps />} />
+        <Route path='/ops/home/add/policy'  element={<AddPolicy />} /> 
         <Route path="/ops/home/policy" element={<AllOpsDetails />} />
         </Route>
       </Route>
