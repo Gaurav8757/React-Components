@@ -148,7 +148,7 @@ import ResignationLetter from "./admin/admincomponents/Letters/ResignationLetter
 import TerminationLetter from "./admin/admincomponents/Letters/TerminationLetter.jsx";
 import IncrementLetter from "./admin/admincomponents/Letters/IncrementLetter.jsx";
 import JoiningLetter from "./admin/admincomponents/Letters/JoiningLetter.jsx";
-import LeaveApplication from "./employee/LeaveApplication/LeaveApplication.jsx";
+import LeaveApplication from "./Employee/LeaveApplication/LeaveApplication.jsx";
 import AddPolicy from "./opsAdmin/AddPolicyByOPS/AddPolicy.jsx";
 
 
