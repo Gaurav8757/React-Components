@@ -1,9 +1,9 @@
 import AllOpsData from './AllOpsData.jsx';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-
 import axios from 'axios';
 import * as XLSX from 'xlsx';
+
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
     const [startDate, setStartDate] = useState("");
@@ -15,6 +15,7 @@ function AllOpsDetails() {
     const [searchInsuredName, setSearchInsuredName] = useState("");
     const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
     const name = sessionStorage.getItem("name");
+
     useEffect(() => {
         setItemsPerPage(12);
     }, [])
@@ -50,15 +51,14 @@ function AllOpsDetails() {
             setEndDate(event.target.value);
         }
     };
+
     const filteredData = APIData.filter(data => {
         // Check if data is defined
         if (!data) return false;
-
         // Filter conditions
         const idLower = data._id?.toLowerCase() || "";
         const insuredNameLower = data.insuredName?.toLowerCase() || "";
         const branchLower = data.branch?.toLowerCase() || "";
-        // const engineNoLower = data.engineNo?.toLowerCase() || "";
         const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
 
         return (
@@ -66,7 +66,6 @@ function AllOpsDetails() {
             (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
             (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
             (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
-
             (policyMadeByLower.includes(searchPolicyMadeBy.toLowerCase()) || searchPolicyMadeBy === '') &&
             (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
             (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
@@ -96,7 +95,6 @@ function AllOpsDetails() {
     const onUpdatePolicy = async () => {
         try {
             const token = sessionStorage.getItem("token");
-
             if (!token) {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
@@ -219,6 +217,9 @@ function AllOpsDetails() {
                         <table className="min-w-full  text-center text-sm font-light table bg-slate-200">
                             <thead className="border-b font-medium bg-slate-300  sticky top-16">
                                 <tr className="text-blue-700 sticky  border border-black">
+                                <th scope="col" className="  border border-black sticky">
+                                        Update
+                                    </th>
                                     <th scope="col" className="px-3 border border-black">
                                         Reference ID
                                     </th>
@@ -237,9 +238,7 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Made By
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Status
-                                    </th>
+                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sent Time
                                     </th>
@@ -300,13 +299,6 @@ function AllOpsDetails() {
                                         NCB
                                     </th>
                                    
-                                    
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Select Employee
-                                    </th>
-                                    <th scope="col" className="  border border-black sticky">
-                                        Send to Made Policy
-                                    </th>
                                 </tr>
                             </thead>
 
@@ -315,15 +307,12 @@ function AllOpsDetails() {
                                     <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
                                 ))}
                             </tbody>
-
-
-
                         </table>
                     </div>
                 </div>
             </div>
-            {/* Pagination */}
 
+            {/* Pagination */}
             <nav aria-label="Page navigation flex example sticky   ">
                 <ul className="flex justify-end my-0  -space-x-px text-xl">
                     <li className=''>
@@ -339,8 +328,6 @@ function AllOpsDetails() {
                     </li>
                 </ul>
             </nav>
-
-
         </section>
     )
 }

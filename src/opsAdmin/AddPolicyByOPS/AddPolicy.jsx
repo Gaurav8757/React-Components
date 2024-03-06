@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -10,7 +10,30 @@ function AddPolicy() {
     const [contactNo, setContactNo] = useState('');
     const [errors, setErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [currentTime, setCurrentTime] = useState(getFormattedTime());
     const [staffName, setStaffName] = useState("");
+    const [employee_id, setEmployeeId] = useState("");
+
+
+// current time update
+    function getFormattedTime() {
+        const date = new Date();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${formattedHours}:${formattedMinutes} ${ampm}`;
+    }
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(getFormattedTime());
+        }, 1000); // Update every second
+        // Clean up interval on component unmount
+        return () => clearInterval(intervalId);
+    }, []); // Empty dependency array ensures effect runs only once on mount
+  
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -32,24 +55,20 @@ function AddPolicy() {
         }
     }, [formSubmitted]);
 
-   
-
-    const handleDateChange = (event) => {
-        const inputDate = event.target.value; // Get the input date in YYYY-MM-DD format
-        const [year, month, day] = inputDate.split('-'); // Split the date into year, month, and day
-        const formattedDate = `${day}-${month}-${year}`; // Reformat the date to DD-MM-YYYY
-    
-        setEntryDate(formattedDate); // Save the formatted date in the state
-        console.log(formattedDate);
-    }
-   
+    // const handleDateChange = (event) => {
+    //     const inputDate = event.target.value; // Get the input date in YYYY-MM-DD format
+    //     const [year, month, day] = inputDate.split('-'); // Split the date into year, month, and day
+    //     const formattedDate = `${day}-${month}-${year}`; // Reformat the date to DD-MM-YYYY
+    //     setEntryDate(formattedDate); // Save the formatted date in the state
+    //     // console.log(formattedDate);
+    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (formSubmitted) {
             return;
         }
+
         setErrors({});
 
         const errors = {};
@@ -79,7 +98,9 @@ function AddPolicy() {
                 insuredName,
                 contactNo,
                 branch,
-               staffName
+                staffName,
+                currentTime,
+                employee_id
             });
 
             if (response.data) {
@@ -90,6 +111,8 @@ function AddPolicy() {
                 setContactNo("");
                 setBranch("");
                 setStaffName("");
+                setCurrentTime("");
+                // setEmployeeId("");
             }
             else {
                 toast.error("Error Occurred. Try again...! ");
@@ -114,7 +137,7 @@ function AddPolicy() {
                                 type="date"
                                 name="entryDate"
                                 value={entryDate}
-                                onChange={handleDateChange}
+                                onChange={(e) =>setEntryDate(e.target.value)}
                                 placeholder="Select Entry Date"
                             />
                             {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
@@ -126,8 +149,7 @@ function AddPolicy() {
                                 name="branch"
                                 className="input-style p-1 rounded-lg"
                                 value={branch}
-                                onChange={(e) => setBranch(e.target.value)}
-                            >
+                                onChange={(e) => setBranch(e.target.value)}>
                                 <option className="w-1" value="" disabled>--- Select Branch ---</option>
                                 <option value="PATNA">PATNA</option>
                                 <option value="HAJIPUR">HAJIPUR</option>
@@ -160,28 +182,38 @@ function AddPolicy() {
                         </div>
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
-                             <select
-                    className="input-style rounded-lg cursor-pointer"
-                    type="text"
-                    name="staffName"
-                    value={staffName}
-                    onChange={(e) => setStaffName(e.target.value)}
-                    >
-                    <option className="w-1" value="">--- Select ---</option>
-                    {
-                        APIData
-                            .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                            .map((emp) => (
-                                <option key={emp._id} value={emp.empname}>
-                                    {emp.empid} - {emp.empname}
-                                </option>
-                            ))
-                    }
+                            <select
+                                className="input-style rounded-lg cursor-pointer"
+                                type="text"
+                                name="staffName"
+                                value={staffName}
+                                // onChange={(e) => setStaffName(e.target.value)}
+                                onChange={(e) => {
+                                    setStaffName(e.target.value);
+                                    const selectedEmployee = APIData.find(emp => emp.empname === e.target.value);
+                                    // If the selected employee is found, set the staffId state to their _id
+                                    if (selectedEmployee) {
+                                        // set employee_id
+                                        // console.log(selectedEmployee._id);
+                                        setEmployeeId(selectedEmployee._id);
+                                    }
+                                }}>
+                            
+                                <option className="w-1" value="">--- Select ---</option>
+                                {
+                                    APIData
+                                        .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                                        .map((emp) => (
+                                            <option key={emp._id} value={emp.empname}>
+                                                {emp.empid} - {emp.empname}
+                                            </option>
+                                        ))
+                                }
+                            </select>
+</div>
 
-                </select>
-                            {errors.policyMadeBy && <span className="text-red-600 text-sm">{errors.policyMadeBy}</span>}
-                        </div>
                     </div>
+
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
                         <button
                             className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"

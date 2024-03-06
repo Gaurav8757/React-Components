@@ -84,7 +84,6 @@ import UpdateGenSalary from "./HumanResources/GenerateSalary/UpdateGenSalary.jsx
 import ProtectedEmp from "./Employee/ProtectedEmp.jsx";
 import LayoutEmp from "./Employee/LayoutEmp.jsx";
 import ForgotEmpPassword from "./Employee/ForgotEmpPassword.jsx";
-
 import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
@@ -152,10 +151,6 @@ import LeaveApplication from "./Employee/LeaveApplication/LeaveApplication.jsx";
 import AddPolicy from "./opsAdmin/AddPolicyByOPS/AddPolicy.jsx";
 
 
-
-
-
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -180,9 +175,6 @@ const router = createBrowserRouter(
         <Route path="/nonmotorinsurance/homeins" element={<HomeInsPage />} />
         <Route path="/nonmotorinsurance/businessins" element={<BusinessInsPage />} />
         <Route path="/nonmotorinsurance/marineins" element={<MarineInsPage />} />
-
-
-
 
         {/* about us */}
         <Route path="/aboutus" element={<Companies />} />
@@ -308,7 +300,6 @@ const router = createBrowserRouter(
 
       {/* HR Routes */}
       <Route path="/hr" element={<LoginAll />} />
-      
       <Route path="/hradmin/forget" element={<HrForgetAdmin />} />
       <Route path="/reset/password/hradmin/:hradId/:token" element={<HrPassUpdate />} />
       <Route element={<ProtectedHr />}>
@@ -329,8 +320,7 @@ const router = createBrowserRouter(
           <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
           <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
           <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance/>} />
-          <Route path="/hr/home/salary/slip" element={<SalarySlip/>} />
-          
+          <Route path="/hr/home/salary/slip" element={<SalarySlip/>} />  
         </Route>
       </Route>
 
@@ -359,6 +349,7 @@ const router = createBrowserRouter(
     </>
   )
 );
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />

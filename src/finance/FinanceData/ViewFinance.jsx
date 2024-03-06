@@ -176,11 +176,9 @@ function ViewFinance() {
   // };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
+    <section className="container-fluid relative h-screen  p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 ">
-
-
           {/* <div className=" flex relative text-blue-500 min-w-full w-full pt-5  justify-between"> */}
           <div className=" m-2 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
             <h1></h1>
@@ -242,7 +240,7 @@ function ViewFinance() {
           </div>
 
 
-          <div className="inline-block min-w-full w-full py-0 relative">
+          <div className="inline-block min-w-full w-full py-0 relative bg-slate-300">
             <table className="min-w-full text-center bg-slate-300 text-sm font-light table border border-black">
               <thead className="border-b font-medium bg-slate-300 border border-black sticky top-16">
                 <tr className="text-blue-700 sticky top-16 border border-black">
@@ -253,7 +251,8 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Insured Name</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Contact No</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Made By</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Sent Time</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Received Time</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Update Time</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Company</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Category</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Type</th>
@@ -265,11 +264,10 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Net Premium</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">RSA</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">GST Amount</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Final Entry Fields</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Final Amount</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">OD Discount</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">NCB</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Received Time</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Segment</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sourcing</th>
@@ -309,6 +307,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.contactNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.staffName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.currentTime}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.empTime}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.company}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.category}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyType}</td>
@@ -324,7 +323,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.odDiscount}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.ncb}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.empTime}</td>
+                    {/* <td className="whitespace-nowrap px-1 py-1 border border-black">{data.empTime}</td> */}
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sourcing}</td>

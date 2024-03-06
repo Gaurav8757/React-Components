@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutFinance from "./LogoutFinance.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { GiTakeMyMoney, GiMoneyStack } from "react-icons/gi";
+import { GiMoneyStack } from "react-icons/gi";
 const SidebarFinance = () => {
   const dashboardRouted = [
     {
@@ -11,11 +11,11 @@ const SidebarFinance = () => {
       logo: <RxDashboard size={25} />
     },
 
-    {
-      title: "Finance",
-      path: "/finance/home/new",
-      logo: <GiTakeMyMoney size={25} />
-    },
+    // {
+    //   title: "Finance",
+    //   path: "/finance/home/new",
+    //   logo: <GiTakeMyMoney size={25} />
+    // },
     {
       title: "View Finance",
       path: "/finance/home/view",
