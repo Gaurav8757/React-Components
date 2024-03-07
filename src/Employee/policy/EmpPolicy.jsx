@@ -231,6 +231,9 @@ function EmpPolicy() {
                                                     Update
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                    Entry Date
+                                                </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Received Time
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
@@ -239,9 +242,7 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Reference ID
                                                 </th>
-                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                    Entry Date
-                                                </th>
+                                              
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Branch
                                                 </th>
@@ -312,6 +313,9 @@ function EmpPolicy() {
                                                             <AddPolicyDetail insurance={data} onUpdates={onUpdatePolicy} />
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.entryDate}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.currentTime}
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
@@ -320,9 +324,7 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data._id}
                                                         </td>
-                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                            {data.entryDate}
-                                                        </td>
+                                                       
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.branch}
                                                         </td>
