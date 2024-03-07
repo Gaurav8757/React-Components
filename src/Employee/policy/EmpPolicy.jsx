@@ -15,7 +15,6 @@ function EmpPolicy() {
     const [searchCompany, setSearchCompany] = useState("");
     const [searchInsuredName, setSearchInsuredName] = useState("");
     const [contactNo, setContactNo] = useState("");
-    
     const empid = sessionStorage.getItem("employeeId");
     const name = sessionStorage.getItem("name");
 
@@ -246,9 +245,9 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Branch
                                                 </th>
-                                                {/* <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Insured By
-                                                </th> */}
+                                                </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Contact No.
                                                 </th>
@@ -327,9 +326,9 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.branch}
                                                         </td>
-                                                        {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.insuredName}
-                                                        </td> */}
+                                                        </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.contactNo}
                                                         </td>

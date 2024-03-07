@@ -19,7 +19,7 @@ function AllOpsDetails() {
     useEffect(() => {
         setItemsPerPage(12);
     }, [])
-   
+
     // POLICY DATA LISTS
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -60,7 +60,6 @@ function AllOpsDetails() {
         const insuredNameLower = data.insuredName?.toLowerCase() || "";
         const branchLower = data.branch?.toLowerCase() || "";
         const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
-
         return (
             // Filter conditions using optional chaining and nullish coalescing
             (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
@@ -76,7 +75,6 @@ function AllOpsDetails() {
         setSearchPolicyMadeBy(event.target.value);
     };
 
-
     // Calculate total number of pages
     const totalItems = filteredData.length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -89,7 +87,6 @@ function AllOpsDetails() {
     // Calculate starting and ending indexes of items to be displayed on the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
 
     // refreshing page after updating data
     const onUpdatePolicy = async () => {
@@ -148,6 +145,7 @@ function AllOpsDetails() {
             toast.error("Error exporting to Excel");
         }
     };
+
     const handleExportClick = () => {
         exportToExcel();
     };
@@ -198,8 +196,7 @@ function AllOpsDetails() {
                                     placeholder="Insured Name"
                                 />
                             </div>
-                           
-                        <div className="flex p-0 text-center justify-center w-1/2 lg:w-1/4">
+                            <div className="flex p-0 text-center justify-center w-1/2 lg:w-1/4">
                                 <label className="my-0 text-lg font-medium text-gray-900">Filter by Policy MadeBy:</label>
                                 <input
                                     type="search"
@@ -207,17 +204,12 @@ function AllOpsDetails() {
                                     className="shadow p-0 text-start w-1/2 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                     placeholder="Policy Made By"
                                 /></div>
-                          
-
                         </div>
-
-
-
 
                         <table className="min-w-full  text-center text-sm font-light table bg-slate-200">
                             <thead className="border-b font-medium bg-slate-300  sticky top-16">
                                 <tr className="text-blue-700 sticky  border border-black">
-                                <th scope="col" className="  border border-black sticky">
+                                    <th scope="col" className="  border border-black sticky">
                                         Update
                                     </th>
                                     <th scope="col" className="px-3 border border-black">
@@ -238,7 +230,6 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Made By
                                     </th>
-                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sent Time
                                     </th>
@@ -260,14 +251,12 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Hypothinition
                                     </th>
-                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Advisor Name
                                     </th>
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sub-Advisor Name
                                     </th>
-                                   
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Type
                                     </th>
@@ -298,10 +287,8 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         NCB
                                     </th>
-                                   
                                 </tr>
                             </thead>
-
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
                                 {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
                                     <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
