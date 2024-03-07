@@ -20,6 +20,7 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.insuredName}
             </td>
+           
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.contactNo}
             </td>
@@ -30,28 +31,10 @@ function AllOpsData({ data, policy }) {
                 {data.currentTime}
             </td>
             <td className="whitespace-nowrap px-1 border border-black">
-                {data.category}
-            </td>
-            <td className="whitespace-nowrap px-1 border border-black">
                 {data.company}
             </td>
             <td className="whitespace-nowrap px-1 border border-black">
-                {data.vehRegNo}
-            </td>
-            <td className="whitespace-nowrap px-1 border border-black">
-                {data.segment}
-            </td>
-            <td className="whitespace-nowrap px-1 border border-black">
-                {data.sourcing}
-            </td>
-            <td className="whitespace-nowrap px-1  border border-black">
-                {data.hypo}
-            </td>
-            <td className="whitespace-nowrap px-1  border border-black">
-                {data.advisorName}
-            </td>
-            <td className="whitespace-nowrap px-1 border border-black">
-                {data.subAdvisor}
+                {data.category}
             </td>
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.policyType}
@@ -75,6 +58,12 @@ function AllOpsData({ data, policy }) {
                 {data.netPremium}
             </td>
             <td className="whitespace-nowrap px-1  border border-black">
+                {data.taxes}
+            </td>
+            <td className="whitespace-nowrap px-1  border border-black">
+                {data.rsa}
+            </td>
+            <td className="whitespace-nowrap px-1  border border-black">
                 {data.finalEntryFields}
             </td>
             <td className="whitespace-nowrap px-1  border border-black">
@@ -83,6 +72,27 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.ncb}
             </td>
+            <td className="whitespace-nowrap px-1 border border-black">
+                {data.policyPaymentMode}
+            </td>
+            {/* <td className="whitespace-nowrap px-1 border border-black">
+                {data.segment}
+            </td>
+            <td className="whitespace-nowrap px-1 border border-black">
+                {data.sourcing}
+            </td>
+            <td className="whitespace-nowrap px-1  border border-black">
+                {data.hypo}
+            </td>
+            <td className="whitespace-nowrap px-1  border border-black">
+                {data.advisorName}
+            </td>
+            <td className="whitespace-nowrap px-1 border border-black">
+                {data.subAdvisor}
+            </td> */}
+           
+           
+           
         </tr>
     )
 }

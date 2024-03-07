@@ -233,29 +233,12 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sent Time
                                     </th>
-                                    <th scope="col" className="px-3 border border-black">
-                                        Category
-                                    </th>
+                                   
                                     <th scope="col" className="px-3 border border-black">
                                         Company
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Vehicle No.
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Segment
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sourcing
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Hypothinition
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Advisor Name
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sub-Advisor Name
+                                    <th scope="col" className="px-3 border border-black">
+                                        Category
                                     </th>
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Type
@@ -279,7 +262,13 @@ function AllOpsDetails() {
                                         Net Premium
                                     </th>
                                     <th scope="col" className="px-3 border border-black sticky">
-                                        Final Premium(GST%)
+                                        GST(in rupees)
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        RSA
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Final Amount
                                     </th>
                                     <th scope="col" className="px-3 border border-black sticky">
                                         OD Discount(%)
@@ -287,6 +276,30 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         NCB
                                     </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Policy Pay Mode
+                                    </th>
+                                    {/* <th scope="col" className="px-3 border border-black sticky">
+                                        Segment
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Sourcing
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Hypothinition
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Advisor Name
+                                    </th>
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Sub-Advisor Name
+                                    </th>
+                                    
+                                  
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Final Premium(GST%)
+                                    </th> */}
+                                   
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
