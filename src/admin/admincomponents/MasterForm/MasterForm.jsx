@@ -24,6 +24,7 @@ function MasterForm() {
   const [vehicleAge, setVehicleAge] = useState('');
   const [fuel, setFuel] = useState('');
   const [gvw, setGvw] = useState('');
+  const [rsa, setRSA] = useState('');
   const [cc, setCc] = useState('');
   const [engNo, setEngNo] = useState('');
   const [chsNo, setChsNo] = useState('');
@@ -38,7 +39,7 @@ function MasterForm() {
   const [ncb, setNcb] = useState('');
   const [advisorName, setAdvisorName] = useState('');
   const [subAdvisor, setSubAdvisor] = useState('');
-  const [policyMadeBy, setPolicyMadeBy] = useState('');
+  const [staffName, setStaffName] = useState('');
   const [branch, setBranch] = useState('');
   const [payoutOn, setPayoutOn] = useState('');
   const [calculationType, setCalculationType] = useState('');
@@ -61,6 +62,8 @@ function MasterForm() {
   const [fuelType, setFuelType] = useState([]);
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [payMode, setPayMode] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -292,8 +295,119 @@ function MasterForm() {
 
   // Handle form submission logic here
   const handleSubmit = async (e) => {
-
     e.preventDefault();
+    if (formSubmitted) {
+      return;
+    }
+    setErrors({}); // Clear previous errors
+
+    const errors = {};
+    if (!entryDate) {
+      errors.entryDate = "required*";
+    }
+    if (!insuredName) {
+      errors.insuredName = "required*";
+    }
+    if (!company) {
+      errors.company = "required*";
+    }
+    if (!category) {
+      errors.category = "required*";
+    }
+    if (!branch) {
+      errors.branch = "required*";
+    }
+    if (!policyNo) {
+      errors.policyNo = "required*";
+    }
+    if (!engNo) {
+      errors.engNo = "required*";
+    }
+    if (!chsNo) {
+      errors.chsNo = "required*";
+    }
+    if (!policyType) {
+      errors.policyType = "required*";
+    }
+    if (!odPremium) {
+      errors.odPremium = "required*";
+    }
+    if (!liabilityPremium) {
+      errors.liabilityPremium = "required*";
+    }
+    if (!rsa) {
+      errors.rsa = "required*";
+    }
+    if (!taxes) {
+      errors.taxes = "required*";
+    }
+    if (!segment) {
+      errors.segment = "required*";
+    }
+    if (!sourcing) {
+      errors.sourcing = "required*";
+    }
+    if (!policyPaymentMode) {
+      errors.policyPaymentMode = "required*";
+    }
+    if (!vehRegNo) {
+      errors.vehRegNo = "required*";
+    }
+    if (!policyStartDate) {
+      errors.policyStartDate = "required*";
+    }
+    if (!policyEndDate) {
+      errors.policyEndDate = "required*";
+    }
+    if (!odDiscount) {
+      errors.odDiscount = "required*";
+    }
+    if (!ncb) {
+      errors.ncb = "required*";
+    }
+    if (!contactNo) {
+      errors.contactNo = "required*";
+    }
+    if (!idv) {
+      errors.idv = "required*";
+    }
+    if (!bodyType) {
+      errors.bodyType = "required*";
+    }
+    if (!makeModel) {
+      errors.makeModel = "required*";
+    }
+    if (!mfgYear) {
+      errors.mfgYear = "required*";
+    }
+    if (!gvw) {
+      errors.gvw = "required*";
+    }
+    if (!cc) {
+      errors.cc = "required*";
+    }
+    if (!payoutOn) {
+      errors.payoutOn = "required*";
+    }
+
+    if (!productCode) {
+      errors.productCode = "required*";
+    }
+    if (!advisorName) {
+      errors.advisorName = "required*";
+    }
+
+    if (!registrationDate) {
+      errors.registrationDate = "required*";
+    }
+    if (!staffName) {
+      errors.staffName = "required*";
+    }
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     try {
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post("https://eleedomimf.onrender.com/alldetails/adddata", {
@@ -306,6 +420,7 @@ function MasterForm() {
         insuredName,
         contactNo,
         vehRegNo,
+        rsa,
         policyStartDate,
         policyEndDate,
         odExpiry,
@@ -331,7 +446,7 @@ function MasterForm() {
         ncb,
         advisorName,
         subAdvisor,
-        policyMadeBy,
+        staffName,
         branch,
         payoutOn,
         taxes,
@@ -346,10 +461,63 @@ function MasterForm() {
         branchPayableAmount,
         companyPayout,
         profitLoss,
-
       });
+      
       if (response.data) {
         toast.success("Data Added Successfully !");
+        setFormSubmitted(true);
+        setEntryDate("");
+        setInsuredName("");
+        setContactNo("");
+        setBranch("");
+        setStaffName("");
+        setSegment("");
+        setCompany("");
+        setCategory("");
+        setSourcing("");
+        setPolicyNo("");
+        setVehRegNo("");
+        setRSA("");
+        setPolicyStartDate("");
+        setPolicyEndDate("");
+        setOdExpiry("");
+        setTpExpiry("");
+        setIdv("");
+        setBodyType("");
+        setMakeModel("");
+        setMfgYear("");
+        setRegistrationDate("");
+        setVehicleAge("");
+        setFuel("");
+        setGvw("");
+        setCc("");
+        setEngNo("");
+        setChsNo("")
+        setPolicyType("");
+        setProductCode("");
+        setOdPremium("");
+        setLiabilityPremium("");
+        setNetPremium("");
+        setFinalEntryFields("");
+        setOdDiscount("");
+        setNcb("");
+        setAdvisorName("");
+        setSubAdvisor("");
+        setStaffName("");
+        setBranch("");
+        setPayoutOn("");
+        setTaxes("");
+        setPolicyPaymentMode("");
+        setPaymentDoneBy("");
+        setChqNoRefNo("");
+        setBankName("");
+        setChqPaymentDate("");
+        setChqStatus("");
+        setAdvisorPayableAmount("");
+        setBranchPayout("");
+        setBranchPayableAmount("");
+        setCompanyPayout("");
+        setProfitLoss("");
       }
       else {
         toast.error("Error Occurred. Try again...! ");
@@ -364,13 +532,12 @@ function MasterForm() {
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
+        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add Policy Detail&apos;s </h1>
-          {/* <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3"> */}
           <div className="flex flex-wrap justify-between">
             {/* FIELD - 1 */}
             <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Entry Date:</label>
+              <label className="text-base mx-1">Entry Date:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -379,33 +546,36 @@ function MasterForm() {
                 onChange={(e) => setEntryDate(e.target.value)}
                 placeholder="Select Entry Date"
               />
+              {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
             </div>
             {/* FIELD - 2 */}
             <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch:</label>
+              <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="branch" name="branch"
                 className="input-style p-1 rounded-lg"
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}
               >
-                <option className="w-1" value="" disabled>--- Select Branch ---</option>
+                <option className="w-1" value="" >--- Select Branch ---</option>
                 <option value="PATNA">PATNA</option>
                 <option value="HAJIPUR">HAJIPUR</option>
                 <option value="SAMASTIPUR">SAMASTIPUR</option>
               </select>
+              {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
             </div>
             {/* FIELD - 3 */}
             <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Insured Name:</label>
+              <label className="text-base mx-1">Insured Name:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="insuredName"
                 value={insuredName}
-                onChange={(e) => setInsuredName(e.target.value)}
+                onChange={(e) => setInsuredName(e.target.value.toUpperCase())}
                 placeholder="Enter Insured Name"
               />
+              {errors.insuredName && <span className="text-red-600 text-sm">{errors.insuredName}</span>}
             </div>
 
             {/* FIELD - 4 */}
@@ -423,15 +593,15 @@ function MasterForm() {
 
             {/* FIELD - 5 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy Made By:</label>
+              <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
               <select
-                id="policyMadeBy"
-                name="policyMadeBy"
+                id="staffName"
+                name="staffName"
                 className="input-style p-1 rounded-lg"
-                value={policyMadeBy}
-                onChange={(e) => setPolicyMadeBy(e.target.value)}
+                value={staffName}
+                onChange={(e) => setStaffName(e.target.value)}
               >
-                <option className="w-1" value="" disabled>--- Policy Made By ---</option>
+                <option className="w-1" value="" >--- Policy Made By ---</option>
                 {
                   APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
                     .map((emp) => (
@@ -440,18 +610,19 @@ function MasterForm() {
                       </option>
                     ))
                 }
+                {errors.staffName && <span className="text-red-600 text-sm ">{errors.staffName}</span>}
               </select>
             </div>
+
             {/* FIELD - 6 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base  mx-1">Company Name:</label>
+              <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
                 className="input-style p-1 rounded-lg"
                 value={company}
-                // onChange={(e) => setCompany(e.target.value)}
                 onChange={(e) => {
-                  setCompany(e.target.value);
+                  setCompany(e.target.value.toUpperCase());
                   const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
                   setCatTypesForSelectedPolicy(selectedCatId);
                 }}
@@ -462,20 +633,18 @@ function MasterForm() {
                     {comp.c_type}
                   </option>
                 ))}
-                {/* Add more company options */}
               </select>
+              {errors.company && <span className="text-red-600 text-sm">{errors.company}</span>}
             </div>
 
             {/* FIELD - 7 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Category:</label>
-
+              <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style w-full p-1 rounded-lg"
                 value={category}
                 name="category"
-                onChange={(e) => setCategory(e.target.value)}
-              >
+                onChange={(e) => setCategory(e.target.value)}>
                 <option value="">---- Select Product Type ------</option>
                 {pdata.map((cat) => (
                   cat._id === catTypesForSelectedPolicy &&
@@ -484,16 +653,16 @@ function MasterForm() {
                   ))))
                 }
               </select>
+              {errors.category && <span className="text-red-600 text-sm ">{errors.category}</span>}
             </div>
 
             {/* FIELD - 8 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy Type:</label>
+              <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1 rounded-lg"
                 value={policyType}
                 name="policyType"
-                // onChange={(e) => setPolicyType(e.target.value)}
                 onChange={(e) => {
                   const selectedPolicyType = e.target.value;
                   setPolicyType(selectedPolicyType);
@@ -509,10 +678,11 @@ function MasterForm() {
                 ))}
 
               </select>
+              {errors.policyType && <span className="text-red-600 text-sm ">{errors.policyType}</span>}
             </div>
             {/* FIELD - 9 */}
             <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy No:</label>
+              <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -521,37 +691,41 @@ function MasterForm() {
                 onChange={(e) => setPolicyNo(e.target.value)}
                 placeholder="Enter Policy No"
               />
+              {errors.policyNo && <span className="text-red-600 text-sm ">{errors.policyNo}</span>}
             </div>
+
             {/* FIELD - 10 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Engine No:</label>
+              <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="engNo"
                 value={engNo}
-                onChange={(e) => setEngNo(e.target.value)}
+                onChange={(e) => setEngNo(e.target.value.toUpperCase())}
                 placeholder="Enter Engine No"
               />
+              {errors.engNo && <span className="text-red-600 text-sm ">{errors.engNo}</span>}
             </div>
 
             {/* FIELD - 11 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Chassis No:</label>
+              <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 value={chsNo}
                 name="chsNo"
-                onChange={(e) => setChsNo(e.target.value)}
+                onChange={(e) => setChsNo(e.target.value.toUpperCase())}
                 placeholder="Enter Chassis No"
               />
+              {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
             </div>
 
             {/* FIELD - 12 */}
             {
               policyType === "SATP" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Premium:</label>
+                <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
                   type="number"
@@ -563,7 +737,7 @@ function MasterForm() {
                   disabled
                 />
               </div>) : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Premium:</label>
+                <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
                   type="number"
@@ -574,13 +748,14 @@ function MasterForm() {
                   onBlur={updateNetPremium}
 
                 />
+                {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
               </div>)
             }
 
             {/* FIELD - 13 */}
             {
               policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Liability Premium:</label>
+                <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
                   type="number"
@@ -593,7 +768,7 @@ function MasterForm() {
                 />
               </div>)
                 : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Liability Premium:</label>
+                  <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
                     className="input-style rounded-lg"
                     type="number"
@@ -603,12 +778,13 @@ function MasterForm() {
                     placeholder="Enter Liability Premium"
                     onBlur={updateNetPremium}
                   />
+                  {errors.liabilityPremium && <span className="text-red-600 text-sm ">{errors.liabilityPremium}</span>}
                 </div>)
             }
 
             {/* FIELD - 14 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Net Premium:</label>
+              <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -622,7 +798,7 @@ function MasterForm() {
 
             {/* FIELD - 15 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">GST(Amount) :</label>
+              <label className="text-base mx-1">GST(Amount):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -632,11 +808,26 @@ function MasterForm() {
                 onBlur={calculateFinalAmount}
                 placeholder="GST"
               />
+              {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
+            </div>
+
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={rsa}
+                name="rsa"
+                onChange={(e) => setRSA(e.target.value)}
+                onBlur={calculateFinalAmount}
+                placeholder="RSA"
+              />
+              {errors.rsa && <span className="text-red-600 text-sm ">{errors.rsa}</span>}
             </div>
 
             {/* FIELD - 16 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Final Amount:</label>
+              <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -650,7 +841,7 @@ function MasterForm() {
 
             {/* FIELD - 17 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">OD Discount% :</label>
+              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -659,11 +850,12 @@ function MasterForm() {
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount"
               />
+              {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
             </div>
 
             {/* FIELD - 18 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">NCB% :</label>
+              <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -672,11 +864,12 @@ function MasterForm() {
                 onChange={(e) => setNcb(e.target.value)}
                 placeholder="Enter NCB"
               />
+              {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
             </div>
 
             {/* FIELD - 19 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy Payment Mode:</label>
+              <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="policyPaymentMode"
                 className="input-style p-1 rounded-lg"
@@ -691,24 +884,26 @@ function MasterForm() {
                   ))
                 }
               </select>
+              {errors.policyPaymentMode && <span className="text-red-600 text-sm ">{errors.policyPaymentMode}</span>}
             </div>
 
             {/* FIELD - 20 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Vehicle Reg No:</label>
+              <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 value={vehRegNo}
                 name="vehRegNo"
-                onChange={(e) => setVehRegNo(e.target.value)}
+                onChange={(e) => setVehRegNo(e.target.value.toUpperCase())}
                 placeholder="Enter Vehicle Reg No"
               />
+              {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>}
             </div>
 
             {/* FIELD - 21 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Segment:</label>
+              <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1 rounded-lg"
                 name="segment"
@@ -722,27 +917,28 @@ function MasterForm() {
                 <option value="NON-MOTOR">NON-MOTOR</option>
                 <option value="LIFE">LIFE</option>
               </select>
+              {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
             </div>
+
             {/* FIELD - 22 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Sourcing:</label>
+              <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1 rounded-lg"
                 value={sourcing}
                 name="sourcing"
-                onChange={(e) => setSourcing(e.target.value)}
-              >
-                <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
+                onChange={(e) => setSourcing(e.target.value)}>
+                <option className="w-1" value="" >--- Select Sourcing Type ---</option>
                 <option value="NEW">NEW</option>
                 <option value="RENEWAL">RENEWAL</option>
                 <option value="ROLL OVER">ROLL OVER</option>
               </select>
+              {errors.sourcing && <span className="text-red-600 text-sm ">{errors.sourcing}</span>}
             </div>
-
 
             {/* FIELD - 23 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy Start Date:</label>
+              <label className="text-base mx-1">Policy Start Date:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -751,11 +947,12 @@ function MasterForm() {
                 onChange={handlePolicyStartDateChange}
                 placeholder="Select Policy Start Date"
               />
+              {errors.policyStartDate && <span className="text-red-600 text-sm ">{errors.policyStartDate}</span>}
             </div>
 
             {/* FIELD - 24 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Policy End Date:</label>
+              <label className="text-base mx-1">Policy End Date:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -764,11 +961,12 @@ function MasterForm() {
                 onChange={(e) => setPolicyEndDate(e.target.value)}
                 placeholder="Select Policy End Date"
               />
+              {errors.policyEndDate && <span className="text-red-600 text-sm ">{errors.policyEndDate}</span>}
             </div>
 
             {/* FIELD - 25 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">OD Expiry:</label>
+              <label className="text-base mx-1">OD Expiry:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -781,7 +979,7 @@ function MasterForm() {
             </div>
             {/* FIELD - 26 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">TP Expiry:</label>
+              <label className="text-base mx-1">TP Expiry:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -795,45 +993,49 @@ function MasterForm() {
 
             {/* FIELD - 27 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">IDV:</label>
+              <label className="text-base mx-1">IDV:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="idv"
                 value={idv}
-                onChange={(e) => setIdv(e.target.value)}
+                onChange={(e) => setIdv(e.target.value.toUpperCase())}
                 placeholder="Enter IDV"
               />
+              {errors.idv && <span className="text-red-600 text-sm ">{errors.idv}</span>}
             </div>
 
             {/* FIELD - 28 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Body Type:</label>
+              <label className="text-base mx-1">Body Type:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 value={bodyType}
                 name="bodyType"
-                onChange={(e) => setBodyType(e.target.value)}
+                onChange={(e) => setBodyType(e.target.value.toUpperCase())}
                 placeholder="Enter Body Type"
               />
+              {errors.bodyType && <span className="text-red-600 text-sm ">{errors.bodyType}</span>}
             </div>
 
             {/* FIELD - 29 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Make & Model:</label>
+              <label className="text-base mx-1">Make & Model:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="makeModel"
                 value={makeModel}
-                onChange={(e) => setMakeModel(e.target.value)}
+                onChange={(e) => setMakeModel(e.target.value.toUpperCase())}
                 placeholder="Enter Make & Model"
               />
+              {errors.makeModel && <span className="text-red-600 text-sm ">{errors.makeModel}</span>}
             </div>
+
             {/* FIELD - 30 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Manufacturing Year:</label>
+              <label className="text-base mx-1">Manufacturing Year:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -842,11 +1044,12 @@ function MasterForm() {
                 onChange={(e) => setMfgYear(e.target.value)}
                 placeholder="Enter Manufacturing Year"
               />
+              {errors.mfgYear && <span className="text-red-600 text-sm ">{errors.mfgYear}</span>}
             </div>
 
             {/* FIELD - 31 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Registration Date:</label>
+              <label className="text-base mx-1">Registration Date:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -857,10 +1060,11 @@ function MasterForm() {
                 min="1950-01-01"
                 max={getLastDayOfPreviousMonth()}
               />
+              {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>}
             </div>
             {/* FIELD - 32 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Vehicle Age:</label>
+              <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -873,7 +1077,7 @@ function MasterForm() {
 
             {/* FIELD - 33 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Fuel:</label>
+              <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1 rounded-lg"
                 value={fuel}
@@ -890,7 +1094,7 @@ function MasterForm() {
 
             {/* FIELD - 34 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">GVW (kg):</label>
+              <label className="text-base mx-1">GVW(kg):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -899,24 +1103,26 @@ function MasterForm() {
                 onChange={(e) => setGvw(e.target.value)}
                 placeholder="Enter GVW"
               />
+              {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>}
             </div>
 
             {/* FIELD - 35 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">CC:</label>
+              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="cc"
                 value={cc}
-                onChange={(e) => setCc(e.target.value)}
+                onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC"
               />
+              {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>}
             </div>
 
             {/* FIELD - 36 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Product Code:</label>
+              <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="productCode" name="productCode"
                 className="input-style p-1 rounded-lg"
@@ -932,30 +1138,32 @@ function MasterForm() {
                 ))}
 
               </select>
+              {errors.productCode && <span className="text-red-600 text-sm ">{errors.productCode}</span>}
             </div>
 
             {/* FIELD - 37*/}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Advisor Name:</label>
+              <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 value={advisorName}
                 name="advisorName"
-                onChange={(e) => setAdvisorName(e.target.value)}
+                onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
                 placeholder="Enter Advisor Name"
               />
+              {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}
             </div>
 
             {/* FIELD - 38 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Sub-Advisor Name:</label>
+              <label className="text-base mx-1">Sub-Advisor Name:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 name="subAdvisor"
                 value={subAdvisor}
-                onChange={(e) => setSubAdvisor(e.target.value)}
+                onChange={(e) => setSubAdvisor(e.target.value.toUpperCase())}
                 placeholder="Enter Sub Advisor"
               />
             </div>
@@ -963,7 +1171,7 @@ function MasterForm() {
 
             {/* FIELD - 39 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Payout On:</label>
+              <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="payoutOn"
                 name="payoutOn"
@@ -978,12 +1186,13 @@ function MasterForm() {
                   ))
                 }
               </select>
+              {errors.payoutOn && <span className="text-red-600 text-sm">{errors.payoutOn}</span>}
             </div>
 
 
             {/* FIELD - 40 */}
             <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Payment Done By:</label>
+              <label className="text-base mx-1">Payment Done By:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1 rounded-lg"
                 value={paymentDoneBy}
@@ -1000,20 +1209,20 @@ function MasterForm() {
 
             {/* FIELD - 41 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">CHQ No / Ref No.:</label>
+              <label className="text-base mx-1">CHQ No / Ref No:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
                 value={chqNoRefNo}
                 name="chqNoRefNo"
-                onChange={(e) => setChqNoRefNo(e.target.value)}
+                onChange={(e) => setChqNoRefNo(e.target.value.toUpperCase())}
                 placeholder="Enter CHQ No / Ref No."
               />
             </div>
 
             {/* FIELD - 42 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Bank Name:</label>
+              <label className="text-base mx-1">Bank Name:<span className="text-red-600 font-bold">*</span></label>
               <input
                 id="bankName"
                 type="text"
@@ -1021,14 +1230,14 @@ function MasterForm() {
                 className="input-style rounded-lg"
                 value={bankName}
                 placeholder="Enter Bank Name"
-                onChange={(e) => setBankName(e.target.value)}
+                onChange={(e) => setBankName(e.target.value.toUpperCase())}
               >
               </input>
             </div>
 
             {/* FIELD - 43 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Endorshment Date:</label>
+              <label className="text-base mx-1">Endorshment Date:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="date"
@@ -1046,7 +1255,7 @@ function MasterForm() {
                 value={chqStatus}
                 name="chqStatus"
                 onChange={(e) => setChqStatus(e.target.value)}>
-                <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
+                <option className="w-1" value="" >--- Select CHQ Status ---</option>
                 <option value="PENDING">PENDING</option>
                 <option value="SUBMITTED TO BRANCH">SUBMITTED TO BRANCH</option>
                 <option value="CLEAR FROM BANK">CLEAR FROM BANK</option>
@@ -1057,7 +1266,7 @@ function MasterForm() {
 
             {/* FIELD - 45 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Advisor Payable Amount:</label>
+              <label className="text-base mx-1">Advisor Payable Amount:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className=" rounded-lg"
                 type="number"
@@ -1070,7 +1279,7 @@ function MasterForm() {
 
             {/* FIELD - 46 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch Payout:</label>
+              <label className="text-base mx-1">Branch Payout:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -1087,7 +1296,7 @@ function MasterForm() {
 
             {/* FIELD - 47 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch Payable Amount:</label>
+              <label className="text-base mx-1">Branch Payable Amount:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="text"
@@ -1101,7 +1310,7 @@ function MasterForm() {
 
             {/* FIELD - 48 */}
             <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Company Payout:</label>
+              <label className="text-base mx-1">Company Payout:<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -1112,11 +1321,11 @@ function MasterForm() {
                 placeholder="Enter Company Payout"
               />
             </div>
-          </div>
+          
 
           {/* FIELD - 49 */}
           <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-            <label className="text-base mx-1">Profit/Loss Amount:</label>
+            <label className="text-base mx-1">Profit/Loss Amount:<span className="text-red-600 font-bold">*</span></label>
             <input
               className="input-style rounded-lg"
               type="text"
@@ -1127,8 +1336,12 @@ function MasterForm() {
               readOnly
             />
           </div>
-{/* Button */}
-          <div className="col-span-4 p-2">
+          <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+          <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+
+          </div>
+          {/* Button */}
+          <div className="mt-10 p-2">
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
               onClick={handleSubmit}

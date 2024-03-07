@@ -9,6 +9,7 @@ function UpdateOps({ UpdateOps, update }) {
     const [APIData, setAPIData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentTime, setCurrentTime] = useState(getFormattedTime());
+    
     const [allDetails, setAllDetails] = useState({
         entryDate: '',
         branch: '',
@@ -18,7 +19,6 @@ function UpdateOps({ UpdateOps, update }) {
         currentTime: '',
         employee_id: ''
     });
-
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
@@ -73,44 +73,41 @@ function UpdateOps({ UpdateOps, update }) {
     }, [UpdateOps]);
 
     // handle input change
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        const selectedEmployee = UpdateOps.allpolicyemployee.find(emp => emp.empname === value);
-        // id check
-        const data_id = selectedEmployee._id;
-        setAllDetails((prevData) => ({
-            ...prevData,
-            employee_id: data_id,
-            currentTime: currentTime,
-            // Remove employee_id from the state update
-            [name]: value,
-            // set employee_id to its current value
-        }));
-    };
+   // handle input change
+const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    const selectedEmployee = APIData.find(emp => emp.empname === value);
 
+    // setDataId(selectedEmployee ? selectedEmployee._id : ''); // set dataId only if selectedEmployee is found
+    setAllDetails((prevData) => ({
+        ...prevData,
+        employee_id: selectedEmployee ? selectedEmployee._id : '',
+        currentTime: currentTime,
+        [name]: value,
+    }));
+};
 
-    const updateInsuranceAPI = async () => {
-        try {
-            setLoading(true);
-            // Use the selected category ID in the patch method
-            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${UpdateOps._id}`, allDetails);
-            toast.success(`${resp.data.status}`);
-            // Close the modal after successful submission
-            closeModal();
+const updateInsuranceAPI = async () => {
+    try {
+        setLoading(true);
+        const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${UpdateOps._id}`, allDetails);
+        update();
+        toast.success(`${resp.data.status}`);
+        closeModal();
+    } catch (error) {
+        console.error("Error updating insurance details:", error);
+        toast.error("Failed to update insurance details");
+    } finally {
+        setLoading(false);
+    }
+};
 
-        } catch (error) {
-            console.error("Error updating insurance details:", error);
-        } finally {
-            update();
-            setLoading(false);
-        }
-    };
 
 
     return (
         <>
             {/* <!-- Modal toggle --> */}
-            <button onClick={() => { openModal(); }} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 m-1 ">
+            <button onClick={ openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 m-1 ">
                 Update
             </button>
 

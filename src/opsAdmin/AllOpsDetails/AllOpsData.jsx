@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import UpdateOps from '../updateOPS/UpdateOps.jsx';
-// import axios from 'axios';
+
 function AllOpsData({ data, policy }) {
     return (
         <tr
