@@ -175,17 +175,17 @@ function EmpPolicy() {
                                 <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
                             ) : (
                                 <div className="min-w-full w-full py-0  block z-50">
-                                    <div className="flex-wrap flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+                                    <div className="flex-wrap mb-4 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
                                         {/* date range filter */}
-                                        <div className="flex   p-0 text-start w-full lg:w-1/4">
-                                            <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Filter by Date:</label>
+                                        <div className="flex p-0 text-start w-full lg:w-1/4">
+                                            <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Filter by Date:</label>
                                             <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
                                             <span className='text-justify mx-1 my-1 '>to</span>
                                             <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
                                         </div>
 
-                                        <div className="flex p-0 ml-10 justify-center text-center w-full lg:w-1/4">
-                                            <label className="my-0 text-lg font-medium text-gray-900">Filter by ID:</label>
+                                        <div className="flex p-0 justify-start text-center w-full lg:w-1/5">
+                                            <label className="my-1 text-base font-medium text-gray-900">Filter by ID:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchId(e.target.value)}
@@ -194,8 +194,8 @@ function EmpPolicy() {
                                             />
                                         </div>
 
-                                        <div className="flex justify-end p-0 text-end w-full lg:w-1/4">
-                                            <label className="my-0 text-lg font-medium text-gray-900">Filter by Company:</label>
+                                        <div className="flex justify-start p-0 text-end w-full  lg:w-1/4">
+                                            <label className="my-1 text-base font-medium text-gray-900">Filter by Company:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchCompany(e.target.value)}
@@ -204,8 +204,8 @@ function EmpPolicy() {
                                             />
                                         </div>
 
-                                        <div className="flex justify-start  text-start w-full lg:w-1/4">
-                                            <label className="my-0 text-lg font-medium text-gray-900">Filter by Insured Name:</label>
+                                        <div className="flex justify-start  text-start w-full  lg:w-1/4">
+                                            <label className="my-1 text-base font-medium text-gray-900">Filter by Insured Name:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchInsuredName(e.target.value)}
@@ -214,18 +214,18 @@ function EmpPolicy() {
                                             />
                                         </div>
 
-                                        <div className="flex p-0 text-center justify-center w-1/2 lg:w-1/4">
-                                            <label className="my-0 text-lg font-medium text-gray-900">Filter by Contact No:</label>
+                                        <div className="flex p-0 mt-4 text-center justify-start lg:w-1/5">
+                                            <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setContactNo(e.target.value)}
-                                                className="shadow p-0 text-start w-1/2 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                className="shadow p-0 text-start   input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                                 placeholder="Contact Number"
                                             /></div>
                                     </div>
 
                                     <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
-                                        <thead className="   font-medium sticky bg-slate-200 top-0">
+                                        <thead className="   font-medium sticky bg-slate-200">
                                             <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky">
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Update

@@ -265,7 +265,7 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">RSA</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">GST Amount</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Final Amount</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">OD Discount</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">OD Discount(%)</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">NCB</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
@@ -353,7 +353,6 @@ function ViewFinance() {
       </div>
 
       {/* Pagination */}
-
       <nav aria-label="Page navigation flex example sticky   ">
         <ul className="flex justify-end my-0  -space-x-px text-xl">
           <li className=''>
