@@ -25,7 +25,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     }
 
     const checkFormValidity = () => {
-        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo", "odPremium", "liabilityPremium", "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
+        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo",  "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
         const emptyFields = requiredFields.filter(field => !allDetails[field]);
         return emptyFields.length === 0;
     };
