@@ -12,7 +12,7 @@ const SidebarOps = () => {
       logo: <RxDashboard size={25} />
     },
     {
-      title: "Made Policy",
+      title: "Create Policy",
       path: "/ops/home/add/policy",
       logo: < FcViewDetails size={24}/>
     },

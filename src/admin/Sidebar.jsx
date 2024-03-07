@@ -11,9 +11,6 @@ import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
 import { MdOutlineCategory } from "react-icons/md";
 
-
-
-
 const Sidebar = () => {
   const dashboardRoutes = [
     {

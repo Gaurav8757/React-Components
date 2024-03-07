@@ -65,115 +65,115 @@ function MasterForm() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`https://eleedomimf.onrender.com/view/payouton`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setPayoutOnList(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`https://eleedomimf.onrender.com/view/payouton`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setPayoutOnList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, [payoutOnList]);
+  }, [payoutOnList]);
 
 
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
-  } else {
+    } else {
       // The user is authenticated, so you can make your API request here.
       axios
-          .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
-              headers: {
-                  Authorization: `${token}`, // Send the token in the Authorization header
-              },
-          })
-          .then((response) => {
-              setPayMode(response.data);
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-  }
-}, [payMode]);
+        .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setPayMode(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [payMode]);
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
-  } else {
+    } else {
       // The user is authenticated, so you can make your API request here.
       axios
-          .get(`https://eleedomimf.onrender.com/api/employee-list`, {
-              headers: {
-                  Authorization: `${token}`, // Send the token in the Authorization header
-              },
-          })
-          .then((response) => {
-         
-              setAPIData(response.data);
-             
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-  }
-}, [APIData]);
+        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
+          setAPIData(response.data);
+
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [APIData]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
-  } else {
+    } else {
       // The user is authenticated, so you can make your API request here.
       axios
-          .get(`https://eleedomimf.onrender.com/view/fuel`, {
-              headers: {
-                  Authorization: `${token}`, // Send the token in the Authorization header
-              },
-          })
-          .then((response) => {
-              setFuelType(response.data);
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-  }
-}, [fuelType]);
+        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setFuelType(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [fuelType]);
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
-        .then((resp) => {
-            const PolicyType = resp.data;
+      .then((resp) => {
+        const PolicyType = resp.data;
 
-            setData(PolicyType);
-        })
-        .catch((error) => {
-            console.error("Error fetching policy types:", error);
-        });
-}, [data]);
+        setData(PolicyType);
+      })
+      .catch((error) => {
+        console.error("Error fetching policy types:", error);
+      });
+  }, [data]);
 
 
-useEffect(() => {
-  axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
-    .then((resp) => {
-      const cType = resp.data;
-      
-      setPdata(cType);
-    })
-    .catch((error) => {
-      console.error("Error fetching company names:", error);
-    });
-}, [pdata]);
+  useEffect(() => {
+    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+      .then((resp) => {
+        const cType = resp.data;
+
+        setPdata(cType);
+      })
+      .catch((error) => {
+        console.error("Error fetching company names:", error);
+      });
+  }, [pdata]);
 
 
 
@@ -272,27 +272,27 @@ useEffect(() => {
     // Update odExpiry by adding 1 year to the selected policyStartDate
     const odExpiryDate = new Date(startDate);
     // odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
-    odExpiryDate.setFullYear(odExpiryDate.getFullYear()+1, odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
+    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1, odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
     setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
 
     // Update policyEndDate by adding 1 year to the selected policyStartDate
     const policyEndDateValue = new Date(startDate);
-    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1, policyEndDateValue.getMonth(), policyEndDateValue.getDate()-1);
+    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1, policyEndDateValue.getMonth(), policyEndDateValue.getDate() - 1);
     setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
 
-     // Update TP Expiry by adding 1 year to the selected policyStartDate
-     const tpExpiryDate = new Date(startDate);
-     tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3, tpExpiryDate.getMonth(), tpExpiryDate.getDate()-1);
-     setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
+    // Update TP Expiry by adding 1 year to the selected policyStartDate
+    const tpExpiryDate = new Date(startDate);
+    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3, tpExpiryDate.getMonth(), tpExpiryDate.getDate() - 1);
+    setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
     // Set the selected policyStartDate
     setPolicyStartDate(startDate);
   };
 
 
 
- // Handle form submission logic here
+  // Handle form submission logic here
   const handleSubmit = async (e) => {
-   
+
     e.preventDefault();
     try {
       // Make sure to replace this URL with your actual API endpoint
@@ -362,145 +362,237 @@ useEffect(() => {
 
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
+    <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add Policy Detail&apos;s </h1>
-          <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3">
-            {/* PART-1 */}
-            <div className="p-2 rows text-start">
-              {/* FIELD - 1 */}
-              <div className = "row-auto">
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Entry Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="entryDate"
-                  value={entryDate}
-                  onChange={(e) => setEntryDate(e.target.value)}
-                  placeholder="Select Entry Date"
-                />
-              </div>
-              {/* FIELD - 4 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Segment:</label>
-                <select
-                  className="input-style rounded-lg"
-                  name="segment"
-                  value={segment}
-                  onChange={(e) => setSegment(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Select Segment ---</option>
-                  <option value="C V">C V</option>
-                  <option value="PVT-CAR">PVT-CAR</option>
-                  <option value="TW">TW</option>
-                  <option value="HEALTH">HEALTH</option>
-                  <option value="NON-MOTOR">NON-MOTOR</option>
-                  <option value="LIFE">LIFE</option>
-                </select>
-              </div>
-              {/* FIELD - 7 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Insured Name:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="insuredName"
-                  value={insuredName}
-                  onChange={(e) => setInsuredName(e.target.value)}
-                  placeholder="Enter Insured Name"
-                />
-              </div>
+          {/* <form className="grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-3"> */}
+          <div className="flex flex-wrap justify-between">
+            {/* FIELD - 1 */}
+            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Entry Date:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="entryDate"
+                value={entryDate}
+                onChange={(e) => setEntryDate(e.target.value)}
+                placeholder="Select Entry Date"
+              />
             </div>
-              {/* FIELD - 10 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy Start Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="policyStartDate"
-                  value={policyStartDate}
-                  onChange={handlePolicyStartDateChange}
-                  placeholder="Select Policy Start Date"
-                />
-              </div>
-              {/* FIELD - 13 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">TP Expiry:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="tpExpiry"
-                  value={tpExpiry}
-                  onChange={(e) => setTpExpiry(e.target.value)}
-                  placeholder="TP Expiry"
-                  min="2025-01-01"
-                />
-              </div>
-              {/* FIELD - 16 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Make & Model:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="makeModel"
-                  value={makeModel}
-                  onChange={(e) => setMakeModel(e.target.value)}
-                  placeholder="Enter Make & Model"
-                />
-              </div>
-              {/* FIELD - 19 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Vehicle Age:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="vehicleAge"
-                  value={vehicleAge}
-                  placeholder="Vehicle Age "
-                  readOnly
-                />
-              </div>
-              {/* FIELD - 22 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">CC:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value)}
-                  placeholder="Enter CC"
-                />
-              </div>
-              {/* FIELD - 25 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy Type:</label>
-                <select
-                  className="input-style rounded-lg"
-                  value={policyType}
-                  name="policyType"
-                  // onChange={(e) => setPolicyType(e.target.value)}
-                  onChange={(e) => {
-                    const selectedPolicyType = e.target.value;
-                    setPolicyType(selectedPolicyType);
-                    // Filter products based on selected policy type
-                    const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
-                    setProducts(filteredProducts);
-                    // Reset product code when policy type changes
-                    setProductCode('');
+            {/* FIELD - 2 */}
+            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch:</label>
+              <select
+                id="branch" name="branch"
+                className="input-style p-1 rounded-lg"
+                value={branch}
+                onChange={(e) => setBranch(e.target.value)}
+              >
+                <option className="w-1" value="" disabled>--- Select Branch ---</option>
+                <option value="PATNA">PATNA</option>
+                <option value="HAJIPUR">HAJIPUR</option>
+                <option value="SAMASTIPUR">SAMASTIPUR</option>
+              </select>
+            </div>
+            {/* FIELD - 3 */}
+            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Insured Name:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="insuredName"
+                value={insuredName}
+                onChange={(e) => setInsuredName(e.target.value)}
+                placeholder="Enter Insured Name"
+              />
+            </div>
+
+            {/* FIELD - 4 */}
+            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Contact No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={contactNo}
+                name="contactNo"
+                onChange={(e) => setContactNo(e.target.value)}
+                placeholder="Enter Contact No"
+              />
+            </div>
+
+            {/* FIELD - 5 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy Made By:</label>
+              <select
+                id="policyMadeBy"
+                name="policyMadeBy"
+                className="input-style p-1 rounded-lg"
+                value={policyMadeBy}
+                onChange={(e) => setPolicyMadeBy(e.target.value)}
+              >
+                <option className="w-1" value="" disabled>--- Policy Made By ---</option>
+                {
+                  APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                    .map((emp) => (
+                      <option key={emp._id} value={emp.empname}>
+                        {emp.empid} - {emp.empname}
+                      </option>
+                    ))
+                }
+              </select>
+            </div>
+            {/* FIELD - 6 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base  mx-1">Company Name:</label>
+              <select
+                id="company" name="company"
+                className="input-style p-1 rounded-lg"
+                value={company}
+                // onChange={(e) => setCompany(e.target.value)}
+                onChange={(e) => {
+                  setCompany(e.target.value);
+                  const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                  setCatTypesForSelectedPolicy(selectedCatId);
                 }}
-                > <option value="">--- Select Policy Type ---</option>
-                {data.map(prod => (
-                    <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
+              >
+                <option className="w-1" value="" >--- Select Company ---</option>
+                {pdata.map((comp) => (
+                  <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                    {comp.c_type}
+                  </option>
                 ))}
-                 
-                </select>
-              </div>
-              {/* FIELD - 28 */}
-              {
-                policyType === "SAOD" ? (<div className="flex flex-col my-5">
+                {/* Add more company options */}
+              </select>
+            </div>
+
+            {/* FIELD - 7 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Category:</label>
+
+              <select
+                className="input-style w-full p-1 rounded-lg"
+                value={category}
+                name="category"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="">---- Select Product Type ------</option>
+                {pdata.map((cat) => (
+                  cat._id === catTypesForSelectedPolicy &&
+                  cat.category.map((product, idx) => (
+                    <option key={idx} value={product}>{product}</option>
+                  ))))
+                }
+              </select>
+            </div>
+
+            {/* FIELD - 8 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy Type:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={policyType}
+                name="policyType"
+                // onChange={(e) => setPolicyType(e.target.value)}
+                onChange={(e) => {
+                  const selectedPolicyType = e.target.value;
+                  setPolicyType(selectedPolicyType);
+                  // Filter products based on selected policy type
+                  const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
+                  setProducts(filteredProducts);
+                  // Reset product code when policy type changes
+                  setProductCode('');
+                }}
+              > <option value="">--- Select Policy Type ---</option>
+                {data.map(prod => (
+                  <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
+                ))}
+
+              </select>
+            </div>
+            {/* FIELD - 9 */}
+            <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={policyNo}
+                name="policyNo"
+                onChange={(e) => setPolicyNo(e.target.value)}
+                placeholder="Enter Policy No"
+              />
+            </div>
+            {/* FIELD - 10 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Engine No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="engNo"
+                value={engNo}
+                onChange={(e) => setEngNo(e.target.value)}
+                placeholder="Enter Engine No"
+              />
+            </div>
+
+            {/* FIELD - 11 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Chassis No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={chsNo}
+                name="chsNo"
+                onChange={(e) => setChsNo(e.target.value)}
+                placeholder="Enter Chassis No"
+              />
+            </div>
+
+            {/* FIELD - 12 */}
+            {
+              policyType === "SATP" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Premium:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="number"
+                  value={odPremium}
+                  name="odPremium"
+                  onChange={(e) => setOdPremium(e.target.value)}
+                  placeholder="Disabled"
+                  onBlur={updateNetPremium}
+                  disabled
+                />
+              </div>) : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Premium:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="number"
+                  value={odPremium}
+                  name="odPremium"
+                  onChange={(e) => setOdPremium(e.target.value)}
+                  placeholder="Enter OD Premium"
+                  onBlur={updateNetPremium}
+
+                />
+              </div>)
+            }
+
+            {/* FIELD - 13 */}
+            {
+              policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Liability Premium:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="number"
+                  name="liabilityPremium"
+                  value={liabilityPremium}
+                  onChange={(e) => setLiabilityPremium(e.target.value)}
+                  placeholder="Disabled"
+                  onBlur={updateNetPremium}
+                  disabled
+                />
+              </div>)
+                : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:</label>
                   <input
                     className="input-style rounded-lg"
@@ -508,664 +600,543 @@ useEffect(() => {
                     name="liabilityPremium"
                     value={liabilityPremium}
                     onChange={(e) => setLiabilityPremium(e.target.value)}
-                    placeholder="Disabled"
+                    placeholder="Enter Liability Premium"
                     onBlur={updateNetPremium}
-                    disabled
                   />
                 </div>)
-                  : (<div className="flex flex-col my-5">
-                    <label className="text-base mx-1">Liability Premium:</label>
-                    <input
-                      className="input-style rounded-lg"
-                      type="number"
-                      name="liabilityPremium"
-                      value={liabilityPremium}
-                      onChange={(e) => setLiabilityPremium(e.target.value)}
-                      placeholder="Enter Liability Premium"
-                      onBlur={updateNetPremium}
-                    />
-                  </div>)
-              }
+            }
 
-
-              {/* FIELD - 31 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Final Amount:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={finalEntryFields}
-                  name="finalEntryFields"
-                  onChange={(e) => setFinalEntryFields(e.target.value)}
-                  placeholder=" Final Amount"
-                  readOnly
-                />
-              </div>
-
-
-              {/* FIELD - 34*/}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Advisor Name:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={advisorName}
-                  name="advisorName"
-                  onChange={(e) => setAdvisorName(e.target.value)}
-                  placeholder="Enter Advisor Name"
-                />
-              </div>
-
-
-              {/* FIELD - 37 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy Made By:</label>
-                <select
-                  id="policyMadeBy"
-                  name="policyMadeBy"
-                  className="input-style rounded-lg"
-                  value={policyMadeBy}
-                  onChange={(e) => setPolicyMadeBy(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Policy Made By ---</option>
-                  {
-                                                        APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                                                        .map((emp) => (
-                                                            <option key={emp._id} value={emp.empname}>
-                                                                {emp.empid} - {emp.empname}
-                                                            </option>
-                                                        ))
-                                                    }
-                </select>
-              </div>
-
-              {/* FIELD - 40 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Payment Done By:</label>
-                <select
-                  className="input-style rounded-lg"
-
-                  value={paymentDoneBy}
-                  name="paymentDoneBy"
-                  onChange={(e) => setPaymentDoneBy(e.target.value)}
-                >
-                  <option className="w-1" value="" >--- Select Payment Done By ---</option>
-                  <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
-                  <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
-                  <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
-                  <option value="PATNA BRANCH">PATNA BRANCH</option>
-                  <option value="CUSTOMER">CUSTOMER</option>
-                </select>
-              </div>
-              {/* FIELD - 43 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Endorsement Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="chqPaymentDate"
-                  value={chqPaymentDate}
-                  onChange={(e) => setChqPaymentDate(e.target.value)}
-                  placeholder="Select CHQ / Payment Date"
-                />
-              </div>
-              
-              {/* FIELD - 46 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Branch Payout:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  name="branchPayout"
-                  value={branchPayout}
-                  onChange={(e) => setBranchPayout(e.target.value)}
-                  onBlur={() => {
-   
-                    calculateBranchPayableAmount();
-                    calculateProfitLoss();
-                  }}
-                  placeholder="Enter Branch Payout"
-                />
-              </div>
-              {/* FIELD - 49 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Profit/Loss Amount:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="profitLoss"
-                  value={profitLoss}
-                  onChange={(e) => setProfitLoss(e.target.value)}
-                  placeholder="Profit/Loss Amount"
-                  readOnly
-                />
-              </div>
+            {/* FIELD - 14 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Net Premium:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                name="netPremium"
+                value={netPremium}
+                onBlur={handleNetPremiumBlur}
+                placeholder="Net Premium"
+                readOnly
+              />
             </div>
 
+            {/* FIELD - 15 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">GST(Amount) :</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={taxes}
+                name="finalEntryFields"
+                onChange={(e) => setTaxes(e.target.value)}
+                onBlur={calculateFinalAmount}
+                placeholder="GST"
+              />
+            </div>
 
+            {/* FIELD - 16 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Final Amount:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={finalEntryFields}
+                name="finalEntryFields"
+                onChange={(e) => setFinalEntryFields(e.target.value)}
+                placeholder=" Final Amount"
+                readOnly
+              />
+            </div>
 
+            {/* FIELD - 17 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">OD Discount% :</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="odDiscount"
+                value={odDiscount}
+                onChange={(e) => setOdDiscount(e.target.value)}
+                placeholder="Enter OD Discount"
+              />
+            </div>
 
-            {/* PART-2 */}
-            <div className="p-2 text-start">
-              {/* FIELD - 2 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base  mx-1">Company Name:</label>
-                <select
-                  id="company" name="company"
-                  className="input-style p-1 rounded-lg"
-                  value={company}
-                  // onChange={(e) => setCompany(e.target.value)}
-                  onChange={(e) => {
-                    setCompany(e.target.value);
-                    const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
-                    setCatTypesForSelectedPolicy(selectedCatId);
-                  }}
-                >
-                  <option className="w-1" value="" >--- Select Company ---</option>
-                  {pdata.map((comp) => (
-                  <option key={comp._id} value={comp.c_type} data-id={comp._id}>
-                    {comp.c_type}
-                  </option>
-                ))}
-                  {/* Add more company options */}
-                </select>
+            {/* FIELD - 18 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">NCB% :</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="ncb"
+                value={ncb}
+                onChange={(e) => setNcb(e.target.value)}
+                placeholder="Enter NCB"
+              />
+            </div>
 
-              </div>
-
-              {/* FIELD - 5 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Sourcing:</label>
-                <select
-                  className="input-style p-1 rounded-lg"
-                  value={sourcing}
-                  name="sourcing"
-                  onChange={(e) => setSourcing(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
-                  <option value="NEW">NEW</option>
-                  <option value="RENEWAL">RENEWAL</option>
-                  <option value="ROLL OVER">ROLL OVER</option>
-                </select>
-              </div>
-              {/* FIELD - 8 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Contact No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={contactNo}
-                  name="contactNo"
-                  onChange={(e) => setContactNo(e.target.value)}
-                  placeholder="Enter Contact No"
-                />
-              </div>
-              {/* FIELD - 11 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy End Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="policyEndDate"
-                  value={policyEndDate}
-                  onChange={(e) => setPolicyEndDate(e.target.value)}
-                  placeholder="Select Policy End Date"
-                />
-              </div>
-              {/* FIELD - 14 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">IDV:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="idv"
-                  value={idv}
-                  onChange={(e) => setIdv(e.target.value)}
-                  placeholder="Enter IDV"
-                />
-              </div>
-              {/* FIELD - 17 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Manufacturing Year:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="mfgYear"
-                  value={mfgYear}
-                  onChange={(e) => setMfgYear(e.target.value)}
-                  placeholder="Enter Manufacturing Year"
-                />
-              </div>
-              {/* FIELD - 20 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Fuel:</label>
-                <select
-                  className="input-style rounded-lg"
-                  value={fuel}
-                  name="fuel"
-                  onChange={(e) => setFuel(e.target.value)}
-                >
-                  <option className="w-1" value="" >--- Select Fuel Type ---</option>
-                  {
-                   fuelType.map((fuel)=>(
-
-                      <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
-                    ))
-                    
-                  }
-                  {/* Add more fuel options */}
-                </select>
-              </div>
-              {/* FIELD - 23 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Engine No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="engNo"
-                  value={engNo}
-                  onChange={(e) => setEngNo(e.target.value)}
-                  placeholder="Enter Engine No"
-                />
-              </div>
-              {/* FIELD - 26 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Product Code:</label>
-                <select
-                  id="productCode" name="productCode"
-                  className="input-style rounded-lg"
-                  value={productCode}
-                  onChange={(e) => setProductCode(e.target.value)}
-                >
-                  <option className="w-1" value="" >--- Select Product Code ---</option>
-                  {data.map((policy) => (
-                policy.p_type === policyType &&
-                products.map((product, idx) => (
-                  <option key={idx} value={product}>{product}</option>
-                ))
-              ))}
-
-                </select>
-              </div>
-              {/* FIELD - 29 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Net Premium:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  name="netPremium"
-                  value={netPremium}
-                  onBlur={handleNetPremiumBlur}
-                  placeholder="Net Premium"
-                  readOnly
-                />
-              </div>
-              {/* FIELD - 32 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">OD Discount% :</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="odDiscount"
-                  value={odDiscount}
-                  onChange={(e) => setOdDiscount(e.target.value)}
-                  placeholder="Enter OD Discount"
-                />
-              </div>
-
-
-              {/* FIELD - 35 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Sub Advisor:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="subAdvisor"
-                  value={subAdvisor}
-                  onChange={(e) => setSubAdvisor(e.target.value)}
-                  placeholder="Enter Sub Advisor"
-                />
-              </div>
-
-
-              {/* FIELD - 38 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Payout On:</label>
-                <select
-                  id="payoutOn"
-                  name="payoutOn"
-                  className="input-style rounded-lg"
-                  value={payoutOn}
-                  onChange={(e) => setPayoutOn(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Select Payout on ---</option>
+            {/* FIELD - 19 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy Payment Mode:</label>
+              <select
+                id="policyPaymentMode"
+                className="input-style p-1 rounded-lg"
+                value={policyPaymentMode}
+                name="policyPaymentMode"
+                onChange={(e) => setPolicyPaymentMode(e.target.value)}
+              >
+                <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
                 {
-                  payoutOnList.map((pay)=>(
-                    <option key={pay._id}  value={pay.payouton} >{pay.payouton}</option>
+                  payMode.map((mode) => (
+                    <option key={mode._id} value={mode.paymentmode} >{mode.paymentmode}</option>
                   ))
                 }
-                </select>
-              </div>
-              {/* FIELD - 41 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">CHQ No / Ref No.:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={chqNoRefNo}
-                  name="chqNoRefNo"
-                  onChange={(e) => setChqNoRefNo(e.target.value)}
-                  placeholder="Enter CHQ No / Ref No."
-                />
-              </div>
-              {/* FIELD - 44 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">CHQ Status:</label>
-                <select
-                  className="input-style rounded-lg"
-                  value={chqStatus}
-                  name="chqStatus"
-                  onChange={(e) => setChqStatus(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
-                  <option value="PENDING">PENDING</option>
-                  <option value="SUBMITTED TO BRANCH">SUBMITTED TO BRANCH</option>
-                  <option value="CLEAR FROM BANK">CLEAR FROM BANK</option>
-                  <option value="BCQ">BCQ</option>
-                  <option value="SUBMITTED TO BANK">SUBMITTED TO BANK</option>
-                </select>
-              </div>
-              {/* FIELD - 47 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Branch Payable Amount:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={branchPayableAmount}
-                  name="branchPayableAmount"
-                  onChange={(e) => setBranchPayableAmount(e.target.value)}
-                  placeholder="Branch Payable Amount"
-                  readOnly
-                />
-              </div>
+              </select>
             </div>
 
-
-
-
-
-
-
-
-
-            {/* PART-3 */}
-            <div className="p-2 text-start">
-              {/* FIELD - 3 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Category:</label>
-
-                <select
-              className="input-style w-full p-1 rounded-lg"
-              value={category}
-              name="category"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">---- Select Product Type ------</option>
-              {pdata.map((cat) => ( 
-                cat._id === catTypesForSelectedPolicy &&
-                cat.category.map((product, idx) => (
-                  <option key={idx} value={product}>{product}</option>
-                ))))
-              }
-            </select>
-              </div>
-             
-              {/* FIELD - 9 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Vehicle Reg No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={vehRegNo}
-                  name="vehRegNo"
-                  onChange={(e) => setVehRegNo(e.target.value)}
-                  placeholder="Enter Vehicle Reg No"
-                />
-              </div>
-               {/* FIELD - 6 */}
-               <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={policyNo}
-                  name="policyNo"
-                  onChange={(e) => setPolicyNo(e.target.value)}
-                  placeholder="Enter Policy No"
-                />
-              </div>
-              {/* FIELD - 12 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">OD Expiry:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  name="odExpiry"
-                  value={odExpiry}
-                  onChange={(e) => setOdExpiry(e.target.value)}
-                  placeholder="Select OD Expiry"
-                  min="2025-01-01"
-                />
-              </div>
-              {/* FIELD - 15 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Body Type:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={bodyType}
-                  name="bodyType"
-                  onChange={(e) => setBodyType(e.target.value)}
-                  placeholder="Enter Body Type"
-                />
-              </div>
-              {/* FIELD - 18 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Registration Date:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="date"
-                  value={registrationDate}
-                  name="registrationDate"
-                  onChange={(e) => setRegistrationDate(e.target.value)}
-                  placeholder="Select Registration Date"
-                  min="1950-01-01"
-                  max={getLastDayOfPreviousMonth()}
-                />
-              </div>
-              {/* FIELD - 21 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">GVW (kg):</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={gvw}
-                  name="gvw"
-                  onChange={(e) => setGvw(e.target.value)}
-                  placeholder="Enter GVW"
-                />
-              </div>
-              {/* FIELD - 24 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Chassis No:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={chsNo}
-                  name="chsNo"
-                  onChange={(e) => setChsNo(e.target.value)}
-                  placeholder="Enter Chassis No"
-                />
-              </div>
-              {/* FIELD - 27 */}
-              {
-                policyType === "SATP" ? (<div className="flex flex-col my-5">
-                  <label className="text-base mx-1">OD Premium:</label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="number"
-                    value={odPremium}
-                    name="odPremium"
-                    onChange={(e) => setOdPremium(e.target.value)}
-                    placeholder="Disabled"
-                    onBlur={updateNetPremium}
-                    disabled
-                  />
-                </div>) : (<div className="flex flex-col my-5">
-                  <label className="text-base mx-1">OD Premium:</label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="number"
-                    value={odPremium}
-                    name="odPremium"
-                    onChange={(e) => setOdPremium(e.target.value)}
-                    placeholder="Enter OD Premium"
-                    onBlur={updateNetPremium}
-
-                  />
-                </div>)
-              }
-
-              {/* FIELD - 30 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">GST% :</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={taxes}
-                  name="finalEntryFields"
-                  onChange={(e) => setTaxes(e.target.value)}
-                  onBlur={calculateFinalAmount}
-                  placeholder="GST"
-                />
-              </div>
-
-              {/* FIELD - 33 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">NCB% :</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="ncb"
-                  value={ncb}
-                  onChange={(e) => setNcb(e.target.value)}
-                  placeholder="Enter NCB"
-                />
-              </div>
-
-
-              {/* FIELD - 36 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Branch:</label>
-                <select
-                  id="branch" name="branch"
-                  className="input-style rounded-lg"
-                  value={branch}
-                  onChange={(e) => setBranch(e.target.value)}
-                >
-                  <option className="w-1" value="" disabled>--- Select Branch ---</option>
-                  <option value="PATNA">PATNA</option>
-                  <option value="HAJIPUR">HAJIPUR</option>
-                  <option value="SAMASTIPUR">SAMASTIPUR</option>
-                </select>
-              </div>
-              {/* FIELD - 39 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Policy Payment Mode:</label>
-                <select
-                  id="policyPaymentMode"
-
-                  className="input-style rounded-lg"
-                  value={policyPaymentMode}
-                  name="policyPaymentMode"
-                  onChange={(e) => setPolicyPaymentMode(e.target.value)}
-                >
-                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
-                  {
-                    payMode.map((mode)=>(
-                      <option key={mode._id}  value= {mode.paymentmode} >{mode.paymentmode}</option>
-                    ))
-                  }
-                </select>
-              </div>
-              {/* FIELD - 42 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Bank Name:</label>
-                <input
-                  id="bankName"
-                  name="bankName"
-                  className="input-style rounded-lg"
-                  value={bankName}
-                  placeholder="Enter Bank Name"
-                  onChange={(e) => setBankName(e.target.value)}
-                >
-                  {/* <option className="w-1" value="" disabled>--- Select Bank ---</option>
-                  <option value="HDFC BANK">HDFC BANK</option>
-                  <option value="ICICI BANK">ICICI BANK</option>
-                  <option value="SBI">SBI</option>
-                  <option value="PNB">PNB</option>
-                  <option value="CANARA">CANARA</option>
-                  <option value="AXIS BANK">AXIS BANK</option>
-                  <option value="BOB">BOB</option>
-                  <option value="BOI">BOI</option>
-                  <option value="IDBI">IDBI</option> */}
-                </input>
-              </div>
-              {/* FIELD - 45 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Advisor Payable Amount:</label>
-                <input
-                  className=" rounded-lg"
-                  type="number"
-                  value={advisorPayableAmount}
-                  name="advisorPayableAmount"
-                  onChange={(e) => setAdvisorPayableAmount(e.target.value)}
-                  placeholder="Advisor Payable Amount"
-                />
-              </div>
-              {/* FIELD - 48 */}
-              <div className="flex flex-col my-5">
-                <label className="text-base mx-1">Company Payout:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  value={companyPayout}
-                  name="companyPayout"
-                  onChange={(e) => setCompanyPayout(e.target.value)}
-                  onBlur={calculateProfitLoss}
-                  placeholder="Enter Company Payout"
-                />
-              </div>
+            {/* FIELD - 20 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Vehicle Reg No:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={vehRegNo}
+                name="vehRegNo"
+                onChange={(e) => setVehRegNo(e.target.value)}
+                placeholder="Enter Vehicle Reg No"
+              />
             </div>
 
-            {/* button */}
-
-            {}
-            <div className="col-span-4 p-2">
-              <button
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                onClick={handleSubmit}
-                type="button"
+            {/* FIELD - 21 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Segment:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                name="segment"
+                value={segment}
+                onChange={(e) => setSegment(e.target.value)}>
+                <option className="w-1" value="" disabled>--- Select Segment ---</option>
+                <option value="C V">C V</option>
+                <option value="PVT-CAR">PVT-CAR</option>
+                <option value="TW">TW</option>
+                <option value="HEALTH">HEALTH</option>
+                <option value="NON-MOTOR">NON-MOTOR</option>
+                <option value="LIFE">LIFE</option>
+              </select>
+            </div>
+            {/* FIELD - 22 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Sourcing:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={sourcing}
+                name="sourcing"
+                onChange={(e) => setSourcing(e.target.value)}
               >
-                Submit
-              </button>
-
-              {/* <NavLink to="/dashboard/viewmasterform"
-                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
-              >
-                View
-              </NavLink> */}
+                <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
+                <option value="NEW">NEW</option>
+                <option value="RENEWAL">RENEWAL</option>
+                <option value="ROLL OVER">ROLL OVER</option>
+              </select>
             </div>
-          </form>
+
+
+            {/* FIELD - 23 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy Start Date:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="policyStartDate"
+                value={policyStartDate}
+                onChange={handlePolicyStartDateChange}
+                placeholder="Select Policy Start Date"
+              />
+            </div>
+
+            {/* FIELD - 24 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Policy End Date:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="policyEndDate"
+                value={policyEndDate}
+                onChange={(e) => setPolicyEndDate(e.target.value)}
+                placeholder="Select Policy End Date"
+              />
+            </div>
+
+            {/* FIELD - 25 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">OD Expiry:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="odExpiry"
+                value={odExpiry}
+                onChange={(e) => setOdExpiry(e.target.value)}
+                placeholder="Select OD Expiry"
+                min="2025-01-01"
+              />
+            </div>
+            {/* FIELD - 26 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">TP Expiry:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="tpExpiry"
+                value={tpExpiry}
+                onChange={(e) => setTpExpiry(e.target.value)}
+                placeholder="TP Expiry"
+                min="2025-01-01"
+              />
+            </div>
+
+            {/* FIELD - 27 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">IDV:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="idv"
+                value={idv}
+                onChange={(e) => setIdv(e.target.value)}
+                placeholder="Enter IDV"
+              />
+            </div>
+
+            {/* FIELD - 28 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Body Type:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={bodyType}
+                name="bodyType"
+                onChange={(e) => setBodyType(e.target.value)}
+                placeholder="Enter Body Type"
+              />
+            </div>
+
+            {/* FIELD - 29 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Make & Model:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="makeModel"
+                value={makeModel}
+                onChange={(e) => setMakeModel(e.target.value)}
+                placeholder="Enter Make & Model"
+              />
+            </div>
+            {/* FIELD - 30 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Manufacturing Year:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="mfgYear"
+                value={mfgYear}
+                onChange={(e) => setMfgYear(e.target.value)}
+                placeholder="Enter Manufacturing Year"
+              />
+            </div>
+
+            {/* FIELD - 31 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Registration Date:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                value={registrationDate}
+                name="registrationDate"
+                onChange={(e) => setRegistrationDate(e.target.value)}
+                placeholder="Select Registration Date"
+                min="1950-01-01"
+                max={getLastDayOfPreviousMonth()}
+              />
+            </div>
+            {/* FIELD - 32 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Vehicle Age:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="vehicleAge"
+                value={vehicleAge}
+                placeholder="Vehicle Age "
+                readOnly
+              />
+            </div>
+
+            {/* FIELD - 33 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Fuel:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={fuel}
+                name="fuel"
+                onChange={(e) => setFuel(e.target.value)}>
+                <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                {
+                  fuelType.map((fuel) => (
+                    <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                  ))
+                }
+              </select>
+            </div>
+
+            {/* FIELD - 34 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">GVW (kg):</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={gvw}
+                name="gvw"
+                onChange={(e) => setGvw(e.target.value)}
+                placeholder="Enter GVW"
+              />
+            </div>
+
+            {/* FIELD - 35 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CC:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="cc"
+                value={cc}
+                onChange={(e) => setCc(e.target.value)}
+                placeholder="Enter CC"
+              />
+            </div>
+
+            {/* FIELD - 36 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Product Code:</label>
+              <select
+                id="productCode" name="productCode"
+                className="input-style p-1 rounded-lg"
+                value={productCode}
+                onChange={(e) => setProductCode(e.target.value)}
+              >
+                <option className="w-1" value="" >--- Select Product Code ---</option>
+                {data.map((policy) => (
+                  policy.p_type === policyType &&
+                  products.map((product, idx) => (
+                    <option key={idx} value={product}>{product}</option>
+                  ))
+                ))}
+
+              </select>
+            </div>
+
+            {/* FIELD - 37*/}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Advisor Name:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={advisorName}
+                name="advisorName"
+                onChange={(e) => setAdvisorName(e.target.value)}
+                placeholder="Enter Advisor Name"
+              />
+            </div>
+
+            {/* FIELD - 38 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Sub-Advisor Name:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="subAdvisor"
+                value={subAdvisor}
+                onChange={(e) => setSubAdvisor(e.target.value)}
+                placeholder="Enter Sub Advisor"
+              />
+            </div>
+
+
+            {/* FIELD - 39 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Payout On:</label>
+              <select
+                id="payoutOn"
+                name="payoutOn"
+                className="input-style p-1 rounded-lg"
+                value={payoutOn}
+                onChange={(e) => setPayoutOn(e.target.value)}
+              >
+                <option className="w-1" value="" disabled>--- Select Payout on ---</option>
+                {
+                  payoutOnList.map((pay) => (
+                    <option key={pay._id} value={pay.payouton} >{pay.payouton}</option>
+                  ))
+                }
+              </select>
+            </div>
+
+
+            {/* FIELD - 40 */}
+            <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Payment Done By:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={paymentDoneBy}
+                name="paymentDoneBy"
+                onChange={(e) => setPaymentDoneBy(e.target.value)}>
+                <option className="w-1" value="" >--- Select Payment Done By ---</option>
+                <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
+                <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
+                <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
+                <option value="PATNA BRANCH">PATNA BRANCH</option>
+                <option value="CUSTOMER">CUSTOMER</option>
+              </select>
+            </div>
+
+            {/* FIELD - 41 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CHQ No / Ref No.:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={chqNoRefNo}
+                name="chqNoRefNo"
+                onChange={(e) => setChqNoRefNo(e.target.value)}
+                placeholder="Enter CHQ No / Ref No."
+              />
+            </div>
+
+            {/* FIELD - 42 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Bank Name:</label>
+              <input
+                id="bankName"
+                type="text"
+                name="bankName"
+                className="input-style rounded-lg"
+                value={bankName}
+                placeholder="Enter Bank Name"
+                onChange={(e) => setBankName(e.target.value)}
+              >
+              </input>
+            </div>
+
+            {/* FIELD - 43 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Endorshment Date:</label>
+              <input
+                className="input-style rounded-lg"
+                type="date"
+                name="chqPaymentDate"
+                value={chqPaymentDate}
+                onChange={(e) => setChqPaymentDate(e.target.value)}
+                placeholder="Select CHQ / Payment Date"
+              />
+            </div>
+            {/* FIELD - 44 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CHQ Status:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={chqStatus}
+                name="chqStatus"
+                onChange={(e) => setChqStatus(e.target.value)}>
+                <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
+                <option value="PENDING">PENDING</option>
+                <option value="SUBMITTED TO BRANCH">SUBMITTED TO BRANCH</option>
+                <option value="CLEAR FROM BANK">CLEAR FROM BANK</option>
+                <option value="BCQ">BCQ</option>
+                <option value="SUBMITTED TO BANK">SUBMITTED TO BANK</option>
+              </select>
+            </div>
+
+            {/* FIELD - 45 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Advisor Payable Amount:</label>
+              <input
+                className=" rounded-lg"
+                type="number"
+                value={advisorPayableAmount}
+                name="advisorPayableAmount"
+                onChange={(e) => setAdvisorPayableAmount(e.target.value)}
+                placeholder="Advisor Payable Amount"
+              />
+            </div>
+
+            {/* FIELD - 46 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch Payout:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                name="branchPayout"
+                value={branchPayout}
+                onChange={(e) => setBranchPayout(e.target.value)}
+                onBlur={() => {
+                  calculateBranchPayableAmount();
+                  calculateProfitLoss();
+                }}
+                placeholder="Enter Branch Payout"
+              />
+            </div>
+
+            {/* FIELD - 47 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch Payable Amount:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={branchPayableAmount}
+                name="branchPayableAmount"
+                onChange={(e) => setBranchPayableAmount(e.target.value)}
+                placeholder="Branch Payable Amount"
+                readOnly
+              />
+            </div>
+
+            {/* FIELD - 48 */}
+            <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Company Payout:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={companyPayout}
+                name="companyPayout"
+                onChange={(e) => setCompanyPayout(e.target.value)}
+                onBlur={calculateProfitLoss}
+                placeholder="Enter Company Payout"
+              />
+            </div>
+          </div>
+
+          {/* FIELD - 49 */}
+          <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+            <label className="text-base mx-1">Profit/Loss Amount:</label>
+            <input
+              className="input-style rounded-lg"
+              type="text"
+              name="profitLoss"
+              value={profitLoss}
+              onChange={(e) => setProfitLoss(e.target.value)}
+              placeholder="Profit/Loss Amount"
+              readOnly
+            />
+          </div>
+{/* Button */}
+          <div className="col-span-4 p-2">
+            <button
+              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
+              onClick={handleSubmit}
+              type="button">
+              Submit
+            </button>
+          </div>
+
         </div>
       </div>
     </section>
