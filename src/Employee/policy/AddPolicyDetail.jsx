@@ -67,9 +67,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         setIsModalOpen(false);
     };
 
-    const isValidEngineChassis = (value) => {
-        return /^[A-Za-z0-9]{6}$/.test(value);
-    };
+    // const isValidEngineChassis = (value) => {
+    //     return /^[A-Za-z0-9]{6}$/.test(value);
+    // };
 
     useEffect(() => {
         axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -320,7 +320,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     onChange={handleInputChange}
                                                     name="engNo"
                                                     placeholder="Enter Engine No" />
-                                                {!isValidEngineChassis(allDetails.engNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
+                                                {/* {!isValidEngineChassis(allDetails.engNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>} */}
                                             </div>
                                             {/* FIELD - 3 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
@@ -333,7 +333,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     name="chsNo"
                                                     placeholder="Enter Chassis No"
                                                 />
-                                                {!isValidEngineChassis(allDetails.chsNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>}
+                                                {/* {!isValidEngineChassis(allDetails.chsNo) && <span className="text-red-500 text-sm">must be 6 alphanumeric characters</span>} */}
                                             </div>
                                             {/* FIELD - 5 */}
                                             {
