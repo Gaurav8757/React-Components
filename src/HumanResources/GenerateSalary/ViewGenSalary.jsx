@@ -60,26 +60,62 @@ export default function ViewGenPolicy() {
 
     const exportToExcel = () => {
         try {
-            const fileType =
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
-            const fileName = `${name}_final_salary`;
+            const fileName = `${name}_salary`;
 
-            // Get all table headers and rows
-            const tableHeaders = document.querySelectorAll(".table th");
-            const tableRows = document.querySelectorAll(".table tbody tr");
+            const columnsToInclude = [
+                "Employee Name",
+                "Monthly Salary",
+                "Monthly Leave",
+                "Months",
+                "Total Days",
+                "Present Days",
+                "Total Half Days",
+                "Absent",
+                "Salary",
+                "Incentive",
+                "Gross Salary",
+                "Basic Salary",
+                "HRA",
+                "CA",
+                "Medical Allowance",
+                "Tiffin Allowance",
+                "Company PF",
+                "Employee PF",
+                "ESI",
+                "Loan EMI",
+                "Total Amount"
 
-            // Include only the first 26 columns and all rows
-            const columnsToInclude = Array.from(tableHeaders).slice(0, 21);
-            const rowsToInclude = Array.from(tableRows).map(row => {
-                const cells = Array.from(row.querySelectorAll("td")).slice(0, 21);
-                return cells.map(cell => cell.textContent);
-            });
+                // Include other necessary columns here
+            ];
+            const rowsToInclude = APIData.map(data => [
+                data.empName,
+                data.monthsalary,
+                data.monthleave,
+                data.genMonths,
+                data.totaldays,
+                data.presentDays,
+                data.totalHalfDays,
+                data.totalAbsent,
+                data.genSalary,
+                data.incentive,
+                data.empgrossSalary,
+                data.empbasicSalary,
+                data.emphra,
+                data.empca,
+                data.empmedical,
+                data.emptiffin,
+                data.empcompanyPf,
+                data.emppf,
+                data.empesi,
+                data.emploanemi,
+                data.totalAmount
+                // Include other necessary data here
+            ]);
 
-            // Create worksheet
-            const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+            const ws = XLSX.utils.aoa_to_sheet([columnsToInclude, ...rowsToInclude]);
 
-            // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
                 bookType: "xlsx",
@@ -97,6 +133,7 @@ export default function ViewGenPolicy() {
             toast.error("Error exporting to Excel");
         }
     };
+    
 
     const handleExportClick = () => {
         exportToExcel();
@@ -130,87 +167,80 @@ export default function ViewGenPolicy() {
                             </NavLink>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
                     <div className="inline-block min-w-full w-full py-0  ">
                         <table className="min-w-full text-center text-sm font-light table">
                             <thead className="border-b font-medium bg-slate-300 sticky top-20 ">
                                 <tr className="text-blue-700 sticky top-20">
-                                    <th scope="col" className="px-5 py-4">
+                                <th scope="col" className="px-1 py-0 border border-black">
+                                        Update
+                                    </th>
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Employee Name
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Monthly Salary
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Monthly Leave
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Months
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Total Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Present Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Total Half Days
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Absent
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Salary
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Incentive
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Gross Salary
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Basic Salary
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         HRA
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         CA
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Medical Allowance
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Tiffin Allowance
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Company PF
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Employee PF
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         ESI
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Loan EMI
                                     </th>
 
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Total Amount
                                     </th>
 
-                                    <th scope="col" className="px-5 py-4">
-                                        Edit
-                                    </th>
-                                    <th scope="col" className="px-5 py-4">
+                                  
+                                    <th scope="col" className="px-1 py-0 border border-black">
                                         Delete
                                     </th>
                                 </tr>
@@ -223,82 +253,82 @@ export default function ViewGenPolicy() {
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}
                                         >
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empName}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.monthsalary}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrappx-1 py-0 border border-black">
                                                 {data.monthleave}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.genMonths}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalDays}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.presentDays}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalHalfDays}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalAbsent}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.genSalary}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.incentive}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrappx-1 py-0 border border-black">
                                                 {data.empgrossSalary}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empbasicSalary}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emphra}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empca}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empmedical}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emptiffin}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empcompanyPf}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emppf}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empesi}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emploanemi}
                                             </td>
 
 
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalAmount}
                                             </td>
 
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <UpdateGenSalary genSalaries={data} onUpdate={updateGenSalary} />
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
                                             </td>
                                         </tr>

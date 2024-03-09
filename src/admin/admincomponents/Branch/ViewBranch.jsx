@@ -126,45 +126,45 @@ export default function ViewBranch() {
                     </div>
                     <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light table">
-                            <thead className="border-b font-medium dark:border-neutral-500">
-                                <tr className="text-blue-700">
-                                    <th scope="col" className="px-5 py-4">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-0">
+                                <tr className="text-blue-700 sticky top-0">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Branch Code
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Branch Name
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Email ID
                                     </th>
                                     {/* <th scope="col" className="px-5 py-4">
                                         Password
                                     </th> */}
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Mobile No.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Phone No.
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Branch Manager
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Address
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Branch District
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         State
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Pincode
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Update
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Status
                                     </th>
                                 </tr>
@@ -175,44 +175,44 @@ export default function ViewBranch() {
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchcode}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchname}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchemail}
                                             </td>
                                             {/* <td className="whitespace-wrap px-4 py-4">
                                                 {data.password}
                                             </td> */}
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchmobile}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchphone}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.concernperson}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="hitespace-nowrap px-1 border border-black">
                                                 {data.branchaddress}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchdistrict}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchstate}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.branchpincode}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="whitespace-nowrap px-1 border border-black">
                                                 <UpdateBranch branch={data} onUpdate={onUpdateBranch} />
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDeleteBranch(data.id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Active</button>
+                                            <td className="whitespace-nowrap px-1 border border-black">
+                                                <button type="button" onClick={() => onDeleteBranch(data.id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Active</button>
                                             </td>
                                         </tr>
                                     );

@@ -109,24 +109,24 @@ function AllOpsDetails() {
             console.error("Error fetching updated insurance data:", error);
         }
     };
-
     const exportToExcel = () => {
         try {
-            const fileType =
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
             const fileName = `${name}_opsAdmin`;
-            // Get all table headers and rows
-            const tableHeaders = document.querySelectorAll(".table th");
-            const tableRows = document.querySelectorAll(".table tbody tr");
-            // Include only the first 26 columns and all rows
-            const columnsToInclude = Array.from(tableHeaders).slice(0, 26);
-            const rowsToInclude = Array.from(tableRows).map(row => {
-                const cells = Array.from(row.querySelectorAll("td")).slice(0, 26);
-                return cells.map(cell => cell.textContent);
+
+            // Include all filtered data
+            const dataToExport = filteredData.map(row => {
+                // Exclude the first column which is the "Update" button
+                return Object.values(row).slice(1, 24);
             });
+
+            // Get all table headers except the first one (Update button)
+            const tableHeaders = ["Reference ID", "Entry Date", "Branch", "Insured By", "Contact No.", "Policy Made By", "Sent Time", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
+
             // Create worksheet
-            const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+            const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+
             // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
@@ -145,6 +145,9 @@ function AllOpsDetails() {
             toast.error("Error exporting to Excel");
         }
     };
+
+
+
 
     const handleExportClick = () => {
         exportToExcel();
@@ -233,7 +236,7 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sent Time
                                     </th>
-                                   
+
                                     <th scope="col" className="px-3 border border-black">
                                         Company
                                     </th>
@@ -279,27 +282,7 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Pay Mode
                                     </th>
-                                    {/* <th scope="col" className="px-3 border border-black sticky">
-                                        Segment
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sourcing
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Hypothinition
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Advisor Name
-                                    </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Sub-Advisor Name
-                                    </th>
-                                    
-                                  
-                                    <th scope="col" className="px-3 border border-black sticky">
-                                        Final Premium(GST%)
-                                    </th> */}
-                                   
+
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">

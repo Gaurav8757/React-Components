@@ -79,53 +79,50 @@ export default function ViewSalary() {
                         </div>
                         <div className="inline-block min-w-full w-full py-0  overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
-                            <thead className="border-b font-medium bg-slate-300 sticky top-2">
-                                <tr className="text-blue-700 sticky top-2">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-0">
+                                <tr className="text-blue-700 sticky top-0">
                                    
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
                                     Employee Name
                                     </th>
                                     
                                    
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
                                         Monthly Salary
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
                                     Monthly Leave
                                     </th>
                                    
-                                    <th scope="col" className="px-5 py-4">
-                                        Edit
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        Update
                                     </th>
-                                    <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
                                         Delete
                                     </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                 {APIData.map((data) => {
-                                   
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}
                                         >
-                                           
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="px-1 py-0  border border-black">
                                                 {data.empName}
                                             </td>
-                                            <td className="whitespace-nowrap px4 py-4">
+                                            <td className="px-1 py-0  border border-black">
                                                 {data.salmonth}
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="px-1 py-0  border border-black">
                                                 {data.saleavemonth}
                                             </td>
-                                          
-                                            <td className="whitespace-nowrap px-4 py-4">
+                                            <td className="px-1 py-0  border border-black">
                                                <UpdateSalary salary = {data} onUpdate = {onUpdateSalary}/>
                                             </td>
-                                            <td className="whitespace-nowrap px-4 py-4">
-                                                <button type="button" onClick={() => onDeleteEmployeeSalary(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                            <td className="px-1 py-1  border border-black">
+                                                <button type="button" onClick={() => onDeleteEmployeeSalary(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center">Delete</button>
                                             </td>
                                         </tr>
                                     );

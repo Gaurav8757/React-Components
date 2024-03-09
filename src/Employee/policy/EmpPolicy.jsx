@@ -117,23 +117,64 @@ function EmpPolicy() {
 
 
 
+    // const exportToExcel = () => {
+    //     try {
+    //         const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    //         const fileExtension = ".xlsx";
+    //         const fileName = `${name}_executive`;
+
+    //         // Include all filtered data
+    //         const dataToExport = filteredData.map(row => {
+    //             // Exclude the first column which is the "Update" button
+    //             return Object.values(row).slice(1, 23);
+    //         });
+
+    //         // Get all table headers except the first one (Update button)
+    //         const tableHeaders = ["Entry Date","Received Time", "Updated Time","Reference ID",  "Branch", "Insured By", "Contact No.", "Policy Made Through", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
+
+    //         // Create worksheet
+    //         const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+
+    //         // Create workbook and export
+    //         const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    //         const excelBuffer = XLSX.write(wb, {
+    //             bookType: "xlsx",
+    //             type: "array",
+    //         });
+    //         const data = new Blob([excelBuffer], { type: fileType });
+    //         const url = URL.createObjectURL(data);
+    //         const link = document.createElement("a");
+    //         link.href = url;
+    //         link.setAttribute("download", fileName + fileExtension);
+    //         document.body.appendChild(link);
+    //         link.click();
+    //     } catch (error) {
+    //         console.error("Error exporting to Excel:", error);
+    //         toast.error("Error exporting to Excel");
+    //     }
+    // };
+
     const exportToExcel = () => {
         try {
-            const fileType =
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
-            const fileName = name;
-            // Get all table headers and rows
-            const tableHeaders = document.querySelectorAll(".table th");
-            const tableRows = document.querySelectorAll(".table tbody tr");
-            // Include only the first 26 columns and all rows
-            const columnsToInclude = Array.from(tableHeaders).slice(0, 25);
-            const rowsToInclude = Array.from(tableRows).map(row => {
-                const cells = Array.from(row.querySelectorAll("td")).slice(0, 25);
-                return cells.map(cell => cell.textContent);
-            });
+            const fileName = `${name}_executive`;
+    
+            // Filter data by current date
+            const currentDate = new Date().toISOString().split('T')[0];
+            const dataToExport = filteredData
+                .filter(row => row.entryDate === currentDate)
+                .map(row => {
+                    // Exclude the first column which is the "Update" button
+                    return Object.values(row).slice(1, 23);
+                });
+    
+            // Get all table headers except the first one (Update button)
+            const tableHeaders = ["Entry Date","Received Time", "Updated Time","Reference ID",  "Branch", "Insured By", "Contact No.", "Policy Made Through", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
+    
             // Create worksheet
-            const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+            const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+    
             // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
@@ -152,6 +193,7 @@ function EmpPolicy() {
             toast.error("Error exporting to Excel");
         }
     };
+    
 
     const handleExportClick = () => {
         exportToExcel();

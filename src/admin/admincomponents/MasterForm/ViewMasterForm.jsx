@@ -15,7 +15,7 @@ function ViewMasterForm() {
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
-
+const name = sessionStorage.getItem('email');
   useEffect(() => {
     setItemsPerPage(20);
   }, []);
@@ -110,21 +110,130 @@ function ViewMasterForm() {
 
   const exportToExcel = () => {
     try {
-      const fileType =
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
-      const fileName = "policy_lists";
-      // Get all table headers and rows
-      const tableHeaders = document.querySelectorAll(".table th");
-      const tableRows = document.querySelectorAll(".table tbody tr");
-      // Include only the first 26 columns and all rows
-      const columnsToInclude = Array.from(tableHeaders).slice(0, 48);
-      const rowsToInclude = Array.from(tableRows).map(row => {
-        const cells = Array.from(row.querySelectorAll("td")).slice(0, 48);
-        return cells.map(cell => cell.textContent);
+      const fileName = `${name}`;
+  
+      // Map all data without filtering by current date
+      const dataToExport = filteredData.map(row => {
+        return [
+          row.entryDate,
+          row._id,
+          row.branch,
+          row.insuredName,
+          row.contactNo,
+          row.staffName,
+          row.currentTime,
+          row.empTime,
+          row.company,
+          row.category,
+          row.policyType,
+          row.policyNo,
+          row.engNo,
+          row.chsNo,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.rsa,
+          row.taxes,
+          row.finalEntryFields,
+          row.odDiscount,
+          row.ncb,
+          row.policyPaymentMode,
+          row.vehRegNo,
+          row.segment,
+          row.sourcing,
+          row.policyStartDate,
+          row.policyEndDate,
+          row.odExpiry,
+          row.tpExpiry,
+          row.idv,
+          row.bodyType,
+          row.makeModel,
+          row.mfgYear,
+          row.registrationDate,
+          row.vehicleAge,
+          row.fuel,
+          row.gvw,
+          row.cc,
+          row.productCode,
+          row.advisorName,
+          row.subAdvisor,
+          row.payoutOn,
+          row.paymentDoneBy,
+          row.chqNoRefNo,
+          row.bankName,
+          row.chqPaymentDate,
+          row.chqStatus,
+          row.advisorPayableAmount,
+          row.branchPayout,
+          row.branchPayableAmount,
+          row.companyPayout,
+          row.profitLoss,
+
+        ];
       });
+  
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Entry Date",
+        "Reference ID",
+        "Branch",
+        "Insured Name",
+        "Contact No",
+        "Policy Made By",
+        "Policy Received Time",
+        "Policy Update Time",
+        "Company",
+        "Category",
+        "Policy Type",
+        "Policy No",
+        "Engine No",
+        "Chassis No",
+        "OD Premium",
+        "Liability Premium",
+        "Net Premium",
+        "RSA",
+        "GST Amount",
+        "Final Amount",
+        "OD Discount(%)",
+        "NCB",
+        "Policy Payment Mode",
+        "Vehicle Reg No",
+        "Segment",
+        "Sourcing",
+        "Policy Start Date",
+        "Policy End Date",
+        "OD Expiry",
+        "TP Expiry",
+        "IDV",
+        "Body Type",
+        "Make & Model",
+        "MFG Year",
+        "Registration Date",
+        "Vehicle Age",
+        "Fuel",
+        "GVW",
+        "C.C",
+        "Product Code",
+        "Advisor Name",
+        "Sub Advisor",
+        "Payout On",
+        "Payment Done By",
+        "CHQ No / Ref No",
+        "Bank Name",
+        "CHQ / Payment Date",
+        "CHQ Status",
+        "Advisor Payable Amount",
+        "Branch Payout",
+        "Branch Payable Amount",
+        "Company Payout",
+        "Profit/Loss"
+      ];
+  
       // Create worksheet
-      const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+  
       // Create workbook and export
       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
       const excelBuffer = XLSX.write(wb, {
@@ -143,6 +252,9 @@ function ViewMasterForm() {
       toast.error("Error exporting to Excel");
     }
   };
+  
+
+ 
 
   const handleExportClick = () => {
     exportToExcel();
@@ -277,10 +389,6 @@ function ViewMasterForm() {
                   <th scope="col" className="px-1 border border-black">Product Code</th>
                   <th scope="col" className="px-1 border border-black">Advisor Name</th>
                   <th scope="col" className="px-1 border border-black">Sub Advisor</th>
-
-
-
-
                   <th scope="col" className="px-1 border border-black">Payout On</th>
                   <th scope="col" className="px-1 border border-black">Payment Done By</th>
                   <th scope="col" className="px-1 border whitespace-nowrap border-black">CHQ No / Ref No</th>

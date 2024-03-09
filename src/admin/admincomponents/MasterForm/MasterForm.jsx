@@ -130,7 +130,7 @@ function MasterForm() {
           console.error(error);
         });
     }
-  }, [APIData]);
+  }, [formSubmitted]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -231,8 +231,8 @@ function MasterForm() {
   const calculateFinalAmount = () => {
     const netPremiumValue = parseFloat(netPremium) || 0;
     const taxesValue = parseFloat(taxes) || 0;
-
-    const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
+    const rsaValue = parseFloat(rsa) || 0;
+    const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
 
     setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
   };
@@ -277,12 +277,10 @@ function MasterForm() {
     // odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
     odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1, odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
     setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
-
     // Update policyEndDate by adding 1 year to the selected policyStartDate
     const policyEndDateValue = new Date(startDate);
     policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1, policyEndDateValue.getMonth(), policyEndDateValue.getDate() - 1);
     setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
-
     // Update TP Expiry by adding 1 year to the selected policyStartDate
     const tpExpiryDate = new Date(startDate);
     tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3, tpExpiryDate.getMonth(), tpExpiryDate.getDate() - 1);
@@ -290,8 +288,6 @@ function MasterForm() {
     // Set the selected policyStartDate
     setPolicyStartDate(startDate);
   };
-
-
 
   // Handle form submission logic here
   const handleSubmit = async (e) => {
@@ -311,9 +307,7 @@ function MasterForm() {
     if (!company) {
       errors.company = "required*";
     }
-    if (!category) {
-      errors.category = "required*";
-    }
+    
     if (!branch) {
       errors.branch = "required*";
     }
@@ -524,7 +518,9 @@ function MasterForm() {
       }
     } catch (error) {
       console.error("Error during branch registration:", error.response);
-    }
+    }finally {
+      setFormSubmitted(false);
+  }
   };
 
 
@@ -653,7 +649,7 @@ function MasterForm() {
                   ))))
                 }
               </select>
-              {errors.category && <span className="text-red-600 text-sm ">{errors.category}</span>}
+              {/* {errors.category && <span className="text-red-600 text-sm ">{errors.category}</span>} */}
             </div>
 
             {/* FIELD - 8 */}
@@ -680,6 +676,7 @@ function MasterForm() {
               </select>
               {errors.policyType && <span className="text-red-600 text-sm ">{errors.policyType}</span>}
             </div>
+            
             {/* FIELD - 9 */}
             <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
@@ -1345,8 +1342,9 @@ function MasterForm() {
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
               onClick={handleSubmit}
+              disabled={formSubmitted}
               type="button">
-              Submit
+               {formSubmitted ? "Submitted" : "Submit"}
             </button>
           </div>
 

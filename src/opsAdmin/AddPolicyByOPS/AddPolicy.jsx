@@ -211,7 +211,6 @@ function AddPolicy() {
                                 }
                             </select>
 </div>
-
                     </div>
 
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
@@ -224,6 +223,7 @@ function AddPolicy() {
                             {formSubmitted ? "Submitted" : "Submit"}
                         </button>
                     </div>
+
                 </div>
             </div>
         </section>

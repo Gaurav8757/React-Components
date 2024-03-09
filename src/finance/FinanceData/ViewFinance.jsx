@@ -16,7 +16,7 @@ function ViewFinance() {
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
-
+const name = sessionStorage.getItem('finname');
 
   useEffect(() => {
     setItemsPerPage(20);
@@ -117,25 +117,107 @@ function ViewFinance() {
 
   const exportToExcel = () => {
     try {
-      const fileType =
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
-      const fileName = "policy_lists";
-
-      // Get all table headers and rows
-      const tableHeaders = document.querySelectorAll(".table th");
-      const tableRows = document.querySelectorAll(".table tbody tr");
-
-      // Include only the first 26 columns and all rows
-      const columnsToInclude = Array.from(tableHeaders).slice(0, 48);
-      const rowsToInclude = Array.from(tableRows).map(row => {
-        const cells = Array.from(row.querySelectorAll("td")).slice(0, 48);
-        return cells.map(cell => cell.textContent);
+      const fileName = `${name}_executive`;
+  
+      // Map all data without filtering by current date
+      const dataToExport = filteredData.map(row => {
+        return [
+          row.entryDate,
+          row._id,
+          row.branch,
+          row.insuredName,
+          row.contactNo,
+          row.staffName,
+          row.currentTime,
+          row.empTime,
+          row.company,
+          row.category,
+          row.policyType,
+          row.policyNo,
+          row.engNo,
+          row.chsNo,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.rsa,
+          row.taxes,
+          row.finalEntryFields,
+          row.odDiscount,
+          row.ncb,
+          row.policyPaymentMode,
+          row.vehRegNo,
+          row.segment,
+          row.sourcing,
+          row.policyStartDate,
+          row.policyEndDate,
+          row.odExpiry,
+          row.tpExpiry,
+          row.idv,
+          row.bodyType,
+          row.makeModel,
+          row.mfgYear,
+          row.registrationDate,
+          row.vehicleAge,
+          row.fuel,
+          row.gvw,
+          row.cc,
+          row.productCode,
+          row.advisorName,
+          row.subAdvisor,
+        ];
       });
-
+  
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Entry Date",
+        "Reference ID",
+        "Branch",
+        "Insured Name",
+        "Contact No",
+        "Policy Made By",
+        "Policy Received Time",
+        "Policy Update Time",
+        "Company",
+        "Category",
+        "Policy Type",
+        "Policy No",
+        "Engine No",
+        "Chassis No",
+        "OD Premium",
+        "Liability Premium",
+        "Net Premium",
+        "RSA",
+        "GST Amount",
+        "Final Amount",
+        "OD Discount(%)",
+        "NCB",
+        "Policy Payment Mode",
+        "Vehicle Reg No",
+        "Segment",
+        "Sourcing",
+        "Policy Start Date",
+        "Policy End Date",
+        "OD Expiry",
+        "TP Expiry",
+        "IDV",
+        "Body Type",
+        "Make & Model",
+        "MFG Year",
+        "Registration Date",
+        "Vehicle Age",
+        "Fuel",
+        "GVW",
+        "C.C",
+        "Product Code",
+        "Advisor Name",
+        "Sub Advisor",
+      ];
+  
       // Create worksheet
-      const ws = XLSX.utils.aoa_to_sheet([Array.from(columnsToInclude).map(header => header.textContent), ...rowsToInclude]);
-
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+  
       // Create workbook and export
       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
       const excelBuffer = XLSX.write(wb, {
@@ -154,6 +236,8 @@ function ViewFinance() {
       toast.error("Error exporting to Excel");
     }
   };
+  
+
 
   const handleExportClick = () => {
     exportToExcel();
@@ -199,7 +283,7 @@ function ViewFinance() {
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
 
-            <div className="flex p-0 ml-10 justify-center text-center w-full lg:w-1/4">
+            <div className="flex p-0  justify-start text-center w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Filter by ID:</label>
               <input
                 type="search"
@@ -209,7 +293,7 @@ function ViewFinance() {
               />
             </div>
 
-            <div className="flex justify-end p-0 text-end w-full lg:w-1/4">
+            <div className="flex justify-start p-0 text-end w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Filter by Company:</label>
               <input
                 type="search"
