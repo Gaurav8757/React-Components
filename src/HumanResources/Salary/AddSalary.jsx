@@ -8,7 +8,7 @@ function AddSalary() {
   const [monthleave, setMonthleave] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState();
- console.log(selectedEmployeeId);
+
   useEffect(() => {
     // Fetch the list of employees when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/employee-lists").then((response) => {
@@ -27,9 +27,9 @@ function AddSalary() {
     setLoading(true);
     
     try {
-      const response = await axios.patch(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`, {
-        salmonth: monthsalary,
-        saleavemonth: monthleave,
+      const response = await axios.put(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`, {
+        salary: monthsalary,
+        leavemonth: monthleave,
       });
 
       if (response.data) {

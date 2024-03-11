@@ -13,8 +13,7 @@ function ReportEmp() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
     const [holidayData, setHolidayData] = useState([]);
-    console.log(APIData);
-
+   
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
