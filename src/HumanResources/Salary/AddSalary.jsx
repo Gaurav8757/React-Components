@@ -7,7 +7,8 @@ function AddSalary() {
   const [monthsalary, setMonthsalary] = useState("");
   const [monthleave, setMonthleave] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [selectedEmployeeId, setSelectedEmployeeId] = useState();
+ console.log(selectedEmployeeId);
   useEffect(() => {
     // Fetch the list of employees when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/employee-lists").then((response) => {
@@ -26,7 +27,7 @@ function AddSalary() {
     setLoading(true);
     
     try {
-      const response = await axios.put(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployee}`, {
+      const response = await axios.patch(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`, {
         salmonth: monthsalary,
         saleavemonth: monthleave,
       });
@@ -63,9 +64,18 @@ function AddSalary() {
               className="input-style rounded-lg text-base h-10"
               name="empadd"
               value={selectedEmployee}
-              onChange={(e) => setSelectedEmployee(e.target.value)}
+              // onChange={(e) => setSelectedEmployee(e.target.value)}
+              onChange={(e) => {
+                const selectedName = e.target.value;
+                setSelectedEmployee(selectedName); // Set the selected employee's name
+                // Find the employee object corresponding to the selected name and get its _id
+                const selectedEmployee = sortedAPIData.find(employee => employee.empname === selectedName);
+                if (selectedEmployee) {
+                  setSelectedEmployeeId(selectedEmployee._id);
+                }
+              }}
             >
-              <option value="" disabled className="text-base">
+              <option value=""  className="text-base">
                 ----- Select Employee -----
               </option>
               {sortedAPIData.map((employee) => (
