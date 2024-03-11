@@ -13,7 +13,8 @@ function ReportEmp() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
     const [holidayData, setHolidayData] = useState([]);
-    
+    console.log(APIData);
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -142,7 +143,6 @@ function ReportEmp() {
                            
                             <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` :status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' :  ''}`}>
                                 {text}
-                               
                                     <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
                                
                             </td>
@@ -171,9 +171,6 @@ function ReportEmp() {
         });
     };
     
-
-
-
     const renderYears = () => {
         const currentYear = new Date().getFullYear();
         const years = [];
@@ -193,7 +190,6 @@ function ReportEmp() {
         return months;
     };
 
-
     const renderTableHeaders = () => {
         const headers = [];
         const daysInMonth = new Date(year, month, 0).getDate();
@@ -204,11 +200,10 @@ function ReportEmp() {
             const formattedDate = i.toString().padStart(2, '0'); // Format date as '01', '02', ...
             const weekdayIndex = currentDate.getDay(); // Get the index of the day of the week (0 for Sunday, 1 for Monday, etc.)
             const weekday = weekdays[weekdayIndex]; // Get the corresponding weekday from the array
-          
             // Find holiday data for the current date
-        const formattedDateStr = currentDate.toLocaleDateString('en-GB'); // Format date as 'dd/MM/yyyy'
-        const holiday = holidayData.find(holiday => holiday.hdate === formattedDateStr);
-        const isHoliday = !!holiday;
+            const formattedDateStr = currentDate.toLocaleDateString('en-GB'); // Format date as 'dd/MM/yyyy'
+            const holiday = holidayData.find(holiday => holiday.hdate === formattedDateStr);
+            const isHoliday = !!holiday;
            
             headers.push(
                 <th  className={`border   border-blue-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ': weekdayIndex === 0 ? 'bg-red-300 text-red-700': ''}`}
@@ -238,7 +233,6 @@ function ReportEmp() {
                 .then((response) => {
 
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
@@ -251,7 +245,6 @@ function ReportEmp() {
             const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
             const fileName = name;
-    
             // Get all table headers and rows
             const tableHeaders = document.querySelectorAll(".table th");
             const tableRows = document.querySelectorAll(".table tbody tr");
@@ -266,7 +259,6 @@ function ReportEmp() {
             // Create worksheet
             const wsData = [columnsToInclude, ...rowsToInclude];
             const ws = XLSX.utils.aoa_to_sheet(wsData);
-    
             // Create workbook and export
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
@@ -326,11 +318,9 @@ function ReportEmp() {
                 <div className="inline-block max-w-full w-full py-6 sm:px-6 lg:px-8">
                     <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Attendance Report</h1>
                     <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-
                         <button className="absolute top-2 right-24" onClick={handleExportClick}>
                             <img src="/excel.png" alt="download" className="w-12" />
                         </button>
-
                         <NavLink to="/hr/home/addemployee" >
                             <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
                         </NavLink>

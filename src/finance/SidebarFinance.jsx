@@ -42,7 +42,7 @@ const SidebarFinance = () => {
     setOpenSubmenu(null);
   };
 
-  const loginBranch = sessionStorage.getItem("finemail");
+  // const loginBranch = sessionStorage.getItem("finemail");
   const name = sessionStorage.getItem("finname");
   return (
     <>
@@ -77,9 +77,9 @@ const SidebarFinance = () => {
                     <p className="text-sm text-gray-900 dark:text-white" role="none">
                       {name}
                     </p>
-                    <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                    {/* <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                      {loginBranch}
-                    </p>
+                    </p> */}
                   </div>
                   <ul className="py-1" role="none">
                     <li>

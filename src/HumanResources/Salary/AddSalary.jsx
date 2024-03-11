@@ -12,17 +12,21 @@ function AddSalary() {
     // Fetch the list of employees when the component mounts
     axios.get("https://eleedomimf.onrender.com/api/employee-lists").then((response) => {
       setEmployeeList(response.data);
-      
     });
   }, []);
+
+  const sortedAPIData = employeeList.slice().sort((a, b) => {
+    const empidA = parseInt(a.empid.split('-')[1]);
+    const empidB = parseInt(b.empid.split('-')[1]);
+    return empidA - empidB;
+});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addsalary", {
-        empName: selectedEmployee,
+      const response = await axios.put(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployee}`, {
         salmonth: monthsalary,
         saleavemonth: monthleave,
       });
@@ -64,7 +68,7 @@ function AddSalary() {
               <option value="" disabled className="text-base">
                 ----- Select Employee -----
               </option>
-              {employeeList.map((employee) => (
+              {sortedAPIData.map((employee) => (
                 <option key={employee.empid} value={employee.empname} className="text-base">
                   {employee.empid} - {employee.empname}
                 </option>
@@ -107,10 +111,6 @@ function AddSalary() {
               >
                 {loading ? "Submitting..." : "Submit"}
               </button>
-              {/* <NavLink to="/hr/home/viewsalary" className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2 text-center me-2 mb-2">
-              
-              View
-              </NavLink> */}
             </div>
           </form>
         </div>

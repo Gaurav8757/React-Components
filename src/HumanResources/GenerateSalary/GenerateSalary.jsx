@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function GenerateSalary() {
@@ -26,6 +26,7 @@ function GenerateSalary() {
   const [emppf, setEmpPf] = useState("");
   const [empesi, setEmpESI] = useState("");
   const [emploanemi, setEmpLoanemi] = useState("");
+
   useEffect(() => {
     axios.get("https://eleedomimf.onrender.com/api/salary-list").then((response) => {
       setSalaryList(response.data);
@@ -105,15 +106,15 @@ const handleEmpPf = ()=>{
         totalDays: totaldays,
         incentive: incentive,
         empgrossSalary: empgrossSalary,
-      empbasicSalary: empbasicSalary,
-      emphra: emphra,
-      empca:empca,
-      empmedical:empmedical,
-      emptiffin:emptiffin,
-      empcompanyPf:empcompanyPf,
-      emppf: emppf,
-      empesi: empesi,
-      emploanemi:emploanemi,
+        empbasicSalary: empbasicSalary,
+        emphra: emphra,
+        empca:empca,
+        empmedical:empmedical,
+        emptiffin:emptiffin,
+        empcompanyPf:empcompanyPf,
+        emppf: emppf,
+        empesi: empesi,
+        emploanemi:emploanemi,
         totalAmount: amount,
       });
       if (response.data) {

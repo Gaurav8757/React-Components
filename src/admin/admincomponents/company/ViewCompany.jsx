@@ -142,7 +142,6 @@ export default function ViewCompany() {
                                     <th scope="col" className="px-1 border border-black sticky">
                                         Category
                                     </th>
-
                                     <th scope="col" className="px-1 border border-black sticky">
                                         Files
                                     </th>
