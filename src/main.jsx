@@ -142,13 +142,19 @@ import CurrentAttendance from "./HumanResources/attendanceReport/CurrentAttendan
 import AddFinance from "./finance/FinanceData/AddFinance.jsx";
 import ViewFinance from "./finance/FinanceData/ViewFinance.jsx";
 import SalarySlip from "./HumanResources/Salary/SalarySlip.jsx";
-import OffersLetter from "./admin/admincomponents/Letters/OffersLetter.jsx";
-import ResignationLetter from "./admin/admincomponents/Letters/ResignationLetter.jsx";
-import TerminationLetter from "./admin/admincomponents/Letters/TerminationLetter.jsx";
-import IncrementLetter from "./admin/admincomponents/Letters/IncrementLetter.jsx";
-import JoiningLetter from "./admin/admincomponents/Letters/JoiningLetter.jsx";
+import OffersLetter from "./HumanResources/Letters/offers/OffersLetter.jsx";
+import ResignationLetter from "./HumanResources/Letters/ResignationLetter.jsx";
+import TerminationLetter from "./HumanResources/Letters/termination/TerminationLetter.jsx";
+import IncrementLetter from "./HumanResources/Letters/increment/IncrementLetter.jsx";
+import JoiningLetter from "./HumanResources/Letters/joining/JoiningLetter.jsx";
 import LeaveApplication from "./Employee/LeaveApplication/LeaveApplication.jsx";
 import AddPolicy from "./opsAdmin/AddPolicyByOPS/AddPolicy.jsx";
+import AddOfferLetter from "./HumanResources/Letters/offers/AddOfferLetter.jsx";
+import ViewOfferLetter from "./HumanResources/Letters/offers/ViewOfferLetter.jsx";
+import AddJoining from "./HumanResources/Letters/joining/AddJoining.jsx";
+import ViewJoining from "./HumanResources/Letters/joining/ViewJoining.jsx";
+import AddIncrement from "./HumanResources/Letters/increment/AddIncrement.jsx";
+import ViewIncrement from "./HumanResources/Letters/increment/ViewIncrement.jsx";
 
 
 const router = createBrowserRouter(
@@ -252,11 +258,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
-          <Route path="/dashboard/offer/letters" element={<OffersLetter/>} />
-          <Route path="/dashboard/resign/letter" element={<ResignationLetter/>} />
-          <Route path="/dashboard/terminate/letter" element={<TerminationLetter/>} />
-          <Route path="/dashboard/increment/letter" element={<IncrementLetter/>} />
-          <Route path="/dashboard/joining/letter" element={<JoiningLetter/>} />
+          
         </Route>
       </Route>
 
@@ -321,6 +323,19 @@ const router = createBrowserRouter(
           <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
           <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance/>} />
           <Route path="/hr/home/salary/slip" element={<SalarySlip/>} />  
+          <Route path="/hr/home/add/offer/letter" element={<AddOfferLetter/>} />
+          <Route path="/hr/home/view/offer/letter" element={<ViewOfferLetter/>} />
+          <Route path="/hr/home/offer/letters" element={<OffersLetter/>} />
+          <Route path="/hr/home/resign/letter" element={<ResignationLetter/>} />
+          <Route path="/hr/home/terminate/letter" element={<TerminationLetter/>} />
+
+          <Route path="/hr/home/add/increment/letter" element={<AddIncrement/>} />
+          <Route path="/hr/home/view/increment/letter"  element={<ViewIncrement/>}/>
+          <Route path="/hr/home/increment/letter" element={<IncrementLetter/>} />
+
+          <Route path="/hr/home/add/joining/letter" element={<AddJoining/>} />
+          <Route path="/hr/home/view/joining/letter" element={<ViewJoining/>} />
+          <Route path="/hr/home/joining/letter" element={<JoiningLetter/>} />
         </Route>
       </Route>
 

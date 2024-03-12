@@ -153,31 +153,7 @@ const Sidebar = () => {
           path: "/dashboard/holiday/add",
           dash:""
         },
-        {
-          title: "Offers Letter",
-          path: "/dashboard/offer/letters",
-          dash:""
-        },
-        {
-          title: "Joining Letter",
-          path: "/dashboard/joining/letter",
-          dash:""
-        },
-        {
-          title: "Increment Letter",
-          path: "/dashboard/increment/letter",
-          dash:""
-        },
-        {
-          title: "Termination Letter",
-          path: "/dashboard/terminate/letter",
-          dash:""
-        },
-        {
-          title: "Resignation Letter",
-          path: "/dashboard/resign/letter",
-          dash:""
-        },
+        
       ]
     },
 

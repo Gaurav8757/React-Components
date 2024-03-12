@@ -74,9 +74,8 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
             <button
                 onClick={openModal}
                 type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
-            >
-                Edit
+                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1.5 my-1 text-center">
+                Update
             </button>
 
             {isModalOpen && (
@@ -87,185 +86,169 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                     aria-hidden="true"
                     className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50"
                 >
-                    <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
+                    <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto mt-40">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-lg shadow ">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                                <h3 className="text-xl font-semibold text-gray-50 ">
                                     Update Generated Salary
                                 </h3>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className=" bg-transparent hover:text-red-500 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                 >
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap ">
-                                    {/* ... other form elements ... */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col ">
-                                            <label className="text-base mx-1">Employee Name</label>
-                                            <select
-                                                className="input-style rounded-lg text-base h-10" value={data.empName} onChange={handleInputChange} name="empName">
-                                                <option value={data.empName} className="text-base">
-                                                    {data.empName}
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <div className="flex flex-col my-5 ">
-                                            <label className="text-base mx-1">Monthly Leave:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                max="12"
-                                                value={data.monthleave}
-                                                onChange={handleInputChange}
-                                                name="monthleave"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Total Days:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.totalDays}
-                                                onChange={handleInputChange}
-                                                name="totalDays"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Total Half Days:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.totalHalfDays}
-                                                onChange={handleInputChange}
-                                                name="totalHalfDays"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Salary:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.genSalary}
-                                                onChange={handleInputChange}
-                                                name="genSalary"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Total Amount:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.totalAmount}
-                                                onChange={handleInputChange}
-                                                name="totalAmount"
-                                            />
-                                        </div>
+                                <div className="flex flex-wrap justify-between">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Employee Name</label>
+                                        <select
+                                            className="input-style bg-red-100 rounded-lg text-base h-10" value={data.empName} onChange={handleInputChange} name="empName">
+                                            <option value={data.empName} className="text-base">
+                                                {data.empName}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Monthly Salary:</label>
+                                        <input
+                                            className="input-style bg-red-100 rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.monthsalary}
+                                            onChange={handleInputChange}
+                                            name="monthsalary"
+                                            placeholder=""
+                                            readOnly
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                        <label className="text-base  mx-1">Monthly Leave:</label>
+                                        <input
+                                            className="input-style bg-red-100 rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            max="12"
+                                            value={data.monthleave}
+                                            onChange={handleInputChange}
+                                            name="monthleave"
+                                            readOnly
+                                        />
                                     </div>
 
-
-                                    {/* part-2 */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
-                                            <label className="text-base mx-1">Monthly Salary:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.monthsalary}
-                                                onChange={handleInputChange}
-                                                name="monthsalary"
-                                                placeholder=""
-                                                readOnly
-                                            />
-                                        </div>
-
-
-
-
-                                        <div className="flex flex-col my-5 ">
-                                            <label className="text-base mx-1">Months:</label>
-                                            <select
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={data.genMonths}
-                                                onChange={handleInputChange}
-                                                name="genMonths"
-                                            >
-
-                                                <option key="0" value="" disabled>----- Select Month&apos;s -----</option>
-                                                <option key="1" value={"January"}>January</option>
-                                                <option key="2" value={"Febuary"}>Febuary</option>
-                                                <option key="3" value={"March"}>March</option>
-                                                <option key="4" value={"April"}>April</option>
-                                                <option key="5" value={"May"}>May</option>
-                                                <option key="6" value={"June"}>June</option>
-                                                <option key="7" value={"July"}>July</option>
-                                                <option key="8" value={"August"}>August</option>
-                                                <option key="9" value={"September"}>September</option>
-                                                <option key="10" value={"October"}>October</option>
-                                                <option key="11" value={"November"}>November</option>
-                                                <option key="12" value={"December"}>December</option>
-                                            </select>
-                                        </div>
-
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Present Days:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.presentDays}
-                                                onChange={handleInputChange}
-                                                name="presentDays"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Total Absent:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.totalAbsent}
-                                                onChange={handleInputChange}
-                                                name="totalAbsent"
-                                            />
-                                        </div>
-
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Incentive:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="number"
-                                                min="0"
-                                                value={data.incentive}
-                                                onChange={handleInputChange}
-                                                name="incentive"
-                                                placeholder="₹"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4 ">
+                                        <label className="text-base mx-1">Months:</label>
+                                        <select
+                                            className="input-style rounded-lg"
+                                            type="text"
+                                            value={data.genMonths}
+                                            onChange={handleInputChange}
+                                            name="genMonths"
+                                        >
+                                            <option key="0" value="" >----- Select Month&apos;s -----</option>
+                                            <option key="1" value={"January"}>January</option>
+                                            <option key="2" value={"Febuary"}>Febuary</option>
+                                            <option key="3" value={"March"}>March</option>
+                                            <option key="4" value={"April"}>April</option>
+                                            <option key="5" value={"May"}>May</option>
+                                            <option key="6" value={"June"}>June</option>
+                                            <option key="7" value={"July"}>July</option>
+                                            <option key="8" value={"August"}>August</option>
+                                            <option key="9" value={"September"}>September</option>
+                                            <option key="10" value={"October"}>October</option>
+                                            <option key="11" value={"November"}>November</option>
+                                            <option key="12" value={"December"}>December</option>
+                                        </select>
                                     </div>
 
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Total Days:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.totalDays}
+                                            onChange={handleInputChange}
+                                            name="totalDays"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Present Days:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.presentDays}
+                                            onChange={handleInputChange}
+                                            name="presentDays"
+                                        />
+                                    </div>
 
-                                    <div className="w-full p-1 mt-2 justify-center flex">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Half Days:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.totalHalfDays}
+                                            onChange={handleInputChange}
+                                            name="totalHalfDays"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Absent Days:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.totalAbsent}
+                                            onChange={handleInputChange}
+                                            name="totalAbsent"
+                                        />
+                                    </div>
+
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Salary:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.genSalary}
+                                            onChange={handleInputChange}
+                                            name="genSalary"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Incentive:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.incentive}
+                                            onChange={handleInputChange}
+                                            name="incentive"
+                                            placeholder="₹"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Total Amount:</label>
+                                        <input
+                                            className="input-style rounded-lg"
+                                            type="number"
+                                            min="0"
+                                            value={data.totalAmount}
+                                            onChange={handleInputChange}
+                                            name="totalAmount"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
+
+                                    <div className="w-full p-1 mt-10 justify-center flex">
                                         <button
                                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                             onClick={updateGenSalaryAPI}
@@ -274,7 +257,7 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                             {loading ? "Submitting..." : "Submit"}
                                         </button>
                                     </div>
-                                </form>
+                                </div>
                             </section>
                         </div>
                     </div>

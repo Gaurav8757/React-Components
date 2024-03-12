@@ -94,7 +94,7 @@ export default function ViewGenPolicy() {
                 data.monthsalary,
                 data.monthleave,
                 data.genMonths,
-                data.totaldays,
+                data.totalDays,
                 data.presentDays,
                 data.totalHalfDays,
                 data.totalAbsent,
@@ -140,21 +140,21 @@ export default function ViewGenPolicy() {
         // exportToPDF();
     };
     // ******************** Delete Functions *************************************/
-    const onGenSalaryDelete = async (_id) => {
-        try {
-            await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
-            toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
-            // Update state or perform any other necessary actions
-        } catch (error) {
-            console.error('Error deleting general salary:', error);
-        }
-    };
+    // const onGenSalaryDelete = async (_id) => {
+    //     try {
+    //         await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
+    //         toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
+    //         // Update state or perform any other necessary actions
+    //     } catch (error) {
+    //         console.error('Error deleting general salary:', error);
+    //     }
+    // };
 
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
-                <div className=" relative text-blue-500 min-w-full w-full py-4 ">
+                <div className=" relative  min-w-full w-full py-4 ">
                     <div className="flex justify-between mb-4">
                         <h1></h1>
                         <h1 className="  font-semibold text-3xl w-auto mb-0 hidden sm:hidden md:block lg:block xl:block">
@@ -169,8 +169,8 @@ export default function ViewGenPolicy() {
                     </div>
                     <div className="inline-block min-w-full w-full py-0  ">
                         <table className="min-w-full text-center text-sm font-light table">
-                            <thead className="border-b font-medium bg-slate-300 sticky top-20 ">
-                                <tr className="text-blue-700 sticky top-20">
+                            <thead className="border-b font-medium bg-slate-300 sticky top-0 ">
+                                <tr className="text-blue-700 sticky top-0">
                                 <th scope="col" className="px-1 py-0 border border-black">
                                         Update
                                     </th>
@@ -240,9 +240,9 @@ export default function ViewGenPolicy() {
                                     </th>
 
                                   
-                                    <th scope="col" className="px-1 py-0 border border-black">
+                                    {/* <th scope="col" className="px-1 py-0 border border-black">
                                         Delete
-                                    </th>
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -253,6 +253,9 @@ export default function ViewGenPolicy() {
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
                                             key={data._id}
                                         >
+                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                <UpdateGenSalary genSalaries={data} onUpdate={updateGenSalary} />
+                                            </td>
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empName}
                                             </td>
@@ -318,19 +321,12 @@ export default function ViewGenPolicy() {
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emploanemi}
                                             </td>
-
-
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalAmount}
-                                            </td>
-
-                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                <UpdateGenSalary genSalaries={data} onUpdate={updateGenSalary} />
-                                            </td>
-                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
-                                            </td>
+                                            </td> 
+                                            {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
+                                            </td> */}
                                         </tr>
                                     );
                                 })}

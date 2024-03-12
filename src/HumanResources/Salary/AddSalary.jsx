@@ -20,12 +20,12 @@ function AddSalary() {
     const empidA = parseInt(a.empid.split('-')[1]);
     const empidB = parseInt(b.empid.split('-')[1]);
     return empidA - empidB;
-});
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const response = await axios.put(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`, {
         salary: monthsalary,
@@ -49,84 +49,78 @@ function AddSalary() {
     }
   };
 
-
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
-        <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-400">
+        <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Salary</h1>
-          <form className="flex flex-wrap">
-            <div className="w-full lg:w-1/2 p-2 text-start">
-              <div className="flex flex-col ">
-                <label className="text-base mx-1">  Employee:</label>
-                {/* // Render the dropdown in your form */}
-                <select
-              className="input-style rounded-lg text-base h-10"
-              name="empadd"
-              value={selectedEmployee}
-              // onChange={(e) => setSelectedEmployee(e.target.value)}
-              onChange={(e) => {
-                const selectedName = e.target.value;
-                setSelectedEmployee(selectedName); // Set the selected employee's name
-                // Find the employee object corresponding to the selected name and get its _id
-                const selectedEmployee = sortedAPIData.find(employee => employee.empname === selectedName);
-                if (selectedEmployee) {
-                  setSelectedEmployeeId(selectedEmployee._id);
-                }
-              }}
-            >
-              <option value=""  className="text-base">
-                ----- Select Employee -----
-              </option>
-              {sortedAPIData.map((employee) => (
-                <option key={employee.empid} value={employee.empname} className="text-base">
-                  {employee.empid} - {employee.empname}
+          <div className="flex flex-wrap justify-between">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">  Employee:</label>
+              {/* // Render the dropdown in your form */}
+              <select
+                className="input-style rounded-lg text-base h-10"
+                name="empadd"
+                value={selectedEmployee}
+                onChange={(e) => {
+                  const selectedName = e.target.value;
+                  setSelectedEmployee(selectedName); // Set the selected employee's name
+                  // Find the employee object corresponding to the selected name and get its _id
+                  const selectedEmployee = sortedAPIData.find(employee => employee.empname === selectedName);
+                  if (selectedEmployee) {
+                    setSelectedEmployeeId(selectedEmployee._id);
+                  }
+                }}
+              >
+                <option value="" className="text-base">
+                   ------------------ Select Employee -----------------
                 </option>
-              ))}
-            </select>
-              </div>
-              <div className="flex flex-col py-5">
-                <label className="text-base mx-1">Monthly Leave:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  min="0"
-                  name="monthleave"
-                  value={monthleave}
-                  onChange={(e) => setMonthleave(e.target.value)}
-                  placeholder=""
-                />
-              </div>
+                {sortedAPIData.map((employee) => (
+                  <option key={employee.empid} value={employee.empname} className="text-base">
+                    {employee.empid} - {employee.empname}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="w-full lg:w-1/2 p-2 text-start">
-
-              <div className="flex flex-col">
-                <label className="text-base mx-1">Monthly Salary:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="number"
-                  min="0"
-                  name="monthsalary"
-                  value={monthsalary}
-                  onChange={(e) => setMonthsalary(e.target.value)}
-                  placeholder=""
-                />
-              </div>
+           
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Monthly Salary:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                min="0"
+                name="monthsalary"
+                value={monthsalary}
+                onChange={(e) => setMonthsalary(e.target.value)}
+                placeholder=""
+              />
             </div>
-            <div className="w-full p-2">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Monthly Leave:</label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                min="0"
+                name="monthleave"
+                value={monthleave}
+                onChange={(e) => setMonthleave(e.target.value)}
+                placeholder=""
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
+            {/* button */}
+            <div className="w-full p-2 mt-10">
               <button
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
                 onClick={handleSubmit}
-                type="button"
-              >
+                type="button">
                 {loading ? "Submitting..." : "Submit"}
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
   )
 }
-
 export default AddSalary;

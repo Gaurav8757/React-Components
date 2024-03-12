@@ -8,9 +8,9 @@ function UpdateSalary({ salary, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [salaries, setSalaries] = useState({
-        empName: "",
-        salmonth: "",
-        saleavemonth: "",
+        empname: "",
+        salary: "",
+        leavemonth: "",
     })
 
     // OPEN MODAL
@@ -40,17 +40,16 @@ function UpdateSalary({ salary, onUpdate }) {
     const updateSalaryAPI = async () => {
         try {
             setLoading(true);
-
             // Make an API call to update contact
             const response = await axios.put(
                 `https://eleedomimf.onrender.com/api/salary/update/${salary._id}`, // Update the URL with the correct endpoint
                 salaries
             );
-
+            onUpdate();
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
             closeModal();
-            onUpdate();
+           
         } catch (error) {
             toast.error(`${error}`)
             console.error("Error updating Salary:", error);
@@ -64,7 +63,7 @@ function UpdateSalary({ salary, onUpdate }) {
             <button
                 onClick={openModal}
                 type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center "
+                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 my-1 text-center "
             >
                 Update
             </button>
@@ -79,17 +78,16 @@ function UpdateSalary({ salary, onUpdate }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-lg shadow dark:bg-slate-100">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                                <h3 className="text-xl font-semibold text-gray-100">
                                     Update Salary
                                 </h3>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
+                                    className=" bg-transparent hover:text-red-500 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
@@ -100,34 +98,25 @@ function UpdateSalary({ salary, onUpdate }) {
                                         <div className="flex flex-col ">
                                             <label className="text-base mx-1">  Employee:</label>
                                             {/* // Render the dropdown in your form */}
-                                            <select
+                                            <input type="text"
                                                 className="input-style rounded-lg text-base h-10"
-                                                value={salaries.empName}
+                                                value={salaries.empname}
                                                 onChange={handleInputChange}
-                                                name="empName">
-
-                                                <option value={salaries.empName} className="text-base">
-                                                    {salaries.empName}
-                                                </option>
-
-                                            </select>
+                                                name="empName"/>
+                                            
                                         </div>
-
-
                                         <div className="flex flex-col my-5">
                                             <label className="text-base mx-1">Monthly Leave:</label>
                                             <input
                                                 className="input-style rounded-lg"
                                                 type="number"
                                                 min="0"
-                                                value={salaries.saleavemonth}
+                                                value={salaries.leavemonth}
                                                 onChange={handleInputChange}
-                                                name="saleavemonth"
-
+                                                name="leavemonth"
                                             />
                                         </div>
                                     </div>
-
                                     {/* part-2 */}
                                     <div className="w-full lg:w-1/2 p-2 text-start">
                                         <div className="flex flex-col">
@@ -137,22 +126,18 @@ function UpdateSalary({ salary, onUpdate }) {
                                                 type="number"
                                                 min="0"
 
-                                                value={salaries.salmonth}
+                                                value={salaries.salary}
                                                 onChange={handleInputChange}
-                                                name="salmonth"
-
+                                                name="salary"
                                             />
                                         </div>
-
                                     </div>
-
 
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
                                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                                             onClick={updateSalaryAPI}
-                                            type="button"
-                                        >
+                                            type="button">
                                             {loading ? "Submitting..." : "Submit"}
                                         </button>
                                     </div>
