@@ -117,83 +117,88 @@ function EmpPolicy() {
 
 
 
-    // const exportToExcel = () => {
-    //     try {
-    //         const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-    //         const fileExtension = ".xlsx";
-    //         const fileName = `${name}_executive`;
 
-    //         // Include all filtered data
-    //         const dataToExport = filteredData.map(row => {
-    //             // Exclude the first column which is the "Update" button
-    //             return Object.values(row).slice(1, 23);
-    //         });
-
-    //         // Get all table headers except the first one (Update button)
-    //         const tableHeaders = ["Entry Date","Received Time", "Updated Time","Reference ID",  "Branch", "Insured By", "Contact No.", "Policy Made Through", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
-
-    //         // Create worksheet
-    //         const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-
-    //         // Create workbook and export
-    //         const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    //         const excelBuffer = XLSX.write(wb, {
-    //             bookType: "xlsx",
-    //             type: "array",
-    //         });
-    //         const data = new Blob([excelBuffer], { type: fileType });
-    //         const url = URL.createObjectURL(data);
-    //         const link = document.createElement("a");
-    //         link.href = url;
-    //         link.setAttribute("download", fileName + fileExtension);
-    //         document.body.appendChild(link);
-    //         link.click();
-    //     } catch (error) {
-    //         console.error("Error exporting to Excel:", error);
-    //         toast.error("Error exporting to Excel");
-    //     }
-    // };
 
     const exportToExcel = () => {
         try {
-            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-            const fileExtension = ".xlsx";
-            const fileName = `${name}_executive`;
-    
-            // Filter data by current date
-            const currentDate = new Date().toISOString().split('T')[0];
-            const dataToExport = filteredData
-                .filter(row => row.entryDate === currentDate)
-                .map(row => {
-                    // Exclude the first column which is the "Update" button
-                    return Object.values(row).slice(1, 23);
-                });
-    
-            // Get all table headers except the first one (Update button)
-            const tableHeaders = ["Entry Date","Received Time", "Updated Time","Reference ID",  "Branch", "Insured By", "Contact No.", "Policy Made Through", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
-    
+            const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            const fileExtension = '.xlsx';
+            const fileName = name;
+
+            // Include all sorted data
+            const rowsToInclude = filteredData.map(data => [
+                data.entryDate,
+                data.currentTime,
+                data.empTime,
+                data._id,
+                data.branch,
+                data.insuredName,
+                data.contactNo,
+                data.staffName,
+                data.company,
+                data.category,
+                data.policyType,
+                data.policyNo,
+                data.engNo,
+                data.chsNo,
+                data.odPremium,
+                data.liabilityPremium,
+                data.netPremium,
+                data.taxes,
+                data.rsa,
+                data.finalEntryFields,
+                data.odDiscount,
+                data.ncb,
+                data.policyPaymentMode
+            ]);
+
             // Create worksheet
-            const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-    
+            const ws = XLSX.utils.aoa_to_sheet([[
+                "Entry Date",
+                "Receive Time",
+                "Update Time",
+                "Reference ID",
+                "Branch",
+                "Insured Name",
+                "Mobile No.",
+                "Policy Made By",
+                "Company",
+
+                "Category",
+                "Policy Type",
+                "Policy No.",
+                "Engine No.",
+                "Chassis No",
+                "OD Premium",
+                "Liability Premium",
+                "Net Premium",
+                "GST in rupees",
+                "RSA",
+                "Final Amount",
+                "OD Discount(%)",
+                "NCB",
+                "Policy Payment Mode"
+
+            ], ...rowsToInclude]);
+
             // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
-                bookType: "xlsx",
-                type: "array",
+                bookType: 'xlsx',
+                type: 'array',
             });
             const data = new Blob([excelBuffer], { type: fileType });
             const url = URL.createObjectURL(data);
-            const link = document.createElement("a");
+            const link = document.createElement('a');
             link.href = url;
-            link.setAttribute("download", fileName + fileExtension);
+            link.setAttribute('download', fileName + fileExtension);
             document.body.appendChild(link);
             link.click();
         } catch (error) {
-            console.error("Error exporting to Excel:", error);
-            toast.error("Error exporting to Excel");
+            console.error('Error exporting to Excel:', error);
+            toast.error('Error exporting to Excel');
         }
     };
-    
 
     const handleExportClick = () => {
         exportToExcel();
@@ -284,18 +289,18 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Reference ID
                                                 </th>
-                                              
+
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Branch
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                    Insured By
+                                                    Insured Name
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Contact No.
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                    Policy Made Through
+                                                    Policy Made By
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Company
@@ -310,8 +315,15 @@ function EmpPolicy() {
                                                     Policy No.
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                   Registration Number
+                                                </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                   Fuel Type
+                                                </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Engine No.
                                                 </th>
+
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Chassis No
                                                 </th>
@@ -342,6 +354,9 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Policy Payment Mode
                                                 </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                   Advisor Name
+                                                </th>
                                             </tr>
                                         </thead>
 
@@ -366,7 +381,7 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data._id}
                                                         </td>
-                                                       
+
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.branch}
                                                         </td>
@@ -391,7 +406,12 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.policyNo}
                                                         </td>
-
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.vehRegNo}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.fuel}
+                                                        </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.engNo}
                                                         </td>
@@ -425,6 +445,9 @@ function EmpPolicy() {
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.policyPaymentMode}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.advisorName}
                                                         </td>
                                                     </tr>
                                                 );

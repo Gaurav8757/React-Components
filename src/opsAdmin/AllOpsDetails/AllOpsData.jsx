@@ -30,6 +30,9 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.currentTime}
             </td>
+            <td className="whitespace-nowrap px-1  border border-black">
+                {data.empTime}
+            </td>
             <td className="whitespace-nowrap px-1 border border-black">
                 {data.company}
             </td>

@@ -11,6 +11,9 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
 
+    const [fuelData, setFuelData] = useState([]);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
     const [empTime, setEmpTime] = useState(getFormattedTime());
 
@@ -25,7 +28,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     }
 
     const checkFormValidity = () => {
-        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo",  "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
+        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo", "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
         const emptyFields = requiredFields.filter(field => !allDetails[field]);
         return emptyFields.length === 0;
     };
@@ -50,11 +53,14 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         netPremium: '',
         taxes: '',
         rsa: '',
+        fuel: '',
+        vehRegNo: '',
         finalEntryFields: '',
         odDiscount: '',
         ncb: '',
         policyPaymentMode: "",
-        empTime: empTime
+        empTime: empTime,
+        advisorName: ""
     });
 
     // OPEN MODAL
@@ -67,6 +73,26 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         setIsModalOpen(false);
     };
 
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`https://eleedomimf.onrender.com/view/fuel`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setFuelData(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [formSubmitted]);
     // const isValidEngineChassis = (value) => {
     //     return /^[A-Za-z0-9]{6}$/.test(value);
     // };
@@ -191,6 +217,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const updateInsuranceAPI = async () => {
         try {
             setLoading(true);
+            setFormSubmitted(true);
             // Check form validity before submitting
             if (!checkFormValidity()) {
                 toast.error("Please fill in all required fields before submitting.");
@@ -309,6 +336,32 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     name="policyNo"
                                                     placeholder="Enter Policy No"
                                                 />
+                                            </div>
+                                            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Vehicle Reg No:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.vehRegNo}
+                                                    onChange={handleInputChange}
+                                                    name="vehRegNo"
+                                                    placeholder="Enter Vehicle Reg No"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Fuel:</label>
+                                                <select
+                                                    className="input-style p-1 rounded-lg"
+                                                    value={allDetails.fuel}
+                                                    onChange={handleInputChange} name="fuel">
+                                                    <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                                                    {
+                                                        fuelData.map((data) => (
+                                                            <option key={data._id} className="w-1" value={data.fuels} >{data.fuels}</option>
+                                                        ))
+                                                    }
+
+                                                </select>
                                             </div>
                                             {/* FIELD - 2 */}
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
@@ -482,6 +535,17 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     <option className="w-1" value="customer cheque" >Customer Cheque</option>
                                                     <option className="w-1" value="eleedom single cheque" >Eleedom Single Cheque</option>
                                                 </select>
+                                            </div>
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">Advisor Name:</label>
+                                                <input
+                                                    className="input-style rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.advisorName}
+                                                    onChange={handleInputChange}
+                                                    name="advisorName"
+                                                    placeholder="Enter Advisor Name"
+                                                />
                                             </div>
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
                                             <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>

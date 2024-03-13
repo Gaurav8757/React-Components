@@ -109,44 +109,122 @@ function AllOpsDetails() {
             console.error("Error fetching updated insurance data:", error);
         }
     };
+    // const exportToExcel = () => {
+    //     try {
+    //         const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    //         const fileExtension = ".xlsx";
+    //         const fileName = `${name}_opsAdmin`;
+
+    //         // Include all filtered data
+    //         const dataToExport = filteredData.map(row => {
+    //             // Exclude the first column which is the "Update" button
+    //             return Object.values(row).slice(1, 24);
+    //         });
+
+    //         // Get all table headers except the first one (Update button)
+    //         const tableHeaders = ["Reference ID", "Entry Date", "Branch", "Insured By", "Contact No.", "Policy Made By", "Sent Time", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
+
+    //         // Create worksheet
+    //         const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+
+    //         // Create workbook and export
+    //         const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    //         const excelBuffer = XLSX.write(wb, {
+    //             bookType: "xlsx",
+    //             type: "array",
+    //         });
+    //         const data = new Blob([excelBuffer], { type: fileType });
+    //         const url = URL.createObjectURL(data);
+    //         const link = document.createElement("a");
+    //         link.href = url;
+    //         link.setAttribute("download", fileName + fileExtension);
+    //         document.body.appendChild(link);
+    //         link.click();
+    //     } catch (error) {
+    //         console.error("Error exporting to Excel:", error);
+    //         toast.error("Error exporting to Excel");
+    //     }
+    // };
+
     const exportToExcel = () => {
         try {
-            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-            const fileExtension = ".xlsx";
-            const fileName = `${name}_opsAdmin`;
+            const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            const fileExtension = '.xlsx';
+            const fileName = name;
 
-            // Include all filtered data
-            const dataToExport = filteredData.map(row => {
-                // Exclude the first column which is the "Update" button
-                return Object.values(row).slice(1, 24);
-            });
-
-            // Get all table headers except the first one (Update button)
-            const tableHeaders = ["Reference ID", "Entry Date", "Branch", "Insured By", "Contact No.", "Policy Made By", "Sent Time", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
+            // Include all sorted data
+            const rowsToInclude = filteredData.map(data => [
+                data._id,
+                data.entryDate,
+                data.branch,
+                data.insuredName,
+                data.contactNo,
+                data.staffName,
+                data.currentTime,
+                data.empTime,
+                data.company,
+                data.category,
+                data.policyType,
+                data.policyNo,
+                data.engNo,
+                data.chsNo,
+                data.odPremium,
+                data.liabilityPremium,
+                data.netPremium,
+                data.taxes,
+                data.rsa,
+                data.finalEntryFields,
+                data.odDiscount,
+                data.ncb,
+                data.policyPaymentMode
+            ]);
 
             // Create worksheet
-            const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+            const ws = XLSX.utils.aoa_to_sheet([[
+                "Reference ID",
+                "Entry Date",
+                "Branch",
+                "Insured Name",
+                "Mobile No.",
+                "Policy Made By",
+                "Receive Time",
+                "Update Time",  
+                "Company",
+                "Category",
+                "Policy Type",
+                "Policy No.",
+                "Engine No.",
+                "Chassis No",
+                "OD Premium",
+                "Liability Premium",
+                "Net Premium",
+                "GST in rupees",
+                "RSA",
+                "Final Amount",
+                "OD Discount(%)",
+                "NCB",
+                "Policy Payment Mode"
+
+            ], ...rowsToInclude]);
 
             // Create workbook and export
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
-                bookType: "xlsx",
-                type: "array",
+                bookType: 'xlsx',
+                type: 'array',
             });
             const data = new Blob([excelBuffer], { type: fileType });
             const url = URL.createObjectURL(data);
-            const link = document.createElement("a");
+            const link = document.createElement('a');
             link.href = url;
-            link.setAttribute("download", fileName + fileExtension);
+            link.setAttribute('download', fileName + fileExtension);
             document.body.appendChild(link);
             link.click();
         } catch (error) {
-            console.error("Error exporting to Excel:", error);
-            toast.error("Error exporting to Excel");
+            console.error('Error exporting to Excel:', error);
+            toast.error('Error exporting to Excel');
         }
     };
-
-
 
 
     const handleExportClick = () => {
@@ -236,7 +314,9 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Sent Time
                                     </th>
-
+                                    <th scope="col" className="px-3 border border-black sticky">
+                                        Update Time
+                                    </th>
                                     <th scope="col" className="px-3 border border-black">
                                         Company
                                     </th>
