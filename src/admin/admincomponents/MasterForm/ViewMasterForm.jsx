@@ -256,9 +256,6 @@ const name = sessionStorage.getItem('email');
     }
   };
   
-
- 
-
   const handleExportClick = () => {
     exportToExcel();
     // exportToPDF();
@@ -304,8 +301,8 @@ const name = sessionStorage.getItem('email');
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
 
-            <div className="flex p-0 justify-start  text-center w-full lg:w-1/5">
-              <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
+            <div className="flex p-0 justify-center  text-end w-full lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">ID:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchId(e.target.value)}
@@ -314,7 +311,7 @@ const name = sessionStorage.getItem('email');
               />
             </div>
 
-            <div className="flex justify-start p-0 text-end w-full lg:w-1/5">
+            <div className="flex justify-start p-0 text-end w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
               <input
                 type="search"
@@ -324,7 +321,7 @@ const name = sessionStorage.getItem('email');
               />
             </div>
 
-            <div className="flex justify-start  text-start w-full lg:w-1/5">
+            <div className="flex justify-start  text-start w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Insured Name:</label>
               <input
                 type="search"
@@ -334,7 +331,7 @@ const name = sessionStorage.getItem('email');
               />
             </div>
 
-            <div className="flex text-center justify-start mt-4  lg:w-1/5">
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Policy No:</label>
               <input
                 type="search"
@@ -342,7 +339,7 @@ const name = sessionStorage.getItem('email');
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Policy Number"
               /></div>
-               <div className="flex text-center justify-start mt-4  lg:w-1/5">
+               <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Policy Made By:</label>
               <input
                 type="search"

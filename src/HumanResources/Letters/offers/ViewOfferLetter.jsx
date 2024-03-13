@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import SeparateLetter from "./SeparateLetter.jsx";
 
-
 function ViewOfferLetter() {
   const [APIData, setAPIData] = useState([]);
   const [sendStaffId, setSendStaffId] = useState(null);
@@ -65,7 +64,6 @@ function ViewOfferLetter() {
     const idLower = data.referenceno?.toLowerCase() || "";
     const designation = data.ofdesignation?.toLowerCase() || "";
     const empnameLower = data.ofname?.toLowerCase() || "";
-
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
@@ -76,11 +74,9 @@ function ViewOfferLetter() {
     );
   });
 
-
   // Calculate total number of pages
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -89,36 +85,13 @@ function ViewOfferLetter() {
   // Calculate starting and ending indexes of items to be displayed on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
-
-
-
-  const sortedData = [...APIData].sort((a, b) => {
-    const idA = a.empid.toUpperCase();
-    const idB = b.empid.toUpperCase();
-
-    if (idA === idB) return 0;
-    if (idA.startsWith("EIPL-") && idB.startsWith("EIPL-")) {
-      const numA = parseInt(idA.replace("EIPL-", ""), 10);
-      const numB = parseInt(idB.replace("EIPL-", ""), 10);
-      return numA - numB;
-    } else if (idA.startsWith("EIPL-")) {
-      return -1;
-    } else if (idB.startsWith("EIPL-")) {
-      return 1;
-    } else {
-      return idA.localeCompare(idB);
-    }
-  });
-
   const exportToExcel = () => {
     try {
       const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
       const fileExtension = '.xlsx';
       const fileName = name;
-
       // Include all sorted data
-      const rowsToInclude = sortedData.map(data => [
+      const rowsToInclude = APIData.map(data => [
         data.referenceno,
         data.ofname,
         data.ofemail,
@@ -127,8 +100,7 @@ function ViewOfferLetter() {
         data.ofdesignation,
         data.ofgrosalary,
         data.ofsalaryWords,
-        data.ofvalidDate,
-
+        data.ofvalidDate,   
       ]);
 
       // Create worksheet
@@ -141,8 +113,7 @@ function ViewOfferLetter() {
         "Designation",
         "Gross Salary",
         "Salary in Words",
-        "Valid Date"
-
+        "Valid Date"    
       ], ...rowsToInclude]);
 
       // Create workbook and export
@@ -169,12 +140,11 @@ function ViewOfferLetter() {
   };
 
 
-
   // ******************** Delete Functions *************************************/
-  const onDeleteEmployee = async (_id) => {
+  const onDeleteOffers= async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/emp/api/${_id}`);
-      toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
+      await axios.delete(`https://eleedomimf.onrender.com/letters/delete/offer/${_id}`);
+      toast.warn("Offer Letter Deleted Successfully...!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
       console.error('Error deleting employee:', error);
@@ -243,6 +213,9 @@ function ViewOfferLetter() {
                       Reference No
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
+                      Created Date
+                    </th>
+                    <th scope="col" className="px-1 py-0 border border-black sticky">
                       Name
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -284,6 +257,9 @@ function ViewOfferLetter() {
                         <td className="px-1 py-0 border border-black">
                           {data.referenceno}
                         </td>
+                        <td className="px-1 py-0 border border-black">
+                          {data.ofdate}
+                        </td>
                         <td className="px-1 py-0 whitespace-nowrap border border-black">
                           {data.ofname}
                         </td>
@@ -309,8 +285,8 @@ function ViewOfferLetter() {
                           {data.ofvalidDate}
                         </td>
                         <td className="px-1 py-0 border border-black">
-                          <SeparateLetter offers={data} />
-                        </td>
+                          <SeparateLetter offers={data}  />
+                                                </td>
                         <td className="px-1 py-0 border border-black">
                           {/* to enable delete from here */}
                           <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-2 py-1 my-1 text-center">Delete</button>
@@ -326,10 +302,10 @@ function ViewOfferLetter() {
             <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-4 rounded-lg ">
                 <h2 className="text-lg font-semibold text-gray-800"> {`Are you sure you want to delete `}
-                  <span className="text-red-600">{APIData.find(data => data._id === sendStaffId)?.empname}</span>
+                  <span className="text-red-600">{APIData.find(data => data._id === sendStaffId)?.name}</span>
                   {`?`}</h2>
                 <div className="flex justify-end mt-10">
-                  <button onClick={() => { onDeleteEmployee(sendStaffId); setSendStaffId(null); }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base px-4 mr-2">
+                  <button onClick={() => { onDeleteOffers(sendStaffId); setSendStaffId(null); }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base px-4 mr-2">
                     Yes, I&apos;m sure
                   </button>
                   <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
