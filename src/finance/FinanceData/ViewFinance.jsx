@@ -16,7 +16,7 @@ function ViewFinance() {
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
-const name = sessionStorage.getItem('finname');
+  const name = sessionStorage.getItem('finname');
 
   useEffect(() => {
     setItemsPerPage(20);
@@ -120,7 +120,7 @@ const name = sessionStorage.getItem('finname');
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${name}_executive`;
-  
+
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
         return [
@@ -168,7 +168,7 @@ const name = sessionStorage.getItem('finname');
           row.subAdvisor,
         ];
       });
-  
+
       // Get all table headers in the same order
       const tableHeaders = [
         "Entry Date",
@@ -214,10 +214,10 @@ const name = sessionStorage.getItem('finname');
         "Advisor Name",
         "Sub Advisor",
       ];
-  
+
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-  
+
       // Create workbook and export
       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
       const excelBuffer = XLSX.write(wb, {
@@ -236,7 +236,7 @@ const name = sessionStorage.getItem('finname');
       toast.error("Error exporting to Excel");
     }
   };
-  
+
 
 
   const handleExportClick = () => {
@@ -313,7 +313,7 @@ const name = sessionStorage.getItem('finname');
               />
             </div>
 
-            <div className="flex p-0 text-center justify-center w-1/2 lg:w-1/4">
+            <div className="flex p-0 text-center my-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Filter by Contact No:</label>
               <input
                 type="search"
@@ -328,7 +328,7 @@ const name = sessionStorage.getItem('finname');
             <table className="min-w-full text-center bg-slate-300 text-sm font-light table border border-black">
               <thead className="border-b font-medium bg-slate-300 border border-black sticky top-16">
                 <tr className="text-blue-700 sticky top-16 border border-black">
-                <th scope="col" className="px-1 pt-0 sticky border border-black">Update</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Update</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Reference ID</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Entry Date</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Branch</th>
@@ -371,7 +371,7 @@ const name = sessionStorage.getItem('finname');
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Product Code</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Advisor Name</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sub Advisor</th>
-                  
+
                 </tr>
               </thead>
 
@@ -380,9 +380,9 @@ const name = sessionStorage.getItem('finname');
                   <tr
                     className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
                     key={data._id}>
-                       <td className="whitespace-nowrap px-1 py-1 border border-black">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
-                     
+
                     </td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data._id}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
@@ -427,7 +427,7 @@ const name = sessionStorage.getItem('finname');
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.productCode}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.subAdvisor}</td>
-                   
+
                   </tr>
                 ))}
               </tbody>

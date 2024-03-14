@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import MultiStep from "react-multistep";
+import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+
 // import { StepOne, StepTwo } from 'react-multistep';
 import axios from "axios";
 function AddFinance() {
@@ -65,6 +67,9 @@ function AddFinance() {
   const [payMode, setPayMode] = useState([]);
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
+  // const [step, setSteps] = useState(0);
+
+
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -513,243 +518,315 @@ function AddFinance() {
       setFormSubmitted(false);
     }
   };
-
-
+ 
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Create Policy</h1>
-          <MultiStep activeStep={0}
-            prevButton={{ title: 'Back', style: { background: 'red' } }}
-            nextButton={{ title: 'Next', style: { background: 'green' } }}>
- 
-            <div className="flex flex-wrap justify-between">
+
+          <MultiStep activeStep={0}  showNavigation={true}  className= "bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
+          stepCustomStyle={{
+            display: "inline",
+            width: "50%",
+            marginBottom:"0"
+            // justifyContent: "center", // Center align the steps
+            // alignItems: "center", // Center align vertically
+          }}
+          titleCustomStyle={{ fontWeight: "bold", color: "#2D3748" }}
+          contentCustomStyle={{ color: "#2D3748" }}
+          prevButton={{
+            title: (
+              <span className="flex justify-start">
+                <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
+              </span>
+            ),
+            style: {
+              display: "inline" ,
+              width: "max-content",
+              background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+              color: 'white',
+              fontWeight: '',
+              borderRadius: '12rem',
+              padding: '0.2rem 0.6rem',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+              transition: 'background 1.3s ease',
+              marginRight: 'auto', // Adjusted to marginRight auto
+              marginBottom: '0.5rem',
+              float: 'left'
+            }
+          }}
+          nextButton={{
+            title: (
+              <span className="flex justify-end">Next
+                <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
+              </span>
+            ),
+            style: {
+              display: "inline",
+              width: "max-content",
+              background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+              color: 'white',
+              fontWeight: '',
+              borderRadius: '12rem',
+              padding: '0.2rem 0.6rem',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+              transition: 'background 1.3s ease',
+              marginLeft: 'auto', // Adjusted to marginLeft auto
+              marginBottom: '0.5rem',
+              float: 'right'
+            }
+          }}
+          >
+            
+        
           
-                {/* FIELD - 1 */}
-                <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Entry Date:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="date"
-                    name="entryDate"
-                    value={entryDate}
-                    onChange={(e) => setEntryDate(e.target.value)}
-                    placeholder="Select Entry Date"
-                  />
-                  {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
-                </div>
-                {/* FIELD - 2 */}
-                <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    id="branch" name="branch"
-                    className="input-style p-1 rounded-lg"
-                    value={branch}
-                    onChange={(e) => setBranch(e.target.value)}
-                  >
-                    <option className="w-1" value="" >--- Select Branch ---</option>
-                    <option value="PATNA">PATNA</option>
-                    <option value="HAJIPUR">HAJIPUR</option>
-                    <option value="SAMASTIPUR">SAMASTIPUR</option>
-                  </select>
-                  {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
-                </div>
-                {/* FIELD - 3 */}
-                <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Insured Name:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    name="insuredName"
-                    value={insuredName}
-                    onChange={(e) => setInsuredName(e.target.value.toUpperCase())}
-                    placeholder="Enter Insured Name"
-                  />
-                  {errors.insuredName && <span className="text-red-600 text-sm">{errors.insuredName}</span>}
-                </div>
 
-                {/* FIELD - 4 */}
-                <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Contact No:</label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={contactNo}
-                    name="contactNo"
-                    onChange={(e) => setContactNo(e.target.value)}
-                    placeholder="Enter Contact No"
-                  />
-                </div>
+            {/* step -1 */}
+            <div className="flex flex-wrap mb-10 justify-between text">
+              {/* FIELD - 1 */}
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Entry Date:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="date"
+                  name="entryDate"
+                  value={entryDate}
+                  onChange={(e) => setEntryDate(e.target.value)}
+                  placeholder="Select Entry Date"
+                />
+                {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
+              </div>
+              {/* FIELD - 2 */}
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  id="branch" name="branch"
+                  className="input-style p-1 rounded-lg"
+                  value={branch}
+                  onChange={(e) => setBranch(e.target.value)}>
+                  <option className="w-1" value="" >--- Select Branch ---</option>
+                  <option value="PATNA">PATNA</option>
+                  <option value="HAJIPUR">HAJIPUR</option>
+                  <option value="SAMASTIPUR">SAMASTIPUR</option>
+                </select>
+                {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
+              </div>
+              {/* FIELD - 3 */}
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Insured Name:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="insuredName"
+                  value={insuredName}
+                  onChange={(e) => setInsuredName(e.target.value.toUpperCase())}
+                  placeholder="Enter Insured Name"
+                />
+                {errors.insuredName && <span className="text-red-600 text-sm">{errors.insuredName}</span>}
+              </div>
 
-                {/* FIELD - 5 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    id="staffName"
-                    name="staffName"
-                    className="input-style p-1 rounded-lg"
-                    value={staffName}
-                    onChange={(e) => setStaffName(e.target.value)}
-                  >
-                    <option className="w-1" value="" >--- Policy Made By ---</option>
-                    {
-                      APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                        .map((emp) => (
-                          <option key={emp._id} value={emp.empname}>
-                            {emp.empid} - {emp.empname}
-                          </option>
-                        ))
-                    }
-                    {errors.staffName && <span className="text-red-600 text-sm ">{errors.staffName}</span>}
-                  </select>
-                </div>
+              {/* FIELD - 4 */}
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Contact No:</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={contactNo}
+                  name="contactNo"
+                  onChange={(e) => setContactNo(e.target.value)}
+                  placeholder="Enter Contact No"
+                />
+              </div>
 
-                {/* FIELD - 6 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    id="company" name="company"
-                    className="input-style p-1 rounded-lg"
-                    value={company}
-                    onChange={(e) => {
-                      setCompany(e.target.value.toUpperCase());
-                      const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
-                      setCatTypesForSelectedPolicy(selectedCatId);
-                    }}
-                  >
-                    <option className="w-1" value="" >--- Select Company ---</option>
-                    {pdata.map((comp) => (
-                      <option key={comp._id} value={comp.c_type} data-id={comp._id}>
-                        {comp.c_type}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.company && <span className="text-red-600 text-sm">{errors.company}</span>}
-                </div>
+              {/* FIELD - 5 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  id="staffName"
+                  name="staffName"
+                  className="input-style p-1 rounded-lg"
+                  value={staffName}
+                  onChange={(e) => setStaffName(e.target.value)}
+                >
+                  <option className="w-1" value="" >--- Policy Made By ---</option>
+                  {
+                    APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                      .map((emp) => (
+                        <option key={emp._id} value={emp.empname}>
+                          {emp.empid} - {emp.empname}
+                        </option>
+                      ))
+                  }
+                  {errors.staffName && <span className="text-red-600 text-sm ">{errors.staffName}</span>}
+                </select>
+              </div>
 
-                {/* FIELD - 7 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    className="input-style w-full p-1 rounded-lg"
-                    value={category}
-                    name="category"
-                    onChange={(e) => setCategory(e.target.value)}>
-                    <option value="">---- Select Product Type ------</option>
-                    {pdata.map((cat) => (
-                      cat._id === catTypesForSelectedPolicy &&
-                      cat.category.map((product, idx) => (
-                        <option key={idx} value={product}>{product}</option>
-                      ))))
-                    }
-                  </select>
-                  {/* {errors.category && <span className="text-red-600 text-sm ">{errors.category}</span>} */}
-                </div>
+              {/* FIELD - 6 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  id="company" name="company"
+                  className="input-style p-1 rounded-lg"
+                  value={company}
+                  onChange={(e) => {
+                    setCompany(e.target.value.toUpperCase());
+                    const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                    setCatTypesForSelectedPolicy(selectedCatId);
+                  }}
+                >
+                  <option className="w-1" value="" >--- Select Company ---</option>
+                  {pdata.map((comp) => (
+                    <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                      {comp.c_type}
+                    </option>
+                  ))}
+                </select>
+                {errors.company && <span className="text-red-600 text-sm">{errors.company}</span>}
+              </div>
 
-                {/* FIELD - 8 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    className="input-style p-1 rounded-lg"
-                    value={policyType}
-                    name="policyType"
-                    onChange={(e) => {
-                      const selectedPolicyType = e.target.value;
-                      setPolicyType(selectedPolicyType);
-                      // Filter products based on selected policy type
-                      const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
-                      setProducts(filteredProducts);
-                      // Reset product code when policy type changes
-                      setProductCode('');
-                    }}
-                  > <option value="">--- Select Policy Type ---</option>
-                    {data.map(prod => (
-                      <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
-                    ))}
+              {/* FIELD - 7 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style w-full p-1 rounded-lg"
+                  value={category}
+                  name="category"
+                  onChange={(e) => setCategory(e.target.value)}>
+                  <option value="">---- Select Product Type ------</option>
+                  {pdata.map((cat) => (
+                    cat._id === catTypesForSelectedPolicy &&
+                    cat.category.map((product, idx) => (
+                      <option key={idx} value={product}>{product}</option>
+                    ))))
+                  }
+                </select>
+                {/* {errors.category && <span className="text-red-600 text-sm ">{errors.category}</span>} */}
+              </div>
 
-                  </select>
-                  {errors.policyType && <span className="text-red-600 text-sm ">{errors.policyType}</span>}
-                </div>
+              {/* FIELD - 8 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 rounded-lg"
+                  value={policyType}
+                  name="policyType"
+                  onChange={(e) => {
+                    const selectedPolicyType = e.target.value;
+                    setPolicyType(selectedPolicyType);
+                    // Filter products based on selected policy type
+                    const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
+                    setProducts(filteredProducts);
+                    // Reset product code when policy type changes
+                    setProductCode('');
+                  }}
+                > <option value="">--- Select Policy Type ---</option>
+                  {data.map(prod => (
+                    <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
+                  ))}
 
-                {/* FIELD - 9 */}
-                <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={policyNo}
-                    name="policyNo"
-                    onChange={(e) => setPolicyNo(e.target.value)}
-                    placeholder="Enter Policy No"
-                  />
-                  {errors.policyNo && <span className="text-red-600 text-sm ">{errors.policyNo}</span>}
-                </div>
+                </select>
+                {errors.policyType && <span className="text-red-600 text-sm ">{errors.policyType}</span>}
+              </div>
 
-                {/* FIELD - 10 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    name="engNo"
-                    value={engNo}
-                    onChange={(e) => setEngNo(e.target.value.toUpperCase())}
-                    placeholder="Enter Engine No"
-                  />
-                  {errors.engNo && <span className="text-red-600 text-sm ">{errors.engNo}</span>}
-                </div>
+              {/* FIELD - 9 */}
+              <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={policyNo}
+                  name="policyNo"
+                  onChange={(e) => setPolicyNo(e.target.value)}
+                  placeholder="Enter Policy No"
+                />
+                {errors.policyNo && <span className="text-red-600 text-sm ">{errors.policyNo}</span>}
+              </div>
 
-                {/* FIELD - 11 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={chsNo}
-                    name="chsNo"
-                    onChange={(e) => setChsNo(e.target.value.toUpperCase())}
-                    placeholder="Enter Chassis No"
-                  />
-                  {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
-                </div>
+              {/* FIELD - 10 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="engNo"
+                  value={engNo}
+                  onChange={(e) => setEngNo(e.target.value.toUpperCase())}
+                  placeholder="Enter Engine No"
+                />
+                {errors.engNo && <span className="text-red-600 text-sm ">{errors.engNo}</span>}
+              </div>
+
+              {/* FIELD - 11 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={chsNo}
+                  name="chsNo"
+                  onChange={(e) => setChsNo(e.target.value.toUpperCase())}
+                  placeholder="Enter Chassis No"
+                />
+                {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
+              </div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              </div>
+
+
            
-              
-                {/* FIELD - 12 */}
-                {
-                  policyType === "SATP" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                    <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
-                    <input
-                      className="input-style rounded-lg"
-                      type="number"
-                      value={odPremium}
-                      name="odPremium"
-                      onChange={(e) => setOdPremium(e.target.value)}
-                      placeholder="Disabled"
-                      onBlur={updateNetPremium}
-                      disabled
-                    />
-                  </div>) : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                    <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
-                    <input
-                      className="input-style rounded-lg"
-                      type="number"
-                      value={odPremium}
-                      name="odPremium"
-                      onChange={(e) => setOdPremium(e.target.value)}
-                      placeholder="Enter OD Premium"
-                      onBlur={updateNetPremium}
+              {/* FIELD - 12 */}
+              <div className="flex flex-wrap mb-10 justify-between text">
+              {
+                policyType === "SATP" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                  <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    value={odPremium}
+                    name="odPremium"
+                    onChange={(e) => setOdPremium(e.target.value)}
+                    placeholder="Disabled"
+                    onBlur={updateNetPremium}
+                    disabled
+                  />
+                </div>) : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                  <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    value={odPremium}
+                    name="odPremium"
+                    onChange={(e) => setOdPremium(e.target.value)}
+                    placeholder="Enter OD Premium"
+                    onBlur={updateNetPremium}
 
-                    />
-                    {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
-                  </div>)
-                }
-                 </div>
-                <div className="flex flex-wrap justify-between">
-                {/* FIELD - 13 */}
-                {
-                  policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                  />
+                  {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
+                </div>)
+              }
+          
+              {/* FIELD - 13 */}
+              {
+                policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                  <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
+                  <input
+                    className="input-style rounded-lg"
+                    type="number"
+                    name="liabilityPremium"
+                    value={liabilityPremium}
+                    onChange={(e) => setLiabilityPremium(e.target.value)}
+                    placeholder="Disabled"
+                    onBlur={updateNetPremium}
+                    disabled
+                  />
+                </div>)
+                  : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                     <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                     <input
                       className="input-style rounded-lg"
@@ -757,165 +834,155 @@ function AddFinance() {
                       name="liabilityPremium"
                       value={liabilityPremium}
                       onChange={(e) => setLiabilityPremium(e.target.value)}
-                      placeholder="Disabled"
+                      placeholder="Enter Liability Premium"
                       onBlur={updateNetPremium}
-                      disabled
                     />
+                    {errors.liabilityPremium && <span className="text-red-600 text-sm ">{errors.liabilityPremium}</span>}
                   </div>)
-                    : (<div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                      <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
-                      <input
-                        className="input-style rounded-lg"
-                        type="number"
-                        name="liabilityPremium"
-                        value={liabilityPremium}
-                        onChange={(e) => setLiabilityPremium(e.target.value)}
-                        placeholder="Enter Liability Premium"
-                        onBlur={updateNetPremium}
-                      />
-                      {errors.liabilityPremium && <span className="text-red-600 text-sm ">{errors.liabilityPremium}</span>}
-                    </div>)
-                }
+              }
 
-                {/* FIELD - 14 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="number"
-                    name="netPremium"
-                    value={netPremium}
-                    onBlur={handleNetPremiumBlur}
-                    placeholder="Net Premium"
-                    readOnly
-                  />
-                </div>
+              {/* FIELD - 14 */}
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="number"
+                  name="netPremium"
+                  value={netPremium}
+                  onBlur={handleNetPremiumBlur}
+                  placeholder="Net Premium"
+                  readOnly
+                />
+              </div>
 
-                {/* FIELD - 15 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">GST(Amount):<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={taxes}
-                    name="finalEntryFields"
-                    onChange={(e) => setTaxes(e.target.value)}
-                    onBlur={calculateFinalAmount}
-                    placeholder="GST"
-                  />
-                  {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
-                </div>
+              {/* FIELD - 15 */}
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">GST(Amount):<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={taxes}
+                  name="finalEntryFields"
+                  onChange={(e) => setTaxes(e.target.value)}
+                  onBlur={calculateFinalAmount}
+                  placeholder="GST"
+                />
+                {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
+              </div>
 
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={rsa}
-                    name="rsa"
-                    onChange={(e) => setRSA(e.target.value)}
-                    onBlur={calculateFinalAmount}
-                    placeholder="RSA"
-                  />
-                  {errors.rsa && <span className="text-red-600 text-sm ">{errors.rsa}</span>}
-                </div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={rsa}
+                  name="rsa"
+                  onChange={(e) => setRSA(e.target.value)}
+                  onBlur={calculateFinalAmount}
+                  placeholder="RSA"
+                />
+                {errors.rsa && <span className="text-red-600 text-sm ">{errors.rsa}</span>}
+              </div>
 
-                {/* FIELD - 16 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={finalEntryFields}
-                    name="finalEntryFields"
-                    onChange={(e) => setFinalEntryFields(e.target.value)}
-                    placeholder=" Final Amount"
-                    readOnly
-                  />
-                </div>
+              {/* FIELD - 16 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={finalEntryFields}
+                  name="finalEntryFields"
+                  onChange={(e) => setFinalEntryFields(e.target.value)}
+                  placeholder=" Final Amount"
+                  readOnly
+                />
+              </div>
 
-                {/* FIELD - 17 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    name="odDiscount"
-                    value={odDiscount}
-                    onChange={(e) => setOdDiscount(e.target.value)}
-                    placeholder="Enter OD Discount"
-                  />
-                  {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
-                </div>
+              {/* FIELD - 17 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount"
+                />
+                {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
+              </div>
 
-                {/* FIELD - 18 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    name="ncb"
-                    value={ncb}
-                    onChange={(e) => setNcb(e.target.value)}
-                    placeholder="Enter NCB"
-                  />
-                  {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
-                </div>
+              {/* FIELD - 18 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                  placeholder="Enter NCB"
+                />
+                {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
+              </div>
 
-                {/* FIELD - 19 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    id="policyPaymentMode"
-                    className="input-style p-1 rounded-lg"
-                    value={policyPaymentMode}
-                    name="policyPaymentMode"
-                    onChange={(e) => setPolicyPaymentMode(e.target.value)}
-                  >
-                    <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
-                    {
-                      payMode.map((mode) => (
-                        <option key={mode._id} value={mode.paymentmode} >{mode.paymentmode}</option>
-                      ))
-                    }
-                  </select>
-                  {errors.policyPaymentMode && <span className="text-red-600 text-sm ">{errors.policyPaymentMode}</span>}
-                </div>
+              {/* FIELD - 19 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  id="policyPaymentMode"
+                  className="input-style p-1 rounded-lg"
+                  value={policyPaymentMode}
+                  name="policyPaymentMode"
+                  onChange={(e) => setPolicyPaymentMode(e.target.value)}
+                >
+                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
+                  {
+                    payMode.map((mode) => (
+                      <option key={mode._id} value={mode.paymentmode} >{mode.paymentmode}</option>
+                    ))
+                  }
+                </select>
+                {errors.policyPaymentMode && <span className="text-red-600 text-sm ">{errors.policyPaymentMode}</span>}
+              </div>
 
-                {/* FIELD - 20 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
-                  <input
-                    className="input-style rounded-lg"
-                    type="text"
-                    value={vehRegNo}
-                    name="vehRegNo"
-                    onChange={(e) => setVehRegNo(e.target.value.toUpperCase())}
-                    placeholder="Enter Vehicle Reg No"
-                  />
-                  {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>}
-                </div>
+              {/* FIELD - 20 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={vehRegNo}
+                  name="vehRegNo"
+                  onChange={(e) => setVehRegNo(e.target.value.toUpperCase())}
+                  placeholder="Enter Vehicle Reg No"
+                />
+                {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>}
+              </div>
 
-                {/* FIELD - 21 */}
-                <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                  <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
-                  <select
-                    className="input-style p-1 rounded-lg"
-                    name="segment"
-                    value={segment}
-                    onChange={(e) => setSegment(e.target.value)}>
-                    <option className="w-1" value="" disabled>--- Select Segment ---</option>
-                    <option value="C V">C V</option>
-                    <option value="PVT-CAR">PVT-CAR</option>
-                    <option value="TW">TW</option>
-                    <option value="HEALTH">HEALTH</option>
-                    <option value="NON-MOTOR">NON-MOTOR</option>
-                    <option value="LIFE">LIFE</option>
-                  </select>
-                  {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
-                </div>
+              {/* FIELD - 21 */}
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 rounded-lg"
+                  name="segment"
+                  value={segment}
+                  onChange={(e) => setSegment(e.target.value)}>
+                  <option className="w-1" value="" disabled>--- Select Segment ---</option>
+                  <option value="C V">C V</option>
+                  <option value="PVT-CAR">PVT-CAR</option>
+                  <option value="TW">TW</option>
+                  <option value="HEALTH">HEALTH</option>
+                  <option value="NON-MOTOR">NON-MOTOR</option>
+                  <option value="LIFE">LIFE</option>
+                </select>
+                {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
+              </div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              </div>
              
               {/* FIELD - 22 */}
+              <div className="flex flex-wrap mb-10 justify-between text">
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -944,7 +1011,7 @@ function AddFinance() {
                 />
                 {errors.policyStartDate && <span className="text-red-600 text-sm ">{errors.policyStartDate}</span>}
               </div>
-
+             
               {/* FIELD - 24 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy End Date:<span className="text-red-600 font-bold">*</span></label>
@@ -1069,8 +1136,11 @@ function AddFinance() {
                   readOnly
                 />
               </div>
-
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              </div>
+             
               {/* FIELD - 33 */}
+              <div className="flex flex-wrap mb-2 justify-between text">
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -1114,7 +1184,7 @@ function AddFinance() {
                 />
                 {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>}
               </div>
-
+             
               {/* FIELD - 36 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
@@ -1163,9 +1233,8 @@ function AddFinance() {
                 />
               </div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-            </div>
-            {/* Button */}
-            <div className="mt-10 p-2">
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
               <button
                 className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
                 onClick={handleSubmit}
@@ -1174,6 +1243,9 @@ function AddFinance() {
                 {formSubmitted ? "Submitted" : "Submit"}
               </button>
             </div>
+            </div>
+            {/* Button */}
+           
           </MultiStep>
         </div>
       </div>
