@@ -83,7 +83,7 @@ const Feedback = () => {
           <Swiper
   modules={[Navigation, Pagination, Scrollbar, Autoplay]}
   spaceBetween={1}
-  slidesPerView={3} // Adjust the number of slides per view based on screen size
+  slidesPerView={4} // Adjust the number of slides per view based on screen size
   direction="vertical"
   autoplay={{
     delay: 4000, // Set the delay in milliseconds between slides
@@ -94,7 +94,7 @@ const Feedback = () => {
     APIData.map((obj) => (
       <SwiperSlide key={obj._id}>
         <div className="flex justify-between">
-          <div className="w-full max-w-lg border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
+          <div className="w-full max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
             <div className="text-center px-4 ">
               <h1 className='text-xl font-medium text-blue-700'>
                 {obj.feedbackuser_name}
@@ -127,13 +127,10 @@ const Feedback = () => {
 
         </div>
         {/* part-2 */}
-        
 
-        <div className="relative md:w-1/3 rounded-xl shadow-xl mt-20 text-xl container-fluid bg-gradient-to-r from-gray-300 to-slate-300">
-          
-        <p className="text-2xl text-center font-semibold">Your Opinion</p>
+        <div className="relative md:w-1/3 rounded-xl shadow-xl text-xl container-fluid bg-gradient-to-r from-gray-300 to-slate-300">
           <form>
-          
+            <p className="text-2xl font-semibold">Your Opinion</p>
             <div className="space-y-2 p-4 text-start">
               {/* Other form fields */}
               <label className="text-sm mx-1 ">Name</label>
