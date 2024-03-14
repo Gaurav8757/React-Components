@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "animejs": "^3.2.2",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.3.1",

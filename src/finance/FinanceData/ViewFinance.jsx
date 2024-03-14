@@ -277,14 +277,14 @@ function ViewFinance() {
           <div className="flex-wrap flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
             {/* date range filter */}
             <div className="flex   p-0 text-start w-full lg:w-1/4">
-              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Filter by Date:</label>
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Date:</label>
               <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
               <span className='text-justify mx-1 my-1 '>to</span>
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
 
             <div className="flex p-0  justify-start text-center w-full lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Filter by ID:</label>
+              <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchId(e.target.value)}
@@ -294,7 +294,7 @@ function ViewFinance() {
             </div>
 
             <div className="flex justify-start p-0 text-end w-full lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Filter by Company:</label>
+              <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchCompany(e.target.value)}
@@ -304,7 +304,7 @@ function ViewFinance() {
             </div>
 
             <div className="flex justify-start  text-start w-full lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Filter by Insured Name:</label>
+              <label className="my-0 text-lg font-medium text-gray-900">Insured Name:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchInsuredName(e.target.value)}
@@ -314,7 +314,7 @@ function ViewFinance() {
             </div>
 
             <div className="flex p-0 text-center my-3 justify-start w-1/2 lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Filter by Contact No:</label>
+              <label className="my-0 text-lg font-medium text-gray-900">Contact No:</label>
               <input
                 type="search"
                 onChange={(e) => setContactNo(e.target.value)}

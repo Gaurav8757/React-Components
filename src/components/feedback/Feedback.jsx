@@ -109,8 +109,10 @@ const Feedback = () => {
                   {obj.feedbackuser_query}
                   </p>
                 </div>
+                
               </div>
             </SwiperSlide>
+            
             ))):(
               <div role="status" className="me-20">
     <svg aria-hidden="true" className="inline w-32 h-16 text-gray-200 animate-spin dark:text-gray-600 fill-green-500" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
