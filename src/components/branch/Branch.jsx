@@ -33,28 +33,36 @@ const Branch = () => {
                             </div>
                             {/* branch name */}
                             <div className=" w-1/3 h-40  bg-gray-100  flex justify-center items-center">
+                                
                                 <h5 className="text-base sm:text-xl md:text-xl lg:text-xl xl:text-3xl font-bold  text-gray-900 ">
                                     {data.branchname}
                                 </h5>
                             </div>
-                            {/* contacts */}
-                            <div className=" w-1/3 h-40 flex justify-center bg-gray-100  text-center items-center">
-                                <h5 className="text-base sm:text-xl md:text-xl lg:text-lg xl:text-xl font-bold flex-wrap text-gray-900 text-center">
-                                    {data.branchemail}
-                                    <br /><br />
-                                    {data.branchmobile}
-                                    <br />
-                                    {data.branchphone}
-                                </h5>
-                            </div>
                             {/* company name and details */}
-                            <div className="w-1/3 h-40    text-center  bg-gray-100  ">
-                                <p className="mt-6 my-4 text-blue-500 font-bold text-base sm:text-md md:text-lg lg:text-lg xl:text-lg">  Address</p>
+                            <div className="w-1/3 h-40  pr-10  text-center  bg-gray-100  ">
+                                <p className="mt-4 my-2 text-blue-500 font-bold text-base sm:text-md md:text-lg lg:text-lg xl:text-lg">  Address</p>
 
                                 <p className=" text-center font-bold my-auto text-base sm:text-md md:text-lg lg:text-md xl:text-lg ">
                                     {data.branchaddress} <br />
                                 </p>
                             </div>
+                            <div className=" w-1/3 h-40 flex justify-center bg-gray-100  text-center items-center">
+                                <h5 className="text-base sm:text-lg md:text-lg lg:text-lg xl:text-lg font-bold flex-wrap text-gray-900 text-center">
+                                    {data.branchemail}
+                                   
+                                </h5>
+                            </div>
+                            {/* contacts */}
+                            <div className=" w-1/3 h-40 flex justify-center bg-gray-100  text-center items-center">
+                                <h5 className="text-base sm:text-xl md:text-xl lg:text-lg xl:text-xl font-bold flex-wrap text-gray-900 text-center">
+                                   
+                                    
+                                    {data.branchmobile}
+                                    <br />
+                                    {data.branchphone}
+                                </h5>
+                            </div>
+                            
                             {/* pincode */}
                             <div className=" w-1/5 h-40 hidden sm:flex  md:flex xl:flex bg-gray-100   justify-center items-center">
                                 <h5 className=" font-bold  text-gray-900 text-base sm:text-lg md:text-xl lg:text-lg xl:text-xl ">
