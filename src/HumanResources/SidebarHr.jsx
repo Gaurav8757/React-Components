@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
-import {  FcKindle } from "react-icons/fc";
+import { FcKindle } from "react-icons/fc";
 import { TbMoneybag } from "react-icons/tb";
 import { FaUserGroup } from "react-icons/fa6";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
@@ -21,23 +21,7 @@ function DashboardHr() {
       path: "/hr/home",
       logo: <RxDashboard size={25} />
     },
-    // {
-    //   title: "Attendance",
-    //   path: "/hr/home/add/attendance",
-    //   logo: <FcPlanner size={25} />,
-    //   subRoutes: [
-    //     {
-    //       title: "Add Attendance",
-    //       path: "/hr/home/add/attendance",
-    //       dash: ""
-    //     },
-    //     {
-    //       title: "View Attendance",
-    //       path: "/hr/home/attendance",
-    //       dash: ""
-    //     },
-    //   ]
-    // },
+
     {
       title: "Attendance Report",
       path: "#",
@@ -120,11 +104,7 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/offer/letter'
-        }, {
-          title: 'Letter',
-          path: '/hr/home/offer/letters'
-        }
-
+        },
       ],
     },
     {
@@ -200,7 +180,6 @@ function DashboardHr() {
           title: 'Letter',
           path: '/hr/home/increment/letter'
         }
-
       ],
     },
   ];
