@@ -20,7 +20,6 @@ function HrLogin() {
             const token = response.data.token;
             const email = response.data.user.empemail;
             const hrId = response.data.user._id;
-            
             const name = response.data.user.empname;
            
            sessionStorage.setItem("token", token);

@@ -155,11 +155,12 @@ import AddJoining from "./HumanResources/Letters/joining/AddJoining.jsx";
 import ViewJoining from "./HumanResources/Letters/joining/ViewJoining.jsx";
 import AddIncrement from "./HumanResources/Letters/increment/AddIncrement.jsx";
 import ViewIncrement from "./HumanResources/Letters/increment/ViewIncrement.jsx";
+import ProtectedHrAdmin from "./HRAdmin/ProtectedHr.jsx";
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route>
       <Route path="/" element={<App />}  >
         {/* home */}
         <Route path="" element={<Home />} />
@@ -328,7 +329,6 @@ const router = createBrowserRouter(
           <Route path="/hr/home/offer/letters" element={<OffersLetter/>} />
           <Route path="/hr/home/resign/letter" element={<ResignationLetter/>} />
           <Route path="/hr/home/terminate/letter" element={<TerminationLetter/>} />
-
           <Route path="/hr/home/add/increment/letter" element={<AddIncrement/>} />
           <Route path="/hr/home/view/increment/letter"  element={<ViewIncrement/>}/>
           <Route path="/hr/home/increment/letter" element={<IncrementLetter/>} />
@@ -338,6 +338,15 @@ const router = createBrowserRouter(
           <Route path="/hr/home/joining/letter" element={<JoiningLetter/>} />
         </Route>
       </Route>
+
+
+
+      <Route path="/hr/admin" element={<LoginAll />} />
+      <Route element={<ProtectedHrAdmin/>}>
+      <Route path="/hr/admin/home" element={<LayoutHr />}>
+      <Route path="" element={<DashboardHr />} />
+
+        </Route></Route>
 
       {/* OPSAdmin */}
       <Route path="/ops" element={<LoginAll />} />
@@ -361,7 +370,7 @@ const router = createBrowserRouter(
       <Route path="/finance/home/view" element={<ViewFinance/>} />
       </Route>
       </Route>
-    </>
+    </Route>
   )
 );
 

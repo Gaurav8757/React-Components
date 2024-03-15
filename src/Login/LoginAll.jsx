@@ -33,6 +33,7 @@ function LoginAll() {
                     break;
 
                 case "employee":
+                    
                     response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
                         empemail: email,
                         empmobile: mobile,
@@ -42,6 +43,9 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
                     sessionStorage.setItem("name", response.data.user.empname);
+
+                      // Add your code snippet here
+                     
                     break;
 
                 case "hrmanager":
@@ -108,8 +112,14 @@ function LoginAll() {
 
                     case "employee":
                         sessionStorage.getItem("token");
+                       if (response.data.user.staffType === "HR ADMIN" || response.data.user.staffType === "HR Admin" || response.data.user.staffType === "hr admin") {
+                        sessionStorage.getItem("token");
+                        navigate("/hr/admin/home");
+                        toast.success("Logged In Successfully !");
+                    } else {
                         navigate("/employee/home");
                         toast.success("Logged In Successfully !");
+                    }
                         break;
 
                     case "hrmanager":
