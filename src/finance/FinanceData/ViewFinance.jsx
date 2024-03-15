@@ -9,6 +9,7 @@ import * as XLSX from 'xlsx';
 function ViewFinance() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [startDate, setStartDate] = useState("");
+  const [searchBranch, setSearchBranch] = useState("");
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
@@ -83,13 +84,15 @@ function ViewFinance() {
     // Check if data is defined
     if (!data) return false;
     // Filter conditions
-    const idLower = data._id?.toLowerCase() || "";
+    const idLower = data.policyrefno?.toLowerCase() || "";
     const insuredNameLower = data.insuredName?.toLowerCase() || "";
     const companyLower = data.company?.toLowerCase() || "";
     const contacNoLower = data.contactNo?.toLowerCase() || "";
+    const branchLower = data.branch?.toLowerCase() || "";
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
+      (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
       // Update the state variable for company correctly
@@ -125,7 +128,7 @@ function ViewFinance() {
       const dataToExport = filteredData.map(row => {
         return [
           row.entryDate,
-          row._id,
+          row.policyrefno,
           row.branch,
           row.insuredName,
           row.contactNo,
@@ -313,6 +316,17 @@ function ViewFinance() {
               />
             </div>
 
+            <div className="flex justify-start my-3  text-start w-full lg:w-1/4">
+              <label className="my-0 text-lg font-medium text-gray-900">Branch:</label>
+              <input
+                type="search"
+                onChange={(e) => setSearchBranch(e.target.value)}
+                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Branch Name"
+              />
+            </div>
+
+
             <div className="flex p-0 text-center my-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Contact No:</label>
               <input
@@ -384,7 +398,7 @@ function ViewFinance() {
                       <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
 
                     </td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data._id}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.branch}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.insuredName}</td>

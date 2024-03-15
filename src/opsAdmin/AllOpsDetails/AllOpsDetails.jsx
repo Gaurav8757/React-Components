@@ -56,7 +56,7 @@ function AllOpsDetails() {
         // Check if data is defined
         if (!data) return false;
         // Filter conditions
-        const idLower = data._id?.toLowerCase() || "";
+        const idLower = data.policyrefno?.toLowerCase() || "";
         const insuredNameLower = data.insuredName?.toLowerCase() || "";
         const branchLower = data.branch?.toLowerCase() || "";
         const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
@@ -109,43 +109,6 @@ function AllOpsDetails() {
             console.error("Error fetching updated insurance data:", error);
         }
     };
-    // const exportToExcel = () => {
-    //     try {
-    //         const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-    //         const fileExtension = ".xlsx";
-    //         const fileName = `${name}_opsAdmin`;
-
-    //         // Include all filtered data
-    //         const dataToExport = filteredData.map(row => {
-    //             // Exclude the first column which is the "Update" button
-    //             return Object.values(row).slice(1, 24);
-    //         });
-
-    //         // Get all table headers except the first one (Update button)
-    //         const tableHeaders = ["Reference ID", "Entry Date", "Branch", "Insured By", "Contact No.", "Policy Made By", "Sent Time", "Company", "Category", "Policy Type", "Policy No.", "Engine No.", "Chassis No", "OD Premium", "Liability Premium", "Net Premium", "GST(in rupees)", "RSA", "Final Amount", "OD Discount(%)", "NCB", "Policy Pay Mode"];
-
-    //         // Create worksheet
-    //         const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-
-    //         // Create workbook and export
-    //         const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    //         const excelBuffer = XLSX.write(wb, {
-    //             bookType: "xlsx",
-    //             type: "array",
-    //         });
-    //         const data = new Blob([excelBuffer], { type: fileType });
-    //         const url = URL.createObjectURL(data);
-    //         const link = document.createElement("a");
-    //         link.href = url;
-    //         link.setAttribute("download", fileName + fileExtension);
-    //         document.body.appendChild(link);
-    //         link.click();
-    //     } catch (error) {
-    //         console.error("Error exporting to Excel:", error);
-    //         toast.error("Error exporting to Excel");
-    //     }
-    // };
-
     const exportToExcel = () => {
         try {
             const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -154,7 +117,7 @@ function AllOpsDetails() {
 
             // Include all sorted data
             const rowsToInclude = filteredData.map(data => [
-                data._id,
+                data.policyrefno,
                 data.entryDate,
                 data.branch,
                 data.insuredName,

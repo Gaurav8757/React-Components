@@ -9,7 +9,7 @@ function AllOpsData({ data, policy }) {
                 <UpdateOps UpdateOps={data} update={policy} />
             </td>
             <td className="whitespace-nowrap px-1  border border-black">
-                {data._id}
+                {data.policyrefno}
             </td>
             <td className="whitespace-nowrap px-1 border border-black">
                 {data.entryDate}

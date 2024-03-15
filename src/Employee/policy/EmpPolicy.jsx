@@ -9,6 +9,7 @@ function EmpPolicy() {
     const [isLoading, setIsLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [searchBranch, setSearchBranch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState();
     const [searchId, setSearchId] = useState("");
@@ -59,16 +60,17 @@ function EmpPolicy() {
         // Check if data is defined
         if (!data) return false;
         // Filter conditions
-        const idLower = data._id?.toLowerCase() || "";
+        const idLower = data.policyrefno?.toLowerCase() || "";
         const insuredNameLower = data.insuredName?.toLowerCase() || "";
         const companyLower = data.company?.toLowerCase() || "";
         const contacNoLower = data.contactNo?.toLowerCase() || "";
+        const branchLower = data.branch?.toLowerCase() || "";
         return (
             // Filter conditions using optional chaining and nullish coalescing
             (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
             (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
             (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
-            // Update the state variable for company correctly
+            (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
             (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === '') &&
             // Ensure correct date filtering logic
             (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
@@ -130,7 +132,7 @@ function EmpPolicy() {
                 data.entryDate,
                 data.currentTime,
                 data.empTime,
-                data._id,
+                data.policyrefno,
                 data.branch,
                 data.insuredName,
                 data.contactNo,
@@ -251,7 +253,7 @@ function EmpPolicy() {
                                             />
                                         </div>
 
-                                        <div className="flex justify-start  text-start w-full  lg:w-1/4">
+                                        <div className="flex justify-start p-0 text-start w-full  lg:w-1/4">
                                             <label className="my-1 text-base font-medium text-gray-900">Filter by Insured Name:</label>
                                             <input
                                                 type="search"
@@ -260,8 +262,16 @@ function EmpPolicy() {
                                                 placeholder="Insured Name"
                                             />
                                         </div>
-
-                                        <div className="flex p-0 mt-4 text-center justify-start lg:w-1/5">
+                                        <div className="flex justify-start mt-4  text-start w-full lg:w-1/4">
+              <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
+              <input
+                type="search"
+                onChange={(e) => setSearchBranch(e.target.value)}
+                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Branch Name"
+              />
+            </div>
+                                        <div className="flex p-0 mt-4 text-center justify-start lg:w-1/4">
                                             <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
                                             <input
                                                 type="search"
@@ -379,7 +389,7 @@ function EmpPolicy() {
                                                             {data.empTime}
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                            {data._id}
+                                                            {data.policyrefno}
                                                         </td>
 
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
