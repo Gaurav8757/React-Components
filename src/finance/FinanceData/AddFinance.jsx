@@ -66,8 +66,38 @@ function AddFinance() {
   const [payMode, setPayMode] = useState([]);
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
-  // const [step, setSteps] = useState(0);
+  const [section1Filled, setSection1Filled] = useState(false);
+  const [section2Filled, setSection2Filled] = useState(false);
+  const [step, setSteps] = useState(0);
 
+    if (step === 0 && section1Filled) {
+      setSteps(1);
+    }
+   
+  // Function to check if all fields in section 1 are filled
+  const checkSection1Filled = () => {
+    if (
+      entryDate &&
+      branch &&
+      insuredName &&
+      contactNo &&
+      staffName &&
+      company &&
+      category &&
+      policyType &&
+      policyNo &&
+      engNo &&
+      chsNo 
+    ) {
+      setSection1Filled(true);
+    } else {
+      setSection1Filled(false);
+    }
+  };
+  // Call the check functions whenever any of the required fields change
+  useEffect(() => {
+    checkSection1Filled();
+  });
 
 
   useEffect(() => {
@@ -528,7 +558,7 @@ function AddFinance() {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Create Policy</h1>
-          <MultiStep activeStep={0}  showNavigation={true}  className= "bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
+          <MultiStep activeStep={step}  showNavigation={true}  className= "bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
           stepCustomStyle={{
             display: "inline",
             width: "50%",
@@ -561,7 +591,7 @@ function AddFinance() {
           }}
           nextButton={{
             title: (
-              <span className="flex justify-end">Next
+              <span className="flex justify-end" disabled={step === 0 ? !section1Filled : !section2Filled}>Next
                 <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
               </span>
             ),

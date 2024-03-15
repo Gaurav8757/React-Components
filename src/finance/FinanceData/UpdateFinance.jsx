@@ -9,9 +9,9 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pdata, setPdata] = useState([]);
-  const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
-  const [payMode, setPayMode] = useState([]);
-  const [fuel, setFuel] = useState([]);
+  // const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+  // const [payMode, setPayMode] = useState([]);
+  // const [fuel, setFuel] = useState([]);
   const [empTime, setEmpTime] = useState(getFormattedTime());
   function getFormattedTime() {
     const date = new Date();
@@ -108,39 +108,39 @@ function UpdateFinance({ insurance, onUpdate }) {
       });
   }, [data]);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-        })
-        .then((response) => {
-          setPayMode(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("token");
+  //   if (!token) {
+  //     toast.error("Not Authorized yet.. Try again! ");
+  //   } else {
+  //     // The user is authenticated, so you can make your API request here.
+  //     axios
+  //       .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+  //         headers: {
+  //           Authorization: `${token}`, // Send the token in the Authorization header
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setPayMode(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // }, []);
 
   // Function to update netPremium when odPremium or liabilityPremium changes
-  const updateNetPremium = () => {
-    const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
-    const liabilityPremiumValue = parseFloat(allDetails.liabilityPremium) || 0;
-    // Calculate netPremium by adding odPremium and liabilityPremium
-    const newNetPremium = odPremiumValue + liabilityPremiumValue;
-    // Set the updated netPremium value directly
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      netPremium: newNetPremium.toFixed(2)
-    }));
-  };
+  // const updateNetPremium = () => {
+  //   const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
+  //   const liabilityPremiumValue = parseFloat(allDetails.liabilityPremium) || 0;
+  //   // Calculate netPremium by adding odPremium and liabilityPremium
+  //   const newNetPremium = odPremiumValue + liabilityPremiumValue;
+  //   // Set the updated netPremium value directly
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     netPremium: newNetPremium.toFixed(2)
+  //   }));
+  // };
 
   useEffect(() => {
     calculateAge();
@@ -179,32 +179,32 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
   // // Calculate taxes with netPremium
-  const calculateFinalAmount = () => {
-    const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+  // const calculateFinalAmount = () => {
+  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
 
-    const taxesValue = parseFloat(allDetails.taxes) || 0;
+  //   const taxesValue = parseFloat(allDetails.taxes) || 0;
 
-    const rsaValue = parseFloat(allDetails.rsa) || 0;
+  //   const rsaValue = parseFloat(allDetails.rsa) || 0;
 
-    const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
+  //   const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      finalEntryFields: finalAmountValue.toFixed(2)
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     finalEntryFields: finalAmountValue.toFixed(2)
+  //   }));
+  // };
 
   // // Calculate branch payable amount
-  const calculateBranchPayableAmount = () => {
-    const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
-    const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
-    const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
+  // const calculateBranchPayableAmount = () => {
+  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
+  //   const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
+  //   const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      branchPayableAmount: branchPayableAmountValue.toFixed(2)
-    }));
-  };
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     branchPayableAmount: branchPayableAmountValue.toFixed(2)
+  //   }));
+  // };
 
 
   useEffect(() => {
@@ -219,40 +219,40 @@ function UpdateFinance({ insurance, onUpdate }) {
       });
   }, [pdata]);
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-        })
-        .then((response) => {
-          setFuel(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [fuel]);
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("token");
+  //   if (!token) {
+  //     toast.error("Not Authorized yet.. Try again! ");
+  //   } else {
+  //     // The user is authenticated, so you can make your API request here.
+  //     axios
+  //       .get(`https://eleedomimf.onrender.com/view/fuel`, {
+  //         headers: {
+  //           Authorization: `${token}`, // Send the token in the Authorization header
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setFuel(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // }, [fuel]);
 
   // // Final amount set
-  const handleNetPremiumBlur = () => {
-    if (allDetails.calculationType === 'finalAmount') {
-      calculateFinalAmount();
-    } else if (allDetails.calculationType === 'branchPayableAmount') {
-      calculateBranchPayableAmount();
-    }
-    // Reset the calculation type after performing the calculation
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      calculationType: ''
-    }));
-  };
+  // const handleNetPremiumBlur = () => {
+  //   if (allDetails.calculationType === 'finalAmount') {
+  //     calculateFinalAmount();
+  //   } else if (allDetails.calculationType === 'branchPayableAmount') {
+  //     calculateBranchPayableAmount();
+  //   }
+  //   // Reset the calculation type after performing the calculation
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     calculationType: ''
+  //   }));
+  // };
 
 
 
@@ -341,7 +341,7 @@ function UpdateFinance({ insurance, onUpdate }) {
           aria-hidden="true"
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
 
-          <div className="relative p-1 w-full max-w-auto max-h-7xl mx-auto my-20">
+          <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
             <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-700 rounded-lg shadow dark:bg-slate-100">
               {/* <!-- Modal header --> */}
@@ -366,7 +366,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                     <div className="flex flex-wrap justify-between">
 
                       {/* FIELD - 1 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6 ">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6 ">
                         <label className="text-base mx-1">Entry Date:</label>
                         <input
                           className="input-style rounded-lg"
@@ -375,10 +375,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="entryDate"
                         />
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 2 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Branch:</label>
                         <select
                           id="branch"
@@ -392,10 +392,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           <option value="HAJIPUR">HAJIPUR</option>
                           <option value="SAMASTIPUR">SAMASTIPUR</option>
                         </select>
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 3 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Insured Name:</label>
                         <input
                           className="input-style rounded-lg"
@@ -407,7 +407,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 4 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Contact No:</label>
                         <input
                           className="input-style rounded-lg"
@@ -416,11 +416,11 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="contactNo"
                           placeholder="Enter Contact No" />
-                      </div>
+                      </div> */}
 
 
                       {/* FIELD - 5 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Company Name:</label>
                         <select
                           id="company" name="company"
@@ -428,8 +428,8 @@ function UpdateFinance({ insurance, onUpdate }) {
                           value={allDetails.company}
                           onChange={(e) => {
                             handleInputChange(e);
-                            const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
-                            setCatTypesForSelectedPolicy(selectedCatId);
+                            // const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
+                            // setCatTypesForSelectedPolicy(selectedCatId);
                           }}>
                           <option className="" value="" >--- Select Company ---</option>
                           {pdata.map((comp) => (
@@ -442,7 +442,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 6 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Category:</label>
                         <select
                           className="input-style p-1 rounded-lg"
@@ -458,10 +458,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                             ))))
                           }
                         </select>
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 7 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Policy Type:</label>
                         <select
                           className="input-style p-1 rounded-lg"
@@ -474,10 +474,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                             <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                           ))}
                         </select>
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 26 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Product Code:</label>
                         <select
                           id="productCode"
@@ -493,10 +493,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                               <option key={idx} value={product}>{product}</option>
                             )))}
                         </select>
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 8 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy No:</label>
                         <input
                           className="input-style rounded-lg"
@@ -509,7 +509,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 9 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Engine No:</label>
                         <input
                           className="input-style rounded-lg"
@@ -518,10 +518,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="engNo"
                           placeholder="Enter Engine No" />
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 10 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Chassis No:</label>
                         <input
                           className="input-style rounded-lg"
@@ -531,10 +531,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           name="chsNo"
                           placeholder="Enter Chassis No"
                         />
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 11 */}
-                      {
+                      {/* {
                         allDetails.policyType === "SATP" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                           <label className="text-base mx-1">OD Premium:</label>
                           <input
@@ -558,10 +558,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                             placeholder="Enter OD Premium"
                             onBlur={updateNetPremium}
                           />
-                        </div>)}
+                        </div>)} */}
 
                       {/* FIELD - 12 */}
-                      {
+                      {/* {
                         allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                           <label className="text-base mx-1">Liability Premium:</label>
                           <input
@@ -588,10 +588,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                               placeholder="Enter Liability Premium"
                             />
                           </div>)
-                      }
+                      } */}
 
                       {/* FIELD - 13 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Net Premium:</label>
                         <input
                           className="input-style rounded-lg"
@@ -602,9 +602,9 @@ function UpdateFinance({ insurance, onUpdate }) {
                           placeholder="Net Premium"
                           disabled />
                         <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
-                      </div>
+                      </div> */}
                       {/* FIELD - 14 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">RSA:</label>
                         <input
                           className="input-style rounded-lg"
@@ -614,11 +614,11 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onBlur={calculateFinalAmount}
                           name="rsa"
                         />
-                      </div>
+                      </div> */}
 
 
                       {/* FIELD - 15 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">GST(Amount):</label>
                         <input
                           className="input-style rounded-lg"
@@ -629,10 +629,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           name="taxes"
                           placeholder="GST"
                         />
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 16 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Final Amount:</label>
                         <input
                           className="input-style rounded-lg"
@@ -643,9 +643,9 @@ function UpdateFinance({ insurance, onUpdate }) {
                           placeholder=" Final Amount"
                           readOnly
                         />
-                      </div>
+                      </div> */}
                       {/* FIELD - 17 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">OD Discount% :</label>
                         <input
                           className="input-style rounded-lg"
@@ -654,9 +654,9 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="odDiscount"
                           placeholder="Enter OD Discount" />
-                      </div>
+                      </div> */}
                       {/* FIELD - 33 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">NCB% :</label>
                         <input
                           className="input-style rounded-lg"
@@ -666,11 +666,11 @@ function UpdateFinance({ insurance, onUpdate }) {
                           name="ncb"
                           placeholder="Enter NCB"
                         />
-                      </div>
+                      </div> */}
 
 
                       {/* FIELD - 39 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Policy Payment Mode:</label>
                         <select
                           id="policyPaymentMode"
@@ -683,10 +683,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                             <option key={data._id} className="w-1" value={data.paymentmode} >{data.paymentmode}</option>
                           ))}
                         </select>
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 9 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Vehicle Reg No:</label>
                         <input
                           className="input-style rounded-lg"
@@ -699,7 +699,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 8 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Segment:</label>
                         <select
                           className="input-style p-1 rounded-lg"
@@ -718,7 +718,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 5 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sourcing:</label>
                         <select
                           className="input-style p-1 rounded-lg"
@@ -735,7 +735,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 10 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy Start Date:</label>
                         <input
                           className="input-style rounded-lg"
@@ -749,7 +749,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 11 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy End Date:</label>
                         <input
                           className="input-style rounded-lg"
@@ -761,7 +761,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 12 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">OD Expiry:</label>
                         <input
                           className="input-style rounded-lg"
@@ -775,7 +775,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 13 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">TP Expiry:</label>
                         <input
                           className="input-style rounded-lg"
@@ -787,7 +787,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                         />
                       </div>
                       {/* FIELD - 14 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">IDV:</label>
                         <input
                           className="input-style rounded-lg"
@@ -799,7 +799,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 15 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Body Type:</label>
                         <input
                           className="input-style rounded-lg"
@@ -814,7 +814,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 16 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Make & Model:</label>
                         <input
                           className="input-style rounded-lg"
@@ -826,7 +826,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 17 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Manufacturing Year:</label>
                         <input
                           className="input-style rounded-lg"
@@ -838,7 +838,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 18 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Registration Date:</label>
                         <input
                           className="input-style rounded-lg"
@@ -853,7 +853,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 19 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Vehicle Age:</label>
                         <input
                           className="input-style rounded-lg"
@@ -864,7 +864,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                         />
                       </div>
                       {/* FIELD - 20 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Fuel:</label>
                         <select
                           className="input-style p-1 rounded-lg"
@@ -877,9 +877,9 @@ function UpdateFinance({ insurance, onUpdate }) {
                             ))
                           }
                         </select>
-                      </div>
+                      </div> */}
                       {/* FIELD - 21 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">GVW (kg):</label>
                         <input
                           className="input-style rounded-lg"
@@ -893,7 +893,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 22 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">CC:</label>
                         <input
                           className="input-style rounded-lg"
@@ -907,7 +907,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 34*/}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Advisor Name:</label>
                         <input
                           className="input-style rounded-lg"
@@ -917,10 +917,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                           name="advisorName"
                           placeholder="Enter Advisor Name"
                         />
-                      </div>
+                      </div> */}
 
                       {/* FIELD - 35 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sub Advisor:</label>
                         <input
                           className="input-style rounded-lg"
@@ -934,10 +934,10 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
 
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6"></div>
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6"></div>
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6"></div>
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6"></div>
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
                     </div>
                     {/* button */}
                     <div className="col-span-4 p-2 flex justify-center">
