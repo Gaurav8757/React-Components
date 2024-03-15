@@ -21,7 +21,6 @@ function LoginAll() {
         e.preventDefault();
         try {
             let response;
-
             switch (loginType) {
                 case "admin":
                     response = await axios.post("https://eleedomimf.onrender.com/loginadmin", {
@@ -33,14 +32,12 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.email);
                     break;
 
-
                 case "employee":
                     response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
                         empemail: email,
                         empmobile: mobile,
                         emppassword: password,
                     });
-
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
@@ -53,7 +50,6 @@ function LoginAll() {
                         hradmobile: mobile,
                         hradpassword: password,
                     });
-
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("email", response.data.email);
                     sessionStorage.setItem("hrId", response.data.id);
@@ -81,19 +77,15 @@ function LoginAll() {
                     sessionStorage.setItem("name", response.data.user.opsname);
                     break;
 
-
                 case "finance":
                     response = await axios.post("https://eleedomimf.onrender.com/finance/login", {
                         finemail: email,
                         finpassword: password,
                     });
-
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("finemail", response.data.email);
                     sessionStorage.setItem("finname", response.data.name);
-
                     break;
-
 
                 default:
                     response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
@@ -280,7 +272,7 @@ function LoginAll() {
                                         <option value="admin">Admin</option>
                                         <option value="branches">Branch</option>
                                         <option value="employee">Employee</option>
-                                        <option value="hradmin">HR Manager</option>
+                                        <option value="hrmanager">HR Manager</option>
                                         <option value="ops">OPS Admin</option>
                                         <option value="finance">Finance Admin</option>
                                     </select>

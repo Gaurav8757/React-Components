@@ -200,7 +200,7 @@ function DashboardHr() {
   };
 
   const loginBranch = sessionStorage.getItem("email");
-  const name = sessionStorage.getItem("name");
+  // const name = sessionStorage.getItem("name");
 
   return (
     <>
@@ -218,7 +218,7 @@ function DashboardHr() {
               <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
             </NavLink>
             <div>
-              <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">{name}</span>
+              <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">HR Manager</span>
             </div>
 
             <div className="flex">
@@ -231,7 +231,7 @@ function DashboardHr() {
               <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                 <div className="mx-4 py-3" role="none">
                   <p className="text-sm text-gray-900 dark:text-white" role="none">
-                    {name}
+                  HR Manager
                   </p>
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     {loginBranch}
