@@ -310,7 +310,7 @@ function MasterView() {
               <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
                 {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
                   <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data._id}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.branch}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.insuredName}</td>
