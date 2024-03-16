@@ -60,6 +60,7 @@ export default function ViewEmployee() {
     }
 };
 
+
 const filteredData = APIData.filter(data => {
     // Check if data is defined
     if (!data) return false;
@@ -67,8 +68,7 @@ const filteredData = APIData.filter(data => {
     const idLower = data.empid?.toLowerCase() || "";
     const insuredNameLower = data.staffType?.toLowerCase() || "";
     const empnameLower = data.empname?.toLowerCase() || "";
-    // const policyMadeByLower = parseInt(data.empaadharno)|| 0;
-    // console.log(typeof(policyMadeByLower));
+   
     return (
         // Filter conditions using optional chaining and nullish coalescing
         (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
@@ -80,9 +80,6 @@ const filteredData = APIData.filter(data => {
     );
 });
 
-// const handlePolicyMadeByChange = (event) => {
-//     setSearchAccNumber(event.target.value);
-// };
 
 // Calculate total number of pages
 const totalItems = filteredData.length;
@@ -121,24 +118,24 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
         }
     };
 
-   
-const sortedData = [...APIData].sort((a, b) => {
-    const idA = a.empid.toUpperCase();
-    const idB = b.empid.toUpperCase();
-
-    if (idA === idB) return 0;
-    if (idA.startsWith("EIPL-") && idB.startsWith("EIPL-")) {
-        const numA = parseInt(idA.replace("EIPL-", ""), 10);
-        const numB = parseInt(idB.replace("EIPL-", ""), 10);
-        return numA - numB;
-    } else if (idA.startsWith("EIPL-")) {
-        return -1;
-    } else if (idB.startsWith("EIPL-")) {
-        return 1;
-    } else {
-        return idA.localeCompare(idB);
-    }
-});
+    const sortedData = [...filteredData].sort((a, b) => {
+        const idA = a.empid.toUpperCase();
+        const idB = b.empid.toUpperCase();
+    
+        if (idA === idB) return 0;
+        if (idA.startsWith("EIPL-") && idB.startsWith("EIPL-")) {
+            const numA = parseInt(idA.replace("EIPL-", ""), 10);
+            const numB = parseInt(idB.replace("EIPL-", ""), 10);
+            return numA - numB;
+        } else if (idA.startsWith("EIPL-")) {
+            return -1;
+        } else if (idB.startsWith("EIPL-")) {
+            return 1;
+        } else {
+            return idA.localeCompare(idB);
+        }
+    });
+    
 
 const exportToExcel = () => {
     try {
@@ -357,7 +354,7 @@ const exportToExcel = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                                    {filteredData.reverse().slice(startIndex, endIndex).map((data) => {
+                                    {sortedData.reverse().slice(startIndex, endIndex).map((data) => {
                                         return (
                                             <tr
                                                 className=":border-neutral-200 text-sm font-medium"

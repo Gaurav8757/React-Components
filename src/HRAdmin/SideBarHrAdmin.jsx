@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import LogoutHr from "./LogoutHrAdmin.jsx";
 import { RxDashboard } from "react-icons/rx";
-import { RiGitBranchFill } from "react-icons/ri";
+// import { RiGitBranchFill } from "react-icons/ri";
 import { FcKindle } from "react-icons/fc";
-import { TbMoneybag } from "react-icons/tb";
+// import { TbMoneybag } from "react-icons/tb";
 import { FaUserGroup } from "react-icons/fa6";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { IoCalendarNumberOutline, IoPersonRemoveSharp } from "react-icons/io5";
 import { FaEnvelopeOpenText } from "react-icons/fa";
 import { MdAutoGraph } from "react-icons/md";
 import { SlNote } from "react-icons/sl";
+import LogoutHrAdmin from "./LogoutHrAdmin.jsx";
 
 
 
@@ -59,40 +59,41 @@ function SideBarHrAdmin() {
       ]
     },
 
+    // {
+    //   title: "Salary",
+    //   path: "#",
+    //   logo: <TbMoneybag size={25} />,
+    //   subRoutes: [
+    //     {
+    //       title: "Add Salary",
+    //       path: "/hr/home/addsalary",
+    //       dash: ""
+    //     },
+    //     {
+    //       title: "View Salary",
+    //       path: "/hr/home/viewsalary",
+    //       dash: ""
+    //     },
+    //     {
+    //       title: "Generate Salary",
+    //       path: "/hr/home/generate/salary",
+    //       dash: <RiGitBranchFill size={25} />
+    //     },
+    //     {
+    //       title: "View Final Salary",
+    //       path: "/hr/home/view/generate/salary",
+    //       dash: ""
+    //     },
+
+    //     {
+    //       title: "Salary Slip",
+    //       path: "/hr/home/salary/slip",
+    //       dash: ""
+    //     },
+
+    //   ]
+    // }, 
     {
-      title: "Salary",
-      path: "#",
-      logo: <TbMoneybag size={25} />,
-      subRoutes: [
-        {
-          title: "Add Salary",
-          path: "/hr/home/addsalary",
-          dash: ""
-        },
-        {
-          title: "View Salary",
-          path: "/hr/home/viewsalary",
-          dash: ""
-        },
-        {
-          title: "Generate Salary",
-          path: "/hr/home/generate/salary",
-          dash: <RiGitBranchFill size={25} />
-        },
-        {
-          title: "View Final Salary",
-          path: "/hr/home/view/generate/salary",
-          dash: ""
-        },
-
-        {
-          title: "Salary Slip",
-          path: "/hr/home/salary/slip",
-          dash: ""
-        },
-
-      ]
-    }, {
       title: "Offer Letter",
       path: "#",
       logo: <FaEnvelopeOpenText size={25} />,
@@ -213,12 +214,12 @@ function SideBarHrAdmin() {
                 <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
               </svg>
             </button>
-            <NavLink to="/hr/home" className="flex ms-2 md:me-24">
+            <NavLink to="/hr/admin/home" className="flex ms-2 md:me-24">
               <img src="/logo.jpg " className="h-10 me-1 " alt="Logo" />
               <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
             </NavLink>
             <div>
-              <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">HR Manager</span>
+              <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">HR Admin</span>
             </div>
 
             <div className="flex">
@@ -231,7 +232,7 @@ function SideBarHrAdmin() {
               <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                 <div className="mx-4 py-3" role="none">
                   <p className="text-sm text-gray-900 dark:text-white" role="none">
-                  HR Manager
+                  HR Admin
                   </p>
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     {loginBranch}
@@ -245,12 +246,12 @@ function SideBarHrAdmin() {
                     <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
                   </li>
                   <li>
-                    <LogoutHr />
+                    <LogoutHrAdmin />
                   </li>
                 </ul>
               </div>
               <span className="text-sm font-medium " role="none">
-                <LogoutHr />
+                <LogoutHrAdmin />
               </span>
             </div>
 

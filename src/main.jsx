@@ -156,6 +156,8 @@ import ViewJoining from "./HumanResources/Letters/joining/ViewJoining.jsx";
 import AddIncrement from "./HumanResources/Letters/increment/AddIncrement.jsx";
 import ViewIncrement from "./HumanResources/Letters/increment/ViewIncrement.jsx";
 import ProtectedHrAdmin from "./HRAdmin/ProtectedHr.jsx";
+import LayoutHrAdmin from "./HRAdmin/LayoutHrAdmin.jsx";
+import DashHrAdmin from "./HRAdmin/DashHrAdmin.jsx";
 
 
 const router = createBrowserRouter(
@@ -343,8 +345,8 @@ const router = createBrowserRouter(
 
       <Route path="/hr/admin" element={<LoginAll />} />
       <Route element={<ProtectedHrAdmin/>}>
-      <Route path="/hr/admin/home" element={<LayoutHr />}>
-      <Route path="" element={<DashboardHr />} />
+      <Route path="/admin/hr/home" element={<LayoutHrAdmin />}>
+      <Route path="" element={<DashHrAdmin/>} />
 
         </Route></Route>
 

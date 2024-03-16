@@ -114,13 +114,14 @@ function LoginAll() {
                         sessionStorage.getItem("token");
                        if (response.data.user.staffType === "HR ADMIN" || response.data.user.staffType === "HR Admin" || response.data.user.staffType === "hr admin") {
                         sessionStorage.getItem("token");
-                        navigate("/hr/admin/home");
+                        navigate("/admin/hr/home");
                         toast.success("Logged In Successfully !");
                     } else {
                         navigate("/employee/home");
                         toast.success("Logged In Successfully !");
                     }
                         break;
+
 
                     case "hrmanager":
                         sessionStorage.getItem("token");
