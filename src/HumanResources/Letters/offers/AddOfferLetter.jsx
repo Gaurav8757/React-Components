@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ToWords } from 'to-words';
 
 function AddOfferLetter() {
     const [ofdate, setOfdate] = useState('');
@@ -14,6 +15,8 @@ function AddOfferLetter() {
     const [ofvalidDate, setOfvalidDate] = useState('');
     const [errors, setErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+ // Create a new instance of ToWords
+ const toWords = new ToWords();
 
     function getFormattedDate() {
         const date = new Date();
@@ -92,6 +95,11 @@ function AddOfferLetter() {
             setFormSubmitted(false);
         }
     };
+
+    // useEffect(() => {
+    //     const grossSalaryInWords = toWords.convert(ofgrosalary);
+    //     setOfsalaryWords(grossSalaryInWords);
+    // }, [ofgrosalary]);
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
@@ -179,7 +187,12 @@ function AddOfferLetter() {
                                 type="text"
                                 value={ofgrosalary}
                                 name="ofgrosalary"
-                                onChange={(e) => setOfgrosalary(e.target.value)}
+                                onChange={(e) => {
+                                    const grossSalary = e.target.value;
+                                    setOfgrosalary(grossSalary);
+                                    const grossSalaryInWords = toWords.convert(grossSalary);
+                                    setOfsalaryWords(grossSalaryInWords);
+                                }}
                                 placeholder="Enter Gross Salary"
                             />
                         </div>
@@ -191,7 +204,7 @@ function AddOfferLetter() {
                                 type="text"
                                 value={ofsalaryWords}
                                 name="ofsalaryWords"
-                                onChange={(e) => setOfsalaryWords(e.target.value.toUpperCase())}
+                                // onChange={(e) => setOfsalaryWords(e.target.value.toUpperCase())}
                                 placeholder="Salary in Words"
                             />
                         </div>

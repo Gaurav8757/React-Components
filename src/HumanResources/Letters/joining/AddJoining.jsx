@@ -187,6 +187,7 @@ function AddJoining() {
               />
             </div>
 
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4"></div>
             {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
               <label className="text-base mx-1">Valid upto:<sup className="text-red-600 font-bold">*</sup></label>
               <input
