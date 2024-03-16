@@ -96,10 +96,7 @@ function AddOfferLetter() {
         }
     };
 
-    // useEffect(() => {
-    //     const grossSalaryInWords = toWords.convert(ofgrosalary);
-    //     setOfsalaryWords(grossSalaryInWords);
-    // }, [ofgrosalary]);
+    
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
