@@ -501,19 +501,46 @@ function ViewMasterForm() {
       </div>
       {/* Pagination */}
       <nav aria-label="Page navigation flex example sticky   ">
-        <ul className="flex justify-end my-0  -space-x-px text-xl">
-          <li className=''>
-            <button onClick={() => handlePageChange(currentPage - 1)} className={`flex items-center justify-end px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage === 1 && 'opacity-50 cursor-not-allowed'}`}>Previous</button>
-          </li>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <li key={i} className='bg-slate-500'>
-              <button onClick={() => handlePageChange(i + 1)} className={`flex items-center justify-end px-3 h-8 leading-tight ${currentPage === i + 1 ? 'text-blue-600 font-bold border bg-blue-100' : 'text-gray-500 bg-white border'} border-gray-300 hover:bg-gray-100 hover:text-gray-700`}>{i + 1}</button>
-            </li>
-          ))}
-          <li className=''>
-            <button onClick={() => handlePageChange(currentPage + 1)} className={`flex items-center justify-end px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage === totalPages && 'opacity-50 cursor-not-allowed'}`}>Next</button>
-          </li>
-        </ul>
+      <ul className="flex space-x-2 justify-end">
+                    <li>
+                        <button
+                            onClick={() => handlePageChange(currentPage - 1)}
+                            disabled={currentPage === 1}
+                            className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
+                        >
+                            Previous
+                        </button>
+                    </li>
+                    {Array.from({ length: totalPages }, (_, i) => {
+                        // Display buttons for currentPage and a few surrounding pages
+                        const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+                        if (showPage) {
+                            return (
+                                <li key={i}>
+                                    <button
+                                        onClick={() => handlePageChange(i + 1)}
+                                        className={`px-3 py-1 ${i + 1 === currentPage
+                                                ? 'bg-green-700 text-white font-bold'
+                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                                            } border border-blue-600`}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                </li>
+                            );
+                        }
+                        return null;
+                    })}
+                    <li>
+                        <button
+                            onClick={() => handlePageChange(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                            className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
+                        >
+                            Next
+                        </button>
+                    </li>
+                </ul>
       </nav>
     </section>
   );
