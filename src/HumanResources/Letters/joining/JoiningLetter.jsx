@@ -74,13 +74,9 @@ function JoiningLetter() {
 
 
                 {/* section */}
-                <section className="">
+                <div className="">
                     <div className="bg-white p-10 rounded-lg shadow-md">
-                        {/* <h1 className="text-xl font-bold mb-4">APPOINTMENT LETTER FOR NON-EXECUTIVE DIRECTOR</h1> */}
                         <p className="mb-4 text-end font-semibold">Date: __________</p>
-
-                        {/* <p className="mb-4 text-start">Subject: APPOINTMENT LETTER FOR NON-EXECUTIVE DIRECTOR</p> */}
-
                         <p className="mb-3 mx-4 text-start">
                             To.
                             <br />
@@ -90,20 +86,9 @@ function JoiningLetter() {
                             6201556255 <br />
                         </p>
                         <p className="mb-3 mx-4 text-start font-bold">Subject: Appointment for Post of Officer Renewal & Manual Entry</p>
-
-
                         <p className="mb-4 mx-4 text-start font-semibold">Dear [Name]</p>
                         <p className="mb-4 mx-4 text-justify">We are pleased to offer you, the position of Officer Renewal & Manual Enrty with <span className='font-bold'> Eleedom IMF Pvt. Ltd.</span>  (the ‘Company’) on the following terms and conditions:</p>
-
-
-
-
-
-
-
-
                         <ul className="list-disc mb-4 text-start mx-16">
-
                             <li>Commencement of employment<br /> Your employment will be effective, as of 1st July 2022</li><br />
                             <li>Job title:<br />
                                 Your job title will be Officer Renewal & Manual Enrty , and   you will report to Mr. Kamlesh Thakur, Manager Accounts.
@@ -251,7 +236,17 @@ function JoiningLetter() {
 
 
                     </div>
-                </section>
+
+
+
+
+
+
+
+
+
+                    
+                </div>
 
                 {/* footer */}
                 <div className=" flex w-full h-1.5 bg-red-700 mb-0.5"></div>

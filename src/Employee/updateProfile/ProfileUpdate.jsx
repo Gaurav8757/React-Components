@@ -12,8 +12,7 @@ function ProfileUpdate() {
         empmobile: "",
         empgender: "",
         empdob: "",
-        // empjoiningdate: "",
-        // empbranch: "",
+       
         permanentempaddress: "",
         currentempaddress: "",
         empaadharno: "",
