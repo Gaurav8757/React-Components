@@ -78,20 +78,23 @@ function TerminationLetter() {
     
                     {/* section */}
                     <section className="">
-                        <h2 className="text-xl font-bold mb-4 text-start">Dear [Employee Name],</h2>
-                        <p className="mb-4">
-                            We are thrilled  for termination to Eleedom IMF as a [Job Title] on our [Market Team].
-                            You will be an integral part of our mission to [Company Mission Statement].
-                        </p>
-                        <p className="mb-4">
-                            Here are the details of your offer:
-                        </p>
-                        <ul className="list-disc mb-4 ml-6">
-                            <li>Position: [Job Title]</li>
-                            <li>Salary: [Salary Amount]</li>
-                            <li>Start Date: [Start Date]</li>
-                            <li>Location: [Location]</li>
-                        </ul>
+                    <div className="text-start mx-4 font-bold mb-5 flex justify-between">
+                                            <span>
+                                                Employee ID: <span>{"id"}</span></span>
+                                            <span>Date: {"dates"}</span>
+                                        </div>
+                                        <p className="mb-4 mx-4 flex-wrap text-start">
+                                            To,
+                                            <br />
+                                            {offers.empname} <br />
+                                            {offers.currentempaddress}<br />
+                                            {offers.empemail}<br />
+                                            {offers.empmobile} <br />
+                                        </p>
+                                        
+                                        <p className=' p-4 text-start font-bold'>
+                                            Subject:- Salary Increment
+                                        </p>
                         <p className="mb-4">
                             We are excited about the skills and experiences you will bring to our team, and we look forward to your contributions.
                             Please let us know if you have any questions or concerns. We are here to support you in any way we can.

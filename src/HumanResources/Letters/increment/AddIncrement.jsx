@@ -6,7 +6,7 @@ function AddIncrement() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
   const [incdate, setIncDate] = useState("");
-  // const [incmoney, setIncMoney] = useState("");
+ 
   const [incrementAmount, setIncrementAmount] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 

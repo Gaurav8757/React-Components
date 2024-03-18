@@ -126,7 +126,7 @@ function IncrementLetter({ offers }) {
                                             To,
                                             <br />
                                             {offers.empname} <br />
-                                            {offers.empaddress}<br />
+                                            {offers.currentempaddress}<br />
                                             {offers.empemail}<br />
                                             {offers.empmobile} <br />
                                         </p>
@@ -141,9 +141,9 @@ function IncrementLetter({ offers }) {
                                             is as follows:
                                             <ul className="list-disc mb-4  mx-16">
 
-                                            <li className=''>Previous Salary: {offers.salary}/- </li>
-                                            <li className=''> Increment: 7000/-  </li>
-                                            <li className=''> New Salary: 42000/-    </li>
+                                            {/* <li className=''>Previous Salary: /- </li> */}
+                                            <li className=''> Increment: {offers.incmoney}/-  </li>
+                                            <li className=''> New Salary: {parseInt(offers.salary) + parseInt(offers.incmoney)}/-    </li>
                                             </ul> 
 
                                             Please contact the HR department for the remainder of the wage breakdown and

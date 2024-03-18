@@ -158,6 +158,8 @@ import ViewIncrement from "./HumanResources/Letters/increment/ViewIncrement.jsx"
 import ProtectedHrAdmin from "./HRAdmin/ProtectedHr.jsx";
 import LayoutHrAdmin from "./HRAdmin/LayoutHrAdmin.jsx";
 import DashHrAdmin from "./HRAdmin/DashHrAdmin.jsx";
+import AddTerminator from "./HumanResources/Letters/termination/AddTerminator.jsx";
+import ViewTerminate from "./HumanResources/Letters/termination/ViewTerminate.jsx";
 
 
 const router = createBrowserRouter(
@@ -330,11 +332,12 @@ const router = createBrowserRouter(
           <Route path="/hr/home/view/offer/letter" element={<ViewOfferLetter/>} />
           <Route path="/hr/home/offer/letters" element={<OffersLetter/>} />
           <Route path="/hr/home/resign/letter" element={<ResignationLetter/>} />
+          <Route path="/hr/home/add/terminate/letter" element= {<AddTerminator/>}></Route>
+          <Route path="/hr/home/view/terminate/letter" element= {<ViewTerminate/>}></Route>
           <Route path="/hr/home/terminate/letter" element={<TerminationLetter/>} />
           <Route path="/hr/home/add/increment/letter" element={<AddIncrement/>} />
           <Route path="/hr/home/view/increment/letter"  element={<ViewIncrement/>}/>
           <Route path="/hr/home/increment/letter" element={<IncrementLetter/>} />
-
           <Route path="/hr/home/add/joining/letter" element={<AddJoining/>} />
           <Route path="/hr/home/view/joining/letter" element={<ViewJoining/>} />
           <Route path="/hr/home/joining/letter" element={<JoiningLetter/>} />

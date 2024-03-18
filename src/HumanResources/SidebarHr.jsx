@@ -139,10 +139,11 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/increment/letter'
-        }, {
-          title: 'Letter',
-          path: '/hr/home/increment/letter'
-        }
+        }, 
+        // {
+        //   title: 'Letter',
+        //   path: '/hr/home/increment/letter'
+        // }
 
       ],
     },
@@ -153,14 +154,14 @@ function DashboardHr() {
       subRoutes: [
         {
           title: 'Add Letter',
-          path: '/hr/home/add/increment/letter'
+          path: '/hr/home/add/terminate/letter'
         },
         {
           title: 'View Letter',
-          path: '/hr/home/view/increment/letter'
+          path: '/hr/home/view/terminate/letter'
         }, {
           title: 'Letter',
-          path: '/hr/home/increment/letter'
+          path: '/hr/home/terminate/letter'
         }
 
       ],
