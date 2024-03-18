@@ -120,11 +120,6 @@ function DashboardHr() {
           title: 'View Letter',
           path: '/hr/home/view/joining/letter'
         } 
-        // {
-        //   title: 'Letter',
-        //   path: '/hr/home/joining/letter'
-        // }
-
       ],
     },
     {
@@ -140,11 +135,6 @@ function DashboardHr() {
           title: 'View Letter',
           path: '/hr/home/view/increment/letter'
         }, 
-        // {
-        //   title: 'Letter',
-        //   path: '/hr/home/increment/letter'
-        // }
-
       ],
     },
     {
@@ -159,11 +149,7 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/terminate/letter'
-        }, {
-          title: 'Letter',
-          path: '/hr/home/terminate/letter'
-        }
-
+        }, 
       ],
     },
     {
@@ -173,14 +159,14 @@ function DashboardHr() {
       subRoutes: [
         {
           title: 'Add Letter',
-          path: '/hr/home/add/increment/letter'
+          path: '/hr/home/add/resign/letter'
         },
         {
           title: 'View Letter',
-          path: '/hr/home/view/increment/letter'
+          path: '/hr/home/view/resign/letter'
         }, {
           title: 'Letter',
-          path: '/hr/home/increment/letter'
+          path: '/hr/home/resign/letter'
         }
       ],
     },

@@ -143,7 +143,7 @@ import AddFinance from "./finance/FinanceData/AddFinance.jsx";
 import ViewFinance from "./finance/FinanceData/ViewFinance.jsx";
 import SalarySlip from "./HumanResources/Salary/SalarySlip.jsx";
 import OffersLetter from "./HumanResources/Letters/offers/OffersLetter.jsx";
-import ResignationLetter from "./HumanResources/Letters/ResignationLetter.jsx";
+import ResignationLetter from "./HumanResources/resign/ResignationLetter.jsx";
 import TerminationLetter from "./HumanResources/Letters/termination/TerminationLetter.jsx";
 import IncrementLetter from "./HumanResources/Letters/increment/IncrementLetter.jsx";
 import JoiningLetter from "./HumanResources/Letters/joining/JoiningLetter.jsx";
@@ -302,6 +302,7 @@ const router = createBrowserRouter(
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
           <Route path="/employee/home/leave/application" element={<LeaveApplication />} />
+          
         </Route>
       </Route>
 

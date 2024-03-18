@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import LeaveApplication from '../LeaveApplication/LeaveApplication.jsx';
+
 // get times
 const getCurrentDateAndTime = () => {
   const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
@@ -76,24 +78,26 @@ function AddAttendance() {
   }
   const empnam = sessionStorage.getItem('name');
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
-        <div className="inline-block min-w-full  w-full py-0 sm:px-5 lg:px-1">
-          <h2 className="text-4xl tracking-wider font-medium">Mark Attendance</h2>
-          <div className="overflow-x-auto   max-h-screen h-screen mt-6 bg-slate-200">
+    <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
+      <div className="container-fluid flex justify-center p-2 w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
+        <div className="inline-block min-w-full   w-full py-0 sm:px-5 lg:px-1">
+          <h2 className="text-4xl tracking-wider font-medium">Attendance</h2>
+          <div className="overflow-x-auto mt-10 bg-slate-200">
             {/* name, date, time */}
-            <div className='flex justify-between text-xl sm:text-md md:text-xl lg:text-2xl xl:text-2xl'>
+            <div className='flex justify-between text-xl sm:text-md md:text-xl lg:text-xl xl:text-xl'>
               <span className="text-start font-semibold ">
-                Your Name: <span className="font-medium tracking-wide text-green-700">{empnam}</span>
+                Your Name: <span className="font-base tracking-wide text-green-700">{empnam}</span>
               </span>
               <span className="text-start font-semibold ">Time: <span className='font-medium tracking-wide text-green-500   md:text-lg xl:text-xl  text-lg sm:text-md'> {ctime}</span> </span>
               <span className="text-start font-semibold ">Date: <span className='font-medium tracking-wide text-blue-600 md:text-lg xl:text-xl text-lg sm:text-md'> {dates}</span> </span>
             </div>
             {/* part-2 */}
-            <div className="mt-8 self-center ">
-              <div className="flex flex-wrap">
+            <div className='flex flex-wrap '>
+            <div className="mt-12   w-full sm:w-full md:w-full lg:w-full xl:w-1/2">
+            <h1 className='text-2xl tracking-wide text-start font-medium text-blue-600 me-10'>Mark Attendance</h1>
+              <div className=" mx-2 text-center justify-center mt-4">
+             
                 <div className="flex items-center me-10 ">
-                  <h1 className='text-2xl tracking-wide font-medium text-blue-600 me-10'>Attendance Status:</h1>
                   <input
                     id="red-radio"
                     type="radio"
@@ -110,7 +114,7 @@ function AddAttendance() {
                     Absent
                   </label>
                 </div>
-                <div className="flex items-center me-10">
+                <div className="flex items-center me-10 my-2">
                   <input
                     id="green-radio"
                     type="radio"
@@ -140,11 +144,11 @@ function AddAttendance() {
                   <label
                     htmlFor="yellow-radio"
                     className="ms-2 text-xl cursor-pointer font-semibold text-yellow-600">
-                    Half-Day
+                    HalfDay
                   </label>
                 </div>
 
-                <div className="flex items-center mx-5">
+                <div className="flex items-center my-2">
                   <input
                     id="yellow-radio"
                     type="radio"
@@ -156,19 +160,27 @@ function AddAttendance() {
                   />
                   <label
                     htmlFor="yellow-radio"
-                    className="ms-2 text-xl cursor-pointer font-semibold text-teal-600 "
-                  >
+                    className="ms-2 text-xl cursor-pointer font-semibold text-teal-600 ">
                     Holiday
                   </label>
                 </div>
               </div>
-              <br />
-              <div className='text-center'>
+              
+              <div className='text-center mt-10 flex justify-center'>
                 <button className='text-white cursor-pointer  bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Attendance</button>
               </div>
             </div>
+            <LeaveApplication/>
+            </div>
           </div>
+          
         </div>
+        {/* <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
+          Balance:
+        </div> */}
+
+      </div>
+      <div>
       </div>
     </section>
   );
