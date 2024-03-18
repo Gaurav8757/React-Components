@@ -59,7 +59,7 @@ useEffect( () => {setIncDate(date)}, [date] );
       );
 
       if (response.data) {
-        toast.success(`${response.data.message}`);
+        toast.success(`${response.data.status}`);
         setFormSubmitted(true);
         setSelectedEmployeeId("");
         setIncrementAmount("");

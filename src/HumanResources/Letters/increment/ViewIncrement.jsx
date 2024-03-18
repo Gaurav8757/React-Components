@@ -8,6 +8,7 @@ function ViewIncrement() {
   const [APIData, setAPIData] = useState([]);
   const [ofletter, setOfletter]= useState([]);
 
+  // console.log(APIData);
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
