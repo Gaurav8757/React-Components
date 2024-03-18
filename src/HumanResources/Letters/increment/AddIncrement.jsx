@@ -5,10 +5,9 @@ import { toast } from "react-toastify";
 function AddIncrement() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
+  const [incdate, setIncDate] = useState("");
   const [incrementAmount, setIncrementAmount] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-
- console.log(selectedEmployeeId);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -29,6 +28,17 @@ function AddIncrement() {
         });
     }
   }, []);
+  function getFormattedDate() {
+    const date = new Date();
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+const date = getFormattedDate();
+useEffect( () => {setIncDate(date)}, [date] );
+
 
   // console.log(employees);
   const handleEmployeeChange = (e) => {
@@ -71,14 +81,25 @@ function AddIncrement() {
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap justify-between">
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/2">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Current Date</label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  value={incdate}
+                  onChange={(e) => setIncDate(e.target.value)}
+                  placeholder="Increment Date"
+                  readOnly
+                />
+              </div>
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Select Employee</label>
                 <select
                   className="input-style p-1 rounded-lg"
                   value={selectedEmployeeId}
                   onChange={handleEmployeeChange}
                 >
-                  <option value="">----------------------------- Select Employee ------------------------------</option>
+                  <option value="">--------- Select Employee ----------</option>
                   {employees.map((employee) => (
                     <option key={employee._id} value={employee._id} >
                       {employee.empid} - {employee.empname}
@@ -86,7 +107,7 @@ function AddIncrement() {
                   ))}
                 </select>
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/2">
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Increment Amount</label>
                 <input
                   className="input-style rounded-lg"
