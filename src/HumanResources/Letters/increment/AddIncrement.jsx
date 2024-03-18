@@ -6,6 +6,7 @@ function AddIncrement() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
   const [incdate, setIncDate] = useState("");
+  // const [incmoney, setIncMoney] = useState("");
   const [incrementAmount, setIncrementAmount] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -54,7 +55,7 @@ useEffect( () => {setIncDate(date)}, [date] );
     try {
       const response = await axios.put(
         `https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`,
-        { salary: incrementAmount }
+        { incmoney: incrementAmount }
       );
 
       if (response.data) {

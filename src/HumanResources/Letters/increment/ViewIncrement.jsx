@@ -86,14 +86,17 @@ function ViewIncrement() {
                   <th scope="col" className="px-1 py-4 border border-black">
                     Increment Date
                   </th>
+                  <th scope="col" className="px-1 py-4 border border-black">
+                    Increment Amount
+                  </th>
                   <th scope="col" className="px-1 py-0 border border-black">
-                    Monthly Salary
+                    New Salary
                   </th>
                   <th scope="col" className="px-1 py-0 border border-black">
                     Monthly Leave
                   </th>
                   <th scope="col" className="px-1 py-0 border border-black">
-                    Update
+                    View Increment Letter
                   </th>
 
                 </tr>
@@ -106,19 +109,22 @@ function ViewIncrement() {
                       className="border-b dark:border-neutral-200 text-sm font-medium"
                       key={data._id}
                     >
-                      <td className="px-1 py-0  border border-black">
+                      <td className="px-0 py-0  border border-black">
                         {data.empname}
                       </td>
-                      <td className="px-1 py-0  border border-black">
+                      <td className="px-0 py-0  border border-black">
                         {data.incdate}
                       </td>
-                      <td className="px-1 py-0  border border-black">
-                        {data.salary}
+                      <td className="px-0 py-0  border border-black">
+                        {data.incmoney}
                       </td>
-                      <td className="px-1 py-0  border border-black">
+                      <td className="px-0 py-0  border border-black">
+                        {data.salary + data.incmoney}
+                      </td>
+                      <td className="px-0 py-0  border border-black">
                         {data.leavemonth}
                       </td>
-                      <td className="px-1 py-1  border border-black">
+                      <td className="px-0 py-1  border border-black">
                         <IncrementLetter offers={data} ofletter = {ofletter} />
                       </td>
                       {/* <td className="px-1 py-1  border border-black">
