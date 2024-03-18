@@ -42,7 +42,7 @@ function AddIncrement() {
     }
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`,
         { salary: incrementAmount }
       );
