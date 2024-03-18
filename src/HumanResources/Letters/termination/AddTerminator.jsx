@@ -63,7 +63,7 @@ const handleSubmit = async (e) => {
     );
 
     if (response.data) {
-      toast.success(`${response.data.status}`);
+      toast.success(`Termination of ${response.data.message.updatedSalary.empname} Created....!`);
       setFormSubmitted(true);
       setSelectedEmployeeId("");
       setTerminateDate("");
