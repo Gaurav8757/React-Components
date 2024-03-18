@@ -86,10 +86,10 @@ function TerminationLetter() {
                                         <p className="mb-4 mx-4 flex-wrap text-start">
                                             To,
                                             <br />
-                                            {offers.empname} <br />
-                                            {offers.currentempaddress}<br />
-                                            {offers.empemail}<br />
-                                            {offers.empmobile} <br />
+                                            {/* {o.empname} <br /> */}
+                                            {/* {offers.currentempaddress}<br /> */}
+                                            {/* {offers.empemail}<br /> */}
+                                            {/* {offers.empmobile} <br /> */}
                                         </p>
                                         
                                         <p className=' p-4 text-start font-bold'>
