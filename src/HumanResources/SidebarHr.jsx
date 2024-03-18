@@ -119,10 +119,11 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/joining/letter'
-        }, {
-          title: 'Letter',
-          path: '/hr/home/joining/letter'
-        }
+        } 
+        // {
+        //   title: 'Letter',
+        //   path: '/hr/home/joining/letter'
+        // }
 
       ],
     },
