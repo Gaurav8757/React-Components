@@ -120,7 +120,7 @@ function ViewIncrement() {
                         {data.incmoney}
                       </td>
                       <td className="px-0 py-0  border border-black">
-                        {data.salary + data.incmoney}
+                      {parseInt(data.salary) + parseInt(data.incmoney)}
                       </td>
                       <td className="px-0 py-0  border border-black">
                         {data.leavemonth}

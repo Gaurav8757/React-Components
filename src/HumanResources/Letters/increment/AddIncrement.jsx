@@ -55,7 +55,9 @@ useEffect( () => {setIncDate(date)}, [date] );
     try {
       const response = await axios.put(
         `https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`,
-        { incmoney: incrementAmount }
+        { incmoney: incrementAmount,
+          incdate}
+         
       );
 
       if (response.data) {
