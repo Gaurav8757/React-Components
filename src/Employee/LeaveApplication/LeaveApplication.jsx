@@ -38,7 +38,7 @@ function LeaveApplication() {
           reason: reason
         };
 
-        await axios.put(`https://eleedomimf.onrender.com/employee/leave/${empid}`, leaveData);
+        await axios.put(`https://eleedomimf.onrender.com/api/emp/update/${empid}`, leaveData);
         // handleDateSelect(dateRange[0]);
         alert('Leave application submitted successfully.');
       } else {
