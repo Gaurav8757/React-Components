@@ -31,6 +31,7 @@ function LeaveApplication() {
         const empid = employeeId; // Replace with actual employee ID
         console.log(startDateFormatted);
         console.log(endDateFormatted);
+        console.log(reason);
         const leaveData = {
           startDate: startDateFormatted,
           endDate: endDateFormatted,
