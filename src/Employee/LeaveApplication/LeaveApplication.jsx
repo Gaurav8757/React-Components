@@ -24,13 +24,13 @@ function LeaveApplication() {
   const handleSubmit = async () => {
     try {
       if (dateRange[0].startDate && dateRange[0].endDate) {
-        console.log(dateRange[0].startDate);
-        console.log(dateRange[0].endDate);
+       
         const startDateFormatted = format(dateRange[0].startDate, 'dd/MM/yyyy');
         const endDateFormatted = format(dateRange[0].endDate, 'dd/MM/yyyy');
         const reason = document.getElementById('message').value;
         const empid = employeeId; // Replace with actual employee ID
-
+        console.log(startDateFormatted);
+        console.log(endDateFormatted);
         const leaveData = {
           startDate: startDateFormatted,
           endDate: endDateFormatted,
