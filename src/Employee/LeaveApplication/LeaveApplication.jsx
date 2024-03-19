@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { format } from 'date-fns';
+import { format, differenceInDays } from 'date-fns';
 import { toast } from "react-toastify";
 function LeaveApplication() {
   const employeeId = sessionStorage.getItem('employeeId');
@@ -31,6 +31,8 @@ function LeaveApplication() {
         const endDateFormatted = format(dateRange[0].endDate, 'dd/MM/yyyy');
         const reason = document.getElementById('message').value;
   
+        const daysCount = differenceInDays(dateRange[0].endDate, dateRange[0].startDate) + 1;
+        console.log(daysCount);
         // Fetch current leave details
         const response = await axios.get(`https://eleedomimf.onrender.com/api/employee/${employeeId}`);
         const currentLeaveDetails = response.data.leaveDetails;
@@ -44,7 +46,8 @@ function LeaveApplication() {
               endDate: endDateFormatted
             },
             reasonForLeave: reason,
-            status: status
+            status: status,
+            counts: daysCount,
           }
         ];
   

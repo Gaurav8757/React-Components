@@ -67,6 +67,9 @@ const LeaveApproval = () => {
                                 <th scope="col" className="px-1 py-0 border border-black sticky">
                                     Reason for Leave
                                 </th>
+                                <th scope="col" className="px-1 py-0 border border-black sticky">
+                                    Approve Leave
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -90,7 +93,7 @@ const LeaveApproval = () => {
                                         </td>
                                         {data.leaveDetails && data.leaveDetails.map((info, index) => (
                                             <tr key={index}> {/* Assuming each leave detail is in a table row */}
-                                            <td className="px-1 py-0 border border-black">
+                                            <td >
                                                     {info.dateRange.startDate}
                                                 </td>
                                                 <td className="px-1 py-0 border border-black">
