@@ -12,7 +12,6 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "animejs": "^3.2.2",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.3.1",
@@ -24,11 +23,11 @@
     "mongodb": "^6.5.0",
     "mongoose-auto-increment": "^5.0.1",
     "pdfjs": "^2.5.3",
-    "pdfkit": "^0.14.0",
     "rc-pagination": "^4.0.4",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.7",
     "react-calendar": "^4.8.0",
+    "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
     "react-icons": "^4.12.0",
@@ -46,7 +45,7 @@
     "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.7.0",
+    "@capacitor/cli": "^5.7.3",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.2.0",

@@ -170,6 +170,12 @@ function DashboardHr() {
         }
       ],
     },
+    {
+      title: "Leave Approval",
+      path: "/hr/home/leave/approval",
+      logo: <IoPersonRemoveSharp size={25} />,
+      
+    },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

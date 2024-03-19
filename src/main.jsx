@@ -160,6 +160,7 @@ import LayoutHrAdmin from "./HRAdmin/LayoutHrAdmin.jsx";
 import DashHrAdmin from "./HRAdmin/DashHrAdmin.jsx";
 import AddTerminator from "./HumanResources/Letters/termination/AddTerminator.jsx";
 import ViewTerminate from "./HumanResources/Letters/termination/ViewTerminate.jsx";
+import LeaveApproval from "./HumanResources/LeaveApproval/LeaveApproval.jsx";
 
 
 const router = createBrowserRouter(
@@ -342,6 +343,7 @@ const router = createBrowserRouter(
           <Route path="/hr/home/add/joining/letter" element={<AddJoining/>} />
           <Route path="/hr/home/view/joining/letter" element={<ViewJoining/>} />
           <Route path="/hr/home/joining/letter" element={<JoiningLetter/>} />
+          <Route path="/hr/home/leave/approval" element={<LeaveApproval/>} />
         </Route>
       </Route>
 
