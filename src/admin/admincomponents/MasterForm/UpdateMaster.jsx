@@ -104,10 +104,10 @@ function UpdateMaster({ insurance, onUpdate }) {
     const today = new Date();
     const birthdateDate = new Date(allDetails.registrationDate);
 
-    if (isNaN(birthdateDate.getTime())) {
-      console.error('Invalid date format for registrationDate');
-      return;
-    }
+    // if (isNaN(birthdateDate.getTime())) {
+    //   console.error('Invalid date format for registrationDate');
+    //   return;
+    // }
 
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
     let ageMonths = today.getMonth() - birthdateDate.getMonth();
@@ -663,13 +663,16 @@ function UpdateMaster({ insurance, onUpdate }) {
                           value={allDetails.productCode}
                           onChange={handleInputChange} name="productCode">
 
-                          <option className="w-1" value="" disabled>--- Select Product Code ---</option>
-                          {/* {
-                          allDetails.products.map((product) => (
-                            <option key={product} value={product}>
-                                {product}
-                            </option>
-                        ))} */}
+                          <option className="w-1" value="" >--- Select Product Code ---</option>
+                         
+                          {data.map((policy) => {
+        if (policy.p_type === allDetails.policyType) {
+            return policy.products.map((product, idx) => (
+                <option key={idx} value={product}>{product}</option>
+            ));
+        }
+        return null;
+    })}
                         </select>
                       </div>
                       {/* FIELD - 29 */}

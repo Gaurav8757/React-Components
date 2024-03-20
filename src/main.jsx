@@ -147,7 +147,7 @@ import ResignationLetter from "./HumanResources/resign/ResignationLetter.jsx";
 import TerminationLetter from "./HumanResources/Letters/termination/TerminationLetter.jsx";
 import IncrementLetter from "./HumanResources/Letters/increment/IncrementLetter.jsx";
 import JoiningLetter from "./HumanResources/Letters/joining/JoiningLetter.jsx";
-import LeaveApplication from "./Employee/LeaveApplication/LeaveApplication.jsx";
+// import LeaveApplication from "./Employee/LeaveApplication/LeaveApplication.jsx";
 import AddPolicy from "./opsAdmin/AddPolicyByOPS/AddPolicy.jsx";
 import AddOfferLetter from "./HumanResources/Letters/offers/AddOfferLetter.jsx";
 import ViewOfferLetter from "./HumanResources/Letters/offers/ViewOfferLetter.jsx";
@@ -302,7 +302,7 @@ const router = createBrowserRouter(
           <Route path="/employee/home/add/attendance" element={<AddAttendance />} />
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
-          <Route path="/employee/home/leave/application" element={<LeaveApplication />} />
+          {/* <Route path="/employee/home/leave/application" element={<LeaveApplication />} /> */}
           
         </Route>
       </Route>

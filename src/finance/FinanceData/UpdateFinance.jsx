@@ -477,7 +477,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div> */}
 
                       {/* FIELD - 26 */}
-                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
                         <label className="text-base mx-1">Product Code:</label>
                         <select
                           id="productCode"
@@ -493,7 +493,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                               <option key={idx} value={product}>{product}</option>
                             )))}
                         </select>
-                      </div> */}
+                      </div>
 
                       {/* FIELD - 8 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/5">

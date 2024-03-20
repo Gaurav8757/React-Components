@@ -23,8 +23,6 @@ function ViewFinance() {
     setItemsPerPage(20);
   }, []);
 
-
-
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -70,7 +68,6 @@ function ViewFinance() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
-
 
   const handleDateRangeChange = (event, type) => {
     if (type === "start") {

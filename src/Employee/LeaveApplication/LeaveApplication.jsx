@@ -5,6 +5,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format, differenceInDays } from 'date-fns';
 import { toast } from "react-toastify";
+
 function LeaveApplication() {
   const employeeId = sessionStorage.getItem('employeeId');
   const [status, setStatus] = useState(false);
@@ -22,17 +23,19 @@ function LeaveApplication() {
   };
 
   const handleSubmit = async () => {
-    
     try {
       setLoading(true); // Set loading to true when submitting
-
+  
       if (dateRange[0].startDate && dateRange[0].endDate) {
         const startDateFormatted = format(dateRange[0].startDate, 'dd/MM/yyyy');
         const endDateFormatted = format(dateRange[0].endDate, 'dd/MM/yyyy');
         const reason = document.getElementById('message').value;
   
         const daysCount = differenceInDays(dateRange[0].endDate, dateRange[0].startDate) + 1;
-        console.log(daysCount);
+  
+        // Set status to pending
+        const status = "pending";
+  
         // Fetch current leave details
         const response = await axios.get(`https://eleedomimf.onrender.com/api/employee/${employeeId}`);
         const currentLeaveDetails = response.data.leaveDetails;
@@ -56,9 +59,7 @@ function LeaveApplication() {
   
         toast.success('Leave application Submitted Successfully.');
         document.getElementById('message').value = '';
-        // setDateRange("");
         setLoading(false);
-        
       } else {
         toast.warn('Please Select Start and End Dates.');
         setLoading(false);

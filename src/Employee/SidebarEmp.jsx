@@ -6,7 +6,7 @@ import { FcPlanner } from "react-icons/fc";
 import { MdOutlinePolicy } from "react-icons/md";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
-import { FcLeave } from "react-icons/fc";
+
 
 
 function DashboardEmp() {
@@ -42,11 +42,12 @@ function DashboardEmp() {
       title: "Policy Lists",
       path: "/employee/home/policy",
       logo: <MdOutlinePolicy size={25} />
-    }, {
-      title: "Leave Application",
-      path: "/employee/home/leave/application",
-      logo: <FcLeave size={25} />
-    },
+    }, 
+    // {
+    //   title: "Leave Application",
+    //   path: "/employee/home/leave/application",
+    //   logo: <FcLeave size={25} />
+    // },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
