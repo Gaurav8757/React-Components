@@ -18,7 +18,22 @@ const BranchSidebar = () => {
       path: "/branches/home/viewinsurance",
       logo: <RiGitBranchFill size={25} />,
     },
-   
+    {
+      title: "Add Payout",
+      path: "/branches/home/viewinsurance",
+      logo: <RiGitBranchFill size={25} />,
+    },
+    {
+      title: "Add Branch Payout",
+      path: "/branches/home/viewinsurance",
+      logo: <RiGitBranchFill size={25} />,
+    },
+    {
+      title: "Add Company Payout",
+      path: "/branches/home/viewinsurance",
+      logo: <RiGitBranchFill size={25} />,
+    },
+
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -72,7 +87,7 @@ const BranchSidebar = () => {
                       {name}
                     </p>
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                     {loginBranch}
+                      {loginBranch}
                     </p>
                   </div>
                   <ul className="py-1" role="none">
@@ -86,13 +101,12 @@ const BranchSidebar = () => {
                       <BranchLogout />
                       {/* <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</NavLink> */}
                     </li>
-
                   </ul>
                 </div>
               </div>
               <span>
-                      <BranchLogout />
-                    </span>
+                <BranchLogout />
+              </span>
             </div>
           </div>
         </div>
@@ -118,7 +132,7 @@ const BranchSidebar = () => {
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-6">{route.title}</span>
-                      <span className="ms-2"><IoMdArrowDropdown/></span>
+                      <span className="ms-2"><IoMdArrowDropdown /></span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -131,7 +145,7 @@ const BranchSidebar = () => {
                             to={subRoute.path}
                             className="flex p-2 text-white text-start mx-8  hover:rounded-xl hover:bg-gray-500"
                           >
-                             {<IoMdArrowDropright size={30}/>}{subRoute.title}
+                            {<IoMdArrowDropright size={30} />}{subRoute.title}
                           </NavLink>
                         </li>
                       ))}

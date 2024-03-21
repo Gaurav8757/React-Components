@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 const LeaveDetailsPopup = ({ emp, onUpdate }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedLeave, setSelectedLeave] = useState(null);
+    const [statusUpdatedMap, setStatusUpdatedMap] = useState({});
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -22,11 +23,12 @@ const LeaveDetailsPopup = ({ emp, onUpdate }) => {
 
     const handleSubmit = async () => {
         try {
-            if (selectedLeave) {
+            if (selectedLeave && !statusUpdatedMap[selectedLeave._id]) {
                 const { _id, status } = selectedLeave;
              const resp =   await axios.put(`https://eleedomimf.onrender.com/employee/${emp._id}/leave/${_id}`, { status });
 
                 onUpdate(); // Update leave details after submission
+                setStatusUpdatedMap(prevState => ({ ...prevState, [selectedLeave._id]: true })); // Set status updated to true for this leave item
                 toast.success(`${resp.data.message}`)
             }
         } catch (error) {
@@ -123,14 +125,17 @@ const LeaveDetailsPopup = ({ emp, onUpdate }) => {
                         <td className="px-8 py-4">{leave.dateRange.endDate}</td>
                         <td className="px-8 py-4">{leave.counts}</td>
                         <td className="px-8 py-4">{leave.reasonForLeave}</td>
-                        <td className={`status mr-12 text-start ${leave.status === 'pending' ? 'bg-slate-300 rounded-xl my-auto px-2 py-0' : leave.status === 'approved' ? 'bg-green-200 text-green-700 my-auto rounded-xl px-2 py-0' : 'bg-red-200 text-red-900 my-auto py-0 rounded-xl px-2'}`}>{leave.status}</td>
+                        <td className="px-8 py-4"><span className={`status mr-12 text-start ${leave.status === 'pending' ? 'bg-slate-300 rounded-xl my-auto px-2 py-1' : leave.status === 'approved' ? 'bg-green-200 text-green-700 my-auto rounded-xl px-2 py-1' : 'bg-red-200 text-red-900 my-auto py-1 rounded-xl px-2'}`}>{leave.status}</span></td>
                         <td className="px-8 py-4">
-                            <select name="status" className="w-32" value={selectedLeave && selectedLeave._id === leave._id ? selectedLeave.status : leave.status} onChange={(event) => handleStatusChange(event, leave)}>
+                            <select name="status" className="w-32 rounded-l-md px-2 py-0.5 cursor-pointer" value={selectedLeave && selectedLeave._id === leave._id ? selectedLeave.status : leave.status} onChange={(event) => handleStatusChange(event, leave)} disabled={statusUpdatedMap[leave._id]}>
                                 <option value="">---- Select Status -----</option>
                                 <option value="approved">Approved</option>
                                 <option value="rejected">Rejected</option>
                             </select>
-                            <button className="bg-blue-500 text-white px-2 py-1 ml-2" onClick={handleSubmit}>Submit</button>
+                            {/* <button className="bg-blue-500 text-white px-2 py-1  rounded-r-md" onClick={handleSubmit}>Submit</button> */}
+                            {!statusUpdatedMap[leave._id] && ( // Render submit button if status is not updated for this leave item
+                                                            <button className="bg-blue-500 text-white px-2 py-1  rounded-r-md" onClick={() => handleSubmit(leave)}>Submit</button>
+                                                        )}
                         </td>
                     </tr>
                 ))}
