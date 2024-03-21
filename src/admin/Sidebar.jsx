@@ -232,7 +232,7 @@ const Sidebar = () => {
             </button>
             <NavLink to="/dashboard" className="flex ms-2 md:me-24">
               <img src="/logo.jpg " className="h-10 w-20 me-1 " alt="Logo" />
-              <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap dark:text-white">ELEEDOM IMF</span>
+              <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
             </NavLink>
             <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">Admin Dashboard</span>
             <div className="flex">
