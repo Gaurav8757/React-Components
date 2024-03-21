@@ -27,11 +27,11 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     }
 
-    const checkFormValidity = () => {
-        const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo", "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
-        const emptyFields = requiredFields.filter(field => !allDetails[field]);
-        return emptyFields.length === 0;
-    };
+    // const checkFormValidity = () => {
+    //     const requiredFields = ["company", "category", "policyType", "policyNo", "engNo", "chsNo", "taxes", "rsa", "finalEntryFields", "odDiscount", "ncb", "policyPaymentMode"];
+    //     const emptyFields = requiredFields.filter(field => !allDetails[field]);
+    //     return emptyFields.length === 0;
+    // };
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -219,10 +219,10 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             setLoading(true);
             setFormSubmitted(true);
             // Check form validity before submitting
-            if (!checkFormValidity()) {
-                toast.error("Please fill in all required fields before submitting.");
-                return;
-            }
+            // if (!checkFormValidity()) {
+            //     toast.error("Please fill in all required fields before submitting.");
+            //     return;
+            // }
             // Use the selected category ID in the patch method
             const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
             onUpdates();
