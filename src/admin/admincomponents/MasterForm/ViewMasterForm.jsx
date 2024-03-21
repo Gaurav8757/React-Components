@@ -167,17 +167,16 @@ function ViewMasterForm() {
           row.advisorName,
           row.subAdvisor,
           row.payoutOn,
-          row.paymentDoneBy,
-          row.chqNoRefNo,
-          row.bankName,
-          row.chqPaymentDate,
-          row.chqStatus,
           row.advisorPayableAmount,
           row.branchPayout,
           row.branchPayableAmount,
           row.companyPayout,
           row.profitLoss,
-
+          row.paymentDoneBy,
+          row.chqNoRefNo,
+          row.bankName,
+          row.chqPaymentDate,
+          row.chqStatus,
         ];
       });
   
@@ -226,16 +225,17 @@ function ViewMasterForm() {
         "Advisor Name",
         "Sub Advisor",
         "Payout On",
+        "Advisor Payout",
+        "Advisor Payable Amount",
+        "Branch Payout",
+        "Branch Payable Amount",
+        "Company Payout",
+        "Profit/Loss",
         "Payment Done By",
         "CHQ No / Ref No",
         "Bank Name",
         "CHQ / Payment Date",
         "CHQ Status",
-        "Advisor Payable Amount",
-        "Branch Payout",
-        "Branch Payable Amount",
-        "Company Payout",
-        "Profit/Loss"
       ];
   
       // Create worksheet
@@ -412,16 +412,17 @@ function ViewMasterForm() {
                   <th scope="col" className="px-1 border border-black">Advisor Name</th>
                   <th scope="col" className="px-1 border border-black">Sub Advisor</th>
                   <th scope="col" className="px-1 border border-black">Payout On</th>
-                  <th scope="col" className="px-1 border border-black">Payment Done By</th>
-                  <th scope="col" className="px-1 border whitespace-nowrap border-black">CHQ No / Ref No</th>
-                  <th scope="col" className="px-1 border border-black">Bank Name</th>
-                  <th scope="col" className="px-1 border border-black">CHQ / Payment Date</th>
-                  <th scope="col" className="px-1 border border-black">CHQ Status</th>
+                  <th scope="col" className="px-1 border border-black">Advisor Payout</th>
                   <th scope="col" className="px-1 border border-black">Advisor Payable Amount</th>
                   <th scope="col" className="px-1 border border-black">Branch Payout</th>
                   <th scope="col" className="px-1 border border-black">Branch Payable Amount</th>
                   <th scope="col" className="px-1 border border-black">Company Payout</th>
                   <th scope="col" className="px-1 border border-black">Profit/Loss</th>
+                  <th scope="col" className="px-1 border border-black">Payment Done By</th>
+                  <th scope="col" className="px-1 border whitespace-nowrap border-black">CHQ No / Ref No</th>
+                  <th scope="col" className="px-1 border border-black">Bank Name</th>
+                  <th scope="col" className="px-1 border border-black">CHQ / Payment Date</th>
+                  <th scope="col" className="px-1 border border-black">CHQ Status</th>
                   <th scope="col" className="px-1 border border-black">Delete</th>
                 </tr>
               </thead>
@@ -474,21 +475,17 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-1 border border-black">{data.productCode}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.subAdvisor}</td>
-
-
-
-
                     <td className="whitespace-nowrap px-1 border border-black">{data.payoutOn}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.paymentDoneBy}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.chqNoRefNo}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.bankName}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.chqPaymentDate}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.chqStatus}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.advisorPayableAmount}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.branchPayout}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.branchPayableAmount}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.companyPayout}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.profitLoss}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.paymentDoneBy}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.chqNoRefNo}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.bankName}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.chqPaymentDate}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.chqStatus}</td>
                     <td className="whitespace-nowrap px-1 border border-black">
                       <button type="button" onClick={() => onDeleteAllData(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
                     </td>

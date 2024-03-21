@@ -24,10 +24,10 @@ const LeaveDetailsPopup = ({ emp, onUpdate }) => {
         try {
             if (selectedLeave) {
                 const { _id, status } = selectedLeave;
-                await axios.put(`https://eleedomimf.onrender.com/employee/${emp._id}/leave/${_id}`, { status });
+             const resp =   await axios.put(`https://eleedomimf.onrender.com/employee/${emp._id}/leave/${_id}`, { status });
 
                 onUpdate(); // Update leave details after submission
-                toast.success("")
+                toast.success(`${resp.data.message}`)
             }
         } catch (error) {
             console.error('Error updating status:', error);
@@ -66,35 +66,81 @@ const LeaveDetailsPopup = ({ emp, onUpdate }) => {
                                 </button>
                             </div>
 
-                            <div className="p-2 rounded-lg">
+                            {/* <div className="p-2 rounded-lg">
     {emp.leaveDetails && emp.leaveDetails.length > 0 ? (
         <>
             <div className="flex justify-between px-8 my-1">
-                <p><strong>Start Date</strong></p>
-                <p><strong>End Date</strong></p>
-                <p><strong>Reason for Leave</strong></p>
-                <p><strong>Status</strong></p>
-                <p><strong>Actions</strong></p>
+                <span><strong>Start Date</strong></span>
+                <span><strong>End Date</strong></span>
+                <span><strong>No of Days</strong></span>
+                <span><strong>Reason for Leave</strong></span>
+                <span><strong>Status</strong></span>
+                <span><strong>Actions</strong></span>
             </div>
             {emp.leaveDetails.slice().reverse().map((leave) => (
                 <div key={leave._id} className="flex bg-slate-100 text-black justify-between shadow-2xl rounded-md p-4 my-2">
                     <span className="text-start">{leave.dateRange.startDate}</span>
                     <span className="text-start">{leave.dateRange.endDate}</span>
+                    <span className="text-start">{leave.counts}</span>
                     <span className="text-start">{leave.reasonForLeave}</span>
-                    <span className={`status mr-12 text-start ${leave.status === 'pending' ? 'bg-slate-300 rounded-xl px-2 py-0' : leave.status === 'approved' ? 'bg-green-200 text-green-700 rounded-xl px-2 py-0' : 'bg-red-200 text-red-900 py-0 rounded-xl px-2'}`}>{leave.status}</span>
-                    <select name="status" className="w-32 rounded-xl" value={selectedLeave && selectedLeave._id === leave._id ? selectedLeave.status : leave.status} onChange={(event) => handleStatusChange(event, leave)}>
+                    <span className={`status mr-12 text-start ${leave.status === 'pending' ? 'bg-slate-300 rounded-xl my-auto px-2 py-0' : leave.status === 'approved' ? 'bg-green-200 text-green-700 my-auto rounded-xl px-2 py-0' : 'bg-red-200 text-red-900 my-auto py-0 rounded-xl px-2'}`}>{leave.status}</span>
+
+
+                    <span className="text-start">
+                    <select name="status" className="w-32" value={selectedLeave && selectedLeave._id === leave._id ? selectedLeave.status : leave.status} onChange={(event) => handleStatusChange(event, leave)}>
                         <option value="">---- Select Status -----</option>
                         <option value="approved">Approved</option>
                         <option value="rejected">Rejected</option>
                     </select>
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded-md " onClick={handleSubmit}>Submit</button>
+                    <button className="bg-blue-500 text-white px-1.5 py-0.4  " onClick={handleSubmit}>Submit</button>
+                    </span>
                 </div>
             ))}
         </>
     ) : (
         <p className="text-center text-3xl text-gray-100 font-bold ">No leave details available</p>
     )}
+</div> */}
+
+
+<div className="p-2 rounded-lg">
+    {emp.leaveDetails && emp.leaveDetails.length > 0 ? (
+        <table className="w-full">
+            <thead>
+                <tr className="">
+                    <th className="px-8 py-4">Start Date</th>
+                    <th className="px-8 py-4">End Date</th>
+                    <th className="px-8 py-4">No of Days</th>
+                    <th className="px-8 py-4">Reason for Leave</th>
+                    <th className="px-8 py-4">Status</th>
+                    <th className="px-8 py-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {emp.leaveDetails.slice().reverse().map((leave) => (
+                    <tr key={leave._id} className="bg-slate-100 text-black">
+                        <td className="px-8 py-4">{leave.dateRange.startDate}</td>
+                        <td className="px-8 py-4">{leave.dateRange.endDate}</td>
+                        <td className="px-8 py-4">{leave.counts}</td>
+                        <td className="px-8 py-4">{leave.reasonForLeave}</td>
+                        <td className={`status mr-12 text-start ${leave.status === 'pending' ? 'bg-slate-300 rounded-xl my-auto px-2 py-0' : leave.status === 'approved' ? 'bg-green-200 text-green-700 my-auto rounded-xl px-2 py-0' : 'bg-red-200 text-red-900 my-auto py-0 rounded-xl px-2'}`}>{leave.status}</td>
+                        <td className="px-8 py-4">
+                            <select name="status" className="w-32" value={selectedLeave && selectedLeave._id === leave._id ? selectedLeave.status : leave.status} onChange={(event) => handleStatusChange(event, leave)}>
+                                <option value="">---- Select Status -----</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                            <button className="bg-blue-500 text-white px-2 py-1 ml-2" onClick={handleSubmit}>Submit</button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    ) : (
+        <p className="text-center text-3xl text-gray-100 font-bold">No leave details available</p>
+    )}
 </div>
+
 
                         </div>
                     </div>
