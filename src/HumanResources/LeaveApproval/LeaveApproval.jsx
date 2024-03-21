@@ -379,7 +379,7 @@ const LeaveApproval = () => {
                                 <p className="text-lg text-start leading-loose "><span className='font-semibold'>Email ID:</span> {employee.empemail}</p>
                             </div>
                             <div className="text-center my-auto"> 
-                                <LeaveDetailsPopup leaveDetails={employee.leaveDetails} onUpdate={onUpdateLeave}/>
+                                <LeaveDetailsPopup emp={employee} onUpdate={onUpdateLeave}/>
                             </div>
                         </div>
                     ))}
