@@ -4,7 +4,7 @@ import BranchLogout from "./BranchLogout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-
+import { GiReceiveMoney } from "react-icons/gi";
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -19,21 +19,27 @@ const BranchSidebar = () => {
       logo: <RiGitBranchFill size={25} />,
     },
     {
-      title: "Add Payout",
-      path: "/branches/home/viewinsurance",
-      logo: <RiGitBranchFill size={25} />,
+      title: "Commission Slab",
+      path: "#",
+      logo: <GiReceiveMoney size={25} />,
+      subRoutes:[
+        {
+          title: "Commercial Vehicle",
+          path: "/branches/home/commvehicle",
+          dash: ""
+        },
+        {
+          title: "Private Vehicle",
+          path: "/branches/home/pvtvehicle",
+          dash: ""
+        },
+        {
+          title: "Two Wheeler",
+          path: "/branches/home/twowheeler",
+          dash: ""
+        },
+      ]
     },
-    {
-      title: "Add Branch Payout",
-      path: "/branches/home/viewinsurance",
-      logo: <RiGitBranchFill size={25} />,
-    },
-    {
-      title: "Add Company Payout",
-      path: "/branches/home/viewinsurance",
-      logo: <RiGitBranchFill size={25} />,
-    },
-
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

@@ -10,7 +10,7 @@ import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
 import { MdOutlineCategory } from "react-icons/md";
-
+import { GiReceiveMoney } from "react-icons/gi";
 const Sidebar = () => {
   const dashboardRoutes = [
     {
@@ -84,6 +84,28 @@ const Sidebar = () => {
           path: "/dashboard/viewmasterform",
           dash:""
         }, 
+      ]
+    },
+    {
+      title: "Commission Slab",
+      path: "#",
+      logo: <GiReceiveMoney size={25} />,
+      subRoutes:[
+        {
+          title: "Commercial Vehicle",
+          path: "/dashboard/commvehicle",
+          dash: ""
+        },
+        {
+          title: "Private Vehicle",
+          path: "/dashboard/pvtvehicle",
+          dash: ""
+        },
+        // {
+        //   title: "Two Wheeler",
+        //   path: "/branches/home/twowheeler",
+        //   dash: ""
+        // },
       ]
     },
     {
@@ -280,7 +302,7 @@ const Sidebar = () => {
                   <div className="relative group ">
                     <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-gray-600 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
-                      <span className="ms-6  flex ">{route.title}{<IoMdArrowDropdown size={20} className="mx-4"/>}</span>
+                      <span className="ms-5  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1"/>}</span>
                     </NavLink>
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
@@ -295,7 +317,7 @@ const Sidebar = () => {
                 ) : (
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 dark:hover:bg-gray-700 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-6 hover:bg-slate-600">{route.title}</span>
+                    <span className="ms-5 hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
                   </NavLink>
                 )}
               </li>

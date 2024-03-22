@@ -161,6 +161,9 @@ import DashHrAdmin from "./HRAdmin/DashHrAdmin.jsx";
 import AddTerminator from "./HumanResources/Letters/termination/AddTerminator.jsx";
 import ViewTerminate from "./HumanResources/Letters/termination/ViewTerminate.jsx";
 import LeaveApproval from "./HumanResources/LeaveApproval/LeaveApproval.jsx";
+import CommercialVehicles from "./branches/CommissionSlab/CommercialVehicles.jsx";
+import PrivateCar from "./branches/CommissionSlab/PrivateCar.jsx";
+import TwoWheelers from "./branches/CommissionSlab/TwoWheelers.jsx";
 
 
 const router = createBrowserRouter(
@@ -264,7 +267,8 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
-          
+          <Route path="/dashboard/commvehicle" element={<CommercialVehicles/>} />
+          <Route path="/dashboard/pvtvehicle" element={<PrivateCar/>} />
         </Route>
       </Route>
 
@@ -277,7 +281,9 @@ const router = createBrowserRouter(
           <Route path="/branches/home" element={<BranchDashboard />} />
           <Route path="/branches/home/add/policy" element={<AddDataByBranch />} />
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
-          
+          <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
+          <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
+          <Route path="/branches/home/twowheeler" element={<TwoWheelers/>} />
         </Route>
       </Route>
 
