@@ -115,9 +115,7 @@ function TwoWheelers() {
                   onChange={(e) => {
                     setCompany(e.target.value.toUpperCase());
                     const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
-                    setCatTypesForSelectedPolicy(selectedCatId);
-                  }}
-                >
+                    setCatTypesForSelectedPolicy(selectedCatId)}}>
                   <option className="w-1" value="" >--------- Select Company ---------</option>
                   {pdata.map((comp) => (
                     <option key={comp._id} value={comp.c_type} data-id={comp._id}>
