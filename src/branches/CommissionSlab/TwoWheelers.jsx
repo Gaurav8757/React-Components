@@ -135,7 +135,7 @@ function TwoWheelers() {
           voddiscount:odDiscount,
           vcc:cc,
         };
-        await axios.post("https://eleedomimf.onrender.com/commission/slab/tw/add", formData, {
+        await axios.post("https://eleedomimf.onrender.com/commission1/slab/tw/add", formData, {
           headers: {
             Authorization: `${token}`
           }
