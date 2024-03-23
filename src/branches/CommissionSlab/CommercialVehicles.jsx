@@ -98,6 +98,7 @@ function CommercialVehicles() {
         return;
       }
       const formData = {
+        vehicleSlab: "CV-Slab",
         cnames:company,
         catnames:category,
         segments:segment,

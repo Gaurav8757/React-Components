@@ -123,7 +123,8 @@ function TwoWheelers() {
           return;
         }
         const formData = {
-          
+          vehicleSlab: "TW-Slab",
+          cnames:company,
           catnames:category,
           segments:segment,
           policytypes:policyType,

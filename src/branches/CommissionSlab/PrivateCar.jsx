@@ -98,6 +98,7 @@ function PrivateCar() {
           return;
         }
         const formData = {
+          vehicleSlab: "PV-Slab",
           cnames:company,
           catnames:category,
           segments:segment,
