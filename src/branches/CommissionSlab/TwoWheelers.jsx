@@ -135,12 +135,12 @@ function TwoWheelers() {
           voddiscount:odDiscount,
           vcc:cc,
         };
-        await axios.post("https://eleedomimf.onrender.com/commission1/slab/tw/add", formData, {
+        await axios.post("http://localhost:7000/commission1/slab/tw/add", formData, {
           headers: {
             Authorization: `${token}`
           }
         });
-        toast.success("PV-Commission Added Successfully");
+        toast.success("TW-Commission Added Successfully");
         setFormSubmitted(true);
         // Reset form fields after successful submission if needed
         setCompany('');
@@ -155,8 +155,8 @@ function TwoWheelers() {
         setPayoutOn('');
         setPoPercentage('');
       } catch (error) {
-        console.error("Error adding PV-Commission:", error.response);
-        toast.error("Failed to add PV-Commission");
+        console.error("Error adding TW-Commission:", error.response);
+        toast.error("Failed to add TW-Commission");
       } finally {
         setFormSubmitted(false);
       }
