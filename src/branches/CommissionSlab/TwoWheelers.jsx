@@ -124,17 +124,16 @@ function TwoWheelers() {
         }
         const formData = {
           
-          company,
-          category,
-          segment,
-          policyType,
-          productCode, 
-          payoutOn,
-          popercentage,
-          fuel,
-          ncb,
-          odDiscount,
-          cc,
+          catnames:category,
+          segments:segment,
+          policytypes:policyType,
+          pcodes:productCode,
+          payoutons:payoutOn,
+          cvpercentage:popercentage,
+          vfuels:fuel,
+          vncb:ncb,
+          voddiscount:odDiscount,
+          vcc:cc,
         };
         await axios.post("https://eleedomimf.onrender.com/commission/slab/tw/add", formData, {
           headers: {

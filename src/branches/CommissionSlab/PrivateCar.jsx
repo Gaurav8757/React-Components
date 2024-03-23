@@ -98,14 +98,14 @@ function PrivateCar() {
           return;
         }
         const formData = {
-          company,
-          category,
-          segment,
-          policyType,
-          productCode,
+          cnames:company,
+          catnames:category,
+          segments:segment,
+          policytypes:policyType,
+          pcodes:productCode,
           vage,
-          payoutOn,
-          popercentage
+          payoutons:payoutOn,
+          cvpercentage:popercentage
         };
         await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
           headers: {
