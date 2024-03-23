@@ -15,7 +15,8 @@ function CommercialVehicles() {
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [payoutOn, setPayoutOn] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [popercentage, setPoPercentage ] = useState();
+  const [popercentage, setPoPercentage] = useState();
+
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -91,13 +92,44 @@ function CommercialVehicles() {
       return;
     }
     try {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+        return;
+      }
+      const formData = {
+        company,
+        category,
+        segment,
+        policyType,
+        productCode,
+        vage,
+        payoutOn,
+        popercentage
+      };
+      await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
+      toast.success("CV-Commission Added Successfully");
       setFormSubmitted(true);
+      // Reset form fields after successful submission if needed
+      setCompany('');
+      setCategory('');
+      setSegment('');
+      setPolicyType('');
+      setProductCode('');
+      setVage('');
+      setPayoutOn('');
+      setPoPercentage('');
     } catch (error) {
-      console.error("Error during branch registration:", error.response);
+      console.error("Error adding CV-Commission:", error.response);
+      toast.error("Failed to add CV-Commission");
     } finally {
       setFormSubmitted(false);
     }
-  }
+  };
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">

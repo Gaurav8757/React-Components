@@ -92,13 +92,44 @@ function PrivateCar() {
         return;
       }
       try {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          toast.error("Not Authorized yet.. Try again! ");
+          return;
+        }
+        const formData = {
+          company,
+          category,
+          segment,
+          policyType,
+          productCode,
+          vage,
+          payoutOn,
+          popercentage
+        };
+        await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
+          headers: {
+            Authorization: `${token}`
+          }
+        });
+        toast.success("PV-Commission Added Successfully");
         setFormSubmitted(true);
+        // Reset form fields after successful submission if needed
+        setCompany('');
+        setCategory('');
+        setSegment('');
+        setPolicyType('');
+        setProductCode('');
+        setVage('');
+        setPayoutOn('');
+        setPoPercentage('');
       } catch (error) {
-        console.error("Error during branch registration:", error.response);
+        console.error("Error adding PV-Commission:", error.response);
+        toast.error("Failed to add PV-Commission");
       } finally {
         setFormSubmitted(false);
       }
-    }
+    };
   
     return (
       <section className="container-fluid relative  p-0 sm:ml-64 bg-white">

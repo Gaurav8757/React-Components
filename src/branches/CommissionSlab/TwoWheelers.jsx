@@ -5,6 +5,7 @@ import axios from "axios";
 function TwoWheelers() {
   const [pdata, setPdata] = useState([]);
     const [data, setData] = useState([]);
+    const [fuelType, setFuelType] = useState([]);
     const [products, setProducts] = useState([]);
     const [segment, setSegment] = useState('');
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
@@ -12,12 +13,15 @@ function TwoWheelers() {
     const [category, setCategory] = useState('');
     const [policyType, setPolicyType] = useState('');
     const [productCode, setProductCode] = useState('');
-    const [vage, setVage] = useState("");
+    const [cc, setCc] = useState('');
     const [payoutOnList, setPayoutOnList] = useState([]);
     const [payoutOn, setPayoutOn] = useState('');
+    const [ncb, setNcb] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [popercentage, setPoPercentage ] = useState();
-  
+    const [odDiscount, setOdDiscount] = useState('');
+    const [fuel, setFuel] = useState('');
+
     useEffect(() => {
       axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
         .then((resp) => {
@@ -29,6 +33,27 @@ function TwoWheelers() {
           console.error("Error fetching company names:", error);
         });
     }, [pdata]);
+
+    useEffect(() => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+      } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+          .get(`https://eleedomimf.onrender.com/view/fuel`, {
+            headers: {
+              Authorization: `${token}`, // Send the token in the Authorization header
+            },
+          })
+          .then((response) => {
+            setFuelType(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }, [fuelType]);
   
     useEffect(() => {
       axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
@@ -64,9 +89,9 @@ function TwoWheelers() {
       }
     }, [payoutOnList]);
   
-    const handleVageChange = (e) => {
-      const selectedVage = e.target.value;
-      setVage(selectedVage);
+    // const handleVageChange = (e) => {
+    //   const selectedVage = e.target.value;
+    //   setVage(selectedVage);
       // Perform calculations based on the selected value
       // switch (selectedVage) {
       //   case 'NEW':
@@ -84,7 +109,7 @@ function TwoWheelers() {
       //   default:
       //     // Handle default case or invalid input
       // }
-    };
+    // };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -92,14 +117,54 @@ function TwoWheelers() {
         return;
       }
       try {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          toast.error("Not Authorized yet.. Try again! ");
+          return;
+        }
+        const formData = {
+          
+          company,
+          category,
+          segment,
+          policyType,
+          productCode, 
+          payoutOn,
+          popercentage,
+          fuel,
+          ncb,
+          odDiscount,
+          cc,
+        };
+        await axios.post("https://eleedomimf.onrender.com/commission/slab/tw/add", formData, {
+          headers: {
+            Authorization: `${token}`
+          }
+        });
+        toast.success("PV-Commission Added Successfully");
         setFormSubmitted(true);
+        // Reset form fields after successful submission if needed
+        setCompany('');
+        setCategory('');
+        setSegment('');
+        setPolicyType('');
+        setProductCode('');
+        setFuel('');
+        setNcb('');
+        setOdDiscount('');
+        setCc('');
+        setPayoutOn('');
+        setPoPercentage('');
       } catch (error) {
-        console.error("Error during branch registration:", error.response);
+        console.error("Error adding PV-Commission:", error.response);
+        toast.error("Failed to add PV-Commission");
       } finally {
         setFormSubmitted(false);
       }
-    }
+    };
   
+
+
     return (
       <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
         <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
@@ -199,8 +264,51 @@ function TwoWheelers() {
                   ))}
                 </select>
               </div>
-              {/* AGE */}
+
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 rounded-lg"
+                  value={fuel}
+                  name="fuel"
+                  onChange={(e) => setFuel(e.target.value)}>
+                  <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                  {
+                    fuelType.map((fuel) => (
+                      <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                    ))
+                  }
+                </select>
+              </div>
+
+
+                {/* FIELD - 18 */}
+                <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                  placeholder="Enter NCB"
+                />
+              </div>
+
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount"
+                />
+               
+              </div>
+              {/* AGE */}
+              {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="vage" name="vage"
@@ -213,6 +321,18 @@ function TwoWheelers() {
                   <option value="6-10 YEARS">6-10 Years</option>
                   <option value="MORE THAN 10 YEARS">More than 10 Years</option>
                 </select>
+              </div> */}
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className="input-style rounded-lg"
+                  type="text"
+                  name="cc"
+                  value={cc}
+                  onChange={(e) => setCc(e.target.value.toUpperCase())}
+                  placeholder="Enter CC"
+                />
+               
               </div>
               {/* payout on */}
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -249,6 +369,7 @@ function TwoWheelers() {
   
               </div>
   
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
             </div>
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
