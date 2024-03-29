@@ -164,6 +164,10 @@ import LeaveApproval from "./HumanResources/LeaveApproval/LeaveApproval.jsx";
 import CommercialVehicles from "./branches/CommissionSlab/CommercialVehicles.jsx";
 import PrivateCar from "./branches/CommissionSlab/PrivateCar.jsx";
 import TwoWheelers from "./branches/CommissionSlab/TwoWheelers.jsx";
+import CvLists from "./branches/ListsCommissionSlab/CvLists.jsx";
+import PCLists from "./branches/ListsCommissionSlab/PCLists.jsx";
+import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
+
 
 
 const router = createBrowserRouter(
@@ -284,6 +288,9 @@ const router = createBrowserRouter(
           <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
           <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
           <Route path="/branches/home/twowheeler" element={<TwoWheelers/>} />
+          <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
+          <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} />
+          <Route path="/branches/home/twowheeler/lists" element={<TwLists/>} />
         </Route>
       </Route>
 

@@ -29,13 +29,28 @@ const BranchSidebar = () => {
           dash: ""
         },
         {
+          title: "Lists of CV",
+          path: "/branches/home/commvehicle/lists",
+          dash: ""
+        },
+        {
           title: "Private Vehicle",
           path: "/branches/home/pvtvehicle",
           dash: ""
         },
         {
+          title: "Lists of PV",
+          path: "/branches/home/pvtvehicle/lists",
+          dash: ""
+        },
+        {
           title: "Two Wheeler",
           path: "/branches/home/twowheeler",
+          dash: ""
+        },
+        {
+          title: "Lists of TW",
+          path: "/branches/home/twowheeler/lists",
           dash: ""
         },
       ]

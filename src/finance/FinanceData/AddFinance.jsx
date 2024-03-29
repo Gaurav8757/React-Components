@@ -67,7 +67,7 @@ function AddFinance() {
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [section1Filled, setSection1Filled] = useState(false);
-  const [section2Filled, setSection2Filled] = useState(false);
+  // const [section2Filled, setSection2Filled] = useState(false);
   const [step, setSteps] = useState(0);
 
     if (step === 0 && section1Filled) {
@@ -591,7 +591,7 @@ function AddFinance() {
           }}
           nextButton={{
             title: (
-              <span className="flex justify-end" disabled={step === 0 ? !section1Filled : !section2Filled}>Next
+              <span className="flex justify-end" >Next
                 <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
               </span>
             ),
