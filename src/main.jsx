@@ -167,6 +167,7 @@ import TwoWheelers from "./branches/CommissionSlab/TwoWheelers.jsx";
 import CvLists from "./branches/ListsCommissionSlab/CvLists.jsx";
 import PCLists from "./branches/ListsCommissionSlab/PCLists.jsx";
 import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
+import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
 
 
 
@@ -273,6 +274,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
           <Route path="/dashboard/commvehicle" element={<CommercialVehicles/>} />
           <Route path="/dashboard/pvtvehicle" element={<PrivateCar/>} />
+          <Route path="/dashboard/company/slabs" element={<CompanySlab/>} />
         </Route>
       </Route>
 
@@ -288,6 +290,7 @@ const router = createBrowserRouter(
           <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
           <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
           <Route path="/branches/home/twowheeler" element={<TwoWheelers/>} />
+          
           <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
           <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} />
           <Route path="/branches/home/twowheeler/lists" element={<TwLists/>} />

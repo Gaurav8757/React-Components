@@ -101,11 +101,11 @@ const Sidebar = () => {
           path: "/dashboard/pvtvehicle",
           dash: ""
         },
-        // {
-        //   title: "Two Wheeler",
-        //   path: "/branches/home/twowheeler",
-        //   dash: ""
-        // },
+        {
+          title: "Company Slabs",
+          path: "/dashboard/company/slabs",
+          dash: ""
+        },
       ]
     },
     {

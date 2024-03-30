@@ -17,7 +17,9 @@ function PrivateCar() {
     const [payoutOn, setPayoutOn] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [popercentage, setPoPercentage ] = useState();
-  
+    const [branchpayoutper, setBranchpayoutper] = useState();
+
+
     useEffect(() => {
       axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
         .then((resp) => {
@@ -106,7 +108,8 @@ function PrivateCar() {
           pcodes:productCode,
           vage,
           payoutons:payoutOn,
-          cvpercentage:popercentage
+          cvpercentage:popercentage,
+          branchpayoutper
         };
         await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
           headers: {
@@ -124,6 +127,7 @@ function PrivateCar() {
         setVage('');
         setPayoutOn('');
         setPoPercentage('');
+        setBranchpayoutper('');
       } catch (error) {
         console.error("Error adding PV-Commission:", error.response);
         toast.error("Failed to add PV-Commission");
@@ -280,9 +284,19 @@ function PrivateCar() {
                   name="popercentage"
                   placeholder="%"
                 />
-  
               </div>
-  
+   {/* branch payout % */}
+   <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={branchpayoutper}
+                onChange={(e) => setBranchpayoutper(e.target.value)}
+                name="popercentage"
+                placeholder="%"
+              />
+            </div>
             </div>
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "

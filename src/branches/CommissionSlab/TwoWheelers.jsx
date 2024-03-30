@@ -9,6 +9,7 @@ function TwoWheelers() {
     const [products, setProducts] = useState([]);
     const [segment, setSegment] = useState('');
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
+    const [branchpayoutper, setBranchpayoutper] = useState();
     const [company, setCompany] = useState('');
     const [category, setCategory] = useState('');
     const [policyType, setPolicyType] = useState('');
@@ -135,6 +136,7 @@ function TwoWheelers() {
           vncb:ncb,
           voddiscount:odDiscount,
           vcc:cc,
+          branchpayoutper
         };
         await axios.post("http://localhost:7000/commission1/slab/tw/add", formData, {
           headers: {
@@ -155,6 +157,7 @@ function TwoWheelers() {
         setCc('');
         setPayoutOn('');
         setPoPercentage('');
+        setBranchpayoutper('');
       } catch (error) {
         console.error("Error adding TW-Commission:", error.response);
         toast.error("Failed to add TW-Commission");
@@ -366,10 +369,20 @@ function TwoWheelers() {
                   name="popercentage"
                   placeholder="%"
                 />
-  
               </div>
-  
-              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
+   {/* branch payout % */}
+   <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={branchpayoutper}
+                onChange={(e) => setBranchpayoutper(e.target.value)}
+                name="popercentage"
+                placeholder="%"
+              />
+            </div>
+             
             </div>
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
