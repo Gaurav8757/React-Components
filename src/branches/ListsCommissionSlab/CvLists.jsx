@@ -70,30 +70,33 @@ function CvLists() {
                         <th scope="col" className="px-1 py-0 border border-black sticky">
                             Percentage
                         </th>
-
+                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                            Branch Payout Percentage
+                        </th>
 
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-    {APIData.reverse().map((data) => {
-        if (data.vehicleSlab === 'CV-Slab') {
-            return (
-                <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
-                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
-                    <td className="px-1 py-0 border border-black">{data.catnames}</td>
-                    <td className="px-1 py-0 border border-black">{data.segments}</td>
-                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
-                    <td className="px-1 py-0 border border-black">{data.pcodes}</td>
-                    <td className="px-1 py-0 border border-black">{data.vage}</td>
-                    <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                    <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
-                </tr>
-            );
-        } else {
-            return null; // Return nothing if vehicleSlab is not 'CV-Slab'
-        }
-    })}
-</tbody>
+                    {APIData.reverse().map((data) => {
+                        if (data.vehicleSlab === 'CV-Slab') {
+                            return (
+                                <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
+                                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
+                                    <td className="px-1 py-0 border border-black">{data.catnames}</td>
+                                    <td className="px-1 py-0 border border-black">{data.segments}</td>
+                                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
+                                    <td className="px-1 py-0 border border-black">{data.pcodes}</td>
+                                    <td className="px-1 py-0 border border-black">{data.vage}</td>
+                                    <td className="px-1 py-0 border border-black">{data.payoutons}</td>
+                                    <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
+                                    <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
+                                </tr>
+                            );
+                        } else {
+                            return null; // Return nothing if vehicleSlab is not 'CV-Slab'
+                        }
+                    })}
+                </tbody>
             </table>
 
         </section>

@@ -69,7 +69,9 @@ function PCLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Percentage
             </th>
-
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              Branch Payout Percentage
+            </th>
 
           </tr>
         </thead>
@@ -86,6 +88,7 @@ function PCLists() {
                   <td className="px-1 py-0 border border-black">{data.vage}</td>
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
                   <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
+                  <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
                 </tr>
               );
             } else {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import axios from "axios";
 import MultiStep from "react-multistep";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
@@ -65,6 +65,32 @@ function MasterForm() {
   const [payMode, setPayMode] = useState([]);
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [cslab, setCslab]  = useState([]);
+
+  console.log(cslab);
+  
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+
+              setCslab(response.data);
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
