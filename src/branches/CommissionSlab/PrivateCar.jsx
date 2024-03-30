@@ -286,7 +286,7 @@ function PrivateCar() {
                 />
               </div>
    {/* branch payout % */}
-   <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"

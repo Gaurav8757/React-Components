@@ -36,9 +36,7 @@ function CvLists() {
         <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
                 <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
-
                     <span className=" flex justify-center text-center  text-3xl font-semibold  ">Lists of Commercial Vehicle </span>
-
                 </div>
             </div>
             <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
@@ -63,7 +61,6 @@ function CvLists() {
                         <th scope="col" className="px-1 py-0 border border-black sticky">
                             Vehicle Age
                         </th>
-
                         <th scope="col" className="px-1 py-0 border border-black sticky">
                             PayoutOn
                         </th>
@@ -93,7 +90,7 @@ function CvLists() {
                                 </tr>
                             );
                         } else {
-                            return null; // Return nothing if vehicleSlab is not 'CV-Slab'
+                            return null;
                         }
                     })}
                 </tbody>

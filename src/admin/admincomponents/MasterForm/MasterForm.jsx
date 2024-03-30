@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 import MultiStep from "react-multistep";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
@@ -50,7 +50,7 @@ function MasterForm() {
   const [bankName, setBankName] = useState('');
   const [chqPaymentDate, setChqPaymentDate] = useState('');
   const [chqStatus, setChqStatus] = useState('');
-  const [advisorPayableAmount, setAdvisorPayableAmount] = useState('');
+  const [advisorPayableAmount, setAdvisorPayableAmount] = useState(0);
   const [branchPayout, setBranchPayout] = useState('');
   const [branchPayableAmount, setBranchPayableAmount] = useState('');
   const [companyPayout, setCompanyPayout] = useState('');
@@ -65,32 +65,30 @@ function MasterForm() {
   const [payMode, setPayMode] = useState([]);
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [cslab, setCslab]  = useState([]);
+  const [cslab, setCslab] = useState([]);
 
-  console.log(cslab);
-  
+  // console.log(APIData);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-
-              setCslab(response.data);
-
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCslab(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -264,21 +262,18 @@ function MasterForm() {
     setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
   };
 
-  // calculate branch payable amount
-  const calculateBranchPayableAmount = () => {
-    const netPremiumValue = parseFloat(netPremium) || 0;
-    const branchPayoutValue = parseFloat(branchPayout) || 0;
 
-    const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
 
-    setBranchPayableAmount(branchPayableAmountValue.toFixed(2)); // Assuming you want to display the amount with two decimal places
-  };
+
+
+
+
 
 
   //calculation  profit/loss 
   const calculateProfitLoss = () => {
     const companyPayoutValue = parseFloat(companyPayout) || 0;
-    const branchPayoutValue = parseFloat(branchPayout) || 0;
+    const branchPayoutValue = parseFloat(branchPayableAmount) || 0;
     const profitLossValue = companyPayoutValue - branchPayoutValue;
 
     setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
@@ -315,6 +310,46 @@ function MasterForm() {
     // Set the selected policyStartDate
     setPolicyStartDate(startDate);
   };
+
+  // *************************************************************************************************************//
+  const calculateAdvisorPayableAmount = (finalEntryFields, percentage) => {
+    const deduction = finalEntryFields * (percentage / 100);
+    return finalEntryFields - deduction;
+  };
+
+  const calculateBranchPayableAmount = (finalEntryFields, branchpayoutper) => {
+    const deduction = finalEntryFields * (branchpayoutper / 100);
+    return finalEntryFields - deduction;
+  };
+
+
+  const matchingCSLab = cslab.find(cslabItem =>
+    cslabItem.cnames === company &&
+    cslabItem.catnames === category &&
+    cslabItem.policytypes === policyType &&
+    cslabItem.pcodes === productCode &&
+    cslabItem.payoutons === payoutOn
+  );
+
+  useEffect(() => {
+    const calculateAmounts = () => {
+      if (matchingCSLab) {
+        // Calculate advisor payable amount based on matching CSLab data
+        const percentage = matchingCSLab.cvpercentage || 0;
+        const branchpercent = matchingCSLab.branchpayoutper || 0;
+        // console.log(percentage);
+        const advisorPayable = calculateAdvisorPayableAmount(parseFloat(finalEntryFields), percentage);
+        const branchPayables = calculateBranchPayableAmount(parseFloat(finalEntryFields), branchpercent);
+        //  console.log(branchPayables);
+        setAdvisorPayableAmount(advisorPayable);
+        setBranchPayout(branchpercent);
+        setBranchPayableAmount(branchPayables);
+
+      }
+    };
+    calculateAmounts();
+  }, [cslab, company, category, policyType, productCode, payoutOn, finalEntryFields]);
+
 
   // Handle form submission logic here
   const handleSubmit = async (e) => {
@@ -429,6 +464,14 @@ function MasterForm() {
       return;
     }
 
+
+
+
+
+
+
+
+
     try {
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post("https://eleedomimf.onrender.com/alldetails/adddata", {
@@ -483,6 +526,8 @@ function MasterForm() {
         companyPayout,
         profitLoss,
       });
+
+
 
       if (response.data) {
         toast.success("Data Added Successfully !");
@@ -549,8 +594,6 @@ function MasterForm() {
       setFormSubmitted(false);
     }
   };
-
-
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
@@ -1000,7 +1043,7 @@ function MasterForm() {
                   value={segment}
                   onChange={(e) => setSegment(e.target.value)}>
                   <option className="w-1" value="" disabled>--- Select Segment ---</option>
-                  <option value="C V">C V</option>
+                  <option value="C V">CV</option>
                   <option value="PVT-CAR">PVT-CAR</option>
                   <option value="TW">TW</option>
                   <option value="HEALTH">HEALTH</option>
@@ -1386,7 +1429,9 @@ function MasterForm() {
                     calculateProfitLoss();
                   }}
                   placeholder="Enter Branch Payout"
+                  readOnly
                 />
+
               </div>
 
               {/* FIELD - 47 */}
@@ -1416,8 +1461,6 @@ function MasterForm() {
                   placeholder="Enter Company Payout"
                 />
               </div>
-
-
               {/* FIELD - 49 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Profit/Loss Amount:<span className="text-red-600 font-bold">*</span></label>
@@ -1434,20 +1477,16 @@ function MasterForm() {
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
-            <button
-              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
-              onClick={handleSubmit}
-              disabled={formSubmitted}
-              type="button">
-              {formSubmitted ? "Submitted" : "Submit"}
-            </button>
-          </div>
+                <button
+                  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
+                  onClick={handleSubmit}
+                  disabled={formSubmitted}
+                  type="button">
+                  {formSubmitted ? "Submitted" : "Submit"}
+                </button>
+              </div>
             </div>
-           
           </MultiStep>
-         
-          
-
         </div>
       </div>
     </section>
