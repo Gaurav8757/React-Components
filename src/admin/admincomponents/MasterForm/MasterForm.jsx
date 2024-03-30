@@ -348,7 +348,7 @@ function MasterForm() {
       }
     };
     calculateAmounts();
-  }, [cslab, company, category, policyType, productCode, payoutOn, finalEntryFields]);
+  }, [cslab, company, category, policyType, productCode, payoutOn, finalEntryFields, matchingCSLab]);
 
 
   // Handle form submission logic here
