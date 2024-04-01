@@ -143,7 +143,7 @@ function CommercialVehicles() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> CV - Commission Slab </h1>
+          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> CV - Payout Slab </h1>
           <div className="flex flex-wrap mb-12 justify-between">
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>

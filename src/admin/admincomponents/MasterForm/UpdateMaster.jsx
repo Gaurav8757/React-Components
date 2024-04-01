@@ -8,7 +8,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-
+  const [pmade, setPmade] = useState([]);
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
     company: '',
@@ -83,6 +83,29 @@ function UpdateMaster({ insurance, onUpdate }) {
         console.error("Error fetching policy types:", error);
       });
   }, [data]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+
+          setPmade(response.data);
+
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [pmade]);
 
   // Function to update netPremium when odPremium or liabilityPremium changes
   const updateNetPremium = () => {
@@ -467,17 +490,19 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <label className="text-base mx-1">Policy Made By:</label>
                         <select
                           className="input-style p-1 rounded-lg"
-                          value={allDetails.policyMadeBy}
+                          value={allDetails.staffName}
                           onChange={handleInputChange}
-                          name="policyMadeBy"
+                          name="staffName"
                         >
-                          <option className="w-1" value="" disabled>--- Policy Made By ---</option>
-                          <option value="RAHUL KUMAR">RAHUL KUMAR</option>
-                          <option value="CHOTU KUMAR">CHOTU KUMAR</option>
-                          <option value="HARSH KUMAR">HARSH KUMAR</option>
-                          <option value="ABHISHEK KUMAR">ABHISHEK KUMAR</option>
-                          <option value="SAMRIN NAZ">SAMRIN NAZ</option>
-                          <option value="AMIT KUMAR SINGH">AMIT KUMAR SINGH</option>
+                          <option className="w-1" value="" >--- Policy Made By ---</option>
+                          {
+                    pmade.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                      .map((emp) => (
+                        <option key={emp._id} value={emp.empname}>
+                          {emp.empid} - {emp.empname}
+                        </option>
+                      ))
+                  }
                         </select>
                       </div>
 
