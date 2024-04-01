@@ -23,6 +23,9 @@ function TwoWheelers() {
   const [odDiscount, setOdDiscount] = useState('');
   const [fuel, setFuel] = useState('');
   const [companypayoutper, setCompanypayoutper] = useState();
+
+
+
   
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
