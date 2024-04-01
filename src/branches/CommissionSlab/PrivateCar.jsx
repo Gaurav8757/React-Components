@@ -18,7 +18,7 @@ function PrivateCar() {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [popercentage, setPoPercentage ] = useState();
     const [branchpayoutper, setBranchpayoutper] = useState();
-
+    const [companypayoutper, setCompanypayoutper] = useState();
 
     useEffect(() => {
       axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -109,7 +109,8 @@ function PrivateCar() {
           vage,
           payoutons:payoutOn,
           cvpercentage:popercentage,
-          branchpayoutper
+          branchpayoutper,
+          companypayoutper
         };
         await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
           headers: {
@@ -293,10 +294,24 @@ function PrivateCar() {
                 type="number"
                 value={branchpayoutper}
                 onChange={(e) => setBranchpayoutper(e.target.value)}
+                name="branchpayoutper"
+                placeholder="%"
+              />
+            </div>
+             {/* COMPANY payout % */}
+             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Company Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={companypayoutper}
+                onChange={(e) => setCompanypayoutper(e.target.value)}
                 name="popercentage"
                 placeholder="%"
               />
             </div>
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             </div>
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "

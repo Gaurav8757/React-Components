@@ -22,7 +22,8 @@ function TwoWheelers() {
   const [popercentage, setPoPercentage] = useState();
   const [odDiscount, setOdDiscount] = useState('');
   const [fuel, setFuel] = useState('');
-
+  const [companypayoutper, setCompanypayoutper] = useState();
+  
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
       .then((resp) => {
@@ -382,6 +383,21 @@ function TwoWheelers() {
                 placeholder="%"
               />
             </div>
+            {/* COMPANY payout % */}
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Company Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="number"
+                value={companypayoutper}
+                onChange={(e) => setCompanypayoutper(e.target.value)}
+                name="popercentage"
+                placeholder="%"
+              />
+            </div>
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
+
 
           </div>
           <button
