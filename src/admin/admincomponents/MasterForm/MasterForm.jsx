@@ -53,7 +53,7 @@ function MasterForm() {
   const [advisorPayableAmount, setAdvisorPayableAmount] = useState(0);
   const [branchPayout, setBranchPayout] = useState('');
   const [branchPayableAmount, setBranchPayableAmount] = useState('');
-  const [companyPayout, setCompanyPayout] = useState('');
+  const [companyPayout, setCompanyPayout] = useState(0);
   const [profitLoss, setProfitLoss] = useState('');
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
@@ -270,14 +270,7 @@ function MasterForm() {
 
 
 
-  //calculation  profit/loss 
-  const calculateProfitLoss = () => {
-    const companyPayoutValue = parseFloat(companyPayout) || 0;
-    const branchPayoutValue = parseFloat(branchPayableAmount) || 0;
-    const profitLossValue = companyPayoutValue - branchPayoutValue;
-
-    setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
-  };
+ 
 
 
   // final amount set
@@ -321,14 +314,26 @@ function MasterForm() {
     const deduction = finalEntryFields * (branchpayoutper / 100);
     return finalEntryFields - deduction;
   };
+  const calculateCompanyPayableAmount = (finalEntryFields, companypayoutper) => {
+    const deduction = finalEntryFields * (companypayoutper / 100);
+    return finalEntryFields - deduction;
+  };
 
+   //calculation  profit/loss 
+   const calculateProfitLoss = () => {
+    const companyPayoutValue = parseFloat(companyPayout) || 0;
+    const branchPayoutValue = parseFloat(branchPayableAmount) || 0;
+    const profitLossValue = companyPayoutValue - branchPayoutValue;
+    setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
+  };
 
+  // console.log(profitLoss);
   const matchingCSLab = cslab.find(cslabItem =>
     cslabItem.cnames === company &&
     cslabItem.catnames === category &&
     cslabItem.policytypes === policyType &&
     cslabItem.pcodes === productCode &&
-    cslabItem.payoutons === payoutOn
+    cslabItem.payoutons === payoutOn 
   );
 
   useEffect(() => {
@@ -337,14 +342,14 @@ function MasterForm() {
         // Calculate advisor payable amount based on matching CSLab data
         const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
-        // console.log(percentage);
+        const companypercent = matchingCSLab.companypayoutper || 0;
         const advisorPayable = calculateAdvisorPayableAmount(parseFloat(finalEntryFields), percentage);
         const branchPayables = calculateBranchPayableAmount(parseFloat(finalEntryFields), branchpercent);
-        //  console.log(branchPayables);
+        const companyPayables = calculateCompanyPayableAmount(parseFloat(finalEntryFields), companypercent);
         setAdvisorPayableAmount(advisorPayable);
         setBranchPayout(branchpercent);
         setBranchPayableAmount(branchPayables);
-
+        setCompanyPayout(companyPayables);
       }
     };
     calculateAmounts();
@@ -1412,7 +1417,9 @@ function MasterForm() {
                   name="advisorPayableAmount"
                   onChange={(e) => setAdvisorPayableAmount(e.target.value)}
                   placeholder="Advisor Payable Amount"
+                  readOnly
                 />
+                
               </div>
 
               {/* FIELD - 46 */}
@@ -1458,7 +1465,7 @@ function MasterForm() {
                   name="companyPayout"
                   onChange={(e) => setCompanyPayout(e.target.value)}
                   onBlur={calculateProfitLoss}
-                  placeholder="Enter Company Payout"
+                  readOnly
                 />
               </div>
               {/* FIELD - 49 */}

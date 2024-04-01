@@ -25,8 +25,6 @@ function TwoWheelers() {
   const [companypayoutper, setCompanypayoutper] = useState();
 
 
-
-  
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
       .then((resp) => {
@@ -162,6 +160,7 @@ function TwoWheelers() {
       setPayoutOn('');
       setPoPercentage('');
       setBranchpayoutper('');
+      setCompanypayoutper('');
     } catch (error) {
       console.error("Error adding TW-Commission:", error.response);
       toast.error("Failed to add TW-Commission");

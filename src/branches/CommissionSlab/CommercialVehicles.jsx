@@ -130,6 +130,7 @@ function CommercialVehicles() {
       setPayoutOn('');
       setPoPercentage('');
       setBranchpayoutper('');
+      setCompanypayoutper('');
     } catch (error) {
       console.error("Error adding CV-Commission:", error.response);
       toast.error("Failed to add CV-Commission");

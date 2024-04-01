@@ -129,6 +129,7 @@ function PrivateCar() {
         setPayoutOn('');
         setPoPercentage('');
         setBranchpayoutper('');
+        setCompanypayoutper('');
       } catch (error) {
         console.error("Error adding PV-Commission:", error.response);
         toast.error("Failed to add PV-Commission");
