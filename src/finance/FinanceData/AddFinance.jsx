@@ -4,7 +4,7 @@ import MultiStep from "react-multistep";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import axios from "axios";
 function AddFinance() {
-  
+
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
@@ -70,10 +70,10 @@ function AddFinance() {
   // const [section2Filled, setSection2Filled] = useState(false);
   const [step, setSteps] = useState(0);
 
-    if (step === 0 && section1Filled) {
-      setSteps(1);
-    }
-   
+  if (step === 0 && section1Filled) {
+    setSteps(1);
+  }
+
   // Function to check if all fields in section 1 are filled
   const checkSection1Filled = () => {
     if (
@@ -87,7 +87,7 @@ function AddFinance() {
       policyType &&
       policyNo &&
       engNo &&
-      chsNo 
+      chsNo
     ) {
       setSection1Filled(true);
     } else {
@@ -228,36 +228,47 @@ function AddFinance() {
   };
 
   // Calculate the last day of the previous month
-  const getLastDayOfPreviousMonth = () => {
-    const today = new Date();
+  // const getLastDayOfPreviousMonth = () => {
+  //   const today = new Date();
     // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
-    return today.toISOString().split('T')[0];
-  };
+  //   return today.toISOString().split('T')[0];
+  // };
   //  VEHICLE AGE CALCULATED
+  // const calculateAge = () => {
+  //   if (!registrationDate) {
+  //     setVehicleAge("0 years 0 months 0 days");
+  //     return;
+  //   }
+  //   const today = new Date();
+  //   const birthdateDate = new Date(registrationDate);
+  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
+  //   let ageDays = today.getDate() - birthdateDate.getDate();
+
+  //   if (ageDays < 0) {
+  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  //     ageDays = lastDayOfPreviousMonth + ageDays;
+  //     ageMonths--;
+  //   }
+
+  //   if (ageMonths < 0) {
+  //     ageYears--;
+  //     ageMonths = 12 + ageMonths;
+  //   }
+  //   setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
+  // };
+
   const calculateAge = () => {
     if (!registrationDate) {
-      setVehicleAge("0 years 0 months 0 days");
+      setVehicleAge("0 years");
       return;
     }
     const today = new Date();
     const birthdateDate = new Date(registrationDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
 
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
-
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
-    setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
-  };
-
+    setVehicleAge(`${ageYears} years`);
+};
   useEffect(() => {
     calculateAge();
   },);
@@ -317,9 +328,9 @@ function AddFinance() {
   };
 
 
- 
 
-  
+
+
 
   // Handle form submission logic here
   const handleSubmit = async (e) => {
@@ -355,15 +366,15 @@ function AddFinance() {
     if (!policyType) {
       errors.policyType = "required*";
     }
-    if (!odPremium) {
-      errors.odPremium = "required*";
-    }
+    // if (!odPremium) {
+    //   errors.odPremium = "required*";
+    // }
     if (!liabilityPremium) {
       errors.liabilityPremium = "required*";
     }
-    if (!rsa) {
-      errors.rsa = "required*";
-    }
+    // if (!rsa) {
+    //   errors.rsa = "required*";
+    // }
     if (!taxes) {
       errors.taxes = "required*";
     }
@@ -376,42 +387,40 @@ function AddFinance() {
     if (!policyPaymentMode) {
       errors.policyPaymentMode = "required*";
     }
-    if (!vehRegNo) {
-      errors.vehRegNo = "required*";
-    }
+    // if (!vehRegNo) {
+    //   errors.vehRegNo = "required*";
+    // }
     if (!policyStartDate) {
       errors.policyStartDate = "required*";
     }
     if (!policyEndDate) {
       errors.policyEndDate = "required*";
     }
-    if (!odDiscount) {
-      errors.odDiscount = "required*";
-    }
-    if (!ncb) {
-      errors.ncb = "required*";
-    }
-    if (!contactNo) {
-      errors.contactNo = "required*";
-    }
-    if (!idv) {
-      errors.idv = "required*";
-    }
-    if (!bodyType) {
-      errors.bodyType = "required*";
-    }
+    // if (!odDiscount) {
+    //   errors.odDiscount = "required*";
+    // }
+    // if (!ncb) {
+    //   errors.ncb = "required*";
+    // }
+    // if (!contactNo) {
+    //   errors.contactNo = "required*";
+    // }
+
+    // if (!bodyType) {
+    //   errors.bodyType = "required*";
+    // }
     if (!makeModel) {
       errors.makeModel = "required*";
     }
     if (!mfgYear) {
       errors.mfgYear = "required*";
     }
-    if (!gvw) {
-      errors.gvw = "required*";
-    }
-    if (!cc) {
-      errors.cc = "required*";
-    }
+    // if (!gvw) {
+    //   errors.gvw = "required*";
+    // }
+    // if (!cc) {
+    //   errors.cc = "required*";
+    // }
 
 
     if (!productCode) {
@@ -421,9 +430,9 @@ function AddFinance() {
       errors.advisorName = "required*";
     }
 
-    if (!registrationDate) {
-      errors.registrationDate = "required*";
-    }
+    // if (!registrationDate) {
+    //   errors.registrationDate = "required*";
+    // }
     if (!staffName) {
       errors.staffName = "required*";
     }
@@ -558,64 +567,64 @@ function AddFinance() {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
           <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Create Policy</h1>
-          <MultiStep activeStep={step}  showNavigation={true}  className= "bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
-          stepCustomStyle={{
-            display: "inline",
-            width: "50%",
-            marginBottom:"0"
-          }}
-          titleCustomStyle={{ fontWeight: "bold", color: "#2D3748" }}
-          contentCustomStyle={{ color: "#2D3748" }}
-          prevButton={{
-            title: (
-              <span className="flex justify-start" >
-                <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
-              </span>
-            ),
-            style: {
-              display: "inline" ,
-              width: "max-content",
-              background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
-              color: 'white',
-              fontWeight: '',
-              borderRadius: '12rem',
-              padding: '0.2rem 0.6rem',
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
-              transition: 'background 1.3s ease',
-              marginRight: 'auto', // Adjusted to marginRight auto
-              marginBottom: '0.5rem',
-              float: 'left'
-            }
-          }}
-          nextButton={{
-            title: (
-              <span className="flex justify-end" >Next
-                <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
-              </span>
-            ),
-            style: {
+          <MultiStep activeStep={step} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
+            stepCustomStyle={{
               display: "inline",
-              width: "max-content",
-              background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
-              color: 'white',
-              fontWeight: '',
-              borderRadius: '12rem',
-              padding: '0.2rem 0.6rem',
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
-              transition: 'background 1.3s ease',
-              marginLeft: 'auto', // Adjusted to marginLeft auto
-              marginBottom: '0.5rem',
-              float: 'right'
-            }
-          }}
+              width: "50%",
+              marginBottom: "0"
+            }}
+            titleCustomStyle={{ fontWeight: "bold", color: "#2D3748" }}
+            contentCustomStyle={{ color: "#2D3748" }}
+            prevButton={{
+              title: (
+                <span className="flex justify-start" >
+                  <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
+                </span>
+              ),
+              style: {
+                display: "inline",
+                width: "max-content",
+                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                color: 'white',
+                fontWeight: '',
+                borderRadius: '12rem',
+                padding: '0.2rem 0.6rem',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+                transition: 'background 1.3s ease',
+                marginRight: 'auto', // Adjusted to marginRight auto
+                marginBottom: '0.5rem',
+                float: 'left'
+              }
+            }}
+            nextButton={{
+              title: (
+                <span className="flex justify-end" >Next
+                  <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
+                </span>
+              ),
+              style: {
+                display: "inline",
+                width: "max-content",
+                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                color: 'white',
+                fontWeight: '',
+                borderRadius: '12rem',
+                padding: '0.2rem 0.6rem',
+                border: 'none',
+                cursor: 'pointer',
+                boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+                transition: 'background 1.3s ease',
+                marginLeft: 'auto', // Adjusted to marginLeft auto
+                marginBottom: '0.5rem',
+                float: 'right'
+              }
+            }}
           >
-            
-        
-          
+
+
+
 
             {/* step -1 */}
             <div className="flex flex-wrap mb-10 justify-between transition-all duration-2000 ease-in-out">
@@ -806,14 +815,14 @@ function AddFinance() {
                 {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
               </div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              </div>
+            </div>
 
 
-           
-              {/* FIELD - 12 */}
-              <div className="flex flex-wrap mb-10 justify-between text">
+
+            {/* FIELD - 12 */}
+            <div className="flex flex-wrap mb-10 justify-between text">
               {
-                policyType === "SATP" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                policyType === "SATP" || policyType === "LIABILITY" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
                     className="input-style rounded-lg"
@@ -837,13 +846,13 @@ function AddFinance() {
                     onBlur={updateNetPremium}
 
                   />
-                  {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
+
                 </div>)
               }
-          
+
               {/* FIELD - 13 */}
               {
-                policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                policyType === "SAOD"  ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
                     className="input-style rounded-lg"
@@ -901,7 +910,7 @@ function AddFinance() {
               </div>
 
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">RSA:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -911,7 +920,7 @@ function AddFinance() {
                   onBlur={calculateFinalAmount}
                   placeholder="RSA"
                 />
-                {errors.rsa && <span className="text-red-600 text-sm ">{errors.rsa}</span>}
+
               </div>
 
               {/* FIELD - 16 */}
@@ -930,7 +939,7 @@ function AddFinance() {
 
               {/* FIELD - 17 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">OD Discount%:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -939,12 +948,12 @@ function AddFinance() {
                   onChange={(e) => setOdDiscount(e.target.value)}
                   placeholder="Enter OD Discount"
                 />
-                {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
+                {/* {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>} */}
               </div>
 
               {/* FIELD - 18 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">NCB%:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -953,7 +962,7 @@ function AddFinance() {
                   onChange={(e) => setNcb(e.target.value)}
                   placeholder="Enter NCB"
                 />
-                {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
+                {/* {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>} */}
               </div>
 
               {/* FIELD - 19 */}
@@ -978,7 +987,7 @@ function AddFinance() {
 
               {/* FIELD - 20 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Vehicle Reg No:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -987,7 +996,7 @@ function AddFinance() {
                   onChange={(e) => setVehRegNo(e.target.value.toUpperCase())}
                   placeholder="Enter Vehicle Reg No"
                 />
-                {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>}
+                {/* {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>} */}
               </div>
 
               {/* FIELD - 21 */}
@@ -1009,10 +1018,10 @@ function AddFinance() {
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              </div>
-             
-              {/* FIELD - 22 */}
-              <div className="flex flex-wrap mb-10 justify-between text">
+            </div>
+
+            {/* FIELD - 22 */}
+            <div className="flex flex-wrap mb-10 justify-between text">
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -1041,7 +1050,7 @@ function AddFinance() {
                 />
                 {errors.policyStartDate && <span className="text-red-600 text-sm ">{errors.policyStartDate}</span>}
               </div>
-             
+
               {/* FIELD - 24 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy End Date:<span className="text-red-600 font-bold">*</span></label>
@@ -1058,34 +1067,34 @@ function AddFinance() {
 
               {/* FIELD - 25 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Expiry:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">OD Expiry Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
-                  type="date"
+                  type="text"
                   name="odExpiry"
                   value={odExpiry}
                   onChange={(e) => setOdExpiry(e.target.value)}
-                  placeholder="Select OD Expiry"
+                  placeholder="Enter OD Expiry Date"
                   min="2025-01-01"
                 />
               </div>
               {/* FIELD - 26 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">TP Expiry:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">TP Expiry Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
-                  type="date"
+                  type="text"
                   name="tpExpiry"
                   value={tpExpiry}
                   onChange={(e) => setTpExpiry(e.target.value)}
-                  placeholder="TP Expiry"
+                  placeholder="Enter TP Expiry Date"
                   min="2025-01-01"
                 />
               </div>
 
               {/* FIELD - 27 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">IDV:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">IDV:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1094,12 +1103,12 @@ function AddFinance() {
                   onChange={(e) => setIdv(e.target.value.toUpperCase())}
                   placeholder="Enter IDV"
                 />
-                {errors.idv && <span className="text-red-600 text-sm ">{errors.idv}</span>}
+                {/* {errors.idv && <span className="text-red-600 text-sm ">{errors.idv}</span>} */}
               </div>
 
               {/* FIELD - 28 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Body Type:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Body Type:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1108,12 +1117,12 @@ function AddFinance() {
                   onChange={(e) => setBodyType(e.target.value.toUpperCase())}
                   placeholder="Enter Body Type"
                 />
-                {errors.bodyType && <span className="text-red-600 text-sm ">{errors.bodyType}</span>}
+                {/* {errors.bodyType && <span className="text-red-600 text-sm ">{errors.bodyType}</span>} */}
               </div>
 
               {/* FIELD - 29 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Make & Model:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Make & Model:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1122,7 +1131,7 @@ function AddFinance() {
                   onChange={(e) => setMakeModel(e.target.value.toUpperCase())}
                   placeholder="Enter Make & Model"
                 />
-                {errors.makeModel && <span className="text-red-600 text-sm ">{errors.makeModel}</span>}
+                {/* {errors.makeModel && <span className="text-red-600 text-sm ">{errors.makeModel}</span>} */}
               </div>
 
               {/* FIELD - 30 */}
@@ -1141,18 +1150,18 @@ function AddFinance() {
 
               {/* FIELD - 31 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Registration Date:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Registration Year:</label>
                 <input
                   className="input-style rounded-lg"
-                  type="date"
+                  type="text"
                   value={registrationDate}
                   name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
-                  placeholder="Select Registration Date"
-                  min="1950-01-01"
-                  max={getLastDayOfPreviousMonth()}
+                  placeholder="Enter Year"
+                  // min="1950-01-01"
+                  // max={getLastDayOfPreviousMonth()}
                 />
-                {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>}
+                {/* {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>} */}
               </div>
               {/* FIELD - 32 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
@@ -1162,15 +1171,15 @@ function AddFinance() {
                   type="text"
                   name="vehicleAge"
                   value={vehicleAge}
-                  placeholder="Vehicle Age "
+                  placeholder="Vehicle Age"
                   readOnly
                 />
               </div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              </div>
-             
-              {/* FIELD - 33 */}
-              <div className="flex flex-wrap mb-2 justify-between text">
+            </div>
+
+            {/* FIELD - 33 */}
+            <div className="flex flex-wrap mb-2 justify-between text">
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -1189,7 +1198,7 @@ function AddFinance() {
 
               {/* FIELD - 34 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">GVW(kg):<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">GVW(kg):</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1198,12 +1207,12 @@ function AddFinance() {
                   onChange={(e) => setGvw(e.target.value)}
                   placeholder="Enter GVW"
                 />
-                {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>}
+                {/* {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>} */}
               </div>
 
               {/* FIELD - 35 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">CC:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1212,9 +1221,9 @@ function AddFinance() {
                   onChange={(e) => setCc(e.target.value.toUpperCase())}
                   placeholder="Enter CC"
                 />
-                {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>}
+                {/* {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>} */}
               </div>
-             
+
               {/* FIELD - 36 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
@@ -1265,17 +1274,17 @@ function AddFinance() {
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
-              <button
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
-                onClick={handleSubmit}
-                disabled={formSubmitted}
-                type="button">
-                {formSubmitted ? "Submitted" : "Submit"}
-              </button>
-            </div>
+                <button
+                  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"
+                  onClick={handleSubmit}
+                  disabled={formSubmitted}
+                  type="button">
+                  {formSubmitted ? "Submitted" : "Submit"}
+                </button>
+              </div>
             </div>
             {/* Button */}
-           
+
           </MultiStep>
         </div>
       </div>
