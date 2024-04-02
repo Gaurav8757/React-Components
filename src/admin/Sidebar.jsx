@@ -97,7 +97,7 @@ const Sidebar = () => {
           dash: ""
         },
         {
-          title: "Private Vehicle",
+          title: "PVT Car",
           path: "/dashboard/pvtvehicle",
           dash: ""
         },

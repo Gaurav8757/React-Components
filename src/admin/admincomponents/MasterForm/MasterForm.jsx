@@ -66,7 +66,7 @@ function MasterForm() {
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [cslab, setCslab] = useState([]);
-
+const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   // console.log(APIData);
 
   useEffect(() => {
@@ -526,6 +526,8 @@ function MasterForm() {
         chqPaymentDate,
         chqStatus,
         advisorPayableAmount,
+        
+        advisorPayoutAmount,
         branchPayout,
         branchPayableAmount,
         companyPayout,
@@ -584,6 +586,7 @@ function MasterForm() {
         setBankName("");
         setChqPaymentDate("");
         setChqStatus("");
+        setAdvisorPayoutAmount("");
         setAdvisorPayableAmount("");
         setBranchPayout("");
         setBranchPayableAmount("");
@@ -1407,6 +1410,19 @@ function MasterForm() {
                 </select>
               </div>
 
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Advisor Payout Amount:<span className="text-red-600 font-bold">*</span></label>
+                <input
+                  className=" rounded-lg"
+                  type="number"
+                  value={advisorPayoutAmount}
+                  name="advisorPayoutAmount"
+                  onChange={(e) => setAdvisorPayoutAmount(e.target.value)}
+                  // placeholder="Advisor Payo Amount"
+                  readOnly
+                />
+                
+              </div>
               {/* FIELD - 45 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Payable Amount:<span className="text-red-600 font-bold">*</span></label>

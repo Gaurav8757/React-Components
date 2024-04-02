@@ -321,7 +321,7 @@ function AddFinance() {
     setPolicyEndDate(policyEndDateValue.toISOString().split('T')[0]);
     // Update TP Expiry by adding 1 year to the selected policyStartDate
     const tpExpiryDate = new Date(startDate);
-    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3, tpExpiryDate.getMonth(), tpExpiryDate.getDate() - 1);
+    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 1, tpExpiryDate.getMonth(), tpExpiryDate.getDate() - 1);
     setTpExpiry(tpExpiryDate.toISOString().split('T')[0]);
     // Set the selected policyStartDate
     setPolicyStartDate(startDate);
@@ -1067,7 +1067,7 @@ function AddFinance() {
 
               {/* FIELD - 25 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Expiry Date:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">OD Expiry Date:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -1080,7 +1080,7 @@ function AddFinance() {
               </div>
               {/* FIELD - 26 */}
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">TP Expiry Date:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">TP Expiry Date:</label>
                 <input
                   className="input-style rounded-lg"
                   type="text"

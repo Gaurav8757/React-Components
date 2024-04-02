@@ -34,7 +34,7 @@ const BranchSidebar = () => {
           dash: ""
         },
         {
-          title: "Private Vehicle",
+          title: "PVT Car",
           path: "/branches/home/pvtvehicle",
           dash: ""
         },

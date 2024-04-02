@@ -142,7 +142,7 @@ function PrivateCar() {
       <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
         <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
           <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-            <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> PV - Commission Slab </h1>
+            <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> PVT CAR - Payout Slab </h1>
             <div className="flex flex-wrap mb-12 justify-between">
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
@@ -277,7 +277,7 @@ function PrivateCar() {
               {/* PERCENTAGE */}
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
   
-                <label className="text-base mx-1">Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
                   type="text"
@@ -289,7 +289,7 @@ function PrivateCar() {
               </div>
    {/* branch payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -301,7 +301,7 @@ function PrivateCar() {
             </div>
              {/* COMPANY payout % */}
              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Company Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"

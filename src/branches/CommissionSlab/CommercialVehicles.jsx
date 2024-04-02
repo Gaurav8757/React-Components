@@ -268,7 +268,7 @@ function CommercialVehicles() {
                 <option className="w-1" value="" >--------- Select Payout on ----------</option>
                 {
                   payoutOnList
-                    .filter(pay => pay.payouton !== "OD" && pay.payouton !== "LIABILITY") // Filtering out "OD" and "LIABILITY"
+                    .filter(pay =>  pay.payouton !== "LIABILITY") // Filtering out "OD" and "LIABILITY"
                     .map(pay => (
                       <option key={pay._id} value={pay.payouton}>{pay.payouton}</option>
                     ))
@@ -278,7 +278,7 @@ function CommercialVehicles() {
             {/* PERCENTAGE */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
 
-              <label className="text-base mx-1">Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -291,7 +291,7 @@ function CommercialVehicles() {
             </div>
             {/* branch payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
@@ -304,7 +304,7 @@ function CommercialVehicles() {
 
              {/* COMPANY payout % */}
              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Company Payout(%):<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
                 type="number"
