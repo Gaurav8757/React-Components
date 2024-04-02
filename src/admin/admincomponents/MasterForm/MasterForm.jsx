@@ -217,37 +217,18 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     setNetPremium(newNetPremium);
   };
 
-  // Calculate the last day of the previous month
-  const getLastDayOfPreviousMonth = () => {
-    const today = new Date();
-    // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
-    return today.toISOString().split('T')[0];
-  };
-  //  VEHICLE AGE CALCULATED
+
   const calculateAge = () => {
     if (!registrationDate) {
-      setVehicleAge("0 years 0 months 0 days");
+      setVehicleAge("0 years");
       return;
     }
     const today = new Date();
     const birthdateDate = new Date(registrationDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
 
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
-
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
-    setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
-  };
-
+    setVehicleAge(`${ageYears} years`);
+};
   useEffect(() => {
     calculateAge();
   },);
@@ -262,16 +243,9 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
   };
 
-
-
-
-
-
-
-
-
- 
-
+  useEffect(() => {
+    calculateFinalAmount();
+  },);
 
   // final amount set
   const handleNetPremiumBlur = () => {
@@ -309,20 +283,29 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     const deduction = finalEntryFields * (percentage / 100);
     return finalEntryFields - deduction;
   };
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
+    const deduction = finalEntryFields * (percentage / 100);
+    return deduction;
+  };
 
   const calculateBranchPayableAmount = (finalEntryFields, branchpayoutper) => {
     const deduction = finalEntryFields * (branchpayoutper / 100);
     return finalEntryFields - deduction;
   };
+  const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
+    const deduction = finalEntryFields * (branchpayoutper / 100);
+    return deduction;
+  };
+
   const calculateCompanyPayableAmount = (finalEntryFields, companypayoutper) => {
     const deduction = finalEntryFields * (companypayoutper / 100);
-    return finalEntryFields - deduction;
+    return  deduction;
   };
 
    //calculation  profit/loss 
    const calculateProfitLoss = () => {
     const companyPayoutValue = parseFloat(companyPayout) || 0;
-    const branchPayoutValue = parseFloat(branchPayableAmount) || 0;
+    const branchPayoutValue = parseFloat(branchPayout) || 0;
     const profitLossValue = companyPayoutValue - branchPayoutValue;
     setProfitLoss(profitLossValue.toFixed(2)); // Assuming you want to display the result with two decimal places
   };
@@ -343,13 +326,18 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
         const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
         const companypercent = matchingCSLab.companypayoutper || 0;
+        // const cvPercentage = matchingCSLab.cvpercentage || 0;
+        const advisorPayout = calculateAdvisorPayoutAmount(parseFloat(finalEntryFields), percentage);
         const advisorPayable = calculateAdvisorPayableAmount(parseFloat(finalEntryFields), percentage);
         const branchPayables = calculateBranchPayableAmount(parseFloat(finalEntryFields), branchpercent);
+        const branchPayout = calculateBranchPayoutAmount(parseFloat(finalEntryFields), branchpercent);
         const companyPayables = calculateCompanyPayableAmount(parseFloat(finalEntryFields), companypercent);
         setAdvisorPayableAmount(advisorPayable);
-        setBranchPayout(branchpercent);
+        setAdvisorPayoutAmount(advisorPayout)
+        setBranchPayout(branchPayout);
         setBranchPayableAmount(branchPayables);
         setCompanyPayout(companyPayables);
+        // setBranchPayoutAmount(branchPayout);
       }
     };
     calculateAmounts();
@@ -458,9 +446,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
       errors.advisorName = "required*";
     }
 
-    if (!registrationDate) {
-      errors.registrationDate = "required*";
-    }
+    
     if (!staffName) {
       errors.staffName = "required*";
     }
@@ -941,7 +927,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   value={taxes}
                   name="finalEntryFields"
                   onChange={(e) => setTaxes(e.target.value)}
-                  onBlur={calculateFinalAmount}
+                  // onBlur={calculateFinalAmount}
                   placeholder="GST"
                 />
                 {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
@@ -955,7 +941,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   value={rsa}
                   name="rsa"
                   onChange={(e) => setRSA(e.target.value)}
-                  onBlur={calculateFinalAmount}
+                  // onBlur={calculateFinalAmount}
                   placeholder="RSA"
                 />
                 {errors.rsa && <span className="text-red-600 text-sm ">{errors.rsa}</span>}
@@ -1193,18 +1179,18 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
               {/* FIELD - 31 */}
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Registration Date:<span className="text-red-600 font-bold">*</span></label>
+                <label className="text-base mx-1">Registration Year:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style rounded-lg"
-                  type="date"
+                  type="text"
                   value={registrationDate}
                   name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
-                  placeholder="Select Registration Date"
-                  min="1950-01-01"
-                  max={getLastDayOfPreviousMonth()}
+                  placeholder="Enter Registration Year"
+                  // min="1950-01-01"
+                  // max={getLastDayOfPreviousMonth()}
                 />
-                {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>}
+                {errors.registrationDate && <span className="text-red-600 text-sm">{errors.registrationDate}</span>}
               </div>
               {/* FIELD - 32 */}
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
@@ -1214,7 +1200,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   type="text"
                   name="vehicleAge"
                   value={vehicleAge}
-                  placeholder="Vehicle Age "
+                  placeholder="Vehicle Age"
                   readOnly
                 />
               </div>

@@ -293,7 +293,9 @@ function AddFinance() {
     setBranchPayableAmount(branchPayableAmountValue.toFixed(2)); // Assuming you want to display the amount with two decimal places
   };
 
-
+  useEffect(() => {
+    calculateFinalAmount();
+  },);
 
 
   // final amount set
@@ -836,9 +838,7 @@ function AddFinance() {
                     onChange={(e) => setOdPremium(e.target.value)}
                     placeholder="Enter OD Premium"
                     onBlur={updateNetPremium}
-
                   />
-
                 </div>)
               }
 
@@ -867,8 +867,7 @@ function AddFinance() {
                       onChange={(e) => setLiabilityPremium(e.target.value)}
                       placeholder="Enter Liability Premium"
                       onBlur={updateNetPremium}
-                    />
-                   
+                    />  
                   </div>)
               }
 
