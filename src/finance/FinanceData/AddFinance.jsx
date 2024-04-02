@@ -366,15 +366,7 @@ function AddFinance() {
     if (!policyType) {
       errors.policyType = "required*";
     }
-    // if (!odPremium) {
-    //   errors.odPremium = "required*";
-    // }
-    if (!liabilityPremium) {
-      errors.liabilityPremium = "required*";
-    }
-    // if (!rsa) {
-    //   errors.rsa = "required*";
-    // }
+    
     if (!taxes) {
       errors.taxes = "required*";
     }
@@ -433,13 +425,13 @@ function AddFinance() {
     // if (!registrationDate) {
     //   errors.registrationDate = "required*";
     // }
-    if (!staffName) {
-      errors.staffName = "required*";
-    }
-    if (Object.keys(errors).length > 0) {
-      setErrors(errors);
-      return;
-    }
+    // if (!staffName) {
+    //   errors.staffName = "required*";
+    // }
+    // if (Object.keys(errors).length > 0) {
+    //   setErrors(errors);
+    //   return;
+    // }
 
     try {
       // Make sure to replace this URL with your actual API endpoint
@@ -536,7 +528,7 @@ function AddFinance() {
         setNcb("");
         setAdvisorName("");
         setSubAdvisor("");
-        setStaffName("");
+        
         setBranch("");
         setPayoutOn("");
         setTaxes("");
@@ -866,7 +858,7 @@ function AddFinance() {
                   />
                 </div>)
                   : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                    <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
+                    <label className="text-base mx-1">Liability Premium:</label>
                     <input
                       className="input-style rounded-lg"
                       type="number"
@@ -876,7 +868,7 @@ function AddFinance() {
                       placeholder="Enter Liability Premium"
                       onBlur={updateNetPremium}
                     />
-                    {errors.liabilityPremium && <span className="text-red-600 text-sm ">{errors.liabilityPremium}</span>}
+                   
                   </div>)
               }
 
