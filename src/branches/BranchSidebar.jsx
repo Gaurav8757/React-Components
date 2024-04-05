@@ -12,6 +12,11 @@ const BranchSidebar = () => {
       path: "/branches/home",
       logo: <RxDashboard size={25} />
     },
+    {
+      title: "Add Advisor",
+      path: "/branches/home/advisor/register",
+      logo: <RiGitBranchFill size={25} />,
+    },
 
     {
       title: "Policy Lists",

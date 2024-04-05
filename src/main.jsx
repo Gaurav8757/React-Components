@@ -168,6 +168,7 @@ import CvLists from "./branches/ListsCommissionSlab/CvLists.jsx";
 import PCLists from "./branches/ListsCommissionSlab/PCLists.jsx";
 import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
 import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
+import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
 
 
 
@@ -291,7 +292,8 @@ const router = createBrowserRouter(
           <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
           <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
           <Route path="/branches/home/payout" element={<TwoWheelers/>} />
-          
+          {/* advisor register/add new */}
+          <Route path="/branches/home/advisor/register" element={< AddAdvisors/>} />
           <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
           {/* <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} /> */}
           <Route path="/branches/home/payout/lists" element={<TwLists/>} />
@@ -299,12 +301,14 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Advisor Routes */}
+      
       <Route path="/advisor" element={<LoginAll />} />
       <Route path="/advisor/forget" element={<ForgotPassword />} />
       <Route element={<ProtectedAdvisor />}>
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
           <Route path="/advisor/home" element={<HomepageAdvisor />} />
           <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
+         
         </Route>
       </Route>
 
