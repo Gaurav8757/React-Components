@@ -23,7 +23,33 @@ function TwoWheelers() {
   const [popercentage, setPoPercentage] = useState();
   const [odDiscount, setOdDiscount] = useState('');
   const [fuel, setFuel] = useState('');
-  // const [companypayoutper, setCompanypayoutper] = useState();
+  const [advisor, setAdvisor] = useState([]);
+  // const [listAdvisor, setListAdvisor] = useState("");
+  const [advisorName, setAdvisorName] = useState("");
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`https://eleedomimf.onrender.com/advisor/lists`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setAdvisor(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [advisor]);
+
+  // console.log(advisor);
+
 
 
   useEffect(() => {
@@ -159,6 +185,7 @@ function TwoWheelers() {
       setSegment('');
       setPolicyType('');
       setProductCode('');
+      setAdvisorName('');
       setFuel('');
       setNcb('');
       setOdDiscount('');
@@ -182,7 +209,27 @@ function TwoWheelers() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Advisor Payout Slab </h1>
+          <h1 className="font-semibold text-3xl  text-white dark:text-black">Advisor Payout Slab </h1>
+
+          <div className="flex justify-center mb-10">
+            <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
+              <label className="text-xl mx-1 my-2 font-bold">Advisor Name<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style p-1  text-lg rounded-lg"
+                value={advisorName}
+                name="advisorName"
+                onChange={(e) => setAdvisorName(e.target.value)}>
+                <option className="w-1 text-lg" value="" >------------------- Select Advisor-----------------</option>
+                {
+                  advisor.filter((advisor) => advisor.branch.includes(sessionStorage.getItem('name'))).map((name) => (
+                    <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} - ${name.advisorname}`}</option>
+                  ))
+                }
+              </select>
+            </div>
+          </div>
+
+
           <div className="flex flex-wrap mb-12 justify-between">
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
@@ -279,19 +326,19 @@ function TwoWheelers() {
               </select>
             </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
-                <select
-                  id="vage" name="vage"
-                  className="input-style p-1 rounded-lg"
-                  value={vage}
-                  onChange={handleVageChange}>
-                  <option className="w-1" value="">-------- Select Vehicle Age --------</option>
-                  <option value="NEW">NEW</option>
-                  <option value="1-5 YEARS">1-5 Years</option>
-                  <option value="6-10 YEARS">6-10 Years</option>
-                  <option value="MORE THAN 10 YEARS">More than 10 Years</option>
-                </select>
-              </div>
+              <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                id="vage" name="vage"
+                className="input-style p-1 rounded-lg"
+                value={vage}
+                onChange={handleVageChange}>
+                <option className="w-1" value="">-------- Select Vehicle Age --------</option>
+                <option value="NEW">NEW</option>
+                <option value="1-5 YEARS">1-5 Years</option>
+                <option value="6-10 YEARS">6-10 Years</option>
+                <option value="MORE THAN 10 YEARS">More than 10 Years</option>
+              </select>
+            </div>
 
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
@@ -335,7 +382,7 @@ function TwoWheelers() {
               />
 
             </div>
-          
+
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <input

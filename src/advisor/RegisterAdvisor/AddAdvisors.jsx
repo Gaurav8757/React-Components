@@ -71,7 +71,7 @@ function AddAdvisors() {
                 className="input-style rounded-lg"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 placeholder="abc@gmail.com"
               />
             </div>

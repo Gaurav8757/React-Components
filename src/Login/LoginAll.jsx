@@ -49,18 +49,17 @@ function LoginAll() {
                     break;
 
                     case "advisor":
-                    
                     response = await axios.post("https://eleedomimf.onrender.com/advisor/login", {
                         advisoremail: email,
                         advisormobile: mobile,
                         advisorpassword:  password,
                     });
-                  
+                  console.log(response.data);
                     sessionStorage.setItem("advisoremail", email);
                     sessionStorage.setItem("token", response.data.token);
-                    // sessionStorage.setItem("email", response.data.user.empemail);
-                    // sessionStorage.setItem("employeeId", response.data.user._id);
-                    sessionStorage.setItem("name", response.data.advisorname);
+                    sessionStorage.setItem("email", response.data.advisory.advisoremail);
+                    sessionStorage.setItem("advisorId", response.data.advisory._id);
+                    sessionStorage.setItem("name", response.data.advisory.advisorname);
 
                       // Add your code snippet here
                      
