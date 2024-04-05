@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { CgCloseR } from "react-icons/cg";
 import axios from 'axios';
 import { toast } from "react-toastify";
 function PCLists() {
@@ -35,9 +34,7 @@ function PCLists() {
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
         <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
-
-          <span className=" flex justify-center text-center  text-3xl font-semibold  ">Lists of Private Vehicle </span>
-
+          <span className=" flex justify-center text-center  text-3xl font-semibold">Payout Lists</span>
         </div>
       </div>
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
@@ -60,14 +57,22 @@ function PCLists() {
               Product Code
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              Vehicle Age
+              Fuel Type
             </th>
-
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              NCB
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              OD Discount
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              CC
+            </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               PayoutOn
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              Percentage
+             Company Percentage
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
@@ -77,7 +82,7 @@ function PCLists() {
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
           {APIData.reverse().map((data) => {
-            if (data.vehicleSlab === 'PV-Slab') {
+            if (data.vehicleSlab === 'Payout-Slab') {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
@@ -85,9 +90,13 @@ function PCLists() {
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>
-                  <td className="px-1 py-0 border border-black">{data.vage}</td>
+                  <td className="px-1 py-0 border border-black">{data.vfuels}</td>
+                  <td className="px-1 py-0 border border-black">{data.vncb}</td>
+                  <td className="px-1 py-0 border border-black">{data.voddiscount}</td>
+                  <td className="px-1 py-0 border border-black">{data.vcc}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                  <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
+                  <td className="px-1 py-0 border border-black">{data.companypayoutper}</td>
                   <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
                 </tr>
               );
@@ -101,7 +110,6 @@ function PCLists() {
     </section>
   )
 }
-
 
 
 export default PCLists;

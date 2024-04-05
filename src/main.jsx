@@ -273,8 +273,9 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
           <Route path="/dashboard/commvehicle" element={<CommercialVehicles/>} />
-          <Route path="/dashboard/pvtvehicle" element={<PrivateCar/>} />
+          <Route path="/dashboard/payout/slab" element={<PrivateCar/>} />
           <Route path="/dashboard/company/slabs" element={<CompanySlab/>} />
+          <Route path="/dashboard/payout/lists" element={<PCLists/>} />
         </Route>
       </Route>
 
@@ -289,11 +290,11 @@ const router = createBrowserRouter(
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
           <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
           <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
-          <Route path="/branches/home/twowheeler" element={<TwoWheelers/>} />
+          <Route path="/branches/home/payout" element={<TwoWheelers/>} />
           
           <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
-          <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} />
-          <Route path="/branches/home/twowheeler/lists" element={<TwLists/>} />
+          {/* <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} /> */}
+          <Route path="/branches/home/payout/lists" element={<TwLists/>} />
         </Route>
       </Route>
 

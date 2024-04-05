@@ -35,7 +35,7 @@ function TwLists() {
       <div className="container-fluid flex justify-center p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
         <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
 
-          <span className=" flex justify-center text-center  text-3xl font-semibold  ">Lists of Two-Wheeler Vehicle </span>
+          <span className=" flex justify-center text-center  text-3xl font-semibold">Advisor Payout Lists</span>
 
         </div>
       </div>
@@ -76,15 +76,15 @@ function TwLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Percentage
             </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
-            </th>
+            </th> */}
 
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
           {APIData.reverse().map((data) => {
-            if (data.vehicleSlab === 'TW-Slab') {
+            if (data.vehicleSlab === 'Advisor-Slab') {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
@@ -99,7 +99,7 @@ function TwLists() {
                   {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
                   <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
-                  <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td> */}
                 </tr>
               );
             } else {

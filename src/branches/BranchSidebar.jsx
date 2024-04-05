@@ -19,40 +19,40 @@ const BranchSidebar = () => {
       logo: <RiGitBranchFill size={25} />,
     },
     {
-      title: "Commission Slab",
+      title: "Payout Slab",
       path: "#",
       logo: <GiReceiveMoney size={25} />,
       subRoutes:[
         {
-          title: "Commercial Vehicle",
-          path: "/branches/home/commvehicle",
+          title: "Add Payout",
+          path: "/branches/home/payout",
           dash: ""
         },
         {
-          title: "Lists of CV",
-          path: "/branches/home/commvehicle/lists",
+          title: "Advisor Payout List",
+          path: "/branches/home/payout/lists",
           dash: ""
         },
-        {
-          title: "PVT Car",
-          path: "/branches/home/pvtvehicle",
-          dash: ""
-        },
-        {
-          title: "Lists of PV",
-          path: "/branches/home/pvtvehicle/lists",
-          dash: ""
-        },
-        {
-          title: "Two Wheeler",
-          path: "/branches/home/twowheeler",
-          dash: ""
-        },
-        {
-          title: "Lists of TW",
-          path: "/branches/home/twowheeler/lists",
-          dash: ""
-        },
+        // {
+        //   title: "PVT Car",
+        //   path: "/dashboard/payout/lists",
+        //   dash: ""
+        // },
+        // {
+        //   title: "Lists of PV",
+        //   path: "/branches/home/pvtvehicle/lists",
+        //   dash: ""
+        // },
+        // {
+        //   title: "Two Wheeler",
+        //   path: "/branches/home/twowheeler",
+        //   dash: ""
+        // },
+        // {
+        //   title: "Lists of TW",
+        //   path: "/branches/home/twowheeler/lists",
+        //   dash: ""
+        // },
       ]
     },
   ];
@@ -164,7 +164,7 @@ const BranchSidebar = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex p-2 text-white text-start mx-8  hover:rounded-xl hover:bg-gray-500"
+                            className="flex p-2 text-white text-start mx-0  hover:rounded-xl hover:bg-gray-500"
                           >
                             {<IoMdArrowDropright size={30} />}{subRoute.title}
                           </NavLink>

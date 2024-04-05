@@ -14,7 +14,7 @@ function LoginAdvisor() {
           const response = await axios.post("https://eleedomimf.onrender.com/advisor/login", {
            advisoremail: email,
            advisormobile: mobile,
-            advisorpassword:  password,
+           advisorpassword:  password,
           });
     
           // console.log(response.data);

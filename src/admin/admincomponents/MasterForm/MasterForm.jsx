@@ -868,7 +868,6 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                     onChange={(e) => setOdPremium(e.target.value)}
                     placeholder="Enter OD Premium"
                     onBlur={updateNetPremium}
-
                   />
                   {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
                 </div>)
@@ -1483,6 +1482,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   readOnly
                 />
               </div>
+              
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">

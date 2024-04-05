@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 function TwoWheelers() {
+  const [vage, setVage] = useState("");
   const [pdata, setPdata] = useState([]);
   const [data, setData] = useState([]);
   const [fuelType, setFuelType] = useState([]);
@@ -22,7 +23,7 @@ function TwoWheelers() {
   const [popercentage, setPoPercentage] = useState();
   const [odDiscount, setOdDiscount] = useState('');
   const [fuel, setFuel] = useState('');
-  const [companypayoutper, setCompanypayoutper] = useState();
+  // const [companypayoutper, setCompanypayoutper] = useState();
 
 
   useEffect(() => {
@@ -113,6 +114,10 @@ function TwoWheelers() {
   //     // Handle default case or invalid input
   // }
   // };
+  const handleVageChange = (e) => {
+    const selectedVage = e.target.value;
+    setVage(selectedVage);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,7 +131,7 @@ function TwoWheelers() {
         return;
       }
       const formData = {
-        vehicleSlab: "TW-Slab",
+        vehicleSlab: "Advisor-Slab",
         cnames: company,
         catnames: category,
         segments: segment,
@@ -136,6 +141,7 @@ function TwoWheelers() {
         cvpercentage: popercentage,
         vfuels: fuel,
         vncb: ncb,
+        vage,
         voddiscount: odDiscount,
         vcc: cc,
         branchpayoutper
@@ -145,7 +151,7 @@ function TwoWheelers() {
           Authorization: `${token}`
         }
       });
-      toast.success("TW-Commission Added Successfully");
+      toast.success("Advisor Payout Added Successfully.....!");
       setFormSubmitted(true);
       // Reset form fields after successful submission if needed
       setCompany('');
@@ -157,13 +163,14 @@ function TwoWheelers() {
       setNcb('');
       setOdDiscount('');
       setCc('');
+      setVage('');
       setPayoutOn('');
       setPoPercentage('');
       setBranchpayoutper('');
-      setCompanypayoutper('');
+      // setCompanypayoutper('');
     } catch (error) {
-      console.error("Error adding TW-Commission:", error.response);
-      toast.error("Failed to add TW-Commission");
+      console.error("Error adding Advisor Payout:", error.response);
+      toast.error("Failed to add Advisor Payout");
     } finally {
       setFormSubmitted(false);
     }
@@ -175,7 +182,7 @@ function TwoWheelers() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> TW - Payout Slab </h1>
+          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Advisor Payout Slab </h1>
           <div className="flex flex-wrap mb-12 justify-between">
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
@@ -271,6 +278,20 @@ function TwoWheelers() {
                 ))}
               </select>
             </div>
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  id="vage" name="vage"
+                  className="input-style p-1 rounded-lg"
+                  value={vage}
+                  onChange={handleVageChange}>
+                  <option className="w-1" value="">-------- Select Vehicle Age --------</option>
+                  <option value="NEW">NEW</option>
+                  <option value="1-5 YEARS">1-5 Years</option>
+                  <option value="6-10 YEARS">6-10 Years</option>
+                  <option value="MORE THAN 10 YEARS">More than 10 Years</option>
+                </select>
+              </div>
 
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
@@ -314,21 +335,7 @@ function TwoWheelers() {
               />
 
             </div>
-            {/* AGE */}
-            {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
-                <select
-                  id="vage" name="vage"
-                  className="input-style p-1 rounded-lg"
-                  value={vage}
-                  onChange={handleVageChange}>
-                  <option className="w-1" value="">-------- Select Vehicle Age --------</option>
-                  <option value="NEW">NEW / 0 Year</option>
-                  <option value="1-5 YEARS">1-5 Years</option>
-                  <option value="6-10 YEARS">6-10 Years</option>
-                  <option value="MORE THAN 10 YEARS">More than 10 Years</option>
-                </select>
-              </div> */}
+          
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <input
@@ -339,7 +346,6 @@ function TwoWheelers() {
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC"
               />
-
             </div>
             {/* payout on */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -374,7 +380,7 @@ function TwoWheelers() {
               />
             </div>
             {/* branch payout % */}
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
@@ -384,9 +390,9 @@ function TwoWheelers() {
                 name="popercentage"
                 placeholder="%"
               />
-            </div>
+            </div> */}
             {/* COMPANY payout % */}
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style rounded-lg"
@@ -396,7 +402,7 @@ function TwoWheelers() {
                 name="popercentage"
                 placeholder="%"
               />
-            </div>
+            </div> */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
 

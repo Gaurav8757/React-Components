@@ -4,106 +4,108 @@ import Logout from "./logout/Logout.jsx";
 import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { MdOutlinePolicy } from "react-icons/md";
-import {  TbReport } from "react-icons/tb";
+import { TbReport } from "react-icons/tb";
 import { FaRegBuilding } from "react-icons/fa";
 import { FaImages } from "react-icons/fa";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { FcViewDetails } from "react-icons/fc";
 import { MdOutlineCategory } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
+
 const Sidebar = () => {
   const dashboardRoutes = [
     {
       title: "Dashboard",
       path: "/dashboard",
-      logo: <RxDashboard size={24}/>
+      logo: <RxDashboard size={24} />
     },
+    
     {
       title: "Company",
       path: "#",
-      logo: <FaRegBuilding size={24}/>,
+      logo: <FaRegBuilding size={24} />,
       subRoutes: [
         {
           title: "Add Company",
           path: "/dashboard/addcompanies",
-          dash:""
-        }, 
+          dash: ""
+        },
         {
           title: "View Company",
           path: "/dashboard/viewcompanies",
-          dash:""
-        }, 
+          dash: ""
+        },
       ]
     },
+
     {
       title: "Branch",
       path: "#",
-      logo: <RiGitBranchFill size={24}/>,
+      logo: <RiGitBranchFill size={24} />,
       subRoutes: [
-            {
-              title: "Add Branch",
-              path: "/dashboard/addbranch",
-              dash:""
-            }, 
-            {
-              title: "View Branch",
-              path: "/dashboard/viewbranch",
-              dash:""
-            }, 
-          ]
+        {
+          title: "Add Branch",
+          path: "/dashboard/addbranch",
+          dash: ""
+        },
+        {
+          title: "View Branch",
+          path: "/dashboard/viewbranch",
+          dash: ""
+        },
+      ]
     },
+
     {
       title: "Snap",
       path: "#",
-      logo: <FaImages size={24}/>,
+      logo: <FaImages size={24} />,
       subRoutes: [
         {
           title: "Add Snap",
           path: "/dashboard/addcarousel",
-          dash:""
-        }, 
+          dash: ""
+        },
         {
           title: "View Snap",
           path: "/dashboard/firstview/carousel",
-          dash:""
-        }, 
+          dash: ""
+        },
       ]
     },
+
     {
       title: "Policy",
       path: "#",
-      logo: < FcViewDetails size={24}/>,
+      logo: < FcViewDetails size={24} />,
       subRoutes: [
         {
           title: "Add Policy",
           path: "/dashboard/masterform",
-          dash:""
-        }, 
+          dash: ""
+        },
         {
           title: "View Policies",
           path: "/dashboard/viewmasterform",
-          dash:""
-        }, 
+          dash: ""
+        },
       ]
     },
+
     {
-      title: "Commission Slab",
+      title: "Payout Slab",
       path: "#",
       logo: <GiReceiveMoney size={25} />,
-      subRoutes:[
+      subRoutes: [
+      
         {
-          title: "Commercial Vehicle",
-          path: "/dashboard/commvehicle",
+          title: "Add Payout",
+          path: "/dashboard/payout/slab",
           dash: ""
         },
         {
-          title: "PVT Car",
-          path: "/dashboard/pvtvehicle",
-          dash: ""
-        },
-        {
-          title: "Company Slabs",
-          path: "/dashboard/company/slabs",
+          title: "Payout Lists",
+          path: "/dashboard/payout/lists",
           dash: ""
         },
       ]
@@ -111,114 +113,114 @@ const Sidebar = () => {
     {
       title: "Employee",
       path: "#",
-      logo: <MdOutlineCategory size={24}/>,
+      logo: <MdOutlineCategory size={24} />,
       subRoutes: [
         {
           title: "Add Employee Type",
           path: "/dashboard/staff/type",
-          dash:""
+          dash: ""
         },
         {
           title: "View Employee Type",
           path: "/dashboard/staff/lists",
-          dash:""
+          dash: ""
         },
       ]
     },
     {
       title: "Master",
       path: "#",
-      logo: <MdOutlinePolicy size={24}/>,
+      logo: <MdOutlinePolicy size={24} />,
       subRoutes: [
         {
           title: "Add Policy Type",
           path: "/dashboard/policy/type",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Product Type",
           path: "/dashboard/policy/lists",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Company Name",
           path: "/dashboard/company/type",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Category Type",
           path: "/dashboard/company/lists",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Segment",
           path: "/dashboard/segment/add",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Fuel Type",
           path: "/dashboard/fuel/type",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Payout On",
           path: "/dashboard/payout/type",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Payment Mode",
           path: "/dashboard/payment/type",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Holiday ",
           path: "/dashboard/holiday/add",
-          dash:""
+          dash: ""
         },
-        
+
       ]
     },
 
     {
       title: "Report",
       path: "#",
-      logo: <TbReport size={24}/>,
+      logo: <TbReport size={24} />,
       subRoutes: [
         {
           title: "Policies",
           path: "/dashboard/policy",
-          dash:""
+          dash: ""
         },
         {
           title: "Add Policy Details",
           path: "/dashboard/addpolicy",
-          dash:""
+          dash: ""
         },
         {
           title: "View All Claim's",
           path: "/dashboard/viewclaim",
-          dash:""
+          dash: ""
         },
         {
           title: "View All Feedback's",
           path: "/dashboard/viewfeedback",
-          dash:""
+          dash: ""
         },
         {
           title: "View All Complaint's",
           path: "/dashboard/viewcomplaint",
-          dash:""
+          dash: ""
         },
         {
           title: "View All Contact's",
           path: "/dashboard/viewcontact",
-          dash:""
+          dash: ""
         },
         {
           title: "View All User's List",
           path: "/dashboard/viewfilledform",
-          dash:""
-        },   
+          dash: ""
+        },
       ]
     }
   ];
@@ -258,37 +260,37 @@ const Sidebar = () => {
             </NavLink>
             <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">Admin Dashboard</span>
             <div className="flex">
-            <div className="flex items-center mx-5">
-              <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
-              </button>
-              <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                <div className="px-4 py-3" role="none">
-                  <p className="text-sm text-gray-900 dark:text-white" role="none">
-                    .
-                  </p>
-                  <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                    {loginemail}
-                  </p>
-                </div>
-                <ul className="py-1" role="none">
-                  <li>
-                    <NavLink to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
-                  </li>
-                  <li>
-                    <Logout />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <span>
+              <div className="flex items-center mx-5">
+                <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                  <span className="sr-only">Open user menu</span>
+                  <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
+                </button>
+                <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                  <div className="px-4 py-3" role="none">
+                    <p className="text-sm text-gray-900 dark:text-white" role="none">
+                      .
+                    </p>
+                    <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
+                      {loginemail}
+                    </p>
+                  </div>
+                  <ul className="py-1" role="none">
+                    <li>
+                      <NavLink to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</NavLink>
+                    </li>
+                    <li>
                       <Logout />
-                    </span>
-                    </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <span>
+                <Logout />
+              </span>
+            </div>
           </div>
         </div>
       </nav>
@@ -302,13 +304,13 @@ const Sidebar = () => {
                   <div className="relative group ">
                     <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-gray-600 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
-                      <span className="ms-5  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1"/>}</span>
+                      <span className="ms-5  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
                     </NavLink>
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
                           <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-3 hover:bg-gray-500 hover:rounded-xl ">
-                            {<IoMdArrowDropright size={30}/>} {subRoute.title}
+                            {<IoMdArrowDropright size={30} />} {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

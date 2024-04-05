@@ -4,6 +4,7 @@ import axios from "axios";
 
 function PrivateCar() {
     const [pdata, setPdata] = useState([]);
+    const [fuelType, setFuelType] = useState([]);
     const [data, setData] = useState([]);
     const [products, setProducts] = useState([]);
     const [segment, setSegment] = useState('');
@@ -19,6 +20,10 @@ function PrivateCar() {
     const [popercentage, setPoPercentage ] = useState();
     const [branchpayoutper, setBranchpayoutper] = useState();
     const [companypayoutper, setCompanypayoutper] = useState();
+    const [fuel, setFuel] = useState('');
+    const [odDiscount, setOdDiscount] = useState('');
+    const [ncb, setNcb] = useState('');
+    const [cc, setCc] = useState('');
 
     useEffect(() => {
       axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -65,6 +70,27 @@ function PrivateCar() {
           });
       }
     }, [payoutOnList]);
+
+    useEffect(() => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+      } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+          .get(`https://eleedomimf.onrender.com/view/fuel`, {
+            headers: {
+              Authorization: `${token}`, // Send the token in the Authorization header
+            },
+          })
+          .then((response) => {
+            setFuelType(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }, [fuelType]);
   
     const handleVageChange = (e) => {
       const selectedVage = e.target.value;
@@ -100,13 +126,17 @@ function PrivateCar() {
           return;
         }
         const formData = {
-          vehicleSlab: "PV-Slab",
+          vehicleSlab: "Payout-Slab",
           cnames:company,
           catnames:category,
           segments:segment,
           policytypes:policyType,
           pcodes:productCode,
           vage,
+          vcc:cc,
+          vfuels:fuel,
+          voddiscount:odDiscount,
+          vncb: ncb,
           payoutons:payoutOn,
           cvpercentage:popercentage,
           branchpayoutper,
@@ -117,7 +147,7 @@ function PrivateCar() {
             Authorization: `${token}`
           }
         });
-        toast.success("PV-Commission Added Successfully");
+        toast.success("Payout Added Successfully");
         setFormSubmitted(true);
         // Reset form fields after successful submission if needed
         setCompany('');
@@ -126,13 +156,16 @@ function PrivateCar() {
         setPolicyType('');
         setProductCode('');
         setVage('');
+        setFuel('');
+        setCc('');
+        setOdDiscount('');
         setPayoutOn('');
         setPoPercentage('');
         setBranchpayoutper('');
         setCompanypayoutper('');
       } catch (error) {
-        console.error("Error adding PV-Commission:", error.response);
-        toast.error("Failed to add PV-Commission");
+        console.error("Error adding Payout:", error.response);
+        toast.error("Failed to add Payout ");
       } finally {
         setFormSubmitted(false);
       }
@@ -142,7 +175,7 @@ function PrivateCar() {
       <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
         <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
           <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-            <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> PVT CAR - Payout Slab </h1>
+            <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black"> Payout Slab </h1>
             <div className="flex flex-wrap mb-12 justify-between">
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
@@ -248,14 +281,66 @@ function PrivateCar() {
                   value={vage}
                   onChange={handleVageChange}>
                   <option className="w-1" value="">-------- Select Vehicle Age --------</option>
-                  <option value="NEW">NEW / 0 Year</option>
+                  <option value="NEW">NEW</option>
                   <option value="1-5 YEARS">1-5 Years</option>
                   <option value="6-10 YEARS">6-10 Years</option>
                   <option value="MORE THAN 10 YEARS">More than 10 Years</option>
                 </select>
               </div>
-              {/* payout on */}
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style p-1 rounded-lg"
+                value={fuel}
+                name="fuel"
+                onChange={(e) => setFuel(e.target.value)}>
+                <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                {
+                  fuelType.map((fuel) => (
+                    <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                  ))
+                }
+              </select>
+            </div>
+
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="ncb"
+                value={ncb}
+                onChange={(e) => setNcb(e.target.value)}
+                placeholder="Enter NCB"
+              />
+            </div>
+
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="odDiscount"
+                value={odDiscount}
+                onChange={(e) => setOdDiscount(e.target.value)}
+                placeholder="Enter OD Discount"
+              />
+
+            </div>
+            
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                name="cc"
+                value={cc}
+                onChange={(e) => setCc(e.target.value.toUpperCase())}
+                placeholder="Enter CC"
+              />
+            </div>
+              {/* payout on */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="payoutOn"
@@ -275,7 +360,7 @@ function PrivateCar() {
                 </select>
               </div>
               {/* PERCENTAGE */}
-              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
   
                 <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                 <input
@@ -286,7 +371,7 @@ function PrivateCar() {
                   name="popercentage"
                   placeholder="%"
                 />
-              </div>
+              </div> */}
    {/* branch payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
