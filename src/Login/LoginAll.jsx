@@ -48,6 +48,24 @@ function LoginAll() {
                      
                     break;
 
+                    case "advisor":
+                    
+                    response = await axios.post("https://eleedomimf.onrender.com/advisor/login", {
+                        advisoremail: email,
+                        advisormobile: mobile,
+                        advisorpassword:  password,
+                    });
+                  
+                    sessionStorage.setItem("advisoremail", email);
+                    sessionStorage.setItem("token", response.data.token);
+                    // sessionStorage.setItem("email", response.data.user.empemail);
+                    // sessionStorage.setItem("employeeId", response.data.user._id);
+                    sessionStorage.setItem("name", response.data.advisorname);
+
+                      // Add your code snippet here
+                     
+                    break;
+
                 case "hrmanager":
                     response = await axios.post("https://eleedomimf.onrender.com/hradmin/login", {
                         hrademail: email,
@@ -129,6 +147,11 @@ function LoginAll() {
                         toast.success("Logged In Successfully !");
                         break;
 
+                    case "advisor":
+                        sessionStorage.getItem("token");
+                        navigate("/advisor/home");
+                        toast.success("Logged In Successfully !");
+                        break;
 
                     case "branches":
                         sessionStorage.getItem("token");
@@ -176,7 +199,8 @@ function LoginAll() {
                 return "/branches/forget";
             case "ops":
                 return "/ops/forget";
-
+                case "advisor":
+                    return "/advisor/forget";
             case "finance":
                 return "/finance/forget";
 
@@ -285,6 +309,7 @@ function LoginAll() {
                                         <option value="employee">Employee</option>
                                         <option value="hrmanager">HR Manager</option>
                                         <option value="ops">OPS Admin</option>
+                                        <option value="advisor">Advisor</option>
                                         <option value="finance">Finance Admin</option>
                                     </select>
                                 </div>

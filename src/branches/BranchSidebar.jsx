@@ -5,6 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import { RiGitBranchFill } from "react-icons/ri";
 import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import { GiReceiveMoney } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -13,9 +14,21 @@ const BranchSidebar = () => {
       logo: <RxDashboard size={25} />
     },
     {
-      title: "Add Advisor",
-      path: "/branches/home/advisor/register",
-      logo: <RiGitBranchFill size={25} />,
+      title: "Advisor",
+      path: "#",
+      logo: <CgProfile size={25} />,
+      subRoutes:[
+        {
+          title: "Add Advisor",
+          path: "/branches/home/advisor/register",
+          dash: ""
+        },
+        {
+          title: "Advisor Lists",
+          path: "/branches/home/advisor/lists",
+          dash: ""
+        },
+      ]
     },
 
     {

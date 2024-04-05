@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 function AddAdvisors() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState();
-  const [name, setName] = useState("");
+  const [fname, setFname] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
- 
+ const branchname =sessionStorage.getItem('name');
 
   const handleSubmit = async(e) => {
       e.preventDefault();
@@ -17,11 +17,12 @@ function AddAdvisors() {
       try {
         // Make sure to replace this URL with your actual API endpoint
         const response = await axios.post("https://eleedomimf.onrender.com/advisor/register", {
-          advisorname: name,
+          advisorname: fname,
           advisoremail: email,
           advisormobile: mobile,
           advisorpassword: password,
-          advisoraddress: address
+          advisoraddress: address,
+          branch: branchname
         });
 
   if(response.data.status){
@@ -30,7 +31,7 @@ function AddAdvisors() {
         setEmail("");
         setMobile("");
         setPassword("");
-        setName("");
+        setFname("");
         setAddress("");
         setLoading(false);
       }
@@ -59,8 +60,8 @@ function AddAdvisors() {
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value.toUpperCase())}
+                value={fname}
+                onChange={(e) => setFname(e.target.value.toUpperCase())}
                 placeholder="Enter Name"
               />
             </div>

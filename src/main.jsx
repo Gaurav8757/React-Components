@@ -169,6 +169,7 @@ import PCLists from "./branches/ListsCommissionSlab/PCLists.jsx";
 import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
 import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
 import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
+import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.JSX";
 
 
 
@@ -294,6 +295,7 @@ const router = createBrowserRouter(
           <Route path="/branches/home/payout" element={<TwoWheelers/>} />
           {/* advisor register/add new */}
           <Route path="/branches/home/advisor/register" element={< AddAdvisors/>} />
+          <Route path="/branches/home/advisor/lists" element={<ListAdvisor/>} />
           <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
           {/* <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} /> */}
           <Route path="/branches/home/payout/lists" element={<TwLists/>} />
