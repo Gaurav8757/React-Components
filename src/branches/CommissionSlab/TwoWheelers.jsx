@@ -24,8 +24,11 @@ function TwoWheelers() {
   const [odDiscount, setOdDiscount] = useState('');
   const [fuel, setFuel] = useState('');
   const [advisor, setAdvisor] = useState([]);
-  // const [listAdvisor, setListAdvisor] = useState("");
   const [advisorName, setAdvisorName] = useState("");
+  const [advisorId, setAdvisorId] = useState('');
+  const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+
+
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -47,10 +50,6 @@ function TwoWheelers() {
         });
     }
   }, [advisor]);
-
-  // console.log(advisor);
-
-
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -140,10 +139,23 @@ function TwoWheelers() {
   //     // Handle default case or invalid input
   // }
   // };
+
+  const handleChange = (e) => {
+    const selectedAdvisor = advisor.find(a => a.advisorname === e.target.value);
+    setAdvisorName(selectedAdvisor?.advisorname || "");
+    setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
+    setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
+  };
+
+  
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
     setVage(selectedVage);
   }
+
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -168,11 +180,14 @@ function TwoWheelers() {
         vfuels: fuel,
         vncb: ncb,
         vage,
+        advisorName,
+        advisorId,
+        advisorUniqueId,
         voddiscount: odDiscount,
         vcc: cc,
         branchpayoutper
       };
-      await axios.post("http://localhost:7000/commission1/slab/tw/add", formData, {
+      await axios.post("https://eleedomimf.onrender.com/commission1/slab/tw/add", formData, {
         headers: {
           Authorization: `${token}`
         }
@@ -182,6 +197,7 @@ function TwoWheelers() {
       // Reset form fields after successful submission if needed
       setCompany('');
       setCategory('');
+      
       setSegment('');
       setPolicyType('');
       setProductCode('');
@@ -203,8 +219,6 @@ function TwoWheelers() {
     }
   };
 
-
-
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
@@ -218,7 +232,7 @@ function TwoWheelers() {
                 className="input-style p-1  text-lg rounded-lg"
                 value={advisorName}
                 name="advisorName"
-                onChange={(e) => setAdvisorName(e.target.value)}>
+                onChange={handleChange}>
                 <option className="w-1 text-lg" value="" >------------------- Select Advisor-----------------</option>
                 {
                   advisor.filter((advisor) => advisor.branch.includes(sessionStorage.getItem('name'))).map((name) => (
@@ -228,8 +242,6 @@ function TwoWheelers() {
               </select>
             </div>
           </div>
-
-
           <div className="flex flex-wrap mb-12 justify-between">
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
@@ -355,8 +367,6 @@ function TwoWheelers() {
                 }
               </select>
             </div>
-
-
             {/* FIELD - 18 */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
@@ -426,34 +436,8 @@ function TwoWheelers() {
                 placeholder="%"
               />
             </div>
-            {/* branch payout % */}
-            {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style rounded-lg"
-                type="number"
-                value={branchpayoutper}
-                onChange={(e) => setBranchpayoutper(e.target.value)}
-                name="popercentage"
-                placeholder="%"
-              />
-            </div> */}
-            {/* COMPANY payout % */}
-            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style rounded-lg"
-                type="number"
-                value={companypayoutper}
-                onChange={(e) => setCompanypayoutper(e.target.value)}
-                name="popercentage"
-                placeholder="%"
-              />
-            </div> */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
-
-
           </div>
           <button
             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
@@ -467,5 +451,4 @@ function TwoWheelers() {
     </section>
   )
 }
-
 export default TwoWheelers;
