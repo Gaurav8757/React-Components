@@ -17,39 +17,34 @@ function PrivateCar() {
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [payoutOn, setPayoutOn] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [popercentage, setPoPercentage] = useState();
   const [branchpayoutper, setBranchpayoutper] = useState();
   const [companypayoutper, setCompanypayoutper] = useState();
   const [fuel, setFuel] = useState('');
   const [odDiscount, setOdDiscount] = useState('');
   const [ncb, setNcb] = useState('');
   const [cc, setCc] = useState('');
-  const [advisor, setAdvisor] = useState([]);
+  const [advisors, setAdvisors] = useState([]);
   const [advisorName, setAdvisorName] = useState("");
-  const [errors, setErrors] = useState({});
-
-
+  const [advisorId, setAdvisorId] = useState('');
+  const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`https://eleedomimf.onrender.com/advisor/lists`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-        })
-        .then((response) => {
-          setAdvisor(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [advisor]);
+    axios.get(`https://eleedomimf.onrender.com/advisor/lists`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then((response) => {
+        // Assuming response.data is an array
+        setAdvisors(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [token]);
+
+
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
@@ -118,6 +113,13 @@ function PrivateCar() {
     }
   }, [fuelType]);
 
+  const handleChange = (e) => {
+    const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
+    setAdvisorName(selectedAdvisor?.advisorname || "");
+    setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
+    setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
+  };
+
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
     setVage(selectedVage);
@@ -146,14 +148,6 @@ function PrivateCar() {
       return;
     }
 
-  
-    setErrors({}); // Clear previous errors
-    const errors = {};
-
-    if (!advisorName) {
-      errors.advisorName = "required*";
-    }
-
     try {
       const token = sessionStorage.getItem("token");
       if (!token) {
@@ -172,8 +166,11 @@ function PrivateCar() {
         vfuels: fuel,
         voddiscount: odDiscount,
         vncb: ncb,
+        advisorName,
+        advisorId,
+        advisorUniqueId,
         payoutons: payoutOn,
-        cvpercentage: popercentage,
+        // cvpercentage: popercentage,
         branchpayoutper,
         companypayoutper
       };
@@ -188,16 +185,17 @@ function PrivateCar() {
       setCompany('');
       setCategory('');
       setSegment('');
+      setNcb('');
       setPolicyType('');
       setProductCode('');
       setVage('');
       setFuel('');
       setAdvisorName('');
-      setAdvisor('');
+      setAdvisors('');
       setCc('');
       setOdDiscount('');
       setPayoutOn('');
-      setPoPercentage('');
+      // setPoPercentage('');
       setBranchpayoutper('');
       setCompanypayoutper('');
     } catch (error) {
@@ -221,15 +219,15 @@ function PrivateCar() {
                 className="input-style p-1  text-lg rounded-lg"
                 value={advisorName}
                 name="advisorName"
-                onChange={(e) => setAdvisorName(e.target.value)}>
+                onChange={handleChange}>
                 <option className="w-1 text-lg" value="" >------------------- Select Advisor-----------------</option>
-                {
-                  advisor.map((name) => (
-                    <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} -  ${name.advisorname}  - ${name.branch}`}</option>
-                  ))
-                }
+
+                {advisors && advisors.map((name) => (
+                  <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} -  ${name.advisorname} - ${name.branch}`}</option>
+                ))}
+
               </select>
-              {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}
+              {/* {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>} */}
             </div>
           </div>
 
@@ -287,7 +285,7 @@ function PrivateCar() {
                 <option value="NON-MOTOR">NON-MOTOR</option>
                 <option value="LIFE">LIFE</option>
               </select>
-             
+
             </div>
 
             {/* 4 */}
@@ -417,19 +415,7 @@ function PrivateCar() {
                 }
               </select>
             </div>
-            {/* PERCENTAGE */}
-            {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-  
-                <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  value={popercentage}
-                  onChange={(e) => setPoPercentage(e.target.value)}
-                  name="popercentage"
-                  placeholder="%"
-                />
-              </div> */}
+
             {/* branch payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
@@ -450,13 +436,14 @@ function PrivateCar() {
                 type="number"
                 value={companypayoutper}
                 onChange={(e) => setCompanypayoutper(e.target.value)}
-                name="popercentage"
+                name="companypayoutper"
                 placeholder="%"
               />
             </div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
           </div>
+
           <button
             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
             onClick={handleSubmit}
