@@ -138,23 +138,23 @@ function ViewMasterForm() {
 
 
   // calculate payout 
-  const calculateAdvisorPayableAmount = (finalEntryFields, percentage) => {
-    const deduction = finalEntryFields * (percentage / 100);
-    return finalEntryFields - deduction;
+  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
+    const deduction = finalEntryFields - advisorPayout;
+    return deduction;
   };
   const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
     const deduction = finalEntryFields * (percentage / 100);
     return deduction;
   };
-  const calculateBranchPayableAmount = (finalEntryFields, branchpayoutper) => {
-    const deduction = finalEntryFields * (branchpayoutper / 100);
-    return finalEntryFields - deduction;
+  const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => {
+    const deduction = finalEntryFields - branchPayout;
+    return deduction;
   };
   const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
     const deduction = finalEntryFields * (branchpayoutper / 100);
     return deduction;
   };
-  const calculateCompanyPayableAmount = (finalEntryFields, companypayoutper) => {
+  const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => {
     const deduction = finalEntryFields * (companypayoutper / 100);
     return deduction;
   };
@@ -185,13 +185,14 @@ useEffect(() => {
     );
      // policy id
     // console.log(filteredData._id);
-      const finalEntryFields = parseFloat(filteredData.finalEntryFields); 
+      const netPremium1 = parseFloat(filteredData.netPremium);
+      const finalEntryFields = parseFloat(filteredData.finalEntryFields);
 
-      const advisorPayout = calculateAdvisorPayoutAmount(finalEntryFields, percentage);
-      const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, percentage);
-      const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchpercent);
-      const branchPayout = calculateBranchPayoutAmount(finalEntryFields, branchpercent);
-      const companyPayout = calculateCompanyPayableAmount(finalEntryFields, companypercent);
+      const advisorPayout = calculateAdvisorPayoutAmount(netPremium1, percentage);
+      const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+      const branchPayout = calculateBranchPayoutAmount(netPremium1, branchpercent);
+      const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+      const companyPayout = calculateCompanyPayoutAmount(netPremium1, companypercent);
       const profitLoss = companyPayout - branchPayout;
       // console.log(percentage);
       // console.log("Final Amount " + finalEntryFields);
@@ -205,9 +206,9 @@ useEffect(() => {
         advisorPayoutAmount: parseFloat(advisorPayout),
         advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
         branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-        branchPayout,
-        companyPayout,
-        profitLoss
+        branchPayout: parseFloat(branchPayout.toFixed(2)) ,
+        companyPayout: parseFloat(companyPayout.toFixed(2)),
+        profitLoss: parseFloat(profitLoss.toFixed(2))
       };
 
 
