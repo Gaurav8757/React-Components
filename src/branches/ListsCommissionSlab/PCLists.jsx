@@ -82,7 +82,7 @@ function PCLists() {
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
           {APIData.reverse().map((data) => {
-            if (data.vehicleSlab === 'Payout-Slab') {
+            if (data.vehicleSlab) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>

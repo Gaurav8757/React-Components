@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { State, City } from 'country-state-city';
+
 
 function PrivateCar() {
   const [pdata, setPdata] = useState([]);
@@ -27,7 +29,42 @@ function PrivateCar() {
   const [advisorName, setAdvisorName] = useState("");
   const [advisorId, setAdvisorId] = useState('');
   const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   const token = sessionStorage.getItem("token");
+
+
+// const countryName = 'India';
+// const statesAndCities = getAllStatesAndCitiesOfCountry(countryName);
+
+useEffect(() => {
+  // Fetch and set states for India when component mounts
+  const fetchStates = () => {
+      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+      setStates(indiaStates);
+  };
+
+  fetchStates();
+}, []);
+
+
+const handleStateChange = (e) => {
+  const stateIsoCode = e.target.value;
+  setSelectedState(stateIsoCode);
+
+  // Fetch and set cities based on selected state
+  const fetchCities =  () => {
+      const stateCities =  City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
+      setCities(stateCities);
+  };
+
+  fetchCities();
+};
+
+
+
 
   useEffect(() => {
     axios.get(`https://eleedomimf.onrender.com/advisor/lists`, {
@@ -170,7 +207,8 @@ function PrivateCar() {
         advisorId,
         advisorUniqueId,
         payoutons: payoutOn,
-        // cvpercentage: popercentage,
+        states: selectedState,
+        districts: selectedCity,
         branchpayoutper,
         companypayoutper
       };
@@ -185,6 +223,8 @@ function PrivateCar() {
       setCompany('');
       setCategory('');
       setSegment('');
+      setSelectedCity('');
+      setSelectedState('');
       setNcb('');
       setPolicyType('');
       setProductCode('');
@@ -220,11 +260,13 @@ function PrivateCar() {
                 value={advisorName}
                 name="advisorName"
                 onChange={(e) => { setAdvisorName(e.target.value) }}>
-                <option className="w-1 text-lg" value="" >-------------- Select Advisor-----------------</option>
+                <option className="w-1 text-lg" value="" >--------------- Select Advisor --------------</option>
 
-                {/* {advisors && advisors.map((name) => ( */}
-                <option className="text-lg" value="Eleedom_IMF_Pvt_Ltd" >Eleedom IMF Pvt Ltd</option>
-                {/* ))} */}
+                {
+                  advisors.map((name) => (
+                    <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} - ${name.advisorname}`}</option>
+                  ))
+                }
 
               </select>
 
@@ -269,8 +311,41 @@ function PrivateCar() {
                 }
               </select>
             </div>
-            {/* 3 */}
+
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+              <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                <option value="">---------------- Select State --------------- </option>
+                {states.map(state => (
+                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                ))}
+            </select>
+            </div>
+
+
+            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              <select
+        className="input-style text-lg p-1 rounded-lg"
+        value={selectedCity}
+        onChange={(e) => setSelectedCity(e.target.value)}
+        disabled={!selectedState} // Disable city dropdown until a state is selected
+      >
+        <option value="">--------------- Select City -------------</option>
+        {cities.map((city) => (
+         
+          <option key={city.id} value={city.name}>
+            {city.name}
+          </option>
+        ))}
+      </select>
+              </div>
+
+
+
+
+            {/* 3 */}
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style text-lg p-1 rounded-lg"
@@ -289,7 +364,7 @@ function PrivateCar() {
             </div>
 
             {/* 4 */}
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style text-lg p-1 rounded-lg"
@@ -363,7 +438,7 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style text-lg rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 type="text"
                 name="ncb"
                 value={ncb}
@@ -376,10 +451,10 @@ function PrivateCar() {
               </select>
             </div>
 
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style text-lg rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 type="text"
                 name="odDiscount"
                 value={odDiscount}
@@ -401,10 +476,10 @@ function PrivateCar() {
 
             </div>
 
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style text-lg rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 type="text"
                 name="cc"
                 value={cc}
@@ -448,7 +523,7 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="number"
                 value={branchpayoutper}
                 onChange={(e) => setBranchpayoutper(e.target.value)}
@@ -460,7 +535,7 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="number"
                 value={companypayoutper}
                 onChange={(e) => setCompanypayoutper(e.target.value)}

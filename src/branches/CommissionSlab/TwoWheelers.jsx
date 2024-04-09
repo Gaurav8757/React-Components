@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { State, City } from 'country-state-city';
 function TwoWheelers() {
   const [vage, setVage] = useState("");
   const [pdata, setPdata] = useState([]);
@@ -27,9 +27,36 @@ function TwoWheelers() {
   const [advisorName, setAdvisorName] = useState("");
   const [advisorId, setAdvisorId] = useState('');
   const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
 
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
+        const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+        setStates(indiaStates);
+    };
+  
+    fetchStates();
+  }, []);
+  
+  
+  const handleStateChange = (e) => {
+    const stateIsoCode = e.target.value;
+    setSelectedState(stateIsoCode);
+  
+    // Fetch and set cities based on selected state
+    const fetchCities =  () => {
+        const stateCities =  City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
+        setCities(stateCities);
+    };
+  
+    fetchCities();
+  };
 
-
+  
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -182,6 +209,8 @@ function TwoWheelers() {
         vage,
         advisorName,
         advisorId,
+        states: selectedState,
+        districts: selectedCity,
         advisorUniqueId,
         voddiscount: odDiscount,
         vcc: cc,
@@ -197,7 +226,8 @@ function TwoWheelers() {
       // Reset form fields after successful submission if needed
       setCompany('');
       setCategory('');
-      
+      setSelectedCity('');
+      setSelectedState('');
       setSegment('');
       setPolicyType('');
       setProductCode('');
@@ -233,7 +263,7 @@ function TwoWheelers() {
                 value={advisorName}
                 name="advisorName"
                 onChange={handleChange}>
-                <option className="w-1 text-lg" value="" >------------------- Select Advisor-----------------</option>
+                <option className="w-1 text-lg" value="" >--------------- Select Advisor ---------------</option>
                 {
                   advisor.filter((advisor) => advisor.branch.includes(sessionStorage.getItem('name'))).map((name) => (
                     <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} - ${name.advisorname}`}</option>
@@ -247,14 +277,14 @@ function TwoWheelers() {
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 rounded-lg text-lg"
                 value={company}
                 onChange={(e) => {
                   setCompany(e.target.value.toUpperCase());
                   const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
                   setCatTypesForSelectedPolicy(selectedCatId)
                 }}>
-                <option className="w-1" value="" >--------- Select Company ---------</option>
+                <option className="w-1" value="" >------------- Select Company --------------</option>
                 {pdata.map((comp) => (
                   <option key={comp._id} value={comp.c_type} data-id={comp._id}>
                     {comp.c_type}
@@ -266,11 +296,11 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style w-full p-1 rounded-lg"
+                className="input-style w-full p-1 text-lg rounded-lg"
                 value={category}
                 name="category"
                 onChange={(e) => setCategory(e.target.value)}>
-                <option value="">------- Select Product Type --------</option>
+                <option value="">----------- Select Product Type -------------</option>
                 {pdata.map((cat) => (
                   cat._id === catTypesForSelectedPolicy &&
                   cat.category.map((product, idx) => (
@@ -279,15 +309,47 @@ function TwoWheelers() {
                 }
               </select>
             </div>
-            {/* 3 */}
+
+
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+              <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                <option value="">---------------- Select State --------------- </option>
+                {states.map(state => (
+                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                ))}
+            </select>
+            </div>
+
+
+            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              <select
+        className="input-style text-lg p-1 rounded-lg"
+        value={selectedCity}
+        onChange={(e) => setSelectedCity(e.target.value)}
+        disabled={!selectedState} // Disable city dropdown until a state is selected
+      >
+        <option value="">---------------- Select City ---------------</option>
+        {cities.map((city) => (
+         
+          <option key={city.id} value={city.name}>
+            {city.name}
+          </option>
+        ))}
+      </select>
+              </div>
+
+
+            {/* 3 */}
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 name="segment"
                 value={segment}
                 onChange={(e) => setSegment(e.target.value)}>
-                <option className="w-1" value="" disabled>---------- Select Segment ---------</option>
+                <option className="w-1" value="" >-------------- Select Segment --------------</option>
                 <option value="C V">C V</option>
                 <option value="PVT-CAR">PVT-CAR</option>
                 <option value="TW">TW</option>
@@ -298,10 +360,10 @@ function TwoWheelers() {
             </div>
 
             {/* 4 */}
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={policyType}
                 name="policyType"
                 onChange={(e) => {
@@ -313,7 +375,7 @@ function TwoWheelers() {
                   // Reset product code when policy type changes
                   setProductCode('');
                 }}
-              > <option value="">-------- Select Policy Type --------</option>
+              > <option value="">------------- Select Policy Type ------------</option>
                 {data.map(prod => (
                   <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                 ))}
@@ -324,11 +386,11 @@ function TwoWheelers() {
               <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="productCode" name="productCode"
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={productCode}
                 onChange={(e) => setProductCode(e.target.value)}
               >
-                <option className="w-1" value="" >------- Select Product Code -------</option>
+                <option className="w-1" value="" >------------ Select Product Code -----------</option>
                 {data.map((policy) => (
                   policy.p_type === policyType &&
                   products.map((product, idx) => (
@@ -341,10 +403,10 @@ function TwoWheelers() {
               <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="vage" name="vage"
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={vage}
                 onChange={handleVageChange}>
-                <option className="w-1" value="">-------- Select Vehicle Age --------</option>
+                <option className="w-1" value="">------------ Select Vehicle Age -------------</option>
                 <option value="NA">NA</option>
                 <option value="NEW">NEW</option>
                 <option value="1-5 YEARS">1-5 Years</option>
@@ -356,11 +418,11 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={fuel}
                 name="fuel"
                 onChange={(e) => setFuel(e.target.value)}>
-                <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                <option className="w-1" value="" >------------- Select Fuel Type --------------</option>
                 {
                   fuelType.map((fuel) => (
                     <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
@@ -372,7 +434,7 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 name="ncb"
                 value={ncb}
@@ -388,14 +450,14 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 name="odDiscount"
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount"
               >
-                <option className="w-1" value="" >------------- Select OD Discount ---------------</option>
+                <option className="w-1" value="" >----------- Select OD Discount -------------</option>
                 <option value="0">0%</option>
                 <option value="1-40">1% to 40%</option>
                 <option value="41-50">41% to 50%</option>
@@ -413,14 +475,14 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 name="cc"
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC"
               >
-                <option className="w-1" value="" >------------------ Select CC ---------------------</option>
+                <option className="w-1" value="" >---------------- Select CC -------------------</option>
                 <option value="<100">less than 100 cc</option>
                 <option value="100-125">100 to 125 cc</option>
                 <option value="126-150">126 to 150 cc</option>
@@ -438,11 +500,11 @@ function TwoWheelers() {
               <select
                 id="payoutOn"
                 name="payoutOn"
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={payoutOn}
                 onChange={(e) => setPayoutOn(e.target.value)}
               >
-                <option className="w-1" value="" >--------- Select Payout on ----------</option>
+                <option className="w-1" value="" >------------- Select Payout on -------------</option>
                 {
                   payoutOnList
                     .filter(pay => pay.payouton !== "OD" && pay.payouton !== "LIABILITY") // Filtering out "OD" and "LIABILITY"
