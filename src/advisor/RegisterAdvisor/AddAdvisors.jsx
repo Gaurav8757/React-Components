@@ -87,7 +87,7 @@ function AddAdvisors() {
             </div>
        
             <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Address</label>
+              <label className="text-base mx-1">Location</label>
               <input
                 className="input-style rounded-lg"
                 type="text"

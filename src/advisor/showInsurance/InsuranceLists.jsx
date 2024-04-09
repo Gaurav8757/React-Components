@@ -84,11 +84,14 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                   <th scope="col" className="px-1 border border-black">OD Premium</th>
                   <th scope="col" className="px-1 border border-black">Liability Premium</th>
                   <th scope="col" className="px-1 border border-black">Net Premium</th>
-                  <th scope="col" className="px-1 border border-black">Final Entry Fields</th>
+                  <th scope="col" className="px-1 border border-black">Final Amount</th>
                   <th scope="col" className="px-1 border border-black">OD Discount</th>
                   <th scope="col" className="px-1 border border-black">NCB</th>
                   <th scope="col" className="px-1 border border-black">Advisor Name</th>
-                  <th scope="col" className="px-1 border border-black">Sub Advisor</th>          
+                  <th scope="col" className="px-1 border border-black">Sub Advisor</th>    
+                  <th scope="col" className="px-1 border border-black">Payout On</th>
+                  <th scope="col" className="px-1 border border-black">Advisor Payout</th>
+                  <th scope="col" className="px-1 border border-black">Advisor Payable Amount</th>      
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -131,6 +134,9 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                     <td className="whitespace-nowrap px-1 border border-black">{data.ncb}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.subAdvisor}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.payoutOn}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayoutAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayableAmount}`}</td>
                   </tr>
                 ))}
               </tbody>

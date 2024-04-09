@@ -219,15 +219,15 @@ function PrivateCar() {
                 className="input-style p-1  text-lg rounded-lg"
                 value={advisorName}
                 name="advisorName"
-                onChange={handleChange}>
-                <option className="w-1 text-lg" value="" >------------------- Select Advisor-----------------</option>
+                onChange={(e) => { setAdvisorName(e.target.value) }}>
+                <option className="w-1 text-lg" value="" >-------------- Select Advisor-----------------</option>
 
-                {advisors && advisors.map((name) => (
-                  <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} -  ${name.advisorname} - ${name.branch}`}</option>
-                ))}
+                {/* {advisors && advisors.map((name) => ( */}
+                <option className="text-lg" value="Eleedom_IMF_Pvt_Ltd" >Eleedom IMF Pvt Ltd</option>
+                {/* ))} */}
 
               </select>
-              {/* {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>} */}
+
             </div>
           </div>
 
@@ -236,7 +236,7 @@ function PrivateCar() {
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={company}
                 onChange={(e) => {
                   setCompany(e.target.value.toUpperCase());
@@ -244,7 +244,7 @@ function PrivateCar() {
                   setCatTypesForSelectedPolicy(selectedCatId);
                 }}
               >
-                <option className="w-1" value="" >--------- Select Company ---------</option>
+                <option className="w-1" value="" >--------------- Select Company ------------</option>
                 {pdata.map((comp) => (
                   <option key={comp._id} value={comp.c_type} data-id={comp._id}>
                     {comp.c_type}
@@ -256,11 +256,11 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style w-full p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={category}
                 name="category"
                 onChange={(e) => setCategory(e.target.value)}>
-                <option value="">------- Select Product Type --------</option>
+                <option value="">------------ Select Product Type ----------</option>
                 {pdata.map((cat) => (
                   cat._id === catTypesForSelectedPolicy &&
                   cat.category.map((product, idx) => (
@@ -273,11 +273,11 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 name="segment"
                 value={segment}
                 onChange={(e) => setSegment(e.target.value)}>
-                <option className="w-1" value="" disabled>---------- Select Segment ---------</option>
+                <option className="w-1" value="" >-------------- Select Segment -----------</option>
                 <option value="C V">C V</option>
                 <option value="PVT-CAR">PVT-CAR</option>
                 <option value="TW">TW</option>
@@ -292,7 +292,7 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={policyType}
                 name="policyType"
                 onChange={(e) => {
@@ -304,7 +304,7 @@ function PrivateCar() {
                   // Reset product code when policy type changes
                   setProductCode('');
                 }}
-              > <option value="">-------- Select Policy Type --------</option>
+              > <option value="">------------- Select Policy Type -------------</option>
                 {data.map(prod => (
                   <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                 ))}
@@ -315,11 +315,11 @@ function PrivateCar() {
               <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="productCode" name="productCode"
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={productCode}
                 onChange={(e) => setProductCode(e.target.value)}
               >
-                <option className="w-1" value="" >------- Select Product Code -------</option>
+                <option className="w-1" value="" >----------- Select Product Code -----------</option>
                 {data.map((policy) => (
                   policy.p_type === policyType &&
                   products.map((product, idx) => (
@@ -333,10 +333,11 @@ function PrivateCar() {
               <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="vage" name="vage"
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={vage}
                 onChange={handleVageChange}>
-                <option className="w-1" value="">-------- Select Vehicle Age --------</option>
+                <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
+                <option value="NA">NA</option>
                 <option value="NEW">NEW</option>
                 <option value="1-5 YEARS">1-5 Years</option>
                 <option value="6-10 YEARS">6-10 Years</option>
@@ -346,11 +347,11 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 value={fuel}
                 name="fuel"
                 onChange={(e) => setFuel(e.target.value)}>
-                <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                <option className="w-1" value="" >-------------- Select Fuel Type ----------</option>
                 {
                   fuelType.map((fuel) => (
                     <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
@@ -361,39 +362,66 @@ function PrivateCar() {
 
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style rounded-lg"
+              <select
+                className="input-style text-lg rounded-lg"
                 type="text"
                 name="ncb"
                 value={ncb}
                 onChange={(e) => setNcb(e.target.value)}
-                placeholder="Enter NCB"
-              />
+              >
+                <option className="w-1" value="" >-------------- Select NCB ------------------</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+
+              </select>
             </div>
 
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style rounded-lg"
+              <select
+                className="input-style text-lg rounded-lg"
                 type="text"
                 name="odDiscount"
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount"
-              />
+              >
+                <option className="w-1" value="" >----------- Select OD Discount ---------------</option>
+                <option value="0">0%</option>
+                <option value="1-40">1% to 40%</option>
+                <option value="41-50">41% to 50%</option>
+                <option value="51-60">51% to 60%</option>
+                <option value="61-70">61% to 70%</option>
+                <option value="71-75">71% to 75%</option>
+                <option value="76-80">76% to 80%</option>
+                <option value="81-85">81% to 85%</option>
+                <option value="86-90">86% to 90%</option>
+                <option value=">90">more than 90%</option>
+              </select>
 
             </div>
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style rounded-lg"
+              <select
+                className="input-style text-lg rounded-lg"
                 type="text"
                 name="cc"
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC"
-              />
+              >
+                <option className="w-1" value="" >--------------- Select CC ------------------</option>
+                <option value="<100">less than 100 cc</option>
+                <option value="100-125">100 to 125 cc</option>
+                <option value="126-150">126 to 150 cc</option>
+                <option value="151-350">151 to 350 cc</option>
+                <option value=">351">more than 351 cc</option>
+                <option value="<1200">less than 1200 cc</option>
+                <option value=">1201">greater than 1201 cc</option>
+                <option value="NA">Not Applicable</option>
+
+              </select>
             </div>
             {/* payout on */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -401,11 +429,11 @@ function PrivateCar() {
               <select
                 id="payoutOn"
                 name="payoutOn"
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1  text-lg rounded-lg"
                 value={payoutOn}
                 onChange={(e) => setPayoutOn(e.target.value)}
               >
-                <option className="w-1" value="" >--------- Select Payout on ----------</option>
+                <option className="w-1" value="" >-------------- Select Payout on ----------</option>
                 {
                   payoutOnList
                     .filter(pay => pay.payouton !== "OD" && pay.payouton !== "LIABILITY") // Filtering out "OD" and "LIABILITY"
