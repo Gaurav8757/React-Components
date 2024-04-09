@@ -17,12 +17,39 @@ function ViewMasterForm() {
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
   const [policyMade, setPolicyMade] = useState("");
+  const [payoutSlab, setPayoutSlab] = useState([]);
   const name = sessionStorage.getItem('email');
 
+
+//  console.log(lists);
   useEffect(() => {
     setItemsPerPage(20);
   }, []);
 
+  
+
+  // payout slab list api
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setPayoutSlab(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+  // console.log(payoutSlab)
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -43,9 +70,8 @@ function ViewMasterForm() {
           console.error(error);
         });
     }
-  }, []);
+  }, [allDetailsData]);
 
-  // refreshing page after updating data
   const onUpdateInsurance = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -66,7 +92,6 @@ function ViewMasterForm() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
-
   const handleDateRangeChange = (event, type) => {
     if (type === "start") {
       setStartDate(event.target.value);
@@ -74,7 +99,6 @@ function ViewMasterForm() {
       setEndDate(event.target.value);
     }
   };
-
   const filteredData = allDetailsData.filter(data => {
     // Check if data is defined
     if (!data) return false;
@@ -99,20 +123,115 @@ function ViewMasterForm() {
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
   });
-
   // Calculate total number of pages
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-
   // Calculate starting and ending indexes of items to be displayed on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+
+
+
+  // calculate payout 
+  const calculateAdvisorPayableAmount = (finalEntryFields, percentage) => {
+    const deduction = finalEntryFields * (percentage / 100);
+    return finalEntryFields - deduction;
+  };
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
+    const deduction = finalEntryFields * (percentage / 100);
+    return deduction;
+  };
+  const calculateBranchPayableAmount = (finalEntryFields, branchpayoutper) => {
+    const deduction = finalEntryFields * (branchpayoutper / 100);
+    return finalEntryFields - deduction;
+  };
+  const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
+    const deduction = finalEntryFields * (branchpayoutper / 100);
+    return deduction;
+  };
+  const calculateCompanyPayableAmount = (finalEntryFields, companypayoutper) => {
+    const deduction = finalEntryFields * (companypayoutper / 100);
+    return deduction;
+  };
+
+  const matchingCSLab = payoutSlab.find(cslabItem =>
+     allDetailsData.some(data =>
+        cslabItem.cnames === data.company &&
+        cslabItem.catnames === data.category &&
+        cslabItem.policytypes === data.policyType &&
+        cslabItem.pcodes === data.productCode &&
+        cslabItem.payoutons === data.payoutOn
+    )
+);
+/*MATCHING SLAB ID */
+// console.log(matchingCSLab._id);
+useEffect(() => {
+  if (matchingCSLab) {
+      const percentage = matchingCSLab.cvpercentage || 0;
+      const branchpercent = matchingCSLab.branchpayoutper || 0;
+      const companypercent = matchingCSLab.companypayoutper || 0;
+         // Filtering allDetailsData based on criteria
+    const filteredData = allDetailsData.find(data =>
+      matchingCSLab.cnames === data.company &&
+      matchingCSLab.catnames === data.category &&
+      matchingCSLab.policytypes === data.policyType &&
+      matchingCSLab.pcodes === data.productCode &&
+      matchingCSLab.payoutons === data.payoutOn
+    );
+     // policy id
+    // console.log(filteredData._id);
+      const finalEntryFields = parseFloat(filteredData.finalEntryFields); 
+
+      const advisorPayout = calculateAdvisorPayoutAmount(finalEntryFields, percentage);
+      const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, percentage);
+      const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchpercent);
+      const branchPayout = calculateBranchPayoutAmount(finalEntryFields, branchpercent);
+      const companyPayout = calculateCompanyPayableAmount(finalEntryFields, companypercent);
+      const profitLoss = companyPayout - branchPayout;
+      // console.log(percentage);
+      // console.log("Final Amount " + finalEntryFields);
+      // console.log("COMP PAYOUT "+ companyPayout);
+      // console.log("COMP PAYout AMOUNT " + branchPayout);
+    
+   
+    
+      // Prepare data for API request
+      const postData = {
+        advisorPayoutAmount: parseFloat(advisorPayout),
+        advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+        branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+        branchPayout,
+        companyPayout,
+        profitLoss
+      };
+
+
+      try {
+        // Send data to API
+        const response =  axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${filteredData._id}`, postData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        // Handle response status
+        if (response.status !== 200) {
+          console.error(`Error updating data for policy ID ${matchingCSLab._id}`);
+        }
+      } catch (error) {
+        console.error(`Error updating data for policy ID ${matchingCSLab._id}:`, error);
+      }
+    // }
+  // );
+  } else {
+    console.log('No matching CSLabs found or allDetailsData is empty.');
+  }
+}, [matchingCSLab, allDetailsData]);
 
 
   const exportToExcel = () => {
@@ -120,7 +239,6 @@ function ViewMasterForm() {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${name}`;
-  
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
         return [
@@ -179,7 +297,6 @@ function ViewMasterForm() {
           row.chqStatus,
         ];
       });
-  
       // Get all table headers in the same order
       const tableHeaders = [
         "Entry Date",
@@ -237,10 +354,8 @@ function ViewMasterForm() {
         "CHQ / Payment Date",
         "CHQ Status",
       ];
-  
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-  
       // Create workbook and export
       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
       const excelBuffer = XLSX.write(wb, {
@@ -259,10 +374,8 @@ function ViewMasterForm() {
       toast.error("Error exporting to Excel");
     }
   };
-  
   const handleExportClick = () => {
     exportToExcel();
-    // exportToPDF();
   };
 
   // delete function
@@ -279,7 +392,6 @@ function ViewMasterForm() {
       console.error("Error deleting Insurance :", error);
     }
   };
-
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
@@ -294,8 +406,6 @@ function ViewMasterForm() {
               </NavLink>
             </div>
           </div>
-
-
           <div className="flex-wrap mb-4 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
             {/* date range filter */}
             <div className="flex   p-0 text-start w-full lg:w-1/4">
@@ -324,7 +434,6 @@ function ViewMasterForm() {
                 placeholder="Company Name"
               />
             </div>
-
             <div className="flex justify-start  text-start w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Insured Name:</label>
               <input
@@ -334,7 +443,6 @@ function ViewMasterForm() {
                 placeholder="Insured Name"
               />
             </div>
-
             <div className="flex justify-start mt-4  text-start w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Branch:</label>
               <input
@@ -344,7 +452,6 @@ function ViewMasterForm() {
                 placeholder="Branch Name"
               />
             </div>
-
             <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Policy No:</label>
               <input
@@ -353,7 +460,7 @@ function ViewMasterForm() {
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Policy Number"
               /></div>
-               <div className="flex text-center justify-start mt-4  lg:w-1/4">
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Policy Made By:</label>
               <input
                 type="search"
@@ -362,8 +469,6 @@ function ViewMasterForm() {
                 placeholder="Policy Made By"
               /></div>
           </div>
-
-
           <div className="inline-block min-w-full w-full py-0 relative">
             <table className="min-w-full text-center text-sm font-light table border border-black">
               <thead className="border-b font-medium bg-slate-300 sticky top-16 ">
@@ -426,7 +531,6 @@ function ViewMasterForm() {
                   <th scope="col" className="px-1 border border-black">Delete</th>
                 </tr>
               </thead>
-
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                 {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
                   <tr className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium" key={data._id}>
@@ -476,11 +580,12 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.subAdvisor}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.payoutOn}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.advisorPayableAmount}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.branchPayout}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.branchPayableAmount}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.companyPayout}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{data.profitLoss}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayoutAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayout}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.companyPayout}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.profitLoss}`}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.paymentDoneBy}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.chqNoRefNo}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.bankName}</td>
@@ -498,46 +603,46 @@ function ViewMasterForm() {
       </div>
       {/* Pagination */}
       <nav aria-label="Page navigation flex example sticky   ">
-      <ul className="flex space-x-2 justify-end">
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-                        >
-                            Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, i) => {
-                        // Display buttons for currentPage and a few surrounding pages
-                        const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
-                        if (showPage) {
-                            return (
-                                <li key={i}>
-                                    <button
-                                        onClick={() => handlePageChange(i + 1)}
-                                        className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                                            } border border-blue-600`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-                        >
-                            Next
-                        </button>
-                    </li>
-                </ul>
+        <ul className="flex space-x-2 justify-end">
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
+            >
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => {
+            // Display buttons for currentPage and a few surrounding pages
+            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+            if (showPage) {
+              return (
+                <li key={i}>
+                  <button
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`px-3 py-1 ${i + 1 === currentPage
+                      ? 'bg-green-700 text-white font-bold'
+                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                      } border border-blue-600`}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              );
+            }
+            return null;
+          })}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </nav>
     </section>
   );

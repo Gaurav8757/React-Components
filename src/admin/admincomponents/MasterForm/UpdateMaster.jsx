@@ -8,6 +8,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [fuelType, setFuelType] = useState([]);
   const [pmade, setPmade] = useState([]);
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
@@ -91,6 +92,27 @@ function UpdateMaster({ insurance, onUpdate }) {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
+        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setFuelType(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [fuelType]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
         .get(`https://eleedomimf.onrender.com/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
@@ -123,39 +145,59 @@ function UpdateMaster({ insurance, onUpdate }) {
 
 
   // // VEHICLE AGE CALCULATED
+  // const calculateAge = () => {
+  //   const today = new Date();
+  //   const birthdateDate = new Date(allDetails.registrationDate);
+
+    
+
+  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
+  //   let ageDays = today.getDate() - birthdateDate.getDate();
+
+  //   if (ageDays < 0) {
+  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  //     ageDays = lastDayOfPreviousMonth + ageDays;
+  //     ageMonths--;
+  //   }
+
+  //   if (ageMonths < 0) {
+  //     ageYears--;
+  //     ageMonths = 12 + ageMonths;
+  //   }
+
+  //   setAllDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+  //   }));
+  // };
+
+  // useEffect(() => {
+  //   calculateAge();
+  // },);
+
   const calculateAge = () => {
+    if (!allDetails.registrationDate) {
+        setAllDetails(prevDetails => ({
+            ...prevDetails,
+            vehicleAge: "0 years"
+        }));
+        return;
+    }
+    
     const today = new Date();
     const birthdateDate = new Date(allDetails.registrationDate);
-
-    // if (isNaN(birthdateDate.getTime())) {
-    //   console.error('Invalid date format for registrationDate');
-    //   return;
-    // }
-
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
-
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
-
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
+    const ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
     setAllDetails(prevDetails => ({
-      ...prevDetails,
-      vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+        ...prevDetails,
+        vehicleAge: `${ageYears} years`
     }));
-  };
+};
 
-  useEffect(() => {
+useEffect(() => {
     calculateAge();
-  },);
+}, [allDetails.registrationDate]); // Add appropriate dependency here
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -331,7 +373,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="segment"
                         >
-                          <option className="w-1" value="" disabled>--- Select Segment ---</option>
+                          <option className="w-1" value="" >--- Select Segment ---</option>
                           <option value="C V">C V</option>
                           <option value="PVT-CAR">PVT-CAR</option>
                           <option value="TW">TW</option>
@@ -515,7 +557,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="paymentDoneBy"
                         >
-                          <option className="w-1" value="" disabled>--- Select Payment Done By ---</option>
+                          <option className="w-1" value="" >--- Select Payment Done By ---</option>
                           <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
                           <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
                           <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
@@ -579,7 +621,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="company"
                         >
-                          <option className="w-1" value="" disabled>--- Select Company ---</option>
+                          <option className="w-1" value="" >--- Select Company ---</option>
                           <option value="TATA AIG">TATA AIG</option>
                           <option value="MAGMA-HDI">MAGMA HDI</option>
                           <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
@@ -603,7 +645,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           value={allDetails.sourcing}
                           onChange={handleInputChange} name="sourcing">
 
-                          <option className="w-1" value="" disabled>--- Select Sourcing Type ---</option>
+                          <option className="w-1" value="" >--- Select Sourcing Type ---</option>
                           <option value="NEW">NEW</option>
                           <option value="RENEWAL">RENEWAL</option>
                           <option value="ROLL OVER">ROLL OVER</option>
@@ -661,10 +703,13 @@ function UpdateMaster({ insurance, onUpdate }) {
                           className="input-style p-1 rounded-lg"
                           value={allDetails.fuel}
                           onChange={handleInputChange} name="fuel">
-                          <option className="w-1" value="" disabled>--- Select Fuel Type ---</option>
-                          <option value="Diesel">Diesel</option>
-                          <option value="Petrol">Petrol</option>
-                          <option value="Electric">Electric</option>
+                          <option className="w-1" value="" >--- Select Fuel Type ---</option>
+                          {
+                    fuelType.map((fuel) => (
+                      <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                    ))
+                  }
+
                           {/* Add more fuel options */}
                         </select>
                       </div>
@@ -744,7 +789,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           className="input-style p-1 rounded-lg"
                           value={allDetails.payoutOn}
                           onChange={handleInputChange} name="payoutOn">
-                          <option className="w-1" value="" disabled>--- Select Payout on ---</option>
+                          <option className="w-1" value="" >--- Select Payout on ---</option>
                           <option value="NET">NET</option>
                           <option value="OD">OD</option>
                           <option value="LIABILITY">LIABILITY</option>
@@ -960,7 +1005,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="branch"
                         >
-                          <option className="w-1" value="" disabled>--- Select Branch ---</option>
+                          <option className="w-1" value="" >--- Select Branch ---</option>
                           <option value="PATNA">PATNA</option>
                           <option value="HAJIPUR">HAJIPUR</option>
                           <option value="SAMASTIPUR">SAMASTIPUR</option>
@@ -975,7 +1020,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           value={allDetails.policyPaymentMode}
                           onChange={handleInputChange} name="policyPaymentMode">
 
-                          <option className="w-1" value="" disabled>--- Select Policy Payment Mode ---</option>
+                          <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
                           <option value="LINK">LINK</option>
                           <option value="ONLINE">ONLINE</option>
                           <option value="CREDIT CARD">CREDIT CARD</option>
@@ -998,7 +1043,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           className="input-style p-1 rounded-lg"
                           value={allDetails.bankName}
                           onChange={handleInputChange} name="bankName">
-                          <option className="w-1" value="" disabled>--- Select Bank ---</option>
+                          <option className="w-1" value="" >--- Select Bank ---</option>
                           <option value="HDFC BANK">HDFC BANK</option>
                           <option value="ICICI BANK">ICICI BANK</option>
                           <option value="SBI">SBI</option>
