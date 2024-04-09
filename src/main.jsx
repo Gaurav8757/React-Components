@@ -169,7 +169,7 @@ import PCLists from "./branches/ListsCommissionSlab/PCLists.jsx";
 import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
 import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
 import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
-import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.JSX";
+import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.jsx";
 
 
 
