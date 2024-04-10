@@ -266,6 +266,8 @@ useEffect(() => {
           row.odDiscount,
           row.ncb,
           row.policyPaymentMode,
+          row.states,
+          row.district,
           row.vehRegNo,
           row.segment,
           row.sourcing,
@@ -323,6 +325,8 @@ useEffect(() => {
         "OD Discount(%)",
         "NCB",
         "Policy Payment Mode",
+        "State",
+        "District",
         "Vehicle Reg No",
         "Segment",
         "Sourcing",
@@ -498,6 +502,8 @@ useEffect(() => {
                   <th scope="col" className="px-1 border border-black">OD Discount(%)</th>
                   <th scope="col" className="px-1 border border-black">NCB</th>
                   <th scope="col" className="px-1 border border-black">Policy Payment Mode</th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">State</th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">District</th>
                   <th scope="col" className="px-1 border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 border border-black">Segment</th>
                   <th scope="col" className="px-1 border border-black">Sourcing</th>
@@ -561,6 +567,8 @@ useEffect(() => {
                     <td className="whitespace-nowrap px-1 border border-black">{data.odDiscount}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.ncb}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyPaymentMode}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.sourcing}</td>

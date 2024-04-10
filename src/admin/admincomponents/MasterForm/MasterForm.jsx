@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import MultiStep from "react-multistep";
+import { State, City } from 'country-state-city';
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 function MasterForm() {
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
@@ -204,7 +209,29 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   }, [pdata]);
 
 
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
+      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+      setStates(indiaStates);
+    };
 
+    fetchStates();
+  }, []);
+
+
+  const handleStateChange = (e) => {
+    const stateIsoCode = e.target.value;
+    setSelectedState(stateIsoCode);
+
+    // Fetch and set cities based on selected state
+    const fetchCities = () => {
+      const stateCities = City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
+      setCities(stateCities);
+    };
+
+    fetchCities();
+  };
 
 
   // Function to update netPremium when odPremium or liabilityPremium changes
@@ -512,7 +539,8 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
         chqPaymentDate,
         chqStatus,
         advisorPayableAmount,
-        
+        states: selectedState,
+        district: selectedCity,
         advisorPayoutAmount,
         branchPayout,
         branchPayableAmount,
@@ -525,6 +553,8 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
       if (response.data) {
         toast.success("Data Added Successfully !");
         setFormSubmitted(true);
+        setSelectedCity("");
+        setSelectedState("");
         setEntryDate("");
         setInsuredName("");
         setContactNo("");
@@ -656,7 +686,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Entry Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="entryDate"
                   value={entryDate}
@@ -670,11 +700,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="branch" name="branch"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
                 >
-                  <option className="w-1" value="" >--- Select Branch ---</option>
+                  <option className="w-1" value="" >---------------- Select Branch --------------</option>
                   <option value="PATNA">PATNA</option>
                   <option value="HAJIPUR">HAJIPUR</option>
                   <option value="SAMASTIPUR">SAMASTIPUR</option>
@@ -685,7 +715,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Insured Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="insuredName"
                   value={insuredName}
@@ -699,7 +729,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Contact No:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={contactNo}
                   name="contactNo"
@@ -709,16 +739,16 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 5 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="staffName"
                   name="staffName"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={staffName}
                   onChange={(e) => setStaffName(e.target.value)}
                 >
-                  <option className="w-1" value="" >--- Policy Made By ---</option>
+                  <option className="w-1" value="" >--------------- Policy Made By --------------</option>
                   {
                     APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
                       .map((emp) => (
@@ -732,11 +762,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 6 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="company" name="company"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={company}
                   onChange={(e) => {
                     setCompany(e.target.value.toUpperCase());
@@ -744,7 +774,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                     setCatTypesForSelectedPolicy(selectedCatId);
                   }}
                 >
-                  <option className="w-1" value="" >--- Select Company ---</option>
+                  <option className="w-1" value="" >------------- Select Company --------------</option>
                   {pdata.map((comp) => (
                     <option key={comp._id} value={comp.c_type} data-id={comp._id}>
                       {comp.c_type}
@@ -755,14 +785,14 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 7 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style w-full p-1 rounded-lg"
+                  className="input-style w-full p-0.5 text-lg rounded-lg"
                   value={category}
                   name="category"
                   onChange={(e) => setCategory(e.target.value)}>
-                  <option value="">---- Select Product Type ------</option>
+                  <option value="">------------ Select Product Type ------------</option>
                   {pdata.map((cat) => (
                     cat._id === catTypesForSelectedPolicy &&
                     cat.category.map((product, idx) => (
@@ -774,10 +804,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 8 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={policyType}
                   name="policyType"
                   onChange={(e) => {
@@ -789,7 +819,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                     // Reset product code when policy type changes
                     setProductCode('');
                   }}
-                > <option value="">--- Select Policy Type ---</option>
+                > <option value="">------------ Select Policy Type --------------</option>
                   {data.map(prod => (
                     <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                   ))}
@@ -799,10 +829,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 9 */}
-              <div className="flex flex-col  p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={policyNo}
                   name="policyNo"
@@ -813,10 +843,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 10 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="engNo"
                   value={engNo}
@@ -825,16 +855,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 {errors.engNo && <span className="text-red-600 text-sm ">{errors.engNo}</span>}
               </div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-            </div>
-
-            <div className="flex flex-wrap mb-12 justify-between">
-              {/* FIELD - 11 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={chsNo}
                   name="chsNo"
@@ -844,12 +868,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
               </div>
 
-              {/* FIELD - 12 */}
               {
-                policyType === "SATP" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                policyType === "SATP" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     value={odPremium}
                     name="odPremium"
@@ -858,10 +881,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                     onBlur={updateNetPremium}
                     disabled
                   />
-                </div>) : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                </div>) : (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     value={odPremium}
                     name="odPremium"
@@ -872,13 +895,15 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   {errors.odPremium && <span className="text-red-600 text-sm ">{errors.odPremium}</span>}
                 </div>)
               }
+            </div>
 
-              {/* FIELD - 13 */}
+            <div className="flex flex-wrap mb-12 justify-between">
+           
               {
                 policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     name="liabilityPremium"
                     value={liabilityPremium}
@@ -891,7 +916,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                     <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                     <input
-                      className="input-style rounded-lg"
+                      className="input-style p-1 rounded-lg"
                       type="number"
                       name="liabilityPremium"
                       value={liabilityPremium}
@@ -907,7 +932,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="number"
                   name="netPremium"
                   value={netPremium}
@@ -918,10 +943,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 15 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">GST(Amount):<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={taxes}
                   name="finalEntryFields"
@@ -932,10 +957,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
               </div>
 
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">RSA:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={rsa}
                   name="rsa"
@@ -947,10 +972,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 16 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={finalEntryFields}
                   name="finalEntryFields"
@@ -961,10 +986,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 17 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="odDiscount"
                   value={odDiscount}
@@ -975,10 +1000,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 18 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="ncb"
                   value={ncb}
@@ -989,16 +1014,16 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 19 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="policyPaymentMode"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={policyPaymentMode}
                   name="policyPaymentMode"
                   onChange={(e) => setPolicyPaymentMode(e.target.value)}
                 >
-                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
+                  <option className="w-1" value="" >------- Select Policy Payment Mode -------</option>
                   {
                     payMode.map((mode) => (
                       <option key={mode._id} value={mode.paymentmode} >{mode.paymentmode}</option>
@@ -1007,17 +1032,39 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 </select>
                 {errors.policyPaymentMode && <span className="text-red-600 text-sm ">{errors.policyPaymentMode}</span>}
               </div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+              <select className="input-style text-lg p-0.5 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                <option value="">---------------- Select State ----------------- </option>
+                {states.map(state => (
+                  <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                ))}
+              </select>
             </div>
 
-            {/* part-3 */}
-            <div className="flex flex-wrap mb-12 justify-between">
-              {/* FIELD - 20 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style text-lg p-0.5 rounded-lg"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                disabled={!selectedState} // Disable city dropdown until a state is selected
+              >
+                <option value="">--------------- Select City -------------</option>
+                {cities.map((city) => (
+
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={vehRegNo}
                   name="vehRegNo"
@@ -1027,15 +1074,14 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 {errors.vehRegNo && <span className="text-red-600 text-sm ">{errors.vehRegNo}</span>}
               </div>
 
-              {/* FIELD - 21 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   name="segment"
                   value={segment}
                   onChange={(e) => setSegment(e.target.value)}>
-                  <option className="w-1" value="" disabled>--- Select Segment ---</option>
+                  <option className="w-1" value="" >-------------- Select Segment --------------</option>
                   <option value="C V">CV</option>
                   <option value="PVT-CAR">PVT-CAR</option>
                   <option value="TW">TW</option>
@@ -1046,15 +1092,21 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>
 
-              {/* FIELD - 22 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+             
+
+            </div>
+
+            {/* part-3 */}
+            <div className="flex flex-wrap mb-12 justify-between">
+ {/* FIELD - 22 */}
+ <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={sourcing}
                   name="sourcing"
                   onChange={(e) => setSourcing(e.target.value)}>
-                  <option className="w-1" value="" >--- Select Sourcing Type ---</option>
+                  <option className="w-1" value="" >------------ Select Sourcing Type -----------</option>
                   <option value="NEW">NEW</option>
                   <option value="RENEWAL">RENEWAL</option>
                   <option value="ROLL OVER">ROLL OVER</option>
@@ -1062,11 +1114,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 {errors.sourcing && <span className="text-red-600 text-sm ">{errors.sourcing}</span>}
               </div>
 
-              {/* FIELD - 23 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                {/* FIELD - 23 */}
+                <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy Start Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="policyStartDate"
                   value={policyStartDate}
@@ -1075,12 +1127,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 {errors.policyStartDate && <span className="text-red-600 text-sm ">{errors.policyStartDate}</span>}
               </div>
-
               {/* FIELD - 24 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy End Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="policyEndDate"
                   value={policyEndDate}
@@ -1091,10 +1142,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 25 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">OD Expiry:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="odExpiry"
                   value={odExpiry}
@@ -1104,10 +1155,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
               </div>
               {/* FIELD - 26 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">TP Expiry:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="tpExpiry"
                   value={tpExpiry}
@@ -1118,10 +1169,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 27 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">IDV:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="idv"
                   value={idv}
@@ -1132,10 +1183,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 28 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Body Type:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={bodyType}
                   name="bodyType"
@@ -1146,10 +1197,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 29 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Make & Model:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="makeModel"
                   value={makeModel}
@@ -1158,15 +1209,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 {errors.makeModel && <span className="text-red-600 text-sm ">{errors.makeModel}</span>}
               </div>
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4"></div>
-            </div>
-            <div className="flex flex-wrap mb-12 justify-between">
               {/* FIELD - 30 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Manufacturing Year:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1  rounded-lg"
                   type="text"
                   name="mfgYear"
                   value={mfgYear}
@@ -1177,10 +1224,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 31 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Registration Year:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1  rounded-lg"
                   type="text"
                   value={registrationDate}
                   name="registrationDate"
@@ -1191,11 +1238,12 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 {errors.registrationDate && <span className="text-red-600 text-sm">{errors.registrationDate}</span>}
               </div>
-              {/* FIELD - 32 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+
+ {/* FIELD - 32 */}
+ <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="vehicleAge"
                   value={vehicleAge}
@@ -1205,10 +1253,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 33 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={fuel}
                   name="fuel"
                   onChange={(e) => setFuel(e.target.value)}>
@@ -1220,12 +1268,17 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   }
                 </select>
               </div>
+ {/* FIELD - 34 */}
+ 
 
-              {/* FIELD - 34 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+            </div>
+
+
+            <div className="flex flex-wrap mb-12 justify-between">
+            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">GVW(kg):<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={gvw}
                   name="gvw"
@@ -1234,12 +1287,15 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>}
               </div>
+             
+
+             
 
               {/* FIELD - 35 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="cc"
                   value={cc}
@@ -1250,15 +1306,15 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 36 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="productCode" name="productCode"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={productCode}
                   onChange={(e) => setProductCode(e.target.value)}
                 >
-                  <option className="w-1" value="" >--- Select Product Code ---</option>
+                  <option className="w-1" value="" >----------- Select Product Code ------------</option>
                   {data.map((policy) => (
                     policy.p_type === policyType &&
                     products.map((product, idx) => (
@@ -1271,10 +1327,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 37*/}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={advisorName}
                   name="advisorName"
@@ -1285,10 +1341,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 38 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Sub-Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="subAdvisor"
                   value={subAdvisor}
@@ -1299,16 +1355,16 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
 
               {/* FIELD - 39 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="payoutOn"
                   name="payoutOn"
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={payoutOn}
                   onChange={(e) => setPayoutOn(e.target.value)}
                 >
-                  <option className="w-1" value="" disabled>--- Select Payout on ---</option>
+                  <option className="w-1" value="" >-------------- Select Payout on -------------</option>
                   {
                     payoutOnList.map((pay) => (
                       <option key={pay._id} value={pay.payouton} >{pay.payouton}</option>
@@ -1317,19 +1373,15 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 </select>
                 {errors.payoutOn && <span className="text-red-600 text-sm">{errors.payoutOn}</span>}
               </div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-            </div>
-            <div className="flex flex-wrap mb-12 justify-between">
-              {/* FIELD - 40 */}
-              <div className="flex flex-col  p-1 mt-0 text-start w-full lg:w-1/4">
+               {/* FIELD - 40 */}
+               <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Payment Done By:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={paymentDoneBy}
                   name="paymentDoneBy"
                   onChange={(e) => setPaymentDoneBy(e.target.value)}>
-                  <option className="w-1" value="" >--- Select Payment Done By ---</option>
+                  <option className="w-1" value="" >--------- Select Payment Done By ------------</option>
                   <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
                   <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
                   <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
@@ -1337,12 +1389,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   <option value="CUSTOMER">CUSTOMER</option>
                 </select>
               </div>
-
-              {/* FIELD - 41 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+               {/* FIELD - 41 */}
+               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CHQ No / Ref No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={chqNoRefNo}
                   name="chqNoRefNo"
@@ -1350,27 +1401,25 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   placeholder="Enter CHQ No / Ref No."
                 />
               </div>
-
-              {/* FIELD - 42 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+               {/* FIELD - 42 */}
+               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Bank Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   id="bankName"
                   type="text"
                   name="bankName"
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   value={bankName}
                   placeholder="Enter Bank Name"
                   onChange={(e) => setBankName(e.target.value.toUpperCase())}
                 >
                 </input>
               </div>
-
               {/* FIELD - 43 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Endorshment Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="chqPaymentDate"
                   value={chqPaymentDate}
@@ -1378,11 +1427,11 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                   placeholder="Select CHQ / Payment Date"
                 />
               </div>
-              {/* FIELD - 44 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+ {/* FIELD - 44 */}
+ <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CHQ Status:</label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-0.5 text-lg rounded-lg"
                   value={chqStatus}
                   name="chqStatus"
                   onChange={(e) => setChqStatus(e.target.value)}>
@@ -1395,10 +1444,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 </select>
               </div>
 
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Payout Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className=" rounded-lg"
+                  className="bg-slate-200 p-1 rounded-lg"
                   type="number"
                   value={advisorPayoutAmount}
                   name="advisorPayoutAmount"
@@ -1408,11 +1457,14 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
                 
               </div>
+            </div>
+
+            <div className="flex flex-wrap mb-10 justify-between">
               {/* FIELD - 45 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Payable Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className=" rounded-lg"
+                  className=" rounded-lg p-1"
                   type="number"
                   value={advisorPayableAmount}
                   name="advisorPayableAmount"
@@ -1424,10 +1476,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 46 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Branch Payout:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="number"
                   name="branchPayout"
                   value={branchPayout}
@@ -1443,10 +1495,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 47 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Branch Payable Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={branchPayableAmount}
                   name="branchPayableAmount"
@@ -1457,10 +1509,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               </div>
 
               {/* FIELD - 48 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Company Payout:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="number"
                   value={companyPayout}
                   name="companyPayout"
@@ -1470,10 +1522,10 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
                 />
               </div>
               {/* FIELD - 49 */}
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Profit/Loss Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="profitLoss"
                   value={profitLoss}
@@ -1485,7 +1537,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
               
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
+              <div className="mt-8 p-2 flex justify-center lg:w-full w-full">
                 <button
                   className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
                   onClick={handleSubmit}
