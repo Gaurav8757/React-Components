@@ -36,32 +36,32 @@ function PrivateCar() {
   const token = sessionStorage.getItem("token");
 
 
-// const countryName = 'India';
-// const statesAndCities = getAllStatesAndCitiesOfCountry(countryName);
+  // const countryName = 'India';
+  // const statesAndCities = getAllStatesAndCitiesOfCountry(countryName);
 
-useEffect(() => {
-  // Fetch and set states for India when component mounts
-  const fetchStates = () => {
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
       const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
       setStates(indiaStates);
-  };
+    };
 
-  fetchStates();
-}, []);
+    fetchStates();
+  }, []);
 
 
-const handleStateChange = (e) => {
-  const stateIsoCode = e.target.value;
-  setSelectedState(stateIsoCode);
+  const handleStateChange = (e) => {
+    const stateIsoCode = e.target.value;
+    setSelectedState(stateIsoCode);
 
-  // Fetch and set cities based on selected state
-  const fetchCities =  () => {
-      const stateCities =  City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
+    // Fetch and set cities based on selected state
+    const fetchCities = () => {
+      const stateCities = City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
       setCities(stateCities);
-  };
+    };
 
-  fetchCities();
-};
+    fetchCities();
+  };
 
 
 
@@ -208,7 +208,7 @@ const handleStateChange = (e) => {
         advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
-        districts: selectedCity,
+        district: selectedCity,
         branchpayoutper,
         companypayoutper
       };
@@ -263,9 +263,21 @@ const handleStateChange = (e) => {
                 <option className="w-1 text-lg" value="" >--------------- Select Advisor --------------</option>
 
                 {
-                  advisors.map((name) => (
-                    <option className="text-lg" key={name._id} value={name.advisorname} >{`${name.uniqueId} - ${name.advisorname}`}</option>
-                  ))
+
+
+                  advisors.map((name) => {
+                    if (name.advisorname === "ELEEDOM IMF PVT LTD") {
+                      return (
+                        <option className="text-lg" key={name._id} value={name.advisorname}>
+                          {`${name.uniqueId} - ${name.advisorname}`}
+                        </option>
+                      );
+                    }
+                    return null; // Render nothing for other advisors
+                  })
+
+
+
                 }
 
               </select>
@@ -317,32 +329,29 @@ const handleStateChange = (e) => {
               <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
                 <option value="">---------------- Select State --------------- </option>
                 {states.map(state => (
-                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                  <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
                 ))}
-            </select>
+              </select>
             </div>
 
 
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               <select
-        className="input-style text-lg p-1 rounded-lg"
-        value={selectedCity}
-        onChange={(e) => setSelectedCity(e.target.value)}
-        disabled={!selectedState} // Disable city dropdown until a state is selected
-      >
-        <option value="">--------------- Select City -------------</option>
-        {cities.map((city) => (
-         
-          <option key={city.id} value={city.name}>
-            {city.name}
-          </option>
-        ))}
-      </select>
-              </div>
+                className="input-style text-lg p-1 rounded-lg"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
+                disabled={!selectedState} // Disable city dropdown until a state is selected
+              >
+                <option value="">--------------- Select City -------------</option>
+                {cities.map((city) => (
 
-
-
+                  <option key={city.id} value={city.name}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {/* 3 */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">

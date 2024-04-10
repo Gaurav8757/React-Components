@@ -147,6 +147,8 @@ function ViewFinance() {
           row.odDiscount,
           row.ncb,
           row.policyPaymentMode,
+          data.states,
+          data.district,
           row.vehRegNo,
           row.segment,
           row.sourcing,
@@ -194,6 +196,8 @@ function ViewFinance() {
         "OD Discount(%)",
         "NCB",
         "Policy Payment Mode",
+        "State",
+        "District",
         "Vehicle Reg No",
         "Segment",
         "Sourcing",
@@ -269,7 +273,7 @@ function ViewFinance() {
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">
               <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-              <NavLink to="/dashboard/masterform" className="flex justify-center">
+              <NavLink to="/finance/home/new" className="flex justify-center">
                 <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
               </NavLink></div>
           </div>
@@ -363,6 +367,8 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">OD Discount(%)</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">NCB</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">States</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">District</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Segment</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sourcing</th>
@@ -418,7 +424,8 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.odDiscount}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.ncb}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
-                    {/* <td className="whitespace-nowrap px-1 py-1 border border-black">{data.empTime}</td> */}
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sourcing}</td>
@@ -449,46 +456,46 @@ function ViewFinance() {
 
       {/* Pagination */}
       <nav aria-label="Page navigation flex example sticky   ">
-      <ul className="flex space-x-2 justify-end">
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-                        >
-                            Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, i) => {
-                        // Display buttons for currentPage and a few surrounding pages
-                        const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
-                        if (showPage) {
-                            return (
-                                <li key={i}>
-                                    <button
-                                        onClick={() => handlePageChange(i + 1)}
-                                        className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                                            } border border-blue-600`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-                        >
-                            Next
-                        </button>
-                    </li>
-                </ul>
+        <ul className="flex space-x-2 justify-end">
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
+            >
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => {
+            // Display buttons for currentPage and a few surrounding pages
+            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+            if (showPage) {
+              return (
+                <li key={i}>
+                  <button
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`px-3 py-1 ${i + 1 === currentPage
+                      ? 'bg-green-700 text-white font-bold'
+                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                      } border border-blue-600`}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              );
+            }
+            return null;
+          })}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </nav>
     </section>
   );

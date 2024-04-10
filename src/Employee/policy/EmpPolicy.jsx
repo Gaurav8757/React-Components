@@ -148,10 +148,13 @@ function EmpPolicy() {
                 data.netPremium,
                 data.taxes,
                 data.rsa,
+                
                 data.finalEntryFields,
                 data.odDiscount,
                 data.ncb,
-                data.policyPaymentMode
+                data.policyPaymentMode,
+                data.states,
+                data.district,
             ]);
 
             // Create worksheet
@@ -179,7 +182,9 @@ function EmpPolicy() {
                 "Final Amount",
                 "OD Discount(%)",
                 "NCB",
-                "Policy Payment Mode"
+                "Policy Payment Mode",
+                "State",
+                "District"
 
             ], ...rowsToInclude]);
 
@@ -325,6 +330,12 @@ function EmpPolicy() {
                                                     Policy No.
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                    State
+                                                </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
+                                                    District
+                                                </th>
+                                                <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                    Registration Number
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
@@ -355,6 +366,7 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Final Amount
                                                 </th>
+                                               
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     OD Discount(%)
                                                 </th>
@@ -417,6 +429,12 @@ function EmpPolicy() {
                                                             {data.policyNo}
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.states}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                            {data.district}
+                                                        </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.vehRegNo}
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
@@ -447,6 +465,7 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.finalEntryFields}
                                                         </td>
+                                                       
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.odDiscount}
                                                         </td>

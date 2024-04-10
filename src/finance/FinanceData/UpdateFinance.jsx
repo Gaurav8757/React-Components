@@ -2,6 +2,7 @@
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { State, City } from 'country-state-city';
 import axios from "axios";
 
 function UpdateFinance({ insurance, onUpdate }) {
@@ -9,9 +10,12 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pdata, setPdata] = useState([]);
-  // const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
-  // const [payMode, setPayMode] = useState([]);
-  // const [fuel, setFuel] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedState, setSelectedState] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [selectedCity, setSelectedCity] = useState('');
   const [empTime, setEmpTime] = useState(getFormattedTime());
   function getFormattedTime() {
     const date = new Date();
@@ -23,6 +27,17 @@ function UpdateFinance({ insurance, onUpdate }) {
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
   }
 
+
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
+        const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+        setStates(indiaStates);
+    };
+
+    fetchStates();
+}, []);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       setEmpTime(getFormattedTime());
@@ -31,9 +46,21 @@ function UpdateFinance({ insurance, onUpdate }) {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
+        const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+        setStates(indiaStates);
+    };
+
+    fetchStates();
+}, []);
+
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
     company: '',
+    states: '',
+    district: '',
     category: '',
     segment: '',
     sourcing: '',
@@ -177,6 +204,8 @@ function UpdateFinance({ insurance, onUpdate }) {
   };
 
 
+  
+
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {
@@ -284,11 +313,11 @@ function UpdateFinance({ insurance, onUpdate }) {
       tpExpiry,
       policyEndDate: policyEnd,
       policyStartDate: startDate,
+      
     }));
   };
 
-
-
+  
 
 
   // show all data inside input tag
@@ -297,14 +326,41 @@ function UpdateFinance({ insurance, onUpdate }) {
   }, [insurance]);
 
   // handle input change
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setAllDetails((prevData) => ({
+  //     ...prevData,
+  //     [name]: value.toUpperCase(),
+  //     
+  //   }));
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    //  console.log(name + " : " + value);
+
+    if (name === 'selectedState') {
+        setSelectedState(value);
+        const stateIsoCode = value;
+        // Fetch and set cities based on selected state
+        try {
+            const stateCities = City.getCitiesOfState("IN", stateIsoCode);
+            setCities(stateCities);
+            setSelectedCity('');
+        } catch (error) {
+            console.error("Error fetching cities:", error);
+            // Handle error appropriately
+        }
+    }
+    // For setting other details, assuming allDetails is correctly set and has a structure like { selectedState: '', selectedCity: '', ...otherDetails }
     setAllDetails((prevData) => ({
-      ...prevData,
-      [name]: value.toUpperCase(),
-      empTime: empTime,
+        ...prevData,
+        [name]: value.toUpperCase(),
+        empTime: empTime,
+        states: name === 'selectedState' ? value : prevData.selectedState,
+        district: name === 'selectedCity' ? value : prevData.selectedCity
+
     }));
-  };
+};
 
 
 
@@ -398,7 +454,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Insured Name:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.insuredName}
                           onChange={handleInputChange}
@@ -424,7 +480,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                         <label className="text-base mx-1">Company Name:</label>
                         <select
                           id="company" name="company"
-                          className="input-style p-1 rounded-lg"
+                          className="input-style p-0.5 text-lg rounded-lg"
                           value={allDetails.company}
                           onChange={(e) => {
                             handleInputChange(e);
@@ -477,16 +533,16 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div> */}
 
                       {/* FIELD - 26 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/6">
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Product Code:</label>
                         <select
                           id="productCode"
-                          className="input-style p-1 rounded-lg"
+                          className="input-style p-0.5 text-lg rounded-lg"
                           value={allDetails.productCode}
                           onChange={handleInputChange}
                           name="productCode"
                         >
-                          <option value="">--- Select Product Code ---</option>
+                          <option value="">-- Select Product Code ---</option>
                           {allDetails.policyType && data
                             .filter(policy => policy.p_type === allDetails.policyType)
                             .map(policy => policy.products.map((product, idx) => (
@@ -499,7 +555,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy No:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.policyNo}
                           onChange={handleInputChange}
@@ -684,12 +740,40 @@ function UpdateFinance({ insurance, onUpdate }) {
                           ))}
                         </select>
                       </div> */}
+                       <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
+                                                <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+                                                <select className="input-style flex flex-wrap text-lg p-0.5 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
+                                                    <option value="">------- Select State -------- </option>
+                                                    {states.map(state => (
+                                                        <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+
+                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                                                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                                                <select
+                                                    className="input-style  text-lg p-0.5 rounded-lg"
+                                                    name="selectedCity"
+                                                    value={allDetails.selectedCity}
+                                                    onChange={handleInputChange}
+                                                    disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
+                                                >
+                                                    <option value="">-------- Select City -------</option>
+                                                    {cities.map((city, idx) => (
+                                                        <option key={idx} value={city.name}>
+                                                            {city.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
 
                       {/* FIELD - 9 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Vehicle Reg No:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.vehRegNo}
                           onChange={handleInputChange}
@@ -699,10 +783,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 8 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Segment:</label>
                         <select
-                          className="input-style p-1 rounded-lg"
+                          className="input-style p-0.5 text-lg rounded-lg"
                           value={allDetails.segment}
                           onChange={handleInputChange}
                           name="segment"
@@ -718,10 +802,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 5 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sourcing:</label>
                         <select
-                          className="input-style p-1 rounded-lg"
+                          className="input-style p-0.5 text-lg rounded-lg"
                           value={allDetails.sourcing}
                           onChange={handleInputChange} name="sourcing">
 
@@ -735,10 +819,10 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 10 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy Start Date:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="date"
                           name="policyStartDate"
                           value={allDetails.policyStartDate}
@@ -749,10 +833,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 11 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Policy End Date:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="date"
                           value={allDetails.policyEndDate}
                           onChange={handleInputChange}
@@ -761,10 +845,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 12 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">OD Expiry:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="date"
                           value={allDetails.odExpiry}
                           onChange={handleInputChange}
@@ -775,10 +859,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 13 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">TP Expiry:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="date"
                           value={allDetails.tpExpiry}
                           onChange={handleInputChange}
@@ -787,10 +871,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                         />
                       </div>
                       {/* FIELD - 14 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">IDV:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.idv}
                           onChange={handleInputChange}
@@ -799,10 +883,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 15 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Body Type:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.bodyType}
                           onChange={handleInputChange}
@@ -814,10 +898,10 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 16 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Make & Model:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.makeModel}
                           onChange={handleInputChange}
@@ -826,10 +910,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 17 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Manufacturing Year:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.mfgYear}
                           onChange={handleInputChange}
@@ -838,10 +922,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 18 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Registration Date:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="date"
                           value={allDetails.registrationDate}
                           onChange={handleInputChange}
@@ -853,10 +937,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div>
 
                       {/* FIELD - 19 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col  mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Vehicle Age:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.vehicleAge}
                           name="vehicleAge"
@@ -879,10 +963,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                         </select>
                       </div> */}
                       {/* FIELD - 21 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">GVW (kg):</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.gvw}
                           onChange={handleInputChange}
@@ -893,10 +977,10 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 22 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">CC:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.cc}
                           onChange={handleInputChange}
@@ -920,10 +1004,10 @@ function UpdateFinance({ insurance, onUpdate }) {
                       </div> */}
 
                       {/* FIELD - 35 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sub Advisor:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.subAdvisor}
                           onChange={handleInputChange}
@@ -940,7 +1024,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
                     </div>
                     {/* button */}
-                    <div className="col-span-4 p-2 flex justify-center">
+                    <div className="col-span-4 p-2 mt-4 flex justify-center">
                       <button
                         className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                         onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
