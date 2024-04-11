@@ -2,6 +2,7 @@
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { State, City } from 'country-state-city';
 import axios from "axios";
 
 function UpdateMaster({ insurance, onUpdate }) {
@@ -10,8 +11,27 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [data, setData] = useState([]);
   const [fuelType, setFuelType] = useState([]);
   const [pmade, setPmade] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedState, setSelectedState] = useState('');
+  // eslint-disable-next-line no-unused-vars
+  const [selectedCity, setSelectedCity] = useState('');
+
+  useEffect(() => {
+    // Fetch and set states for India when component mounts
+    const fetchStates = () => {
+      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+      setStates(indiaStates);
+    };
+
+    fetchStates();
+  }, []);
+
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
+    states: '',
+    district: '',
     company: '',
     category: '',
     segment: '',
@@ -129,6 +149,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     }
   }, [pmade]);
 
+
   // Function to update netPremium when odPremium or liabilityPremium changes
   const updateNetPremium = () => {
     const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
@@ -149,7 +170,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   //   const today = new Date();
   //   const birthdateDate = new Date(allDetails.registrationDate);
 
-    
+
 
   //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
   //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
@@ -178,26 +199,26 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   const calculateAge = () => {
     if (!allDetails.registrationDate) {
-        setAllDetails(prevDetails => ({
-            ...prevDetails,
-            vehicleAge: "0 years"
-        }));
-        return;
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        vehicleAge: "0 years"
+      }));
+      return;
     }
-    
+
     const today = new Date();
     const birthdateDate = new Date(allDetails.registrationDate);
     const ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
     setAllDetails(prevDetails => ({
-        ...prevDetails,
-        vehicleAge: `${ageYears} years`
+      ...prevDetails,
+      vehicleAge: `${ageYears} years`
     }));
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     calculateAge();
-}, [allDetails.registrationDate]); // Add appropriate dependency here
+  }, [allDetails.registrationDate]); // Add appropriate dependency here
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -285,13 +306,42 @@ useEffect(() => {
   }, [insurance]);
 
   // handle input change
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setAllDetails((prevData) => ({
+  //     ...prevData,
+  //     [name]: value,
+  //   }));
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    //  console.log(name + " : " + value);
+
+    if (name === 'selectedState') {
+      setSelectedState(value);
+      const stateIsoCode = value;
+      // Fetch and set cities based on selected state
+      try {
+        const stateCities = City.getCitiesOfState("IN", stateIsoCode);
+        setCities(stateCities);
+        setSelectedCity('');
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+        // Handle error appropriately
+      }
+    }
+    // For setting other details, assuming allDetails is correctly set and has a structure like { selectedState: '', selectedCity: '', ...otherDetails }
     setAllDetails((prevData) => ({
       ...prevData,
       [name]: value,
+      // empTime: empTime,
+      states: name === 'selectedState' ? value : prevData.selectedState,
+      district: name === 'selectedCity' ? value : prevData.selectedCity
+
     }));
   };
+
 
   const updateInsuranceAPI = async () => {
     try {
@@ -538,13 +588,13 @@ useEffect(() => {
                         >
                           <option className="w-1" value="" >--- Policy Made By ---</option>
                           {
-                    pmade.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                      .map((emp) => (
-                        <option key={emp._id} value={emp.empname}>
-                          {emp.empid} - {emp.empname}
-                        </option>
-                      ))
-                  }
+                            pmade.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                              .map((emp) => (
+                                <option key={emp._id} value={emp.empname}>
+                                  {emp.empid} - {emp.empname}
+                                </option>
+                              ))
+                          }
                         </select>
                       </div>
 
@@ -705,10 +755,10 @@ useEffect(() => {
                           onChange={handleInputChange} name="fuel">
                           <option className="w-1" value="" >--- Select Fuel Type ---</option>
                           {
-                    fuelType.map((fuel) => (
-                      <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
-                    ))
-                  }
+                            fuelType.map((fuel) => (
+                              <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                            ))
+                          }
 
                           {/* Add more fuel options */}
                         </select>
@@ -734,15 +784,15 @@ useEffect(() => {
                           onChange={handleInputChange} name="productCode">
 
                           <option className="w-1" value="" >--- Select Product Code ---</option>
-                         
+
                           {data.map((policy) => {
-        if (policy.p_type === allDetails.policyType) {
-            return policy.products.map((product, idx) => (
-                <option key={idx} value={product}>{product}</option>
-            ));
-        }
-        return null;
-    })}
+                            if (policy.p_type === allDetails.policyType) {
+                              return policy.products.map((product, idx) => (
+                                <option key={idx} value={product}>{product}</option>
+                              ));
+                            }
+                            return null;
+                          })}
                         </select>
                       </div>
                       {/* FIELD - 29 */}
@@ -869,6 +919,36 @@ useEffect(() => {
                           placeholder="Enter Policy No"
                         />
                       </div>
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">State:</label>
+                        <select className="input-style flex flex-wrap  p-1 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
+                          <option value="">------------- Select State --------------- </option>
+                          {states.map(state => (
+                            <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">District:</label>
+                        <select
+                          className="input-style   p-1 rounded-lg"
+                          name="selectedCity"
+                          value={allDetails.selectedCity}
+                          onChange={handleInputChange}
+                          disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
+                        >
+                          <option value="">------------ Select City --------------</option>
+                          {cities.map((city, idx) => (
+                            <option key={idx} value={city.name}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+
+
                       {/* FIELD - 9 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Vehicle Reg No:</label>

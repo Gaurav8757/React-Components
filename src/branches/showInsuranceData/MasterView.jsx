@@ -99,6 +99,8 @@ function MasterView() {
           row.insuredName,
           row.contactNo,
           row.staffName,
+          row.states,
+          row.district,
           row.vehRegNo,
           row.segment,
           row.sourcing,
@@ -144,6 +146,8 @@ function MasterView() {
         "Insured Name",
         "Contact No",
         "Policy Made By",
+        "State",
+        "District",
         "Vehicle Reg No",
         "Segment",
         "Sourcing",
@@ -270,6 +274,8 @@ function MasterView() {
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Insured Name</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Contact No</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Made By</th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">State</th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">District</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Segment</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Sourcing</th>
@@ -316,6 +322,8 @@ function MasterView() {
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.insuredName}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.contactNo}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.staffName}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.sourcing}</td>

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
 function TwLists() {
   const [APIData, setAPIData] = useState([]);
+  const name = sessionStorage.getItem('name');
+
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -27,16 +30,82 @@ function TwLists() {
     }
   }, []);
 
+  const exportToExcel = () => {
+    try {
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = `${name}_Payout_Lists`;
+  
+      // Map all data without filtering by current date
+      const dataToExport = APIData.map(row => {
+        return [ 
+          row.cnames,
+          row.catnames,
+          row.states,
+          row.districts,
+          row.segments,
+          row.policytypes,
+          row.pcodes,
+          row.vfuels,
+          row.vncb,
+          row.voddiscount,
+          row.vcc,
+          row.payoutons,
+          row.cvpercentage, 
+        ];
+      });
+  
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Company",
+        "Category",
+        "State",
+        "District",
+        "Segment",
+        "Policy Type",
+        "Product Code",
+        "Fuel Type",
+        "NCB",
+        "OD Discount(%)",
+        "C.C",
+        "PayOut On",
+        "Advisor Percentage"
+      ];
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+    }
+  };
+  
+  const handleExportClick = () => {
+    exportToExcel();
+    // exportToPDF();
+  };
 
 
 
   return (
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid flex justify-center p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
-        <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
-
-          <span className=" flex justify-center text-center  text-3xl font-semibold">Advisor Payout Lists</span>
-
+      <div className="container-fluid  p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
+        <div className=" flex justify-between text-blue-500">
+          <h1 className="flex "></h1>
+          <span className="  text-center my-1  text-3xl font-semibold">Advisor Payout Lists</span>
+          <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
       </div>
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
@@ -48,6 +117,12 @@ function TwLists() {
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Category Name
+            </th>
+            <th scope="col" className="px-1 pt-2 sticky border border-black">
+              State
+            </th>
+            <th scope="col" className="px-1 pt-2 sticky border border-black">
+              District
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Segment
@@ -89,6 +164,8 @@ function TwLists() {
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
+                  <td className="px-1 py-0 border border-black">{data.states}</td>
+                  <td className="px-1 py-0 border border-black">{data.districts}</td>
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>

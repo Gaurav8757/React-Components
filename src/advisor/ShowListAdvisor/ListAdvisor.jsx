@@ -1,18 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-// import UpdateAdvisor from "./UpdateAdvisor.jsx";
+import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
 
 
 function ListAdvisor() {
     const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState();
+    const [itemsPerPage, setItemsPerPage] = useState();
     const [APIData, setAPIData] = useState([]);
-
+    const name = sessionStorage.getItem('name');
     useEffect(() => {
         setItemsPerPage(20);
-      }, []);
+    }, []);
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -40,10 +40,10 @@ function ListAdvisor() {
     // page number add
     const handlePageChange = (page) => {
         setCurrentPage(page);
-      };
-    
-      const totalItems = APIData.length;
-      const totalPages = Math.ceil(totalItems / itemsPerPage)
+    };
+
+    const totalItems = APIData.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage)
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
@@ -81,7 +81,57 @@ function ListAdvisor() {
     //       console.error('Error deleting policy:', error);
     //     }
     //   };
-
+    const exportToExcel = () => {
+        try {
+          const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+          const fileExtension = ".xlsx";
+          const fileName = `${name}_Advisor_Lists`;
+      
+          // Map all data without filtering by current date
+          const dataToExport = APIData.map(row => {
+            return [ 
+              row.uniqueId,
+              row.advisorname,
+              row.advisoremail,
+              row.advisormobile,
+              row.advisoraddress,
+            ];
+          });
+      
+          // Get all table headers in the same order
+          const tableHeaders = [
+            "ID",
+            "Advisor Name",
+            "Email ID",
+            "Mobile No.",
+            "Address",
+          ];
+          // Create worksheet
+          const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+          // Create workbook and export
+          const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+          const excelBuffer = XLSX.write(wb, {
+            bookType: "xlsx",
+            type: "array",
+          });
+          const data = new Blob([excelBuffer], { type: fileType });
+          const url = URL.createObjectURL(data);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", fileName + fileExtension);
+          document.body.appendChild(link);
+          link.click();
+        } catch (error) {
+          console.error("Error exporting to Excel:", error);
+          toast.error("Error exporting to Excel");
+        }
+      };
+      
+      const handleExportClick = () => {
+        exportToExcel();
+        // exportToPDF();
+      };
+    
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
@@ -90,10 +140,10 @@ function ListAdvisor() {
                     <div className=" mb-4 mt-2 flex justify-between text-blue-500 ">
                         <h1 className="mr-20"></h1>
                         <span className=" flex justify-center text-center text-3xl font-semibold">Advisor&apos;s List</span>
-                        <div className="flex">
-                            {/* <button className="text-end mx-4 flex justify-end  text-3xl font-semibold" ><img src="/excel.png" alt="download" className="w-12" /></button> */}
-                            <NavLink to="/branches/home/advisor/register" className="flex justify-center">
-                                <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                        <div className="flex justify-between">
+                        <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 mt-1" /></button>
+                            <NavLink to="/branches/home/advisor/register" className="my-auto">
+                                <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-2 mx-2 text-center ">Go Back</button>
                             </NavLink>
                         </div>
                     </div>
@@ -129,7 +179,7 @@ function ListAdvisor() {
                                 {APIData.slice(startIndex, endIndex).map((data) => {
                                     return (
                                         <tr key={data._id}
-                                        className="border-b  bg-slate-200 text-sm font-medium">
+                                            className="border-b  bg-slate-200 text-sm font-medium">
                                             <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.uniqueId}
                                             </td>
@@ -160,9 +210,9 @@ function ListAdvisor() {
                     </div>
                 </div>
             </div>
-           {/* Pagination */}
-      <nav aria-label="Page navigation  flex example sticky   ">
-      <ul className="flex space-x-2 mt-2 justify-end">
+            {/* Pagination */}
+            <nav aria-label="Page navigation  flex example sticky   ">
+                <ul className="flex space-x-2 mt-2 justify-end">
                     <li>
                         <button
                             onClick={() => handlePageChange(currentPage - 1)}
@@ -181,8 +231,8 @@ function ListAdvisor() {
                                     <button
                                         onClick={() => handlePageChange(i + 1)}
                                         className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                                            ? 'bg-green-700 text-white font-bold'
+                                            : 'text-blue-600 hover:bg-blue-400 hover:text-white'
                                             } border border-blue-600`}
                                     >
                                         {i + 1}
@@ -202,7 +252,7 @@ function ListAdvisor() {
                         </button>
                     </li>
                 </ul>
-      </nav>
+            </nav>
         </section>
     );
 }

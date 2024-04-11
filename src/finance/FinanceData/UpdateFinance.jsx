@@ -199,13 +199,9 @@ function UpdateFinance({ insurance, onUpdate }) {
 
     setAllDetails(prevDetails => ({
       ...prevDetails,
-      vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+      vehicleAge: `${ageYears} years`
     }));
   };
-
-
-  
-
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {

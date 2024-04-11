@@ -55,6 +55,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
             <table className="min-w-full text-center text-sm font-light sticky top-16">
               <thead className="border-b font-medium sticky top-16">
                 <tr className="text-blue-700 bg-slate-200">
+                  <th scope="col" className="px-1 border border-black">Reference ID</th>
                   <th scope="col" className="px-1 border border-black">Entry Date</th>
                   <th scope="col" className="px-1 border border-black">Company</th>
                   <th scope="col" className="px-1 border border-black">Category</th>
@@ -63,6 +64,8 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                   <th scope="col" className="px-1 border border-black">Policy No</th>
                   <th scope="col" className="px-1 border border-black">Insured Name</th>
                   <th scope="col" className="px-1 border border-black">Contact No</th>
+                  <th scope="col" className="px-1 border border-black">State</th>
+                  <th scope="col" className="px-1 border border-black">District</th>
                   <th scope="col" className="px-1 border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 border border-black">Policy Start Date</th>
                   <th scope="col" className="px-1 border border-black">Policy End Date</th>
@@ -100,6 +103,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                   className="border-b  bg-slate-200 text-sm font-medium"
                     key={data._id}
                   >
+                    <td className="whitespace-nowrap px-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.company}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.category}</td>
@@ -108,6 +112,8 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyNo}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.insuredName}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.contactNo}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.states}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.district}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyStartDate}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyEndDate}</td>

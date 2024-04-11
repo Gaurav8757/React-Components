@@ -116,11 +116,6 @@ function EmpPolicy() {
         }
     };
 
-
-
-
-
-
     const exportToExcel = () => {
         try {
             const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -148,7 +143,6 @@ function EmpPolicy() {
                 data.netPremium,
                 data.taxes,
                 data.rsa,
-                
                 data.finalEntryFields,
                 data.odDiscount,
                 data.ncb,
@@ -168,7 +162,6 @@ function EmpPolicy() {
                 "Mobile No.",
                 "Policy Made By",
                 "Company",
-
                 "Category",
                 "Policy Type",
                 "Policy No.",
@@ -185,7 +178,6 @@ function EmpPolicy() {
                 "Policy Payment Mode",
                 "State",
                 "District"
-
             ], ...rowsToInclude]);
 
             // Create workbook and export
