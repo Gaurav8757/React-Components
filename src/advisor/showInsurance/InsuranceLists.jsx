@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-// import { TiArrowBack } from "react-icons/ti";
+import { toast } from "react-toastify";
+import * as XLSX from 'xlsx';
+
 
 function InsuranceLists() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
-
+const name = sessionStorage.getItem("name");
 
   useEffect(() => {
     setItemsPerPage(28);
@@ -37,6 +39,139 @@ const totalPages = Math.ceil(totalItems / itemsPerPage)
 const startIndex = (currentPage - 1) * itemsPerPage;
 const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
+const exportToExcel = () => {
+  try {
+    const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const fileExtension = ".xlsx";
+    const fileName = `${name}_policy_lists`;
+
+    // Map all data without filtering by current date
+    const dataToExport = allDetailsData.map(row => {
+      return [  
+        row.policyrefno,
+        row.entryDate,
+        row.branch,
+        row.company,
+        row.category,
+        row.segment,
+        row.sourcing,
+        row.policyNo,
+        row.insuredName,
+        row.contactNo,
+        row.states,
+        row.district,
+        row.vehRegNo,
+        row.policyStartDate,
+        row.policyEndDate,
+        row.odExpiry,
+        row.tpExpiry,
+        row.idv,
+        row.bodyType,
+        row.makeModel,
+        row.mfgYear,
+        row.registrationDate,
+        row.vehicleAge,
+        row.fuel,
+        row.gvw,
+        row.cc,
+        row.engNo,
+        row.chsNo,
+        row.policyType,
+        row.productCode,
+        row.odPremium,
+        row.liabilityPremium,
+        row.netPremium,
+        row.finalEntryFields,
+        row.odDiscount,
+        row.ncb,
+        row.advisorName,
+        row.subAdvisor,
+        row.payoutOn,
+        row.advisorPayoutAmount,
+        row.advisorPayableAmount 
+      ];
+    });
+
+    // Get all table headers in the same order
+    const tableHeaders = [
+      "Reference ID",
+      "Entry Date",
+      "Branch",
+      "Company",
+      "Category",
+      "Segment",
+      "Sourcing",
+      "Policy No",
+      "Insured Name",
+      "Contact No",
+      "State",
+      "District",
+      "Vehicle Reg No",
+      "Policy Start Date",
+      "Policy End Date",
+      "OD Expiry",
+      "TP Expiry",
+      "IDV",
+      "Body Type",
+      "Make & Model",
+      "MFG Year",
+      "Registration Year",
+      "Vehicle Age",
+      "Fuel",
+      "GVW",
+      "C.C",
+      "Engine No",
+      "Chassis No",
+      "Policy Type",
+      "Product Code",
+      "OD Premium",
+      "Liability Premium",
+      "Net Premium",
+      "Final Amount",
+      "OD Discount(%)",
+      "NCB",
+      "Advisor Name",
+      "Sub-Advisor Name",
+      "PayoutOn",
+      "Advisor Payout",
+      "Advisor Payable Amount",
+      "Policy Made By",
+      "Policy Received Time",
+      "Policy Update Time",
+      
+      
+    ];
+
+    // Create worksheet
+    const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+
+    // Create workbook and export
+    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    const excelBuffer = XLSX.write(wb, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const data = new Blob([excelBuffer], { type: fileType });
+    const url = URL.createObjectURL(data);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", fileName + fileExtension);
+    document.body.appendChild(link);
+    link.click();
+  } catch (error) {
+    console.error("Error exporting to Excel:", error);
+    toast.error("Error exporting to Excel");
+  }
+};
+
+
+
+const handleExportClick = () => {
+  exportToExcel();
+  // exportToPDF();
+};
+
+
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-slate-200">
@@ -45,7 +180,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                         <h1 className="mr-20"></h1>
                         <span className=" flex justify-center text-center text-3xl font-semibold">Policy&apos;s List</span>
                         <div className="flex">
-                            {/* <button className="text-end mx-4 flex justify-end  text-3xl font-semibold" ><img src="/excel.png" alt="download" className="w-12" /></button> */}
+                        <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                             <NavLink to="/advisor/home" className="flex justify-center">
                                 <button type="button" className="text-white  mt-1 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
                             </NavLink>
@@ -57,6 +192,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                 <tr className="text-blue-700 bg-slate-200">
                   <th scope="col" className="px-1 border border-black">Reference ID</th>
                   <th scope="col" className="px-1 border border-black">Entry Date</th>
+                  <th scope="col" className="px-1 border border-black">Branch</th>
                   <th scope="col" className="px-1 border border-black">Company</th>
                   <th scope="col" className="px-1 border border-black">Category</th>
                   <th scope="col" className="px-1 border border-black">Segment</th>
@@ -105,6 +241,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                   >
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.entryDate}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">{data.branch}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.company}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.category}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.segment}</td>
@@ -135,6 +272,7 @@ const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
                     <td className="whitespace-nowrap px-1 border border-black">{data.odPremium}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.liabilityPremium}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.netPremium}</td>
+
                     <td className="whitespace-nowrap px-1 border border-black">{data.finalEntryFields}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.odDiscount}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.ncb}</td>
