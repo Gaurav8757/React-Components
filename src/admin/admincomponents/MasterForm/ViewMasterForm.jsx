@@ -92,6 +92,7 @@ function ViewMasterForm() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
+  
   const handleDateRangeChange = (event, type) => {
     if (type === "start") {
       setStartDate(event.target.value);

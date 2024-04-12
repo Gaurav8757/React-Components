@@ -9,7 +9,7 @@ function InsuranceLists() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
-const name = sessionStorage.getItem("name");
+  const name = sessionStorage.getItem("name");
 
   useEffect(() => {
     setItemsPerPage(28);
@@ -29,163 +29,158 @@ const name = sessionStorage.getItem("name");
     fetchData();
   }, []);
 
- // page number add
- const handlePageChange = (page) => {
-  setCurrentPage(page);
-};
+  // page number add
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
-const totalItems = allDetailsData.length;
-const totalPages = Math.ceil(totalItems / itemsPerPage)
-const startIndex = (currentPage - 1) * itemsPerPage;
-const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  const totalItems = allDetailsData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-const exportToExcel = () => {
-  try {
-    const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-    const fileExtension = ".xlsx";
-    const fileName = `${name}_policy_lists`;
+  const exportToExcel = () => {
+    try {
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = `${name}_policy_lists`;
 
-    // Map all data without filtering by current date
-    const dataToExport = allDetailsData.map(row => {
-      return [  
-        row.policyrefno,
-        row.entryDate,
-        row.branch,
-        row.company,
-        row.category,
-        row.segment,
-        row.sourcing,
-        row.policyNo,
-        row.insuredName,
-        row.contactNo,
-        row.states,
-        row.district,
-        row.vehRegNo,
-        row.policyStartDate,
-        row.policyEndDate,
-        row.odExpiry,
-        row.tpExpiry,
-        row.idv,
-        row.bodyType,
-        row.makeModel,
-        row.mfgYear,
-        row.registrationDate,
-        row.vehicleAge,
-        row.fuel,
-        row.gvw,
-        row.cc,
-        row.engNo,
-        row.chsNo,
-        row.policyType,
-        row.productCode,
-        row.odPremium,
-        row.liabilityPremium,
-        row.netPremium,
-        row.finalEntryFields,
-        row.odDiscount,
-        row.ncb,
-        row.advisorName,
-        row.subAdvisor,
-        row.payoutOn,
-        row.advisorPayoutAmount,
-        row.advisorPayableAmount 
+      // Map all data without filtering by current date
+      const dataToExport = allDetailsData.map(row => {
+        return [
+          row.policyrefno,
+          row.entryDate,
+          row.branch,
+          row.company,
+          row.category,
+          row.segment,
+          row.sourcing,
+          row.policyNo,
+          row.insuredName,
+          row.contactNo,
+          row.states,
+          row.district,
+          row.vehRegNo,
+          row.policyStartDate,
+          row.policyEndDate,
+          row.odExpiry,
+          row.tpExpiry,
+          row.idv,
+          row.bodyType,
+          row.makeModel,
+          row.mfgYear,
+          row.registrationDate,
+          row.vehicleAge,
+          row.fuel,
+          row.gvw,
+          row.cc,
+          row.engNo,
+          row.chsNo,
+          row.policyType,
+          row.productCode,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.finalEntryFields,
+          row.odDiscount,
+          row.ncb,
+          row.advisorName,
+          row.subAdvisor,
+          row.payoutOn,
+          row.advisorPayoutAmount,
+          row.advisorPayableAmount
+        ];
+      });
+
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Reference ID",
+        "Entry Date",
+        "Branch",
+        "Company",
+        "Category",
+        "Segment",
+        "Sourcing",
+        "Policy No",
+        "Insured Name",
+        "Contact No",
+        "State",
+        "District",
+        "Vehicle Reg No",
+        "Policy Start Date",
+        "Policy End Date",
+        "OD Expiry",
+        "TP Expiry",
+        "IDV",
+        "Body Type",
+        "Make & Model",
+        "MFG Year",
+        "Registration Year",
+        "Vehicle Age",
+        "Fuel",
+        "GVW",
+        "C.C",
+        "Engine No",
+        "Chassis No",
+        "Policy Type",
+        "Product Code",
+        "OD Premium",
+        "Liability Premium",
+        "Net Premium",
+        "Final Amount",
+        "OD Discount(%)",
+        "NCB",
+        "Advisor Name",
+        "Sub-Advisor Name",
+        "PayoutOn",
+        "Advisor Payout",
+        "Advisor Payable Amount",
       ];
-    });
 
-    // Get all table headers in the same order
-    const tableHeaders = [
-      "Reference ID",
-      "Entry Date",
-      "Branch",
-      "Company",
-      "Category",
-      "Segment",
-      "Sourcing",
-      "Policy No",
-      "Insured Name",
-      "Contact No",
-      "State",
-      "District",
-      "Vehicle Reg No",
-      "Policy Start Date",
-      "Policy End Date",
-      "OD Expiry",
-      "TP Expiry",
-      "IDV",
-      "Body Type",
-      "Make & Model",
-      "MFG Year",
-      "Registration Year",
-      "Vehicle Age",
-      "Fuel",
-      "GVW",
-      "C.C",
-      "Engine No",
-      "Chassis No",
-      "Policy Type",
-      "Product Code",
-      "OD Premium",
-      "Liability Premium",
-      "Net Premium",
-      "Final Amount",
-      "OD Discount(%)",
-      "NCB",
-      "Advisor Name",
-      "Sub-Advisor Name",
-      "PayoutOn",
-      "Advisor Payout",
-      "Advisor Payable Amount",
-      "Policy Made By",
-      "Policy Received Time",
-      "Policy Update Time",
-      
-      
-    ];
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
 
-    // Create worksheet
-    const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-
-    // Create workbook and export
-    const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-    const excelBuffer = XLSX.write(wb, {
-      bookType: "xlsx",
-      type: "array",
-    });
-    const data = new Blob([excelBuffer], { type: fileType });
-    const url = URL.createObjectURL(data);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", fileName + fileExtension);
-    document.body.appendChild(link);
-    link.click();
-  } catch (error) {
-    console.error("Error exporting to Excel:", error);
-    toast.error("Error exporting to Excel");
-  }
-};
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+    }
+  };
 
 
 
-const handleExportClick = () => {
-  exportToExcel();
-  // exportToPDF();
-};
+  const handleExportClick = () => {
+    exportToExcel();
+    // exportToPDF();
+  };
 
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 ">
-           <div className=" mb-4 mt-2 flex justify-between text-blue-500 ">
-                        <h1 className="mr-20"></h1>
-                        <span className=" flex justify-center text-center text-3xl font-semibold">Policy&apos;s List</span>
-                        <div className="flex">
-                        <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-                            <NavLink to="/advisor/home" className="flex justify-center">
-                                <button type="button" className="text-white  mt-1 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
-                            </NavLink>
-                        </div>
-                    </div>
+          <div className=" mb-4 mt-2 flex justify-between text-blue-500 ">
+            <h1 className="mr-20"></h1>
+            <span className=" flex justify-center text-center text-3xl font-semibold">Policy&apos;s List</span>
+            <div className="flex">
+              <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+              <NavLink to="/advisor/home" className="flex justify-center">
+                <button type="button" className="text-white  mt-1 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+              </NavLink>
+            </div>
+          </div>
           <div className="inline-block min-w-full w-full py-0   relative">
             <table className="min-w-full text-center text-sm font-light sticky top-16">
               <thead className="border-b font-medium sticky top-16">
@@ -227,16 +222,16 @@ const handleExportClick = () => {
                   <th scope="col" className="px-1 border border-black">OD Discount</th>
                   <th scope="col" className="px-1 border border-black">NCB</th>
                   <th scope="col" className="px-1 border border-black">Advisor Name</th>
-                  <th scope="col" className="px-1 border border-black">Sub Advisor</th>    
+                  <th scope="col" className="px-1 border border-black">Sub Advisor</th>
                   <th scope="col" className="px-1 border border-black">Payout On</th>
                   <th scope="col" className="px-1 border border-black">Advisor Payout</th>
-                  <th scope="col" className="px-1 border border-black">Advisor Payable Amount</th>      
+                  <th scope="col" className="px-1 border border-black">Advisor Payable Amount</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {allDetailsData.slice(startIndex, endIndex).map((data) => (
+                {allDetailsData.reverse().slice(startIndex, endIndex).map((data) => (
                   <tr
-                  className="border-b  bg-slate-200 text-sm font-medium"
+                    className="border-b  bg-slate-200 text-sm font-medium"
                     key={data._id}
                   >
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyrefno}</td>
@@ -272,7 +267,6 @@ const handleExportClick = () => {
                     <td className="whitespace-nowrap px-1 border border-black">{data.odPremium}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.liabilityPremium}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.netPremium}</td>
-
                     <td className="whitespace-nowrap px-1 border border-black">{data.finalEntryFields}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.odDiscount}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.ncb}</td>
@@ -288,81 +282,50 @@ const handleExportClick = () => {
           </div>
         </div>
       </div>
-         {/* Pagination */}
-         <nav aria-label="Page navigation  flex example sticky   ">
-      <ul className="flex space-x-2 justify-end">
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-                        >
-                            Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, i) => {
-                        // Display buttons for currentPage and a few surrounding pages
-                        const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
-                        if (showPage) {
-                            return (
-                                <li key={i}>
-                                    <button
-                                        onClick={() => handlePageChange(i + 1)}
-                                        className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                                            } border border-blue-600`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-                        >
-                            Next
-                        </button>
-                    </li>
-                </ul>
+      {/* Pagination */}
+      <nav aria-label="Page navigation  flex example sticky   ">
+        <ul className="flex space-x-2 justify-end">
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
+            >
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => {
+            // Display buttons for currentPage and a few surrounding pages
+            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+            if (showPage) {
+              return (
+                <li key={i}>
+                  <button
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`px-3 py-1 ${i + 1 === currentPage
+                      ? 'bg-green-700 text-white font-bold'
+                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                      } border border-blue-600`}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              );
+            }
+            return null;
+          })}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </nav>
     </section>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export default InsuranceLists
+export default InsuranceLists;

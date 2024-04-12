@@ -196,7 +196,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   // useEffect(() => {
   //   calculateAge();
   // },);
-
+  useEffect(() => {
   const calculateAge = () => {
     if (!allDetails.registrationDate) {
       setAllDetails(prevDetails => ({
@@ -216,7 +216,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     }));
   };
 
-  useEffect(() => {
+  
     calculateAge();
   }, [allDetails.registrationDate]); // Add appropriate dependency here
 
@@ -397,12 +397,6 @@ function UpdateMaster({ insurance, onUpdate }) {
                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
                     <div className="flex flex-wrap justify-between">
-
-
-
-                      {/* <form className=""> */}
-                      {/* PART-1 */}
-
                       {/* FIELD - 1 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4 ">
                         <label className="text-base mx-1">Entry Date:</label>
@@ -902,7 +896,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           value={allDetails.category}
                           onChange={handleInputChange}
                           name="category"
-                        > <option className="w-1" value="" disabled>--- Select Category ---</option>
+                        > <option className="w-1" value="" >--- Select Category ---</option>
                           <option value="GIC">GIC</option>
                           <option value="LIFE">LIFE</option>
                         </select>

@@ -520,7 +520,6 @@ function PrivateCar() {
                 <option className="w-1" value="" >-------------- Select Payout on ----------</option>
                 {
                   payoutOnList
-                    .filter(pay => pay.payouton !== "OD" && pay.payouton !== "LIABILITY") // Filtering out "OD" and "LIABILITY"
                     .map(pay => (
                       <option key={pay._id} value={pay.payouton}>{pay.payouton}</option>
                     ))

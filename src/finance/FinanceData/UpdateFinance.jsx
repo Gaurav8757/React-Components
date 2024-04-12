@@ -169,10 +169,10 @@ function UpdateFinance({ insurance, onUpdate }) {
   //   }));
   // };
 
+  
+   
+  // Add dependency
   useEffect(() => {
-    calculateAge();
-  }, [allDetails.registrationDate]); // Add dependency
-
   const calculateAge = () => {
     const today = new Date();
     const birthdateDate = new Date(allDetails.registrationDate);
@@ -202,6 +202,8 @@ function UpdateFinance({ insurance, onUpdate }) {
       vehicleAge: `${ageYears} years`
     }));
   };
+   calculateAge();
+}, [allDetails.registrationDate]); 
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {

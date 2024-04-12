@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import TwUpdateSlab from "../UpdatePaySlabs/TwUpdateSlab.jsx";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
+
 function TwLists() {
   const [APIData, setAPIData] = useState([]);
   const name = sessionStorage.getItem('name');
@@ -29,6 +31,28 @@ function TwLists() {
         });
     }
   }, []);
+
+
+  const updateSlabs = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `https://eleedomimf.onrender.com/commission/slab/view`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
+        );
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated insurance data:", error);
+    }
+  };
 
   const exportToExcel = () => {
     try {
@@ -111,7 +135,9 @@ function TwLists() {
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
           <tr className="text-blue-700 sticky top-16">
-
+          <th scope="col" className="px-0 py-0 border border-black">
+               Update
+            </th>
             <th scope="col" className="px-1 py-0 border border-black">
               Company Name
             </th>
@@ -162,6 +188,9 @@ function TwLists() {
             if (data.vehicleSlab === 'Advisor-Slab') {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
+                  <td className="px-0 py-0 border border-black">
+                  <TwUpdateSlab slab={data} update = {updateSlabs} />
+                    </td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
                   <td className="px-1 py-0 border border-black">{data.states}</td>

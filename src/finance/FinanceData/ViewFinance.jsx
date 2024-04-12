@@ -103,8 +103,6 @@ function ViewFinance() {
   // Calculate total number of pages
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-
   // Calculate starting and ending indexes of items to be displayed on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
