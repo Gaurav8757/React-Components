@@ -52,15 +52,15 @@ function PCLists() {
   };
 
 
-const exportToExcel = () => {
+  const exportToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `Payout_Lists`;
-  
+
       // Map all data without filtering by current date
       const dataToExport = APIData.map(row => {
-        return [ 
+        return [
           row.cnames,
           row.catnames,
           row.states,
@@ -73,11 +73,11 @@ const exportToExcel = () => {
           row.voddiscount,
           row.vcc,
           row.payoutons,
-          row.branchpayoutper, 
+          row.branchpayoutper,
           row.companypayoutper,
         ];
       });
-  
+
       // Get all table headers in the same order
       const tableHeaders = [
         "Company",
@@ -115,7 +115,7 @@ const exportToExcel = () => {
       toast.error("Error exporting to Excel");
     }
   };
-  
+
   const handleExportClick = () => {
     exportToExcel();
     // exportToPDF();
@@ -135,8 +135,8 @@ const exportToExcel = () => {
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
           <tr className="text-blue-700 sticky top-16">
 
-          <th scope="col" className="px-0 py-0 border border-black">
-               Update
+            <th scope="col" className="px-0 py-0 border border-black">
+              Update
             </th>
             <th scope="col" className="px-1 py-0 border border-black">
               Company Name
@@ -175,7 +175,7 @@ const exportToExcel = () => {
               PayoutOn
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-             Company Percentage
+              Company Percentage
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
@@ -188,13 +188,32 @@ const exportToExcel = () => {
             if (data.vehicleSlab) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
-                    <td className="px-0 py-0 border border-black">
-                  <PcUpdates slab={data} update = {updateSlabs} />
-                    </td>
+                  <td className="px-0 py-0 border border-black">
+                    <PcUpdates slab={data} update={updateSlabs} />
+                  </td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
                   <td className="px-1 py-0 border border-black">{data.states}</td>
-                  <td className="px-1 py-0 border border-black">{data.districts}</td>
+                  <td className="px-1 py-0 border border-black">
+                    {/* {data.districts} */}
+                    <div className="max-h-10 overflow-hidden">
+                      {Array.isArray(data.districts) ? (
+                        data.districts.length <= 3 ? (
+                          data.districts.join(", ")
+                        ) : (
+                          <div className="max-h-10 overflow-y-auto cursor-pointer">
+                            {data.districts.map((district, index) => (
+                              <div key={index} className="whitespace-nowrap overflow-hidden text-ellipsis py-2">
+                                {district}
+                              </div>
+                            ))}
+                          </div>
+                        )
+                      ) : (
+                        data.districts
+                      )}
+                    </div>
+                  </td>
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>

@@ -14,8 +14,7 @@ function PcUpdates({ slab, update }) {
   const [fuelType, setFuelType] = useState([]);
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [selectedState, setSelectedState] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  const [selectedCity, setSelectedCity] = useState('');
+  const [allCities, setAllCities] = useState('');
   
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState('');
 
@@ -35,9 +34,15 @@ function PcUpdates({ slab, update }) {
     setSelectedState(stateIsoCode);
 
     try {
+      if (stateIsoCode === 'all') {
+        // Fetch and set all cities if "All" is selected
+        const allCities = await City.getCitiesOfCountry("IN");
+        setAllCities(allCities);
+      } else {
       // Fetch and set cities based on selected state
       const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
       setCities(stateCities);
+      }
     } catch (error) {
       console.error("Error fetching cities:", error);
       // Handle error appropriately
@@ -145,11 +150,20 @@ function PcUpdates({ slab, update }) {
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+     // If the user selects "All Cities", save all city names in an array
+  if (value === "all") {
+    const allCityNames = cities.map(city => city.name);
+    setAllDetails((prevData) => ({
+      ...prevData,
+      [name]: allCityNames,
+    }));
+  } else {
     setAllDetails((prevData) => ({
       ...prevData,
       [name]: value,
 
     }));
+  }
   };
 
   const updateInsuranceAPI = async () => {
@@ -258,12 +272,24 @@ function PcUpdates({ slab, update }) {
                         disabled={!selectedState} // Disable city dropdown until a state is selected
                       >
                         <option value="">------------ Select City -----------</option>
-                        {cities.map((city, indx) => (
+                        <option value="all">All Cities</option>
+                        {selectedState === 'all'
+    ? allCities.map((city, indx) => (
+        <option key={indx} value={city.name}>
+          {city.name}
+        </option>
+      ))
+    : cities.map((city, indx) => (
+        <option key={indx} value={city.name}>
+          {city.name}
+        </option>
+      ))}
+                        {/* {cities.map((city, indx) => (
 
                           <option key={indx} value={city.name}>
                             {city.name}
                           </option>
-                        ))}
+                        ))} */}
                       </select>
                     </div>
                     <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">

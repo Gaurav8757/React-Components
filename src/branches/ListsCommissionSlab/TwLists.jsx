@@ -194,7 +194,25 @@ function TwLists() {
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
                   <td className="px-1 py-0 border border-black">{data.states}</td>
-                  <td className="px-1 py-0 border border-black">{data.districts}</td>
+                  <td className="px-1 py-0 border border-black">
+                  <div className="max-h-10 overflow-hidden">
+                      {Array.isArray(data.districts) ? (
+                        data.districts.length <= 3 ? (
+                          data.districts.join(", ")
+                        ) : (
+                          <div className="max-h-10 overflow-y-auto cursor-pointer">
+                            {data.districts.map((district, index) => (
+                              <div key={index} className="whitespace-nowrap overflow-hidden text-ellipsis py-2">
+                                {district}
+                              </div>
+                            ))}
+                          </div>
+                        )
+                      ) : (
+                        data.districts
+                      )}
+                    </div>
+                  </td>
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>

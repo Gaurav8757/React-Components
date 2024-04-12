@@ -31,6 +31,7 @@ function TwoWheelers() {
   const [cities, setCities] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
+  // const [allCities, setAllCities] = useState([]);
 
   useEffect(() => {
     // Fetch and set states for India when component mounts
@@ -38,23 +39,27 @@ function TwoWheelers() {
       const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
       setStates(indiaStates);
     };
-
     fetchStates();
   }, []);
 
-
-  const handleStateChange = (e) => {
+  const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
     setSelectedState(stateIsoCode);
-
-    // Fetch and set cities based on selected state
-    const fetchCities = () => {
-      const stateCities = City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
-      setCities(stateCities);
-    };
-
-    fetchCities();
+    if (stateIsoCode === 'All_Cities') {
+      const allCities = await City.getCitiesOfCountry("IN");
+      setSelectedCity(allCities);
+    } else {
+      try {
+        const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
+        setCities(stateCities);
+        setSelectedCity(''); // Reset selectedCity when changing state
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    }
   };
+
+
 
 
   useEffect(() => {
@@ -123,7 +128,6 @@ function TwoWheelers() {
       });
   }, [data]);
 
-
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -173,8 +177,6 @@ function TwoWheelers() {
     setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
     setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
   };
-
-
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
     setVage(selectedVage);
@@ -305,8 +307,6 @@ function TwoWheelers() {
                 }
               </select>
             </div>
-
-
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
               <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
@@ -317,26 +317,30 @@ function TwoWheelers() {
               </select>
             </div>
 
-
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style text-lg p-1 rounded-lg"
                 value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
-                disabled={!selectedState} // Disable city dropdown until a state is selected
-              >
-                <option value="">---------------- Select City ---------------</option>
-                {cities.map((city) => (
+                // onChange={(e) => setSelectedCity(e.target.value)}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  if (value === "All_Cities") {
+                    const allCityNames = cities.map(city => city.name);
+                    setSelectedCity(allCityNames);
+                  } else {
+                    setSelectedCity(e.target.value);
+                  }
+                }}
+                disabled={!selectedState}>
 
-                  <option key={city.id} value={city.name}>
-                    {city.name}
-                  </option>
-                ))}
+                <option value="">---------------- Select City ---------------</option>
+                <option value="All_Cities">All_Cities</option>
+          {cities.map((city, index) => (
+            <option key={index} value={city.name}>{city.name}</option>
+          ))}
               </select>
             </div>
-
-
             {/* 3 */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
@@ -434,12 +438,10 @@ function TwoWheelers() {
                 type="text"
                 name="ncb"
                 value={ncb}
-                onChange={(e) => setNcb(e.target.value)}
-              >
+                onChange={(e) => setNcb(e.target.value)}>
                 <option className="w-1" value="" >---------------- Select NCB ------------------</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
-
               </select>
             </div>
 
@@ -451,8 +453,7 @@ function TwoWheelers() {
                 name="odDiscount"
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
-                placeholder="Enter OD Discount"
-              >
+                placeholder="Enter OD Discount">
                 <option className="w-1" value="" >----------- Select OD Discount -------------</option>
                 <option value="0">0%</option>
                 <option value="1-40">1% to 40%</option>
@@ -465,7 +466,6 @@ function TwoWheelers() {
                 <option value="86-90">86% to 90%</option>
                 <option value=">90">more than 90%</option>
               </select>
-
             </div>
 
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -476,8 +476,7 @@ function TwoWheelers() {
                 name="cc"
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
-                placeholder="Enter CC"
-              >
+                placeholder="Enter CC">
                 <option className="w-1" value="" >---------------- Select CC -------------------</option>
                 <option value="<100">less than 100 cc</option>
                 <option value="100-125">100 to 125 cc</option>
@@ -487,7 +486,6 @@ function TwoWheelers() {
                 <option value="<1200">less than 1200 cc</option>
                 <option value=">1201">greater than 1201 cc</option>
                 <option value="NA">Not Applicable</option>
-
               </select>
             </div>
             {/* payout on */}
@@ -498,8 +496,7 @@ function TwoWheelers() {
                 name="payoutOn"
                 className="input-style p-1 text-lg rounded-lg"
                 value={payoutOn}
-                onChange={(e) => setPayoutOn(e.target.value)}
-              >
+                onChange={(e) => setPayoutOn(e.target.value)}>
                 <option className="w-1" value="" >------------- Select Payout on -------------</option>
                 {
                   payoutOnList
@@ -513,7 +510,7 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={popercentage}
                 onChange={(e) => setPoPercentage(e.target.value)}

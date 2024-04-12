@@ -50,19 +50,22 @@ function PrivateCar() {
   }, []);
 
 
-  const handleStateChange = (e) => {
+  const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
     setSelectedState(stateIsoCode);
-
-    // Fetch and set cities based on selected state
-    const fetchCities = () => {
-      const stateCities = City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
-      setCities(stateCities);
-    };
-
-    fetchCities();
+    if (stateIsoCode === 'All_Cities') {
+      const allCities = await City.getCitiesOfCountry("IN");
+      setSelectedCity(allCities);
+    } else {
+      try {
+        const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
+        setCities(stateCities);
+        setSelectedCity(''); // Reset selectedCity when changing state
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      }
+    }
   };
-
 
 
 
@@ -340,13 +343,21 @@ function PrivateCar() {
               <select
                 className="input-style text-lg p-1 rounded-lg"
                 value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  if (value === "All_Cities") {
+                    const allCityNames = cities.map(city => city.name);
+                    setSelectedCity(allCityNames);
+                  } else {
+                    setSelectedCity(e.target.value);
+                  }
+                }}
                 disabled={!selectedState} // Disable city dropdown until a state is selected
               >
                 <option value="">--------------- Select City -------------</option>
-                {cities.map((city) => (
-
-                  <option key={city.id} value={city.name}>
+                <option value="All_Cities">All_Cities</option>
+                {cities.map((city,index) => (
+                  <option key={index} value={city.name}>
                     {city.name}
                   </option>
                 ))}
