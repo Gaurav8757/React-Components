@@ -6,7 +6,6 @@ function AddIncrement() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
   const [incdate, setIncDate] = useState("");
- 
   const [incrementAmount, setIncrementAmount] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -120,6 +119,7 @@ useEffect( () => {setIncDate(date)}, [date] );
                   placeholder="Enter Increment Amount"
                 />
               </div>
+              
             </div>
             <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
               <button

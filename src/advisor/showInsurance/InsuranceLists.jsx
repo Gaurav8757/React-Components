@@ -10,10 +10,11 @@ function InsuranceLists() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
   const name = sessionStorage.getItem("name");
-
+ 
   useEffect(() => {
     setItemsPerPage(28);
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -229,11 +230,10 @@ function InsuranceLists() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {allDetailsData.reverse().slice(startIndex, endIndex).map((data) => (
+                {allDetailsData.reverse().filter(data => data.advisorName === name && data._id === sessionStorage.getItem("advisorId")).slice(startIndex, endIndex).map((data) => (
                   <tr
                     className="border-b  bg-slate-200 text-sm font-medium"
-                    key={data._id}
-                  >
+                    key={data._id}>
                     <td className="whitespace-nowrap px-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{data.branch}</td>

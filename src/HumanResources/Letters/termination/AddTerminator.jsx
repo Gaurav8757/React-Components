@@ -82,7 +82,7 @@ const handleSubmit = async (e) => {
     <h1 className="font-semibold text-3xl mt-20 ">Create Termination Letter</h1>
     <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
 
-      <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
+      <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
 
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap justify-between">
@@ -100,11 +100,11 @@ const handleSubmit = async (e) => {
             <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Select Employee</label>
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 value={selectedEmployeeId}
                 onChange={handleEmployeeChange}
               >
-                <option value="">--------- Select Employee ----------</option>
+                <option value="">------------- Select Employee -----------</option>
                 {employees.map((employee) => (
                   <option key={employee._id} value={employee._id} >
                     {employee.empid} - {employee.empname}
@@ -122,6 +122,7 @@ const handleSubmit = async (e) => {
                
               />
             </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
           </div>
           <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
             <button

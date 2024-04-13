@@ -5,6 +5,11 @@ import { format, getDaysInMonth } from 'date-fns';
 function GenerateSalary() {
   const [empList, setEmployeeList] = useState([]);
   const [empName, setEmpname] = useState("");
+  const [empId, setEmpId] = useState("");
+  const [designation, setDesignation]  = useState("");
+  const [branchName, setBranchName]  = useState("") ;
+  const [accNo, setAccNo] = useState();
+
   const [months, setMonths] = useState("");
   const [persentday, setPersentday] = useState("");
   const [halfday, setHalfday] = useState("");
@@ -37,6 +42,10 @@ function GenerateSalary() {
   const handleEmployeeChange = (selectedEmployee) => {
     const selectedEmp = empList.find((emp) => emp.empname === selectedEmployee);
     setEmpname(selectedEmployee);
+    setEmpId(selectedEmp.empid);
+    setDesignation(selectedEmp.empdesignation);
+    setBranchName(selectedEmp.empbranch);
+    setAccNo(selectedEmp.accNumber);
     setMonthleave(selectedEmp ? selectedEmp.leavemonth : "");
     setMonthsalary(selectedEmp ? selectedEmp.salary : "");
   };
@@ -219,6 +228,11 @@ function GenerateSalary() {
         empesi: empesi,
         emploanemi: emploanemi,
         totalAmount: amount,
+        empid: empId,
+        empdesignation: designation,
+        empbranch: branchName,
+        location: branchName,
+        accNum: accNo,
       });
       if (response.data) {
         toast.success("Added Successfully!");
@@ -228,6 +242,10 @@ function GenerateSalary() {
         setPersentday("");
         setHalfday("");
         // setAbsent("");
+        setAccNo("");
+        setBranchName("");
+        setEmpId("");
+        setDesignation("");
         setSalaries("");
         setMonthsalary("");
         setMonthleave("");
@@ -278,8 +296,8 @@ function GenerateSalary() {
                 value={empName}
                 onChange={(e) => handleEmployeeChange(e.target.value)}
                 name="empName">
-                <option value="" disabled className="text-base">
-                  ----- Select Employee -----
+                <option value=""  className="text-base">
+                  ---------------- Select Employee -------------
                 </option>
                 {sortedAPIData.map((emp) => (
                   <option key={emp._id} value={emp.empname} className="text-base">

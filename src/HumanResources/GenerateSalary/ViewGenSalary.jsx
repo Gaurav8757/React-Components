@@ -1,5 +1,6 @@
 import axios from "axios";
 import UpdateGenSalary from "./UpdateGenSalary.jsx";
+import SalaryViewPage from "./SalaryViewPage.jsx";
 import { useState, useEffect } from "react";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
@@ -234,15 +235,12 @@ export default function ViewGenPolicy() {
                                     <th scope="col" className="px-1 py-0 border border-black">
                                         Loan EMI
                                     </th>
-
                                     <th scope="col" className="px-1 py-0 border border-black">
                                         Total Amount
                                     </th>
-
-                                  
-                                    {/* <th scope="col" className="px-1 py-0 border border-black">
-                                        Delete
-                                    </th> */}
+                                    <th scope="col" className="px-1 py-0 border border-black">
+                                        View
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -323,6 +321,9 @@ export default function ViewGenPolicy() {
                                             </td>
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalAmount}
+                                            </td> 
+                                            <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                <SalaryViewPage  data={data} />
                                             </td> 
                                             {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>

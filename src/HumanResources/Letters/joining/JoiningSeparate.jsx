@@ -49,7 +49,7 @@ function JoiningSeparate({ offers }) {
                 pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
-            pdf.save('offer_letter.pdf');
+            pdf.save('joining_letter.pdf');
         });
     };
 
