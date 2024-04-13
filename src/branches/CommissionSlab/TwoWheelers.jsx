@@ -483,7 +483,9 @@ function TwoWheelers() {
                 <option value="126-150">126 to 150 cc</option>
                 <option value="151-350">151 to 350 cc</option>
                 <option value=">351">more than 351 cc</option>
-                <option value="<1200">less than 1200 cc</option>
+                <option value="<1000">less than 1000 cc</option>
+                <option value="1000-1200">1000 to 1200 cc</option>
+                {/* <option value="<1200">less than 1200 cc</option> */}
                 <option value=">1201">greater than 1201 cc</option>
                 <option value="NA">Not Applicable</option>
               </select>

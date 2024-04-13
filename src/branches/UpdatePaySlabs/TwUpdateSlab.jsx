@@ -16,7 +16,7 @@ function TwUpdateSlab({ slab, update }) {
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [allCities, setAllCities] = useState('');
-  
+
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState('');
 
   useEffect(() => {
@@ -40,9 +40,9 @@ function TwUpdateSlab({ slab, update }) {
         const allCities = await City.getCitiesOfCountry("IN");
         setAllCities(allCities);
       } else {
-      // Fetch and set cities based on selected state
-      const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
-      setCities(stateCities);
+        // Fetch and set cities based on selected state
+        const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
+        setCities(stateCities);
       }
     } catch (error) {
       console.error("Error fetching cities:", error);
@@ -151,20 +151,20 @@ function TwUpdateSlab({ slab, update }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-       // If the user selects "All Cities", save all city names in an array
-  if (value === "All_Cities") {
-    const allCityNames = cities.map(city => city.name);
-    setAllDetails((prevData) => ({
-      ...prevData,
-      [name]: allCityNames,
-    }));
-  } else {
-    setAllDetails((prevData) => ({
-      ...prevData,
-      [name]: value,
+    // If the user selects "All Cities", save all city names in an array
+    if (value === "All_Cities") {
+      const allCityNames = cities.map(city => city.name);
+      setAllDetails((prevData) => ({
+        ...prevData,
+        [name]: allCityNames,
+      }));
+    } else {
+      setAllDetails((prevData) => ({
+        ...prevData,
+        [name]: value,
 
-    }));
-  }
+      }));
+    }
   };
 
   const updateInsuranceAPI = async () => {
@@ -275,17 +275,17 @@ function TwUpdateSlab({ slab, update }) {
                         >
                           <option value="">------------ Select City -----------</option>
                           <option value="All_Cities">All_Cities</option>
-                         {selectedState === 'All_Cities'
-    ? allCities.map((city, indx) => (
-        <option key={indx} value={city.name}>
-          {city.name}
-        </option>
-      ))
-    : cities.map((city, indx) => (
-        <option key={indx} value={city.name}>
-          {city.name}
-        </option>
-      ))}
+                          {selectedState === 'All_Cities'
+                            ? allCities.map((city, indx) => (
+                              <option key={indx} value={city.name}>
+                                {city.name}
+                              </option>
+                            ))
+                            : cities.map((city, indx) => (
+                              <option key={indx} value={city.name}>
+                                {city.name}
+                              </option>
+                            ))}
                         </select>
                       </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -416,7 +416,9 @@ function TwUpdateSlab({ slab, update }) {
                           <option value="126-150">126 to 150 cc</option>
                           <option value="151-350">151 to 350 cc</option>
                           <option value=">351">more than 351 cc</option>
-                          <option value="<1200">less than 1200 cc</option>
+                          <option value="<1000">less than 1000 cc</option>
+                          <option value="1000-1200">1000 to 1200 cc</option>
+                          {/* <option value="<1200">less than 1200 cc</option> */}
                           <option value=">1201">greater than 1201 cc</option>
                           <option value="NA">Not Applicable</option>
 
