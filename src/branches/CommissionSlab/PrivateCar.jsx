@@ -159,6 +159,7 @@ function PrivateCar() {
     setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
     setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
   };
+  
 
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
@@ -211,7 +212,7 @@ function PrivateCar() {
         advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
-        district: selectedCity,
+        districts: selectedCity,
         branchpayoutper,
         companypayoutper
       };
@@ -262,13 +263,11 @@ function PrivateCar() {
                 className="input-style p-1  text-lg rounded-lg"
                 value={advisorName}
                 name="advisorName"
-                onChange={(e) => { setAdvisorName(e.target.value) }}>
+                onChange={handleChange}>
                 <option className="w-1 text-lg" value="" >--------------- Select Advisor --------------</option>
-
                 {
-
-
-                  advisors.map((name) => {
+                  advisors && advisors.map((name) => {
+                    console.log(advisors);
                     if (name.advisorname === "ELEEDOM IMF PVT LTD") {
                       return (
                         <option className="text-lg" key={name._id} value={name.advisorname}>
@@ -278,11 +277,7 @@ function PrivateCar() {
                     }
                     return null; // Render nothing for other advisors
                   })
-
-
-
                 }
-
               </select>
 
             </div>
