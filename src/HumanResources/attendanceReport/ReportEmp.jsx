@@ -13,7 +13,7 @@ function ReportEmp() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
     const [holidayData, setHolidayData] = useState([]);
-   
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -54,7 +54,7 @@ function ReportEmp() {
     }, [year, month]);
 
 
-  
+
     const renderCalendar = () => {
         // Sort APIData by empid in ascending order
         const sortedAPIData = APIData.slice().sort((a, b) => {
@@ -62,7 +62,7 @@ function ReportEmp() {
             const empidB = parseInt(b.empid.split('-')[1]);
             return empidA - empidB;
         });
-    
+
         return sortedAPIData.map((employee, employeeIndex) => {
             // Initialize present, absent, half-day, and holiday counts
             let presentCount = 0;
@@ -70,7 +70,7 @@ function ReportEmp() {
             let halfDayCount = 0;
             let holiDayCount = 0;
             let workingDaysCount = 0;
-    
+
             // color all Sundays
             return (
                 <tr key={employeeIndex}>
@@ -89,11 +89,11 @@ function ReportEmp() {
                             text = holiday.hdays;
                             holiDayCount++;
                         }
-    
+
                         const attendance = employee.employeeDetails.find(emp => emp.date === date);
                         const hasAttendance = !!attendance;
                         const status = hasAttendance ? attendance.status : ''; // Default to absent if no attendance record
-    
+
                         // Update counts based on status
                         switch (status) {
                             case 'present':
@@ -108,20 +108,20 @@ function ReportEmp() {
                             default:
                                 break;
                         }
-    
+
                         // Count working days (exclude Sundays)
                         const startDate = startOfMonth(new Date(year, month - 1));
                         const endDate = endOfMonth(new Date(year, month - 1));
                         const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
-    
+
                         // days 
                         const formattedDays = daysOfMonth.map((day) => day.getDay());
-    
+
                         // days of index value
                         if (formattedDays[dateIndex] !== 0) {
                             workingDaysCount++;
                         }
-    
+
                         // Define the text to display based on status
                         switch (status) {
                             case 'present':
@@ -136,14 +136,14 @@ function ReportEmp() {
                             default:
                                 break;
                         }
-    
+
                         // Render the cell
                         return (
-                           
-                            <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` :status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' :  ''}`}>
+
+                            <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' : ''}`}>
                                 {text}
-                                    <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
-                               
+                                <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
+
                             </td>
                         );
                     })}
@@ -169,7 +169,7 @@ function ReportEmp() {
             );
         });
     };
-    
+
     const renderYears = () => {
         const currentYear = new Date().getFullYear();
         const years = [];
@@ -193,9 +193,9 @@ function ReportEmp() {
         const headers = [];
         const daysInMonth = new Date(year, month, 0).getDate();
         const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        let sundayCount = 0;
         for (let i = 1; i <= daysInMonth; i++) {
             const currentDate = new Date(year, month - 1, i);
-           
             const formattedDate = i.toString().padStart(2, '0'); // Format date as '01', '02', ...
             const weekdayIndex = currentDate.getDay(); // Get the index of the day of the week (0 for Sunday, 1 for Monday, etc.)
             const weekday = weekdays[weekdayIndex]; // Get the corresponding weekday from the array
@@ -203,16 +203,20 @@ function ReportEmp() {
             const formattedDateStr = currentDate.toLocaleDateString('en-GB'); // Format date as 'dd/MM/yyyy'
             const holiday = holidayData.find(holiday => holiday.hdate === formattedDateStr);
             const isHoliday = !!holiday;
-           
+            if (weekdayIndex === 0) { // Check if the current day is Sunday
+                sundayCount++; // Increment the Sunday count
+            }
+
             headers.push(
-                <th  className={`border   border-blue-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ': weekdayIndex === 0 ? 'bg-red-300 text-red-700': ''}`}
-                key={i} >
+                <th className={`border   border-blue-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
+                    key={i} >
                     <div >{formattedDate}</div>
                     <div>{weekday}</div>
                     <span className="text-red-700  ">{isHoliday ? holiday.hdays : ''}</span>
                 </th>
-            )   
-}
+            )
+        }
+        console.log("Number of Sundays:", sundayCount);
         return headers;
     };
 
@@ -247,40 +251,40 @@ function ReportEmp() {
             // Get all table headers and rows
             const tableHeaders = document.querySelectorAll(".table th");
             const tableRows = document.querySelectorAll(".table tbody tr");
-    
+
             // Include only the first 26 columns and all rows
             const columnsToInclude = Array.from(tableHeaders).map(header => header.textContent);
             const rowsToInclude = Array.from(tableRows).map(row => {
                 const cells = Array.from(row.querySelectorAll("td"));
                 return cells.map(cell => cell.textContent);
             });
-    
+
             // Create worksheet
             const wsData = [columnsToInclude, ...rowsToInclude];
             const ws = XLSX.utils.aoa_to_sheet(wsData);
             // Create workbook and export
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    
+
             // Generate Excel file in memory
             const excelBuffer = XLSX.write(wb, {
                 bookType: "xlsx",
                 type: "array",
             });
-    
+
             // Convert to Blob
             const data = new Blob([excelBuffer], { type: fileType });
-    
+
             // Create download link
             const url = URL.createObjectURL(data);
             const link = document.createElement("a");
             link.href = url;
             link.setAttribute("download", fileName + fileExtension);
-    
+
             // Append link to the body and trigger download
             document.body.appendChild(link);
             link.click();
-    
+
             // Cleanup
             setTimeout(() => {
                 document.body.removeChild(link);
@@ -291,14 +295,14 @@ function ReportEmp() {
             toast.error("Error exporting to Excel");
         }
     };
-    
+
 
     const handleExportClick = () => {
         exportToExcel();
         // exportToPDF();
     };
 
-    
+
 
     // ******************** Delete Functions *************************************/
     const onDeleteEmployee = async (_id) => {
@@ -349,65 +353,65 @@ function ReportEmp() {
 
                     {/* part-3 */}
                     <div className=" relative ">
-                    <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1   ">
-                        <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
-                            <thead className="sticky bg-slate-300 top-16">
-                                <tr className="border border-black text-lg z-50 text-blue-700  ">
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
-                                        Employee ID
-                                    </th>
-                                    <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
-                                        Employee Name
-                                    </th>
-                                    {renderTableHeaders()}
-                                    {/* {renderTableRows()} */}
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 ">
-                                        Total Working Days
-                                    </th>
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-green-400">
-                                        Present Days
-                                    </th>
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-red-500">
-                                        Absent Days
-                                    </th>
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-yellow-400">
-                                        Half Days
-                                    </th>
-                                    <th scope="col" className="sticky  whitespace-nowrap border border-blue-700 bg-cyan-300">
-                                        HoliDays
-                                    </th>
-                                    <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
-                                        Attendance(%)
-                                    </th>
-                                </tr></thead>
+                        <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1   ">
+                            <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
+                                <thead className="sticky bg-slate-300 top-16">
+                                    <tr className="border border-black text-lg z-50 text-blue-700  ">
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
+                                            Employee ID
+                                        </th>
+                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
+                                            Employee Name
+                                        </th>
+                                        {renderTableHeaders()}
+                                        {/* {renderTableRows()} */}
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 ">
+                                            Total Working Days
+                                        </th>
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-green-400">
+                                            Present Days
+                                        </th>
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-red-500">
+                                            Absent Days
+                                        </th>
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-yellow-400">
+                                            Half Days
+                                        </th>
+                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700 bg-cyan-300">
+                                            HoliDays
+                                        </th>
+                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
+                                            Attendance(%)
+                                        </th>
+                                    </tr></thead>
 
-                            {/* td data */}
-                            <tbody className="bg-white divide-y  overflow-hidden">
-                                {renderCalendar()}
-                            </tbody>
+                                {/* td data */}
+                                <tbody className="bg-white divide-y  overflow-hidden">
+                                    {renderCalendar()}
+                                </tbody>
 
 
-                        </table>
-                    </div>
-                    {sendStaffId && (
-                        <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                            <div className="bg-white p-4 rounded-lg ">
-                                <h2 className="text-lg font-semibold text-gray-800"> {`Are you sure you want to delete `}
-                                    <span className="text-red-600">{APIData.find(data => data._id === sendStaffId)?.empname}</span>
-                                    {`?`}</h2>
-                                <div className="flex justify-end mt-10">
-                                    <button onClick={() => { onDeleteEmployee(sendStaffId); setSendStaffId(null); }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
-                                        Yes, I&apos;m sure
-                                    </button>
-                                    <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                        No, cancel
-                                    </button>
+                            </table>
+                        </div>
+                        {sendStaffId && (
+                            <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                <div className="bg-white p-4 rounded-lg ">
+                                    <h2 className="text-lg font-semibold text-gray-800"> {`Are you sure you want to delete `}
+                                        <span className="text-red-600">{APIData.find(data => data._id === sendStaffId)?.empname}</span>
+                                        {`?`}</h2>
+                                    <div className="flex justify-end mt-10">
+                                        <button onClick={() => { onDeleteEmployee(sendStaffId); setSendStaffId(null); }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base px-4 py-2 mr-2">
+                                            Yes, I&apos;m sure
+                                        </button>
+                                        <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                            No, cancel
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-            </div>
             </div>
         </section >
     );

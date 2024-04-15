@@ -4,12 +4,13 @@ import SalaryViewPage from "./SalaryViewPage.jsx";
 import { useState, useEffect } from "react";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
-// import { TiArrowBack } from "react-icons/ti";
+import { format, addMonths } from 'date-fns';
 import { toast } from "react-toastify";
+
 export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
+    const [selectedMonth, setSelectedMonth] = useState(new Date());
     const name = sessionStorage.getItem("name");
-
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -24,9 +25,7 @@ export default function ViewGenPolicy() {
                     },
                 })
                 .then((response) => {
-
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
@@ -64,7 +63,6 @@ export default function ViewGenPolicy() {
             const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
             const fileExtension = ".xlsx";
             const fileName = `${name}_salary`;
-
             const columnsToInclude = [
                 "Employee Name",
                 "Monthly Salary",
@@ -87,7 +85,6 @@ export default function ViewGenPolicy() {
                 "ESI",
                 "Loan EMI",
                 "Total Amount"
-
                 // Include other necessary columns here
             ];
             const rowsToInclude = APIData.map(data => [
@@ -116,7 +113,6 @@ export default function ViewGenPolicy() {
             ]);
 
             const ws = XLSX.utils.aoa_to_sheet([columnsToInclude, ...rowsToInclude]);
-
             const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
             const excelBuffer = XLSX.write(wb, {
                 bookType: "xlsx",
@@ -135,11 +131,24 @@ export default function ViewGenPolicy() {
         }
     };
     
-
     const handleExportClick = () => {
         exportToExcel();
-        // exportToPDF();
+
     };
+
+    // const handleMonthChange = (e) => {
+    //     const selectedDate = new Date(selectedMonth);
+    //     const selectedYear = selectedDate.getFullYear();
+    //     const selectedMonthIndex = parseInt(e.target.value);
+    //     setSelectedMonth(new Date(selectedYear, selectedMonthIndex));
+    // };
+    const handleMonthChange = (e) => {
+        const selectedDate = new Date(selectedMonth);
+        const selectedYear = selectedDate.getFullYear();
+        const selectedMonthIndex = parseInt(e.target.value) + 1; // Convert index to month number
+        setSelectedMonth(new Date(selectedYear, selectedMonthIndex - 1));
+    };
+
     // ******************** Delete Functions *************************************/
     // const onGenSalaryDelete = async (_id) => {
     //     try {
@@ -157,7 +166,21 @@ export default function ViewGenPolicy() {
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
                 <div className=" relative  min-w-full w-full py-4 ">
                     <div className="flex justify-between mb-4">
-                        <h1></h1>
+                    <div className="flex justify-center mx-2">
+                            <select
+                                className="input-style rounded-lg"
+                                value={format(selectedMonth, 'MM/yyyy')} // Format date as 'MM/yyyy'
+                                onChange={handleMonthChange}
+                            >
+                                {Array.from({ length: 12 }).map((_, index) => {
+                                    const monthDate = addMonths(new Date(), index); // Get date for each month
+                                    const formattedMonth = format(monthDate, 'MM/yyyy'); // Format date as 'MM/yyyy'
+                                    return (
+                                        <option key={index} value={index}>{formattedMonth}</option>
+                                    );
+                                })}
+                            </select>
+                        </div>
                         <h1 className="  font-semibold text-3xl w-auto mb-0 hidden sm:hidden md:block lg:block xl:block">
                             Employee Generate Salary Lists
                         </h1>
@@ -245,12 +268,11 @@ export default function ViewGenPolicy() {
                             </thead>
                             <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                 {APIData.map((data) => {
-
+                                     if (data.genMonths ) {
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"
-                                            key={data._id}
-                                        >
+                                            key={data._id}>
                                              <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <UpdateGenSalary genSalaries={data} onUpdate={updateGenSalary} />
                                             </td>
@@ -275,14 +297,12 @@ export default function ViewGenPolicy() {
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalHalfDays}
                                             </td>
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.totalAbsent}
                                             </td>
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.genSalary}
                                             </td>
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.incentive}
                                             </td>
@@ -301,21 +321,18 @@ export default function ViewGenPolicy() {
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empmedical}
                                             </td>
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emptiffin}
                                             </td>
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empcompanyPf}
                                             </td>
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emppf}
                                             </td>
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.empesi}
                                             </td>
-
                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 {data.emploanemi}
                                             </td>
@@ -330,6 +347,9 @@ export default function ViewGenPolicy() {
                                             </td> */}
                                         </tr>
                                     );
+                                } else {
+                                    return null;
+                                }
                                 })}
                             </tbody>
                         </table>

@@ -76,7 +76,7 @@ const downloadPDF = () => {
 
                 {/* section */}
                 <section className="">
-                    <h2 className="text-xl font-bold mb-4 text-start">Dear [Employee Name],</h2>
+                    <h2 className="text-xl font-bold mb-4 text-start">Dear [HR Name],</h2>
                     <p className="mb-4">
                         We are thrilled  for resignation to Eleedom IMF as a [Job Title] on our [Market Team].
                         You will be an integral part of our mission to [Company Mission Statement].

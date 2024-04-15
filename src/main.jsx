@@ -141,7 +141,7 @@ import HolidayAdd from "./admin/admincomponents/holiday/HolidayAdd.jsx";
 import CurrentAttendance from "./HumanResources/attendanceReport/CurrentAttendance.jsx";
 import AddFinance from "./finance/FinanceData/AddFinance.jsx";
 import ViewFinance from "./finance/FinanceData/ViewFinance.jsx";
-import SalarySlip from "./HumanResources/Salary/SalarySlip.jsx";
+import SalarySlip from "./HumanResources/GenerateSalary/SalarySlip.jsx";
 import OffersLetter from "./HumanResources/Letters/offers/OffersLetter.jsx";
 import ResignationLetter from "./HumanResources/resign/ResignationLetter.jsx";
 import TerminationLetter from "./HumanResources/Letters/termination/TerminationLetter.jsx";

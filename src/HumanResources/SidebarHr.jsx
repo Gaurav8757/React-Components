@@ -85,11 +85,11 @@ function DashboardHr() {
           dash: ""
         },
 
-        {
-          title: "Salary Slip",
-          path: "/hr/home/salary/slip",
-          dash: ""
-        },
+        // {
+        //   title: "Salary Slip",
+        //   path: "/hr/home/salary/slip",
+        //   dash: ""
+        // },
 
       ]
     }, {

@@ -9,7 +9,6 @@ function GenerateSalary() {
   const [designation, setDesignation]  = useState("");
   const [branchName, setBranchName]  = useState("") ;
   const [accNo, setAccNo] = useState();
-
   const [months, setMonths] = useState("");
   const [persentday, setPersentday] = useState("");
   const [halfday, setHalfday] = useState("");
@@ -38,9 +37,10 @@ function GenerateSalary() {
     });
   }, []);
 
-  // console.log(empList);
+
   const handleEmployeeChange = (selectedEmployee) => {
     const selectedEmp = empList.find((emp) => emp.empname === selectedEmployee);
+    // console.log(selectedEmp);
     setEmpname(selectedEmployee);
     setEmpId(selectedEmp.empid);
     setDesignation(selectedEmp.empdesignation);
@@ -59,14 +59,26 @@ function GenerateSalary() {
   };
 
   // months retuen  array with number of days for each month
+  // const renderMonths = () => {
+  //   const currentMonth = new Date().getMonth();
+  //   const months = [];
+  //   for (let m = 0; m < 12; m++) {
+  //     const monthValue = String(m).padStart(2, '0'); // Ensure month value has two digits
+  //     const date = new Date(currentMonth, m, 1); // Create a date object for each month
+  //     const monthName = format(date, 'MMMM'); // Format the date to get the month name
+  //     // months.push({ value: monthValue, name: monthName });
+  //     // console.log(monthValue);
+  //     months.push(<option key={monthValue} value={monthValue}>{monthName}</option>);
+  //   }
+  //   return months;
+  // };
   const renderMonths = () => {
-    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear(); // Get the current year
     const months = [];
     for (let m = 0; m < 12; m++) {
-      const monthValue = String(m).padStart(2, '0'); // Ensure month value has two digits
-      const date = new Date(currentMonth, m, 1); // Create a date object for each month
-      const monthName = format(date, 'MMMM'); // Format the date to get the month name
-      // console.log(monthValue);
+      const monthValue = `${String(m + 1).padStart(2, '0')}/${currentYear}`; // Month value format: MM/YYYY
+      const date = new Date(currentYear, m, 1);
+      const monthName = format(date, 'MMMM');
       months.push(<option key={monthValue} value={monthValue}>{monthName}</option>);
     }
     return months;
@@ -241,7 +253,6 @@ function GenerateSalary() {
         setMonths("");
         setPersentday("");
         setHalfday("");
-        // setAbsent("");
         setAccNo("");
         setBranchName("");
         setEmpId("");
@@ -297,7 +308,7 @@ function GenerateSalary() {
                 onChange={(e) => handleEmployeeChange(e.target.value)}
                 name="empName">
                 <option value=""  className="text-base">
-                  ---------------- Select Employee -------------
+                  ---------------- Select Employee ---------------
                 </option>
                 {sortedAPIData.map((emp) => (
                   <option key={emp._id} value={emp.empname} className="text-base">
@@ -346,7 +357,7 @@ function GenerateSalary() {
                   handleMonthChange(parseInt(e.target.value)); // Call handleMonthChange on month selection change
                 }}
                 name="genMonths">
-                <option value="" >----- Select Month&apos;s -----</option>
+                <option value="" >--------------- Select Month&apos;s ----------------</option>
                 {renderMonths()}
               </select>
             </div>
