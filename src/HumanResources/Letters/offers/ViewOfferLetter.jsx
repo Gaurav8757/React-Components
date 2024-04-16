@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import SeparateLetter from "./SeparateLetter.jsx";
+import VITE_DATA from "../../../config/config.jsx";
 
 function ViewOfferLetter() {
   const [APIData, setAPIData] = useState([]);
@@ -32,7 +33,7 @@ function ViewOfferLetter() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/letters/view/offer`, {
+        .get(`${VITE_DATA}/letters/view/offer`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -143,7 +144,7 @@ function ViewOfferLetter() {
   // ******************** Delete Functions *************************************/
   const onDeleteOffers= async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/letters/delete/offer/${_id}`);
+      await axios.delete(`${VITE_DATA}/letters/delete/offer/${_id}`);
       toast.warn("Offer Letter Deleted Successfully...!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

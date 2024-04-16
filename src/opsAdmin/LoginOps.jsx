@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../config/config.jsx";
 import { useNavigate, NavLink } from "react-router-dom";
 function LoginOps() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function LoginOps() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
+      const response = await axios.post(`${VITE_DATA}/ops/login`, {
         opsemail,
         opspassword,
       });

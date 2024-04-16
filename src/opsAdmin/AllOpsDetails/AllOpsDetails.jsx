@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
+import VITE_DATA from '../../config/config.jsx';
 
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
@@ -28,7 +29,7 @@ function AllOpsDetails() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/alldetails/viewdata`, {
+                .get(`${VITE_DATA}/alldetails/viewdata`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -96,7 +97,7 @@ function AllOpsDetails() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/alldetails/viewdata`,
+                    `${VITE_DATA}/alldetails/viewdata`,
                     {
                         headers: {
                             Authorization: `${token}`,

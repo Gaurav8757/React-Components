@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
+
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../../config/config.jsx";
 
 function UpdateOps({ UpdateOps, update }) {
     const [loading, setLoading] = useState("");
@@ -35,7 +37,7 @@ function UpdateOps({ UpdateOps, update }) {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
             axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                .get(`${VITE_DATA}/api/employee-list`, {
                     headers: {
                         Authorization: `${token}`,
                     },
@@ -90,7 +92,7 @@ const handleInputChange = (e) => {
 const updateInsuranceAPI = async () => {
     try {
         setLoading(true);
-        const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${UpdateOps._id}`, allDetails);
+        const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${UpdateOps._id}`, allDetails);
         update();
         toast.success(`${resp.data.status}`);
         closeModal();

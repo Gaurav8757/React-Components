@@ -2,6 +2,7 @@ import axios from "axios";
 import UpdateGenSalary from "./UpdateGenSalary.jsx";
 import SalaryViewPage from "./SalaryViewPage.jsx";
 import { useState, useEffect } from "react";
+import VITE_DATA from "../../config/config.jsx";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { useMemo } from 'react';
@@ -26,7 +27,7 @@ export default function ViewGenPolicy() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/salaries-list`, {
+                .get(`${VITE_DATA}/api/salaries-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -49,7 +50,7 @@ export default function ViewGenPolicy() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/salaries-list`,
+                    `${VITE_DATA}/api/salaries-list`,
                     {
                         headers: {
                             Authorization: `${token}`,
@@ -181,12 +182,12 @@ export default function ViewGenPolicy() {
                                 onChange={handleMonthChange}
                             >
                                 {Array.from({ length: 10 }).map((_, index) => {
-                const monthDate = addMonths(initialMonth, -index); // Subtract index to go back in time from the initial month
-                const formattedMonth = format(monthDate, 'MM/yyyy'); // Format date as 'MM/yyyy'
-                return (
-                    <option key={index} value={formattedMonth}>{formattedMonth}</option>
-                );
-            })}
+                                    const monthDate = addMonths(initialMonth, -index); // Subtract index to go back in time from the initial month
+                                    const formattedMonth = format(monthDate, 'MM/yyyy'); // Format date as 'MM/yyyy'
+                                    return (
+                                        <option key={index} value={formattedMonth}>{formattedMonth}</option>
+                                    );
+                                })}
                             </select>
 
                         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { format, getDaysInMonth } from 'date-fns';
+import VITE_DATA from "../../config/config";
 function GenerateSalary() {
   const [empList, setEmployeeList] = useState([]);
   const [empName, setEmpname] = useState("");
@@ -29,10 +30,11 @@ function GenerateSalary() {
   const [emppf, setEmpPf] = useState("");
   const [empesi, setEmpESI] = useState("");
   const [emploanemi, setEmpLoanemi] = useState("");
+ 
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
-    axios.get("https://eleedomimf.onrender.com/api/employee-list").then((response) => {
+    axios.get(`${VITE_DATA}/api/employee-list`).then((response) => {
       setEmployeeList(response.data);
     });
   }, []);
@@ -218,7 +220,7 @@ function GenerateSalary() {
     setLoading(true);
     try {
       // Proceed with the rest of the submission logic
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/gensalary", {
+      const response = await axios.post(`${VITE_DATA}/dashboard/gensalary`, {
         empName: empName.toString(),
         presentDays: persentday, // Send the total present days to the backend
         totalHalfDays: halfday,

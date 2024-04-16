@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 // import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/configjsx";
 
 function AddTerminator() {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -18,7 +19,7 @@ const [currDate, setCurrDate ]= useState("");
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -57,7 +58,7 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.put(
-      `https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`,
+      `${VITE_DATA}/api/salary/update/${selectedEmployeeId}`,
       { 
         terminatedate, currDate}
     );

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/confi.jsx";
 
 function AddIncrement() {
   const [employees, setEmployees] = useState([]);
@@ -15,7 +16,7 @@ function AddIncrement() {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -53,7 +54,7 @@ useEffect( () => {setIncDate(date)}, [date] );
 
     try {
       const response = await axios.put(
-        `https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`,
+        `${VITE_DATA}/api/salary/update/${selectedEmployeeId}`,
         { incmoney: incrementAmount,
           incdate}
          

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 
 const LeaveDetailsPopup = ({ emp, onUpdate }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const LeaveDetailsPopup = ({ emp, onUpdate }) => {
         try {
             if (selectedLeave && !statusUpdatedMap[selectedLeave._id]) {
                 const { _id, status } = selectedLeave;
-             const resp =   await axios.put(`https://eleedomimf.onrender.com/employee/${emp._id}/leave/${_id}`, { status });
+             const resp =   await axios.put(`${VITE_DATA}/employee/${emp._id}/leave/${_id}`, { status });
 
                 onUpdate(); // Update leave details after submission
                 setStatusUpdatedMap(prevState => ({ ...prevState, [selectedLeave._id]: true })); // Set status updated to true for this leave item

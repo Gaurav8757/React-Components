@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 function AddSalary() {
   const [employeeList, setEmployeeList] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
@@ -11,7 +12,7 @@ function AddSalary() {
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
-    axios.get("https://eleedomimf.onrender.com/api/employee-lists").then((response) => {
+    axios.get(`${VITE_DATA}/api/employee-lists`).then((response) => {
       setEmployeeList(response.data);
     });
   }, []);
@@ -27,7 +28,7 @@ function AddSalary() {
     setLoading(true);
 
     try {
-      const response = await axios.put(`https://eleedomimf.onrender.com/api/salary/update/${selectedEmployeeId}`, {
+      const response = await axios.put(`${VITE_DATA}/api/salary/update/${selectedEmployeeId}`, {
         salary: monthsalary,
         leavemonth: monthleave,
       });

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import IncrementLetter from "./IncrementLetter.jsx";
+import VITE_DATA from "../../../config/config.jsx";
 
 function ViewIncrement() {
   const [APIData, setAPIData] = useState([]);
@@ -16,7 +17,7 @@ function ViewIncrement() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -39,7 +40,7 @@ function ViewIncrement() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/letters/view/offer`, {
+        .get(`${VITE_DATA}/letters/view/offer`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },

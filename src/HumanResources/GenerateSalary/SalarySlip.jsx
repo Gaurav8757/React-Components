@@ -6,7 +6,7 @@ import jsPDF from "jspdf";
 const SalarySlip = () => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    documentTitle: "By salary username",
+    documentTitle: "Salary Slip",
     content: () => componentRef.current,
     removeAfterPrint: true,
   });
@@ -60,7 +60,7 @@ const SalarySlip = () => {
             <p>GST IN : 10AAHCE0776B1Z9</p>
             <p>Flat No.607, B-Block, Gagan Apartment
               Exhibition Road, Patna- 800001</p>
-              <p>www.eleedomimf.com</p>
+            <p>www.eleedomimf.com</p>
           </div>
 
         </header>
@@ -72,8 +72,8 @@ const SalarySlip = () => {
           <h2 className="text-2xl text-center font-bold">Salary Slip</h2>
           <div className="font-semibold text-center">Month & Year: 000</div>
           <div className="bg-red-800 rounded-t-lg py-2 px-4">
-                <h3 className="text-lg text-white font-semibold text-center">EMPLOYEE SUMMARY</h3>
-              </div>
+            <h3 className="text-lg text-white font-semibold text-center">EMPLOYEE SUMMARY</h3>
+          </div>
 
 
           <div className='flex text-left'>
@@ -124,26 +124,26 @@ const SalarySlip = () => {
             </div>
           </div>
 
-{/* part-2 */}
+          {/* part-2 */}
           <div className='flex text-left'>
             <div className="border w-1/2 rounded-lg overflow-hidden mt-2 border-slate-500">
               <div className="bg-red-800 py-2 px-4">
-               <h3 className="text-lg text-white font-semibold text-center">EARNINGS</h3>
+                <h3 className="text-lg text-white font-semibold text-center">EARNINGS</h3>
               </div>
               <div className='flex'>
-              <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
+                <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
                   <h3 className="text-lg  font-semibold text-center">Particular</h3>
                 </div>
 
                 <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
                   <h3 className="text-lg  font-semibold text-center">Amount</h3>
                 </div>
-                </div>
+              </div>
 
 
               <div className="p-4">
                 <div className="grid grid-cols-2 text-base gap-1 ">
-            <div className="font-semibold">Basic Salary:</div>
+                  <div className="font-semibold">Basic Salary:</div>
                   <div>3456</div>
                   <div className="font-semibold">House Rent Allowance:</div>
                   <div>4444</div>
@@ -167,7 +167,7 @@ const SalarySlip = () => {
 
                   <div className="font-bold ">Total Earnings:</div>
                   <div className="font-bold ">2345</div>
-                  
+
                 </div>
               </div>
             </div>
@@ -177,14 +177,14 @@ const SalarySlip = () => {
                 <h3 className="text-lg text-white font-semibold text-center">DEDUCTIONS</h3>
               </div>
               <div className='flex'>
-              <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
+                <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
                   <h3 className="text-lg  font-semibold text-center">Particular</h3>
                 </div>
 
                 <div className=" overflow-hidden w-1/2 bg-red-300  border-red-500 border">
                   <h3 className="text-lg  font-semibold text-center">Amount</h3>
                 </div>
-                </div>
+              </div>
               <div className="p-4">
                 <div className="grid grid-cols-2 gap-1 text-base">
                   <div className="font-semibold">EPF(Emp Contribution):</div>
@@ -206,15 +206,15 @@ const SalarySlip = () => {
                   <div className="font-semibold"></div>
                   <div></div>
                   <div className="font-semibold"></div>
-                  <div></div> 
+                  <div></div>
+                  <div className="font-semibold"></div>
+                  <div></div>
                   <div className="font-semibold"></div>
                   <div></div>
                   <div className="font-semibold"></div>
                   <div></div>
                   <div className="font-semibold"></div>
-                  <div></div> 
-                  <div className="font-semibold"></div>
-                  <div></div> 
+                  <div></div>
                   <div className="font-bold ">Total Deduction:</div>
                   <div className="font-bold ">2345</div>
                 </div>
@@ -223,24 +223,24 @@ const SalarySlip = () => {
           </div>
 
           {/* <div className='flex text-left'> */}
-            <div className="border   rounded-lg overflow-hidden mt-2 border-slate-500">
-              <div className="bg-red-800 py-2 px-4">
-               <h3 className="text-lg text-white font-semibold text-center">NET PAYABLE </h3>
-              </div>
-              <div className="p-4  text-center ">
-                <div className="grid grid-cols-2 gap-1 text-base">
+          <div className="border   rounded-lg overflow-hidden mt-2 border-slate-500">
+            <div className="bg-red-800 py-2 px-4">
+              <h3 className="text-lg text-white font-semibold text-center">NET PAYABLE </h3>
+            </div>
+            <div className="p-4  text-center ">
+              <div className="grid grid-cols-2 gap-1 text-base">
                 <div className="font-semibold ">Salary:</div>
-                  <div className=''>3456</div>
-                  <div className="font-semibold">Fuel Expenses:</div>
-                  <div>3456</div>
-                  <div className="font-semibold">Other Expenses:</div>
-                  <div>4444</div>
-                  <div className="font-bold">Total Payable Amount:</div>
-                  <div className="font-bold">4444</div>    
-                </div>
+                <div className=''>3456</div>
+                <div className="font-semibold">Fuel Expenses:</div>
+                <div>3456</div>
+                <div className="font-semibold">Other Expenses:</div>
+                <div>4444</div>
+                <div className="font-bold">Total Payable Amount:</div>
+                <div className="font-bold">4444</div>
               </div>
             </div>
-      
+          </div>
+
         </section>
         {/* footer */}
         <div className=" flex w-full h-1.5 bg-red-700 mb-0.5 my-4"></div>

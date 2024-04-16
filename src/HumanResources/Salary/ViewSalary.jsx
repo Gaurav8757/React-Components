@@ -3,7 +3,7 @@ import UpdateSalary from "./UpdateSalary.jsx";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../config/config.jsx";
 export default function ViewSalary() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function ViewSalary() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                .get(`${VITE_DATA}/api/employee-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +38,7 @@ export default function ViewSalary() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/employee-list`,
+                    `${VITE_DATA}/api/employee-list`,
                     {
                         headers: {
                             Authorization: `${token}`,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
+import VITE_DATA from "../config/config.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
@@ -23,7 +24,7 @@ function LoginAll() {
             let response;
             switch (loginType) {
                 case "admin":
-                    response = await axios.post("https://eleedomimf.onrender.com/loginadmin", {
+                    response = await axios.post(`${VITE_DATA}/loginadmin`, {
                         mobile,
                         email,
                         password,
@@ -34,7 +35,7 @@ function LoginAll() {
 
                 case "employee":
                     
-                    response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
+                    response = await axios.post(`${VITE_DATA}/login/employee`, {
                         empemail: email,
                         empmobile: mobile,
                         emppassword: password,
@@ -49,7 +50,7 @@ function LoginAll() {
                     break;
 
                     case "advisor":
-                    response = await axios.post("https://eleedomimf.onrender.com/advisor/login", {
+                    response = await axios.post(`${VITE_DATA}/advisor/login`, {
                         advisoremail: email,
                         advisormobile: mobile,
                         advisorpassword:  password,
@@ -66,7 +67,7 @@ function LoginAll() {
                     break;
 
                 case "hrmanager":
-                    response = await axios.post("https://eleedomimf.onrender.com/hradmin/login", {
+                    response = await axios.post(`${VITE_DATA}/hradmin/login`, {
                         hrademail: email,
                         hradmobile: mobile,
                         hradpassword: password,
@@ -78,7 +79,7 @@ function LoginAll() {
                     break;
 
                 case "branches":
-                    response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
+                    response = await axios.post(`${VITE_DATA}/branches/loginbranch`, {
                         branchemail: email,
                         password,
                     });
@@ -89,7 +90,7 @@ function LoginAll() {
                     break;
 
                 case "ops":
-                    response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
+                    response = await axios.post(`${VITE_DATA}/ops/login`, {
                         opsemail: email,
                         opspassword: password,
                     });
@@ -99,7 +100,7 @@ function LoginAll() {
                     break;
 
                 case "finance":
-                    response = await axios.post("https://eleedomimf.onrender.com/finance/login", {
+                    response = await axios.post(`${VITE_DATA}/finance/login`, {
                         finemail: email,
                         finpassword: password,
                     });
@@ -109,7 +110,7 @@ function LoginAll() {
                     break;
 
                 default:
-                    response = await axios.post("https://eleedomimf.onrender.com/ops/login", {
+                    response = await axios.post(`${VITE_DATA}/ops/login`, {
                         opsemail: email,
                         opspassword: password,
                     });

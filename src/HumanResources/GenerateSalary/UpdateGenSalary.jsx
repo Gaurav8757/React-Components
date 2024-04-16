@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { CgCloseR } from "react-icons/cg";
 import { format } from 'date-fns';
+import VITE_DATA from "../../config/config.jsx";
 
 function UpdateGenSalary({ genSalaries, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +64,7 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/api/salaries/${genSalaries._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/api/salaries/${genSalaries._id}`, // Update the URL with the correct endpoint
                 data
             );
             toast.success(`${response.data.status}`)

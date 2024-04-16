@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import VITE_DATA from "../config/config.jsx";
 
 function HrPassUpdate() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ function HrPassUpdate() {
      const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/hradmin/pass/${hradId}/${token}`, {
+            const response = await axios.post(`${VITE_DATA}/hradmin/pass/${hradId}/${token}`, {
                 hradpassword,
                 confirmehrad_password: confirmpass,
             });

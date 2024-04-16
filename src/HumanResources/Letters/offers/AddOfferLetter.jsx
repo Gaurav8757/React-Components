@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { ToWords } from 'to-words';
+import VITE_DATA from "../../../config/config.jsx";
 
 function AddOfferLetter() {
     const [ofdate, setOfdate] = useState('');
@@ -62,7 +63,7 @@ function AddOfferLetter() {
         }
 
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/letters/add/offer`, {
+            const response = await axios.post(`${VITE_DATA}/letters/add/offer`, {
                 ofdate,
                 ofname,
                 ofmobile,

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 
 function AddJoining() {
   const [APIData, setAPIData] = useState([]);
@@ -17,6 +18,7 @@ function AddJoining() {
     ofsalaryWords: "",
     ofvalidDate: "",
   });
+  
 
   // AUTO SHOW DATA
   useEffect(() => {
@@ -25,7 +27,7 @@ function AddJoining() {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/letters/view/offer`, {
+        .get(`${VITE_DATA}/letters/view/offer`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -68,7 +70,7 @@ function AddJoining() {
 
     try {
       const response = await axios.post(
-        `https://eleedomimf.onrender.com/update/letter/${selectedItemId}`,
+        `${VITE_DATA}/update/letter/${selectedItemId}`,
         selectedItemData
       );
 

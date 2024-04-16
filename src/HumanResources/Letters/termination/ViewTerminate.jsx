@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import TerminationLetter from "./TerminationLetter.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
+
 function ViewTerminate() {
   const [APIData, setAPIData] = useState([]);
   useEffect(() => {
@@ -12,7 +14,7 @@ function ViewTerminate() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },

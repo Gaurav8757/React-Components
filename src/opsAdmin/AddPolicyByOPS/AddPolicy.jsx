@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 
 function AddPolicy() {
     const [APIData, setAPIData] = useState([]);
@@ -41,7 +42,7 @@ function AddPolicy() {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
             axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                .get(`${VITE_DATA}/api/employee-list`, {
                     headers: {
                         Authorization: `${token}`,
                     },
@@ -93,7 +94,7 @@ function AddPolicy() {
         }
 
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata`, {
+            const response = await axios.post(`${VITE_DATA}/alldetails/adddata`, {
                 entryDate,
                 insuredName,
                 contactNo,
