@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 // import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import VITE_DATA from "../../../config/configjsx";
+import VITE_DATA from "../../../config/config.jsx";
 
 function AddTerminator() {
   const [formSubmitted, setFormSubmitted] = useState(false);
