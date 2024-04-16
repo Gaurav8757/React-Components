@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 // eslint-disable-next-line react/prop-types
 function UpdateBranch({ branch, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,7 +55,7 @@ function UpdateBranch({ branch, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/api/branch/update/${branch._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/api/branch/update/${branch._id}`, // Update the URL with the correct endpoint
                 allDetails
             );
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import VITE_DATA from "../../../config/config.jsx";
 function AddBranch() {
   const [branch, setBranch] = useState("");
   const [code, setCode] = useState("");
@@ -66,7 +67,7 @@ setErrors({}); // Clear previous errors
        
       try {
         // Make sure to replace this URL with your actual API endpoint
-        const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addbranch", {
+        const response = await axios.post(`${VITE_DATA}/dashboard/addbranch`, {
           concernperson: person,
           branchname: branch,
           branchcode: code,

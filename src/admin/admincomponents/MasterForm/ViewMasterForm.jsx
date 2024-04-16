@@ -4,7 +4,7 @@ import UpdateMaster from "./UpdateMaster.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
-
+import VITE_DATA from "../../../config/config.jsx";
 function ViewMasterForm() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [startDate, setStartDate] = useState("");
@@ -36,7 +36,7 @@ function ViewMasterForm() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+        .get(`${VITE_DATA}/commission/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -58,7 +58,7 @@ function ViewMasterForm() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/alldetails/viewdata`, {
+        .get(`${VITE_DATA}/alldetails/viewdata`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -79,7 +79,7 @@ function ViewMasterForm() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/alldetails/viewdata`,
+          `${VITE_DATA}/alldetails/viewdata`,
           {
             headers: {
               Authorization: `${token}`,
@@ -215,7 +215,7 @@ useEffect(() => {
 
       try {
         // Send data to API
-        const response =  axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${filteredData._id}`, postData, {
+        const response =  axios.put(`${VITE_DATA}/alldetails/updatedata/${filteredData._id}`, postData, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -387,7 +387,7 @@ useEffect(() => {
   // delete function
   const onDeleteAllData = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/alldetails/deletedata/${_id}`);
+      await axios.delete(`${VITE_DATA}/alldetails/deletedata/${_id}`);
       toast.warn("Insurance Data Deleted.....!", {
         theme: "dark",
         position: "top-right",

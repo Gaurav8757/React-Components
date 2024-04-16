@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddAdvisor() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState();
@@ -16,7 +16,7 @@ function AddAdvisor() {
       setLoading(true);
       try {
         // Make sure to replace this URL with your actual API endpoint
-        const response = await axios.post("https://eleedomimf.onrender.com/advisor/register", {
+        const response = await axios.post(`${VITE_DATA}/advisor/register`, {
          advisorname: name,
           advisoremail: email,
           advisormobile: mobile,

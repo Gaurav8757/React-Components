@@ -3,8 +3,10 @@ import UpdateBranch from "./UpdateBranch.jsx";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as XLSX from 'xlsx';
+
 // import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 export default function ViewBranch() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -14,7 +16,7 @@ export default function ViewBranch() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/branch-list`, {
+                .get(`${VITE_DATA}/api/branch-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -40,7 +42,7 @@ export default function ViewBranch() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/branch-list`,
+                    `${VITE_DATA}/api/branch-list`,
                     {
                         headers: {
                             Authorization: `${token}`,
@@ -103,7 +105,7 @@ export default function ViewBranch() {
     // ******************** Delete Functions *************************************/
     const onDeleteBranch = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/dashboard/api/${_id}`);
+            await axios.delete(`${VITE_DATA}/dashboard/api/${_id}`);
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
             toast.warn(`${APIData.map((data) => data.branchname)} Branch Deleted...!`, { theme: "dark", position: "top-right" });
         } catch (error) {

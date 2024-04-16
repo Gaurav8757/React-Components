@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import VITE_DATA from "../config/config.jsx";
 
 function Admin() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/loginadmin", {
+      const response = await axios.post(`h${VITE_DATA}/loginadmin`, {
         mobile,
         email,
         password,

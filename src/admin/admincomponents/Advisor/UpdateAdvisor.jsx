@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateAdvisor({ advisor, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/advisor/update/${advisor._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/advisor/update/${advisor._id}`, // Update the URL with the correct endpoint
                 advInfo
             );
 

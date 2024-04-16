@@ -4,6 +4,7 @@ import axios from "axios";
 import MultiStep from "react-multistep";
 import { State, City } from 'country-state-city';
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+import VITE_DATA from "../../../config/config.jsx";
 function MasterForm() {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -81,7 +82,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+        .get(`${VITE_DATA}/commission/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -102,7 +103,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/payouton`, {
+        .get(`${VITE_DATA}/view/payouton`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -125,7 +126,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+        .get(`${VITE_DATA}/view/payment/mode`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -146,7 +147,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -169,7 +170,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+        .get(`${VITE_DATA}/view/fuel`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -184,7 +185,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   }, [fuelType]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -197,7 +198,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
 
@@ -492,7 +493,7 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
     try {
       // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("https://eleedomimf.onrender.com/alldetails/adddata", {
+      const response = await axios.post(`${VITE_DATA}/alldetails/adddata`, {
         entryDate,
         company,
         category,

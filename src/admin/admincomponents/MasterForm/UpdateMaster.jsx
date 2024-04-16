@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -94,7 +94,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   };
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -112,7 +112,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+        .get(`${VITE_DATA}/view/fuel`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -133,7 +133,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -347,7 +347,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     try {
       setLoading(true);
       // Use the selected category ID in the patch method
-      const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
+      const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${insurance._id}`, allDetails);
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
       onUpdate()

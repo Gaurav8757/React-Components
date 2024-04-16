@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
-
+import VITE_DATA from "../config/config.jsx";
 function AdminForgot() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ function AdminForgot() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://eleedomimf.onrender.com/forgot/admin/pass", {
+            const response = await axios.post(`${VITE_DATA}/forgot/admin/pass`, {
               email
             });
            

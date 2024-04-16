@@ -4,6 +4,8 @@ import {  NavLink } from "react-router-dom";
 import UpdateAdvisor from "./UpdateAdvisor.jsx";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../../config/config.jsx";
+
  function ViewAdvisor() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -13,7 +15,7 @@ import { TiArrowBack } from "react-icons/ti";
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/advisor/lists`, {
+                .get(`${VITE_DATA}/advisor/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +40,7 @@ import { TiArrowBack } from "react-icons/ti";
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/advisor/lists`,
+          `${VITE_DATA}/advisor/lists`,
           {
             headers: {
               Authorization: `${token}`,
@@ -56,7 +58,7 @@ import { TiArrowBack } from "react-icons/ti";
     // ******************** Delete Functions *************************************/
     const onDeleteAdvisor = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/advisor/lists/${_id}`);
+          await axios.delete(`${VITE_DATA}/advisor/lists/${_id}`);
           toast.warn("Policy Deleted.....!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
