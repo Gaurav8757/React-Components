@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import '../../../public/EmpAttendance.css';
+import VITE_DATA from '../../config/config.jsx';
 
 function EmpCalendar() {
   const [value, onChange] = useState(new Date());
@@ -58,7 +59,7 @@ function EmpCalendar() {
       toast.error('Not Authorized yet.. Try again! ');
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/employee/emp/attendance/${id}`, {
+        .get(`${VITE_DATA}/employee/emp/attendance/${id}`, {
           headers: {
             Authorization: `${token}`,
           },

@@ -5,7 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 const Form = ({ companyName, setShowModal }) => {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -19,7 +19,7 @@ const Form = ({ companyName, setShowModal }) => {
 
     try {
       // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post("https://eleedomimf.onrender.com/users/userdetails", {
+      const response = await axios.post(`${VITE_DATA}/users/userdetails`, {
         h_cname: companyName,
         h_name: name,
         h_email: email,

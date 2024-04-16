@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Form from "../ViewForm/Form.jsx";
+import VITE_DATA from "../../../config/config.jsx";
 
 function HealthPage() {
   const [APIData, setAPIData] = useState([]);
@@ -11,7 +12,7 @@ function HealthPage() {
 
   useEffect(() => {
     axios
-      .get(`https://eleedomimf.onrender.com/api/company/health-list`)
+      .get(`${VITE_DATA}/api/company/health-list`)
       .then((response) => {
         // console.log(response.data);
         setAPIData(response.data);

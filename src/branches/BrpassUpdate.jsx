@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../config/config.jsx";
 function BrpassUpdate() {
     const navigate = useNavigate();
     const { userId, token } = useParams();
@@ -13,7 +13,7 @@ function BrpassUpdate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`https://eleedomimf.onrender.com/branch/pass/${userId}/${token}`, {
+            const response = await axios.post(`${VITE_DATA}/branch/pass/${userId}/${token}`, {
                 password,
                 confirm_password: confirmpass,
             });

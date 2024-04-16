@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios"; 
 import {toast} from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
+
 const ComplaintForm = () => {
     const [nature, setNature] = useState("");
     const [email, setEmail] = useState("");
@@ -12,7 +14,7 @@ const ComplaintForm = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://eleedomimf.onrender.com/users/complaint', {
+            const response = await axios.post(`${VITE_DATA}/users/complaint`, {
                 complaint_name: nature,
                 complaint_email: email,
                 complaint_mobile: mobile,

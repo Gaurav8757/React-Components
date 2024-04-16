@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
+import VITE_DATA from "../config/config.jsx";
 function LoginBranch() {
   const navigate = useNavigate();
   const [branchemail, setEmail] = useState("");
@@ -10,7 +11,7 @@ function LoginBranch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/branches/loginbranch", {
+      const response = await axios.post(`${VITE_DATA}/branches/loginbranch`, {
         branchemail,
         password,
       });

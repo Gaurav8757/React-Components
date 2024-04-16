@@ -10,6 +10,7 @@ import 'swiper/css/zoom';
 import 'swiper/css/mousewheel'
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 const Feedback = () => {
   const [feedbackuser_name, setFeedbackUserName] = useState("");
   const [feedbackuser_email, setFeedbackUserEmail] = useState("");
@@ -21,7 +22,7 @@ const Feedback = () => {
 
   useEffect(() => {
     axios
-      .get(`https://eleedomimf.onrender.com/users/activeusers`)
+      .get(`${VITE_DATA}/users/activeusers`)
       .then((response) => {
         // console.log(response.data);
         setAPIData(response.data);
@@ -45,7 +46,7 @@ const Feedback = () => {
       formData.append("feedbackuser_upload", feedbackuser_upload);
       // formData.append("feedbackuser_status", feedbackuser_status);
 
-      await axios.post("https://eleedomimf.onrender.com/users/feedback", formData);
+      await axios.post(`${VITE_DATA}/users/feedback`, formData);
 
       // Clear form fields after successful submission
       setFeedbackUserName("");

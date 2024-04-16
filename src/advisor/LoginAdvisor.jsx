@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import VITE_DATA from "../config/config.jsx";
 function LoginAdvisor() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ function LoginAdvisor() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post("https://eleedomimf.onrender.com/advisor/login", {
+          const response = await axios.post(`${VITE_DATA}/advisor/login`, {
            advisoremail: email,
            advisormobile: mobile,
            advisorpassword:  password,

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { State, City } from 'country-state-city';
+import VITE_DATA from "../../config/config.jsx";
 function TwoWheelers() {
   const [vage, setVage] = useState("");
   const [pdata, setPdata] = useState([]);
@@ -69,7 +70,7 @@ function TwoWheelers() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/advisor/lists`, {
+        .get(`${VITE_DATA}/advisor/lists`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -84,7 +85,7 @@ function TwoWheelers() {
   }, [advisor]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
 
@@ -102,7 +103,7 @@ function TwoWheelers() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+        .get(`${VITE_DATA}/view/fuel`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -117,7 +118,7 @@ function TwoWheelers() {
   }, [fuelType]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -135,7 +136,7 @@ function TwoWheelers() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/payouton`, {
+        .get(`${VITE_DATA}/view/payouton`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -214,7 +215,7 @@ function TwoWheelers() {
         vcc: cc,
         branchpayoutper
       };
-      await axios.post("https://eleedomimf.onrender.com/commission1/slab/tw/add", formData, {
+      await axios.post(`${VITE_DATA}/commission1/slab/tw/add`, formData, {
         headers: {
           Authorization: `${token}`
         }

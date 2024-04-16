@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import { CgCloseR } from "react-icons/cg";
 import axios from 'axios';
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../config/config.jsx";
 function CvLists() {
     const [APIData, setAPIData] = useState([]);
 
@@ -13,7 +13,7 @@ function CvLists() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+                .get(`${VITE_DATA}/commission/slab/view`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },

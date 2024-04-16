@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
+import VITE_DATA from "../config/config .jsx";
 
 function ForgotEmpPassword() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function ForgotEmpPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post("https://eleedomimf.onrender.com/forgot/emp/pass", {
+        const response = await axios.post(`${VITE_DATA}/forgot/emp/pass`, {
           empemail
         });
        

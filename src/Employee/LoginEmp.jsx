@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
-
+import VITE_DATA from "../config/config.jsx";
 
 function LoginEmp() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function LoginEmp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/login/employee", {
+      const response = await axios.post(`${VITE_DATA}/login/employee`, {
         empmobile: mobile,
         empemail: email,
         emppassword: password,

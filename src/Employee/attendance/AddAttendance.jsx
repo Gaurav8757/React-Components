@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import LeaveApplication from '../LeaveApplication/LeaveApplication.jsx';
-
+import VITE_DATA from '../../config/config.jsx';
 // get times
 const getCurrentDateAndTime = () => {
   const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
@@ -57,7 +57,7 @@ function AddAttendance() {
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
       const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
-      await axios.post(`https://eleedomimf.onrender.com/employee/mark/attendance/${empid}`, {
+      await axios.post(`${VITE_DATA}/employee/mark/attendance/${empid}`, {
         status: attendanceStatus,
         date: datePart,
         time: timePart,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../config/config.jsx";
 function EmpPassUpdate() {
   const navigate = useNavigate();
     const { empsId, token } = useParams();
@@ -13,7 +13,7 @@ function EmpPassUpdate() {
      const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post(`https://eleedomimf.onrender.com/emp/pass/${empsId}/${token}`, {
+          const response = await axios.post(`${VITE_DATA}/emp/pass/${empsId}/${token}`, {
               emppassword,
               confirmemp_password: confirmpass,
           });

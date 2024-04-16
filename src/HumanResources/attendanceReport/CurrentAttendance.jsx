@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { format, startOfMonth, endOfMonth, addDays } from 'date-fns';
+import VITE_DATA from "../../config/config.jsx";
 
 function CurrentAttendance() {
     const [APIData, setAPIData] = useState([]);
@@ -18,7 +19,7 @@ function CurrentAttendance() {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
             axios
-                .get(`https://eleedomimf.onrender.com/holidays/alllists`, {
+                .get(`${VITE_DATA}/holidays/alllists`, {
                     headers: {
                         Authorization: `${token}`,
                     },
@@ -34,7 +35,7 @@ function CurrentAttendance() {
 
     useEffect(() => {
         axios
-            .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+            .get(`${VITE_DATA}/api/employee-list`, {
                 headers: {
                     Authorization: `${sessionStorage.getItem("token")}`,
                 },

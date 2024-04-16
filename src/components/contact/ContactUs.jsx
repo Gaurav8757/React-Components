@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 const ContactUs = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
@@ -9,7 +10,7 @@ const ContactUs = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://eleedomimf.onrender.com/users/contactus', {
+            const response = await axios.post(`${VITE_DATA}/users/contactus`, {
                 usercontact_email: email,
                 usercontact_mobile: mobile,
                 usercontact_query: query,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
-
+import VITE_DATA from "../../config/config.jsx";
 
 function InsuranceLists() {
   const [allDetailsData, setAllDetailsData] = useState([]);
@@ -19,7 +19,7 @@ function InsuranceLists() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://eleedomimf.onrender.com/alldetails/viewdata"
+          `${VITE_DATA}/alldetails/viewdata`
         );
         setAllDetailsData(response.data);
       } catch (error) {

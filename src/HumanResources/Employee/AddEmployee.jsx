@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import VITE_DATA from "../../config/config.jsx";
+
 function AddEmployee() {
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
@@ -34,7 +36,7 @@ function AddEmployee() {
 
   useEffect(() => {
     // Fetch the list of branches when the component mounts
-    axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
+    axios.get(`${VITE_DATA}/api/branch-list`).then((resp) => {
       setBranchList(resp.data);
     });
 
@@ -42,7 +44,7 @@ function AddEmployee() {
 
   useEffect(() => {
     // Fetch the list of branches when the component mounts
-    axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+    axios.get(`${VITE_DATA}/staff/lists`).then((resp) => {
       setType(resp.data);
 
     });
@@ -118,7 +120,7 @@ function AddEmployee() {
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
-        "https://eleedomimf.onrender.com/dashboard/addemployee",
+        `${VITE_DATA}/dashboard/addemployee`,
         formData,
         {
           headers: {

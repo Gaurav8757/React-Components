@@ -5,7 +5,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { format, differenceInDays } from 'date-fns';
 import { toast } from "react-toastify";
-
+import VITE_DATA from '../../config/config.jsx';
 function LeaveApplication() {
   const employeeId = sessionStorage.getItem('employeeId');
   const [status, setStatus] = useState(false);
@@ -37,7 +37,7 @@ function LeaveApplication() {
         const status = "pending";
   
         // Fetch current leave details
-        const response = await axios.get(`https://eleedomimf.onrender.com/api/employee/${employeeId}`);
+        const response = await axios.get(`${VITE_DATA}/api/employee/${employeeId}`);
         const currentLeaveDetails = response.data.leaveDetails;
   
         // Append new leave application to current leave details
@@ -55,7 +55,7 @@ function LeaveApplication() {
         ];
   
         // Send updated leave details to backend
-        await axios.put(`https://eleedomimf.onrender.com/api/emp/update/${employeeId}`, { leaveDetails: updatedLeaveDetails });
+        await axios.put(`${VITE_DATA}/api/emp/update/${employeeId}`, { leaveDetails: updatedLeaveDetails });
   
         toast.success('Leave application Submitted Successfully.');
         document.getElementById('message').value = '';

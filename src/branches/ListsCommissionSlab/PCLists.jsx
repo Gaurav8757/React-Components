@@ -3,6 +3,7 @@ import axios from 'axios';
 import PcUpdates from "../UpdatePaySlabs/PcUpdates.jsx";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 function PCLists() {
   const [APIData, setAPIData] = useState([]);
   // const name = sessionStorage.getItem('name');
@@ -14,7 +15,7 @@ function PCLists() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+        .get(`${VITE_DATA}/commission/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -37,7 +38,7 @@ function PCLists() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/commission/slab/view`,
+          `${VITE_DATA}/commission/slab/view`,
           {
             headers: {
               Authorization: `${token}`,

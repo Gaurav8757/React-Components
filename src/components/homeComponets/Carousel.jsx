@@ -3,18 +3,20 @@ import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import VITE_DATA from '../../config/config.jsx';
 
 const Carousel = () => {
   const [APIData, setAPIData] = useState([]);
   useEffect(() => {
     // The user is authenticated, so you can make your API request here.
     axios
-      .get(`https://eleedomimf.onrender.com/users/first/view`)
+      .get(`${VITE_DATA}/users/first/view`)
       .then((response) => {
         //  console.log(response.data);
         setAPIData(response.data);

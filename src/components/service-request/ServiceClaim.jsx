@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 const ServiceClaim = () => {
     const [email, setEmail] = useState("");
     const [mobile, setMobile] = useState("");
@@ -15,7 +16,7 @@ const ServiceClaim = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://eleedomimf.onrender.com/users/claim', {
+            const response = await axios.post(`${VITE_DATA}/users/claim`, {
               userclaim_name: name,
               userclaim_email: email,
               userclaim_mobile: mobile,

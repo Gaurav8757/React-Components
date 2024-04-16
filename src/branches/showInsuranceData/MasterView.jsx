@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
+import VITE_DATA from "../../config/config.jsx";
 // import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
@@ -27,7 +28,7 @@ function MasterView() {
           return;
         }
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/alldetails/viewdata/branch/hpur`,
+          `${VITE_DATA}/alldetails/viewdata/branch/hpur`,
           {
             params: {
               branch: name

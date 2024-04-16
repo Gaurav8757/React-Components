@@ -3,13 +3,14 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Form from "../ViewForm/Form.jsx";
+import VITE_DATA from "../../../config/config.jsx";
 function EmpHealthPage() {
   const [APIData, setAPIData] = useState([]);
   const [selectedCompanyName, setSelectedCompanyName] = useState("");
 
   useEffect(() => {
     axios
-      .get(`https://eleedomimf.onrender.com/api/company/health-list`)
+      .get(`${VITE_DATA}/api/company/health-list`)
       .then((response) => {
         setAPIData(response.data);
       })

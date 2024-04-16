@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
 import axios from "axios";
-
+import VITE_DATA from "../../config/config.jsx";
 function UpdateFinance({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -124,7 +124,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   };
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -235,7 +235,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
 
@@ -368,7 +368,7 @@ function UpdateFinance({ insurance, onUpdate }) {
     try {
       setLoading(true);
       // Use the selected category ID in the patch method
-      const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${insurance._id}`, allDetails);
+      const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${insurance._id}`, allDetails);
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
       onUpdate()

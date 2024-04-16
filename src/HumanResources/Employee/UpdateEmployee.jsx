@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CgCloseR } from "react-icons/cg";
+import VITE_DATA from "../../config/config.jsx";
+
 function UpdateEmployee({ employee, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -40,7 +42,7 @@ function UpdateEmployee({ employee, onUpdate }) {
 
     useEffect(() => {
         // Fetch the list of branches when the component mounts
-        axios.get("https://eleedomimf.onrender.com/staff/lists").then((resp) => {
+        axios.get(`${VITE_DATA}/staff/lists`).then((resp) => {
             setType(resp.data);
 
         });
@@ -65,7 +67,7 @@ function UpdateEmployee({ employee, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/api/emp/update/${employee._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/api/emp/update/${employee._id}`, // Update the URL with the correct endpoint
                 data
             );
             toast.success(`${response.data.status}`)

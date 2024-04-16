@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import VITE_DATA from '../../config/config.jsx';
 
 // get times
 const getCurrentDateAndTime = () => {
@@ -57,7 +58,7 @@ function AddHrAttendance() {
       const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
       const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
       // Make a POST request to mark attendance
-     await axios.post(`https://eleedomimf.onrender.com/hr/mark/attendance/${hrid}`, {
+     await axios.post(`${VITE_DATA}/hr/mark/attendance/${hrid}`, {
         status: attendanceStatus,
         date: datePart,
         time: timePart,

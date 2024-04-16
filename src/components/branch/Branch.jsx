@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import VITE_DATA from "../../config/config.jsx";
 const Branch = () => {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
         // Fetch data directly without checking for the token
         axios
-            .get(`https://eleedomimf.onrender.com/api/branch-list`)
+            .get(`${VITE_DATA}/api/branch-list`)
             .then((response) => {
                 setAPIData(response.data);
             })

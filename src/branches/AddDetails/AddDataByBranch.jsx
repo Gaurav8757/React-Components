@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 function AddDataByBranch() {
     const [entryDate, setEntryDate] = useState('');
     const [company, setCompany] = useState('');
@@ -26,7 +27,7 @@ function AddDataByBranch() {
     const name = sessionStorage.getItem("name");
 
     useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+        axios.get(`${VITE_DATA}/staff/policy/lists`)
             .then((resp) => {
                 const PolicyType = resp.data;
 
@@ -39,7 +40,7 @@ function AddDataByBranch() {
 
 
     useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+        axios.get(`${VITE_DATA}/view/company/lists`)
           .then((resp) => {
             const cType = resp.data;
             
@@ -99,7 +100,7 @@ function AddDataByBranch() {
 
         try {
             // Make sure to replace this URL with your actual API endpoint
-            const response = await axios.post(`https://eleedomimf.onrender.com/alldetails/adddata`, {
+            const response = await axios.post(`${VITE_DATA}/alldetails/adddata`, {
                 entryDate,
                 company,
                 category,

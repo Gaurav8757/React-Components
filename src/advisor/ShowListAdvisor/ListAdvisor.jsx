@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../config/config.jsx";
 
 function ListAdvisor() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +21,7 @@ function ListAdvisor() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/advisor/lists`, {
+                .get(`${VITE_DATA}/advisor/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },

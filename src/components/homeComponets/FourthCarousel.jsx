@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import VITE_DATA from '../../config/config.jsx';
 // import { NavLink } from 'react-router-dom';
 const FourthCarousel = () => {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
         axios
-            .get(`https://eleedomimf.onrender.com/users/activeusers`)
+            .get(`${VITE_DATA}/users/activeusers`)
             .then((response) => {
                 // console.log(response.data);
                 setAPIData(response.data);

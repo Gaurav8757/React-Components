@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
-
+import VITE_DATA from "../config/config.jsx";
 function ForgetPassBranch() {
   const navigate = useNavigate();
   const [branchemail, setBranchEmail] = useState("");
@@ -11,7 +11,7 @@ function ForgetPassBranch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post("https://eleedomimf.onrender.com/forgot/branch/pass", {
+        const response = await axios.post(`${VITE_DATA}/forgot/branch/pass`, {
           branchemail
         });
        

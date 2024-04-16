@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import AddPolicyDetail from './AddPolicyDetail.jsx';
 import * as XLSX from 'xlsx';
+import VITE_DATA from '../../config/config.jsx';
 // update policy
 function EmpPolicy() {
     const [APIData, setAPIData] = useState([]);
@@ -31,7 +32,7 @@ function EmpPolicy() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/alldetails/viewdata/${empid}`, {
+                .get(`${VITE_DATA}/alldetails/viewdata/${empid}`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -102,7 +103,7 @@ function EmpPolicy() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/alldetails/viewdata/${empid}`,
+                    `${VITE_DATA}/alldetails/viewdata/${empid}`,
                     {
                         headers: {
                             Authorization: `${token}`,

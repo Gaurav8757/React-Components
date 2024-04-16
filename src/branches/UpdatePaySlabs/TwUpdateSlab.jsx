@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { State, City } from 'country-state-city';
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../../config/config.jsx";
 // eslint-disable-next-line react/prop-types
 function TwUpdateSlab({ slab, update }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +68,7 @@ function TwUpdateSlab({ slab, update }) {
   };
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -79,7 +80,7 @@ function TwUpdateSlab({ slab, update }) {
   }, [data]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
 
@@ -97,7 +98,7 @@ function TwUpdateSlab({ slab, update }) {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/payouton`, {
+        .get(`${VITE_DATA}/view/payouton`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -118,7 +119,7 @@ function TwUpdateSlab({ slab, update }) {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+        .get(`${VITE_DATA}/view/fuel`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -171,7 +172,7 @@ function TwUpdateSlab({ slab, update }) {
     try {
       setLoading(true);
       // Use the selected category ID in the patch method
-      const resp = await axios.put(`https://eleedomimf.onrender.com/commission/slab/${slab._id}`, allDetails);
+      const resp = await axios.put(`${VITE_DATA}/commission/slab/${slab._id}`, allDetails);
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
       update();

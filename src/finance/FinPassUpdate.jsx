@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import VITE_DATA from "../config/config.jsx";
 
 function FinPassUpdate() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ function FinPassUpdate() {
  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`https://eleedomimf.onrender.com/finance/pass/${fId}/${token}`, {
+        const response = await axios.post(`${VITE_DATA}/finance/pass/${fId}/${token}`, {
             finpassword,
             finconfirm_password: confirmpass,
         });

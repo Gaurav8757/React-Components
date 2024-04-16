@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
-
+import VITE_DATA from "../../config/config.jsx";
 function ReportEmp() {
     const [APIData, setAPIData] = useState([]);
     const [sendStaffId, setSendStaffId] = useState(null);
@@ -21,7 +21,7 @@ function ReportEmp() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/holidays/alllists`, {
+                .get(`${VITE_DATA}/holidays/alllists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -228,7 +228,7 @@ function ReportEmp() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                .get(`${VITE_DATA}/api/employee-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -307,7 +307,7 @@ function ReportEmp() {
     // ******************** Delete Functions *************************************/
     const onDeleteEmployee = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/emp/api/${_id}`);
+            await axios.delete(`${VITE_DATA}/emp/api/${_id}`);
             toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

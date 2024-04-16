@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
+import VITE_DATA from "../config/config.jsx";
 function ForgetFinance() {
   const navigate = useNavigate();
   const [finemail, setFinEmail] = useState("");
@@ -9,7 +10,7 @@ function ForgetFinance() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post("http://localhost:7000/forgot/finance/pass", {
+        const response = await axios.post(`${VITE_DATA}forgot/finance/pass`, {
           finemail
         });
        

@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function BusinessInsPage() {
     const [APIData, setAPIData] = useState([]);
     const [selectedCompanyName, setSelectedCompanyName] = useState("");
     useEffect(() => {
         axios
-            .get(`https://eleedomimf.onrender.com/api/company/nonmotor-list`)
+            .get(`${VITE_DATA}/api/company/nonmotor-list`)
             .then((response) => {
                 setAPIData(response.data);
 

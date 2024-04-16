@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
     import { toast } from "react-toastify";
     import axios from "axios";
+import VITE_DATA from "../../config/config.jsx";
 function CompanySlab() {
       const [pdata, setPdata] = useState([]);
       const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ function CompanySlab() {
       const [popercentage, setPoPercentage] = useState();
         const [branchpayoutper, setBranchpayoutper] = useState();
       useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+        axios.get(`${VITE_DATA}/view/company/lists`)
           .then((resp) => {
             const cType = resp.data;
     
@@ -30,7 +31,7 @@ function CompanySlab() {
       }, [pdata]);
     
       useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+        axios.get(`${VITE_DATA}/staff/policy/lists`)
           .then((resp) => {
             const PolicyType = resp.data;
     
@@ -49,7 +50,7 @@ function CompanySlab() {
         } else {
           // The user is authenticated, so you can make your API request here.
           axios
-            .get(`https://eleedomimf.onrender.com/view/payouton`, {
+            .get(`${VITE_DATA}/view/payouton`, {
               headers: {
                 Authorization: `${token}`, // Send the token in the Authorization header
               },
@@ -109,7 +110,7 @@ function CompanySlab() {
             branchpayoutper,
           };
           
-          await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
+          await axios.post(`${VITE_DATA}/commission/slab/add`, formData, {
             headers: {
               Authorization: `${token}`
             }

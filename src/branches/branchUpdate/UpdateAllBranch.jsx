@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../../config/config.jsx";
 // import { POLICY_TYPES } from "../../admin/admincomponents/MasterForm/master.jsx";
 function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
     const [loading, setLoading] = useState("");
@@ -58,7 +59,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/view/fuel`, {
+                .get(`${VITE_DATA}/view/fuel`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -73,7 +74,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
     }, [fuelType]);
 
     useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+        axios.get(`${VITE_DATA}/view/company/lists`)
             .then((resp) => {
                 const cType = resp.data;
 
@@ -173,7 +174,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
         try {
             setLoading(true);
             // Use the selected category ID in the patch method
-            const resp = await axios.put(`https://eleedomimf.onrender.com/alldetails/updatedata/${allDetails._id}`, allDetails);
+            const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${allDetails._id}`, allDetails);
             toast.success(`${resp.data.status}`);
 
 

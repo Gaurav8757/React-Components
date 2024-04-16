@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { State, City } from 'country-state-city';
-
+import VITE_DATA from "../../config/config.jsx";
 
 function PrivateCar() {
   const [pdata, setPdata] = useState([]);
@@ -70,7 +70,7 @@ function PrivateCar() {
 
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/advisor/lists`, {
+    axios.get(`${VITE_DATA}/advisor/lists`, {
       headers: {
         Authorization: `${token}`,
       },
@@ -87,7 +87,7 @@ function PrivateCar() {
 
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
 
@@ -99,7 +99,7 @@ function PrivateCar() {
   }, [pdata]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -118,7 +118,7 @@ function PrivateCar() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/payouton`, {
+        .get(`${VITE_DATA}/view/payouton`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -139,7 +139,7 @@ function PrivateCar() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/view/fuel`, {
+        .get(`${VITE_DATA}/view/fuel`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -216,7 +216,7 @@ function PrivateCar() {
         branchpayoutper,
         companypayoutper
       };
-      await axios.post("https://eleedomimf.onrender.com/commission/slab/add", formData, {
+      await axios.post(`${VITE_DATA}/commission/slab/add`, formData, {
         headers: {
           Authorization: `${token}`
         }

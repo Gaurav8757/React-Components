@@ -3,6 +3,7 @@ import axios from 'axios';
 import TwUpdateSlab from "../UpdatePaySlabs/TwUpdateSlab.jsx";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
+import VITE_DATA from "../../config/config.jsx";
 
 function TwLists() {
   const [APIData, setAPIData] = useState([]);
@@ -16,7 +17,7 @@ function TwLists() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/commission/slab/view`, {
+        .get(`${VITE_DATA}/commission/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -40,7 +41,7 @@ function TwLists() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/commission/slab/view`,
+          `${VITE_DATA}/commission/slab/view`,
           {
             headers: {
               Authorization: `${token}`,

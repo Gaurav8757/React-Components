@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../config/config.jsx";
 function ProfileUpdate() {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
@@ -30,7 +30,7 @@ function ProfileUpdate() {
 const Id = sessionStorage.getItem("employeeId");
 
 useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/api/employee/${Id}`)
+    axios.get(`${VITE_DATA}/api/employee/${Id}`)
         .then((resp) => {
             const employeeData = resp.data;
             // Update the state with employee data
@@ -99,7 +99,7 @@ const updateEmpAPI = async () => {
        
 
         const response = await axios.put(
-            `https://eleedomimf.onrender.com/api/emp/update/${Id}`,
+            `${VITE_DATA}/api/emp/update/${Id}`,
             formData,
             {
                 headers: {
