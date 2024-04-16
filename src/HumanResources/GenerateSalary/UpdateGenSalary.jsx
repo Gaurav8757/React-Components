@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CgCloseR } from "react-icons/cg";
+import { format } from 'date-fns';
 
 function UpdateGenSalary({ genSalaries, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +32,17 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
         setIsModalOpen(false);
     };
 
+    const renderMonths = () => {
+        const currentYear = new Date().getFullYear(); // Get the current year
+        const months = [];
+        for (let m = 0; m < 12; m++) {
+          const monthValue = `${String(m + 1).padStart(2, '0')}/${currentYear}`; // Month value format: MM/YYYY
+          const date = new Date(currentYear, m, 1);
+          const monthName = format(date, 'MMMM');
+          months.push(<option key={monthValue} value={monthValue}>{monthName}</option>);
+        }
+        return months;
+      };
     // show all data inside input tag
     useEffect(() => {
         setData(genSalaries);
@@ -150,18 +162,7 @@ function UpdateGenSalary({ genSalaries, onUpdate }) {
                                             name="genMonths"
                                         >
                                             <option key="0" value="" >----- Select Month&apos;s -----</option>
-                                            <option key="1" value={"January"}>January</option>
-                                            <option key="2" value={"Febuary"}>Febuary</option>
-                                            <option key="3" value={"March"}>March</option>
-                                            <option key="4" value={"April"}>April</option>
-                                            <option key="5" value={"May"}>May</option>
-                                            <option key="6" value={"June"}>June</option>
-                                            <option key="7" value={"July"}>July</option>
-                                            <option key="8" value={"August"}>August</option>
-                                            <option key="9" value={"September"}>September</option>
-                                            <option key="10" value={"October"}>October</option>
-                                            <option key="11" value={"November"}>November</option>
-                                            <option key="12" value={"December"}>December</option>
+                                            {renderMonths()}
                                         </select>
                                     </div>
 

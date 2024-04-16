@@ -7,7 +7,7 @@ import jsPDF from "jspdf";
 
 function SalaryViewPage({ data }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    console.log(data);
+    // console.log(data);
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);

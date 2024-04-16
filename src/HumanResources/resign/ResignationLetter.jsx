@@ -14,37 +14,37 @@ function ResignationLetter() {
         removeAfterPrint: true,
     });
 
-// Download PDF function
-const downloadPDF = () => {
-    const input = componentRef.current;
-    html2canvas(input).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210;
-        const pageHeight = 295;
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        let heightLeft = imgHeight;
-        let position = 0;
+    // Download PDF function
+    const downloadPDF = () => {
+        const input = componentRef.current;
+        html2canvas(input).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210;
+            const pageHeight = 295;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 0;
 
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-
-        while (heightLeft >= 0) {
-            position = heightLeft - imgHeight;
-            pdf.addPage();
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
-        }
-        pdf.save('resignation_letter.pdf');
-    });
-};
+
+            while (heightLeft >= 0) {
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            pdf.save('resignation_letter.pdf');
+        });
+    };
 
 
 
     return (
         <section className="container-fluid sm:ml-64 " >
             <div className='flex justify-end mx-5 '>
-            <button onClick={downloadPDF} className="flex justify-end my-3 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
+                <button onClick={downloadPDF} className="flex justify-end my-3 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
                     Download
                 </button>
                 <button onClick={handlePrint} className="flex justify- text-end my-3   px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
@@ -84,15 +84,20 @@ const downloadPDF = () => {
                     <p className="mb-4">
                         Here are the details of your offer:
                     </p>
-                    <ul className="list-disc mb-4 ml-6">
+                    {/* <ul className="list-disc mb-4 ml-6">
                         <li>Position: [Job Title]</li>
                         <li>Salary: [Salary Amount]</li>
                         <li>Start Date: [Start Date]</li>
                         <li>Location: [Location]</li>
-                    </ul>
+                    </ul> */}
                     <p className="mb-4">
-                        We are excited about the skills and experiences you will bring to our team, and we look forward to your contributions.
-                        Please let us know if you have any questions or concerns. We are here to support you in any way we can.
+                        I am writing to inform you that I will be leaving ABC Corporation permanently on April 21, 20XX. I have recently
+                        accepted a position as head architect with a local organization in the public sector. I think that this new opportunity is
+                        well suited to my long-term career goals.
+                        Thank you for allowing me the opportunity to work with and learn from such an outstanding staff. The knowledge I
+                        have gained in my year at ABC Corporation will surely aid me in my future endeavors. I am especially grateful for your
+                        close and patient supervision. Your kind encouragement assured me of my ability to handle all aspects of this industry.
+                        If there is anything I can do to make my departure easier, please let me know.
                     </p>
                     <p className="mb-4 flex justify-end mx-5">
                         Sincerely,
@@ -117,8 +122,5 @@ const downloadPDF = () => {
         </section>
     );
 }
-
-
-
 
 export default ResignationLetter;
