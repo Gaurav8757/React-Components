@@ -376,7 +376,7 @@ function EmpPolicy() {
                                         </thead>
 
                                         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                                            {filteredData.reverse().slice(startIndex, endIndex).map((data) => {
+                                            {filteredData.slice(startIndex, endIndex).map((data) => {
                                                 return (
                                                     <tr
                                                         className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium"

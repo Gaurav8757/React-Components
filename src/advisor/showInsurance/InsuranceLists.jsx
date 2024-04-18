@@ -230,7 +230,7 @@ function InsuranceLists() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {allDetailsData.reverse().filter(data => data.advisorName === name && data._id === sessionStorage.getItem("advisorId")).slice(startIndex, endIndex).map((data) => (
+                {allDetailsData.filter(data => data.advisorName === name && data._id === sessionStorage.getItem("advisorId")).slice(startIndex, endIndex).map((data) => (
                   <tr
                     className="border-b  bg-slate-200 text-sm font-medium"
                     key={data._id}>

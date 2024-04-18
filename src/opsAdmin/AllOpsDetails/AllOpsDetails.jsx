@@ -330,7 +330,7 @@ function AllOpsDetails() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
-                                {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
+                                {filteredData.slice(startIndex, endIndex).map((data) => (
                                     <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
                                 ))}
                             </tbody>

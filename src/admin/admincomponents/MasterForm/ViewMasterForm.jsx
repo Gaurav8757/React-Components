@@ -540,7 +540,7 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {filteredData.reverse().slice(startIndex, endIndex).map((data) => (
+                {filteredData.slice(startIndex, endIndex).map((data) => (
                   <tr className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium" key={data._id}>
                     <td className="whitespace-nowrap px-1 border border-black">
                       <UpdateMaster insurance={data} onUpdate={onUpdateInsurance} />
