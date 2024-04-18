@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddPaymentMode() {
   const [paymentMode, setPaymentMode] = useState('');
     const [APIData, setAPIData] = useState([]);
@@ -15,7 +15,7 @@ function AddPaymentMode() {
       } else {
           // The user is authenticated, so you can make your API request here.
           axios
-              .get(`https://eleedomimf.onrender.com/view/payment/mode`, {
+              .get(`${VITE_DATA}/view/payment/mode`, {
                   headers: {
                       Authorization: `${token}`, // Send the token in the Authorization header
                   },
@@ -38,7 +38,7 @@ function AddPaymentMode() {
           return;
         }
         // Make a POST request to mark attendance
-       await axios.post(`https://eleedomimf.onrender.com/add/payment/mode`, {
+       await axios.post(`${VITE_DATA}/add/payment/mode`, {
           paymentmode: paymentMode,
         });
         // Handle success (e.g., show a success message)
@@ -58,7 +58,7 @@ function AddPaymentMode() {
 // Delete Functions
 const deletePaymentMode = async (_id) => {
   try {
-      await axios.delete(`https://eleedomimf.onrender.com/payment/delete/${_id}`);
+      await axios.delete(`${VITE_DATA}/payment/delete/${_id}`);
       toast.warn("PaymentMode Name Deleted.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
   } catch (error) {

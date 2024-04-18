@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { RxCross2 } from "react-icons/rx";
 import { useState, useEffect } from "react";
@@ -10,7 +11,7 @@ function ChallanModal() {
     const [otp, setOtp] = useState("");
     const [isGetOtpActive, setIsGetOtpActive] = useState(false);
     // console otp
-    console.log(otp);
+    // console.log(otp);
     const startTimer = () => {
         setShowOtpInput(true);
         setTimer(30);

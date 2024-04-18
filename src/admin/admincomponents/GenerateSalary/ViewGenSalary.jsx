@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { TiArrowBack } from "react-icons/ti";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -13,7 +14,7 @@ export default function ViewGenPolicy() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/dashboard/hr/viewgen/salary`, {
+                .get(`${VITE_DATA}/dashboard/hr/viewgen/salary`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +39,7 @@ export default function ViewGenPolicy() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/dashboard/hr/viewgen/salary`,
+                    `${VITE_DATA}/dashboard/hr/viewgen/salary`,
                     {
                         headers: {
                             Authorization: `${token}`,
@@ -55,7 +56,7 @@ export default function ViewGenPolicy() {
     // ******************** Delete Functions *************************************/
     const onGenHrSalaryDelete = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/dashboard/hr/deletegen/salary/${_id}`);
+            await axios.delete(`${VITE_DATA}/dashboard/hr/deletegen/salary/${_id}`);
             toast.warn("HR Salary Deleted!", { theme: "dark", position: "top-right" });
             // Update state or perform any other necessary actions
         } catch (error) {

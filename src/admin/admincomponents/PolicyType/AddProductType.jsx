@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddProductType() {
   const [data, setData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -10,7 +10,7 @@ function AddProductType() {
   const [productTypesForSelectedPolicy, setProductTypesForSelectedPolicy] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/staff/policy/lists`)
+    axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
         
@@ -28,7 +28,7 @@ function AddProductType() {
         toast.error('Please select a Product Type!');
         return;
       }
-      await axios.put(`https://eleedomimf.onrender.com/api/policy/types/${productTypesForSelectedPolicy}/products`, {
+      await axios.put(`${VITE_DATA}/api/policy/types/${productTypesForSelectedPolicy}/products`, {
         product: productType
       });
       toast.success('Product added successfully!');
@@ -42,7 +42,7 @@ function AddProductType() {
   // delete codes
   const deleteProductTypes = async (_id) => {
     try {
-        await axios.delete(`http://localhost:7000/api/policy/products/${_id}/delete`);
+        await axios.delete(`${VITE_DATA}/api/policy/products/${_id}/delete`);
         toast.warn("Policy Type Deleted.....!", { theme: "dark", position: "top-right" });
         setData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

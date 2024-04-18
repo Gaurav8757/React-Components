@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import VITE_DATA from "../../../config/config.jsx";
 let homesection = [
   {
     title: "Health Insurance",
@@ -109,7 +110,7 @@ function AddCompanies() {
       }
 
       // Send a POST request using Axios
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/addcompany", formData, {
+      const response = await axios.post(`${VITE_DATA}/dashboard/addcompany`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

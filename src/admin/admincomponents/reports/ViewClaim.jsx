@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 
 const ViewClaim = () => {
   const [APIData, setAPIData] = useState([]);
@@ -13,7 +13,7 @@ const ViewClaim = () => {
       toast.error("Not Authorized yet.. Try again!");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/users/viewclaim`, {
+        .get(`${VITE_DATA}/users/viewclaim`, {
             headers: {
                 Authorization: `${token}`,
               },
@@ -29,7 +29,7 @@ const ViewClaim = () => {
 
   const onDeleteClaim = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/deleteclaim/${_id}`);
+      await axios.delete(`${VITE_DATA}/users/deleteclaim/${_id}`);
       toast.warn("Claim Deleted.....!", {
         theme: "dark",
         position: "top-right",

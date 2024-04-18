@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function HrSalary() {
   const [employeeList, setEmployeeList] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState("");
@@ -11,7 +12,7 @@ function HrSalary() {
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
-    axios.get("https://eleedomimf.onrender.com/hr/lists").then((response) => {
+    axios.get(`${VITE_DATA}/hr/lists`).then((response) => {
       setEmployeeList(response.data);
       
     });
@@ -22,7 +23,7 @@ function HrSalary() {
     setLoading(true);
     
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/hr/addsalary", {
+      const response = await axios.post(`${VITE_DATA}/dashboard/hr/addsalary`, {
         hrname: selectedEmployee,
         hrmonthlySalary: monthsalary,
         hrmonthlyLeave: monthleave,

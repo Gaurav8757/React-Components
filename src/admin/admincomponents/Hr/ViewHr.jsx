@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import UpdateHr from "./UpdateHr.jsx"
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../../config/config.jsx";
+
 function ViewHr() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -13,7 +15,7 @@ function ViewHr() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/hr/lists`, {
+                .get(`${VITE_DATA}/hr/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +40,7 @@ function ViewHr() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/hr/lists`,
+          `${VITE_DATA}/hr/lists`,
           {
             headers: {
               Authorization: `${token}`,
@@ -56,7 +58,7 @@ function ViewHr() {
     // ******************** Delete Functions *************************************/
     const onDeleteHR = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/hr/data/${_id}`);
+          await axios.delete(`${VITE_DATA}/hr/data/${_id}`);
           toast.warn("HR Deleted Successfully.....!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

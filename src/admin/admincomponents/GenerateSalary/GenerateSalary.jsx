@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function GenerateSalary() {
   const [salaryList, setSalaryList] = useState([]);
   const [hrname, setHrName] = useState("");
@@ -28,7 +28,7 @@ function GenerateSalary() {
   const [loanemi, setLoanemi] = useState("");
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    axios.get("https://eleedomimf.onrender.com/dashboard/hr/viewsalary").then((response) => {
+    axios.get(`${VITE_DATA}/dashboard/hr/viewsalary`).then((response) => {
       setSalaryList(response.data);
     });
   }, []);
@@ -48,7 +48,7 @@ function GenerateSalary() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("https://eleedomimf.onrender.com/dashboard/hr/gensalary", {
+      const response = await axios.post(`${VITE_DATA}/dashboard/hr/gensalary`, {
         hrname: hrname.toString(),
         presenthrDays: persentday,
         totalhrHalfDays: halfday,

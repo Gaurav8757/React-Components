@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../../config/config.jsx";
 function ViewUserFillCompany() {
     const [APIData, setAPIData] = useState([]);
     const [search, setSearch] = useState("");
@@ -13,7 +14,7 @@ function ViewUserFillCompany() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/users/view/userdetails`, {
+                .get(`${VITE_DATA}/users/view/userdetails`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -33,7 +34,7 @@ function ViewUserFillCompany() {
     // ******************** Delete Functions *************************************/
     const onDeleteCustomerDetails = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/users/delete/userdetails/${_id}`);
+            await axios.delete(`${VITE_DATA}/users/delete/userdetails/${_id}`);
             toast.success("Customer Details Removed Successfully..!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

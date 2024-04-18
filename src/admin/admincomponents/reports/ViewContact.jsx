@@ -2,7 +2,7 @@ import axios from "axios";
 import UpdateContact from "./UpdateContact.jsx";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 const ViewContact = () => {
   const [contacts, setContacts] = useState([]);
 
@@ -13,7 +13,7 @@ const ViewContact = () => {
       toast.error("Not Authorized yet.. Try again!");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/users/viewcontact`, {
+        .get(`${VITE_DATA}/users/viewcontact`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -36,7 +36,7 @@ const ViewContact = () => {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/users/viewcontact`,
+          `${VITE_DATA}/users/viewcontact`,
           {
             headers: {
               Authorization: `${token}`,
@@ -54,7 +54,7 @@ const ViewContact = () => {
 
   const onDeleteComplaint = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/deletecontact/${_id}`);
+      await axios.delete(`${VITE_DATA}/users/deletecontact/${_id}`);
       toast.warn("Contact is Deleted.....!", {
         theme: "dark",
         position: "top-right",

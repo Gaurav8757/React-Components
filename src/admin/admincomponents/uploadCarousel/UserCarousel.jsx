@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function UserCarousel() {
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
@@ -18,13 +19,8 @@ function UserCarousel() {
             formData.append("usercarousel_desc", desc);
             formData.append("usercarousel_upload", image)
             // const datas = new FormData();
-
-          
-
-
-           
             // Send a POST request using Axios
-            const response = await axios.post("https://eleedomimf.onrender.com/users/first/carousel", formData, {
+            const response = await axios.post(`${VITE_DATA}/users/first/carousel`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

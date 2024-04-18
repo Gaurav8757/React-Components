@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CgCloseR } from "react-icons/cg";
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateHr({ hr, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ function UpdateHr({ hr, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/hr/update/${hr._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/hr/update/${hr._id}`, // Update the URL with the correct endpoint
                 data
             );
 

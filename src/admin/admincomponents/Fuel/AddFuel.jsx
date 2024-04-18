@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function AddFuel() {
     const [fType, setFType] = useState('');
     const [APIData, setAPIData] = useState([]);
@@ -14,7 +15,7 @@ function AddFuel() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/view/fuel`, {
+                .get(`${VITE_DATA}/view/fuel`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -37,7 +38,7 @@ function AddFuel() {
               return;
             }
             // Make a POST request to mark attendance
-           await axios.post(`https://eleedomimf.onrender.com/add/fuel`, {
+           await axios.post(`${VITE_DATA}/add/fuel`, {
               fuels: fType,
             });
             // Handle success (e.g., show a success message)
@@ -57,7 +58,7 @@ function AddFuel() {
 // Delete Functions
 const deleteFuelTypes = async (_id) => {
     try {
-        await axios.delete(`https://eleedomimf.onrender.com/fuel/delete/${_id}`);
+        await axios.delete(`${VITE_DATA}/fuel/delete/${_id}`);
         toast.warn("Fuel Name Deleted.....!", { theme: "dark", position: "top-right" });
         setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

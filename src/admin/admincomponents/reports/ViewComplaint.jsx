@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 const ViewComplaint = () => {
   const [complaints, setComplaints] = useState([]);
 
@@ -12,7 +12,7 @@ const ViewComplaint = () => {
       toast.error("Not Authorized yet.. Try again!");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/users/viewcomplaint`, {
+        .get(`${VITE_DATA}/users/viewcomplaint`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -28,7 +28,7 @@ const ViewComplaint = () => {
 
   const onDeleteComplaint = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/deletecomplaint/${_id}`);
+      await axios.delete(`${VITE_DATA}/users/deletecomplaint/${_id}`);
       toast.warn("Complaint Deleted.....!", {
         theme: "dark",
         position: "top-right",

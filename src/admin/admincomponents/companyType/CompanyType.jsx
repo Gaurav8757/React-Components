@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function CompanyType() {
     const [cType, setCType] = useState('');
     const [APIData, setAPIData] = useState([]);
@@ -13,7 +14,7 @@ function CompanyType() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/view/company/lists`, {
+                .get(`${VITE_DATA}/view/company/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -36,7 +37,7 @@ function CompanyType() {
               return;
             }
             // Make a POST request to mark attendance
-           await axios.post(`https://eleedomimf.onrender.com/add/comapny/type`, {
+           await axios.post(`${VITE_DATA}/add/comapny/type`, {
               c_type: cType,
             });
             // Handle success (e.g., show a success message)
@@ -56,7 +57,7 @@ function CompanyType() {
 // Delete Functions
 const deleteCompanyTypes = async (_id) => {
     try {
-        await axios.delete(`https://eleedomimf.onrender.com/policy/company/${_id}`);
+        await axios.delete(`${VITE_DATA}/policy/company/${_id}`);
         toast.error("Company Name Deleted.....!", { theme: "dark", position: "top-right" });
         setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

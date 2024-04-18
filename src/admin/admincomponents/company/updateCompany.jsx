@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 // import {useParams} from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../../../config/config.jsx";
 let homesection = [
   {
     title: "Health Insurance",
@@ -139,7 +140,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
           formData.append(key, value);
         });
         // Use the selected category ID in the patch method
-        const resp = await axios.put(`https://eleedomimf.onrender.com/api/company/updatecomp/${datas._id}`, formData, {
+        const resp = await axios.put(`${VITE_DATA}/api/company/updatecomp/${datas._id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

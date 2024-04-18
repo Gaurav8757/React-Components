@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import VITE_DATA from '../../../config/config.jsx';
 function HrAttendance() {
   const [value, onChange] = useState(new Date());
   const [attendanceStatus, setAttendanceStatus] = useState([]);
@@ -45,7 +45,7 @@ function HrAttendance() {
       toast.error('Not Authorized yet.. Try again! ');
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/hr/attendance/${id}`, {
+        .get(`${VITE_DATA}/hr/attendance/${id}`, {
           headers: {
             Authorization: `${token}`,
           },

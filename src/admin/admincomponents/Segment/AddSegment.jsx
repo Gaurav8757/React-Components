@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddSegment() {
   const [data, setData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -11,7 +11,7 @@ function AddSegment() {
   const [productTypesForSelectedPolicy, setProductTypesForSelectedPolicy] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+    axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
 
@@ -31,7 +31,7 @@ function AddSegment() {
         toast.error('Please select a Category Name!');
         return;
       }
-      await axios.put(`https://eleedomimf.onrender.com/api/comp/${productTypesForSelectedPolicy}/segment`, {
+      await axios.put(`${VITE_DATA}/api/comp/${productTypesForSelectedPolicy}/segment`, {
         segment
       });
       toast.success('Product added successfully!');

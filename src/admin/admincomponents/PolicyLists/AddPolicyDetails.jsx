@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddPolicyDetails() {
   const [policyList, setPolicyList] = useState([]);
   const [policytype, setPolicytype] = useState("");
@@ -15,7 +15,7 @@ function AddPolicyDetails() {
 
   useEffect(() => {
     // Fetch the list of policies when the component mounts
-    axios.get("https://eleedomimf.onrender.com/api/employee-list")
+    axios.get(`${VITE_DATA}/api/employee-list`)
       .then((response) => {
         setPolicyList(response.data || []); // Ensure policyList is an array
       })
@@ -37,7 +37,7 @@ function AddPolicyDetails() {
 
       // Make sure to replace this URL with your actual API endpoint
       const response = await axios.post(
-        "https://eleedomimf.onrender.com/dashboard/addpolicy",
+        `${VITE_DATA}/dashboard/addpolicy`,
         formData,
         {
           headers: {

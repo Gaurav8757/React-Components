@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateHrSalary({ salary, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ function UpdateHrSalary({ salary, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/dashboard/hr/update/salary/${salary._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/dashboard/hr/update/salary/${salary._id}`, // Update the URL with the correct endpoint
                 salaries
             );
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateContact({ data, onUpdate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ function UpdateContact({ data, onUpdate }) {
             setLoading(true);
             // Make an API call to update contact
             const response = await axios.patch(
-                `https://eleedomimf.onrender.com/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/users/updatecontact/${data._id}`, // Update the URL with the correct endpoint
                 contactData
             );
             toast.success(`${response.data.status}`)

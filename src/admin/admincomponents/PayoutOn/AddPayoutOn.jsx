@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddPayoutOn() {
   const [payoutOn, setPayoutOn] = useState('');
     const [APIData, setAPIData] = useState([]);
@@ -14,7 +14,7 @@ function AddPayoutOn() {
       } else {
           // The user is authenticated, so you can make your API request here.
           axios
-              .get(`https://eleedomimf.onrender.com/view/payouton`, {
+              .get(`${VITE_DATA}/view/payouton`, {
                   headers: {
                       Authorization: `${token}`, // Send the token in the Authorization header
                   },
@@ -37,7 +37,7 @@ function AddPayoutOn() {
           return;
         }
         // Make a POST request to mark attendance
-       await axios.post(`https://eleedomimf.onrender.com/add/payouton`, {
+       await axios.post(`${VITE_DATA}/add/payouton`, {
           payouton: payoutOn,
         });
         // Handle success (e.g., show a success message)
@@ -57,7 +57,7 @@ function AddPayoutOn() {
 // Delete Functions
 const deletePayoutOn = async (_id) => {
   try {
-      await axios.delete(`https://eleedomimf.onrender.com/payouton/delete/${_id}`);
+      await axios.delete(`${VITE_DATA}/payouton/delete/${_id}`);
       toast.warn("payoutOn Name Deleted.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
   } catch (error) {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 const ViewFeedback = () => {
   const [feedbackList, setFeedbackList] = useState([]);
   useEffect(() => {
@@ -11,7 +11,7 @@ const ViewFeedback = () => {
       toast.error("Not Authorized yet.. Try again!");
     } else {
       axios
-        .get(`https://eleedomimf.onrender.com/users/viewfeedback`, {
+        .get(`${VITE_DATA}/users/viewfeedback`, {
           headers: {
             Authorization: `${token}`,
           },
@@ -34,7 +34,7 @@ const ViewFeedback = () => {
       const newStatus = !currentStatus;
 
       // Update the feedback status in the database
-      await axios.patch(`https://eleedomimf.onrender.com/users/updatefeedbackstatus/${_id}`, {
+      await axios.patch(`${VITE_DATA}/users/updatefeedbackstatus/${_id}`, {
         feedbackuser_status: newStatus,
       });
 
@@ -57,7 +57,7 @@ const ViewFeedback = () => {
   // delete function
   const onDeleteFeedback = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/users/deletefeedback/${_id}`);
+      await axios.delete(`${VITE_DATA}/users/deletefeedback/${_id}`);
       toast.warn("Feedback is Deleted.....!", {
         theme: "dark",
         position: "top-right",

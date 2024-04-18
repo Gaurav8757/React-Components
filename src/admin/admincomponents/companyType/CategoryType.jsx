@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function CategoryType() {
     const [data, setData] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -11,7 +11,7 @@ function CategoryType() {
 
 
     useEffect(() => {
-        axios.get(`https://eleedomimf.onrender.com/view/company/lists`)
+        axios.get(`${VITE_DATA}/view/company/lists`)
           .then((resp) => {
             const ctType = resp.data;
             
@@ -30,7 +30,7 @@ function CategoryType() {
             toast.error('Please select a Category Type!');
             return;
           }
-          await axios.put(`https://eleedomimf.onrender.com/api/company/${catTypesForSelectedPolicy}/category`, {
+          await axios.put(`${VITE_DATA}/api/company/${catTypesForSelectedPolicy}/category`, {
             category: catType
           });
           toast.success('Category added successfully!');
@@ -45,7 +45,7 @@ function CategoryType() {
   // delete codes
   const deleteCategoryTypes = async (_id) => {
     try {
-        await axios.delete(`https://eleedomimf.onrender.com/api/company/category/${_id}/delete`);
+        await axios.delete(`${VITE_DATA}/api/company/category/${_id}/delete`);
         toast.error("Category Type Deleted.....!", { theme: "dark", position: "top-right" });
         setData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

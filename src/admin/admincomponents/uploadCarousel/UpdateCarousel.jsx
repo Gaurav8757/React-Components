@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function UpdateCarousel({ carouselFirst, onUpload }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `https://eleedomimf.onrender.com/users/first/carousel/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/users/first/carousel/update/${carouselFirst._id}`, // Update the URL with the correct endpoint
                 formData,  {
                     headers: {
                       "Content-Type": "multipart/form-data",

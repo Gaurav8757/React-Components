@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import VITE_DATA from "../../../config/confi.jsx";
+import VITE_DATA from "../../../config/config.jsx";
 
 function AddIncrement() {
   const [employees, setEmployees] = useState([]);

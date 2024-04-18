@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 
 
 export default function ViewCompany() {
@@ -17,7 +18,7 @@ export default function ViewCompany() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/company/company-list`, {
+                .get(`${VITE_DATA}/api/company/company-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -40,7 +41,7 @@ export default function ViewCompany() {
                 toast.error("Not Authorized yet.. Try again!");
             } else {
                 const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/company/company-list`,
+                    `${VITE_DATA}/api/company/company-list`,
                     {
                         headers: {
                             Authorization: `${token}`,
@@ -102,7 +103,7 @@ export default function ViewCompany() {
     // ******************** Delete Functions *************************************/
     const onDeleteCompany = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/company/api/${_id}`);
+            await axios.delete(`${VITE_DATA}/company/api/${_id}`);
             toast.warn("Company Removed.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../../config/config.jsx";
+
 export default function ViewPolicy() {
     const [APIData, setAPIData] = useState([]);
 
@@ -14,7 +16,7 @@ export default function ViewPolicy() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/api/policy-list`, {
+                .get(`${VITE_DATA}/api/policy-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +40,7 @@ const updatePolicyLists = async () => {
             toast.error("Not Authorized yet.. Try again!");
         } else {
             const response = await axios.get(
-                `https://eleedomimf.onrender.com/api/policy-list`,
+                `${VITE_DATA}/api/policy-list`,
                 {
                     headers: {
                         Authorization: `${token}`,
@@ -56,7 +58,7 @@ const updatePolicyLists = async () => {
     // ******************** Delete Functions *************************************/
     const onDeletePolicy = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/policies/api/${_id}`);
+          await axios.delete(`${VITE_DATA}/policies/api/${_id}`);
           toast.warn("Policy Deleted.....!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

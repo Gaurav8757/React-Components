@@ -3,6 +3,7 @@ import UpdateCarousel from "./UpdateCarousel.jsx";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function ViewCarousel() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -12,7 +13,7 @@ function ViewCarousel() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/users/first/view`, {
+                .get(`${VITE_DATA}/users/first/view`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -37,7 +38,7 @@ function ViewCarousel() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/users/first/view`,
+          `${VITE_DATA}/users/first/view`,
           {
             headers: {
               Authorization: `${token}`,
@@ -55,7 +56,7 @@ function ViewCarousel() {
     // ******************** Delete Functions *************************************/
     const onDeleteCarousel = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/users/first/deletecarousel/${_id}`);
+            await axios.delete(`${VITE_DATA}/users/first/deletecarousel/${_id}`);
 
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
             toast.warn("Carousel Removed.....!", { theme: "dark", position: "top-right" });

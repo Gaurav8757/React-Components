@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import VITE_DATA from "../../../config/config.jsx";
 function ListStaffType() {
     const [APIData, setAPIData] = useState([]);
     const [deletingStaffId, setDeletingStaffId] = useState(null);
@@ -17,7 +18,7 @@ function ListStaffType() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/staff/lists`, {
+                .get(`${VITE_DATA}/staff/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -33,7 +34,7 @@ function ListStaffType() {
     // ******************** Delete Functions *************************************/
     const confirmDeleteStaff = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/staff/lists/${_id}`);
+            await axios.delete(`${VITE_DATA}/staff/lists/${_id}`);
             toast.warn("Staff Type Deleted.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

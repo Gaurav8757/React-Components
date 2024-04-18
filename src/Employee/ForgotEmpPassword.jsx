@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useState } from "react";
-import VITE_DATA from "../config/config .jsx";
+import VITE_DATA from "../config/config.jsx";
 
 function ForgotEmpPassword() {
   const navigate = useNavigate();

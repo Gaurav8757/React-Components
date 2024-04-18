@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {toast} from "react-toastify";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddPolicyType() {
     const [policyType, setPolicyType] = useState('');
     const [APIData, setAPIData] = useState([]);
@@ -14,7 +14,7 @@ function AddPolicyType() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/staff/policy/lists`, {
+                .get(`${VITE_DATA}/staff/policy/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +38,7 @@ function AddPolicyType() {
               return;
             }
             // Make a POST request to mark attendance
-           await axios.post(`https://eleedomimf.onrender.com/add/policy/staff`, {
+           await axios.post(`${VITE_DATA}/add/policy/staff`, {
               p_type: policyType,
             });
             // Handle success (e.g., show a success message)
@@ -58,7 +58,7 @@ function AddPolicyType() {
     // Delete Functions
     const deletePolicyTypes = async (_id) => {
         try {
-            await axios.delete(`https://eleedomimf.onrender.com/policy/staff/${_id}`);
+            await axios.delete(`${VITE_DATA}/policy/staff/${_id}`);
             toast.warn("Policy Type Deleted.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

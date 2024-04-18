@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TiArrowBack } from "react-icons/ti";
+import VITE_DATA from "../../../config/config.jsx";
 export default function ViewHrSalary() {
     const [APIData, setAPIData] = useState([]);
     useEffect(() => {
@@ -13,7 +14,7 @@ export default function ViewHrSalary() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`https://eleedomimf.onrender.com/dashboard/hr/viewsalary`, {
+                .get(`${VITE_DATA}/dashboard/hr/viewsalary`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -38,7 +39,7 @@ export default function ViewHrSalary() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `https://eleedomimf.onrender.com/dashboard/hr/viewsalary`,
+          `${VITE_DATA}/dashboard/hr/viewsalary`,
           {
             headers: {
               Authorization: `${token}`,
@@ -56,7 +57,7 @@ export default function ViewHrSalary() {
     // ******************** Delete Functions *************************************/
     const onDeleteHRSalary = async (_id) => {
         try {
-          await axios.delete(`https://eleedomimf.onrender.com/dashboard/hr/delete/salary/${_id}`);
+          await axios.delete(`${VITE_DATA}/dashboard/hr/delete/salary/${_id}`);
           toast.warn("HR Salary Removed!", { theme: "dark", position: "top-right" });
           setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {

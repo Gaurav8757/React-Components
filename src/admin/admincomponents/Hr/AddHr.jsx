@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-
+import VITE_DATA from "../../../config/config.jsx";
 function AddHr() {
  
     const [address, setAddress] = useState("");
@@ -26,7 +26,7 @@ function AddHr() {
   
     useEffect(() => {
       // Fetch the list of branches when the component mounts
-      axios.get("https://eleedomimf.onrender.com/api/branch-list").then((resp) => {
+      axios.get(`${VITE_DATA}/api/branch-list`).then((resp) => {
         setBranchList(resp.data);
       });
     }, []);
@@ -59,7 +59,7 @@ function AddHr() {
   
         // Make sure to replace this URL with your actual API endpoint
         const response = await axios.post(
-          "https://eleedomimf.onrender.com/hr/addhr",
+          `${VITE_DATA}/hr/addhr"`,
           formData,
           {
             headers: {

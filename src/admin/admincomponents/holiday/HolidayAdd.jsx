@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import VITE_DATA from "../../../config/config.jsx";
 function HolidayAdd() {
   const [hType, setHType] = useState('');
   const [date, setDate] = useState();
   const [APIData, setAPIData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
-
-
 
   const handleDateChange = (e) => {
     // Get the selected date from the input
@@ -27,7 +26,7 @@ function HolidayAdd() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`https://eleedomimf.onrender.com/holidays/alllists`, {
+        .get(`${VITE_DATA}/holidays/alllists`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -50,7 +49,7 @@ function HolidayAdd() {
         return;
       }
       // Make a POST request to mark attendance
-      await axios.post(`https://eleedomimf.onrender.com/holidays/add`, {
+      await axios.post(`${VITE_DATA}/holidays/add`, {
         hdate: date,
         hdays: hType
       });
@@ -72,7 +71,7 @@ function HolidayAdd() {
   // Delete Functions
   const deleteHolidays = async (_id) => {
     try {
-      await axios.delete(`https://eleedomimf.onrender.com/holidays/${_id}/delete`);
+      await axios.delete(`${VITE_DATA}/holidays/${_id}/delete`);
       toast.warn("Holiday Date & Name Deleted.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
