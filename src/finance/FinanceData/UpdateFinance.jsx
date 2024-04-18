@@ -133,7 +133,7 @@ function UpdateFinance({ insurance, onUpdate }) {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
 
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
@@ -244,7 +244,7 @@ function UpdateFinance({ insurance, onUpdate }) {
       .catch((error) => {
         console.error("Error fetching company names:", error);
       });
-  }, [pdata]);
+  }, []);
 
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");

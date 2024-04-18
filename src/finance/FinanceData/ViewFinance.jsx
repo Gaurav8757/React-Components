@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import UpdateMaster from "./UpdateMaster.jsx";
 import UpdateFinance from "./UpdateFinance.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,6 +9,8 @@ function ViewFinance() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [searchBranch, setSearchBranch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
@@ -19,32 +20,37 @@ function ViewFinance() {
   const [contactNo, setContactNo] = useState("");
   const name = sessionStorage.getItem('finname');
 
+  // console.log(currentPage);
+  // console.log(itemsPerPage);
+
   useEffect(() => {
     setItemsPerPage(20);
   }, []);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`${VITE_DATA}/alldetails/viewdata`, {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const token = sessionStorage.getItem("token");
+        const response = await axios.get(`${VITE_DATA}/alldetails/viewdata`, {
           headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
+            Authorization: `${token}`,
           },
-        })
-        .then((response) => {
-
-          setAllDetailsData(response.data);
-
-        })
-        .catch((error) => {
-          console.error(error);
+          params: {
+            page: currentPage,
+            limit: itemsPerPage
+          }
         });
-    }
-  }, []);
+        setAllDetailsData(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [currentPage, itemsPerPage]);// Include currentPage in the dependency array
+
 
   // refreshing page after updating data
   const onUpdateInsurance = async () => {
@@ -60,6 +66,10 @@ function ViewFinance() {
             headers: {
               Authorization: `${token}`,
             },
+            params: {
+              page: currentPage, // Send current page as a parameter
+              limit: itemsPerPage // Send items per page as a parameter
+            }
           }
         );
         setAllDetailsData(response.data);
@@ -104,21 +114,19 @@ function ViewFinance() {
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   // Calculate starting and ending indexes of items to be displayed on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-
   const exportToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${name}_executive`;
-
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
         return [
@@ -216,10 +224,8 @@ function ViewFinance() {
         "Advisor Name",
         "Sub Advisor",
       ];
-
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-
       // Create workbook and export
       const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
       const excelBuffer = XLSX.write(wb, {
@@ -239,12 +245,13 @@ function ViewFinance() {
     }
   };
 
-
-
   const handleExportClick = () => {
     exportToExcel();
-    // exportToPDF();
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
 
   // delete function
   // const onDeleteAllData = async (_id) => {
@@ -262,7 +269,7 @@ function ViewFinance() {
   // };
 
   return (
-    <section className="container-fluid relative h-screen  p-0 sm:ml-64 bg-slate-200">
+    <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 ">
           {/* <div className=" flex relative text-blue-500 min-w-full w-full pt-5  justify-between"> */}
@@ -275,7 +282,6 @@ function ViewFinance() {
                 <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
               </NavLink></div>
           </div>
-
           <div className="flex-wrap flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
             {/* date range filter */}
             <div className="flex   p-0 text-start w-full lg:w-1/4">
@@ -284,7 +290,6 @@ function ViewFinance() {
               <span className='text-justify mx-1 my-1 '>to</span>
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
-
             <div className="flex p-0  justify-start text-center w-full lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
               <input
@@ -386,18 +391,16 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Product Code</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Advisor Name</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sub Advisor</th>
-
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
-                {filteredData.slice(startIndex, endIndex).map((data) => (
+              <tbody className="divide-y divide-gray-200 overflow-y-hidden bg-slate-200">
+                {filteredData.map((data) => (
                   <tr
                     className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
                     key={data._id}>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">
                       <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
-
                     </td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
@@ -443,7 +446,6 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.productCode}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.subAdvisor}</td>
-
                   </tr>
                 ))}
               </tbody>
@@ -451,9 +453,8 @@ function ViewFinance() {
           </div>
         </div>
       </div>
-
       {/* Pagination */}
-      <nav aria-label="Page navigation flex example sticky   ">
+      <nav aria-label=" navigation flex example sticky   ">
         <ul className="flex space-x-2 justify-end">
           <li>
             <button
@@ -465,8 +466,9 @@ function ViewFinance() {
             </button>
           </li>
           {Array.from({ length: totalPages }, (_, i) => {
+
             // Display buttons for currentPage and a few surrounding pages
-            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === currentPage || Math.abs(i + 1 - currentPage) <= 2;
             if (showPage) {
               return (
                 <li key={i}>
@@ -487,7 +489,7 @@ function ViewFinance() {
           <li>
             <button
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              disabled={currentPage === totalPages - 1}
               className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
             >
               Next
@@ -498,6 +500,5 @@ function ViewFinance() {
     </section>
   );
 }
-
 
 export default ViewFinance;
