@@ -10,7 +10,6 @@ const HomeHeading = () => {
     const indexRef = useRef(0);
     const isDeletingRef = useRef(false);
 
-
     // typewritter text
     useEffect(() => {
         const updateText = () => {
@@ -53,9 +52,6 @@ const HomeHeading = () => {
 
     </>
 }
-
-
-
 
 
 export default HomeHeading;
