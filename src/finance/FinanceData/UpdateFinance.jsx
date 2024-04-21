@@ -34,7 +34,6 @@ function UpdateFinance({ insurance, onUpdate }) {
         const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
         setStates(indiaStates);
     };
-
     fetchStates();
 }, []);
 

@@ -5,9 +5,11 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
 import VITE_DATA from "../../../config/config.jsx";
+import PaginationAdmin from "./PaginationAdmin.jsx";
 function ViewMasterForm() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [startDate, setStartDate] = useState("");
+  const [totalPages, setTotalPages] = useState();
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
@@ -20,13 +22,9 @@ function ViewMasterForm() {
   const [payoutSlab, setPayoutSlab] = useState([]);
   const name = sessionStorage.getItem('email');
 
-
-//  console.log(lists);
-  useEffect(() => {
-    setItemsPerPage(20);
-  }, []);
-
-  
+  //  console.log(currentPage);
+  //   console.log(itemsPerPage);
+  //  console.log(allDetailsData);
 
   // payout slab list api
   useEffect(() => {
@@ -61,16 +59,31 @@ function ViewMasterForm() {
         .get(`${VITE_DATA}/alldetails/viewdata`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
-          },
+          },params: {
+            page: currentPage,
+            limit: itemsPerPage
+          }
         })
         .then((response) => {
-          setAllDetailsData(response.data);
+         setAllDetailsData(response.data.allList);
+        // console.log(response.data.totalPages);
+        setTotalPages(response.data.totalPages);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  }, [allDetailsData]);
+  }, [ currentPage, itemsPerPage]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get('page')) || 1;
+    const limit = parseInt(params.get('limit')) || 20;
+
+    setCurrentPage(page);
+    setItemsPerPage(limit);
+  }, []);
+
 
   const onUpdateInsurance = async () => {
     try {
@@ -83,10 +96,15 @@ function ViewMasterForm() {
           {
             headers: {
               Authorization: `${token}`,
-            },
+            },params: {
+            page: currentPage,
+            limit: itemsPerPage
+          }
           }
         );
-        setAllDetailsData(response.data);
+        setAllDetailsData(response.data.allList);
+        // console.log(response.data.totalPages);
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       console.error("Error fetching updated insurance data:", error);
@@ -126,10 +144,7 @@ function ViewMasterForm() {
   });
   // Calculate total number of pages
   const totalItems = filteredData.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  // Calculate starting and ending indexes of items to be displayed on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+ 
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -540,7 +555,7 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {filteredData.slice(startIndex, endIndex).map((data) => (
+                {filteredData.map((data) => (
                   <tr className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium" key={data._id}>
                     <td className="whitespace-nowrap px-1 border border-black">
                       <UpdateMaster insurance={data} onUpdate={onUpdateInsurance} />
@@ -609,51 +624,17 @@ useEffect(() => {
               </tbody>
             </table>
           </div>
+          {totalItems === 0 && (
+            <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
+          )}
         </div>
       </div>
       {/* Pagination */}
-      <nav aria-label="Page navigation flex example sticky   ">
-        <ul className="flex space-x-2 justify-end">
-          <li>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-            >
-              Previous
-            </button>
-          </li>
-          {Array.from({ length: totalPages }, (_, i) => {
-            // Display buttons for currentPage and a few surrounding pages
-            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
-            if (showPage) {
-              return (
-                <li key={i}>
-                  <button
-                    onClick={() => handlePageChange(i + 1)}
-                    className={`px-3 py-1 ${i + 1 === currentPage
-                      ? 'bg-green-700 text-white font-bold'
-                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                      } border border-blue-600`}
-                  >
-                    {i + 1}
-                  </button>
-                </li>
-              );
-            }
-            return null;
-          })}
-          <li>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-            >
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+      <PaginationAdmin
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </section>
   );
 }

@@ -10,7 +10,8 @@ function InsuranceLists() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
   const name = sessionStorage.getItem("name");
- 
+// const name = "PRASHANT JI JAMUI"
+
   useEffect(() => {
     setItemsPerPage(28);
   }, []);
@@ -19,7 +20,7 @@ function InsuranceLists() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${VITE_DATA}/alldetails/viewdata`
+          `${VITE_DATA}/api/advpolicy?advisorName=${encodeURIComponent(name)}`
         );
         setAllDetailsData(response.data);
       } catch (error) {
@@ -28,7 +29,11 @@ function InsuranceLists() {
     };
 
     fetchData();
-  }, []);
+  }, [name]);
+
+
+
+
 
   // page number add
   const handlePageChange = (page) => {
@@ -230,7 +235,7 @@ function InsuranceLists() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {allDetailsData.filter(data => data.advisorName === name && data._id === sessionStorage.getItem("advisorId")).slice(startIndex, endIndex).map((data) => (
+                {allDetailsData.reverse().slice(startIndex, endIndex).map((data) => (
                   <tr
                     className="border-b  bg-slate-200 text-sm font-medium"
                     key={data._id}>
@@ -280,6 +285,9 @@ function InsuranceLists() {
               </tbody>
             </table>
           </div>
+          {allDetailsData.length === 0 && (
+            <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
+          )}
         </div>
       </div>
       {/* Pagination */}

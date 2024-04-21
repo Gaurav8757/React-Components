@@ -71,7 +71,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
                     console.error(error);
                 });
         }
-    }, [fuelType]);
+    }, []);
 
     useEffect(() => {
         axios.get(`${VITE_DATA}/view/company/lists`)
@@ -83,7 +83,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
             .catch((error) => {
                 console.error("Error fetching company names:", error);
             });
-    }, [pdata]);
+    }, []);
 
     const handlePolicyStartDateChange = (e) => {
         const startDate = e.target.value;

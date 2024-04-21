@@ -14,18 +14,16 @@ import VITE_DATA from '../../config/config.jsx';
 const Carousel = () => {
   const [APIData, setAPIData] = useState([]);
   useEffect(() => {
-    // The user is authenticated, so you can make your API request here.
+    // Fetch API data only when the component mounts
     axios
       .get(`${VITE_DATA}/users/first/view`)
       .then((response) => {
-        //  console.log(response.data);
         setAPIData(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-    [APIData];
-  })
+  }, [APIData]);
 
   return (
     <section className="container-fluid   max-w-xs w-40 ">

@@ -6,7 +6,5 @@ export default defineConfig(
   {
     plugins: [react()],
   },
-  {
-    base: "https://eleedomimf.com/",
-  }
 );
+  

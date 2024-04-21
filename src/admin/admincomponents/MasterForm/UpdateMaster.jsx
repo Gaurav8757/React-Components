@@ -103,7 +103,7 @@ function UpdateMaster({ insurance, onUpdate }) {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -124,7 +124,7 @@ function UpdateMaster({ insurance, onUpdate }) {
           console.error(error);
         });
     }
-  }, [fuelType]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -147,7 +147,7 @@ function UpdateMaster({ insurance, onUpdate }) {
           console.error(error);
         });
     }
-  }, [pmade]);
+  }, []);
 
 
   // Function to update netPremium when odPremium or liabilityPremium changes

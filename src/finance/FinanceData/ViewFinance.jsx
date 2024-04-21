@@ -5,32 +5,28 @@ import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
 import VITE_DATA from "../../config/config.jsx";
+import Pagination from "./Paignation.jsx";
 function ViewFinance() {
   const [allDetailsData, setAllDetailsData] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [searchBranch, setSearchBranch] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [totalPages, setTotalPages] = useState();
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
+  const [error, setError] = useState("");
   const [searchId, setSearchId] = useState("");
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
   const name = sessionStorage.getItem('finname');
-
-  // console.log(currentPage);
-  // console.log(itemsPerPage);
-
-  useEffect(() => {
-    setItemsPerPage(20);
-  }, []);
-
+  //   console.log(currentPage);
+  //   console.log(itemsPerPage);
+  //  console.log(allDetailsData);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
         const token = sessionStorage.getItem("token");
         const response = await axios.get(`${VITE_DATA}/alldetails/viewdata`, {
           headers: {
@@ -41,16 +37,25 @@ function ViewFinance() {
             limit: itemsPerPage
           }
         });
-        setAllDetailsData(response.data);
-        setLoading(false);
+        setAllDetailsData(response.data.allList);
+        // console.log(response.data.totalPages);
+        setTotalPages(response.data.totalPages);
       } catch (error) {
         setError(error.message);
-        setLoading(false);
+        // setLoading(false);
       }
     };
     fetchData();
   }, [currentPage, itemsPerPage]);// Include currentPage in the dependency array
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get('page')) || 1;
+    const limit = parseInt(params.get('limit')) || 20;
+
+    setCurrentPage(page);
+    setItemsPerPage(limit);
+  }, []);
 
   // refreshing page after updating data
   const onUpdateInsurance = async () => {
@@ -72,7 +77,8 @@ function ViewFinance() {
             }
           }
         );
-        setAllDetailsData(response.data);
+        setAllDetailsData(response.data.allList);
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
       console.error("Error fetching updated insurance data:", error);
@@ -112,10 +118,6 @@ function ViewFinance() {
 
   // Calculate total number of pages
   const totalItems = filteredData.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  // Calculate starting and ending indexes of items to be displayed on the current page
-  // const startIndex = (currentPage - 1) * itemsPerPage;
-  // const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
   // Handle page change
   const handlePageChange = (page) => {
@@ -244,14 +246,10 @@ function ViewFinance() {
       toast.error("Error exporting to Excel");
     }
   };
-
   const handleExportClick = () => {
     exportToExcel();
   };
-
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
 
   // delete function
   // const onDeleteAllData = async (_id) => {
@@ -278,19 +276,23 @@ function ViewFinance() {
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">
               <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-              <NavLink to="/finance/home/new" className="flex justify-center">
+              <NavLink to={{
+                pathname: "/finance/home/new",
+                search: `?page=${currentPage}&limit=${itemsPerPage}`
+              }} className="flex justify-center">
                 <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
               </NavLink></div>
           </div>
-          <div className="flex-wrap flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+          <div className="flex-wrap flex justify-between  text-blue-500  ">
             {/* date range filter */}
-            <div className="flex   p-0 text-start w-full lg:w-1/4">
+            <div className="flex   p-0 text-start  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">Date:</label>
               <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
               <span className='text-justify mx-1 my-1 '>to</span>
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
-            <div className="flex p-0  justify-start text-center w-full lg:w-1/4">
+
+            <div className=" p-0   text-center  lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
               <input
                 type="search"
@@ -300,27 +302,27 @@ function ViewFinance() {
               />
             </div>
 
-            <div className="flex justify-start p-0 text-end w-full lg:w-1/4">
+            <div className="flex justify-start p-0 text-end  lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchCompany(e.target.value)}
-                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                className="shadow input-style w-52 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Company Name"
               />
             </div>
 
-            <div className="flex justify-start  text-start w-full lg:w-1/4">
+            <div className="   text-start  lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Insured Name:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchInsuredName(e.target.value)}
-                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 ml-2"
                 placeholder="Insured Name"
               />
             </div>
 
-            <div className="flex justify-start my-3  text-start w-full lg:w-1/4">
+            <div className="flex justify-start my-3  text-start lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Branch:</label>
               <input
                 type="search"
@@ -330,13 +332,12 @@ function ViewFinance() {
               />
             </div>
 
-
-            <div className="flex p-0 text-center my-3 justify-start w-1/2 lg:w-1/4">
+            <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Contact No:</label>
               <input
                 type="search"
                 onChange={(e) => setContactNo(e.target.value)}
-                className="shadow p-0 text-start w-1/2 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Contact Number"
               /></div>
           </div>
@@ -451,52 +452,16 @@ function ViewFinance() {
               </tbody>
             </table>
           </div>
+          {totalItems === 0 && (
+            <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
+          )}
         </div>
       </div>
-      {/* Pagination */}
-      <nav aria-label=" navigation flex example sticky   ">
-        <ul className="flex space-x-2 justify-end">
-          <li>
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-            >
-              Previous
-            </button>
-          </li>
-          {Array.from({ length: totalPages }, (_, i) => {
-
-            // Display buttons for currentPage and a few surrounding pages
-            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === currentPage || Math.abs(i + 1 - currentPage) <= 2;
-            if (showPage) {
-              return (
-                <li key={i}>
-                  <button
-                    onClick={() => handlePageChange(i + 1)}
-                    className={`px-3 py-1 ${i + 1 === currentPage
-                      ? 'bg-green-700 text-white font-bold'
-                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                      } border border-blue-600`}
-                  >
-                    {i + 1}
-                  </button>
-                </li>
-              );
-            }
-            return null;
-          })}
-          <li>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages - 1}
-              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-            >
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </section>
   );
 }

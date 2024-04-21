@@ -21,7 +21,7 @@ function EmpPolicy() {
     const name = sessionStorage.getItem("name");
 
     useEffect(() => {
-        setItemsPerPage(13);
+        setItemsPerPage(15);
     }, []);
 
 
@@ -225,56 +225,56 @@ function EmpPolicy() {
                                     <div className="flex-wrap mb-4 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
                                         {/* date range filter */}
                                         <div className="flex p-0 text-start w-full lg:w-1/4">
-                                            <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Filter by Date:</label>
+                                            <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
                                             <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
                                             <span className='text-justify mx-1 my-1 '>to</span>
                                             <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
                                         </div>
 
-                                        <div className="flex p-0 justify-start text-center w-full lg:w-1/5">
-                                            <label className="my-1 text-base font-medium text-gray-900">Filter by ID:</label>
+                                        <div className=" p-0  text-start w-full lg:w-1/4">
+                                            <label className="my-1 text-base font-medium text-gray-900">ID:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchId(e.target.value)}
-                                                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                                 placeholder="ID"
                                             />
                                         </div>
 
                                         <div className="flex justify-start p-0 text-end w-full  lg:w-1/4">
-                                            <label className="my-1 text-base font-medium text-gray-900">Filter by Company:</label>
+                                            <label className="my-1 text-base font-medium text-gray-900">Company:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchCompany(e.target.value)}
-                                                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                                 placeholder="Company Name"
                                             />
                                         </div>
 
                                         <div className="flex justify-start p-0 text-start w-full  lg:w-1/4">
-                                            <label className="my-1 text-base font-medium text-gray-900">Filter by Insured Name:</label>
+                                            <label className="my-1 text-base font-medium text-gray-900">Insured Name:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setSearchInsuredName(e.target.value)}
-                                                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                                 placeholder="Insured Name"
                                             />
                                         </div>
-                                        <div className="flex justify-start mt-4  text-start w-full lg:w-1/4">
+                                        <div className="flex justify-start   text-start w-full lg:w-1/4">
               <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
               <input
                 type="search"
                 onChange={(e) => setSearchBranch(e.target.value)}
-                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Branch Name"
               />
             </div>
-                                        <div className="flex p-0 mt-4 text-center justify-start lg:w-1/4">
+                                        <div className="flex p-0  text-center justify-start lg:w-1/4">
                                             <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
                                             <input
                                                 type="search"
                                                 onChange={(e) => setContactNo(e.target.value)}
-                                                className="shadow p-0 text-start   input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                                                 placeholder="Contact Number"
                                             /></div>
                                     </div>
@@ -376,7 +376,7 @@ function EmpPolicy() {
                                         </thead>
 
                                         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                                            {filteredData.slice(startIndex, endIndex).map((data) => {
+                                            {filteredData.reverse().slice(startIndex, endIndex).map((data) => {
                                                 return (
                                                     <tr
                                                         className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium"
