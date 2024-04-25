@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import Sidebar from './Sidebar';
-import { useState } from 'react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+const Bars3Icon = React.lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.Bars3Icon })));
+const XMarkIcon = React.lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.XMarkIcon })));
 function classNames(...classes) {
   // console.log(classes.filter(Boolean).join(' '));
   return classes.filter(Boolean).join(' ');

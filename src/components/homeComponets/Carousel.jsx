@@ -1,53 +1,54 @@
 /* eslint-disable react/prop-types */
-import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import  { useState, useEffect,  Suspense } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-
-import { useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import VITE_DATA from '../../config/config.jsx';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import VITE_DATA from '../../config/config.jsx';
+import { Navigation, Pagination, Scrollbar, Autoplay } from 'swiper/modules';
 
 const Carousel = () => {
   const [APIData, setAPIData] = useState([]);
+
   useEffect(() => {
-    // Fetch API data only when the component mounts
-    axios
-      .get(`${VITE_DATA}/users/first/view`)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${VITE_DATA}/users/first/view`);
         setAPIData(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
-    <section className="container-fluid   max-w-lg  ">
-      <Swiper
-        modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-        spaceBetween={3}
-        slidesPerView={1} // Adjust the number of slides per view based on screen size
-        // navigation
-        pagination={{ clickable: true }}
-        autoplay={{
-          delay: 4000, // Set the delay in milliseconds between slides
-          disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
-        }}
-        className='container-fluid   mb-5   w-1/3 mt-5 xs:w-1/3 sm:w-1/3 md:w-3/4 lg:w-3/4 xl:w-full'>
-        {/* <div className="w-full max-w-md  border border-gray-200 rounded-lg shadow  dark:border-red-800"> */}
-        {APIData.map((obj, idx) => (
-          <SwiperSlide className='  rounded-2xl ' key={idx}>
-            <NavLink to="#">
-              <img src={obj.usercarousel_upload} className='w-full' alt={`slide-${idx}`} />
-            </NavLink>
-          </SwiperSlide>
-        ))}
-        {/* </div> */}
-      </Swiper>
+    <section className="container-fluid max-w-lg">
+      <Suspense fallback={null}>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, Autoplay]}
+          spaceBetween={3}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          className="container-fluid mb-5 w-1/3 mt-5 xs:w-1/3 sm:w-1/3 md:w-3/4 lg:w-3/4 xl:w-full"
+        >
+          {APIData.map((obj, idx) => (
+            <SwiperSlide key={idx}>
+              <NavLink to="#">
+                <img src={obj.usercarousel_upload} className="w-full" alt={`slide-${idx}`} loading="lazy" />
+              </NavLink>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Suspense>
     </section>
   );
 };

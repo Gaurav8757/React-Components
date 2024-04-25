@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
-// import {toast} from "react-toastify";
-// import axios from 'axios';
-import { useState } from "react";
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
-import { MdErrorOutline } from "react-icons/md";
+import React, { useState } from "react";
+const IoCheckmarkDoneOutline = React.lazy(() => import("react-icons/io5").then(module => ({ default: module.IoCheckmarkDoneOutline })));
+const MdErrorOutline = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdErrorOutline })));
+
 import ChallanModal from "./viewChallan/ChallanModal.jsx";
 
 const HomeSection = ({ homesection }) => {
@@ -68,8 +67,8 @@ const HomeSection = ({ homesection }) => {
           <div className="relative flex mx-5 sm:mx-12 md:mx-12 lg:mx-5 xl:mx-6 justify-center mt-8 items-center">
             <input type="text" className={`w-full sm:w-full md:w-full lg:w-full xl:w-auto text-center flex justify-center text-3xl font-bold rounded-lg  ${isValid ? 'border-green-500' : 'border-red-500'
               }`}
-              value={vehicleNumber.toUpperCase()}
-              onChange={(e) => setVehicleNumber(e.target.value)}
+              value={vehicleNumber}
+              onChange={(e) => setVehicleNumber(e.target.value.toUpperCase())}
               onBlur={validateVehicleNumber}
               onFocus={() => setIsFocused(true)}
               placeholder="BR 00 AB 1XXX" />

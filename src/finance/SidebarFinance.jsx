@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutFinance from "./LogoutFinance.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { FcViewDetails } from "react-icons/fc";
-// import { GiMoneyStack } from "react-icons/gi";
-import { LuGitBranchPlus } from "react-icons/lu";
+
+const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const FcViewDetails = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
+const LuGitBranchPlus = React.lazy(() => import("react-icons/lu").then(module => ({ default: module.LuGitBranchPlus })));
 
 const SidebarFinance = () => {
   const dashboardRouted = [

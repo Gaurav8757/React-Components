@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
-import { CgCloseR } from "react-icons/cg";
-
+import React, { useState, useEffect } from "react";
+const CgCloseR = React.lazy(() => import("react-icons/cg").then(module => ({ default: module.CgCloseR })));
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
@@ -11,7 +10,6 @@ function UpdateOps({ UpdateOps, update }) {
     const [APIData, setAPIData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentTime, setCurrentTime] = useState(getFormattedTime());
-    
     const [allDetails, setAllDetails] = useState({
         entryDate: '',
         branch: '',

@@ -1,18 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { RiGitBranchFill } from "react-icons/ri";
-import { FcKindle } from "react-icons/fc";
-import { TbMoneybag } from "react-icons/tb";
-import { FaUserGroup } from "react-icons/fa6";
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-import { IoCalendarNumberOutline, IoPersonRemoveSharp } from "react-icons/io5";
-import { FaEnvelopeOpenText } from "react-icons/fa";
-import { MdAutoGraph } from "react-icons/md";
-import { SlNote } from "react-icons/sl";
-
-
+const RiGitBranchFill = React.lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
+const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const FcKindle = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcKindle })));
+const TbMoneybag = React.lazy(() => import("react-icons/tb").then(module => ({ default: module.TbMoneybag })));
+const FaUserGroup = React.lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaUserGroup })));
+const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const IoCalendarNumberOutline = React.lazy(() => import("react-icons/io5").then(module => ({ default: module.IoCalendarNumberOutline })));
+const IoPersonRemoveSharp = React.lazy(() => import("react-icons/io5").then(module => ({ default: module.IoPersonRemoveSharp })));
+const FaEnvelopeOpenText = React.lazy(() => import("react-icons/fa").then(module => ({ default: module.FaEnvelopeOpenText })));
+const MdAutoGraph = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
+const SlNote = React.lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
 
 function DashboardHr() {
   const dashboardRouted = [

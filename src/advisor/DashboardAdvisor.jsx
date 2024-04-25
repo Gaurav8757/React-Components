@@ -1,12 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import  LogoutAdvisor  from "../advisor/LogoutAdvisor.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { RiGitBranchFill } from "react-icons/ri";
-// import { IoPeopleOutline } from "react-icons/io5";
-// import { TbMoneybag, TbReport } from "react-icons/tb";
-// import { FcMoneyTransfer } from "react-icons/fc"; 
 
+const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const RiGitBranchFill = React.lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
 function DashboardAdvisor() {
     const dashboardRouted = [
         {

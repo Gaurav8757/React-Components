@@ -12,9 +12,6 @@ const MdAutoGraph = lazy(() => import("react-icons/md").then(module => ({ defaul
 const SlNote = lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
 
 import LogoutHrAdmin from "./LogoutHrAdmin.jsx";
-
-
-
 function SideBarHrAdmin() {
   const dashboardRouted = [
     {
