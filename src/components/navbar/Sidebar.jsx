@@ -16,9 +16,6 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
   };
 
-  // ... (rest of your component code)
-
-  // Off-canvas Sidebar
   return (
     <aside
       className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-teal-500 h-full transform transition-transform md:hidden ${

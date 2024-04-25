@@ -23,10 +23,10 @@ const Carousel = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [APIData]);
+  }, []);
 
   return (
-    <section className="container-fluid   max-w-xs w-40 ">
+    <section className="container-fluid   max-w-lg  ">
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         spaceBetween={3}

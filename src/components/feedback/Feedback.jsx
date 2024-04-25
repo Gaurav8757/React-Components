@@ -26,13 +26,11 @@ const Feedback = () => {
       .then((response) => {
         // console.log(response.data);
         setAPIData(response.data);
-
       })
       .catch((error) => {
         console.error(error);
       });
-
-  }, [APIData]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,49 +80,49 @@ const Feedback = () => {
             </svg>
           </div>
           <Swiper
-  modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-  spaceBetween={1}
-  slidesPerView={4} // Adjust the number of slides per view based on screen size
-  direction="vertical"
-  autoplay={{
-    delay: 4000, // Set the delay in milliseconds between slides
-    disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
-  }}
-  className='flex max-h-screen justify-center w-auto mt-2 sm:w-3/4 md:w-3/4 lg:w-full xl:w-full sm:text-lg md:text-lg xl:2xl text-md'>
-  {APIData.length > 0 ? (
-    APIData.map((obj) => (
-      <SwiperSlide key={obj._id}>
-        <div className="flex justify-between">
-          <div className="w-full max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
-            <div className="text-center px-4 ">
-              <h1 className='text-xl font-medium text-blue-700'>
-                {obj.feedbackuser_name}
-              </h1>
-              <p className='mt-1 text-justify text-gray-900'>
-                {obj.feedbackuser_query}
-              </p>
-            </div>
-          </div>
-          <div className="w-full  max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
-            {/* Content for the second div */}
-            <div className="text-center px-4 ">
-            <h1 className='text-xl font-medium text-blue-700'>
-                {obj.feedbackuser_name}
-              </h1>
-              <p className='mt-1 text-justify text-gray-900'>
-                {obj.feedbackuser_query}
-              </p>
+            modules={[Navigation, Pagination, Scrollbar, Autoplay]}
+            spaceBetween={1}
+            slidesPerView={4} // Adjust the number of slides per view based on screen size
+            direction="vertical"
+            autoplay={{
+              delay: 4000, // Set the delay in milliseconds between slides
+              disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
+            }}
+            className='flex max-h-screen justify-center w-auto mt-2 sm:w-3/4 md:w-3/4 lg:w-full xl:w-full sm:text-lg md:text-lg xl:2xl text-md'>
+            {APIData.length > 0 ? (
+              APIData.map((obj) => (
+                <SwiperSlide key={obj._id}>
+                  <div className="flex justify-between ">
+                    <div className="w-full max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
+                      <div className="text-center px-4 ">
+                        <h1 className='text-xl font-medium text-blue-700'>
+                          {obj.feedbackuser_name}
+                        </h1>
+                        <p className='mt-1 text-justify text-gray-900'>
+                          {obj.feedbackuser_query}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="w-full  max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
+                      
+                      <div className="text-center px-4 ">
+                        <h1 className='text-xl font-medium text-blue-700'>
+                          {obj.feedbackuser_name}
+                        </h1>
+                        <p className='mt-1 text-justify text-gray-900'>
+                          {obj.feedbackuser_query}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))
+            ) : (
+              <div role="status" className="me-20">
+                {/* Loader animation */}
               </div>
-          </div>
-        </div>
-      </SwiperSlide>
-    ))
-  ) : (
-    <div role="status" className="me-20">
-      {/* Loader animation */}
-    </div>
-  )}
-</Swiper>
+            )}
+          </Swiper>
 
         </div>
         {/* part-2 */}

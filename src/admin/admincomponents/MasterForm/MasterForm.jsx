@@ -211,29 +211,24 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
 
   useEffect(() => {
-    // Fetch and set states for India when component mounts
-    const fetchStates = () => {
-      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
-      setStates(indiaStates);
+    // Load states asynchronously when the component mounts
+    const fetchStates = async () => {
+      const fetchedStates = await State.getStatesOfCountry('IN');
+      setStates(fetchedStates);
     };
-
     fetchStates();
   }, []);
 
-
-  const handleStateChange = (e) => {
+  const handleStateChange =  (e) => {
     const stateIsoCode = e.target.value;
     setSelectedState(stateIsoCode);
-
-    // Fetch and set cities based on selected state
-    const fetchCities = () => {
-      const stateCities = City.getCitiesOfState("IN", stateIsoCode); // Assuming "IN" is the country code for India
+    // Fetch cities only when a state is selected
+    const fetchCities =  async () => {
+      const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
       setCities(stateCities);
     };
-
     fetchCities();
   };
-
 
   // Function to update netPremium when odPremium or liabilityPremium changes
   const updateNetPremium = () => {

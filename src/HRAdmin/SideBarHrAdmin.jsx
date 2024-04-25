@@ -1,17 +1,16 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { NavLink } from "react-router-dom";
-import { RxDashboard } from "react-icons/rx";
-// import { RiGitBranchFill } from "react-icons/ri";
-import { FcKindle } from "react-icons/fc";
-// import { TbMoneybag } from "react-icons/tb";
+const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const FcKindle = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcKindle })));
+const FaUserGroup = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaUserGroup })));
+const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const IoCalendarNumberOutline = lazy(() => import("react-icons/io5").then(module => ({ default: module.IoCalendarNumberOutline })));
+const IoPersonRemoveSharp = lazy(() => import("react-icons/io5").then(module => ({ default: module.IoPersonRemoveSharp })));
+const FaEnvelopeOpenText = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaEnvelopeOpenText })));
+const MdAutoGraph = lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
+const SlNote = lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
 
-
-import { FaUserGroup } from "react-icons/fa6";
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-import { IoCalendarNumberOutline, IoPersonRemoveSharp } from "react-icons/io5";
-import { FaEnvelopeOpenText } from "react-icons/fa";
-import { MdAutoGraph } from "react-icons/md";
-import { SlNote } from "react-icons/sl";
 import LogoutHrAdmin from "./LogoutHrAdmin.jsx";
 
 

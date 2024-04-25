@@ -171,7 +171,7 @@ import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
 import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
 import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.jsx";
 
-
+import StateCities from "./data/stateCities.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -278,6 +278,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payout/slab" element={<PrivateCar/>} />
           <Route path="/dashboard/company/slabs" element={<CompanySlab/>} />
           <Route path="/dashboard/payout/lists" element={<PCLists/>} />
+          <Route path="/dashboard/states" element={<StateCities/>} />
         </Route>
       </Route>
 

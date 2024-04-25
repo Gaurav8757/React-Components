@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "./logout/Logout.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { RiGitBranchFill } from "react-icons/ri";
-import { MdOutlinePolicy } from "react-icons/md";
-import { TbReport } from "react-icons/tb";
-import { FaRegBuilding } from "react-icons/fa";
-import { FaImages } from "react-icons/fa";
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-import { FcViewDetails } from "react-icons/fc";
-import { MdOutlineCategory } from "react-icons/md";
-import { GiReceiveMoney } from "react-icons/gi";
+
+
+const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
+const MdOutlinePolicy = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
+const TbReport = lazy(() => import("react-icons/tb").then(module => ({ default: module.TbReport })));
+const FaRegBuilding = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaRegBuilding })));
+const FaImages = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaImages })));
+const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
+const MdOutlineCategory = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlineCategory })));
+const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
 
 const Sidebar = () => {
   const dashboardRoutes = [
@@ -225,7 +228,6 @@ const Sidebar = () => {
     }
   ];
 
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
@@ -335,20 +337,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

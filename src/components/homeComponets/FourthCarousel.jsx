@@ -19,7 +19,7 @@ const FourthCarousel = () => {
             .catch((error) => {
                 console.error(error);
             });
-    }, [APIData]); // Empty dependency array ensures this effect runs only once
+    }, []); // Empty dependency array ensures this effect runs only once
 
     return (
         <section className="container-fluid  bg-gradient-to-r from-white to-slate-100">

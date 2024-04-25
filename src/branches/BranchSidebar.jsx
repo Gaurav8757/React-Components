@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { NavLink } from "react-router-dom";
 import BranchLogout from "./BranchLogout.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { RiGitBranchFill } from "react-icons/ri";
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-import { GiReceiveMoney } from "react-icons/gi";
-import { CgProfile } from "react-icons/cg";
+const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
+const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
+const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
+
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -22,7 +24,7 @@ const BranchSidebar = () => {
           title: "Add Advisor",
           path: "/branches/home/advisor/register",
           dash: ""
-        },
+        }, 
         {
           title: "Advisor Lists",
           path: "/branches/home/advisor/lists",
