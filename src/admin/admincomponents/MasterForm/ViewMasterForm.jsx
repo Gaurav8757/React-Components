@@ -150,9 +150,6 @@ function ViewMasterForm() {
     setCurrentPage(page);
   };
 
-
-
-
   // calculate payout 
   const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
     const deduction = finalEntryFields - advisorPayout;
@@ -175,79 +172,145 @@ function ViewMasterForm() {
     return deduction;
   };
 
-  const matchingCSLab = payoutSlab.find(cslabItem =>
-     allDetailsData.some(data =>
-        cslabItem.cnames === data.company &&
-        cslabItem.catnames === data.category &&
-        cslabItem.policytypes === data.policyType &&
-        cslabItem.pcodes === data.productCode &&
-        cslabItem.payoutons === data.payoutOn
-    )
-);
+//   const matchingCSLab = payoutSlab.find(cslabItem =>
+//      allDetailsData.some(data =>
+//         cslabItem.cnames === data.company &&
+//         cslabItem.catnames === data.category &&
+//         cslabItem.policytypes === data.policyType &&
+//         cslabItem.pcodes === data.productCode &&
+//         cslabItem.payoutons === data.payoutOn &&
+//         cslabItem.vfuels === data.fuel
+//     )
+// );
 /*MATCHING SLAB ID */
 // console.log(matchingCSLab._id);
-useEffect(() => {
-  if (matchingCSLab) {
-      const percentage = matchingCSLab.cvpercentage || 0;
-      const branchpercent = matchingCSLab.branchpayoutper || 0;
-      const companypercent = matchingCSLab.companypayoutper || 0;
-         // Filtering allDetailsData based on criteria
-    const filteredData = allDetailsData.find(data =>
-      matchingCSLab.cnames === data.company &&
-      matchingCSLab.catnames === data.category &&
-      matchingCSLab.policytypes === data.policyType &&
-      matchingCSLab.pcodes === data.productCode &&
-      matchingCSLab.payoutons === data.payoutOn
-    );
-     // policy id
-    // console.log(filteredData._id);
-      const netPremium1 = parseFloat(filteredData.netPremium);
-      const finalEntryFields = parseFloat(filteredData.finalEntryFields);
-      const advisorPayout = calculateAdvisorPayoutAmount(netPremium1, percentage);
-      const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-      const branchPayout = calculateBranchPayoutAmount(netPremium1, branchpercent);
-      const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-      const companyPayout = calculateCompanyPayoutAmount(netPremium1, companypercent);
-      const profitLoss = companyPayout - branchPayout;
-      // console.log(percentage);
-      // console.log("Final Amount " + finalEntryFields);
-      // console.log("COMP PAYOUT "+ companyPayout);
-      // console.log("COMP PAYout AMOUNT " + branchPayout);
+// useEffect(() => {
+//   if (matchingCSLab) {
+//       const percentage = matchingCSLab.cvpercentage || 0;
+//       const branchpercent = matchingCSLab.branchpayoutper || 0;
+//       const companypercent = matchingCSLab.companypayoutper || 0;
+//          // Filtering allDetailsData based on criteria
+
+//       const filteredData = allDetailsData.find(data =>
+//       console.log(matchingCSLab.pcodes + "   matched with   " + data.productCode) &&
+//       matchingCSLab.pcodes === data.productCode &&
+//       matchingCSLab.cnames === data.company &&
+//       matchingCSLab.catnames === data.category &&
+//       matchingCSLab.policytypes === data.policyType &&
+//       matchingCSLab.vfuels === data.fuel &&
+//       matchingCSLab.payoutons === data.payoutOn
+//     );
+    
+//      // policy id
+//     // console.log(filteredData._id);
+//       const netPremium1 = parseFloat(filteredData.netPremium);
+//       const finalEntryFields = parseFloat(filteredData.finalEntryFields);
+//       const advisorPayout = calculateAdvisorPayoutAmount(netPremium1, percentage);
+//       const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+//       const branchPayout = calculateBranchPayoutAmount(netPremium1, branchpercent);
+//       const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+//       const companyPayout = calculateCompanyPayoutAmount(netPremium1, companypercent);
+//       const profitLoss = companyPayout - branchPayout;
+      
     
    
     
-      // Prepare data for API request
-      const postData = {
-        advisorPayoutAmount: parseFloat(advisorPayout),
-        advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-        branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-        branchPayout: parseFloat(branchPayout.toFixed(2)) ,
-        companyPayout: parseFloat(companyPayout.toFixed(2)),
-        profitLoss: parseFloat(profitLoss.toFixed(2))
-      };
+//       // Prepare data for API request
+//       const postData = {
+//         advisorPayoutAmount: parseFloat(advisorPayout),
+//         advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+//         branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+//         branchPayout: parseFloat(branchPayout.toFixed(2)) ,
+//         companyPayout: parseFloat(companyPayout.toFixed(2)),
+//         profitLoss: parseFloat(profitLoss.toFixed(2))
+//       };
 
 
-      try {
-        // Send data to API
-        const response =  axios.put(`${VITE_DATA}/alldetails/updatedata/${filteredData._id}`, postData, {
-          headers: {
-            'Content-Type': 'application/json'
+//       try {
+//         // Send data to API
+//         const response =  axios.put(`${VITE_DATA}/alldetails/updatedata/${filteredData._id}`, postData, {
+//           headers: {
+//             'Content-Type': 'application/json'
+//           }
+//         });
+//         // Handle response status
+//         if (response.status !== 200) {
+//           console.error(`Error updating data for policy ID ${matchingCSLab._id}`);
+//         }
+//       } catch (error) {
+//         console.error(`Error updating data for policy ID ${matchingCSLab._id}:`, error);
+//       }
+//     // }
+//   // );
+//   } else {
+//     console.log('No matching CSLabs found or allDetailsData is empty.');
+//   }
+// }, [matchingCSLab, allDetailsData]);
+
+
+
+useEffect(() => {
+  // Check if there are matching CSLabs and allDetailsData is not empty
+  if (payoutSlab.length > 0 && allDetailsData.length > 0) {
+    payoutSlab.forEach(matchingCSLab => {
+      const percentage = matchingCSLab.cvpercentage || 0;
+      const branchpercent = matchingCSLab.branchpayoutper || 0;
+      const companypercent = matchingCSLab.companypayoutper || 0;
+
+      allDetailsData.forEach(data => {
+        if (
+          matchingCSLab.pcodes === data.productCode &&
+          matchingCSLab.cnames === data.company &&
+          matchingCSLab.catnames === data.category &&
+          matchingCSLab.policytypes === data.policyType &&
+          matchingCSLab.vfuels === data.fuel &&
+          matchingCSLab.payoutons === data.payoutOn
+        ) {
+          const netPremium1 = parseFloat(data.netPremium);
+          const finalEntryFields = parseFloat(data.finalEntryFields);
+          const advisorPayout = calculateAdvisorPayoutAmount(netPremium1, percentage);
+          const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+          const branchPayout = calculateBranchPayoutAmount(netPremium1, branchpercent);
+          const branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+          const companyPayout = calculateCompanyPayoutAmount(netPremium1, companypercent);
+          const profitLoss = companyPayout - branchPayout;
+
+          // Prepare data for API request
+          const postData = {
+            advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+            advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+            branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+            branchPayout: parseFloat(branchPayout.toFixed(2)),
+            companyPayout: parseFloat(companyPayout.toFixed(2)),
+            profitLoss: parseFloat(profitLoss.toFixed(2))
+          };
+
+          try {
+            // Send data to API
+            const response = axios.put(`${VITE_DATA}/alldetails/updatedata/${data._id}`, postData, {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            // Handle response status
+            if (response.status !== 200) {
+              console.error(`Error updating data for policy ID ${data._id}`);
+            }
+          } catch (error) {
+            console.error(`Error updating data for policy ID ${data._id}:`, error);
           }
-        });
-
-        // Handle response status
-        if (response.status !== 200) {
-          console.error(`Error updating data for policy ID ${matchingCSLab._id}`);
         }
-      } catch (error) {
-        console.error(`Error updating data for policy ID ${matchingCSLab._id}:`, error);
-      }
-    // }
-  // );
+      });
+    });
   } else {
     console.log('No matching CSLabs found or allDetailsData is empty.');
   }
-}, [matchingCSLab, allDetailsData]);
+}, [payoutSlab, allDetailsData]);
+
+
+
+
+
 
 
   const exportToExcel = () => {

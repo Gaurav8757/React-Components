@@ -248,8 +248,9 @@ function MasterForm() {
     }
     const today = new Date();
     const birthdateDate = new Date(mfgYear);
+    console.log(today, " ", birthdateDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-
+console.log(ageYears);
     setVehicleAge(`${ageYears} years`);
 };
   useEffect(() => {
@@ -339,6 +340,7 @@ function MasterForm() {
     cslabItem.catnames === category &&
     cslabItem.policytypes === policyType &&
     cslabItem.pcodes === productCode &&
+    cslabItem.vfuels === fuel &&
     cslabItem.payoutons === payoutOn 
   );
 

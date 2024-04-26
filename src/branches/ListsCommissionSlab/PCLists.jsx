@@ -71,11 +71,13 @@ function PCLists() {
           row.catnames,
           row.states,
           row.districts,
+          
           row.segments,
           row.policytypes,
           row.pcodes,
           row.vfuels,
           row.vncb,
+          
           row.voddiscount,
           row.vcc,
           row.payoutons,

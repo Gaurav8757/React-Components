@@ -36,6 +36,8 @@ function PrivateCar() {
   const [cities, setCities] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
+  const [sitcapacity, setSitCapacity] = useState('');
+  const [odList, setOdList] = useState([]);
   const token = sessionStorage.getItem("token");
 
 
@@ -88,6 +90,21 @@ function PrivateCar() {
   }, [token]);
 
 
+  useEffect(() => {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/od/list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setOdList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  }, [token]);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
@@ -162,7 +179,7 @@ function PrivateCar() {
     setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
     setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
   };
-  
+
 
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
@@ -206,6 +223,7 @@ function PrivateCar() {
         policytypes: policyType,
         pcodes: productCode,
         vage,
+        sitcapacity,
         vcc: cc,
         vfuels: fuel,
         voddiscount: odDiscount,
@@ -235,6 +253,7 @@ function PrivateCar() {
       setSelectedState('');
       setPoPercentage('');
       setNcb('');
+      setSitCapacity('');
       setPolicyType('');
       setProductCode('');
       setNewCity('');
@@ -361,7 +380,7 @@ function PrivateCar() {
                
               </select>
             </div> */}
- {/* {cities.map((city,index) => (
+            {/* {cities.map((city,index) => (
                   <option key={index} value={city.name}>
                     {city.name}
                   </option>
@@ -370,41 +389,51 @@ function PrivateCar() {
 
 
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-  <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-  {
-    selectedCity ? (
-      <select
-      className="input-style text-lg p-1 rounded-lg"
-      value={selectedCity}
-      onChange={(e) => setSelectedCity(e.target.value)}
-      disabled={!selectedState} // Disable city dropdown until a state is selected
-    >
-      <option value="">------------------- Select or Add -------------------</option>
-      <option value="All_RTO">All RTO</option>
-      {/* Render other city options here if needed */}
-      <option value="">Add New District</option> {/* Remove id attribute */}
-    </select>
-    ):(
-      selectedCity === "" && ( 
-        <input 
-        type="text" 
-        name="selectedCity" 
-        id="selectedCity" 
-        className="input-style text-lg p-1 rounded-lg " 
-        placeholder="Enter new district name"
-        value={newCity} // Assuming newCity is a separate state to hold input data
-        onChange={(e) => setNewCity(e.target.value)} 
-      />
-      )
-    )
-  }
- 
-  {/* Input field for entering a new district */}
-  
-</div>
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                selectedCity ? (
+                  <select
+                    className="input-style text-lg p-1 rounded-lg"
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">------------------- Select or Add -------------------</option>
+                    <option value="All_RTO">All RTO</option>
+                    {/* Render other city options here if needed */}
+                    <option value="">Add New District</option> {/* Remove id attribute */}
+                  </select>
+                ) : (
+                  selectedCity === "" && (
+                    <input
+                      type="text"
+                      name="selectedCity"
+                      id="selectedCity"
+                      className="input-style text-lg p-1 rounded-lg "
+                      placeholder="Enter new district name"
+                      value={newCity} // Assuming newCity is a separate state to hold input data
+                      onChange={(e) => setNewCity(e.target.value)}
+                    />
+                  )
+                )
+              }
+
+              {/* Input field for entering a new district */}
+
+            </div>
 
 
-
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1 ">Sitting Capacity:</label>
+              <input
+                className="input-style p-1 text-lg rounded-lg"
+                type="text"
+                value={sitcapacity}
+                onChange={(e) => setSitCapacity(e.target.value)}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              />
+            </div>
 
 
 
@@ -528,17 +557,12 @@ function PrivateCar() {
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount"
               >
-                <option className="w-1" value="" >----------- Select OD Discount ---------------</option>
-                <option value="0">0%</option>
-                <option value="1-40">1% to 40%</option>
-                <option value="41-50">41% to 50%</option>
-                <option value="51-60">51% to 60%</option>
-                <option value="61-70">61% to 70%</option>
-                <option value="71-75">71% to 75%</option>
-                <option value="76-80">76% to 80%</option>
-                <option value="81-85">81% to 85%</option>
-                <option value="86-90">86% to 90%</option>
-                <option value=">90">more than 90%</option>
+                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                {
+                  odList.map((data)=>(
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  ))
+                }
               </select>
 
             </div>
