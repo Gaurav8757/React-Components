@@ -7,6 +7,7 @@ function TwoWheelers() {
   const [vage, setVage] = useState("");
   const [pdata, setPdata] = useState([]);
   const [data, setData] = useState([]);
+  const [newCity, setNewCity] = useState('');
   const [fuelType, setFuelType] = useState([]);
   const [products, setProducts] = useState([]);
   const [segment, setSegment] = useState('');
@@ -29,6 +30,7 @@ function TwoWheelers() {
   const [advisorId, setAdvisorId] = useState('');
   const [advisorUniqueId, setAdvisorUniqueId] = useState('');
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -209,7 +211,7 @@ function TwoWheelers() {
         advisorName,
         advisorId,
         states: selectedState,
-        districts: selectedCity,
+        districts: selectedCity || newCity,
         advisorUniqueId,
         voddiscount: odDiscount,
         vcc: cc,
@@ -236,6 +238,7 @@ function TwoWheelers() {
       setOdDiscount('');
       setCc('');
       setVage('');
+      setNewCity('');
       setPayoutOn('');
       setPoPercentage('');
       setBranchpayoutper('');
@@ -318,7 +321,7 @@ function TwoWheelers() {
               </select>
             </div>
 
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style text-lg p-1 rounded-lg"
@@ -341,7 +344,41 @@ function TwoWheelers() {
             <option key={index} value={city.name}>{city.name}</option>
           ))}
               </select>
-            </div>
+            </div> */}
+
+<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+  <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+  {
+    selectedCity ? (
+      <select
+      className="input-style text-lg p-1 rounded-lg"
+      value={selectedCity}
+      onChange={(e) => setSelectedCity(e.target.value)}
+      disabled={!selectedState} // Disable city dropdown until a state is selected
+    >
+      <option value="">------------------- Select or Add -------------------</option>
+      <option value="All_RTO">All RTO</option>
+      {/* Render other city options here if needed */}
+      <option value="">Add New District</option> {/* Remove id attribute */}
+    </select>
+    ):(
+      selectedCity === "" && ( 
+        <input 
+        type="text" 
+        name="selectedCity" 
+        id="selectedCity" 
+        className="input-style text-lg p-1 rounded-lg " 
+        placeholder="Enter new district name"
+        value={newCity} // Assuming newCity is a separate state to hold input data
+        onChange={(e) => setNewCity(e.target.value)} 
+      />
+      )
+    )
+  }
+ 
+  {/* Input field for entering a new district */}
+  
+</div>
             {/* 3 */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>

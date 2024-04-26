@@ -198,7 +198,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   // },);
   useEffect(() => {
   const calculateAge = () => {
-    if (!allDetails.registrationDate) {
+    if (!allDetails.mfgYear) {
       setAllDetails(prevDetails => ({
         ...prevDetails,
         vehicleAge: "0 years"
@@ -207,7 +207,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     }
 
     const today = new Date();
-    const birthdateDate = new Date(allDetails.registrationDate);
+    const birthdateDate = new Date(allDetails.mfgYear);
     const ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
     setAllDetails(prevDetails => ({
@@ -218,7 +218,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   
     calculateAge();
-  }, [allDetails.registrationDate]); // Add appropriate dependency here
+  }, [allDetails.mfgYear]); // Add appropriate dependency here
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {

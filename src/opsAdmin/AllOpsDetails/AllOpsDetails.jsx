@@ -17,6 +17,12 @@ function AllOpsDetails() {
     const [searchInsuredName, setSearchInsuredName] = useState("");
     const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
     const name = sessionStorage.getItem("name");
+    const [deletingStaffId, setDeletingStaffId] = useState(null);
+
+    const deleteStaff = (_id) => {
+        // Show modal confirmation dialog
+        setDeletingStaffId(_id);
+    };
 
     // POLICY DATA LISTS
     useEffect(() => {
@@ -33,7 +39,7 @@ function AllOpsDetails() {
                     params: {
                         page: currentPage,
                         limit: itemsPerPage
-                      }
+                    }
                 })
                 .then((response) => {
                     setAPIData(response.data.allList);
@@ -50,10 +56,10 @@ function AllOpsDetails() {
         const params = new URLSearchParams(window.location.search);
         const page = parseInt(params.get('page')) || 1;
         const limit = parseInt(params.get('limit')) || 20;
-    
+
         setCurrentPage(page);
         setItemsPerPage(limit);
-      }, []);
+    }, []);
 
     // Handle date range filter change
     const handleDateRangeChange = (event, type) => {
@@ -96,7 +102,7 @@ function AllOpsDetails() {
         setCurrentPage(page);
     };
 
-   
+
 
     // refreshing page after updating data
     const onUpdatePolicy = async () => {
@@ -114,11 +120,11 @@ function AllOpsDetails() {
                         params: {
                             page: currentPage, // Send current page as a parameter
                             limit: itemsPerPage // Send items per page as a parameter
-                          }
+                        }
                     }
                 );
                 setAPIData(response.data.allList);
-                    setTotalPages(response.data.totalPages);
+                setTotalPages(response.data.totalPages);
             }
         } catch (error) {
             console.error("Error fetching updated insurance data:", error);
@@ -204,6 +210,16 @@ function AllOpsDetails() {
         }
     };
 
+    const confirmDelPolicy = async (_id) => {
+        try {
+           const resp = await axios.delete(`${VITE_DATA}/alldetails/deletedata/${_id}`);
+           console.log(resp);
+            toast.error(`${resp.data.message}`, { theme: "dark", position: "top-right" });
+            setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+        } catch (error) {
+            console.error('Error to Delete Policy', error);
+        }
+    };
 
     const handleExportClick = () => {
         exportToExcel();
@@ -341,28 +357,48 @@ function AllOpsDetails() {
                                     <th scope="col" className="px-3 border border-black sticky">
                                         Policy Pay Mode
                                     </th>
-
+                                    <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        Delete
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
                                 {filteredData.map((data) => (
-                                    <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} />
+                                    <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} deleteStaff = {deleteStaff} />
                                 ))}
                             </tbody>
                         </table>
                     </div>
+                    {deletingStaffId && (
+                        <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-4 rounded-lg ">
+                                <h2 className="text-lg font-semibold text-gray-800">{`Are you sure you want to delete `}
+                                    <span className="text-red-600">{APIData.find(data => data._id === deleteStaff)?.policyrefno}</span>
+                                    
+                                    {`?`}</h2>
+                                <div className="flex justify-end mt-10">
+                                    <button onClick={() => { confirmDelPolicy(deletingStaffId); setDeletingStaffId(null) }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-4 py-2 mr-2">
+                                        Yes, I&apos;m sure
+                                    </button>
+                                    <button onClick={() => setDeletingStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                        No, cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {totalItems === 0 && (
-            <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
-          )}
+                        <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
+                    )}
                 </div>
             </div>
 
             {/* Pagination */}
             <Paginationops
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+            />
         </section>
     )
 }

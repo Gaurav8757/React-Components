@@ -203,7 +203,6 @@ useEffect(() => {
     // console.log(filteredData._id);
       const netPremium1 = parseFloat(filteredData.netPremium);
       const finalEntryFields = parseFloat(filteredData.finalEntryFields);
-
       const advisorPayout = calculateAdvisorPayoutAmount(netPremium1, percentage);
       const advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
       const branchPayout = calculateBranchPayoutAmount(netPremium1, branchpercent);

@@ -72,7 +72,7 @@ function MasterForm() {
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [cslab, setCslab] = useState([]);
-const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
+  const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   // console.log(APIData);
 
   useEffect(() => {
@@ -242,12 +242,12 @@ const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
 
 
   const calculateAge = () => {
-    if (!registrationDate) {
+    if (!mfgYear) {
       setVehicleAge("0 years");
       return;
     }
     const today = new Date();
-    const birthdateDate = new Date(registrationDate);
+    const birthdateDate = new Date(mfgYear);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
     setVehicleAge(`${ageYears} years`);

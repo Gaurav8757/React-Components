@@ -172,6 +172,8 @@ import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
 import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.jsx";
 
 import StateCities from "./data/stateCities.jsx";
+import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
+import Cc from "./admin/admincomponents/CC/Cc.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -274,11 +276,13 @@ const router = createBrowserRouter(
           <Route path="/dashboard/payout/type" element={<AddPayoutOn />} />
           <Route path="/dashboard/payment/type" element={<AddPaymentMode />} />
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
-          <Route path="/dashboard/commvehicle" element={<CommercialVehicles/>} />
-          <Route path="/dashboard/payout/slab" element={<PrivateCar/>} />
-          <Route path="/dashboard/company/slabs" element={<CompanySlab/>} />
-          <Route path="/dashboard/payout/lists" element={<PCLists/>} />
-          <Route path="/dashboard/states" element={<StateCities/>} />
+          <Route path="/dashboard/commvehicle" element={<CommercialVehicles />} />
+          <Route path="/dashboard/payout/slab" element={<PrivateCar />} />
+          <Route path="/dashboard/company/slabs" element={<CompanySlab />} />
+          <Route path="/dashboard/payout/lists" element={<PCLists />} />
+          <Route path="/dashboard/states" element={<StateCities />} />
+          <Route path="/dashboard/oddiscount" element={<OdDiscount />} />
+          <Route path="/dashboard/CC" element={<Cc />} />
         </Route>
       </Route>
 
@@ -291,27 +295,26 @@ const router = createBrowserRouter(
           <Route path="/branches/home" element={<BranchDashboard />} />
           <Route path="/branches/home/add/policy" element={<AddDataByBranch />} />
           <Route path="/branches/home/viewinsurance" element={<MasterView />} />
-          <Route path="/branches/home/commvehicle" element={<CommercialVehicles/>} />
-          <Route path="/branches/home/pvtvehicle" element={<PrivateCar/>} />
-          <Route path="/branches/home/payout" element={<TwoWheelers/>} />
+          <Route path="/branches/home/commvehicle" element={<CommercialVehicles />} />
+          <Route path="/branches/home/pvtvehicle" element={<PrivateCar />} />
+          <Route path="/branches/home/payout" element={<TwoWheelers />} />
           {/* advisor register/add new */}
-          <Route path="/branches/home/advisor/register" element={< AddAdvisors/>} />
-          <Route path="/branches/home/advisor/lists" element={<ListAdvisor/>} />
-          <Route path="/branches/home/commvehicle/lists" element={<CvLists/>} />
+          <Route path="/branches/home/advisor/register" element={< AddAdvisors />} />
+          <Route path="/branches/home/advisor/lists" element={<ListAdvisor />} />
+          <Route path="/branches/home/commvehicle/lists" element={<CvLists />} />
           {/* <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} /> */}
-          <Route path="/branches/home/payout/lists" element={<TwLists/>} />
+          <Route path="/branches/home/payout/lists" element={<TwLists />} />
         </Route>
       </Route>
 
       {/* Advisor Routes */}
-      
+
       <Route path="/advisor" element={<LoginAll />} />
       <Route path="/advisor/forget" element={<ForgotPassword />} />
       <Route element={<ProtectedAdvisor />}>
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
           <Route path="/advisor/home" element={<HomepageAdvisor />} />
           <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
-         
         </Route>
       </Route>
 
@@ -327,7 +330,6 @@ const router = createBrowserRouter(
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
           {/* <Route path="/employee/home/leave/application" element={<LeaveApplication />} /> */}
-          
         </Route>
       </Route>
 
@@ -352,33 +354,31 @@ const router = createBrowserRouter(
           <Route path="/hr/home/attendance" element={<HrAttendance />} />
           <Route path="/hr/home/add/attendance" element={<AddHrAttendance />} />
           <Route path="/hr/home/attendance/report" element={<ReportEmp />} />
-          <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance/>} />
-          <Route path="/hr/home/salary/slip" element={<SalarySlip/>} />  
-          <Route path="/hr/home/add/offer/letter" element={<AddOfferLetter/>} />
-          <Route path="/hr/home/view/offer/letter" element={<ViewOfferLetter/>} />
-          <Route path="/hr/home/offer/letters" element={<OffersLetter/>} />
-          <Route path="/hr/home/resign/letter" element={<ResignationLetter/>} />
-          <Route path="/hr/home/add/terminate/letter" element= {<AddTerminator/>}></Route>
-          <Route path="/hr/home/view/terminate/letter" element= {<ViewTerminate/>}></Route>
-          <Route path="/hr/home/terminate/letter" element={<TerminationLetter/>} />
-          <Route path="/hr/home/add/increment/letter" element={<AddIncrement/>} />
-          <Route path="/hr/home/view/increment/letter"  element={<ViewIncrement/>}/>
-          <Route path="/hr/home/increment/letter" element={<IncrementLetter/>} />
-          <Route path="/hr/home/add/joining/letter" element={<AddJoining/>} />
-          <Route path="/hr/home/view/joining/letter" element={<ViewJoining/>} />
-          <Route path="/hr/home/joining/letter" element={<JoiningLetter/>} />
-          <Route path="/hr/home/leave/approval" element={<LeaveApproval/>} />
+          <Route path="/hr/home/attendance/current/date" element={<CurrentAttendance />} />
+          <Route path="/hr/home/salary/slip" element={<SalarySlip />} />
+          <Route path="/hr/home/add/offer/letter" element={<AddOfferLetter />} />
+          <Route path="/hr/home/view/offer/letter" element={<ViewOfferLetter />} />
+          <Route path="/hr/home/offer/letters" element={<OffersLetter />} />
+          <Route path="/hr/home/resign/letter" element={<ResignationLetter />} />
+          <Route path="/hr/home/add/terminate/letter" element={<AddTerminator />}></Route>
+          <Route path="/hr/home/view/terminate/letter" element={<ViewTerminate />}></Route>
+          <Route path="/hr/home/terminate/letter" element={<TerminationLetter />} />
+          <Route path="/hr/home/add/increment/letter" element={<AddIncrement />} />
+          <Route path="/hr/home/view/increment/letter" element={<ViewIncrement />} />
+          <Route path="/hr/home/increment/letter" element={<IncrementLetter />} />
+          <Route path="/hr/home/add/joining/letter" element={<AddJoining />} />
+          <Route path="/hr/home/view/joining/letter" element={<ViewJoining />} />
+          <Route path="/hr/home/joining/letter" element={<JoiningLetter />} />
+          <Route path="/hr/home/leave/approval" element={<LeaveApproval />} />
         </Route>
       </Route>
 
-
-
       <Route path="/hr/admin" element={<LoginAll />} />
-      <Route element={<ProtectedHrAdmin/>}>
-      <Route path="/admin/hr/home" element={<LayoutHrAdmin />}>
-      <Route path="" element={<DashHrAdmin/>} />
-
-        </Route></Route>
+      <Route element={<ProtectedHrAdmin />}>
+        <Route path="/admin/hr/home" element={<LayoutHrAdmin />}>
+          <Route path="" element={<DashHrAdmin />} />
+        </Route>
+        </Route>
 
       {/* OPSAdmin */}
       <Route path="/ops" element={<LoginAll />} />
@@ -386,9 +386,9 @@ const router = createBrowserRouter(
       <Route path="/reset/password/ops/:opsId/:token" element={<OpspassUpdate />} />
       <Route element={<ProtectOps />}>
         <Route path="/ops/home" element={<LayoutOps />}>
-        <Route path="" element={<DashboardOps />} />
-        <Route path='/ops/home/add/policy'  element={<AddPolicy />} /> 
-        <Route path="/ops/home/policy" element={<AllOpsDetails />} />
+          <Route path="" element={<DashboardOps />} />
+          <Route path='/ops/home/add/policy' element={<AddPolicy />} />
+          <Route path="/ops/home/policy" element={<AllOpsDetails />} />
         </Route>
       </Route>
 
@@ -396,11 +396,11 @@ const router = createBrowserRouter(
       <Route path="/finance/forget" element={<ForgetFinance />} />
       <Route path="/reset/password/finance/:fId/:token" element={<FinPassUpdate />} />
       <Route element={<ProtectFinance />}>
-      <Route path="/finance/home" element={<LayoutFinance />}>
-      <Route path="" element={<DashboardFinance />} />
-      <Route path="/finance/home/new" element={<AddFinance />} />
-      <Route path="/finance/home/view" element={<ViewFinance/>} />
-      </Route>
+        <Route path="/finance/home" element={<LayoutFinance />}>
+          <Route path="" element={<DashboardFinance />} />
+          <Route path="/finance/home/new" element={<AddFinance />} />
+          <Route path="/finance/home/view" element={<ViewFinance />} />
+        </Route>
       </Route>
     </Route>
   )

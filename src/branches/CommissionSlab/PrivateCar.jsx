@@ -14,6 +14,7 @@ function PrivateCar() {
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
   const [policyType, setPolicyType] = useState('');
+  const [newCity, setNewCity] = useState('');
   const [productCode, setProductCode] = useState('');
   const [vage, setVage] = useState("");
   const [payoutOnList, setPayoutOnList] = useState([]);
@@ -21,6 +22,7 @@ function PrivateCar() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [branchpayoutper, setBranchpayoutper] = useState();
   const [companypayoutper, setCompanypayoutper] = useState();
+  const [popercentage, setPoPercentage] = useState();
   const [fuel, setFuel] = useState('');
   const [odDiscount, setOdDiscount] = useState('');
   const [ncb, setNcb] = useState('');
@@ -30,6 +32,7 @@ function PrivateCar() {
   const [advisorId, setAdvisorId] = useState('');
   const [advisorUniqueId, setAdvisorUniqueId] = useState('');
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -96,7 +99,7 @@ function PrivateCar() {
       .catch((error) => {
         console.error("Error fetching company names:", error);
       });
-  }, [pdata]);
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -108,7 +111,7 @@ function PrivateCar() {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
 
 
   useEffect(() => {
@@ -130,7 +133,7 @@ function PrivateCar() {
           console.error(error);
         });
     }
-  }, [payoutOnList]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -151,7 +154,7 @@ function PrivateCar() {
           console.error(error);
         });
     }
-  }, [fuelType]);
+  }, []);
 
   const handleChange = (e) => {
     const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
@@ -208,11 +211,12 @@ function PrivateCar() {
         voddiscount: odDiscount,
         vncb: ncb,
         advisorName,
+        cvpercentage: popercentage,
         advisorId,
         advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
-        districts: selectedCity,
+        districts: selectedCity || newCity,
         branchpayoutper,
         companypayoutper
       };
@@ -229,9 +233,11 @@ function PrivateCar() {
       setSegment('');
       setSelectedCity('');
       setSelectedState('');
+      setPoPercentage('');
       setNcb('');
       setPolicyType('');
       setProductCode('');
+      setNewCity('');
       setVage('');
       setFuel('');
       setAdvisorName('');
@@ -267,7 +273,7 @@ function PrivateCar() {
                 <option className="w-1 text-lg" value="" >--------------- Select Advisor --------------</option>
                 {
                   advisors && advisors.map((name) => {
-                    console.log(advisors);
+                    // console.log(advisors);
                     if (name.advisorname === "ELEEDOM IMF PVT LTD") {
                       return (
                         <option className="text-lg" key={name._id} value={name.advisorname}>
@@ -333,33 +339,78 @@ function PrivateCar() {
             </div>
 
 
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              
               <select
                 className="input-style text-lg p-1 rounded-lg"
                 value={selectedCity}
                 onChange={(e) => {
                   const { value } = e.target;
-                  if (value === "All_Cities") {
-                    const allCityNames = cities.map(city => city.name);
-                    setSelectedCity(allCityNames);
+                  if (value ) {
+                    // const allCityNames = cities.map(city => city.name);
+                    setSelectedCity(value);
                   } else {
                     setSelectedCity(e.target.value);
                   }
                 }}
                 disabled={!selectedState} // Disable city dropdown until a state is selected
               >
-                <option value="">--------------- Select City -------------</option>
-                <option value="All_Cities">All_Cities</option>
-                {cities.map((city,index) => (
+                <option value="">------------------- Select -------------------</option>
+                <option value="All_RTO">All RTO</option>
+               
+              </select>
+            </div> */}
+ {/* {cities.map((city,index) => (
                   <option key={index} value={city.name}>
                     {city.name}
                   </option>
-                ))}
-              </select>
-            </div>
-
+                ))} */}
             {/* 3 */}
+
+
+            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+  <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+  {
+    selectedCity ? (
+      <select
+      className="input-style text-lg p-1 rounded-lg"
+      value={selectedCity}
+      onChange={(e) => setSelectedCity(e.target.value)}
+      disabled={!selectedState} // Disable city dropdown until a state is selected
+    >
+      <option value="">------------------- Select or Add -------------------</option>
+      <option value="All_RTO">All RTO</option>
+      {/* Render other city options here if needed */}
+      <option value="">Add New District</option> {/* Remove id attribute */}
+    </select>
+    ):(
+      selectedCity === "" && ( 
+        <input 
+        type="text" 
+        name="selectedCity" 
+        id="selectedCity" 
+        className="input-style text-lg p-1 rounded-lg " 
+        placeholder="Enter new district name"
+        value={newCity} // Assuming newCity is a separate state to hold input data
+        onChange={(e) => setNewCity(e.target.value)} 
+      />
+      )
+    )
+  }
+ 
+  {/* Input field for entering a new district */}
+  
+</div>
+
+
+
+
+
+
+
+
+
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -460,6 +511,7 @@ function PrivateCar() {
                 onChange={(e) => setNcb(e.target.value)}
               >
                 <option className="w-1" value="" >-------------- Select NCB ------------------</option>
+                <option value="all">All</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
 
@@ -534,7 +586,17 @@ function PrivateCar() {
                 }
               </select>
             </div>
-
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style p-1 text-lg rounded-lg"
+                type="text"
+                value={popercentage}
+                onChange={(e) => setPoPercentage(e.target.value)}
+                name="popercentage"
+                placeholder="%"
+              />
+            </div>
             {/* branch payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>

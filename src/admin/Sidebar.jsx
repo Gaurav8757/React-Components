@@ -1,8 +1,6 @@
 import { useState, lazy } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "./logout/Logout.jsx";
-
-
 const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
 const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
 const MdOutlinePolicy = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
@@ -22,7 +20,7 @@ const Sidebar = () => {
       path: "/dashboard",
       logo: <RxDashboard size={24} />
     },
-    
+
     {
       title: "Company",
       path: "#",
@@ -100,7 +98,7 @@ const Sidebar = () => {
       path: "#",
       logo: <GiReceiveMoney size={25} />,
       subRoutes: [
-      
+
         {
           title: "Add Payout",
           path: "/dashboard/payout/slab",
@@ -153,6 +151,16 @@ const Sidebar = () => {
         {
           title: "Add Category Type",
           path: "/dashboard/company/lists",
+          dash: ""
+        },
+        {
+          title: "Add OD_Discount",
+          path: "/dashboard/oddiscount",
+          dash: ""
+        },
+        {
+          title: "Add CC",
+          path: "/dashboard/CC",
           dash: ""
         },
         {
@@ -306,12 +314,12 @@ const Sidebar = () => {
                   <div className="relative group ">
                     <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-gray-600 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
-                      <span className="ms-5  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
+                      <span className="ms-3  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
                     </NavLink>
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
-                          <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-3 hover:bg-gray-500 hover:rounded-xl ">
+                          <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-2 text-sm hover:bg-gray-500 hover:rounded-xl ">
                             {<IoMdArrowDropright size={30} />} {subRoute.title}
                           </NavLink>
                         </li>
@@ -321,7 +329,7 @@ const Sidebar = () => {
                 ) : (
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 dark:hover:bg-gray-700 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-5 hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
+                    <span className="ms-2 hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
                   </NavLink>
                 )}
               </li>

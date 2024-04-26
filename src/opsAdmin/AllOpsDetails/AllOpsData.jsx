@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import UpdateOps from '../updateOPS/UpdateOps.jsx';
 
-function AllOpsData({ data, policy }) {
+function AllOpsData({ data, policy, deleteStaff }) {
     return (
         <tr
             className="divide-y text-sm font-medium border border-black">
@@ -20,7 +20,7 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.insuredName}
             </td>
-           
+
             <td className="whitespace-nowrap px-1  border border-black">
                 {data.contactNo}
             </td>
@@ -78,24 +78,10 @@ function AllOpsData({ data, policy }) {
             <td className="whitespace-nowrap px-1 border border-black">
                 {data.policyPaymentMode}
             </td>
-            {/* <td className="whitespace-nowrap px-1 border border-black">
-                {data.segment}
+            <td className="px-1 py-0 border border-black">
+                <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
             </td>
-            <td className="whitespace-nowrap px-1 border border-black">
-                {data.sourcing}
-            </td>
-            <td className="whitespace-nowrap px-1  border border-black">
-                {data.hypo}
-            </td>
-            <td className="whitespace-nowrap px-1  border border-black">
-                {data.advisorName}
-            </td>
-            <td className="whitespace-nowrap px-1 border border-black">
-                {data.subAdvisor}
-            </td> */}
-           
-           
-           
+
         </tr>
     )
 }

@@ -174,10 +174,10 @@ function UpdateFinance({ insurance, onUpdate }) {
   useEffect(() => {
   const calculateAge = () => {
     const today = new Date();
-    const birthdateDate = new Date(allDetails.registrationDate);
+    const birthdateDate = new Date(allDetails.mfgYear);
 
     if (isNaN(birthdateDate.getTime())) {
-      console.error('Invalid date format for registrationDate');
+      console.error('Invalid date format for mfgYear');
       return;
     }
 
@@ -202,7 +202,7 @@ function UpdateFinance({ insurance, onUpdate }) {
     }));
   };
    calculateAge();
-}, [allDetails.registrationDate]); 
+}, [allDetails.mfgYear]); 
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {

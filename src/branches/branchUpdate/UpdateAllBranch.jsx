@@ -123,7 +123,7 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
     useEffect(() => {
         const calculateAge = () => {
             const today = new Date();
-            const birthdateDate = new Date(allDetails.registrationDate);
+            const birthdateDate = new Date(allDetails.mfgYear);
 
             // if (isNaN(birthdateDate.getTime())) {
             //   console.error('Invalid date format for registrationDate');
@@ -147,13 +147,13 @@ function UpdateAllBranch({ updateBranch, onUpdate, onUpdateClick }) {
 
             setAllDetails(prevDetails => ({
                 ...prevDetails,
-                vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
+                vehicleAge: `${ageYears} years `
             }));
         };
 
         calculateAge(); // Call calculateAge directly here
 
-    }, [allDetails.registrationDate]); // Include the dependencies of calculateAge here
+    }, [allDetails.mfgYear]); // Include the dependencies of calculateAge here
 
 
     // show all data inside input tag
