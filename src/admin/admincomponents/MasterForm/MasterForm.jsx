@@ -43,6 +43,7 @@ function MasterForm() {
   const [finalEntryFields, setFinalEntryFields] = useState('');
   const [taxes, setTaxes] = useState('');
   const [odDiscount, setOdDiscount] = useState('');
+  const [ccList, setCCList] = useState([]);
   const [ncb, setNcb] = useState('');
   const [advisorName, setAdvisorName] = useState('');
   const [subAdvisor, setSubAdvisor] = useState('');
@@ -72,6 +73,7 @@ function MasterForm() {
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [cslab, setCslab] = useState([]);
+  const [odList, setOdList] = useState([]);
   const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   // console.log(APIData);
 
@@ -95,6 +97,27 @@ function MasterForm() {
         });
     }
   }, []);
+
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+    axios
+      .get(`${VITE_DATA}/od/list`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setOdList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+}, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -183,6 +206,27 @@ function MasterForm() {
         });
     }
   }, [fuelType]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -984,7 +1028,7 @@ console.log(ageYears);
               </div>
 
               {/* FIELD - 17 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -995,7 +1039,30 @@ console.log(ageYears);
                   placeholder="Enter OD Discount"
                 />
                 {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
-              </div>
+              </div> */}
+
+
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style text-lg p-1 rounded-lg"
+                type="text"
+                name="odDiscount"
+                value={odDiscount}
+                onChange={(e) => setOdDiscount(e.target.value)}
+                placeholder="Enter OD Discount"
+              >
+                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                {
+                  odList.map((data)=>(
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  ))
+                }
+              </select>
+              {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
+            </div>
+
+
 
               {/* FIELD - 18 */}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -1290,7 +1357,7 @@ console.log(ageYears);
              
 
               {/* FIELD - 35 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1301,7 +1368,26 @@ console.log(ageYears);
                   placeholder="Enter CC"
                 />
                 {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>}
-              </div>
+              </div> */}
+
+              <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style p-1 rounded-lg"
+                type="text"
+                name="cc"
+                value={cc}
+                onChange={(e) => setCc(e.target.value.toUpperCase())}
+                placeholder="Enter CC"
+              >
+                <option className="w-1" value="" >-------------------- Select CC -------------------</option>
+               {
+                ccList.map((data)=>(
+                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                ))
+               }
+              </select>
+            </div>
 
               {/* FIELD - 36 */}
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">

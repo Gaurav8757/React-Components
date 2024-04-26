@@ -13,6 +13,8 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [pmade, setPmade] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [odList, setOdList] = useState([]);
+  const [ccList, setCCList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -105,6 +107,47 @@ function UpdateMaster({ insurance, onUpdate }) {
       });
   }, []);
 
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+    axios
+      .get(`${VITE_DATA}/od/list`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setOdList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+}, []);
+
+ useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -485,7 +528,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         />
                       </div>
                       {/* FIELD - 22 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">CC:</label>
                         <input
                           className="input-style rounded-lg"
@@ -494,7 +537,27 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="cc"
                         />
-                      </div>
+                      </div> */}
+              <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style  rounded-lg"
+                type="text"
+                name="cc"
+                value={allDetails.cc}
+                onChange={handleInputChange}
+                placeholder="Enter CC"
+              >
+                <option className="w-1" value="" >-------------------- Select CC -------------------</option>
+               {
+                ccList.map((data)=>(
+                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                ))
+               }
+              </select>
+            </div>        
+
+
                       {/* FIELD - 25 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Policy Type:</label>
@@ -803,7 +866,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
                       </div>
                       {/* FIELD - 32 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">OD Discount% :</label>
                         <input
                           className="input-style rounded-lg"
@@ -812,7 +875,27 @@ function UpdateMaster({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="odDiscount"
                           placeholder="Enter OD Discount" />
-                      </div>
+                      </div> */}
+
+<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style  rounded-lg"
+                type="text"
+                name="odDiscount"
+                value={allDetails.odDiscount}
+                onChange={handleInputChange}
+                placeholder="Enter OD Discount"
+              >
+                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                {
+                  odList.map((data)=>(
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  ))
+                }
+              </select>
+             
+            </div>
                       {/* FIELD - 35 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Sub Advisor:</label>

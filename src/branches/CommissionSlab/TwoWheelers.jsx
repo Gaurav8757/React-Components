@@ -35,6 +35,8 @@ function TwoWheelers() {
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   // const [allCities, setAllCities] = useState([]);
+  const [odList, setOdList] = useState([]);
+  const [ccList, setCCList] = useState([]);
   const [sitcapacity, setSitCapacity] = useState('');
 
   useEffect(() => {
@@ -64,7 +66,47 @@ function TwoWheelers() {
   };
 
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+    // The user is authenticated, so you can make your API request here.
+    axios
+      .get(`${VITE_DATA}/od/list`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setOdList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+}, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -494,6 +536,7 @@ function TwoWheelers() {
                 value={ncb}
                 onChange={(e) => setNcb(e.target.value)}>
                 <option className="w-1" value="" >---------------- Select NCB ------------------</option>
+                <option value="all">All</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
               </select>
@@ -502,48 +545,41 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 text-lg rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 type="text"
                 name="odDiscount"
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
-                placeholder="Enter OD Discount">
-                <option className="w-1" value="" >----------- Select OD Discount -------------</option>
-                <option value="0">0%</option>
-                <option value="1-40">1% to 40%</option>
-                <option value="41-50">41% to 50%</option>
-                <option value="51-60">51% to 60%</option>
-                <option value="61-70">61% to 70%</option>
-                <option value="71-75">71% to 75%</option>
-                <option value="76-80">76% to 80%</option>
-                <option value="81-85">81% to 85%</option>
-                <option value="86-90">86% to 90%</option>
-                <option value=">90">more than 90%</option>
+                placeholder="Enter OD Discount"
+              >
+                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                {
+                  odList.map((data)=>(
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  ))
+                }
               </select>
             </div>
 
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
               <select
-                className="input-style p-1 text-lg rounded-lg"
+                className="input-style text-lg p-1 rounded-lg"
                 type="text"
                 name="cc"
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
-                placeholder="Enter CC">
-                <option className="w-1" value="" >---------------- Select CC -------------------</option>
-                <option value="<100">less than 100 cc</option>
-                <option value="100-125">100 to 125 cc</option>
-                <option value="126-150">126 to 150 cc</option>
-                <option value="151-350">151 to 350 cc</option>
-                <option value=">351">more than 351 cc</option>
-                <option value="<1000">less than 1000 cc</option>
-                <option value="1000-1200">1000 to 1200 cc</option>
-                {/* <option value="<1200">less than 1200 cc</option> */}
-                <option value=">1201">greater than 1201 cc</option>
-                <option value="NA">Not Applicable</option>
+                placeholder="Enter CC"
+              >
+                <option className="w-1" value="" >----------------- Select CC ------------------</option>
+               {
+                ccList.map((data)=>(
+                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                ))
+               }
               </select>
             </div>
+
             {/* payout on */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>
@@ -566,7 +602,7 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 value={popercentage}
                 onChange={(e) => setPoPercentage(e.target.value)}

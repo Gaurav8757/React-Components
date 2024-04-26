@@ -14,6 +14,8 @@ function TwUpdateSlab({ slab, update }) {
   const [state, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [fuelType, setFuelType] = useState([]);
+  const [odList, setOdList] = useState([]);
+  const [ccList, setCCList] = useState([]);
   const [payoutOnList, setPayoutOnList] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [allCities, setAllCities] = useState('');
@@ -77,7 +79,49 @@ function TwUpdateSlab({ slab, update }) {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
+
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      axios
+        .get(`${VITE_DATA}/od/list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setOdList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
@@ -89,7 +133,7 @@ function TwUpdateSlab({ slab, update }) {
       .catch((error) => {
         console.error("Error fetching company names:", error);
       });
-  }, [pdata]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -110,7 +154,7 @@ function TwUpdateSlab({ slab, update }) {
           console.error(error);
         });
     }
-  }, [payoutOnList]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -131,7 +175,7 @@ function TwUpdateSlab({ slab, update }) {
           console.error(error);
         });
     }
-  }, [fuelType]);
+  }, []);
 
 
   const [allDetails, setAllDetails] = useState({
@@ -372,6 +416,7 @@ function TwUpdateSlab({ slab, update }) {
                           onChange={handleInputChange}
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
+                          <option value="all">All</option>
                           <option value="yes">Yes</option>
                           <option value="no">No</option>
                         </select>
@@ -388,16 +433,11 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder=""
                         >
                           <option className="w-1" value="" >------- Select OD Discount ---------</option>
-                          <option value="0">0%</option>
-                          <option value="1-40">1% to 40%</option>
-                          <option value="41-50">41% to 50%</option>
-                          <option value="51-60">51% to 60%</option>
-                          <option value="61-70">61% to 70%</option>
-                          <option value="71-75">71% to 75%</option>
-                          <option value="76-80">76% to 80%</option>
-                          <option value="81-85">81% to 85%</option>
-                          <option value="86-90">86% to 90%</option>
-                          <option value=">90">more than 90%</option>
+                          {
+                            odList.map((data) => (
+                              <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                            ))
+                          }
                         </select>
                       </div>
 
@@ -412,17 +452,11 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder="Enter CC"
                         >
                           <option className="w-1" value="" >------------- Select CC --------------</option>
-                          <option value="<100">less than 100 cc</option>
-                          <option value="100-125">100 to 125 cc</option>
-                          <option value="126-150">126 to 150 cc</option>
-                          <option value="151-350">151 to 350 cc</option>
-                          <option value=">351">more than 351 cc</option>
-                          <option value="<1000">less than 1000 cc</option>
-                          <option value="1000-1200">1000 to 1200 cc</option>
-                          {/* <option value="<1200">less than 1200 cc</option> */}
-                          <option value=">1201">greater than 1201 cc</option>
-                          <option value="NA">Not Applicable</option>
-
+                          {
+                            ccList.map((data) => (
+                              <option key={data._id} value={data.cc}>{data.cc}</option>
+                            ))
+                          }
                         </select>
                       </div>
                       {/* payout on */}
