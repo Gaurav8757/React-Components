@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
 import axios from "axios";
+import MultiStep from "react-multistep";
+import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +17,8 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [cities, setCities] = useState([]);
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
+  const [pdata, setPdata] = useState([]);
+  const [branchname, setBranchName] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -66,6 +70,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     taxes: '',
     odDiscount: '',
     ncb: '',
+    rsa: '',
     advisorName: '',
     subAdvisor: '',
     policyMadeBy: '',
@@ -105,6 +110,41 @@ function UpdateMaster({ insurance, onUpdate }) {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${VITE_DATA}/view/company/lists`)
+      .then((resp) => {
+        const cType = resp.data;
+
+        setPdata(cType);
+      })
+      .catch((error) => {
+        console.error("Error fetching company names:", error);
+      });
+  }, [pdata]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/api/branch-list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setBranchName(response.data);
+
+        })
+        .catch((error) => {
+
+          console.error(error);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -417,7 +457,7 @@ function UpdateMaster({ insurance, onUpdate }) {
           aria-hidden="true"
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
 
-          <div className="relative p-1 w-full max-w-9xl max-h-7xl mx-auto my-20">
+          <div className="relative p-1 w-10/12 max-w-9xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
             <div className="relative bg-gradient-to-r from-cyan-600 to-cyan-600 rounded-lg shadow dark:bg-slate-100">
               {/* <!-- Modal header --> */}
@@ -431,820 +471,825 @@ function UpdateMaster({ insurance, onUpdate }) {
                   className=" bg-transparent hover:text-red-500 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
                   <CgCloseR size={25} />
                 </button>
+
               </div>
 
 
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-                  <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-400">
-                    <div className="flex flex-wrap justify-between">
-                      {/* FIELD - 1 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4 ">
-                        <label className="text-base mx-1">Entry Date:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.entryDate}
-                          onChange={handleInputChange}
-                          name="entryDate"
-                        />
-                      </div>
-                      {/* FIELD - 4 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Segment:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.segment}
-                          onChange={handleInputChange}
-                          name="segment"
-                        >
-                          <option className="w-1" value="" >--- Select Segment ---</option>
-                          <option value="C V">C V</option>
-                          <option value="PVT-CAR">PVT-CAR</option>
-                          <option value="TW">TW</option>
-                          <option value="HEALTH">HEALTH</option>
-                          <option value="NON-MOTOR">NON-MOTOR</option>
-                          <option value="LIFE">LIFE</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 7 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Insured Name:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.insuredName}
-                          onChange={handleInputChange}
-                          name="insuredName"
-                        />
-                      </div>
-                      {/* FIELD - 10 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy Start Date:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          name="policyStartDate"
-                          value={allDetails.policyStartDate}
-                          onChange={
-                            handlePolicyStartDateChange
-                          }
-                        />
-                      </div>
-                      {/* FIELD - 13 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">TP Expiry:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.tpExpiry}
-                          onChange={handleInputChange}
-                          name="tpExpiry"
-                          min="2025-01-01"
-                        />
-                      </div>
-                      {/* FIELD - 16 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Make & Model:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.makeModel}
-                          onChange={handleInputChange}
-                          name="makeModel"
-                        />
-                      </div>
-                      {/* FIELD - 19 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Vehicle Age:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.vehicleAge}
-                          name="vehicleAge"
-                          readOnly
-                        />
-                      </div>
-                      {/* FIELD - 22 */}
-                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">CC:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.cc}
-                          onChange={handleInputChange}
-                          name="cc"
-                        />
-                      </div> */}
-                      <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-                        <select
-                          className="input-style  rounded-lg"
-                          type="text"
-                          name="cc"
-                          value={allDetails.cc}
-                          onChange={handleInputChange}
-                          placeholder="Enter CC">
-                          <option className="w-1" value="" >-------------------- Select CC -------------------</option>
-                          {
-                            ccList.map((data) => (
-                              <option key={data._id} value={data.cc}>{data.cc}</option>
-                            ))
-                          }
-                        </select>
-                      </div>
-
-
-                      {/* FIELD - 25 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy Type:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.policyType}
-                          name="policyType"
-                          // onChange={(e) => setPolicyType(e.target.value)}
-                          onChange={handleInputChange}
-                        > <option value="">--- Select Policy Type ---</option>
-                          {data.map(prod => (
-                            <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
-                          ))}
-
-                        </select>
-                      </div>
-
-
-                      {/* FIELD - 28 */}
-                      {
-                        allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                          <label className="text-base mx-1">Liability Premium:</label>
+              <section className="p-4 md:p-3   rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-600 to-cyan-600">
+                <div className="container-fluid  flex justify-center p-1 border-gray-200 border-dashed rounded-lg  bg-white">
+                  <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+                    <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between  overflow-hidden"
+                      stepCustomStyle={{
+                        display: "inline",
+                        width: "50%",
+                        marginBottom: "0"
+                      }}
+                      titleCustomStyle={{ fontWeight: "bold", color: "#2D3748" }}
+                      contentCustomStyle={{ color: "#2D3748" }}
+                      prevButton={{
+                        title: (
+                          <span className="flex justify-start text-base">
+                            <SlArrowLeftCircle className="mr-2 mx-auto my-auto " /> Back
+                          </span>
+                        ),
+                        style: {
+                          display: "inline",
+                          width: "max-content",
+                          background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                          color: 'white',
+                          fontWeight: '',
+                          borderRadius: '10rem',
+                          padding: '0.2rem 0.6rem',
+                          border: 'none',
+                          cursor: 'pointer',
+                          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+                          transition: 'background 1.3s ease',
+                          marginRight: 'auto', // Adjusted to marginRight auto
+                          marginBottom: '0.5rem',
+                          float: 'left'
+                        }
+                      }}
+                      nextButton={{
+                        title: (
+                          <span className="flex justify-end text-base">Next
+                            <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
+                          </span>
+                        ),
+                        style: {
+                          display: "inline",
+                          width: "max-content",
+                          background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                          color: 'white',
+                          fontWeight: '',
+                          borderRadius: '10rem',
+                          padding: '0.2rem 0.6rem',
+                          border: 'none',
+                          cursor: 'pointer',
+                          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08)',
+                          transition: 'background 1.3s ease',
+                          marginLeft: 'auto', // Adjusted to marginLeft auto
+                          marginBottom: '0.5rem',
+                          float: 'right'
+                        }
+                      }}
+                    >
+                      <div className="flex flex-wrap mb-8 justify-between">
+                        {/* FIELD - 1 */}
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5 ">
+                          <label className="text-base mx-1">Entry Date:</label>
                           <input
-                            className="input-style rounded-lg"
-                            type="number"
-                            value={allDetails.liabilityPremium}
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.entryDate}
                             onChange={handleInputChange}
-                            placeholder="Disabled"
-                            onBlur={updateNetPremium}
-                            name="liabilityPremium"
-                            disabled
+                            name="entryDate"
                           />
-                        </div>)
-                          : (<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                        </div>
+
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Branch:</label>
+                          <select
+                            id="branch"
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.branch}
+                            onChange={handleInputChange}
+                            name="branch"
+                          >
+                            <option className="" value="" >----------- Select Branch -----------</option>
+                            {
+                              branchname.map((item) => (
+                                <option value={item.branchname} key={item._id}>{item.branchname}</option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                        {/* FIELD - 4 */}
+
+                        {/* FIELD - 7 */}
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Insured Name:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.insuredName}
+                            onChange={handleInputChange}
+                            name="insuredName"
+                          />
+                        </div>
+
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Contact No:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.contactNo}
+                            onChange={handleInputChange}
+                            name="contactNo"
+                            placeholder="Enter Contact No" />
+                        </div>
+
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy Made By:</label>
+                          <select
+                            className="input-style text-base p-1 rounded-lg"
+                            value={allDetails.staffName}
+                            onChange={handleInputChange}
+                            name="staffName"
+                          >
+                            <option className="w-1" value="" >----------- Policy Made By ----------</option>
+                            {
+                              pmade.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
+                                .map((emp) => (
+                                  <option key={emp._id} value={emp.empname}>
+                                    {emp.empid} - {emp.empname}
+                                  </option>
+                                ))
+                            }
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Company Name:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.company}
+                            onChange={handleInputChange}
+                            name="company"
+                          >
+                            <option className="w-1" value="" >--------- Select Company ----------</option>
+                            {pdata.map((comp) => (
+                              <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+                                {comp.c_type}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Category:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.category}
+                            onChange={handleInputChange}
+                            name="category"
+                          > <option className="w-1" value="" >----------- Select Category ---------</option>
+                            <option value="GIC">GIC</option>
+                            <option value="LIFE">LIFE</option>
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy Type:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.policyType}
+                            name="policyType"
+                            // onChange={(e) => setPolicyType(e.target.value)}
+                            onChange={handleInputChange}
+                          > <option value="">--------- Select Policy Type ----------</option>
+                            {data.map(prod => (
+                              <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
+                            ))}
+
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Product Code:</label>
+                          <select
+                            id="productCode"
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.productCode}
+                            onChange={handleInputChange} name="productCode">
+
+                            <option className="w-1" value="" >-------- Select Product Code -------</option>
+
+                            {data.map((policy) => {
+                              if (policy.p_type === allDetails.policyType) {
+                                return policy.products.map((product, idx) => (
+                                  <option key={idx} value={product}>{product}</option>
+                                ));
+                              }
+                              return null;
+                            })}
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy No:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.policyNo}
+                            onChange={handleInputChange}
+                            name="policyNo"
+                            placeholder="Enter Policy No"
+                          />
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">State:</label>
+                          <select className="input-style text-base flex flex-wrap  p-1 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
+                            <option value="">----------- Select State -----------</option>
+                            {states.map(state => (
+                              <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">District:</label>
+                          <select
+                            className="input-style text-base  p-1 rounded-lg"
+                            name="selectedCity"
+                            value={allDetails.selectedCity}
+                            onChange={handleInputChange}
+                            disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
+                          >
+                            <option value="">------------ Select City ----------</option>
+                            {cities.map((city, idx) => (
+                              <option key={idx} value={city.name}>
+                                {city.name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Vehicle Reg No:</label>
+                          <input
+                            className="input-style p-1  rounded-lg"
+                            type="text"
+                            value={allDetails.vehRegNo}
+                            onChange={handleInputChange}
+                            name="vehRegNo"
+                            placeholder="Enter Vehicle Reg No"
+                          />
+                        </div>
+                        {/* FIELD - 20 */}
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Fuel:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.fuel}
+                            onChange={handleInputChange} name="fuel">
+                            <option className="w-1" value="" >----------- Select Fuel Type ----------</option>
+                            {
+                              fuelType.map((fuel) => (
+                                <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 text-base  rounded-lg"
+                            type="text"
+                            name="cc"
+                            value={allDetails.cc}
+                            onChange={handleInputChange}
+                            placeholder="Enter CC">
+                            <option className="" value="" >-------------- Select CC -------------</option>
+                            {
+                              ccList.map((data) => (
+                                <option key={data._id} value={data.cc}>{data.cc}</option>
+                              ))
+                            }
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Engine No:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.engNo}
+                            onChange={handleInputChange}
+                            name="engNo"
+                            placeholder="Enter Engine No" />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Chassis No:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.chsNo}
+                            onChange={handleInputChange}
+                            name="chsNo"
+                            placeholder="Enter Chassis No"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">GVW (kg):</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.gvw}
+                            onChange={handleInputChange}
+                            name="gvw"
+                            placeholder="Enter GVW"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Segment:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.segment}
+                            onChange={handleInputChange}
+                            name="segment"
+                          >
+                            <option className="w-1" value="" >---------- Select Segment ----------</option>
+                            <option value="C V">C V</option>
+                            <option value="PVT-CAR">PVT-CAR</option>
+                            <option value="TW">TW</option>
+                            <option value="HEALTH">HEALTH</option>
+                            <option value="NON-MOTOR">NON-MOTOR</option>
+                            <option value="LIFE">LIFE</option>
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Sourcing:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.sourcing}
+                            onChange={handleInputChange} name="sourcing">
+
+                            <option className="w-1" value="" >-------- Select Sourcing Type -------</option>
+                            <option value="NEW">NEW</option>
+                            <option value="RENEWAL">RENEWAL</option>
+                            <option value="ROLL OVER">ROLL OVER</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap mb-8 justify-between">
+
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy Start Date:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            name="policyStartDate"
+                            value={allDetails.policyStartDate}
+                            onChange={
+                              handlePolicyStartDateChange
+                            }
+                          />
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy End Date:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.policyEndDate}
+                            onChange={handleInputChange}
+                            name="policyEndDate"
+                            placeholder="Select Policy End Date" />
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">OD Expiry:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.odExpiry}
+                            onChange={handleInputChange}
+                            name="odExpiry"
+                            placeholder="Select OD Expiry"
+                            min="2025-01-01"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">TP Expiry:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.tpExpiry}
+                            onChange={handleInputChange}
+                            name="tpExpiry"
+                            min="2025-01-01"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">IDV:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.idv}
+                            onChange={handleInputChange}
+                            name="idv"
+                            placeholder="Enter IDV" />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Body Type:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.bodyType}
+                            onChange={handleInputChange}
+                            name="bodyType"
+                            placeholder="Enter Body Type"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 text-start mt-3 w-full lg:w-1/5">
+                          <label className="text-base mx-1">Make & Model:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.makeModel}
+                            onChange={handleInputChange}
+                            name="makeModel"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Manufacturing Year:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.mfgYear}
+                            onChange={handleInputChange}
+                            name="mfgYear"
+                            placeholder="Enter Manufacturing Year" />
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Registration Date:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.registrationDate}
+                            onChange={handleInputChange}
+                            name="registrationDate"
+                            placeholder="Select Registration Date"
+                            min="1950-01-01"
+                          // max={getLastDayOfPreviousMonth()}
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Vehicle Age:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.vehicleAge}
+                            name="vehicleAge"
+                            readOnly
+                          />
+                        </div>
+                        {
+                          insurance.policyType === "SATP" ? (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">OD Premium:</label>
+                            <input
+                              className="input-style p-1 rounded-lg"
+                              type="number"
+                              value={allDetails.odPremium}
+                              onChange={handleInputChange}
+                              placeholder="Disabled"
+                              name="odPremium"
+                              onBlur={updateNetPremium}
+                              disabled
+                            />
+                          </div>) : (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">OD Premium:</label>
+                            <input
+                              className="input-style p-1 rounded-lg"
+                              type="number"
+                              value={allDetails.odPremium}
+                              onChange={handleInputChange}
+                              name="odPremium"
+                              placeholder="Enter OD Premium"
+                              onBlur={updateNetPremium}
+                            />
+                          </div>)}
+
+                        {
+                          allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Liability Premium:</label>
                             <input
-                              className="input-style rounded-lg"
+                              className="input-style p-1 rounded-lg"
                               type="number"
                               value={allDetails.liabilityPremium}
                               onChange={handleInputChange}
+                              placeholder="Disabled"
                               onBlur={updateNetPremium}
                               name="liabilityPremium"
+                              disabled
                             />
                           </div>)
-                      }
+                            : (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                              <label className="text-base mx-1">Liability Premium:</label>
+                              <input
+                                className="input-style p-1 rounded-lg"
+                                type="number"
+                                value={allDetails.liabilityPremium}
+                                onChange={handleInputChange}
+                                onBlur={updateNetPremium}
+                                name="liabilityPremium"
+                              />
+                            </div>)
+                        }
 
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Net Premium:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="number"
+                            value={allDetails.netPremium}
+                            onBlur={handleNetPremiumBlur}
+                            name="netPremium"
+                            placeholder="Net Premium"
+                            readOnly />
+                          <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
+                        </div>
 
-                      {/* FIELD - 31 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Final Amount:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.finalEntryFields}
-                          onChange={handleInputChange}
-                          name="finalEntryFields"
-                          placeholder=" Final Amount"
-                          readOnly
-                        />
-                      </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">GST% :</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.taxes}
+                            onChange={handleInputChange}
+                            onBlur={calculateFinalAmount}
+                            name="finalEntryFields"
+                            placeholder="GST"
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">RSA:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.rsa}
+                            onChange={handleInputChange}
+                            onBlur={calculateFinalAmount}
+                            name="rsa"
+                            placeholder="RSA"
+                          />
 
+                        </div>
 
-                      {/* FIELD - 34*/}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Advisor Name:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.advisorName}
-                          onChange={handleInputChange}
-                          name="advisorName"
-                          placeholder="Enter Advisor Name"
-                        />
-                      </div>
-
-
-                      {/* FIELD - 37 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy Made By:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.staffName}
-                          onChange={handleInputChange}
-                          name="staffName"
-                        >
-                          <option className="w-1" value="" >--- Policy Made By ---</option>
-                          {
-                            pmade.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
-                              .map((emp) => (
-                                <option key={emp._id} value={emp.empname}>
-                                  {emp.empid} - {emp.empname}
-                                </option>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Final Amount:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.finalEntryFields}
+                            onChange={handleInputChange}
+                            name="finalEntryFields"
+                            placeholder=" Final Amount"
+                            readOnly
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            name="odDiscount"
+                            value={allDetails.odDiscount}
+                            onChange={handleInputChange}
+                            placeholder="Enter OD Discount"
+                          >
+                            <option className="w-1" value="" >-------- Select OD Discount --------</option>
+                            {
+                              odList.map((data) => (
+                                <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
                               ))
-                          }
-                        </select>
-                      </div>
-
-                      {/* FIELD - 40 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base  mx-1">Payment Done By:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.paymentDoneBy}
-                          onChange={handleInputChange}
-                          name="paymentDoneBy"
-                        >
-                          <option className="w-1" value="" >--- Select Payment Done By ---</option>
-                          <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
-                          <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
-                          <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
-                          <option value="PATNA BRANCH">PATNA BRANCH</option>
-                          <option value="CUSTOMER">CUSTOMER</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 43 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">CHQ / Payment Date:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.chqPaymentDate}
-                          onChange={handleInputChange}
-                          name="chqPaymentDate"
-                          placeholder="Select CHQ / Payment Date"
-                        />
-                      </div>
-
-                      {/* FIELD - 46 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Branch Payout:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="number"
-                          value={allDetails.branchPayout}
-                          onChange={handleInputChange}
-                          name="branchPayout"
-                          onBlur={() => {
-
-                            calculateBranchPayableAmount();
-                            calculateProfitLoss();
-                          }}
-                          placeholder="Enter Branch Payout"
-                        />
-                      </div>
-                      {/* FIELD - 49 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Profit/Loss Amount:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.profitLoss}
-                          onChange={handleInputChange}
-                          name="profitLoss"
-                          placeholder="Profit/Loss Amount"
-                          readOnly
-                        />
-                        <span className="text-xs mx-1 text-red-600">(companypayout - branchpayout)</span>
-                      </div>
-
-
-
-                      {/* FIELD - 2 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Company Name:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.company}
-                          onChange={handleInputChange}
-                          name="company"
-                        >
-                          <option className="w-1" value="" >--- Select Company ---</option>
-                          <option value="TATA AIG">TATA AIG</option>
-                          <option value="MAGMA-HDI">MAGMA HDI</option>
-                          <option value="BAJAJ ALLIANZ">BAJAJ ALLIANZ</option>
-                          <option value="GO-DIGIT">GO-DIGIT</option>
-                          <option value="HDFC ERGO">HDFC ERGO</option>
-                          <option value="ICICI LOMBARD">ICICI LOMBARD</option>
-                          <option value="FUTURE-GENERALI">FUTURE-GENERALI</option>
-                          <option value="RELIANCE">RELIANCE</option>
-                          <option value="IFFCO-TOKIO">IFFCO-TOKIO</option>
-                          <option value="KOTAK-MAHINDRA">KOTAK-MAHINDRA</option>
-                          <option value="PNB MET LIFE">PNB MET LIFE</option>
-                          <option value="LIC">LIC</option>
-                        </select>
-                      </div>
-
-                      {/* FIELD - 5 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Sourcing:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.sourcing}
-                          onChange={handleInputChange} name="sourcing">
-
-                          <option className="w-1" value="" >--- Select Sourcing Type ---</option>
-                          <option value="NEW">NEW</option>
-                          <option value="RENEWAL">RENEWAL</option>
-                          <option value="ROLL OVER">ROLL OVER</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 8 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Contact No:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.contactNo}
-                          onChange={handleInputChange}
-                          name="contactNo"
-                          placeholder="Enter Contact No" />
-                      </div>
-                      {/* FIELD - 11 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy End Date:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.policyEndDate}
-                          onChange={handleInputChange}
-                          name="policyEndDate"
-                          placeholder="Select Policy End Date" />
-                      </div>
-                      {/* FIELD - 14 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">IDV:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.idv}
-                          onChange={handleInputChange}
-                          name="idv"
-                          placeholder="Enter IDV" />
-                      </div>
-                      {/* FIELD - 17 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Manufacturing Year:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.mfgYear}
-                          onChange={handleInputChange}
-                          name="mfgYear"
-                          placeholder="Enter Manufacturing Year" />
-                      </div>
-
-                      {/* FIELD - 20 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Fuel:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.fuel}
-                          onChange={handleInputChange} name="fuel">
-                          <option className="w-1" value="" >--- Select Fuel Type ---</option>
-                          {
-                            fuelType.map((fuel) => (
-                              <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
-                            ))
-                          }
-
-                          {/* Add more fuel options */}
-                        </select>
-                      </div>
-                      {/* FIELD - 23 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Engine No:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.engNo}
-                          onChange={handleInputChange}
-                          name="engNo"
-                          placeholder="Enter Engine No" />
-                      </div>
-                      {/* FIELD - 26 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Product Code:</label>
-                        <select
-                          id="productCode"
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.productCode}
-                          onChange={handleInputChange} name="productCode">
-
-                          <option className="w-1" value="" >--- Select Product Code ---</option>
-
-                          {data.map((policy) => {
-                            if (policy.p_type === allDetails.policyType) {
-                              return policy.products.map((product, idx) => (
-                                <option key={idx} value={product}>{product}</option>
-                              ));
                             }
-                            return null;
-                          })}
-                        </select>
-                      </div>
-                      {/* FIELD - 29 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Net Premium:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="number"
-                          value={allDetails.netPremium}
-                          onBlur={handleNetPremiumBlur}
-                          name="netPremium"
-                          placeholder="Net Premium"
-                          readOnly />
-                        <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
-                      </div>
-                      {/* FIELD - 32 */}
-                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">OD Discount% :</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.odDiscount}
-                          onChange={handleInputChange}
-                          name="odDiscount"
-                          placeholder="Enter OD Discount" />
-                      </div> */}
+                          </select>
+                        </div>
 
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-                        <select
-                          className="input-style  rounded-lg"
-                          type="text"
-                          name="odDiscount"
-                          value={allDetails.odDiscount}
-                          onChange={handleInputChange}
-                          placeholder="Enter OD Discount"
-                        >
-                          <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                          {
-                            odList.map((data) => (
-                              <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
-                            ))
-                          }
-                        </select>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            type="text"
+                            name="ncb"
+                            value={allDetails.ncb}
+                            onChange={handleInputChange}
+                          >
+                            <option className="w-1" value="" >------------ Select NCB ------------</option>
+                            <option value="all">All</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </select>
+                        </div>
 
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Policy Payment Mode:</label>
+                          <select
+                            id="policyPaymentMode"
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.policyPaymentMode}
+                            onChange={handleInputChange} name="policyPaymentMode">
+                            <option className="w-1" value="" >-- Select Policy Payment Mode --</option>
+                            <option value="LINK">LINK</option>
+                            <option value="ONLINE">ONLINE</option>
+                            <option value="CREDIT CARD">CREDIT CARD</option>
+                            <option value="NET BANKING">NET BANKING</option>
+                            <option value="CHQ">CHQ</option>
+                            <option value="CUSTOMER LINK">CUSTOMER LINK</option>
+                            <option value="FLOAT PAYMENT">FLOAT PAYMENT</option>
+                            <option value="UPI">UPI</option>
+                            <option value="QR SCAN">QR SCAN</option>
+                            <option value="DD">DD</option>
+                            <option value="NEFT">NEFT</option>
+                            <option value="RTGS">RTGS</option>
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Advisor Name:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.advisorName}
+                            onChange={handleInputChange}
+                            name="advisorName"
+                            placeholder="Enter Advisor Name"
+                          />
+                        </div>
                       </div>
-                      {/* FIELD - 35 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                      <div className="flex flex-wrap justify-between">
+
+                        {/* <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sub Advisor:</label>
                         <input
-                          className="input-style rounded-lg"
+                          className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.subAdvisor}
                           onChange={handleInputChange}
                           name="subAdvisor"
                           placeholder="Enter Sub Advisor"
                         />
-                      </div>
-                      {/* FIELD - 38 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Payout On:</label>
-                        <select
-                          id="payoutOn"
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.payoutOn}
-                          onChange={handleInputChange} name="payoutOn">
-                          <option className="w-1" value="" >--- Select Payout on ---</option>
-                          <option value="NET">NET</option>
-                          <option value="OD">OD</option>
-                          <option value="LIABILITY">LIABILITY</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 41 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">CHQ No / Ref No.:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.chqNoRefNo}
-                          onChange={handleInputChange}
-                          name="chqNoRefNo"
-                          placeholder="Enter CHQ No / Ref No."
-                        />
-                      </div>
-                      {/* FIELD - 44 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">CHQ Status:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.chqStatus}
-                          onChange={handleInputChange}
-                          name="chqStatus"
-                        >
-                          <option className="w-1" value="" disabled>--- Select CHQ Status ---</option>
-                          <option value="PENDING">PENDING</option>
-                          <option value="SUBMITTED TO BRANCH">SUBMITTED TO BRANCH</option>
-                          <option value="CLEAR FROM BANK">CLEAR FROM BANK</option>
-                          <option value="BCQ">BCQ</option>
-                          <option value="SUBMITTED TO BANK">SUBMITTED TO BANK</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 47 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Branch Payable Amount: </label>
-
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.branchPayableAmount}
-                          onChange={handleInputChange}
-                          name="branchPayableAmount"
-                          placeholder="Branch Payable Amount"
-                          readOnly
-                        />
-                        <span className="text-xs mx-1 text-red-600" >(netpremium - branchpayout)</span>
-                      </div>
-
-
-
-
-
-                      {/* FIELD - 3 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Category:</label>
-                        <select
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.category}
-                          onChange={handleInputChange}
-                          name="category"
-                        > <option className="w-1" value="" >--- Select Category ---</option>
-                          <option value="GIC">GIC</option>
-                          <option value="LIFE">LIFE</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 6 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy No:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.policyNo}
-                          onChange={handleInputChange}
-                          name="policyNo"
-                          placeholder="Enter Policy No"
-                        />
-                      </div>
-                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">State:</label>
-                        <select className="input-style flex flex-wrap  p-1 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
-                          <option value="">------------- Select State --------------- </option>
-                          {states.map(state => (
-                            <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">District:</label>
-                        <select
-                          className="input-style   p-1 rounded-lg"
-                          name="selectedCity"
-                          value={allDetails.selectedCity}
-                          onChange={handleInputChange}
-                          disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
-                        >
-                          <option value="">------------ Select City --------------</option>
-                          {cities.map((city, idx) => (
-                            <option key={idx} value={city.name}>
-                              {city.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-
-
-                      {/* FIELD - 9 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Vehicle Reg No:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.vehRegNo}
-                          onChange={handleInputChange}
-                          name="vehRegNo"
-                          placeholder="Enter Vehicle Reg No"
-                        />
-                      </div>
-                      {/* FIELD - 12 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">OD Expiry:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.odExpiry}
-                          onChange={handleInputChange}
-                          name="odExpiry"
-                          placeholder="Select OD Expiry"
-                          min="2025-01-01"
-                        />
-                      </div>
-                      {/* FIELD - 15 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Body Type:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.bodyType}
-                          onChange={handleInputChange}
-                          name="bodyType"
-                          placeholder="Enter Body Type"
-                        />
-                      </div>
-                      {/* FIELD - 18 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Registration Date:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="date"
-                          value={allDetails.registrationDate}
-                          onChange={handleInputChange}
-                          name="registrationDate"
-                          placeholder="Select Registration Date"
-                          min="1950-01-01"
-                        // max={getLastDayOfPreviousMonth()}
-                        />
-                      </div>
-                      {/* FIELD - 21 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">GVW (kg):</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.gvw}
-                          onChange={handleInputChange}
-                          name="gvw"
-                          placeholder="Enter GVW"
-                        />
-                      </div>
-                      {/* FIELD - 24 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Chassis No:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.chsNo}
-                          onChange={handleInputChange}
-                          name="chsNo"
-                          placeholder="Enter Chassis No"
-                        />
-                      </div>
-                      {/* FIELD - 27 */}
-                      {
-                        insurance.policyType === "SATP" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                          <label className="text-base mx-1">OD Premium:</label>
+                      </div> */}
+                        {/* FIELD - 38 */}
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Payout On:</label>
+                          <select
+                            id="payoutOn"
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.payoutOn}
+                            onChange={handleInputChange} name="payoutOn">
+                            <option className="w-1" value="" >---------- Select Payout on ----------</option>
+                            <option value="NET">NET</option>
+                            <option value="OD">OD</option>
+                            <option value="LIABILITY">LIABILITY</option>
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Advisor Payable Amount:</label>
                           <input
-                            className="input-style rounded-lg"
+                            className="input-style p-1 rounded-lg"
                             type="number"
-                            value={allDetails.odPremium}
+                            value={allDetails.advisorPayableAmount}
                             onChange={handleInputChange}
-                            placeholder="Disabled"
-                            name="odPremium"
-                            onBlur={updateNetPremium}
-                            disabled
-                          />
-                        </div>) : (<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                          <label className="text-base mx-1">OD Premium:</label>
+                            name="advisorPayableAmount"
+                            placeholder="Advisor Payable Amount" />
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Branch Payout:</label>
                           <input
-                            className="input-style rounded-lg"
+                            className="input-style p-1 rounded-lg"
                             type="number"
-                            value={allDetails.odPremium}
+                            value={allDetails.branchPayout}
                             onChange={handleInputChange}
-                            name="odPremium"
-                            placeholder="Enter OD Premium"
-                            onBlur={updateNetPremium}
+                            name="branchPayout"
+                            onBlur={() => {
+
+                              calculateBranchPayableAmount();
+                              calculateProfitLoss();
+                            }}
+                            placeholder="Enter Branch Payout"
                           />
-                        </div>)}
-                      {/* FIELD - 30 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">GST% :</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.taxes}
-                          onChange={handleInputChange}
-                          onBlur={calculateFinalAmount}
-                          name="finalEntryFields"
-                          placeholder="GST"
-                        />
-                      </div>
-                      {/* FIELD - 33 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">NCB% :</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="text"
-                          value={allDetails.ncb}
-                          onChange={handleInputChange}
-                          name="ncb"
-                          placeholder="Enter NCB"
-                        />
-                      </div>
-                      {/* FIELD - 36 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Branch:</label>
-                        <select
-                          id="branch"
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.branch}
-                          onChange={handleInputChange}
-                          name="branch"
-                        >
-                          <option className="w-1" value="" >--- Select Branch ---</option>
-                          <option value="PATNA">PATNA</option>
-                          <option value="HAJIPUR">HAJIPUR</option>
-                          <option value="SAMASTIPUR">SAMASTIPUR</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 39 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Policy Payment Mode:</label>
-                        <select
-                          id="policyPaymentMode"
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.policyPaymentMode}
-                          onChange={handleInputChange} name="policyPaymentMode">
+                        </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Branch Payable Amount: </label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.branchPayableAmount}
+                            onChange={handleInputChange}
+                            name="branchPayableAmount"
+                            placeholder="Branch Payable Amount"
+                            readOnly
+                          />
+                          <span className="text-xs mx-1 text-red-600" >(netpremium - branchpayout)</span>
+                        </div>
 
-                          <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
-                          <option value="LINK">LINK</option>
-                          <option value="ONLINE">ONLINE</option>
-                          <option value="CREDIT CARD">CREDIT CARD</option>
-                          <option value="NET BANKING">NET BANKING</option>
-                          <option value="CHQ">CHQ</option>
-                          <option value="CUSTOMER LINK">CUSTOMER LINK</option>
-                          <option value="FLOAT PAYMENT">FLOAT PAYMENT</option>
-                          <option value="UPI">UPI</option>
-                          <option value="QR SCAN">QR SCAN</option>
-                          <option value="DD">DD</option>
-                          <option value="NEFT">NEFT</option>
-                          <option value="RTGS">RTGS</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 42 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Bank Name:</label>
-                        <select
-                          id="bankName"
-                          className="input-style p-1 rounded-lg"
-                          value={allDetails.bankName}
-                          onChange={handleInputChange} name="bankName">
-                          <option className="w-1" value="" >--- Select Bank ---</option>
-                          <option value="HDFC BANK">HDFC BANK</option>
-                          <option value="ICICI BANK">ICICI BANK</option>
-                          <option value="SBI">SBI</option>
-                          <option value="PNB">PNB</option>
-                          <option value="CANARA">CANARA</option>
-                          <option value="AXIS BANK">AXIS BANK</option>
-                          <option value="BOB">BOB</option>
-                          <option value="BOI">BOI</option>
-                          <option value="IDBI">IDBI</option>
-                        </select>
-                      </div>
-                      {/* FIELD - 45 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Advisor Payable Amount:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="number"
-                          value={allDetails.advisorPayableAmount}
-                          onChange={handleInputChange}
-                          name="advisorPayableAmount"
-                          placeholder="Advisor Payable Amount" />
-                      </div>
-                      {/* FIELD - 48 */}
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">Company Payout:</label>
-                        <input
-                          className="input-style rounded-lg"
-                          type="number"
-                          value={allDetails.companyPayout}
-                          onChange={handleInputChange}
-                          name="companyPayout"
-                          onBlur={calculateProfitLoss}
-                          placeholder="Enter Company Payout" />
-                      </div>
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4"></div>
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4"></div>
-                    </div>
+                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Company Payout:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="number"
+                            value={allDetails.companyPayout}
+                            onChange={handleInputChange}
+                            name="companyPayout"
+                            onBlur={calculateProfitLoss}
+                            placeholder="Enter Company Payout" />
+                        </div>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Profit/Loss Amount:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.profitLoss}
+                            onChange={handleInputChange}
+                            name="profitLoss"
+                            placeholder="Profit/Loss Amount"
+                            readOnly
+                          />
+                          <span className="text-xs mx-1 text-red-600">(companypayout - branchpayout)</span>
+                        </div>
 
+                        {/* FIELD - 40 */}
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base  mx-1">Payment Done By:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.paymentDoneBy}
+                            onChange={handleInputChange}
+                            name="paymentDoneBy"
+                          >
+                            <option className="w-1" value="" >---- Select Payment Done By -------</option>
+                            <option value="ELEEDOM IMF PVT LTD">ELEEDOM IMF PVT LTD</option>
+                            <option value="HAJIPUR BRANCH">HAJIPUR BRANCH</option>
+                            <option value="SAMASTIPUR BRANCH">SAMASTIPUR BRANCH</option>
+                            <option value="PATNA BRANCH">PATNA BRANCH</option>
+                            <option value="CUSTOMER">CUSTOMER</option>
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CHQ No / Ref No.:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.chqNoRefNo}
+                            onChange={handleInputChange}
+                            name="chqNoRefNo"
+                            placeholder="Enter CHQ No / Ref No."
+                          />
+                        </div>
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Bank Name:</label>
+                          <select
+                            id="bankName"
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.bankName}
+                            onChange={handleInputChange} name="bankName">
+                            <option className="w-1" value="" >------------ Select Bank ------------</option>
+                            <option value="HDFC BANK">HDFC BANK</option>
+                            <option value="ICICI BANK">ICICI BANK</option>
+                            <option value="SBI">SBI</option>
+                            <option value="PNB">PNB</option>
+                            <option value="CANARA">CANARA</option>
+                            <option value="AXIS BANK">AXIS BANK</option>
+                            <option value="BOB">BOB</option>
+                            <option value="BOI">BOI</option>
+                            <option value="IDBI">IDBI</option>
+                          </select>
+                        </div>
+                        {/* FIELD - 43 */}
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CHQ / Payment Date:</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="date"
+                            value={allDetails.chqPaymentDate}
+                            onChange={handleInputChange}
+                            name="chqPaymentDate"
+                            placeholder="Select CHQ / Payment Date"
+                          />
+                        </div>
 
-                    {/* button */}
-                    <div className="col-span-4 p-2 flex justify-center">
-                      <button
-                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                        onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
-                    </div>
+                        {/* FIELD - 44 */}
+                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CHQ Status:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.chqStatus}
+                            onChange={handleInputChange}
+                            name="chqStatus"
+                          >
+                            <option className="w-1" value="">-------- Select CHQ Status --------</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="SUBMITTED TO BRANCH">SUBMITTED TO BRANCH</option>
+                            <option value="CLEAR FROM BANK">CLEAR FROM BANK</option>
+                            <option value="BCQ">BCQ</option>
+                            <option value="SUBMITTED TO BANK">SUBMITTED TO BANK</option>
+                          </select>
+                        </div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
+
+                        <div className="mt-8 p-2 flex justify-center lg:w-full w-full">
+                          <button className="text-white  bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2"
+                            onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
+                        </div>
+
+                      </div>
+                    </MultiStep>
                   </div>
                 </div>
               </section>
