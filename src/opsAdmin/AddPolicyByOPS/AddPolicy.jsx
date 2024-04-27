@@ -14,7 +14,7 @@ function AddPolicy() {
     const [currentTime, setCurrentTime] = useState(getFormattedTime());
     const [staffName, setStaffName] = useState("");
     const [employee_id, setEmployeeId] = useState("");
-
+    const [branchname, setBranchName] = useState([]);
 
 // current time update
     function getFormattedTime() {
@@ -55,6 +55,29 @@ function AddPolicy() {
                 });
         }
     }, [formSubmitted]);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/api/branch-list`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setBranchName(response.data);
+
+                })
+                .catch((error) => {
+
+                    console.error(error);
+                });
+        }
+    }, []);
 
     // const handleDateChange = (event) => {
     //     const inputDate = event.target.value; // Get the input date in YYYY-MM-DD format
@@ -152,9 +175,11 @@ function AddPolicy() {
                                 value={branch}
                                 onChange={(e) => setBranch(e.target.value)}>
                                 <option className="w-1" value="" disabled>--- Select Branch ---</option>
-                                <option value="PATNA">PATNA</option>
-                                <option value="HAJIPUR">HAJIPUR</option>
-                                <option value="SAMASTIPUR">SAMASTIPUR</option>
+                                {
+                                    branchname.map((item)=>(
+                                        <option value={item.branchname} key={item._id}>{item.branchname}</option>
+                                    ))
+                                }
                             </select>
                             {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
                         </div>

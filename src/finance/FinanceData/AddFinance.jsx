@@ -71,6 +71,7 @@ function AddFinance() {
   const [section1Filled, setSection1Filled] = useState(false);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [branchname, setBranchName] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   // const [section2Filled, setSection2Filled] = useState(false);
@@ -131,6 +132,28 @@ function AddFinance() {
 
 
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/api/branch-list`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+                setBranchName(response.data);
+
+            })
+            .catch((error) => {
+
+                console.error(error);
+            });
+    }
+}, []);
 
 
   useEffect(() => {
@@ -681,9 +704,11 @@ function AddFinance() {
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}>
                   <option className="w-1" value="" >--------------- Select Branch ---------------</option>
-                  <option value="PATNA">PATNA</option>
-                  <option value="HAJIPUR">HAJIPUR</option>
-                  <option value="SAMASTIPUR">SAMASTIPUR</option>
+                  {
+                                    branchname.map((item)=>(
+                                        <option value={item.branchname} key={item._id}>{item.branchname}</option>
+                                    ))
+                                }
                 </select>
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>

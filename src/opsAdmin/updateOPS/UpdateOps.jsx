@@ -5,9 +5,8 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
 
-function UpdateOps({ UpdateOps, update }) {
+function UpdateOps({ UpdateOps, update, APIData }) {
     const [loading, setLoading] = useState("");
-    const [APIData, setAPIData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentTime, setCurrentTime] = useState(getFormattedTime());
     const [allDetails, setAllDetails] = useState({
@@ -19,6 +18,7 @@ function UpdateOps({ UpdateOps, update }) {
         currentTime: '',
         employee_id: ''
     });
+
     // OPEN MODAL
     const openModal = () => {
         setIsModalOpen(true);
@@ -29,25 +29,6 @@ function UpdateOps({ UpdateOps, update }) {
         setIsModalOpen(false);
     };
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            axios
-                .get(`${VITE_DATA}/api/employee-list`, {
-                    headers: {
-                        Authorization: `${token}`,
-                    },
-                })
-                .then((response) => {
-                    setAPIData(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, []);
 
     function getFormattedTime() {
         const date = new Date();
@@ -73,41 +54,37 @@ function UpdateOps({ UpdateOps, update }) {
     }, [UpdateOps]);
 
     // handle input change
-   // handle input change
-const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const selectedEmployee = APIData.find(emp => emp.empname === value);
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        const selectedEmployee = APIData.find(emp => emp.empname === value);
 
-    // setDataId(selectedEmployee ? selectedEmployee._id : ''); // set dataId only if selectedEmployee is found
-    setAllDetails((prevData) => ({
-        ...prevData,
-        employee_id: selectedEmployee ? selectedEmployee._id : '',
-        currentTime: currentTime,
-        [name]: value,
-    }));
-};
+        setAllDetails((prevData) => ({
+            ...prevData,
+            employee_id: selectedEmployee ? selectedEmployee._id : '',
+            currentTime: currentTime,
+            [name]: value,
+        }));
+    };
 
-const updateInsuranceAPI = async () => {
-    try {
-        setLoading(true);
-        const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${UpdateOps._id}`, allDetails);
-        update();
-        toast.success(`${resp.data.status}`);
-        closeModal();
-    } catch (error) {
-        console.error("Error updating insurance details:", error);
-        toast.error("Failed to update insurance details");
-    } finally {
-        setLoading(false);
-    }
-};
-
-
+    const updateInsuranceAPI = async () => {
+        try {
+            setLoading(true);
+            const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${UpdateOps._id}`, allDetails);
+            update();
+            toast.success(`${resp.data.status}`);
+            closeModal();
+        } catch (error) {
+            console.error("Error updating insurance details:", error);
+            toast.error("Failed to update insurance details");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
             {/* <!-- Modal toggle --> */}
-            <button onClick={ openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 m-1 ">
+            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 m-1 ">
                 Update
             </button>
 

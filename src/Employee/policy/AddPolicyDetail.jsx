@@ -9,10 +9,12 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [pdata, setPdata] = useState([]);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
+    const [odList, setOdList] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [selectedState, setSelectedState] = useState('');
     // eslint-disable-next-line no-unused-vars
@@ -110,6 +112,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                 });
         }
     }, [formSubmitted]);
+    
     // const isValidEngineChassis = (value) => {
     //     return /^[A-Za-z0-9]{6}$/.test(value);
     // };
@@ -124,7 +127,28 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             .catch((error) => {
                 console.error("Error fetching company names:", error);
             });
-    }, [pdata]);
+    }, []);
+
+    useEffect(() => {
+        // The user is authenticated, so you can make your API request here.
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+          toast.error("Not Authorized yet.. Try again! ");
+        } else {
+          axios
+            .get(`${VITE_DATA}/od/list`, {
+              headers: {
+                Authorization: `${token}`, // Send the token in the Authorization header
+              },
+            })
+            .then((response) => {
+              setOdList(response.data);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      }, []);
 
     useEffect(() => {
         axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -136,7 +160,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             .catch((error) => {
                 console.error("Error fetching policy types:", error);
             });
-    }, [data]);
+    }, []);
 
 
 
@@ -161,7 +185,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                     console.error(error);
                 });
         }
-    }, [APIData]);
+    }, []);
 
     const updateNetPremium = () => {
         const odPremiumValue = parseFloat(allDetails.odPremium) || 0;
@@ -558,7 +582,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 <span className="mx-1 text-xs text-green-600">(netPremium + GST%)</span>
                                             </div>
                                             {/* FIELD - 10 */}
-                                            <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
+                                            {/* <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style  text-base p-1 rounded-lg"
@@ -567,9 +591,28 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     onChange={handleInputChange}
                                                     name="odDiscount"
                                                     placeholder="Enter OD Discount" />
-                                            </div>
+                                            </div> */}
+
+<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          name="odDiscount"
+                          value={allDetails.odDiscount}
+                          onChange={handleInputChange}
+                          placeholder="Enter OD Discount"
+                        >
+                          <option className="w-1" value="" >------- Select OD Discount ---------</option>
+                          {
+                            odList.map((data) => (
+                              <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                            ))
+                          }
+                        </select>
+                      </div>
                                             {/* FIELD - 11 */}
-                                            <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
+                                            {/* <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                                                 <input
                                                     className="input-style p-1 text-base rounded-lg"
@@ -577,8 +620,25 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     value={allDetails.ncb}
                                                     onChange={handleInputChange}
                                                     name="ncb"
-                                                    placeholder="Enter NCB"
+                                                    
                                                 />
+                                            </div> */}
+
+
+                                                                    <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                                                <select
+                                                className="input-style p-1 text-base rounded-lg"
+                                                type="text"
+                                                value={allDetails.ncb}
+                                                name="ncb"
+                                                onChange={handleInputChange}
+                                                >
+                                                <option className="w-1" value="" >-------------- Select NCB ---------------</option>
+                                                <option value="all">All</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                                </select>
                                             </div>
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>

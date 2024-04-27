@@ -2,11 +2,13 @@ import AllOpsData from './AllOpsData.jsx';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { debounce } from "lodash";
 import * as XLSX from 'xlsx';
 import VITE_DATA from '../../config/config.jsx';
 import Paginationops from './Paginationops.jsx';
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
+    const [empData, setEmpData] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [totalPages, setTotalPages] = useState();
     const [endDate, setEndDate] = useState("");
@@ -23,6 +25,31 @@ function AllOpsDetails() {
         // Show modal confirmation dialog
         setDeletingStaffId(_id);
     };
+
+
+    const fetchEmployeeList = debounce(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+            return;
+        }
+        axios
+            .get(`${VITE_DATA}/api/employee-list`, {
+                headers: {
+                    Authorization: `${token}`,
+                },
+            })
+            .then((response) => {
+                setEmpData(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, 500); // Debounce duration in milliseconds
+
+    useEffect(() => {
+        fetchEmployeeList(); // Initial fetch when component mounts
+    }, [fetchEmployeeList]);
 
     // POLICY DATA LISTS
     useEffect(() => {
@@ -364,7 +391,7 @@ function AllOpsDetails() {
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
                                 {filteredData.map((data) => (
-                                    <AllOpsData key={data._id} data={data} policy={onUpdatePolicy} deleteStaff = {deleteStaff} />
+                                    <AllOpsData key={data._id} datas={data} policy={onUpdatePolicy} deleteStaff = {deleteStaff} empData = {empData} />
                                 ))}
                             </tbody>
                         </table>
