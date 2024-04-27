@@ -12,14 +12,8 @@ function EmpAttendance() {
   const [halfday, setHalfDay] = useState(0);
   const employeeId = sessionStorage.getItem('employeeId');
   const tileClassName = ({ date }) => {
-   
-
     let classNames = '';
-
-   
-
     const statusForDate = getAttendanceStatusForDateSync(date);
-
     if (statusForDate) {
       if (statusForDate === 'present') {
         classNames += 'present-day';
@@ -31,7 +25,7 @@ function EmpAttendance() {
         classNames += 'holi-day';
       }
        else {
-        classNames += 'white'; // Default class for other cases
+        classNames += 'default-class'; // Default class for other cases
       }
     }
     return classNames.trim();
@@ -97,7 +91,7 @@ function EmpAttendance() {
         <div className='text-lg font-semibold text-blue-600'>
         Present Days: <span className='me-4 text-xl font-semibold text-green-600'> {presentDays}</span>
         Absent Days:   <span className='me-4 text-xl font-semibold text-red-600'>{absentDays} </span> 
-        Half Day :     <span className='text-xl font-semibold text-yellow-600'>{halfday}</span>
+        Half Day:     <span className='text-xl font-semibold text-yellow-600'>{halfday}</span>
             </div>
           </div>
           <Calendar

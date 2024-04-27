@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { FcPlanner } from "react-icons/fc";
-import { MdOutlinePolicy } from "react-icons/md";
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
-import { RxAvatar } from "react-icons/rx";
-
+const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
+const MdOutlinePolicy = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
+const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const RxAvatar = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxAvatar })));
 
 
 function DashboardEmp() {

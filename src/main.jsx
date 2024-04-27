@@ -370,6 +370,8 @@ const router = createBrowserRouter(
           <Route path="/hr/home/view/joining/letter" element={<ViewJoining />} />
           <Route path="/hr/home/joining/letter" element={<JoiningLetter />} />
           <Route path="/hr/home/leave/approval" element={<LeaveApproval />} />
+          {/* <Route path="/hr/home/add/attendance" element={<AddAttendance/>} /> */}
+          {/* <Route path="/hr/home/attendance" element={<EmpAttendance/>} /> */}
         </Route>
       </Route>
 

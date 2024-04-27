@@ -167,7 +167,7 @@ function AddAttendance() {
               </div>
               
               <div className='text-center my-8 mx-4 flex justify-start'>
-                <button className='text-white cursor-pointer  bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Attendance</button>
+                <button className='text-white cursor-pointer  bg-gradient-to-r from-green-600 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-3 py-0.5 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Submit</button>
               </div>
             </div>
             <LeaveApplication/>

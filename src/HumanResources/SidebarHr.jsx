@@ -13,6 +13,7 @@ const IoPersonRemoveSharp = React.lazy(() => import("react-icons/io5").then(modu
 const FaEnvelopeOpenText = React.lazy(() => import("react-icons/fa").then(module => ({ default: module.FaEnvelopeOpenText })));
 const MdAutoGraph = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
 const SlNote = React.lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
+const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
 
 function DashboardHr() {
   const dashboardRouted = [
@@ -21,7 +22,23 @@ function DashboardHr() {
       path: "/hr/home",
       logo: <RxDashboard size={25} />
     },
-
+    {
+      title: "Attendance",
+      path: "#",
+      logo: <FcPlanner size={25} />,
+      subRoutes: [
+        {
+          title: "Add Attendance",
+          path: "/hr/home/add/attendance",
+          dash: ""
+        },
+        {
+          title: "View Attendance",
+          path: "/hr/home/attendance",
+          dash: ""
+        },
+      ]
+    },
     {
       title: "Attendance Report",
       path: "#",
@@ -255,7 +272,7 @@ function DashboardHr() {
       {/* aside bar */}
       <aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r   sm:translate-x-0 `} aria-label="Sidebar">
         <div className="h-full px-3 pb-4 overflow-y-auto bg-cyan-900">
-          <ul className="space-y-2 font-medium">
+          <ul className="space-y-2 font-medium text-base">
             {dashboardRouted.map((route, idx) => (
               <li key={idx}>
                 {route.subRoutes ? (
@@ -267,7 +284,7 @@ function DashboardHr() {
                       className={`flex items-center p-2  rounded-lg dark:text-white text-white hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-6">{route.title}</span>
+                      <span className="ms-4 text-base">{route.title}</span>
                       <span className="ms-2"><IoMdArrowDropdown /></span>
                     </NavLink>
                     <ul
@@ -279,7 +296,7 @@ function DashboardHr() {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex  p-2 text-white text-start mx-6  hover:rounded-xl hover:bg-gray-500"
+                            className="flex text-base  p-2 text-white text-start mx-4  hover:rounded-xl hover:bg-gray-500"
                           >
                             {<IoMdArrowDropright size={30} />}{subRoute.title}
                           </NavLink>
@@ -291,7 +308,7 @@ function DashboardHr() {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-6">{route.title}</span>
+                    <span className="ms-4 text-base">{route.title}</span>
                   </NavLink>
                 )}
               </li>
