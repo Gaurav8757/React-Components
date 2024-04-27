@@ -12,6 +12,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [pdata, setPdata] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [ccList, setCCList] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
@@ -53,6 +54,27 @@ function UpdateFinance({ insurance, onUpdate }) {
     };
 
     fetchStates();
+}, []);
+
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    toast.error("Not Authorized yet.. Try again! ");
+  } else {
+    // The user is authenticated, so you can make your API request here.
+    axios
+      .get(`${VITE_DATA}/cc/show`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setCCList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 }, []);
 
   const [allDetails, setAllDetails] = useState({
@@ -974,7 +996,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
                       {/* FIELD - 22 */}
-                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
+                      {/* <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">CC:</label>
                         <input
                           className="input-style p-1 rounded-lg"
@@ -983,8 +1005,24 @@ function UpdateFinance({ insurance, onUpdate }) {
                           onChange={handleInputChange}
                           name="cc"
                         />
+                      </div> */}
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                        <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          className="input-style p-1 rounded-lg"
+                          type="text"
+                          name="cc"
+                          value={allDetails.cc}
+                          onChange={handleInputChange}
+                          placeholder="Enter CC">
+                          <option className="w-1" value="" >----------- Select CC -----------</option>
+                          {
+                            ccList.map((data) => (
+                              <option key={data._id} value={data.cc}>{data.cc}</option>
+                            ))
+                          }
+                        </select>
                       </div>
-
 
 
                       {/* FIELD - 34*/}

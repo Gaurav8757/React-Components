@@ -113,22 +113,22 @@ function UpdateMaster({ insurance, onUpdate }) {
     if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
-    axios
-      .get(`${VITE_DATA}/od/list`, {
-        headers: {
-          Authorization: `${token}`, // Send the token in the Authorization header
-        },
-      })
-      .then((response) => {
-        setOdList(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      axios
+        .get(`${VITE_DATA}/od/list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setOdList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
- useEffect(() => {
+  useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
@@ -240,26 +240,26 @@ function UpdateMaster({ insurance, onUpdate }) {
   //   calculateAge();
   // },);
   useEffect(() => {
-  const calculateAge = () => {
-    if (!allDetails.mfgYear) {
+    const calculateAge = () => {
+      if (!allDetails.mfgYear) {
+        setAllDetails(prevDetails => ({
+          ...prevDetails,
+          vehicleAge: "0 years"
+        }));
+        return;
+      }
+
+      const today = new Date();
+      const birthdateDate = new Date(allDetails.mfgYear);
+      const ageYears = today.getFullYear() - birthdateDate.getFullYear();
+
       setAllDetails(prevDetails => ({
         ...prevDetails,
-        vehicleAge: "0 years"
+        vehicleAge: `${ageYears} years`
       }));
-      return;
-    }
+    };
 
-    const today = new Date();
-    const birthdateDate = new Date(allDetails.mfgYear);
-    const ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      vehicleAge: `${ageYears} years`
-    }));
-  };
-
-  
     calculateAge();
   }, [allDetails.mfgYear]); // Add appropriate dependency here
 
@@ -538,24 +538,23 @@ function UpdateMaster({ insurance, onUpdate }) {
                           name="cc"
                         />
                       </div> */}
-              <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style  rounded-lg"
-                type="text"
-                name="cc"
-                value={allDetails.cc}
-                onChange={handleInputChange}
-                placeholder="Enter CC"
-              >
-                <option className="w-1" value="" >-------------------- Select CC -------------------</option>
-               {
-                ccList.map((data)=>(
-                  <option key={data._id} value={data.cc}>{data.cc}</option>
-                ))
-               }
-              </select>
-            </div>        
+                      <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          className="input-style  rounded-lg"
+                          type="text"
+                          name="cc"
+                          value={allDetails.cc}
+                          onChange={handleInputChange}
+                          placeholder="Enter CC">
+                          <option className="w-1" value="" >-------------------- Select CC -------------------</option>
+                          {
+                            ccList.map((data) => (
+                              <option key={data._id} value={data.cc}>{data.cc}</option>
+                            ))
+                          }
+                        </select>
+                      </div>
 
 
                       {/* FIELD - 25 */}
@@ -877,25 +876,25 @@ function UpdateMaster({ insurance, onUpdate }) {
                           placeholder="Enter OD Discount" />
                       </div> */}
 
-<div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style  rounded-lg"
-                type="text"
-                name="odDiscount"
-                value={allDetails.odDiscount}
-                onChange={handleInputChange}
-                placeholder="Enter OD Discount"
-              >
-                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                {
-                  odList.map((data)=>(
-                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
-                  ))
-                }
-              </select>
-             
-            </div>
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          className="input-style  rounded-lg"
+                          type="text"
+                          name="odDiscount"
+                          value={allDetails.odDiscount}
+                          onChange={handleInputChange}
+                          placeholder="Enter OD Discount"
+                        >
+                          <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                          {
+                            odList.map((data) => (
+                              <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                            ))
+                          }
+                        </select>
+
+                      </div>
                       {/* FIELD - 35 */}
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Sub Advisor:</label>

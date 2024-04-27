@@ -105,20 +105,20 @@ function MasterForm() {
     if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
-    axios
-      .get(`${VITE_DATA}/od/list`, {
-        headers: {
-          Authorization: `${token}`, // Send the token in the Authorization header
-        },
-      })
-      .then((response) => {
-        setOdList(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      axios
+        .get(`${VITE_DATA}/od/list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setOdList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -244,25 +244,25 @@ function MasterForm() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/api/branch-list`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setBranchName(response.data);
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/api/branch-list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setBranchName(response.data);
 
-            })
-            .catch((error) => {
+        })
+        .catch((error) => {
 
-                console.error(error);
-            });
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
@@ -286,11 +286,11 @@ function MasterForm() {
     fetchStates();
   }, []);
 
-  const handleStateChange =  (e) => {
+  const handleStateChange = (e) => {
     const stateIsoCode = e.target.value;
     setSelectedState(stateIsoCode);
     // Fetch cities only when a state is selected
-    const fetchCities =  async () => {
+    const fetchCities = async () => {
       const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
       setCities(stateCities);
     };
@@ -317,9 +317,9 @@ function MasterForm() {
     const birthdateDate = new Date(mfgYear);
     console.log(today, " ", birthdateDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-console.log(ageYears);
+    console.log(ageYears);
     setVehicleAge(`${ageYears} years`);
-};
+  };
   useEffect(() => {
     calculateAge();
   },);
@@ -390,11 +390,11 @@ console.log(ageYears);
 
   const calculateCompanyPayableAmount = (finalEntryFields, companypayoutper) => {
     const deduction = finalEntryFields * (companypayoutper / 100);
-    return  deduction;
+    return deduction;
   };
 
-   //calculation  profit/loss 
-   const calculateProfitLoss = () => {
+  //calculation  profit/loss 
+  const calculateProfitLoss = () => {
     const companyPayoutValue = parseFloat(companyPayout) || 0;
     const branchPayoutValue = parseFloat(branchPayout) || 0;
     const profitLossValue = companyPayoutValue - branchPayoutValue;
@@ -408,7 +408,7 @@ console.log(ageYears);
     cslabItem.policytypes === policyType &&
     cslabItem.pcodes === productCode &&
     cslabItem.vfuels === fuel &&
-    cslabItem.payoutons === payoutOn 
+    cslabItem.payoutons === payoutOn
   );
 
   useEffect(() => {
@@ -538,7 +538,7 @@ console.log(ageYears);
       errors.advisorName = "required*";
     }
 
-    
+
     if (!staffName) {
       errors.staffName = "required*";
     }
@@ -771,10 +771,10 @@ console.log(ageYears);
                 >
                   <option className="w-1" value="" >---------------- Select Branch --------------</option>
                   {
-                                    branchname.map((item)=>(
-                                        <option value={item.branchname} key={item._id}>{item.branchname}</option>
-                                    ))
-                                }
+                    branchname.map((item) => (
+                      <option value={item.branchname} key={item._id}>{item.branchname}</option>
+                    ))
+                  }
                 </select>
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>
@@ -965,7 +965,7 @@ console.log(ageYears);
             </div>
 
             <div className="flex flex-wrap mb-12 justify-between">
-           
+
               {
                 policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
@@ -1068,29 +1068,29 @@ console.log(ageYears);
 
 
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                type="text"
-                name="odDiscount"
-                value={odDiscount}
-                onChange={(e) => setOdDiscount(e.target.value)}
-                placeholder="Enter OD Discount"
-              >
-                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                {
-                  odList.map((data)=>(
-                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
-                  ))
-                }
-              </select>
-              {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
-            </div>
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount"
+                >
+                  <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                  {
+                    odList.map((data) => (
+                      <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                    ))
+                  }
+                </select>
+                {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
+              </div>
 
 
 
               {/* FIELD - 18 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1100,6 +1100,23 @@ console.log(ageYears);
                   onChange={(e) => setNcb(e.target.value)}
                   placeholder="Enter NCB"
                 />
+                {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
+              </div> */}
+
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                >
+                  <option className="w-1" value="" >-------------- Select NCB ------------------</option>
+                  <option value="all">All</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
                 {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
               </div>
 
@@ -1123,32 +1140,32 @@ console.log(ageYears);
                 {errors.policyPaymentMode && <span className="text-red-600 text-sm ">{errors.policyPaymentMode}</span>}
               </div>
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
-              <select className="input-style text-lg p-0.5 rounded-lg" value={selectedState} onChange={handleStateChange}>
-                <option value="">---------------- Select State ----------------- </option>
-                {states.map(state => (
-                  <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
-                ))}
-              </select>
-            </div>
+                <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+                <select className="input-style text-lg p-0.5 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                  <option value="">---------------- Select State ----------------- </option>
+                  {states.map(state => (
+                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                  ))}
+                </select>
+              </div>
 
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-0.5 rounded-lg"
-                value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
-                disabled={!selectedState} // Disable city dropdown until a state is selected
-              >
-                <option value="">--------------- Select City -------------</option>
-                {cities.map((city) => (
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style text-lg p-0.5 rounded-lg"
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  disabled={!selectedState} // Disable city dropdown until a state is selected
+                >
+                  <option value="">--------------- Select City -------------</option>
+                  {cities.map((city) => (
 
-                  <option key={city.id} value={city.name}>
-                    {city.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                    <option key={city.id} value={city.name}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -1182,14 +1199,14 @@ console.log(ageYears);
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>
 
-             
+
 
             </div>
 
             {/* part-3 */}
             <div className="flex flex-wrap mb-12 justify-between">
- {/* FIELD - 22 */}
- <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              {/* FIELD - 22 */}
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   className="input-style p-0.5 text-lg rounded-lg"
@@ -1204,8 +1221,8 @@ console.log(ageYears);
                 {errors.sourcing && <span className="text-red-600 text-sm ">{errors.sourcing}</span>}
               </div>
 
-                {/* FIELD - 23 */}
-                <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              {/* FIELD - 23 */}
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Policy Start Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1323,14 +1340,14 @@ console.log(ageYears);
                   name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
                   placeholder="Enter Registration Year"
-                  // min="1950-01-01"
-                  // max={getLastDayOfPreviousMonth()}
+                // min="1950-01-01"
+                // max={getLastDayOfPreviousMonth()}
                 />
                 {errors.registrationDate && <span className="text-red-600 text-sm">{errors.registrationDate}</span>}
               </div>
 
- {/* FIELD - 32 */}
- <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* FIELD - 32 */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1358,14 +1375,14 @@ console.log(ageYears);
                   }
                 </select>
               </div>
- {/* FIELD - 34 */}
- 
+              {/* FIELD - 34 */}
+
 
             </div>
 
 
             <div className="flex flex-wrap mb-12 justify-between">
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">GVW(kg):<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1377,9 +1394,9 @@ console.log(ageYears);
                 />
                 {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>}
               </div>
-             
 
-             
+
+
 
               {/* FIELD - 35 */}
               {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
@@ -1396,23 +1413,23 @@ console.log(ageYears);
               </div> */}
 
               <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style p-1 rounded-lg"
-                type="text"
-                name="cc"
-                value={cc}
-                onChange={(e) => setCc(e.target.value.toUpperCase())}
-                placeholder="Enter CC"
-              >
-                <option className="w-1" value="" >-------------------- Select CC -------------------</option>
-               {
-                ccList.map((data)=>(
-                  <option key={data._id} value={data.cc}>{data.cc}</option>
-                ))
-               }
-              </select>
-            </div>
+                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 rounded-lg"
+                  type="text"
+                  name="cc"
+                  value={cc}
+                  onChange={(e) => setCc(e.target.value.toUpperCase())}
+                  placeholder="Enter CC"
+                >
+                  <option className="w-1" value="" >-------------------- Select CC -------------------</option>
+                  {
+                    ccList.map((data) => (
+                      <option key={data._id} value={data.cc}>{data.cc}</option>
+                    ))
+                  }
+                </select>
+              </div>
 
               {/* FIELD - 36 */}
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
@@ -1482,8 +1499,8 @@ console.log(ageYears);
                 </select>
                 {errors.payoutOn && <span className="text-red-600 text-sm">{errors.payoutOn}</span>}
               </div>
-               {/* FIELD - 40 */}
-               <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* FIELD - 40 */}
+              <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Payment Done By:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   className="input-style p-0.5 text-lg rounded-lg"
@@ -1498,8 +1515,8 @@ console.log(ageYears);
                   <option value="CUSTOMER">CUSTOMER</option>
                 </select>
               </div>
-               {/* FIELD - 41 */}
-               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* FIELD - 41 */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CHQ No / Ref No:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1510,8 +1527,8 @@ console.log(ageYears);
                   placeholder="Enter CHQ No / Ref No."
                 />
               </div>
-               {/* FIELD - 42 */}
-               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* FIELD - 42 */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Bank Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   id="bankName"
@@ -1536,8 +1553,8 @@ console.log(ageYears);
                   placeholder="Select CHQ / Payment Date"
                 />
               </div>
- {/* FIELD - 44 */}
- <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* FIELD - 44 */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CHQ Status:</label>
                 <select
                   className="input-style p-0.5 text-lg rounded-lg"
@@ -1564,7 +1581,7 @@ console.log(ageYears);
                   // placeholder="Advisor Payo Amount"
                   readOnly
                 />
-                
+
               </div>
             </div>
 
@@ -1581,7 +1598,7 @@ console.log(ageYears);
                   placeholder="Advisor Payable Amount"
                   readOnly
                 />
-                
+
               </div>
 
               {/* FIELD - 46 */}
@@ -1643,7 +1660,7 @@ console.log(ageYears);
                   readOnly
                 />
               </div>
-              
+
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-8 p-2 flex justify-center lg:w-full w-full">

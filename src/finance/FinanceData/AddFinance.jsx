@@ -71,6 +71,8 @@ function AddFinance() {
   const [section1Filled, setSection1Filled] = useState(false);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  const [odList, setOdList] = useState([]);
+  const [ccList, setCCList] = useState([]);
   const [branchname, setBranchName] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -135,25 +137,67 @@ function AddFinance() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/api/branch-list`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setBranchName(response.data);
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/api/branch-list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setBranchName(response.data);
 
-            })
-            .catch((error) => {
+        })
+        .catch((error) => {
 
-                console.error(error);
-            });
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
+
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      axios
+        .get(`${VITE_DATA}/od/list`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setOdList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -286,7 +330,7 @@ function AddFinance() {
   // Calculate the last day of the previous month
   // const getLastDayOfPreviousMonth = () => {
   //   const today = new Date();
-    // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
+  // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
   //   return today.toISOString().split('T')[0];
   // };
   //  VEHICLE AGE CALCULATED
@@ -324,7 +368,7 @@ function AddFinance() {
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
 
     setVehicleAge(`${ageYears} years`);
-};
+  };
   useEffect(() => {
     calculateAge();
   },);
@@ -424,7 +468,7 @@ function AddFinance() {
     if (!policyType) {
       errors.policyType = "required*";
     }
-    
+
     if (!taxes) {
       errors.taxes = "required*";
     }
@@ -590,7 +634,7 @@ function AddFinance() {
         setNcb("");
         setAdvisorName("");
         setSubAdvisor("");
-        
+
         setBranch("");
         setPayoutOn("");
         setTaxes("");
@@ -705,10 +749,10 @@ function AddFinance() {
                   onChange={(e) => setBranch(e.target.value)}>
                   <option className="w-1" value="" >--------------- Select Branch ---------------</option>
                   {
-                                    branchname.map((item)=>(
-                                        <option value={item.branchname} key={item._id}>{item.branchname}</option>
-                                    ))
-                                }
+                    branchname.map((item) => (
+                      <option value={item.branchname} key={item._id}>{item.branchname}</option>
+                    ))
+                  }
                 </select>
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>
@@ -902,11 +946,11 @@ function AddFinance() {
 
             {/* FIELD - 12 */}
             <div className="flex flex-wrap mb-10 justify-between text">
-          
+
 
               {/* FIELD - 13 */}
               {
-                policyType === "SAOD"  ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
                     className="input-style rounded-lg"
@@ -929,7 +973,7 @@ function AddFinance() {
                       onChange={(e) => setLiabilityPremium(e.target.value)}
                       placeholder="Enter Liability Premium"
                       onBlur={updateNetPremium}
-                    />  
+                    />
                   </div>)
               }
 
@@ -991,7 +1035,7 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 17 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">OD Discount%:</label>
                 <input
                   className="input-style rounded-lg"
@@ -1001,11 +1045,31 @@ function AddFinance() {
                   onChange={(e) => setOdDiscount(e.target.value)}
                   placeholder="Enter OD Discount"
                 />
-                {/* {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>} */}
+               
+              </div> */}
+
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style  rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount"
+                >
+                  <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                  {
+                    odList.map((data) => (
+                      <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                    ))
+                  }
+                </select>
+
               </div>
 
               {/* FIELD - 18 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">NCB%:</label>
                 <input
                   className="input-style rounded-lg"
@@ -1015,8 +1079,24 @@ function AddFinance() {
                   onChange={(e) => setNcb(e.target.value)}
                   placeholder="Enter NCB"
                 />
-                {/* {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>} */}
+              </div> */}
+
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style  rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                >
+                  <option className="w-1" value="" >------------------ Select NCB ------------------</option>
+                  <option value="all">All</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
               </div>
+
 
               {/* FIELD - 19 */}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -1040,33 +1120,33 @@ function AddFinance() {
 
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
-              <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
-                <option value="">---------------- Select State ----------------- </option>
-                {states.map(state => (
-                  <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
-                ))}
-              </select>
-            </div>
+                <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+                <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                  <option value="">---------------- Select State ----------------- </option>
+                  {states.map(state => (
+                    <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                  ))}
+                </select>
+              </div>
 
 
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                value={selectedCity}
-                onChange={(e) => setSelectedCity(e.target.value)}
-                disabled={!selectedState} // Disable city dropdown until a state is selected
-              >
-                <option value="">--------------- Select City -------------</option>
-                {cities.map((city) => (
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  disabled={!selectedState} // Disable city dropdown until a state is selected
+                >
+                  <option value="">--------------- Select City -------------</option>
+                  {cities.map((city) => (
 
-                  <option key={city.id} value={city.name}>
-                    {city.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+                    <option key={city.id} value={city.name}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               {/* FIELD - 20 */}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -1241,8 +1321,8 @@ function AddFinance() {
                   name="registrationDate"
                   onChange={(e) => setRegistrationDate(e.target.value)}
                   placeholder="Enter Year"
-                  // min="1950-01-01"
-                  // max={getLastDayOfPreviousMonth()}
+                // min="1950-01-01"
+                // max={getLastDayOfPreviousMonth()}
                 />
                 {/* {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>} */}
               </div>
@@ -1292,7 +1372,7 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 35 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CC:</label>
                 <input
                   className="input-style rounded-lg"
@@ -1303,6 +1383,25 @@ function AddFinance() {
                   placeholder="Enter CC"
                 />
                 {/* {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>} */}
+
+
+              <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style  rounded-lg"
+                  type="text"
+                  name="cc"
+                  value={cc}
+                  onChange={(e) => setCc(e.target.value.toUpperCase())}
+                  placeholder="Enter CC"
+                >
+                  <option className="w-1" value="" >------------------ Select CC ---------------------</option>
+                  {
+                    ccList.map((data) => (
+                      <option key={data._id} value={data.cc}>{data.cc}</option>
+                    ))
+                  }
+                </select>
               </div>
 
               {/* FIELD - 36 */}
