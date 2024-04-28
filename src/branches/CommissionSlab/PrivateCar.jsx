@@ -27,10 +27,10 @@ function PrivateCar() {
   const [odDiscount, setOdDiscount] = useState('');
   const [ncb, setNcb] = useState('');
   const [cc, setCc] = useState('');
-  const [advisors, setAdvisors] = useState([]);
+  // const [advisors, setAdvisors] = useState([]);
   const [advisorName, setAdvisorName] = useState("");
-  const [advisorId, setAdvisorId] = useState('');
-  const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+  // const [advisorId, setAdvisorId] = useState('');
+  // const [advisorUniqueId, setAdvisorUniqueId] = useState('');
   const [states, setStates] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
@@ -39,6 +39,7 @@ function PrivateCar() {
   const [sitcapacity, setSitCapacity] = useState('');
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
+  const [sit, setSit] = useState([]);
   const token = sessionStorage.getItem("token");
 
 
@@ -94,21 +95,41 @@ function PrivateCar() {
     }
   }, [formSubmitted]);
 
-  useEffect(() => {
-    axios.get(`${VITE_DATA}/advisor/lists`, {
-      headers: {
-        Authorization: `${token}`,
-      },
-    })
-      .then((response) => {
-        // Assuming response.data is an array
-        setAdvisors(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [token]);
+  // useEffect(() => {
+  //   axios.get(`${VITE_DATA}/advisor/lists`, {
+  //     headers: {
+  //       Authorization: `${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       // Assuming response.data is an array
+  //       setAdvisors(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [token]);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/sit/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+              setSit(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, [formSubmitted]);
 
   useEffect(() => {
       // The user is authenticated, so you can make your API request here.
@@ -130,7 +151,6 @@ function PrivateCar() {
     axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const cType = resp.data;
-
         setPdata(cType);
       })
       .catch((error) => {
@@ -142,7 +162,6 @@ function PrivateCar() {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
       .then((resp) => {
         const PolicyType = resp.data;
-
         setData(PolicyType);
       })
       .catch((error) => {
@@ -193,12 +212,12 @@ function PrivateCar() {
     }
   }, []);
 
-  const handleChange = (e) => {
-    const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
-    setAdvisorName(selectedAdvisor?.advisorname || "");
-    setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
-    setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
-  };
+  // const handleChange = (e) => {
+  //   const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
+  //   setAdvisorName(selectedAdvisor?.advisorname || "");
+  //   setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
+  //   setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
+  // };
 
 
   const handleVageChange = (e) => {
@@ -223,6 +242,15 @@ function PrivateCar() {
     // }
   };
 
+  // const handleAdvisorPayoutChange = (e) => {
+  //   const advisorPercentage = e.target.value;
+  //   // Your calculation logic for branch payout percentage based on advisor percentage
+  //   // const calculatedBranchPayout = advisorPercentage;
+
+  //   // Set both advisor and branch payout percentages
+  //   setPoPercentage(advisorPercentage);
+  //   setBranchpayoutper(advisorPercentage);
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formSubmitted) {
@@ -250,8 +278,8 @@ function PrivateCar() {
         vncb: ncb,
         advisorName,
         cvpercentage: popercentage,
-        advisorId,
-        advisorUniqueId,
+        // advisorId,
+        // advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
         districts: selectedCity || newCity,
@@ -280,7 +308,8 @@ function PrivateCar() {
       setVage('');
       setFuel('');
       setAdvisorName('');
-      setAdvisors('');
+      // setAdvisors('');
+      setSit('');
       setCc('');
       setOdDiscount('');
       setPayoutOn('');
@@ -299,10 +328,10 @@ function PrivateCar() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl  text-white dark:text-black"> Payout Slab </h1>
+          <h1 className="font-semibold text-3xl  text-white dark:text-black">Company Payout Grid </h1>
 
-          <div className="flex justify-center mb-10">
-            <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
+          <div className="flex justify-center mb-5">
+            {/* <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
               <label className="text-xl mx-1 my-2 font-bold"> Advisor Name<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1  text-lg rounded-lg"
@@ -324,22 +353,19 @@ function PrivateCar() {
                   })
                 }
               </select>
-
-            </div>
-          </div>
-
-          <div className="flex flex-wrap mb-12 justify-between">
-            <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-              <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
+            </div> */}
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+            <label className="text-lg mx-1 text-center mb-1 font-bold"><span className="text-red-600 font-bold">*</span>Company Name<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
-                className="input-style text-lg p-1 rounded-lg"
+                className="input-style text-lg p-0.5 rounded-lg"
                 value={company}
                 onChange={(e) => {
                   setCompany(e.target.value.toUpperCase());
                   const selectedCatId = e.target.selectedOptions[0].getAttribute("data-id");
                   setCatTypesForSelectedPolicy(selectedCatId);
                 }}
+                required
               >
                 <option className="w-1" value="" >--------------- Select Company ------------</option>
                 {pdata.map((comp) => (
@@ -349,6 +375,11 @@ function PrivateCar() {
                 ))}
               </select>
             </div>
+
+          </div>
+
+          <div className="flex flex-wrap mb-12 justify-between">
+            
 
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
@@ -443,23 +474,24 @@ function PrivateCar() {
             </div>
 
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
               <label className="text-base mx-1 ">Sitting Capacity:</label>
-              <input
+              <select
                 className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 value={sitcapacity}
                 onChange={(e) => setSitCapacity(e.target.value)}
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
-              />
+              >
+                <option value="" >--------------- Select Seating --------------</option>
+                {
+                  sit.map((data)=> (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+              </select>
             </div>
-
-
-
-
-
-
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -475,7 +507,6 @@ function PrivateCar() {
                 <option value="NON-MOTOR">NON-MOTOR</option>
                 <option value="LIFE">LIFE</option>
               </select>
-
             </div>
 
             {/* 4 */}
@@ -557,13 +588,11 @@ function PrivateCar() {
                 type="text"
                 name="ncb"
                 value={ncb}
-                onChange={(e) => setNcb(e.target.value)}
-              >
+                onChange={(e) => setNcb(e.target.value)} >
                 <option className="w-1" value="" >-------------- Select NCB ------------------</option>
                 <option value="all">All</option>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
-
               </select>
             </div>
 
@@ -575,8 +604,7 @@ function PrivateCar() {
                 name="odDiscount"
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
-                placeholder="Enter OD Discount"
-              >
+                placeholder="Enter OD Discount">
                 <option className="w-1" value="" >------------ Select OD Discount -------------</option>
                 {
                   odList.map((data)=>(
@@ -584,7 +612,6 @@ function PrivateCar() {
                   ))
                 }
               </select>
-
             </div>
 
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -595,8 +622,7 @@ function PrivateCar() {
                 name="cc"
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
-                placeholder="Enter CC"
-              >
+                placeholder="Enter CC">
                 <option className="w-1" value="" >----------------- Select CC ------------------</option>
                {
                 ccList.map((data)=>(
@@ -613,8 +639,7 @@ function PrivateCar() {
                 name="payoutOn"
                 className="input-style p-1  text-lg rounded-lg"
                 value={payoutOn}
-                onChange={(e) => setPayoutOn(e.target.value)}
-              >
+                onChange={(e) => setPayoutOn(e.target.value)}>
                 <option className="w-1" value="" >-------------- Select Payout on ----------</option>
                 {
                   payoutOnList
@@ -624,19 +649,19 @@ function PrivateCar() {
                 }
               </select>
             </div>
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style p-1 text-lg rounded-lg"
                 type="text"
                 value={popercentage}
-                onChange={(e) => setPoPercentage(e.target.value)}
+                onChange={handleAdvisorPayoutChange}
                 name="popercentage"
                 placeholder="%"
               />
-            </div>
+            </div> */}
             {/* branch payout % */}
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style p-1 text-lg rounded-lg"
@@ -645,8 +670,9 @@ function PrivateCar() {
                 onChange={(e) => setBranchpayoutper(e.target.value)}
                 name="branchpayoutper"
                 placeholder="%"
+                readOnly
               />
-            </div>
+            </div> */}
             {/* COMPANY payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>

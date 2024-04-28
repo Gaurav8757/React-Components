@@ -174,6 +174,7 @@ import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.jsx";
 import StateCities from "./data/stateCities.jsx";
 import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
 import Cc from "./admin/admincomponents/CC/Cc.jsx";
+import SitCapacity from "./admin/admincomponents/SittingCapacity/SitCapacity.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -278,11 +279,13 @@ const router = createBrowserRouter(
           <Route path="/dashboard/holiday/add" element={<HolidayAdd />} />
           <Route path="/dashboard/commvehicle" element={<CommercialVehicles />} />
           <Route path="/dashboard/payout/slab" element={<PrivateCar />} />
-          <Route path="/dashboard/company/slabs" element={<CompanySlab />} />
+          <Route path="/dashboard/advisor/slabs" element={<CompanySlab />} />
           <Route path="/dashboard/payout/lists" element={<PCLists />} />
+          <Route path="/dashboard/advisor/payout/lists" element={<TwLists />} />
           <Route path="/dashboard/states" element={<StateCities />} />
           <Route path="/dashboard/oddiscount" element={<OdDiscount />} />
           <Route path="/dashboard/CC" element={<Cc />} />
+          <Route path="/dashboard/sit/capacity" element={<SitCapacity />} />
         </Route>
       </Route>
 

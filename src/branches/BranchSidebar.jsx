@@ -5,7 +5,7 @@ const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ defaul
 const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
 const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
 const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
+// const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
 const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
 
 const BranchSidebar = () => {
@@ -38,43 +38,24 @@ const BranchSidebar = () => {
       path: "/branches/home/viewinsurance",
       logo: <RiGitBranchFill size={25} />,
     },
-    {
-      title: "Payout Slab",
-      path: "#",
-      logo: <GiReceiveMoney size={25} />,
-      subRoutes:[
-        {
-          title: "Add Payout",
-          path: "/branches/home/payout",
-          dash: ""
-        },
-        {
-          title: "Advisor Payout List",
-          path: "/branches/home/payout/lists",
-          dash: ""
-        },
-        // {
-        //   title: "PVT Car",
-        //   path: "/dashboard/payout/lists",
-        //   dash: ""
-        // },
-        // {
-        //   title: "Lists of PV",
-        //   path: "/branches/home/pvtvehicle/lists",
-        //   dash: ""
-        // },
-        // {
-        //   title: "Two Wheeler",
-        //   path: "/branches/home/twowheeler",
-        //   dash: ""
-        // },
-        // {
-        //   title: "Lists of TW",
-        //   path: "/branches/home/twowheeler/lists",
-        //   dash: ""
-        // },
-      ]
-    },
+    // {
+    //   title: "Payout Grid",
+    //   path: "#",
+    //   logo: <GiReceiveMoney size={25} />,
+    //   subRoutes:[
+    //     {
+    //       title: "Add Payout",
+    //       path: "/branches/home/payout",
+    //       dash: ""
+    //     },
+    //     {
+    //       title: "Advisor Payout List",
+    //       path: "/branches/home/payout/lists",
+    //       dash: ""
+    //     },
+       
+    //   ]
+    // },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

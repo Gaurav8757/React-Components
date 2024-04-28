@@ -177,7 +177,6 @@ function TwUpdateSlab({ slab, update }) {
     }
   }, []);
 
-
   const [allDetails, setAllDetails] = useState({
     cnames: slab.cnames || '', // Pre-saved company name
     catnames: slab.catnames || '', // Pre-saved category name
@@ -192,22 +191,33 @@ function TwUpdateSlab({ slab, update }) {
     vcc: slab.vcc || '', // Pre-saved CC
     payoutons: slab.payoutons || '', // Pre-saved payout on
     cvpercentage: slab.cvpercentage || '', // Pre-saved advisor payout percentage
+    branchpayoutper: slab.branchpayoutper || '',  //same matched with cvpercentage
   });
 
+   // Update branchpayoutper when cvpercentage changes
+   useEffect(() => {
+    setAllDetails((prevData) => ({
+      ...prevData,
+      branchpayoutper: prevData.cvpercentage,
+    }));
+  }, [allDetails.cvpercentage]);
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    
     // If the user selects "All Cities", save all city names in an array
     if (value === "All_Cities") {
       const allCityNames = cities.map(city => city.name);
       setAllDetails((prevData) => ({
         ...prevData,
         [name]: allCityNames,
+        
       }));
     } else {
       setAllDetails((prevData) => ({
         ...prevData,
         [name]: value,
-
+        
       }));
     }
   };

@@ -129,9 +129,9 @@ function TwLists() {
   return (
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid  p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
-        <div className=" flex justify-between text-blue-500">
+        <div className=" flex justify-between text-red-700">
           <h1 className="flex "></h1>
-          <span className="  text-center my-1  text-3xl font-semibold">Advisor Payout Lists</span>
+          <span className="  text-center my-1 mt-2 text-3xl font-semibold">Advisor Payout Grid List&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
       </div>
@@ -181,17 +181,17 @@ function TwLists() {
               PayoutOn
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              Percentage
+              Advisor Percentage%
             </th>
-            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
-              Branch Payout Percentage
-            </th> */}
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              Branch Percentage%
+            </th>
 
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
           {APIData.reverse().map((data) => {
-            if (data.vehicleSlab === 'Advisor-Slab') {
+            if (data.advisorId && data.advisorName) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-0 py-0 border border-black">
@@ -230,7 +230,7 @@ function TwLists() {
                   {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
                   <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
-                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td> */}
+                  <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
                 </tr>
               );
             } else {

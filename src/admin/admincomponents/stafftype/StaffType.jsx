@@ -10,7 +10,7 @@ function StaffType() {
     try {
       // Check if a valid attendance status is selected
       if (!type) {
-        toast.error('Please select a valid attendance status.');
+        toast.error('Please select a valid staff type.');
         return;
       }
       // Make a POST request to mark attendance

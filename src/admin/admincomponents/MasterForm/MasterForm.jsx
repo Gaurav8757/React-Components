@@ -965,7 +965,6 @@ function MasterForm() {
             </div>
 
             <div className="flex flex-wrap mb-12 justify-between">
-
               {
                 policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
@@ -1075,8 +1074,7 @@ function MasterForm() {
                   name="odDiscount"
                   value={odDiscount}
                   onChange={(e) => setOdDiscount(e.target.value)}
-                  placeholder="Enter OD Discount"
-                >
+                  placeholder="Enter OD Discount">
                   <option className="w-1" value="" >------------ Select OD Discount -------------</option>
                   {
                     odList.map((data) => (
@@ -1086,9 +1084,6 @@ function MasterForm() {
                 </select>
                 {errors.odDiscount && <span className="text-red-600 text-sm ">{errors.odDiscount}</span>}
               </div>
-
-
-
               {/* FIELD - 18 */}
               {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
@@ -1155,8 +1150,7 @@ function MasterForm() {
                   className="input-style text-lg p-0.5 rounded-lg"
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
-                  disabled={!selectedState} // Disable city dropdown until a state is selected
-                >
+                  disabled={!selectedState}> 
                   <option value="">--------------- Select City -------------</option>
                   {cities.map((city) => (
 

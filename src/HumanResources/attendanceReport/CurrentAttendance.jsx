@@ -156,7 +156,7 @@ function CurrentAttendance() {
                     <td className="whitespace-nowrap px-0 py-2 border sticky border-black text-lg font-semibold">
                         {employee.empid}
                     </td>
-                    <td className="whitespace-nowrap px-0 py-2  border sticky border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-2 border sticky border-black text-lg font-semibold">
                         {employee.empname}
                     </td>
                     <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
@@ -264,11 +264,11 @@ function CurrentAttendance() {
                         <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1">
                             <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border border-black">
                                 <thead className="sticky bg-slate-300 top-16">
-                                    <tr className="border border-black text-lg z-50 text-blue-700 sticky">
-                                        <th scope="col" className="sticky p-0 whitespace-nowrap border border-blue-700">
+                                    <tr className="border border-black text-lg  text-blue-700 ">
+                                        <th scope="col" className="sticky overflow-hidden p-0 whitespace-nowrap border  border-blue-700">
                                             Employee ID
                                         </th>
-                                        <th scope="col" className="sticky p-0 whitespace-nowrap border border-blue-700">
+                                        <th scope="col" className="sticky overflow-hidden p-0 whitespace-nowrap border border-blue-700">
                                             Employee Name
                                         </th>
                                         {renderTableHeaders()}

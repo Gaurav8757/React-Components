@@ -77,7 +77,6 @@ function PCLists() {
           row.pcodes,
           row.vfuels,
           row.vncb,
-          
           row.voddiscount,
           row.vcc,
           row.payoutons,
@@ -146,9 +145,9 @@ function PCLists() {
   return (
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid  p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
-        <div className="flex justify-between text-blue-500  ">
+        <div className="flex justify-between text-red-700 mt-2 ">
           <h1></h1>
-          <span className=" flex justify-center text-center  text-3xl font-semibold">Payout Lists</span>
+          <span className=" flex justify-center text-center  text-3xl font-semibold">Company Payout Grid List&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
       </div>
@@ -190,7 +189,7 @@ function PCLists() {
               NCB
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              OD Discount
+              OD Discount%
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               CC
@@ -198,14 +197,14 @@ function PCLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               PayoutOn
             </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Advisor Percentage
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Company Percentage
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            </th> */}
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
+            </th> */}
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              Company Percentage%
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Delete
@@ -213,7 +212,7 @@ function PCLists() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-          {APIData.reverse().map((data) => {
+        {APIData.reverse().filter(data => data.advisorName === "").map((data) => {
             if (data.vehicleSlab) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
@@ -249,13 +248,13 @@ function PCLists() {
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>
                   <td className="px-1 py-0 border border-black">{data.vfuels}</td>
                   <td className="px-1 py-0 border border-black">{data.vncb}</td>
-                  <td className="px-1 py-0 border border-black">{data.voddiscount}</td>
+                  <td className="px-1 py-0 border border-black">{data.voddiscount}{"%"}</td>
                   <td className="px-1 py-0 border border-black">{data.vcc}</td>
                   {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                  <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
-                  <td className="px-1 py-0 border border-black">{data.companypayoutper}</td>
-                  <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.cvpercentage}</td> */}
+                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td> */}
+                  <td className="px-1 py-0 border border-black">{data.companypayoutper}{"%"}</td>
                   <td className="px-1 py-0 border border-black">
                     <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
                   </td>
@@ -287,6 +286,4 @@ function PCLists() {
     </section>
   )
 }
-
-
 export default PCLists;

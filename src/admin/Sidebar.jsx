@@ -94,7 +94,7 @@ const Sidebar = () => {
     },
 
     {
-      title: "Payout Slab",
+      title: "Company Payout Grid",
       path: "#",
       logo: <GiReceiveMoney size={25} />,
       subRoutes: [
@@ -107,6 +107,24 @@ const Sidebar = () => {
         {
           title: "Payout Lists",
           path: "/dashboard/payout/lists",
+          dash: ""
+        },
+      ]
+    },
+    {
+      title: "Advisor Payout Grid",
+      path: "#",
+      logo: <GiReceiveMoney size={25} />,
+      subRoutes: [
+
+        {
+          title: "Add Payout",
+          path: "/dashboard/advisor/slabs",
+          dash: ""
+        },
+        {
+          title: "Payout Lists",
+          path: "/dashboard/advisor/payout/lists",
           dash: ""
         },
       ]
@@ -156,6 +174,11 @@ const Sidebar = () => {
         {
           title: "Add OD_Discount",
           path: "/dashboard/oddiscount",
+          dash: ""
+        },
+        {
+          title: "Add Sit Capacity",
+          path: "/dashboard/sit/capacity",
           dash: ""
         },
         {

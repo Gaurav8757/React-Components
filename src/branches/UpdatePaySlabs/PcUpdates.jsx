@@ -18,7 +18,7 @@ function PcUpdates({ slab, update }) {
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
   const [selectedState, setSelectedState] = useState('');
-  
+
   const [allCities, setAllCities] = useState('');
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState('');
 
@@ -191,10 +191,10 @@ function PcUpdates({ slab, update }) {
     voddiscount: slab.voddiscount || '', // Pre-saved OD discount
     vcc: slab.vcc || '', // Pre-saved CC
     payoutons: slab.payoutons || '', // Pre-saved payout on
-    branchpayoutper: slab.branchpayoutper || '', // Pre-saved advisor payout percentage
+    // branchpayoutper: slab.branchpayoutper || '', // Pre-saved advisor payout percentage
     companypayoutper: slab.companypayoutper || '',
     sitcapacity: slab.sitcapacity || '',
-    cvpercentage: slab.popercentage || '',
+    // cvpercentage: slab.popercentage || '',
   });
 
   const handleInputChange = (e) => {
@@ -249,7 +249,7 @@ function PcUpdates({ slab, update }) {
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-100">
-                  Update Payout Slab
+                  Update Company Payout Grid
                 </h3>
                 <button
                   onClick={closeModal}
@@ -339,23 +339,23 @@ function PcUpdates({ slab, update }) {
                             {city.name}
                           </option>
                         ))} */}
-                     <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              {
-              
-                    <input
-                      type="text"
-                      name="districts"
-                      id="districts"
-                      className="input-style text-lg p-1 rounded-lg "
-                      placeholder="Enter new district name"
-                      value={allDetails.districts} // Assuming newCity is a separate state to hold input data
-                      onChange={handleInputChange}
-                    />
-                 
-              }
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                        {
 
-            </div>
+                          <input
+                            type="text"
+                            name="districts"
+                            id="districts"
+                            className="input-style text-lg p-1 rounded-lg "
+                            placeholder="Enter new district name"
+                            value={allDetails.districts} // Assuming newCity is a separate state to hold input data
+                            onChange={handleInputChange}
+                          />
+
+                        }
+
+                      </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                         <select
@@ -373,16 +373,16 @@ function PcUpdates({ slab, update }) {
                         </select>
                       </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 ">Sitting Capacity:</label>
-              <input
-                className="input-style p-1 text-lg rounded-lg"
-                type="text"
-                value={allDetails.sitcapacity}
-                onChange={handleInputChange}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              />
-            </div>
+                        <label className="text-base mx-1 ">Sitting Capacity:</label>
+                        <input
+                          className="input-style p-1 text-lg rounded-lg"
+                          type="text"
+                          value={allDetails.sitcapacity}
+                          onChange={handleInputChange}
+                          name="sitcapacity"
+                          placeholder="Enter Sitting Capacity"
+                        />
+                      </div>
 
                       {/* 4 */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -514,7 +514,7 @@ function PcUpdates({ slab, update }) {
                         </select>
                       </div>
                       {/* PERCENTAGE */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 text-lg  rounded-lg"
@@ -524,9 +524,9 @@ function PcUpdates({ slab, update }) {
                           name="cvpercentage"
                           placeholder="%"
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 text-lg rounded-lg"
@@ -536,7 +536,7 @@ function PcUpdates({ slab, update }) {
                           name="branchpayoutper"
                           placeholder="%"
                         />
-                      </div>
+                      </div> */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
