@@ -69,7 +69,7 @@ function SeparateLetter({ offers }) {
                     <div className="relative p-4 w-full max-w-7xl max-h-7xl mx-auto my-20 backdrop-blur-lg">
                         <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto ">
                             <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-                            <div className='flex justify-end mx-5  '>
+                                <div className='flex justify-end mx-5  '>
                                     <button onClick={downloadPDF} className="flex justify-end my-0 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
                                         Download
                                     </button>
@@ -80,16 +80,15 @@ function SeparateLetter({ offers }) {
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
+                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
                             <div className="overflow-y-auto h-full">
-                             
-                                <div className=" max-w-auto bg-gradient-to-br from-red-100 to-red-200  p-4 print" ref={componentRef}>
+
+                                <div className=" max-w-auto bg-gradient-to-br from-red-100 to-red-200  p-2 print" ref={componentRef}>
                                     {/* header */}
-                                    <header className="flex mb-10 justify-between relative overflow-hidden">
+                                    <header className="flex mb-5 justify-between relative overflow-hidden">
                                         {/* 1 */}
                                         <div className="absolute bottom-0 left-0 w-full h-full bg-black transform origin-bottom-right -skew-y-6"></div>
                                         <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div>
@@ -118,7 +117,7 @@ function SeparateLetter({ offers }) {
                                             <span>Date: {offers.ofdate}</span>
                                         </div>
                                         {/* <h2 className="text-xl font-bold mb-4 text-start mx-4"> <span>Dear [Employee Name]</h2> */}
-                                        <p className="mb-4 mx-4 flex-wrap text-start">
+                                        <p className="mb-2 mx-4 flex-wrap text-start">
                                             To,
                                             <br />
                                             {offers.ofname} <br />
@@ -129,20 +128,21 @@ function SeparateLetter({ offers }) {
                                         <p className='text-center font-bold'>
                                             Offer Letter
                                         </p>
-                                        <p className="mb-4 p-4 leading-8 text-justify">
+                                        <p className="mb-3 p-4 leading-8 text-justify">
                                             <span className='font-bold'>Dear {offers.ofname},</span><br />
                                             This has reference to your application and the subsequent interview you had with us it has been decided to take you as {offers.ofdesignation} in
                                             our organization effective from the date of your joining duty on the following terms and conditions.
                                             <ul className="list-disc mb-4  mx-16">
-                                                <li className=''>You will be initially Based At Our Office. Patna .</li>
+                                                <li className=''>You will be initially Based At Our Office/H.Q at {offers.oflocation}.</li>
                                                 <li className=''>You will be paid a Gross Salary/Stipend of Rs.{offers.ofgrosalary}/- ({offers.ofsalaryWords}) Per month. Details may be provided in appointment later.</li>
                                                 <li className=''>You will Undergo the probation for a period of six months. Probation can be terminated by the company without notice.</li>
-                                                <li className=''>During the Probation period you will not be entitled to any kind of leave whatsoever. Incase you take leave it will be considered as
+                                                <li className=''>During the Probation period you will not be entitled to take any kind of leave whatsoever. Incase you take leave it will be considered as
                                                     loss of payments for day/days.</li>
                                                 <li className=''>Training can be extended for a further period at Company discretion.</li>
                                                 <li className=''>As this Probation is purely an opportunity, this does not guarantee any permanent employment with us.</li>
+                                                <li className=''>During Probation Period in the event of resignation/termination 30 days notice period is mandatory from either side.</li>
                                                 <li className=''>After completion of successful probation period your performance will be evaluated.</li>
-                                                <li className=''>Please note this Offer latter stands valid till {offers.ofvalidDate}.</li>
+                                                <li className=''>Please note this Offer letter stands valid till {offers.ofvalidDate}.</li>
                                             </ul>
                                             Kindly return the duplicate copy of this letter duly signed signifying your acceptance and also intimate the date of your joining duty.
                                             Wishing you all the best.

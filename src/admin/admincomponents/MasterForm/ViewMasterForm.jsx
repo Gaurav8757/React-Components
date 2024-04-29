@@ -18,7 +18,9 @@ function ViewMasterForm() {
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [contactNo, setContactNo] = useState("");
+  const [productcodes, setPcodes] = useState("");
   const [policyMade, setPolicyMade] = useState("");
+  const [payon ,setPayon] = useState("");
   const [payoutSlab, setPayoutSlab] = useState([]);
   const name = sessionStorage.getItem("email");
 
@@ -126,6 +128,9 @@ function ViewMasterForm() {
     const contacNoLower = data.policyNo?.toLowerCase() || "";
     const policyLower = data.staffName?.toLowerCase() || "";
     const branchLower = data.branch?.toLowerCase() || "";
+    const product = data.productCode?.toLowerCase() || "";
+    const payouts = data.payoutOn?.toLowerCase() || "";
+
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === "") &&
@@ -138,6 +143,8 @@ function ViewMasterForm() {
         searchCompany === "") &&
       // Update the state variable for company correctly
       (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === "") &&
+      (product.includes(productcodes.toLowerCase())  || productcodes === "") &&
+      (payouts.includes(payon.toLowerCase())  || payon === "") &&
       // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
@@ -228,6 +235,7 @@ function ViewMasterForm() {
                         branchPayout: parseFloat(branchPayout.toFixed(2)),
                         companyPayout: parseFloat(companyPayout.toFixed(2)),
                         profitLoss: parseFloat(profitLoss.toFixed(2)),
+                        
                     };
 
                     try {
@@ -258,6 +266,45 @@ function ViewMasterForm() {
         console.log("No matching CSLabs found or allDetailsData is empty.");
     }
 }, [allDetailsData, payoutSlab]);
+
+
+useEffect(() => {
+  allDetailsData.forEach(async (data) => {
+    let paydata;
+    if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
+      paydata = {
+        payoutOn: "OD"
+      };
+    } else {
+      paydata = {
+        payoutOn: "NET"
+      };
+    }
+
+    try {
+      // Send data to API
+      const response = await axios.put(
+        `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+        paydata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      // Handle response status
+      if (response.status !== 200) {
+        console.error(`Error updating data for policy ID ${data._id}`);
+      }
+    } catch (error) {
+      console.error(
+        `Error updating data for policy ID ${data._id}:`,
+        error
+      );
+    }
+  });
+}, [allDetailsData]);
+
 
   const exportToExcel = () => {
     try {
@@ -455,7 +502,7 @@ function ViewMasterForm() {
           </div>
           <div className="flex-wrap mb-4 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
             {/* date range filter */}
-            <div className="flex   p-0 text-start w-full lg:w-1/4">
+            <div className="flex   p-0 text-start w-full lg:w-1/5">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
                 Date:
               </label>
@@ -476,7 +523,7 @@ function ViewMasterForm() {
               />
             </div>
 
-            <div className="flex p-0 justify-center  text-end w-full lg:w-1/4">
+            <div className="flex p-0 justify-center  text-end w-full lg:w-1/5">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
                 ID:
               </label>
@@ -541,6 +588,28 @@ function ViewMasterForm() {
                 onChange={(e) => setPolicyMade(e.target.value)}
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Policy Made By"
+              />
+            </div>
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                Product Code:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setPcodes(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by Product Code"
+              />
+            </div>
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                PayoutOn:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setPayon(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by PayoutOn"
               />
             </div>
           </div>

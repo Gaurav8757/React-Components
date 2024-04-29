@@ -6,6 +6,8 @@ import VITE_DATA from "../../../config/config.jsx";
 
 function AddOfferLetter() {
     const [ofdate, setOfdate] = useState('');
+    const [branchList, setBranchList] = useState([]);
+    const [empType, setEmpType] = useState([]);
     const [ofname, setOfName] = useState('');
     const [ofmobile, setOfmobile] = useState('');
     const [ofaddress, setOfAddress] = useState('');
@@ -14,11 +16,12 @@ function AddOfferLetter() {
     const [ofdesignation, setOfdesignation] = useState('');
     const [ofgrosalary, setOfgrosalary] = useState('');
     const [ofvalidDate, setOfvalidDate] = useState('');
+    const [oflocation, setOfLocation] = useState('');
     const [errors, setErrors] = useState({});
     const [formSubmitted, setFormSubmitted] = useState(false);
+    console.log(oflocation);
  // Create a new instance of ToWords
  const toWords = new ToWords();
-
     function getFormattedDate() {
         const date = new Date();
         const day = date.getDate().toString().padStart(2, '0');
@@ -26,11 +29,67 @@ function AddOfferLetter() {
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
     const date = getFormattedDate();
     useEffect( () => {setOfdate(date)}, [date] );
+    // useEffect(()=>{setOfvalidDate(ofdate)}, [ofdate]);
+
+    useEffect(() => {
+        const [day, month, year] = ofdate.split('/').map(Number);
+        const dates = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+        dates.setDate(dates.getDate() + 15);
+        const newDay = dates.getDate().toString().padStart(2, '0');
+        const newMonth = (dates.getMonth() + 1).toString().padStart(2, '0');
+        const newYear = dates.getFullYear();
+        // console.log(`${newDay}/${newMonth}/${newYear}`);
+        setOfvalidDate(`${newDay}/${newMonth}/${newYear}`);
+    }, [ofdate]);
     
 
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/api/branch-list`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setBranchList(response.data);
+
+                })
+                .catch((error) => {
+
+                    console.error(error);
+                });
+        }
+    }, []);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/staff/lists`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setEmpType(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, []);
+// console.log(empType);
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formSubmitted) {
@@ -68,6 +127,7 @@ function AddOfferLetter() {
                 ofname,
                 ofmobile,
                 ofaddress,
+                oflocation,
                 ofemail,
                 ofdesignation,
                 ofgrosalary,
@@ -78,15 +138,16 @@ function AddOfferLetter() {
             if (response.data) {
                 toast.success(`${response.data.status}`);
                 setFormSubmitted(true);
-                setOfdate("");
+                
                 setOfName("");
                 setOfmobile("");
                 setOfAddress("");
                 setOfemail("");
                 setOfdesignation("");
                 setOfgrosalary("");
+                setOfLocation("");
                 setOfsalaryWords("");
-                setOfvalidDate('');
+               
             } else {
                 toast.error("Error Occurred. Try again...! ");
             }
@@ -97,31 +158,29 @@ function AddOfferLetter() {
         }
     };
 
-    
-
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-            <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-                <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
-                    <h1 className="font-semibold text-3xl mb-10">Create Offer Letter</h1>
+            <div className="container-fluid  flex-col flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+            <h1 className="font-semibold text-3xl my-2">Create Offer Letter</h1>
+                <div className="relative w-full lg:w-full pt-20 mt-2 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
+                    
                     <div className="flex flex-wrap justify-between">
-                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                            <label className="text-base mx-1">Date<sup className="text-red-600 font-bold">*</sup></label>
+                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">Date:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 name="ofdate"
                                 value={ofdate}
                                 onChange={(e) => setOfdate(e.target.value)}
-                                placeholder="Date"
-                                readOnly
+                                placeholder="Date"   
                             />
                             {errors.ofdate && <span className="text-red-600 text-sm ">{errors.ofdate}</span>}
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                            <label className="text-base mx-1">Name<sup className="text-red-600 font-bold">*</sup></label>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">Name:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 name="ofname"
                                 value={ofname}
@@ -131,11 +190,11 @@ function AddOfferLetter() {
                             {errors.ofname && <span className="text-red-600 text-sm">{errors.ofname}</span>}
                         </div>
                         
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                            <label className="text-base mx-1">Email ID<sup className="text-red-600 font-bold">*</sup></label>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">Email ID:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
-                                type="text"
+                                className="input-style p-1 rounded-lg"
+                                type="email"
                                 value={ofemail}
                                 name="ofemail"
                                 onChange={(e) => setOfemail(e.target.value)}
@@ -144,10 +203,10 @@ function AddOfferLetter() {
                              {errors.ofemail && <span className="text-red-600 text-sm">{errors.ofemail}</span>}
                         </div>
 
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Contact No:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 value={ofmobile}
                                 name="ofmobile"
@@ -155,10 +214,30 @@ function AddOfferLetter() {
                                 placeholder="Enter Moblie No"
                             />
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
+                       
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">Employee Type(Designation):<sup className="text-red-600 font-bold">*</sup></label>
+                            <select
+                                className="input-style p-1 text-base rounded-lg"
+                                type="text"
+                                value={ofdesignation}
+                                name="ofdesignation"
+                                onChange={(e) => setOfdesignation(e.target.value)}
+                                placeholder="Enter Emp Type"
+                            >
+                                <option value="">-------- Select Designation ---------</option>
+                                {
+                                    empType.map((data)=> (
+                                        <option value={data.s_type} key={data._id}>{data.s_type}</option>
+                                    ))
+                                }
+                               
+                            </select>
+                        </div>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5 mt-4">
                             <label className="text-base mx-1">Address:<sup className="text-red-600 font-bold">*</sup></label>
                             <textarea
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 cols={20}
                                 value={ofaddress}
@@ -167,21 +246,10 @@ function AddOfferLetter() {
                                 placeholder="Enter Address"
                             />
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
-                            <label className="text-base mx-1">Employee Type(Designation):<sup className="text-red-600 font-bold">*</sup></label>
-                            <input
-                                className="input-style rounded-lg"
-                                type="text"
-                                value={ofdesignation}
-                                name="ofdesignation"
-                                onChange={(e) => setOfdesignation(e.target.value.toUpperCase())}
-                                placeholder="Enter Emp Type"
-                            />
-                        </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5 mt-4">
                             <label className="text-base mx-1">Gross Salary:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 value={ofgrosalary}
                                 name="ofgrosalary"
@@ -195,10 +263,10 @@ function AddOfferLetter() {
                             />
                         </div>
 
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5 mt-4">
                             <label className="text-base mx-1">Salary in Words:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 value={ofsalaryWords}
                                 name="ofsalaryWords"
@@ -206,18 +274,35 @@ function AddOfferLetter() {
                                 placeholder="Salary in Words"
                             />
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4 mt-4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5 mt-4">
                             <label className="text-base mx-1">Valid upto:<sup className="text-red-600 font-bold">*</sup></label>
                             <input
-                                className="input-style rounded-lg"
-                                type="date"
+                                className="input-style p-1 rounded-lg"
+                                type="text"
                                 value={ofvalidDate}
                                 name="ofvalidDate"
-                                onChange={(e) => setOfvalidDate(e.target.value)}
-                               
+                                onChange={(e) => setOfvalidDate(e.target.value)} 
+                                readOnly   
                             />
                         </div>
-
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5 mt-4">
+                        
+                        <label className="text-base mx-1">Branch Location:<sup className="text-red-600 font-bold">*</sup></label>
+                            <select
+                                className="input-style p-1 rounded-lg"
+                                type="text"
+                                value={oflocation}
+                                name="oflocation"
+                                onChange={(e) => setOfLocation(e.target.value)}    
+                            >
+                                <option value="">------------ Select Location ----------</option>
+                                {
+                                    branchList.map((data)=>(
+                                        <option key={data._id} value= {data.branchname}>{data.branchname}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
                     </div>
 
                     <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">

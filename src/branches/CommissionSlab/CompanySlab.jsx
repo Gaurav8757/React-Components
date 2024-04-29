@@ -508,7 +508,7 @@ function CompanySlab() {
               >
                 <option value="" >--------------- Select Seating --------------</option>
                 {
-                  sit.map((data)=> (
+                  sit && sit.map((data)=> (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }

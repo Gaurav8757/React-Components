@@ -8,6 +8,7 @@ import VITE_DATA from "../../../config/config.jsx";
 
 function ViewOfferLetter() {
   const [APIData, setAPIData] = useState([]);
+  
   const [sendStaffId, setSendStaffId] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -48,6 +49,8 @@ function ViewOfferLetter() {
         });
     }
   }, []);
+
+ 
 
   // Handle date range filter change
   const handleDateRangeChange = (event, type) => {
@@ -214,7 +217,7 @@ function ViewOfferLetter() {
                       Reference No
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
-                      Created Date
+                      Date
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
                       Name
@@ -238,7 +241,10 @@ function ViewOfferLetter() {
                       Salary in Words
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
-                      Valid Date
+                      Valid Upto
+                    </th>
+                    <th scope="col" className="px-1 py-0 border border-black sticky">
+                      Location
                     </th>
                     <th scope="col" className="px-1 py-0 border border-black sticky">
                       View Letter
@@ -254,7 +260,6 @@ function ViewOfferLetter() {
                       <tr
                         className=":border-neutral-200 text-sm font-medium"
                         key={data._id}>
-
                         <td className="px-1 py-0 border border-black">
                           {data.referenceno}
                         </td>
@@ -286,8 +291,11 @@ function ViewOfferLetter() {
                           {data.ofvalidDate}
                         </td>
                         <td className="px-1 py-0 border border-black">
+                          {data.oflocation}
+                        </td>
+                        <td className="px-1 py-0 border border-black">
                           <SeparateLetter offers={data}  />
-                                                </td>
+                        </td>
                         <td className="px-1 py-0 border border-black">
                           {/* to enable delete from here */}
                           <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-2 py-1 my-1 text-center">Delete</button>

@@ -110,7 +110,7 @@ function DashboardHr() {
 
       ]
     }, {
-      title: "Offer Letter",
+      title: "Offer",
       path: "#",
       logo: <FaEnvelopeOpenText size={25} />,
       subRoutes: [
@@ -125,7 +125,7 @@ function DashboardHr() {
       ],
     },
     {
-      title: "Joining Letter",
+      title: "Joining",
       path: "#",
       logo: <FcKindle size={25} />,
       subRoutes: [
@@ -140,7 +140,7 @@ function DashboardHr() {
       ],
     },
     {
-      title: "Increment Letter",
+      title: "Increment",
       path: "#",
       logo: <MdAutoGraph size={25} />,
       subRoutes: [
@@ -155,7 +155,7 @@ function DashboardHr() {
       ],
     },
     {
-      title: "Termination Letter",
+      title: "Termination",
       path: "#",
       logo: <IoPersonRemoveSharp size={25} />,
       subRoutes: [
@@ -170,7 +170,7 @@ function DashboardHr() {
       ],
     },
     {
-      title: "Resignation Letter",
+      title: "Resignation Acceptance",
       path: "#",
       logo: <SlNote size={25} />,
       subRoutes: [
@@ -284,7 +284,7 @@ function DashboardHr() {
                       className={`flex items-center p-2  rounded-lg dark:text-white text-white hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-4 text-base">{route.title}</span>
+                      <span className="ms-4 text-sm whitespace-nowrap">{route.title}</span>
                       <span className="ms-2"><IoMdArrowDropdown /></span>
                     </NavLink>
                     <ul
@@ -296,7 +296,7 @@ function DashboardHr() {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex text-base  p-2 text-white text-start mx-4  hover:rounded-xl hover:bg-gray-500"
+                            className="flex text-sm  p-2 text-white text-start mx-4  hover:rounded-xl hover:bg-gray-500"
                           >
                             {<IoMdArrowDropright size={30} />}{subRoute.title}
                           </NavLink>
@@ -308,7 +308,7 @@ function DashboardHr() {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-4 text-base">{route.title}</span>
+                    <span className="ms-4 text-sm">{route.title}</span>
                   </NavLink>
                 )}
               </li>

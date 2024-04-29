@@ -40,7 +40,7 @@ function PrivateCar() {
   const [sitcapacity, setSitCapacity] = useState('');
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
-  const [sit, setSit] = useState([]);
+  const [sits, setSit] = useState([]);
   const token = sessionStorage.getItem("token");
 
 
@@ -507,7 +507,7 @@ function PrivateCar() {
               >
                 <option value="" >--------------- Select Seating --------------</option>
                 {
-                  sit.map((data)=> (
+                 sits && sits.map((data)=> ( 
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }

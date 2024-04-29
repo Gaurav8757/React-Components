@@ -175,7 +175,7 @@ import StateCities from "./data/stateCities.jsx";
 import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
 import Cc from "./admin/admincomponents/CC/Cc.jsx";
 import SitCapacity from "./admin/admincomponents/SittingCapacity/SitCapacity.jsx";
-import NcbData from "./admin/admincomponents/NCB/ncbdata.jsx";
+import NcbData from "./admin/admincomponents/NCB/NcbData.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
