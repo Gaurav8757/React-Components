@@ -261,14 +261,14 @@ function EmpPolicy() {
                                             />
                                         </div>
                                         <div className="flex justify-start   text-start w-full lg:w-1/4">
-              <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
-              <input
-                type="search"
-                onChange={(e) => setSearchBranch(e.target.value)}
-                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                placeholder="Branch Name"
-              />
-            </div>
+                                            <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
+                                            <input
+                                                type="search"
+                                                onChange={(e) => setSearchBranch(e.target.value)}
+                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                                placeholder="Branch Name"
+                                            />
+                                        </div>
                                         <div className="flex p-0  text-center justify-start lg:w-1/4">
                                             <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
                                             <input
@@ -329,10 +329,10 @@ function EmpPolicy() {
                                                     District
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                   Registration Number
+                                                    Registration Number
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                   Fuel Type
+                                                    Fuel Type
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Engine No.
@@ -359,7 +359,7 @@ function EmpPolicy() {
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Final Amount
                                                 </th>
-                                               
+
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     OD Discount(%)
                                                 </th>
@@ -370,7 +370,7 @@ function EmpPolicy() {
                                                     Policy Payment Mode
                                                 </th>
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
-                                                   Advisor Name
+                                                    Advisor Name
                                                 </th>
                                             </tr>
                                         </thead>
@@ -458,7 +458,7 @@ function EmpPolicy() {
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.finalEntryFields}
                                                         </td>
-                                                       
+
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.odDiscount}
                                                         </td>
@@ -485,7 +485,7 @@ function EmpPolicy() {
             {/* Pagination */}
 
             <nav aria-label="Page navigation flex example sticky   ">
-            <ul className="flex space-x-2 justify-end">
+                <ul className="flex space-x-2 justify-end">
                     <li>
                         <button
                             onClick={() => handlePageChange(currentPage - 1)}
@@ -504,8 +504,8 @@ function EmpPolicy() {
                                     <button
                                         onClick={() => handlePageChange(i + 1)}
                                         className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                                            ? 'bg-green-700 text-white font-bold'
+                                            : 'text-blue-600 hover:bg-blue-400 hover:text-white'
                                             } border border-blue-600`}
                                     >
                                         {i + 1}

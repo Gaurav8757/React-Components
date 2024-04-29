@@ -9,10 +9,12 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [pdata, setPdata] = useState([]);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [ncbLists, setNcbLists] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
     const [states, setStates] = useState([]);
+    // eslint-disable-next-line no-unused-vars
     const [cities, setCities] = useState([]);
     const [odList, setOdList] = useState([]);
     // eslint-disable-next-line no-unused-vars
@@ -46,7 +48,26 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         fetchStates();
     }, []);
 
-
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/ncb/show`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setNcbLists(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [formSubmitted]);
 
 
 
@@ -59,27 +80,27 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     }, []); // Empty dependency array ensures effect runs only once on mount
 
     const [allDetails, setAllDetails] = useState({
-        states: "",
-        district: "",
-        company: "",
-        category: "",
-        policyType: '',
-        policyNo: '',
-        engNo: '',
-        chsNo: '',
-        odPremium: '',
-        liabilityPremium: '',
-        netPremium: '',
-        taxes: '',
-        rsa: '',
-        fuel: '',
-        vehRegNo: '',
-        finalEntryFields: '',
-        odDiscount: '',
-        ncb: '',
-        policyPaymentMode: "",
-        empTime: empTime,
-        advisorName: ""
+        states: insurance.states || '',
+        district: insurance.district || selectedCity,
+        company: insurance.company || '',
+        category: insurance.category || '',
+        policyType: insurance.policyType || '',
+        policyNo: insurance.policyNo || '',
+        engNo: insurance.engNo || '',
+        chsNo: insurance.chsNo || '',
+        odPremium: insurance.odPremium || '',
+        liabilityPremium: insurance.liabilityPremium || '',
+        netPremium: insurance.netPremium || '',
+        taxes: insurance.taxes || '',
+        rsa: insurance.rsa || '',
+        fuel: insurance.fuel || '',
+        vehRegNo: insurance.vehRegNo || '',
+        finalEntryFields: insurance.finalEntryFields || '',
+        odDiscount: insurance.odDiscount || '',
+        ncb: insurance.ncb || '',
+        policyPaymentMode: insurance.policyPaymentMode || '',
+        empTime: insurance.empTime || empTime,
+        advisorName: insurance.advisorName || ''
     });
 
     // OPEN MODAL
@@ -112,7 +133,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                 });
         }
     }, [formSubmitted]);
-    
+
     // const isValidEngineChassis = (value) => {
     //     return /^[A-Za-z0-9]{6}$/.test(value);
     // };
@@ -133,22 +154,22 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         // The user is authenticated, so you can make your API request here.
         const token = sessionStorage.getItem("token");
         if (!token) {
-          toast.error("Not Authorized yet.. Try again! ");
+            toast.error("Not Authorized yet.. Try again! ");
         } else {
-          axios
-            .get(`${VITE_DATA}/od/list`, {
-              headers: {
-                Authorization: `${token}`, // Send the token in the Authorization header
-              },
-            })
-            .then((response) => {
-              setOdList(response.data);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+            axios
+                .get(`${VITE_DATA}/od/list`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    setOdList(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
-      }, []);
+    }, []);
 
     useEffect(() => {
         axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -171,7 +192,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`${VITE_DATA}/api/employee-list`, {
+                .get(`${VITE_DATA}/employees/data`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
@@ -405,7 +426,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                                                <select
+                                                {/* <select
                                                     className="input-style  text-base p-1 rounded-lg"
                                                     name="selectedCity"
                                                     value={allDetails.selectedCity}
@@ -418,7 +439,16 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                             {city.name}
                                                         </option>
                                                     ))}
-                                                </select>
+                                                </select> */}
+                                                <input
+                                                    type="text"
+                                                    name="selectedCity"
+                                                    id="selectedCity"
+                                                    className="input-style text-base p-1 rounded-lg "
+                                                    placeholder="Enter new district name"
+                                                    value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
+                                                    onChange={handleInputChange}
+                                                />
                                             </div>
 
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -593,51 +623,39 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     placeholder="Enter OD Discount" />
                                             </div> */}
 
-<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-                        <select
-                          className="input-style p-1 text-base rounded-lg"
-                          type="text"
-                          name="odDiscount"
-                          value={allDetails.odDiscount}
-                          onChange={handleInputChange}
-                          placeholder="Enter OD Discount"
-                        >
-                          <option className="w-1" value="" >------- Select OD Discount ---------</option>
-                          {
-                            odList.map((data) => (
-                              <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
-                            ))
-                          }
-                        </select>
-                      </div>
+                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
+                                                <select
+                                                    className="input-style p-1 text-base rounded-lg"
+                                                    type="text"
+                                                    name="odDiscount"
+                                                    value={allDetails.odDiscount}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Enter OD Discount"
+                                                >
+                                                    <option className="w-1" value="" >------- Select OD Discount ---------</option>
+                                                    {
+                                                        odList.map((data) => (
+                                                            <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </div>
                                             {/* FIELD - 11 */}
-                                            {/* <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
+
+                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                                                <input
+                                                <select
                                                     className="input-style p-1 text-base rounded-lg"
                                                     type="text"
                                                     value={allDetails.ncb}
-                                                    onChange={handleInputChange}
                                                     name="ncb"
-                                                    
-                                                />
-                                            </div> */}
+                                                    onChange={handleInputChange}>
+                                                    <option className="w-1" value="">-------------- Select NCB ---------------</option>
+                                                    {ncbLists.map((data) => (
+                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
-
-                                                                    <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                                                <select
-                                                className="input-style p-1 text-base rounded-lg"
-                                                type="text"
-                                                value={allDetails.ncb}
-                                                name="ncb"
-                                                onChange={handleInputChange}
-                                                >
-                                                <option className="w-1" value="" >-------------- Select NCB ---------------</option>
-                                                <option value="all">All</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                    ))}
                                                 </select>
                                             </div>
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -647,8 +665,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     className="input-style p-1 text-base rounded-lg"
                                                     value={allDetails.policyPaymentMode}
                                                     name="policyPaymentMode"
-                                                    onChange={handleInputChange}
-                                                >
+                                                    onChange={handleInputChange}>
                                                     <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
                                                     <option className="w-1" value="insta payment" >Insta Payment</option>
                                                     <option className="w-1" value="customer link" >Customer Link</option>

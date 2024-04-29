@@ -11,6 +11,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [data, setData] = useState([]);
   const [pdata, setPdata] = useState([]);
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [ccList, setCCList] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -772,7 +773,7 @@ useEffect(() => {
 
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                                                <select
+                                                {/* <select
                                                     className="input-style  text-lg p-0.5 rounded-lg"
                                                     name="selectedCity"
                                                     value={allDetails.selectedCity}
@@ -785,7 +786,16 @@ useEffect(() => {
                                                             {city.name}
                                                         </option>
                                                     ))}
-                                                </select>
+                                                </select> */}
+                                                <input
+                            type="text"
+                            name="selectedCity"
+                            id="selectedCity"
+                            className="input-style text-lg p-1 rounded-lg "
+                            placeholder="Enter new district name"
+                            value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
+                            onChange={handleInputChange}
+                          />
                                             </div>
 
                       {/* FIELD - 9 */}

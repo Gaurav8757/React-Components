@@ -7,7 +7,9 @@ import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function MasterForm() {
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
+  const [ncbList, setNcbLists] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [entryDate, setEntryDate] = useState('');
@@ -98,6 +100,26 @@ function MasterForm() {
         });
     }
   }, []);
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
 
   useEffect(() => {
     // The user is authenticated, so you can make your API request here.
@@ -171,7 +193,7 @@ function MasterForm() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/api/employee-list`, {
+        .get(`${VITE_DATA}/employees/data`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -1069,13 +1091,13 @@ function MasterForm() {
               <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style text-lg p-1 rounded-lg"
+                  className="input-style text-base p-1 rounded-lg"
                   type="text"
                   name="odDiscount"
                   value={odDiscount}
                   onChange={(e) => setOdDiscount(e.target.value)}
                   placeholder="Enter OD Discount">
-                  <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                  <option className="w-1" value="" >-------------- Select OD Discount -------------</option>
                   {
                     odList.map((data) => (
                       <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
@@ -1107,10 +1129,12 @@ function MasterForm() {
                   value={ncb}
                   onChange={(e) => setNcb(e.target.value)}
                 >
-                  <option className="w-1" value="" >-------------- Select NCB ------------------</option>
-                  <option value="all">All</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
+                  <option className="w-1" value="" >------------------- Select NCB -------------------</option>
+                  {
+                  ncbList.map((data)=>(
+                    <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
+                  ))
+                 }
                 </select>
                 {errors.ncb && <span className="text-red-600 text-sm ">{errors.ncb}</span>}
               </div>
@@ -1146,7 +1170,7 @@ function MasterForm() {
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                <select
+                {/* <select
                   className="input-style text-lg p-0.5 rounded-lg"
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
@@ -1158,7 +1182,16 @@ function MasterForm() {
                       {city.name}
                     </option>
                   ))}
-                </select>
+                </select> */}
+                 <input
+                            type="text"
+                            name="district"
+                            id="district"
+                            className="input-style text-lg p-0.5 rounded-lg"
+                            placeholder="Enter new district name"
+                            value={selectedCity} // Assuming newCity is a separate state to hold input data
+                            onChange={(e) => setSelectedCity(e.target.value)}
+                          />
               </div>
 
 

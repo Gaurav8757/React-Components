@@ -42,7 +42,7 @@ function AddPolicy() {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
             axios
-                .get(`${VITE_DATA}/api/employee-list`, {
+                .get(`${VITE_DATA}/employees/data`, {
                     headers: {
                         Authorization: `${token}`,
                     },
@@ -55,6 +55,7 @@ function AddPolicy() {
                 });
         }
     }, [formSubmitted]);
+    
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -154,10 +155,10 @@ function AddPolicy() {
                 <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center mt-3 bg-slate-200">
                     <h1 className="font-semibold text-3xl mb-10">Create Policy</h1>
                     <div className="flex flex-wrap justify-between">
-                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Entry Date<span className="text-red-600 font-bold">*</span></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="date"
                                 name="entryDate"
                                 value={entryDate}
@@ -166,15 +167,15 @@ function AddPolicy() {
                             />
                             {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
                             <select
                                 id="branch"
                                 name="branch"
-                                className="input-style p-1 rounded-lg"
+                                className="input-style p-1 text-base rounded-lg"
                                 value={branch}
                                 onChange={(e) => setBranch(e.target.value)}>
-                                <option className="w-1" value="" disabled>--- Select Branch ---</option>
+                                <option className="w-1" value="" >------------ Select Branch -----------</option>
                                 {
                                     branchname.map((item)=>(
                                         <option value={item.branchname} key={item._id}>{item.branchname}</option>
@@ -183,10 +184,10 @@ function AddPolicy() {
                             </select>
                             {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Insured Name<span className="text-red-600 font-bold">*</span></label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 name="insuredName"
                                 value={insuredName}
@@ -195,10 +196,10 @@ function AddPolicy() {
                             />
                             {errors.insuredName && <span className="text-red-600 text-sm">{errors.insuredName}</span>}
                         </div>
-                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                            <label className="text-base mx-1">Contact No</label>
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">Contact No:</label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 value={contactNo}
                                 name="contactNo"
@@ -206,10 +207,10 @@ function AddPolicy() {
                                 placeholder="Enter Contact No"
                             />
                         </div>
-                        <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
+                        <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
                             <select
-                                className="input-style rounded-lg cursor-pointer"
+                                className="input-style rounded-lg text-base p-1 cursor-pointer"
                                 type="text"
                                 name="staffName"
                                 value={staffName}
@@ -224,8 +225,7 @@ function AddPolicy() {
                                         setEmployeeId(selectedEmployee._id);
                                     }
                                 }}>
-                            
-                                <option className="w-1" value="">--- Select ---</option>
+                                <option className="w-1" value="">------ Select Policy Made By --------</option>
                                 {
                                     APIData
                                         .filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
@@ -244,16 +244,13 @@ function AddPolicy() {
                             className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
                             onClick={handleSubmit}
                             type="button"
-                            disabled={formSubmitted}
-                        >
+                            disabled={formSubmitted}>
                             {formSubmitted ? "Submitted" : "Submit"}
                         </button>
                     </div>
-
                 </div>
             </div>
         </section>
     );
 }
-
 export default AddPolicy;

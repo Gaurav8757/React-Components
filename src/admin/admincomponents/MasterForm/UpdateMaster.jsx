@@ -14,6 +14,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [fuelType, setFuelType] = useState([]);
   const [pmade, setPmade] = useState([]);
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
@@ -699,7 +700,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">District:</label>
-                          <select
+                          {/* <select
                             className="input-style text-base  p-1 rounded-lg"
                             name="selectedCity"
                             value={allDetails.selectedCity}
@@ -712,7 +713,16 @@ function UpdateMaster({ insurance, onUpdate }) {
                                 {city.name}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
+                           <input
+                            type="text"
+                            name="selectedCity"
+                            id="selectedCity"
+                            className="input-style text-base p-1 rounded-lg "
+                            placeholder="Enter new district name"
+                            value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
+                            onChange={handleInputChange}
+                          />
                         </div>
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">

@@ -175,6 +175,7 @@ import StateCities from "./data/stateCities.jsx";
 import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
 import Cc from "./admin/admincomponents/CC/Cc.jsx";
 import SitCapacity from "./admin/admincomponents/SittingCapacity/SitCapacity.jsx";
+import NcbData from "./admin/admincomponents/NCB/ncbdata.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -285,6 +286,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/states" element={<StateCities />} />
           <Route path="/dashboard/oddiscount" element={<OdDiscount />} />
           <Route path="/dashboard/CC" element={<Cc />} />
+          <Route path="/dashboard/ncb" element={<NcbData />} />
           <Route path="/dashboard/sit/capacity" element={<SitCapacity />} />
         </Route>
       </Route>

@@ -10,6 +10,7 @@ function PcUpdates({ slab, update }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [ncbLists, setNcbLists] = useState([]);
   const [pdata, setPdata] = useState([]);
   const [state, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -80,6 +81,27 @@ function PcUpdates({ slab, update }) {
         console.error("Error fetching policy types:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/ncb/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+                setNcbLists(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -450,9 +472,10 @@ function PcUpdates({ slab, update }) {
                           onChange={handleInputChange}
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
-                          <option value="all">All</option>
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
+                          {ncbLists.map((data) => (
+                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
+
+                                                    ))}
                         </select>
                       </div>
 

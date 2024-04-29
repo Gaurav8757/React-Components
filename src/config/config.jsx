@@ -1,5 +1,5 @@
 // config.js
-const VITE_DATA = 'https://api.eleedomimf.com';
+const VITE_DATA = 'http://localhost:7000';
 
 export default VITE_DATA;
 

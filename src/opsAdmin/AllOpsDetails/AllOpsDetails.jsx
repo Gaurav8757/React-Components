@@ -2,7 +2,6 @@ import AllOpsData from './AllOpsData.jsx';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { debounce } from "lodash";
 import * as XLSX from 'xlsx';
 import VITE_DATA from '../../config/config.jsx';
 import Paginationops from './Paginationops.jsx';
@@ -27,29 +26,29 @@ function AllOpsDetails() {
     };
 
 
-    const fetchEmployeeList = debounce(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-            return;
-        }
-        axios
-            .get(`${VITE_DATA}/api/employee-list`, {
-                headers: {
-                    Authorization: `${token}`,
-                },
-            })
-            .then((response) => {
-                setEmpData(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, 500); // Debounce duration in milliseconds
-
     useEffect(() => {
-        fetchEmployeeList(); // Initial fetch when component mounts
-    }, [fetchEmployeeList]);
+        const fetchData = async () => {
+            try {
+                const token = sessionStorage.getItem("token");
+                if (!token) {
+                    toast.error("Not Authorized yet.. Try again! ");
+                    return;
+                }
+                const response = await axios.get(`${VITE_DATA}/employees/data`, {
+                    headers: {
+                        Authorization: `${token}`,
+                    },
+                });
+                setEmpData(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, []);
+    
+
+   
 
     // POLICY DATA LISTS
     useEffect(() => {

@@ -187,6 +187,11 @@ const Sidebar = () => {
           dash: ""
         },
         {
+          title: "Add NCB",
+          path: "/dashboard/ncb",
+          dash: ""
+        },
+        {
           title: "Add Segment",
           path: "/dashboard/segment/add",
           dash: ""

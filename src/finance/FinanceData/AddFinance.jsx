@@ -70,6 +70,7 @@ function AddFinance() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [section1Filled, setSection1Filled] = useState(false);
   const [states, setStates] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
@@ -78,6 +79,7 @@ function AddFinance() {
   const [selectedCity, setSelectedCity] = useState('');
   // const [section2Filled, setSection2Filled] = useState(false);
   const [step, setSteps] = useState(0);
+  const [ncbList, setNcbLists] = useState([]);
 
   if (step === 0 && section1Filled) {
     setSteps(1);
@@ -131,7 +133,26 @@ function AddFinance() {
   useEffect(() => {
     checkSection1Filled();
   });
-
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
 
 
   useEffect(() => {
@@ -251,7 +272,7 @@ function AddFinance() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/api/employee-list`, {
+        .get(`${VITE_DATA}/employees/data`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -727,10 +748,10 @@ function AddFinance() {
             {/* step -1 */}
             <div className="flex flex-wrap mb-10 justify-between transition-all duration-2000 ease-in-out">
               {/* FIELD - 1 */}
-              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Entry Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="entryDate"
                   value={entryDate}
@@ -740,14 +761,14 @@ function AddFinance() {
                 {errors.entryDate && <span className="text-red-600 text-sm ">{errors.entryDate}</span>}
               </div>
               {/* FIELD - 2 */}
-              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Branch:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="branch" name="branch"
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}>
-                  <option className="w-1" value="" >--------------- Select Branch ---------------</option>
+                  <option className="w-1" value="" >------------- Select Branch ------------</option>
                   {
                     branchname.map((item) => (
                       <option value={item.branchname} key={item._id}>{item.branchname}</option>
@@ -757,10 +778,10 @@ function AddFinance() {
                 {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
               </div>
               {/* FIELD - 3 */}
-              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Insured Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="insuredName"
                   value={insuredName}
@@ -771,10 +792,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 4 */}
-              <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Contact No:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={contactNo}
                   name="contactNo"
@@ -784,16 +805,16 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 5 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy Made By:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="staffName"
                   name="staffName"
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={staffName}
                   onChange={(e) => setStaffName(e.target.value)}
                 >
-                  <option className="w-1" value="" >-------------- Policy Made By --------------</option>
+                  <option className="w-1" value="" >----------- Policy Made By -------------</option>
                   {
                     APIData.filter(emp => emp.staffType === "OPS Executive" | emp.staffType === "OPS EXECUTIVE")
                       .map((emp) => (
@@ -807,11 +828,11 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 6 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="company" name="company"
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={company}
                   onChange={(e) => {
                     setCompany(e.target.value.toUpperCase());
@@ -819,7 +840,7 @@ function AddFinance() {
                     setCatTypesForSelectedPolicy(selectedCatId);
                   }}
                 >
-                  <option className="w-1" value="" >-------------- Select Company -------------</option>
+                  <option className="w-1" value="" >--------- Select Company -----------</option>
                   {pdata.map((comp) => (
                     <option key={comp._id} value={comp.c_type} data-id={comp._id}>
                       {comp.c_type}
@@ -830,14 +851,14 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 7 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style w-full p-1 text-lg rounded-lg"
+                  className="input-style w-full p-1 text-base rounded-lg"
                   value={category}
                   name="category"
                   onChange={(e) => setCategory(e.target.value)}>
-                  <option value="">----------- Select Product Type -------------</option>
+                  <option value="">------- Select Product Type -----------</option>
                   {pdata.map((cat) => (
                     cat._id === catTypesForSelectedPolicy &&
                     cat.category.map((product, idx) => (
@@ -849,10 +870,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 8 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 text-lg  rounded-lg"
+                  className="input-style p-1 text-base  rounded-lg"
                   value={policyType}
                   name="policyType"
                   onChange={(e) => {
@@ -864,7 +885,7 @@ function AddFinance() {
                     // Reset product code when policy type changes
                     setProductCode('');
                   }}
-                > <option value="">------------- Select Policy Type -------------</option>
+                > <option value="">--------- Select Policy Type -----------</option>
                   {data.map(prod => (
                     <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                   ))}
@@ -874,10 +895,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 9 */}
-              <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col  p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={policyNo}
                   name="policyNo"
@@ -888,10 +909,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 10 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Engine No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="engNo"
                   value={engNo}
@@ -902,10 +923,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 11 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Chassis No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={chsNo}
                   name="chsNo"
@@ -915,10 +936,10 @@ function AddFinance() {
                 {errors.chsNo && <span className="text-red-600 text-sm ">{errors.chsNo}</span>}
               </div>
               {
-                policyType === "SATP" || policyType === "LIABILITY" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                policyType === "SATP" || policyType === "LIABILITY" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                   <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     value={odPremium}
                     name="odPremium"
@@ -927,10 +948,10 @@ function AddFinance() {
                     onBlur={updateNetPremium}
                     disabled
                   />
-                </div>) : (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                </div>) : (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                   <label className="text-base mx-1">OD Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     value={odPremium}
                     name="odPremium"
@@ -940,20 +961,11 @@ function AddFinance() {
                   />
                 </div>)
               }
-            </div>
-
-
-
-            {/* FIELD - 12 */}
-            <div className="flex flex-wrap mb-10 justify-between text">
-
-
-              {/* FIELD - 13 */}
-              {
-                policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+               {
+                policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
-                    className="input-style rounded-lg"
+                    className="input-style p-1 rounded-lg"
                     type="number"
                     name="liabilityPremium"
                     value={liabilityPremium}
@@ -963,10 +975,10 @@ function AddFinance() {
                     disabled
                   />
                 </div>)
-                  : (<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                  : (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                     <label className="text-base mx-1">Liability Premium:</label>
                     <input
-                      className="input-style rounded-lg"
+                      className="input-style p-1 rounded-lg"
                       type="number"
                       name="liabilityPremium"
                       value={liabilityPremium}
@@ -976,12 +988,10 @@ function AddFinance() {
                     />
                   </div>)
               }
-
-              {/* FIELD - 14 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="number"
                   name="netPremium"
                   value={netPremium}
@@ -992,10 +1002,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 15 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">GST(Amount):<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={taxes}
                   name="finalEntryFields"
@@ -1005,11 +1015,18 @@ function AddFinance() {
                 />
                 {errors.taxes && <span className="text-red-600 text-sm ">{errors.taxes}</span>}
               </div>
+            </div>
 
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+
+
+            {/* FIELD - 12 */}
+            <div className="flex flex-wrap mb-10 justify-between text">
+
+
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">RSA:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={rsa}
                   name="rsa"
@@ -1021,10 +1038,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 16 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Final Amount:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={finalEntryFields}
                   name="finalEntryFields"
@@ -1048,17 +1065,17 @@ function AddFinance() {
                
               </div> */}
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style  rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   type="text"
                   name="odDiscount"
                   value={odDiscount}
                   onChange={(e) => setOdDiscount(e.target.value)}
                   placeholder="Enter OD Discount"
                 >
-                  <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                  <option className="w-1" value="" >--------- Select OD Discount --------</option>
                   {
                     odList.map((data) => (
                       <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
@@ -1081,34 +1098,36 @@ function AddFinance() {
                 />
               </div> */}
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style  rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   type="text"
                   name="ncb"
                   value={ncb}
                   onChange={(e) => setNcb(e.target.value)}
                 >
-                  <option className="w-1" value="" >------------------ Select NCB ------------------</option>
-                  <option value="all">All</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
+                  <option className="w-1" value="" >-------------- Select NCB -------------</option>
+                 {
+                  ncbList.map((data)=>(
+                    <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
+                  ))
+                 }
                 </select>
               </div>
 
 
               {/* FIELD - 19 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="policyPaymentMode"
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={policyPaymentMode}
                   name="policyPaymentMode"
                   onChange={(e) => setPolicyPaymentMode(e.target.value)}
                 >
-                  <option className="w-1" value="" >--- Select Policy Payment Mode ---</option>
+                  <option className="w-1" value="" >---- Select Policy Payment Mode ----</option>
                   {
                     payMode.map((mode) => (
                       <option key={mode._id} value={mode.paymentmode} >{mode.paymentmode}</option>
@@ -1119,10 +1138,10 @@ function AddFinance() {
               </div>
 
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
-                <select className="input-style text-lg p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
-                  <option value="">---------------- Select State ----------------- </option>
+                <select className="input-style text-base p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
+                  <option value="">-------- Select State ----------- </option>
                   {states.map(state => (
                     <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
                   ))}
@@ -1130,9 +1149,9 @@ function AddFinance() {
               </div>
 
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                <select
+                {/* <select
                   className="input-style text-lg p-1 rounded-lg"
                   value={selectedCity}
                   onChange={(e) => setSelectedCity(e.target.value)}
@@ -1145,14 +1164,23 @@ function AddFinance() {
                       {city.name}
                     </option>
                   ))}
-                </select>
+                </select> */}
+                <input
+                            type="text"
+                            name="district"
+                            id="district"
+                            className="input-style  p-1 rounded-lg "
+                            placeholder="Enter new district name"
+                            value={selectedCity} // Assuming newCity is a separate state to hold input data
+                            onChange={(e) => setSelectedCity(e.target.value)}
+                          />
               </div>
 
               {/* FIELD - 20 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Vehicle Reg No:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={vehRegNo}
                   name="vehRegNo"
@@ -1163,14 +1191,14 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 21 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   name="segment"
                   value={segment}
                   onChange={(e) => setSegment(e.target.value)}>
-                  <option className="w-1" value="" >-------------- Select Segment --------------</option>
+                  <option className="w-1" value="" >----------- Select Segment ------------</option>
                   <option value="C V">C V</option>
                   <option value="PVT-CAR">PVT-CAR</option>
                   <option value="TW">TW</option>
@@ -1180,19 +1208,15 @@ function AddFinance() {
                 </select>
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-            </div>
-
-            {/* FIELD - 22 */}
-            <div className="flex flex-wrap mb-10 justify-between text">
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={sourcing}
                   name="sourcing"
                   onChange={(e) => setSourcing(e.target.value)}>
-                  <option className="w-1" value="" >----------- Select Sourcing Type -----------</option>
+                  <option className="w-1" value="" >-------- Select Sourcing Type --------</option>
                   <option value="NEW">NEW</option>
                   <option value="RENEWAL">RENEWAL</option>
                   <option value="ROLL OVER">ROLL OVER</option>
@@ -1201,10 +1225,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 23 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy Start Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="policyStartDate"
                   value={policyStartDate}
@@ -1215,10 +1239,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 24 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy End Date:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="date"
                   name="policyEndDate"
                   value={policyEndDate}
@@ -1229,10 +1253,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 25 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">OD Expiry Date:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="odExpiry"
                   value={odExpiry}
@@ -1241,11 +1265,10 @@ function AddFinance() {
                   min="2025-01-01"
                 />
               </div>
-              {/* FIELD - 26 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">TP Expiry Date:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="tpExpiry"
                   value={tpExpiry}
@@ -1256,10 +1279,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 27 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">IDV:</label>
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                <label className="text-base  mx-1">IDV:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="idv"
                   value={idv}
@@ -1268,12 +1291,16 @@ function AddFinance() {
                 />
                 {/* {errors.idv && <span className="text-red-600 text-sm ">{errors.idv}</span>} */}
               </div>
+            </div>
+
+            {/* FIELD - 22 */}
+            <div className="flex flex-wrap mb-10 justify-between text">
 
               {/* FIELD - 28 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Body Type:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={bodyType}
                   name="bodyType"
@@ -1284,10 +1311,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 29 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Make & Model:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="makeModel"
                   value={makeModel}
@@ -1298,10 +1325,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 30 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Manufacturing Year:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="mfgYear"
                   value={mfgYear}
@@ -1312,10 +1339,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 31 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Registration Year:</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={registrationDate}
                   name="registrationDate"
@@ -1327,10 +1354,10 @@ function AddFinance() {
                 {/* {errors.registrationDate && <span className="text-red-600 text-sm ">{errors.registrationDate}</span>} */}
               </div>
               {/* FIELD - 32 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="vehicleAge"
                   value={vehicleAge}
@@ -1338,14 +1365,14 @@ function AddFinance() {
                   readOnly
                 />
               </div>
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={fuel}
                   name="fuel"
                   onChange={(e) => setFuel(e.target.value)}>
-                  <option className="w-1" value="" >-------------- Select Fuel Type -------------</option>
+                  <option className="w-1" value="" >------------ Select Fuel Type ---------</option>
                   {
                     fuelType.map((fuel) => (
                       <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
@@ -1353,15 +1380,11 @@ function AddFinance() {
                   }
                 </select>
               </div>
-            </div>
 
-            {/* FIELD - 33 */}
-            <div className="flex flex-wrap mb-2 justify-between text">
-              {/* FIELD - 34 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">GVW(kg):</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={gvw}
                   name="gvw"
@@ -1370,32 +1393,17 @@ function AddFinance() {
                 />
                 {/* {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>} */}
               </div>
-
-              {/* FIELD - 35 */}
-              {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">CC:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value.toUpperCase())}
-                  placeholder="Enter CC"
-                />
-                {/* {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>} */}
-
-
-              <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                 <select
-                  className="input-style  rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="cc"
                   value={cc}
                   onChange={(e) => setCc(e.target.value.toUpperCase())}
                   placeholder="Enter CC"
                 >
-                  <option className="w-1" value="" >------------------ Select CC ---------------------</option>
+                  <option className="w-1" value="" >-------------- Select CC --------------</option>
                   {
                     ccList.map((data) => (
                       <option key={data._id} value={data.cc}>{data.cc}</option>
@@ -1405,15 +1413,15 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 36 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="productCode" name="productCode"
-                  className="input-style p-1 text-lg rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={productCode}
                   onChange={(e) => setProductCode(e.target.value)}
                 >
-                  <option className="w-1" value="" >----------- Select Product Code -----------</option>
+                  <option className="w-1" value="" >--------- Select Product Code --------</option>
                   {data.map((policy) => (
                     policy.p_type === policyType &&
                     products.map((product, idx) => (
@@ -1426,10 +1434,10 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 37*/}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={advisorName}
                   name="advisorName"
@@ -1438,12 +1446,11 @@ function AddFinance() {
                 />
                 {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}
               </div>
-
-              {/* FIELD - 38 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+ {/* FIELD - 38 */}
+ <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Sub-Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   name="subAdvisor"
                   value={subAdvisor}
@@ -1451,6 +1458,7 @@ function AddFinance() {
                   placeholder="Enter Sub Advisor"
                 />
               </div>
+           
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
