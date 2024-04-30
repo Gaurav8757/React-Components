@@ -14,11 +14,14 @@ function EmpAttendance() {
   const tileClassName = ({ date }) => {
     let classNames = '';
     const statusForDate = getAttendanceStatusForDateSync(date);
-    if (statusForDate) {
+    
+    if (statusForDate ) {
+      
       if (statusForDate === 'present') {
         classNames += 'present-day';
+
       } else if (statusForDate === 'absent') {
-        classNames += 'absent-day ';
+        classNames += 'absent-day';
       } else if (statusForDate === 'halfday') {
         classNames += 'half-day';
       }else if (statusForDate === 'holiday') {
@@ -28,6 +31,7 @@ function EmpAttendance() {
         classNames += 'default-class'; // Default class for other cases
       }
     }
+    
     return classNames.trim();
   };
 
@@ -36,11 +40,42 @@ function EmpAttendance() {
     const formattedSelectedDate = selectedDate.toLocaleDateString('en-GB', options);
     const attendanceData = APIData.find((data) => {
       const dataDate = data.date.split('T')[0]; // Extract the date part from the API date
-      return dataDate === formattedSelectedDate;
+      if (dataDate === formattedSelectedDate) {
+        if (data.time && data.logouttime) {
+          const startTime = new Date(`01/01/2000 ${data.time}`);
+          const endTime = new Date(`01/01/2000 ${data.logouttime}`);
+          const timeDifference = endTime.getTime() - startTime.getTime();
+          const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+          return `Work: ${hours}hr : ${minutes}min`;
+        } else {
+          return data.status; // Return the status if time and logouttime are missing
+        }
+      }
+      return null;
     });
-    return attendanceData ? attendanceData.status : null;
+  
+    return attendanceData ? attendanceData.status  : null;
   };
-
+  
+  
+  // const getTotalHoursForDate = (selectedDate) => {
+  //   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  //   const formattedSelectedDate = selectedDate.toLocaleDateString('en-GB', options);
+  //   const attendanceData = APIData.find((data) => {
+  //     const dataDate = data.date.split('T')[0];
+  //     if (dataDate === formattedSelectedDate && data.time && data.logouttime) {
+  //       const startTime = new Date(`01/01/2000 ${data.time}`);
+  //       const endTime = new Date(`01/01/2000 ${data.logouttime}`);
+  //       const timeDifference = endTime.getTime() - startTime.getTime();
+  //       const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+  //       const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  //       return `Work: ${hours}hr : ${minutes}min`;
+  //     }
+  //     return null;
+  //   });
+  //   return attendanceData ? attendanceData.totalHours : null;
+  // };
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');

@@ -136,17 +136,27 @@ function ReportEmp() {
                             default:
                                 break;
                         }
-
+                        let totalHours = '';
+                        if (hasAttendance && attendance.time && attendance.logouttime) {
+                            const startTime = new Date(`01/01/2000 ${attendance.time}`);
+                            const endTime = new Date(`01/01/2000 ${attendance.logouttime}`);
+                            const timeDifference = endTime.getTime() - startTime.getTime();
+                            const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                            totalHours = `Work: ${hours}hr : ${minutes}min`;
+                        }
                         // Render the cell
                         return (
 
                             <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' : ''}`}>
                                 {text}
-                                <div className="text-xs whitespace-nowrap  font-normal">{hasAttendance ? attendance.time : ''}</div>
-
+                                {/* <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div> */}
+                                <div className="text-base whitespace-wrap ">{`${totalHours}`}</div>
                             </td>
                         );
                     })}
+
+
                     <td className="whitespace-wrap  text-lg font-bold border border-black">
                         {workingDaysCount - holiDayCount} {/* Display WORKING count */}
                     </td>
@@ -216,7 +226,7 @@ function ReportEmp() {
                 </th>
             )
         }
-        console.log("Number of Sundays:", sundayCount);
+        console.log(sundayCount);
         return headers;
     };
 
@@ -356,8 +366,8 @@ function ReportEmp() {
                         <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1   ">
                             <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
                                 <thead className="sticky bg-slate-300 top-16">
-                                    <tr className="border border-black text-lg z-50 text-blue-700  ">
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
+                                    <tr className="border border-black z-50 text-blue-700 text-sm ">
+                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
                                             Employee ID
                                         </th>
                                         <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
@@ -365,16 +375,16 @@ function ReportEmp() {
                                         </th>
                                         {renderTableHeaders()}
                                         {/* {renderTableRows()} */}
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 ">
+                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 ">
                                             Total Working Days
                                         </th>
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-green-400">
+                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-green-400">
                                             Present Days
                                         </th>
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-red-500">
+                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-red-500">
                                             Absent Days
                                         </th>
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700 bg-yellow-400">
+                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-yellow-400">
                                             Half Days
                                         </th>
                                         <th scope="col" className="sticky  whitespace-nowrap border border-blue-700 bg-cyan-300">

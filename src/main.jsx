@@ -176,6 +176,9 @@ import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
 import Cc from "./admin/admincomponents/CC/Cc.jsx";
 import SitCapacity from "./admin/admincomponents/SittingCapacity/SitCapacity.jsx";
 import NcbData from "./admin/admincomponents/NCB/NcbData.jsx";
+import Ledger1 from "./admin/admincomponents/Ledger/Ledger1.jsx";
+import Ledger2 from "./admin/admincomponents/Ledger/Ledger2.jsx";
+import Ledger3 from "./admin/admincomponents/Ledger/Ledger3.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -288,6 +291,9 @@ const router = createBrowserRouter(
           <Route path="/dashboard/CC" element={<Cc />} />
           <Route path="/dashboard/ncb" element={<NcbData />} />
           <Route path="/dashboard/sit/capacity" element={<SitCapacity />} />
+          <Route path="/dashboard/ledger1" element={<Ledger1 />} />
+          <Route path="/dashboard/ledger2" element={<Ledger2 />} />
+          <Route path="/dashboard/ledger3" element={<Ledger3/>} />
         </Route>
       </Route>
 

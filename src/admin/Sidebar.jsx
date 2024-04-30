@@ -12,6 +12,7 @@ const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ 
 const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
 const MdOutlineCategory = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlineCategory })));
 const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
+const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
 
 const Sidebar = () => {
   const dashboardRoutes = [
@@ -125,6 +126,24 @@ const Sidebar = () => {
         {
           title: "Payout Lists",
           path: "/dashboard/advisor/payout/lists",
+          dash: ""
+        },
+      ]
+    },
+    {
+      title: "Leger",
+      path: "#",
+      logo: <FaMoneyBill size={25} />,
+      subRoutes: [
+
+        {
+          title: "Leger 1",
+          path: "/dashboard/ledger1",
+          dash: ""
+        },
+        {
+          title: "Ledger 2",
+          path: "/dashboard/ledger2",
           dash: ""
         },
       ]

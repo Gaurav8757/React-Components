@@ -25,7 +25,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
-    const [empTime, setEmpTime] = useState(getFormattedTime());
+    // const [empTime, setEmpTime] = useState('');
 
     function getFormattedTime() {
         const date = new Date();
@@ -36,6 +36,11 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     }
+const time = getFormattedTime();
+
+// useEffect(()=>{
+//     setEmpTime(time);
+// }, [time]);
 
 
     useEffect(() => {
@@ -70,15 +75,6 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     }, [formSubmitted]);
 
 
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setEmpTime(getFormattedTime());
-        }, 1000); // Update every second
-        // Clean up interval on component unmount
-        return () => clearInterval(intervalId);
-    }, []); // Empty dependency array ensures effect runs only once on mount
-
     const [allDetails, setAllDetails] = useState({
         states: insurance.states || '',
         district: insurance.district || selectedCity,
@@ -99,7 +95,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         odDiscount: insurance.odDiscount || '',
         ncb: insurance.ncb || '',
         policyPaymentMode: insurance.policyPaymentMode || '',
-        empTime: insurance.empTime || empTime,
+        empTime:  time,
         advisorName: insurance.advisorName || ''
     });
 
@@ -286,7 +282,8 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             ...prevData,
             [name]: value,
             states: name === 'selectedState' ? value : prevData.selectedState,
-            district: name === 'selectedCity' ? value : prevData.selectedCity
+            district: name === 'selectedCity' ? value : prevData.selectedCity,
+            empTime: time
 
         }));
     };

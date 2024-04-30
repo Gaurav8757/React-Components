@@ -152,7 +152,6 @@ function ViewMasterForm() {
   });
   // Calculate total number of pages
   const totalItems = filteredData.length;
-
   // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -181,7 +180,6 @@ function ViewMasterForm() {
   };
 
   
-
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
@@ -226,7 +224,6 @@ function ViewMasterForm() {
                         companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
                         profitLoss = companyPayout - branchPayout;
                     }
-
                     // Prepare data for API request
                     const postData = {
                         advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
@@ -235,7 +232,6 @@ function ViewMasterForm() {
                         branchPayout: parseFloat(branchPayout.toFixed(2)),
                         companyPayout: parseFloat(companyPayout.toFixed(2)),
                         profitLoss: parseFloat(profitLoss.toFixed(2)),
-                        
                     };
 
                     try {

@@ -6,6 +6,66 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
+// dates
+const formatDate = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+};
+// time
+function formatTime(dateTime) {
+    const dateObj = new Date(dateTime);
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const seconds = dateObj.getSeconds();
+    const amOrPm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${amOrPm}`;
+}
+// weekday
+const formatWeekday = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek = date.getDay();
+    return weekdays[dayOfWeek];
+};
+
+
+
+const handleToggleAttendance = async (id) => {
+    try {
+        // const empid = sessionStorage.getItem('employeeId') ;
+        const currentDateAndTime = new Date().toISOString();
+        const datePart = formatDate(currentDateAndTime); // Get date in the format 01-01-2000
+        const timePart = formatTime(currentDateAndTime); // Get time in the format 00:00:00 AM/PM
+        const weekdayPart = formatWeekday(currentDateAndTime);  // Get weekday like 'Monday'
+        // Make a POST request to mark attendance
+        await axios.post(`${VITE_DATA}/employee/mark/attendance/${id}`, {
+            status: 'present',
+            date: datePart,
+            time: timePart,
+            // logouttime: logouttime,
+            // totalHours: totalHours,
+            weekday: weekdayPart,
+        });
+        // Handle success (e.g., show a success message)
+        toast.success('Today Attendance marked Successfully!');
+    } catch (error) {
+        // Handle error (e.g., show an error message)
+        console.error(
+            'Error marking attendance:',
+            error.response ? error.response.data.message : error.message
+        );
+        toast.error(`${error.response ? error.response.data.message : error.message
+            }`)
+    }
+}
+
+
 function LoginAll() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
@@ -34,7 +94,6 @@ function LoginAll() {
                     break;
 
                 case "employee":
-                    
                     response = await axios.post(`${VITE_DATA}/login/employee`, {
                         empemail: email,
                         empmobile: mobile,
@@ -44,29 +103,11 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
                     sessionStorage.setItem("name", response.data.user.empname);
-
-                      // Add your code snippet here
-                     
+                    // Mark attendance after successful login
+                    await handleToggleAttendance(response.data.user._id);
                     break;
 
-                    case "advisor":
-                    response = await axios.post(`${VITE_DATA}/advisor/login`, {
-                        advisoremail: email,
-                        advisormobile: mobile,
-                        advisorpassword:  password,
-                    });
-                  console.log(response.data);
-                    sessionStorage.setItem("advisoremail", email);
-                    sessionStorage.setItem("token", response.data.token);
-                    sessionStorage.setItem("email", response.data.advisory.advisoremail);
-                    sessionStorage.setItem("advisorId", response.data.advisory._id);
-                    sessionStorage.setItem("name", response.data.advisory.advisorname);
-
-                      // Add your code snippet here
-                     
-                    break;
-
-                case "hrmanager":
+                     case "hrmanager":
                     response = await axios.post(`${VITE_DATA}/hradmin/login`, {
                         hrademail: email,
                         hradmobile: mobile,
@@ -76,7 +117,28 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.email);
                     sessionStorage.setItem("hrId", response.data.id);
                     sessionStorage.setItem("name", response.data.name);
+                    // Mark attendance after successful login
+                    await handleToggleAttendance();
                     break;
+
+                case "advisor":
+                    response = await axios.post(`${VITE_DATA}/advisor/login`, {
+                        advisoremail: email,
+                        advisormobile: mobile,
+                        advisorpassword: password,
+                    });
+                    // console.log(response.data);
+                    sessionStorage.setItem("advisoremail", email);
+                    sessionStorage.setItem("token", response.data.token);
+                    sessionStorage.setItem("email", response.data.advisory.advisoremail);
+                    sessionStorage.setItem("advisorId", response.data.advisory._id);
+                    sessionStorage.setItem("name", response.data.advisory.advisorname);
+
+                    // Add your code snippet here
+
+                    break;
+
+               
 
                 case "branches":
                     response = await axios.post(`${VITE_DATA}/branches/loginbranch`, {
@@ -97,6 +159,8 @@ function LoginAll() {
                     sessionStorage.setItem("token", response.data.token);
                     sessionStorage.setItem("email", response.data.user.opsemail);
                     sessionStorage.setItem("name", response.data.user.opsname);
+                    // Mark attendance after successful login
+                    await handleToggleAttendance();
                     break;
 
                 case "finance":
@@ -130,14 +194,14 @@ function LoginAll() {
 
                     case "employee":
                         sessionStorage.getItem("token");
-                       if (response.data.user.staffType === "HR ADMIN" || response.data.user.staffType === "HR Admin" || response.data.user.staffType === "hr admin") {
-                        sessionStorage.getItem("token");
-                        navigate("/admin/hr/home");
-                        toast.success("Logged In Successfully !");
-                    } else {
-                        navigate("/employee/home");
-                        toast.success("Logged In Successfully !");
-                    }
+                        if (response.data.user.staffType === "HR ADMIN" || response.data.user.staffType === "HR Admin" || response.data.user.staffType === "hr admin") {
+                            sessionStorage.getItem("token");
+                            navigate("/admin/hr/home");
+                            toast.success("Logged In Successfully !");
+                        } else {
+                            navigate("/employee/home");
+                            toast.success("Logged In Successfully !");
+                        }
                         break;
 
 
@@ -199,8 +263,8 @@ function LoginAll() {
                 return "/branches/forget";
             case "ops":
                 return "/ops/forget";
-                case "advisor":
-                    return "/advisor/forget";
+            case "advisor":
+                return "/advisor/forget";
             case "finance":
                 return "/finance/forget";
 
@@ -301,8 +365,7 @@ function LoginAll() {
                                     <select
                                         className="input-style g-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         value={loginType}
-                                        onChange={handleLoginTypeChange}
-                                    >
+                                        onChange={handleLoginTypeChange}>
                                         <option value="">  ------------- Select ------------  </option>
                                         <option value="admin">Admin</option>
                                         <option value="branches">Branch</option>

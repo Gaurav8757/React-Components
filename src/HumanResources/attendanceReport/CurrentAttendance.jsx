@@ -150,7 +150,15 @@ function CurrentAttendance() {
                 default:
                     break;
             }
-
+            let totalHours = '';
+            if (hasAttendance && attendance.time && attendance.logouttime) {
+                const startTime = new Date(`01/01/2000 ${attendance.time}`);
+                const endTime = new Date(`01/01/2000 ${attendance.logouttime}`);
+                const timeDifference = endTime.getTime() - startTime.getTime();
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                totalHours = `Work: ${hours}hr : ${minutes}min`;
+            }
             calendarRows.push(
                 <tr key={employee.empid}>
                     <td className="whitespace-nowrap px-0 py-2 border sticky border-black text-lg font-semibold">
@@ -161,7 +169,8 @@ function CurrentAttendance() {
                     </td>
                     <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
                         {text}
-                        <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div>
+                        {/* <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div> */}
+                        <div className="text-base whitespace-wrap ">{`${totalHours}`}</div>
                     </td>
                 </tr>
             );

@@ -38,33 +38,31 @@ function AddHrAttendance() {
   const [emp, setEmp] = useState([]);
   const [ctime, setTime] = useState(digitalTime);
   const [attendanceStatus, setAttendanceStatus] = useState('');
-
+// eslint-disable-next-line no-unused-vars
+const [error, setError] = useState(null);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`${VITE_DATA}/api/employee-list`, {
+    const fetchData = async () => {
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await axios.get(`${VITE_DATA}/api/employee-list`, {
           headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
+            Authorization: token,
           },
-        })
-        .then((response) => {
-          setEmp(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
         });
-    }
-  }, []);
+        setEmp(response.data); // Assuming the response contains the data you want to set
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty de
+
 
   const filteredIds = emp
   .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
   .map(filteredData => filteredData._id);
-
 
   // digital clock
   const updateTime = () => {
@@ -78,7 +76,6 @@ function AddHrAttendance() {
   const handleToggleAttendance = async () => {
     try {
       // const hrid = sessionStorage.getItem('hrId');
-
       // Check if a valid attendance status is selected
       if (!attendanceStatus) {
         toast.error('Please select a valid attendance status.');
@@ -94,8 +91,7 @@ function AddHrAttendance() {
         date: datePart,
         time: timePart,
         weekday: weekdayPart,
-      });
-      
+      });   
       // Handle success (e.g., show a success message)
       toast.success('Today Attendance marked Successfully!');
     } catch (error) {
@@ -107,7 +103,6 @@ function AddHrAttendance() {
       toast.error(`${
         error.response ? error.response.data.message : error.message
       }`)
-      
     }
   }
   const empnam = sessionStorage.getItem('name');
