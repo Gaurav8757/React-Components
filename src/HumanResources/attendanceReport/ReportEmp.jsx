@@ -143,15 +143,16 @@ function ReportEmp() {
                             const timeDifference = endTime.getTime() - startTime.getTime();
                             const hours = Math.floor(timeDifference / (1000 * 60 * 60));
                             const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                            totalHours = `Work: ${hours}hr : ${minutes}min`;
+                            totalHours = `Working HRS: ${hours}hr : ${minutes}min`;
                         }
                         // Render the cell
                         return (
 
-                            <td key={dateIndex} className={`z-1  border border-black px-10 py-8 text-lg font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' : ''}`}>
+                            <td key={dateIndex} className={`z-1  border border-black text-base font-bold  text-slate-200  ${formattedDays[dateIndex] === 0 ? `bg-red-300  ` : status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600  ' : status === 'halfday' ? 'bg-yellow-600  ' : isHoliday === true ? 'bg-cyan-400 ' : ''}`}>
                                 {text}
-                                {/* <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div> */}
-                                <div className="text-base whitespace-wrap ">{`${totalHours}`}</div>
+                                <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Login Time: ${attendance.time}` : ''}</div>
+                                <div className="text-xs whitespace-nowrap my-1">{`${totalHours}`}</div>
+                                <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Logout Time: ${attendance.logouttime}` : ''}</div>
                             </td>
                         );
                     })}

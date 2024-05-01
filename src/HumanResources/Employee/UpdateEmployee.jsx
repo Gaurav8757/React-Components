@@ -120,10 +120,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
                                 <form className="flex flex-wrap justify-between">
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1 ">Employee Name:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             value={data.empname}
                                             onChange={handleInputChange}
@@ -132,10 +132,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">DOB:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="date"
                                             value={data.empdob}
                                             onChange={handleInputChange}
@@ -143,10 +143,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Branch Code"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Gender:</label>
                                         <select
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             value={data.empgender}
                                             onChange={handleInputChange}
@@ -160,10 +160,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         </select>
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Email ID:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="email"
                                             name="empemail"
                                             value={data.empemail.toLowerCase()}
@@ -172,10 +172,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">  Branch:</label>
                                         <select
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             value={data.empbranch}
                                             onChange={handleInputChange}
@@ -187,10 +187,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             </option>
                                         </select>
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Mobile No:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="number"
                                             min="1"
                                             value={data.empmobile}
@@ -199,10 +199,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="+91"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Account No.:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="number"
                                             name="accNumber"
                                             value={data.accNumber}
@@ -210,10 +210,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Account Number"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">IFSC Code:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             name="ifsc"
                                             value={data.ifsc}
@@ -222,10 +222,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Bank Name:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             name="bankName"
                                             value={data.bankName}
@@ -233,10 +233,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Bank Name"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Pan No.:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             name="pan"
                                             value={data.pan}
@@ -258,10 +258,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div> */}
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Joining Date:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="date"
                                             value={data.empjoiningdate}
                                             onChange={handleInputChange}
@@ -269,10 +269,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder=""
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Aadhar No.:</label>
                                         <input
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             value={data.empaadharno}
                                             onChange={handleInputChange}
@@ -280,7 +280,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder=""
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    {/* <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
                                         <label className="text-base mx-1">Upload Aadhar Card:</label>
                                         <input
                                             className="input-style border w-full h-10 items-center rounded-lg"
@@ -289,12 +289,12 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             onChange={handleInputChange}
                                             name="empaadharfile"
                                         />
-                                    </div>
+                                    </div> */}
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Designation:</label>
                                         <select
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             value={data.s_type}
                                             name="staffType"
@@ -306,14 +306,24 @@ function UpdateEmployee({ employee, onUpdate }) {
                                                 ))
                                             }
                                         </select>
-
                                     </div>
 
-
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Current Address:</label>
+                                        <textarea
+                                            className="input-style p-1 rounded-lg"
+                                            type="text"
+                                            rows={2}
+                                            name="currentempaddress"
+                                            value={data.currentempaddress}
+                                            onChange={handleInputChange}
+                                            placeholder="Enter Your Address"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Permanent Address:</label>
                                         <textarea
-                                            className="input-style rounded-lg"
+                                            className="input-style p-1 rounded-lg"
                                             type="text"
                                             rows={2}
                                             value={data.permanentempaddress}
@@ -323,19 +333,8 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-                                        <label className="text-base mx-1">Current Address:</label>
-                                        <textarea
-                                            className="input-style rounded-lg"
-                                            type="text"
-                                            rows={2}
-                                            name="currentempaddress"
-                                            value={data.currentempaddress}
-                                            onChange={handleInputChange}
-                                            placeholder="Enter Your Address"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+                                   
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                        
                                     </div>
 

@@ -15,6 +15,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [fuelType, setFuelType] = useState([]);
   const [pmade, setPmade] = useState([]);
   const [states, setStates] = useState([]);
+  const [advLists, setAdvLists] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [odList, setOdList] = useState([]);
@@ -74,6 +75,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     ncb: '',
     rsa: '',
     advisorName: '',
+    advId:'',
     subAdvisor: '',
     policyMadeBy: '',
     branch: '',
@@ -113,6 +115,28 @@ function UpdateMaster({ insurance, onUpdate }) {
         console.error("Error fetching policy types:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    // const branch = sessionStorage.getItem("name");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/advisor/all/lists`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                }
+            })
+            .then((response) => {
+                setAdvLists(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
@@ -443,8 +467,8 @@ function UpdateMaster({ insurance, onUpdate }) {
       [name]: value,
       // empTime: empTime,
       states: name === 'selectedState' ? value : prevData.selectedState,
-      district: name === 'selectedCity' ? value : prevData.selectedCity
-
+      district: name === 'selectedCity' ? value : prevData.selectedCity,
+      advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
     }));
   };
 
@@ -1132,14 +1156,20 @@ function UpdateMaster({ insurance, onUpdate }) {
 
                         <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Advisor Name:</label>
-                          <input
-                            className="input-style p-1 rounded-lg"
-                            type="text"
-                            value={allDetails.advisorName}
-                            onChange={handleInputChange}
-                            name="advisorName"
-                            placeholder="Enter Advisor Name"
-                          />
+                          <select
+                                                    className="input-style p-1 text-base rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.advisorName}
+                                                    onChange={handleInputChange}
+                                                    name="advisorName"
+                                                    placeholder="Enter Advisor Name"
+                                                >
+                                                    <option value="">------------- Select Advisor -----------</option>
+                                                    {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                                                        <option key={data._id} value={data.advisorname}>{data.advisorname}</option>
+                                                    ))}
+
+                                                </select>
                         </div>
                       </div>
                       <div className="flex flex-wrap justify-between">

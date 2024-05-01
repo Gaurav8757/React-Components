@@ -311,6 +311,21 @@ function MasterView() {
                   <th scope="col" className="px-1 pt-2 sticky border border-black">C.C.</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Advisor</th>
                   <th scope="col" className="px-1 pt-2 sticky border border-black">Sub Advisor</th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Payout On
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payout
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payable Amount
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Branch Payout
+                  </th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">
+                    Branch Payable Amount
+                  </th>
                 </tr>
               </thead>
 
@@ -358,7 +373,14 @@ function MasterView() {
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.gvw}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.cc}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.advisorName}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.subAdvisor}</td>   
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.subAdvisor}</td> 
+                    <td className="whitespace-nowrap px-1  py-0 border border-black">
+                      {data.payoutOn}
+                    </td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td>  
                   </tr>
                 ))}
               </tbody>

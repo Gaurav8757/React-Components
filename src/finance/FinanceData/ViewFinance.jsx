@@ -17,8 +17,9 @@ function ViewFinance() {
   const [error, setError] = useState("");
   const [searchId, setSearchId] = useState("");
   const [searchCompany, setSearchCompany] = useState("");
+  const [veh, setVeh] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
-  const [contactNo, setContactNo] = useState("");
+  const [policyNo, setPolicyNo] = useState("");
   const name = sessionStorage.getItem('finname');
   //   console.log(currentPage);
   //   console.log(itemsPerPage);
@@ -100,16 +101,18 @@ function ViewFinance() {
     const idLower = data.policyrefno?.toLowerCase() || "";
     const insuredNameLower = data.insuredName?.toLowerCase() || "";
     const companyLower = data.company?.toLowerCase() || "";
-    const contacNoLower = data.contactNo?.toLowerCase() || "";
+    const policyLower = data.policyNo?.toLowerCase() || "";
     const branchLower = data.branch?.toLowerCase() || "";
+    const vehRegLower = data.vehRegNo?.toLowerCase() || "";
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
       (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
+      (vehRegLower.includes(veh.toLowerCase()) || veh === '') &&
       // Update the state variable for company correctly
-      (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === '') &&
+      (policyLower.includes(policyNo.toLowerCase()) || policyNo === '') &&
       // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
@@ -331,14 +334,23 @@ function ViewFinance() {
                 placeholder="Branch Name"
               />
             </div>
-
-            <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Contact No:</label>
+            <div className="flex justify-start my-3  text-start lg:w-1/4">
+              <label className="my-0 text-base whitespace-nowrap font-medium text-gray-900">Vehicle Reg. No.:</label>
               <input
                 type="search"
-                onChange={(e) => setContactNo(e.target.value)}
+                onChange={(e) => setVeh(e.target.value)}
+                className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Vehicle Registration Number"
+              />
+            </div>
+            <div className="flex justify-start my-3  text-start lg:w-1/4"></div>
+            <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg font-medium text-gray-900">Policy No:</label>
+              <input
+                type="search"
+                onChange={(e) => setPolicyNo(e.target.value)}
                 className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                placeholder="Contact Number"
+                placeholder="Policy Number"
               /></div>
           </div>
 
@@ -352,6 +364,7 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Entry Date</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Branch</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Insured Name</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Contact No</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Made By</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Received Time</th>
@@ -373,7 +386,7 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">States</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">District</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
+                 
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Segment</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sourcing</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Start Date</th>
@@ -407,6 +420,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.branch}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.insuredName}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.contactNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.staffName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.currentTime}</td>
@@ -428,7 +442,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
+                   
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sourcing}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyStartDate}</td>

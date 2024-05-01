@@ -169,8 +169,9 @@ function CurrentAttendance() {
                     </td>
                     <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
                         {text}
-                        {/* <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? attendance.time : ''}</div> */}
-                        <div className="text-base whitespace-wrap ">{`${totalHours}`}</div>
+                        <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Login Time: ${attendance.time}` : ''}</div>
+                        <div className="text-xs whitespace-nowrap my-1">{`${totalHours}`}</div>
+                        <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Logout Time: ${attendance.logouttime}` : ''}</div>
                     </td>
                 </tr>
             );

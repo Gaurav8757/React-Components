@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import VITE_DATA from "../config/config.jsx";
@@ -73,6 +73,36 @@ function LoginAll() {
     const [password, setPassword] = useState("");
     const [loginType, setLoginType] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [emp, setEmp] = useState([]);
+    // eslint-disable-next-line no-unused-vars
+const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const token = sessionStorage.getItem("token");
+            const response = await axios.get(`${VITE_DATA}/api/employee-list`, {
+              headers: {
+                Authorization: token,
+              },
+            });
+            setEmp(response.data); // Assuming the response contains the data you want to set
+          } catch (error) {
+            setError(error.message);
+          }
+        };
+    
+        fetchData();
+      }, []); // Empty de
+    
+   
+      const filteredIds = emp
+      .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
+      .map(filteredData => filteredData._id);
+
+    //   const filteredIds1 = emp
+    //   .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
+    //   .map(filteredData => filteredData._id);
 
     const handleLoginTypeChange = (e) => {
         setLoginType(e.target.value);
@@ -118,7 +148,7 @@ function LoginAll() {
                     sessionStorage.setItem("hrId", response.data.id);
                     sessionStorage.setItem("name", response.data.name);
                     // Mark attendance after successful login
-                    await handleToggleAttendance();
+                    await handleToggleAttendance(filteredIds);
                     break;
 
                 case "advisor":

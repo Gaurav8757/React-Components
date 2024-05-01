@@ -207,7 +207,7 @@ function AddEmployee() {
                 type="email"
                 name="empemail"
                 value={email}
-                onChange={(e) => setEmail(e.target.value.toUpperCase())}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="abc@gmail.com"
               />
               {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}

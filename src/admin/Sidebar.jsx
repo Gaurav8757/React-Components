@@ -57,6 +57,11 @@ const Sidebar = () => {
         },
       ]
     },
+    {
+      title: "View Advisor",
+      path: "/dashboard/viewadvisor",
+      logo: <FaImages size={24} />,
+    },
 
     {
       title: "Snap",

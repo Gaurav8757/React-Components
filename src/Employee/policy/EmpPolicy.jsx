@@ -222,7 +222,7 @@ function EmpPolicy() {
                                 <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
                             ) : (
                                 <div className="min-w-full w-full py-0  block z-50">
-                                    <div className="flex-wrap mb-4 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+                                    <div className="flex-wrap mb-4 flex justify-between  text-blue-500  ">
                                         {/* date range filter */}
                                         <div className="flex p-0 text-start w-full lg:w-1/4">
                                             <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
@@ -231,7 +231,7 @@ function EmpPolicy() {
                                             <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
                                         </div>
 
-                                        <div className=" p-0  text-start w-full lg:w-1/4">
+                                        <div className="  p-0   w-full lg:w-1/4">
                                             <label className="my-1 text-base font-medium text-gray-900">ID:</label>
                                             <input
                                                 type="search"
@@ -260,7 +260,7 @@ function EmpPolicy() {
                                                 placeholder="Insured Name"
                                             />
                                         </div>
-                                        <div className="flex justify-start   text-start w-full lg:w-1/4">
+                                        <div className="flex justify-start mt-3  text-start w-full lg:w-1/4">
                                             <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
                                             <input
                                                 type="search"
@@ -269,7 +269,7 @@ function EmpPolicy() {
                                                 placeholder="Branch Name"
                                             />
                                         </div>
-                                        <div className="flex p-0  text-center justify-start lg:w-1/4">
+                                        <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4">
                                             <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
                                             <input
                                                 type="search"

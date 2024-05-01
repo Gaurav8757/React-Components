@@ -13,6 +13,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     // eslint-disable-next-line no-unused-vars
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
+    const [advLists, setAdvLists] = useState([]);
     const [states, setStates] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [cities, setCities] = useState([]);
@@ -23,10 +24,10 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [selectedCity, setSelectedCity] = useState('');
     const [fuelData, setFuelData] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
-
+    // const [empbranches, setempBranches] = useState("");
     const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
     // const [empTime, setEmpTime] = useState('');
-
+    // console.log(empbranches);
     function getFormattedTime() {
         const date = new Date();
         const hours = date.getHours();
@@ -36,11 +37,33 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     }
-const time = getFormattedTime();
+    const time = getFormattedTime();
 
-// useEffect(()=>{
-//     setEmpTime(time);
-// }, [time]);
+    // useEffect(()=>{
+    //     setEmpTime(time);
+    // }, [time]);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        // const branch = sessionStorage.getItem("name");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/advisor/all/lists`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    }
+                })
+                .then((response) => {
+                    setAdvLists(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, []);
 
 
     useEffect(() => {
@@ -95,8 +118,9 @@ const time = getFormattedTime();
         odDiscount: insurance.odDiscount || '',
         ncb: insurance.ncb || '',
         policyPaymentMode: insurance.policyPaymentMode || '',
-        empTime:  time,
-        advisorName: insurance.advisorName || ''
+        empTime: time,
+        advisorName: insurance.advisorName || '',
+        advId: insurance.advId || ''
     });
 
     // OPEN MODAL
@@ -194,9 +218,7 @@ const time = getFormattedTime();
                     },
                 })
                 .then((response) => {
-
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
@@ -283,8 +305,8 @@ const time = getFormattedTime();
             [name]: value,
             states: name === 'selectedState' ? value : prevData.selectedState,
             district: name === 'selectedCity' ? value : prevData.selectedCity,
-            empTime: time
-
+            empTime: time,
+            advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
         }));
     };
 
@@ -672,14 +694,19 @@ const time = getFormattedTime();
                                             </div>
                                             <div className="flex flex-col p-1 mt-4 text-start lg:w-1/4">
                                                 <label className="text-base mx-1">Advisor Name:</label>
-                                                <input
+                                                <select
                                                     className="input-style p-1 text-base rounded-lg"
                                                     type="text"
                                                     value={allDetails.advisorName}
                                                     onChange={handleInputChange}
                                                     name="advisorName"
                                                     placeholder="Enter Advisor Name"
-                                                />
+                                                >
+                                                    <option value="">------------- Select Advisor -----------</option>
+                                                    {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                                                        <option key={data._id} value={data.advisorname}>{data.advisorname}</option>
+                                                    ))}
+                                                </select>
                                             </div>
                                             <div className="flex flex-col p-1 text-start w-full lg:w-1/4"></div>
                                             <div className="flex flex-col p-1 text-start w-full lg:w-1/4"></div>

@@ -110,9 +110,6 @@ setErrors({}); // Clear previous errors
       setTimeout(() => setShowPassword(false), 10000);
   };
 
-  
-
-
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-white">
     <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
@@ -125,8 +122,8 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={branch.toUpperCase()}
-                onChange={(e) => setBranch(e.target.value)}
+                value={branch}
+                onChange={(e) => setBranch(e.target.value.toUpperCase())}
                 placeholder="Enter Branch Name"
               />
               {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
@@ -136,7 +133,7 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="email"
-                value={email.toUpperCase()}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="abc@gmail.com"
               />
@@ -170,8 +167,8 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={code.toUpperCase()}
-                onChange={(e) => setCode(e.target.value)}
+                value={code}
+                onChange={(e) => setCode(e.target.value.toUpperCase())}
                 placeholder="Enter Branch Code"
               />
               {errors.code && <span className="text-red-600 text-sm ">{errors.code}</span>}
@@ -185,7 +182,7 @@ setErrors({}); // Clear previous errors
               <input
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
                 type={showPassword ? 'text' : 'password'}
-                value={password.toUpperCase()}
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="**************"
               />
@@ -207,8 +204,8 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={person.toUpperCase()}
-                onChange={(e) => setPerson(e.target.value)}
+                value={person}
+                onChange={(e) => setPerson(e.target.value.toUpperCase())}
                 placeholder="Enter Name"
               />
               {errors.person && <span className="text-red-600 text-sm ">{errors.person}</span>}
@@ -219,8 +216,8 @@ setErrors({}); // Clear previous errors
                 className="input-style rounded-lg"
                 type="text"
                 rows={2}
-                value={address.toUpperCase()}
-                onChange={(e) => setAddress(e.target.value)}
+                value={address}
+                onChange={(e) => setAddress(e.target.value.toUpperCase())}
                 placeholder="Enter Your Address"
               />
               {errors.address && <span className="text-red-600 text-sm ">{errors.address}</span>}
@@ -231,8 +228,8 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={district.toUpperCase()}
-                onChange={(e) => setDistrict(e.target.value)}
+                value={district}
+                onChange={(e) => setDistrict(e.target.value.toUpperCase())}
                 placeholder="Enter Your District Name"
               />
               {errors.district && <span className="text-red-600 text-sm ">{errors.district}</span>}
@@ -242,8 +239,8 @@ setErrors({}); // Clear previous errors
               <input
                 className="input-style rounded-lg"
                 type="text"
-                value={state.toUpperCase()}
-                onChange={(e) => setState(e.target.value)}
+                value={state}
+                onChange={(e) => setState(e.target.value.toUpperCase())}
                 placeholder="Enter Your State Name"
               />
               {errors.state && <span className="text-red-600 text-sm ">{errors.state}</span>}

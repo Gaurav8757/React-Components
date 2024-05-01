@@ -14,6 +14,7 @@ const FaEnvelopeOpenText = React.lazy(() => import("react-icons/fa").then(module
 const MdAutoGraph = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
 const SlNote = React.lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
 const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
+const FcLeave = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcLeave })));
 
 function DashboardHr() {
   const dashboardRouted = [
@@ -191,6 +192,12 @@ function DashboardHr() {
       title: "Leave Approval",
       path: "/hr/home/leave/approval",
       logo: <IoPersonRemoveSharp size={25} />,
+      
+    },
+    {
+      title: "Leave Balance",
+      path: "/hr/home/leave/balance",
+      logo: <FcLeave size={25} />,
       
     },
   ];

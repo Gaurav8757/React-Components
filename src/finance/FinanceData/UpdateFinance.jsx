@@ -10,6 +10,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [pdata, setPdata] = useState([]);
+  const [advLists, setAdvLists] = useState([]);
   const [states, setStates] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
@@ -116,6 +117,7 @@ useEffect(() => {
     odDiscount: '',
     ncb: '',
     advisorName: '',
+    advId:'',
     subAdvisor: '',
     policyMadeBy: '',
     branch: '',
@@ -132,7 +134,8 @@ useEffect(() => {
     branchPayableAmount: '',
     companyPayout: '',
     profitLoss: '',
-    empTime: ''
+    empTime: '',
+
   })
 
   // OPEN MODAL
@@ -268,6 +271,27 @@ useEffect(() => {
       });
   }, []);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    // const branch = sessionStorage.getItem("name");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/advisor/all/lists`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                }
+            })
+            .then((response) => {
+                setAdvLists(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
   //   if (!token) {
@@ -318,7 +342,7 @@ useEffect(() => {
 
     // Set TP Expiry to one day before the policy start date
     const tpExpiryDate = new Date(policyStartDate);
-    tpExpiryDate.setMonth(tpExpiryDate.getMonth() + 36);
+    tpExpiryDate.setMonth(tpExpiryDate.getMonth() + 12);
     tpExpiryDate.setDate(policyStartDate.getDate() - 1);
     const tpExpiry = tpExpiryDate.toISOString().split('T')[0];
 
@@ -377,8 +401,8 @@ useEffect(() => {
         [name]: value.toUpperCase(),
         empTime: empTime,
         states: name === 'selectedState' ? value : prevData.selectedState,
-        district: name === 'selectedCity' ? value : prevData.selectedCity
-
+        district: name === 'selectedCity' ? value : prevData.selectedCity,
+        advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
     }));
 };
 

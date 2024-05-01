@@ -73,17 +73,33 @@ function LeaveApplication() {
   
 
   return (
-    <div className='flex flex-col mt-8'>
-      <div className='p-2 text-2xl text-blue-600 font-semibold '>
-        Apply for Leave
+    <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2 px-2'>
+      <div className='flex justify-center text-center'>
+        <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide mb-4 text-start font-medium text-blue-600'>Leave Application</h1>
       </div>
-      <DateRangePicker
+      <div className='flex flex-nowrap flex-auto justify-between'>
+      <div>
+      <label className="text-base mx-1">From:</label>
+        <input type="date" className="input-style p-1 rounded-lg" name="" id="" />
+      </div>
+
+      <div>
+      <label className="text-base mx-1">To:</label>
+        <input type="date" className="input-style p-1 rounded-lg" name="" id="" />
+      </div>
+      </div>
+      <div className='border border-slate-700'>
+      <div className='flex justify-start text-start mt-5'>
+        <h1 className='text-base xl:text-lg lg:text-lg  tracking-wide  text-start font-medium text-blue-600'>Leave Balance</h1>
+      </div>
+      </div>
+      {/* <DateRangePicker
         className='flex'
         editableDateInputs={true}
         ranges={dateRange}
         onChange={handleSelect}
         moveRangeOnFirstSelection={true}
-      />
+      /> */}
 
       <div className='mt-4'>
         <label htmlFor="message" className="block mb-2 text-base text-start font-medium text-gray-900 ">Reason for Leave:</label>

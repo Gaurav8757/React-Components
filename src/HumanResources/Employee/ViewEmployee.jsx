@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee.jsx";
-import EmpAttendanceModal from "./EmpAttendanceModal.jsx";
+// import EmpAttendanceModal from "./EmpAttendanceModal.jsx";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../config/config.jsx";
 
@@ -153,9 +153,9 @@ const exportToExcel = () => {
             data.empdob,
             data.empgender,
             data.empaadharno,
-            data.empaadharfile,
+            // data.empaadharfile,
             data.pan,
-            data.panno,
+            // data.panno,
             data.accNumber,
             data.ifsc,
             data.bankName,
@@ -175,7 +175,7 @@ const exportToExcel = () => {
             "DOB",
             "Gender",
             "Aadhar No.",
-            "Aadhar Card",
+            // "Aadhar Card",
             "PAN No.",
             "PAN Card",
             "Account Number",
@@ -313,15 +313,15 @@ const exportToExcel = () => {
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Aadhar No.
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        {/* <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Aadhar Card
-                                        </th>
+                                        </th> */}
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             PAN No.
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        {/* <th scope="col" className="px-1 py-0 border border-black sticky">
                                             PAN Card
-                                        </th>
+                                        </th> */}
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Account Number
                                         </th>
@@ -346,9 +346,9 @@ const exportToExcel = () => {
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Designation
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        {/* <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Attendance
-                                        </th>
+                                        </th> */}
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Status
                                         </th>
@@ -384,19 +384,19 @@ const exportToExcel = () => {
                                                 <td className="px-1 py-0 border border-black">
                                                     {data.empaadharno}
                                                 </td>
-                                                <td className="px-1 py-0 border border-black">
+                                                {/* <td className="px-1 py-0 border border-black">
                                                     <NavLink to={data.empaadharfile}>
                                                         <img src={data.empaadharfile} alt="aadhar" />
                                                     </NavLink>
-                                                </td>
+                                                </td> */}
                                                 <td className="px-1 py-0 border border-black">
                                                     {data.pan}
                                                 </td>
-                                                <td className="px-1 py-0 border border-black">
+                                                {/* <td className="px-1 py-0 border border-black">
                                                     <NavLink to={data.panno}>
                                                         <img src={data.panno} alt="pan" />
                                                     </NavLink>
-                                                </td>
+                                                </td> */}
                                                 <td className="px-1 py-0 border border-black">
                                                     {data.accNumber}
                                                 </td>
@@ -421,9 +421,9 @@ const exportToExcel = () => {
                                                 <td className="px-1 py-0 border border-black">
                                                     {data.staffType}
                                                 </td>
-                                                <td className="px-1 py-0 border border-black" >
+                                                {/* <td className="px-1 py-0 border border-black" >
                                                     <EmpAttendanceModal emp={data.employeeDetails} />
-                                                </td>
+                                                </td> */}
                                                 <td className="px-1 py-0 border border-black">
                                                     {/* to enable delete from here */}
                                                     <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-3 py-1 text-center">Active</button>

@@ -126,10 +126,10 @@ const updateEmpAPI = async () => {
                     <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
 
                         <form className="flex flex-wrap justify-between">
-                        <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                        <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1 ">Employee ID:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="text"
                                     value={data.empid}
                                     onChange={handleInputChange}
@@ -140,10 +140,10 @@ const updateEmpAPI = async () => {
                                   <span className="text-xs mx-2 text-red-500"> Not Editable</span>
                             </div>
 
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1 ">Employee Name:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="text"
                                     value={data.empname}
                                     onChange={handleInputChange}
@@ -151,12 +151,12 @@ const updateEmpAPI = async () => {
                                     disabled
 
                                 />
-                                  <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                  <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1">Email ID:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="email"
                                     name="empemail"
                                     value={data.empemail}
@@ -164,50 +164,50 @@ const updateEmpAPI = async () => {
                                     placeholder="abc@gmail.com"
                                     disabled
                                 />
-                                <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
 
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
-                                <label className="text-base  mx-1">  Branch:</label>
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
+                                <label className="text-base  mx-1">Branch:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="text"
                                     value={data.empbranch}
                                     onChange={handleInputChange}
                                     name="empbranch"
                                     disabled
                                 />
-                                <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Joining Date:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="date"
                                     value={data.empjoiningdate}
                                     onChange={handleInputChange}
                                     name="empjoiningdate"
                                     disabled
                                 />
-                                <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col p-2 mt-3 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Designation:</label>
                                 <input
-                                    className="input-style bg-red-50 rounded-lg"
+                                    className="input-style p-1 bg-red-50 rounded-lg"
                                     type="text"
                                     value={data.staffType}
                                     name="staffType"
                                     onChange={handleInputChange}
                                     disabled
                                 />
-                                <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
 
-                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">DOB:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="date"
                                     value={data.empdob}
                                     onChange={handleInputChange}
@@ -216,10 +216,10 @@ const updateEmpAPI = async () => {
                                 />
 
                             </div>
-                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Gender:</label>
                                 <select
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="text"
                                     value={data.empgender}
                                     onChange={handleInputChange}
@@ -235,10 +235,10 @@ const updateEmpAPI = async () => {
                             </div>
 
                             
-                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Mobile No:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="number"
                                     min="1"
                                     value={data.empmobile}
@@ -247,10 +247,10 @@ const updateEmpAPI = async () => {
                                     placeholder="+91"
                                 />
                             </div>
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Account No.:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="number"
                                     name="accNumber"
                                     value={data.accNumber}
@@ -258,10 +258,10 @@ const updateEmpAPI = async () => {
                                     placeholder="Account Number"
                                 />
                             </div>
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">IFSC Code:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="text"
                                     name="ifsc"
                                     value={data.ifsc}
@@ -270,10 +270,10 @@ const updateEmpAPI = async () => {
                                 />
                             </div>
 
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Bank Name:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="text"
                                     name="bankName"
                                     value={data.bankName}
@@ -281,10 +281,10 @@ const updateEmpAPI = async () => {
                                     placeholder="Bank Name"
                                 />
                             </div>
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Pan No.:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="text"
                                     name="pan"
                                     value={data.pan}
@@ -294,34 +294,23 @@ const updateEmpAPI = async () => {
                                 />
                             </div>
 
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            {/* <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Upload Pan Card:</label>
                                 <input
-                                    className="input-style border border-zinc-500 w-full h-10 items-center rounded-lg"
+                                    className="input-style border border-zinc-500 w-full h-9 items-center rounded-lg"
                                     type="file"
                                     name="panno"
                                     accept="/*" //accepting all type of images
                                     onChange={handleInputChange}
                                     autoComplete="off"
                                 />
-                            </div>
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
-                                <label className="text-base mx-1">Permanent Address:</label>
-                                <textarea
-                                    className="input-style rounded-lg"
-                                    type="text"
-                                    rows={2}
-                                    value={data.permanentempaddress}
-                                    onChange={handleInputChange}
-                                    name="permanentempaddress"
-                                    placeholder="Your Address"
-                                />
-                            </div>
+                            </div> */}
+                          
                            
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Aadhar No:</label>
                                 <input
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="number"
                                     value={data.empaadharno}
                                     onChange={handleInputChange}
@@ -329,26 +318,21 @@ const updateEmpAPI = async () => {
                                     
                                 />
                             </div>
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            {/* <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Upload Aadhar Card:</label>
                                 <input
-                                    className="input-style border border-zinc-500 w-full h-10 items-center rounded-lg"
+                                    className="input-style border border-zinc-500 w-full h-9 items-center rounded-lg"
                                     type="file"
                                     accept="/*" //accepting all type of images
                                     onChange={handleInputChange}
                                     name="empaadharfile"
                                 />
-                            </div>
+                            </div> */}
 
-                           
-
-
-                            
-
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/3">
+                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Current Address:</label>
                                 <textarea
-                                    className="input-style rounded-lg"
+                                    className="input-style p-1 rounded-lg"
                                     type="text"
                                     rows={2}
                                     name="currentempaddress"
@@ -357,8 +341,21 @@ const updateEmpAPI = async () => {
                                     placeholder="Your Address"
                                 />
                             </div>
-                            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-
+                            
+                            <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
+                                <label className="text-base mx-1">Permanent Address:</label>
+                                <textarea
+                                    className="input-style p-1 rounded-lg"
+                                    type="text"
+                                    rows={2}
+                                    value={data.permanentempaddress}
+                                    onChange={handleInputChange}
+                                    name="permanentempaddress"
+                                    placeholder="Your Address"
+                                />
+                            </div>
+                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                             </div>
 
                             <div className="w-full p-1  mt-8 justify-center flex">

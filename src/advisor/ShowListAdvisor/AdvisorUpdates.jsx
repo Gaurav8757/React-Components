@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
-import VITE_DATA from "../../../config/config.jsx";
-function UpdateAdvisor({ advisor, onUpdate }) {
+import VITE_DATA from "../../config/config.jsx";
+
+function AdvisorUpdates({ advisors, onUpdates }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [advInfo, setAdvInfo] = useState({
@@ -25,8 +26,8 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
     // show all data inside input tag
     useEffect(() => {
-        setAdvInfo(advisor);
-    }, [advisor]);
+        setAdvInfo(advisors);
+    }, [advisors]);
 
     // handle input change
     const handleInputChange = (e) => {
@@ -43,14 +44,14 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
             // Make an API call to update contact
             const response = await axios.put(
-                `${VITE_DATA}/advisor/update/${advisor._id}`, // Update the URL with the correct endpoint
+                `${VITE_DATA}/advisor/update/${advisors._id}`, // Update the URL with the correct endpoint
                 advInfo
             );
 
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
             closeModal();
-            onUpdate();
+            onUpdates();
         } catch (error) {
             toast.error(`${error}`)
             console.error("Error updating Advisor:", error);
@@ -172,5 +173,4 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
     )
 }
-
-export default UpdateAdvisor;
+export default AdvisorUpdates;

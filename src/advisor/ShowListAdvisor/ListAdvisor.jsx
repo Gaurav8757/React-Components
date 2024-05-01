@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import * as XLSX from 'xlsx';
+import AdvisorUpdates from "./AdvisorUpdates.jsx";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../config/config.jsx";
 
@@ -21,21 +22,43 @@ function ListAdvisor() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`${VITE_DATA}/advisor/lists`, {
+                .get(`${VITE_DATA}/advisor/all/lists`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
-                    },
+                    }, params: { branch: name }
                 })
                 .then((response) => {
-
                     setAPIData(response.data);
-
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
     }, []);
+
+    // refreshing page after updating data
+  const onUpdateAdvisor = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(
+          `${VITE_DATA}/advisor/all/lists`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },params: { branch: name }
+          }
+        );
+
+        setAPIData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching updated Branch data:", error);
+    }
+  };
 
     // page number add
     const handlePageChange = (page) => {
@@ -83,55 +106,65 @@ function ListAdvisor() {
     //   };
     const exportToExcel = () => {
         try {
-          const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-          const fileExtension = ".xlsx";
-          const fileName = `${name}_Advisor_Lists`;
-      
-          // Map all data without filtering by current date
-          const dataToExport = APIData.map(row => {
-            return [ 
-              row.uniqueId,
-              row.advisorname,
-              row.advisoremail,
-              row.advisormobile,
-              row.advisoraddress,
+            const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+            const fileExtension = ".xlsx";
+            const fileName = `${name}_Advisor_Lists`;
+
+            // Map all data without filtering by current date
+            const dataToExport = APIData.map(row => {
+                return [
+                    row.uniqueId,
+                    row.advisorname,
+                    row.advisoremail,
+                    row.advisormobile,
+                    row.advisoraddress,
+                ];
+            });
+
+            // Get all table headers in the same order
+            const tableHeaders = [
+                "ID",
+                "Advisor Name",
+                "Email ID",
+                "Mobile No.",
+                "Address",
             ];
-          });
-      
-          // Get all table headers in the same order
-          const tableHeaders = [
-            "ID",
-            "Advisor Name",
-            "Email ID",
-            "Mobile No.",
-            "Address",
-          ];
-          // Create worksheet
-          const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
-          // Create workbook and export
-          const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
-          const excelBuffer = XLSX.write(wb, {
-            bookType: "xlsx",
-            type: "array",
-          });
-          const data = new Blob([excelBuffer], { type: fileType });
-          const url = URL.createObjectURL(data);
-          const link = document.createElement("a");
-          link.href = url;
-          link.setAttribute("download", fileName + fileExtension);
-          document.body.appendChild(link);
-          link.click();
+            // Create worksheet
+            const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
+            // Create workbook and export
+            const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+            const excelBuffer = XLSX.write(wb, {
+                bookType: "xlsx",
+                type: "array",
+            });
+            const data = new Blob([excelBuffer], { type: fileType });
+            const url = URL.createObjectURL(data);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", fileName + fileExtension);
+            document.body.appendChild(link);
+            link.click();
         } catch (error) {
-          console.error("Error exporting to Excel:", error);
-          toast.error("Error exporting to Excel");
+            console.error("Error exporting to Excel:", error);
+            toast.error("Error exporting to Excel");
         }
-      };
-      
-      const handleExportClick = () => {
+    };
+
+    const handleExportClick = () => {
         exportToExcel();
         // exportToPDF();
-      };
-    
+    };
+
+    // ******************** Delete Functions *************************************/
+    const onDeleteAdvisor = async (_id) => {
+        try {
+            await axios.delete(`${VITE_DATA}/advisor/lists/${_id}`);
+            toast.warn("Policy Deleted.....!", { theme: "dark", position: "top-right" });
+            setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+        } catch (error) {
+            console.error('Error deleting policy:', error);
+        }
+    };
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
@@ -141,7 +174,7 @@ function ListAdvisor() {
                         <h1 className="mr-20"></h1>
                         <span className=" flex justify-center text-center text-3xl font-semibold">Advisor&apos;s List</span>
                         <div className="flex justify-between">
-                        <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 mt-1" /></button>
+                            <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 mt-1" /></button>
                             <NavLink to="/branches/home/advisor/register" className="my-auto">
                                 <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-2 mx-2 text-center ">Go Back</button>
                             </NavLink>
@@ -164,15 +197,14 @@ function ListAdvisor() {
                                         Mobile No.
                                     </th>
                                     <th scope="col" className="px-1 border border-black">
-                                        Address
+                                        Location
                                     </th>
-
-                                    {/* <th scope="col" className="px-5 py-4">
+                                    <th scope="col" className="px-1 border border-black">
                                             Update
-                                        </th> */}
-                                    {/* <th scope="col" className="px-5 py-4">
-                                            Delete
-                                        </th> */}
+                                        </th>
+                                    <th scope="col" className="px-1 border border-black">
+                                        Delete
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -195,13 +227,15 @@ function ListAdvisor() {
                                             <td className="whitespace-nowrap px-1 border border-black">
                                                 {data.advisoraddress}
                                             </td>
-
-                                            {/* <td className="whitespace-nowrap px-4 py-4">
-                                                   <UpdateAdvisor advisor = {data} onUpdate = {onUpdateAdvisor} />
+                                            {/* <td className="whitespace-nowrap px-1 border border-black">
+                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm my-1 px-2 py-2 text-center 2">Delete</button>
+                                            </td> */}
+                                            <td className="whitespace-nowrap px-1 border border-black">
+                                                   <AdvisorUpdates advisors = {data} onUpdates = {onUpdateAdvisor} />
                                                 </td>
-                                                <td className="whitespace-nowrap px-4 py-4">
-                                                    <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
-                                                </td> */}
+                                                <td className="whitespace-nowrap px-1 border border-black">
+                                                    <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center ">Delete</button>
+                                                </td>
                                         </tr>
                                     );
                                 })}

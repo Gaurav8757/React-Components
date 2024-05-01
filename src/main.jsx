@@ -179,6 +179,7 @@ import NcbData from "./admin/admincomponents/NCB/NcbData.jsx";
 import Ledger1 from "./admin/admincomponents/Ledger/Ledger1.jsx";
 import Ledger2 from "./admin/admincomponents/Ledger/Ledger2.jsx";
 import Ledger3 from "./admin/admincomponents/Ledger/Ledger3.jsx";
+import LeaveBalance from "./HumanResources/LeaveBalance/LeaveBalance.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -381,7 +382,7 @@ const router = createBrowserRouter(
           <Route path="/hr/home/view/joining/letter" element={<ViewJoining />} />
           <Route path="/hr/home/joining/letter" element={<JoiningLetter />} />
           <Route path="/hr/home/leave/approval" element={<LeaveApproval />} />
-          {/* <Route path="/hr/home/add/attendance" element={<AddAttendance/>} /> */}
+          <Route path="/hr/home/leave/balance" element={<LeaveBalance/>} />
           {/* <Route path="/hr/home/attendance" element={<EmpAttendance/>} /> */}
         </Route>
       </Route>
