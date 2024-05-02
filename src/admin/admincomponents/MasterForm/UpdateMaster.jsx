@@ -1166,7 +1166,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                                                 >
                                                     <option value="">------------- Select Advisor -----------</option>
                                                     {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
-                                                        <option key={data._id} value={data.advisorname}>{data.advisorname}</option>
+                                                        <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
                                                     ))}
 
                                                 </select>

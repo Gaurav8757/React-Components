@@ -50,35 +50,36 @@ function AddAdvisors() {
 
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-white">
-    <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-white">
+    <div className="container-fluid flex  flex-col justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-white">
+    <h1 className="font-semibold text-3xl my-2 text-white dark:text-black ">Add Advisor</h1>
       <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center mt-2 bg-slate-300">
-      <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Advisor</h1>
+      
         <div className="flex flex-wrap justify-between">
           {/* <div className="w-full lg:w-1/2 p-2 text-start"> */}
-          <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+          <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Name:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={fname}
                 onChange={(e) => setFname(e.target.value.toUpperCase())}
                 placeholder="Enter Name"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Email ID:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 placeholder="abc@gmail.com"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Mobile No:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="number"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
@@ -86,10 +87,10 @@ function AddAdvisors() {
               />
             </div>
        
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Location</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value.toUpperCase())}
@@ -97,10 +98,10 @@ function AddAdvisors() {
               />
             </div>
 
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Password</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -109,9 +110,9 @@ function AddAdvisors() {
             </div>
             </div>
          
-          <div className="w-full p-2">
+          <div className="w-full mt-5 p-2">
             <button
-              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center "
               onClick={handleSubmit}
               type="button"
             >

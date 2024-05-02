@@ -64,12 +64,14 @@ function AddFinance() {
   const [APIData, setAPIData] = useState([]);
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState([]);
   const [fuelType, setFuelType] = useState([]);
-  const [payoutOnList, setPayoutOnList] = useState([]);
+  // const [payoutOnList, setPayoutOnList] = useState([]);
   const [payMode, setPayMode] = useState([]);
   const [errors, setErrors] = useState({});
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [section1Filled, setSection1Filled] = useState(false);
   const [states, setStates] = useState([]);
+  const [advLists, setAdvLists] = useState([]);
+  const [advId, setAdvId] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
   const [odList, setOdList] = useState([]);
@@ -221,26 +223,26 @@ function AddFinance() {
   }, []);
 
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`${VITE_DATA}/view/payouton`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-        })
-        .then((response) => {
-          setPayoutOnList(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [payoutOnList]);
+  // useEffect(() => {
+  //   const token = sessionStorage.getItem("token");
+  //   if (!token) {
+  //     toast.error("Not Authorized yet.. Try again! ");
+  //   } else {
+  //     // The user is authenticated, so you can make your API request here.
+  //     axios
+  //       .get(`${VITE_DATA}/view/payouton`, {
+  //         headers: {
+  //           Authorization: `${token}`, // Send the token in the Authorization header
+  //         },
+  //       })
+  //       .then((response) => {
+  //         setPayoutOnList(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       });
+  //   }
+  // }, []);
 
 
 
@@ -263,7 +265,7 @@ function AddFinance() {
           console.error(error);
         });
     }
-  }, [payMode]);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -290,6 +292,28 @@ function AddFinance() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    // const branch = sessionStorage.getItem("name");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/advisor/all/lists`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          }
+        })
+        .then((response) => {
+          setAdvLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
     if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
@@ -307,7 +331,7 @@ function AddFinance() {
           console.error(error);
         });
     }
-  }, [fuelType]);
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -319,7 +343,7 @@ function AddFinance() {
       .catch((error) => {
         console.error("Error fetching policy types:", error);
       });
-  }, [data]);
+  }, []);
 
 
   useEffect(() => {
@@ -332,7 +356,7 @@ function AddFinance() {
       .catch((error) => {
         console.error("Error fetching company names:", error);
       });
-  }, [pdata]);
+  }, []);
 
 
 
@@ -593,6 +617,7 @@ function AddFinance() {
         odDiscount,
         ncb,
         advisorName,
+        advId,
         subAdvisor,
         staffName,
         branch,
@@ -655,7 +680,7 @@ function AddFinance() {
         setNcb("");
         setAdvisorName("");
         setSubAdvisor("");
-
+        setAdvId("");
         setBranch("");
         setPayoutOn("");
         setTaxes("");
@@ -961,7 +986,7 @@ function AddFinance() {
                   />
                 </div>)
               }
-               {
+              {
                 policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                   <label className="text-base mx-1">Liability Premium:<span className="text-red-600 font-bold">*</span></label>
                   <input
@@ -988,7 +1013,7 @@ function AddFinance() {
                     />
                   </div>)
               }
-<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Net Premium:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1108,11 +1133,11 @@ function AddFinance() {
                   onChange={(e) => setNcb(e.target.value)}
                 >
                   <option className="w-1" value="" >-------------- Select NCB -------------</option>
-                 {
-                  ncbList.map((data)=>(
-                    <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
-                  ))
-                 }
+                  {
+                    ncbList.map((data) => (
+                      <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
+                    ))
+                  }
                 </select>
               </div>
 
@@ -1166,14 +1191,14 @@ function AddFinance() {
                   ))}
                 </select> */}
                 <input
-                            type="text"
-                            name="district"
-                            id="district"
-                            className="input-style  p-1 rounded-lg "
-                            placeholder="Enter new district name"
-                            value={selectedCity} // Assuming newCity is a separate state to hold input data
-                            onChange={(e) => setSelectedCity(e.target.value)}
-                          />
+                  type="text"
+                  name="district"
+                  id="district"
+                  className="input-style  p-1 rounded-lg "
+                  placeholder="Enter new district name"
+                  value={selectedCity} // Assuming newCity is a separate state to hold input data
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                />
               </div>
 
               {/* FIELD - 20 */}
@@ -1208,7 +1233,7 @@ function AddFinance() {
                 </select>
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>
-              
+
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -1436,18 +1461,28 @@ function AddFinance() {
               {/* FIELD - 37*/}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
-                <input
+                <select
                   className="input-style p-1 rounded-lg"
                   type="text"
                   value={advisorName}
                   name="advisorName"
-                  onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
-                  placeholder="Enter Advisor Name"
-                />
+                  // onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
+                  onChange={(e) => {
+                    const selectedAdvisor = advLists.find((adv) => adv.advisorname === e.target.value);
+                    setAdvisorName(e.target.value.toUpperCase());
+                    setAdvId(selectedAdvisor ? selectedAdvisor.uniqueId : '');
+                  }}
+
+                  placeholder="Enter Advisor Name">
+                  <option value="">------------- Select Advisor -----------</option>
+                  {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                    <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
+                  ))}
+                </select>
                 {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}
               </div>
- {/* FIELD - 38 */}
- <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+              {/* FIELD - 38 */}
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Sub-Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -1458,7 +1493,7 @@ function AddFinance() {
                   placeholder="Enter Sub Advisor"
                 />
               </div>
-           
+
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">

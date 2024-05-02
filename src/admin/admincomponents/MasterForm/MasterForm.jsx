@@ -77,6 +77,8 @@ function MasterForm() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [cslab, setCslab] = useState([]);
   const [odList, setOdList] = useState([]);
+  const [advLists, setAdvLists] = useState([]);
+  const [advId, setAdvId] = useState('');
   const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
   // console.log(APIData);
 
@@ -120,6 +122,29 @@ function MasterForm() {
         });
     }
   }, [formSubmitted]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    // const branch = sessionStorage.getItem("name");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/advisor/all/lists`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          }
+        })
+        .then((response) => {
+          setAdvLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+
 
   useEffect(() => {
     // The user is authenticated, so you can make your API request here.
@@ -614,6 +639,7 @@ function MasterForm() {
         odDiscount,
         ncb,
         advisorName,
+        advId,
         subAdvisor,
         staffName,
         branch,
@@ -654,6 +680,7 @@ function MasterForm() {
         setPolicyNo("");
         setVehRegNo("");
         setRSA("");
+        setAdvId("");
         setPolicyStartDate("");
         setPolicyEndDate("");
         setOdExpiry("");
@@ -1482,14 +1509,24 @@ function MasterForm() {
               {/* FIELD - 37*/}
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
-                <input
+                <select
                   className="input-style p-1 rounded-lg"
                   type="text"
                   value={advisorName}
                   name="advisorName"
-                  onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
-                  placeholder="Enter Advisor Name"
-                />
+                  // onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
+                  onChange={(e) => {
+                    const selectedAdvisor = advLists.find((adv) => adv.advisorname === e.target.value);
+                    setAdvisorName(e.target.value.toUpperCase());
+                    setAdvId(selectedAdvisor ? selectedAdvisor.uniqueId : '');
+                  }}
+
+                  placeholder="Enter Advisor Name">
+                  <option value="">----------------- Select Advisor -----------------</option>
+                  {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                    <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
+                  ))}
+                </select>
                 {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}
               </div>
 

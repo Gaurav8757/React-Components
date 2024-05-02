@@ -12,6 +12,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
         advisoremail: "",
         advisormobile: "",
         advisorpassword: "",
+        uniqueId: ""
     })
     // OPEN MODAL
     const openModal = () => {
@@ -98,6 +99,19 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                                 <form className="flex flex-wrap ">
                                     {/* ... other form elements ... */}
                                     {/* <div className="w-full lg:w-1/2 p-2 text-start"> */}
+
+                                    <div  className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <label className="text-base mx-1">ID:</label>
+                                            <input
+                                                className="input-style p-1 rounded-lg"
+                                                type="text"
+                                                value={advInfo.uniqueId}
+                                                onChange={handleInputChange}
+                                                name="uniqueId"
+                                                placeholder="Enter UniqueID"
+                                            />
+                                        </div>
+
                                         <div  className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Name:</label>
                                             <input
