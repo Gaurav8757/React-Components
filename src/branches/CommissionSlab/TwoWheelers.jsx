@@ -19,6 +19,7 @@ function TwoWheelers() {
   const [productCode, setProductCode] = useState('');
   const [cc, setCc] = useState('');
   const [payoutOnList, setPayoutOnList] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [ncbList, setNcbLists] = useState([]);
   const [payoutOn, setPayoutOn] = useState('');
   const [ncb, setNcb] = useState('');
@@ -609,11 +610,14 @@ function TwoWheelers() {
                 value={ncb}
                 onChange={(e) => setNcb(e.target.value)}>
                 <option className="w-1" value="" >---------------- Select NCB ------------------</option>
-                {
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="both">Both</option>
+                {/* {
                   ncbList.map((data)=>(
                     <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
                   ))
-                 }
+                 } */}
               </select>
             </div>
 

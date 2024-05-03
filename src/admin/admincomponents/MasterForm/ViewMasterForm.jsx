@@ -20,13 +20,9 @@ function ViewMasterForm() {
   const [contactNo, setContactNo] = useState("");
   const [productcodes, setPcodes] = useState("");
   const [policyMade, setPolicyMade] = useState("");
-  const [payon ,setPayon] = useState("");
+  const [payon, setPayon] = useState("");
   const [payoutSlab, setPayoutSlab] = useState([]);
   const name = sessionStorage.getItem("email");
-
-  //  console.log(currentPage);
-  //   console.log(itemsPerPage);
-  //  console.log(allDetailsData);
 
   // payout slab list api
   useEffect(() => {
@@ -143,8 +139,8 @@ function ViewMasterForm() {
         searchCompany === "") &&
       // Update the state variable for company correctly
       (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === "") &&
-      (product.includes(productcodes.toLowerCase())  || productcodes === "") &&
-      (payouts.includes(payon.toLowerCase())  || payon === "") &&
+      (product.includes(productcodes.toLowerCase()) || productcodes === "") &&
+      (payouts.includes(payon.toLowerCase()) || payon === "") &&
       // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
@@ -179,127 +175,262 @@ function ViewMasterForm() {
     return deduction;
   };
 
+
+  // useEffect(() => {
+  //   // Check if there are matching CSLabs and allDetailsData is not empty
+  //   if (payoutSlab.length > 0 && allDetailsData.length > 0) {
+  //     payoutSlab.forEach((matchingCSLab) => {
+  //       const percentage = matchingCSLab.cvpercentage || 0;
+  //       const branchpercent = matchingCSLab.branchpayoutper || 0;
+  //       const companypercent = matchingCSLab.companypayoutper || 0;
+  //       allDetailsData.forEach((data) => {
+  //         if (
+  //           matchingCSLab.pcodes === data.productCode &&
+  //           matchingCSLab.cnames === data.company &&
+  //           matchingCSLab.catnames === data.category &&
+  //           matchingCSLab.policytypes === data.policyType &&
+  //           matchingCSLab.vfuels === data.fuel &&
+  //           matchingCSLab.payoutons === data.payoutOn &&
+  //           matchingCSLab.sitcapacity === data.sitcapacity &&
+  //           matchingCSLab.segments === data.segment  &&
+  //           matchingCSLab.voddiscount === data.odDiscount &&
+  //           matchingCSLab.vcc === data.cc &&
+  //           if (matchingCSLab.ncb) {
+  //             if(matchingCSLab.ncb === "yes"){
+  //               data.vehRegNo === "NEW",
+  //               data.ncb === 0
+  //             }else{
+  //               data.vehRegNo !== "NEW",
+  //               data.ncb > 0
+  //             }    
+  //           } else if (matchingCSLab.ncb === "no") {
+  //             data.vehRegNo !== "NEW",
+  //               data.ncb === 0
+  //           }
+  //         ) {
+
+  //           // if (matchingCSLab.ncb) {
+  //           //   if(matchingCSLab.ncb === "yes"){
+  //           //     data.vehRegNo === "NEW",
+  //           //     data.ncb === 0
+  //           //   }else{
+  //           //     data.vehRegNo !== "NEW",
+  //           //     data.ncb > 0
+  //           //   }    
+  //           // } else if (matchingCSLab.ncb === "no") {
+  //           //   data.vehRegNo !== "NEW",
+  //           //     data.ncb === 0
+  //           // }
+
+
+  //           const netPremium = parseFloat(data.netPremium);
+  //           const finalEntryFields = parseFloat(data.finalEntryFields);
+  //           const odPremium = parseFloat(data.odPremium);
+
+  //           let advisorPayout, branchPayout, companyPayout;
+  //           let advisorPayable, branchPayable, profitLoss;
+
+  //           if (
+  //             // Conditions for using specific calculation functions
+  //             data.policyType === "COMP" &&
+  //             data.productCode === "PVT-CAR" &&
+  //             data.payoutOn === "OD"
+
+  //           ) {
+  //             advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+  //             advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+  //             branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
+  //             branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+  //             companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
+  //             profitLoss = companyPayout - branchPayout;
+  //           } else {
+  //             // Default calculation functions
+  //             advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+  //             advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+  //             branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
+  //             branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+  //             companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
+  //             profitLoss = companyPayout - branchPayout;
+  //           }
+  //           // Prepare data for API request
+  //           const postData = {
+  //             advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+  //             advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+  //             branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+  //             branchPayout: parseFloat(branchPayout.toFixed(2)),
+  //             companyPayout: parseFloat(companyPayout.toFixed(2)),
+  //             profitLoss: parseFloat(profitLoss.toFixed(2)),
+  //           };
+
+  //           try {
+  //             // Send data to API
+  //             const response = axios.put(
+  //               `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+  //               postData,
+  //               {
+  //                 headers: {
+  //                   "Content-Type": "application/json",
+  //                 },
+  //               }
+  //             );
+  //             // Handle response status
+  //             if (response.status !== 200) {
+  //               console.error(`Error updating data for policy ID ${data._id}`);
+  //             }
+  //           } catch (error) {
+  //             console.error(
+  //               `Error updating data for policy ID ${data._id}:`,
+  //               error
+  //             );
+  //           }
+  //         }
+  //       });
+  //     });
+  //   } else {
+  //     console.log("No matching CSLabs found or allDetailsData is empty.");
+  //   }
+  // }, [allDetailsData, payoutSlab]);
+
   
+
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
-        payoutSlab.forEach((matchingCSLab) => {
-            const percentage = matchingCSLab.cvpercentage || 0;
-            const branchpercent = matchingCSLab.branchpayoutper || 0;
-            const companypercent = matchingCSLab.companypayoutper || 0;
-            allDetailsData.forEach((data) => {
-                if (
-                    matchingCSLab.pcodes === data.productCode &&
-                    matchingCSLab.cnames === data.company &&
-                    matchingCSLab.catnames === data.category &&
-                    matchingCSLab.policytypes === data.policyType &&
-                    matchingCSLab.vfuels === data.fuel &&
-                    matchingCSLab.payoutons === data.payoutOn
-                ) {
-                    const netPremium = parseFloat(data.netPremium);
-                    const finalEntryFields = parseFloat(data.finalEntryFields);
-                    const odPremium = parseFloat(data.odPremium);
-
-                    let advisorPayout, branchPayout, companyPayout;
-                    let advisorPayable, branchPayable, profitLoss;
-
-                    if (
-                        // Conditions for using specific calculation functions
-                        data.policyType === "COMP" &&
-                        data.productCode === "PVT-CAR" &&
-                        data.payoutOn === "OD"
-                    ) {
-                        advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-                        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-                        branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
-                        branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-                        companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
-                        profitLoss = companyPayout - branchPayout;
-                    } else {
-                        // Default calculation functions
-                        advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-                        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-                        branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
-                        branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-                        companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
-                        profitLoss = companyPayout - branchPayout;
-                    }
-                    // Prepare data for API request
-                    const postData = {
-                        advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-                        advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-                        branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-                        branchPayout: parseFloat(branchPayout.toFixed(2)),
-                        companyPayout: parseFloat(companyPayout.toFixed(2)),
-                        profitLoss: parseFloat(profitLoss.toFixed(2)),
-                    };
-
-                    try {
-                        // Send data to API
-                        const response = axios.put(
-                            `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-                            postData,
-                            {
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                            }
-                        );
-                        // Handle response status
-                        if (response.status !== 200) {
-                            console.error(`Error updating data for policy ID ${data._id}`);
-                        }
-                    } catch (error) {
-                        console.error(
-                            `Error updating data for policy ID ${data._id}:`,
-                            error
-                        );
-                    }
+      payoutSlab.forEach((matchingCSLab) => {
+        const percentage = matchingCSLab.cvpercentage || 0;
+        const branchpercent = matchingCSLab.branchpayoutper || 0;
+        const companypercent = matchingCSLab.companypayoutper || 0;
+        allDetailsData.forEach((data) => {
+          if (
+            matchingCSLab.pcodes === data.productCode &&
+            matchingCSLab.cnames === data.company &&
+            matchingCSLab.catnames === data.category &&
+            matchingCSLab.policytypes === data.policyType &&
+            matchingCSLab.vfuels === data.fuel &&
+            matchingCSLab.payoutons === data.payoutOn &&
+            matchingCSLab.sitcapacity === data.sitcapacity &&
+            matchingCSLab.segments === data.segment &&
+            matchingCSLab.voddiscount === data.odDiscount &&
+            matchingCSLab.vcc === data.cc
+          ) {
+            let isValidNcb = false;
+            if (matchingCSLab.ncb) {
+              if (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) {
+                isValidNcb = true;
+              } else if (matchingCSLab.ncb !== 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) {
+                isValidNcb = true;
+              }
+            } else if (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) {
+              isValidNcb = true;
+            }
+            
+            if (isValidNcb) {
+              const netPremium = parseFloat(data.netPremium);
+              const finalEntryFields = parseFloat(data.finalEntryFields);
+              const odPremium = parseFloat(data.odPremium);
+              
+              let advisorPayout, branchPayout, companyPayout;
+              let advisorPayable, branchPayable, profitLoss;
+              
+              if (
+                data.policyType === 'COMP' &&
+                data.productCode === 'PVT-CAR' &&
+                data.payoutOn === 'OD'
+              ) {
+                advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+                advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+                branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
+                branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+                companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
+                profitLoss = companyPayout - branchPayout;
+              } else {
+                // Default calculation functions
+                advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+                advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+                branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
+                branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+                companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
+                profitLoss = companyPayout - branchPayout;
+              }
+              
+              // Prepare data for API request
+              const postData = {
+                advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+                advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+                branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+                branchPayout: parseFloat(branchPayout.toFixed(2)),
+                companyPayout: parseFloat(companyPayout.toFixed(2)),
+                profitLoss: parseFloat(profitLoss.toFixed(2)),
+              };
+              
+              try {
+                // Send data to API
+                const response = axios.put(
+                  `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+                  postData,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                );
+                // Handle response status
+                if (response.status !== 200) {
+                  console.error(`Error updating data for policy ID ${data._id}`);
                 }
-            });
+              } catch (error) {
+                console.error(
+                  `Error updating data for policy ID ${data._id}:`,
+                  error
+                );
+              }
+            }
+          }
         });
+      });
     } else {
-        console.log("No matching CSLabs found or allDetailsData is empty.");
+      console.log('No matching CSLabs found or allDetailsData is empty.');
     }
-}, [allDetailsData, payoutSlab]);
+  }, [allDetailsData, payoutSlab]);
+  
 
 
-useEffect(() => {
-  allDetailsData.forEach(async (data) => {
-    let paydata;
-    if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
-      paydata = {
-        payoutOn: "OD"
-      };
-    } else {
-      paydata = {
-        payoutOn: "NET"
-      };
-    }
-
-    try {
-      // Send data to API
-      const response = await axios.put(
-        `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-        paydata,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      // Handle response status
-      if (response.status !== 200) {
-        console.error(`Error updating data for policy ID ${data._id}`);
+  useEffect(() => {
+    allDetailsData.forEach(async (data) => {
+      let paydata;
+      if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
+        paydata = {
+          payoutOn: "OD"
+        };
+      } else {
+        paydata = {
+          payoutOn: "NET"
+        };
       }
-    } catch (error) {
-      console.error(
-        `Error updating data for policy ID ${data._id}:`,
-        error
-      );
-    }
-  });
-}, [allDetailsData]);
+
+      try {
+        // Send data to API
+        const response = await axios.put(
+          `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+          paydata,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // Handle response status
+        if (response.status !== 200) {
+          console.error(`Error updating data for policy ID ${data._id}`);
+        }
+      } catch (error) {
+        console.error(
+          `Error updating data for policy ID ${data._id}:`,
+          error
+        );
+      }
+    });
+  }, [allDetailsData]);
 
 
   const exportToExcel = () => {
