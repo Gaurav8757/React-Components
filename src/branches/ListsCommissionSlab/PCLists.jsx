@@ -136,7 +136,7 @@ function PCLists() {
   const confirmDeleteVeh = async (_id) => {
     try {
       await axios.delete(`${VITE_DATA}/commission/slab/del/${_id}`);
-      toast.error("Slab Deleted Successfully.....!", { theme: "dark", position: "top-right" });
+      toast.error("Company Payout Grid Deleted Successfully.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
       console.error('Error Deleting Slabs', error);

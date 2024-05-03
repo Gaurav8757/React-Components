@@ -291,7 +291,7 @@ function ViewMasterForm() {
   //   }
   // }, [allDetailsData, payoutSlab]);
 
-  
+
 
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
@@ -311,6 +311,7 @@ function ViewMasterForm() {
             matchingCSLab.sitcapacity === data.sitcapacity &&
             matchingCSLab.segments === data.segment &&
             matchingCSLab.voddiscount === data.odDiscount &&
+            matchingCSLab.states === data.states &&
             matchingCSLab.vcc === data.cc
           ) {
             let isValidNcb = false;
