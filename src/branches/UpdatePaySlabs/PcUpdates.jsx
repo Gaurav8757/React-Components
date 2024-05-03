@@ -19,10 +19,43 @@ function PcUpdates({ slab, update }) {
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
   const [selectedState, setSelectedState] = useState('');
-
   const [allCities, setAllCities] = useState('');
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState('');
-
+  const [sit, setSit] = useState([]);
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
@@ -32,6 +65,7 @@ function PcUpdates({ slab, update }) {
 
     fetchStates();
   }, []);
+
 
 
   const handleStateChange = async (e) => {
@@ -59,6 +93,26 @@ function PcUpdates({ slab, update }) {
     }));
   };
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/sit/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+              setSit(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
 
   // OPEN MODAL
   const openModal = () => {
@@ -85,23 +139,23 @@ function PcUpdates({ slab, update }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/ncb/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setNcbLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -333,38 +387,36 @@ function PcUpdates({ slab, update }) {
                           ))}
                         </select>
                       </div>
-                      {/* <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                        <select
-                          className="input-style text-lg p-1 rounded-lg"
-                          value={allDetails.districts}
-                          name="districts"
-                          onChange={handleInputChange}
-                          disabled={!selectedState} // Disable city dropdown until a state is selected
-                        >
-                          <option value="">------------ Select City -----------</option>
-                          <option value="all">All Cities</option>
-                          {selectedState === 'all'
-                            ? allCities.map((city, indx) => (
-                              <option key={indx} value={city.name}>
-                                {city.name}
-                              </option>
-                            ))
-                            : cities.map((city, indx) => (
-                              <option key={indx} value={city.name}>
-                                {city.name}
-                              </option>
-                            ))}
-                          {/* {cities.map((city, indx) => (
+                      
+                      
 
-                          <option key={indx} value={city.name}>
-                            {city.name}
-                          </option>
-                        ))} */}
-                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                // selectedCity ? (
+                  <select
+                    className="input-style text-lg p-1 rounded-lg"
+                    name="districts"
+                    id="districts"
+                    value={allDetails.districts}
+                    onChange={handleInputChange}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">----------- Select District  -----------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                  </select>          
+              }
+            </div>
+                        
+                      {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
                         {
-
                           <input
                             type="text"
                             name="districts"
@@ -374,10 +426,8 @@ function PcUpdates({ slab, update }) {
                             value={allDetails.districts} // Assuming newCity is a separate state to hold input data
                             onChange={handleInputChange}
                           />
-
                         }
-
-                      </div>
+                      </div> */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                         <select
@@ -394,7 +444,7 @@ function PcUpdates({ slab, update }) {
                           <option value="LIFE">LIFE</option>
                         </select>
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1 ">Sitting Capacity:</label>
                         <input
                           className="input-style p-1 text-lg rounded-lg"
@@ -404,8 +454,26 @@ function PcUpdates({ slab, update }) {
                           name="sitcapacity"
                           placeholder="Enter Sitting Capacity"
                         />
-                      </div>
-
+                      </div> */}
+            <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1 ">Seating Capacity:</label>
+              <select
+                className="input-style p-1 text-lg rounded-lg"
+                type="text"
+                value={allDetails.sitcapacity}
+                onChange={handleInputChange}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              >
+                <option value="0">---------- Select Seating -----------</option>
+                {
+                  sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+                <option value="">NOT APPLICABLE</option>
+              </select>
+            </div>
                       {/* 4 */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
@@ -473,9 +541,9 @@ function PcUpdates({ slab, update }) {
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
                           {ncbLists.map((data) => (
-                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
+                            <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
-                                                    ))}
+                          ))}
                         </select>
                       </div>
 

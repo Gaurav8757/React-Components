@@ -151,7 +151,7 @@ function ListAdvisor() {
     const onDeleteAdvisor = async (_id) => {
         try {
             await axios.delete(`${VITE_DATA}/advisor/lists/${_id}`);
-            toast.warn("Policy Deleted.....!", { theme: "dark", position: "top-right" });
+            toast.warn("Advisor Deleted Successfully.....!", { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
             console.error('Error deleting policy:', error);

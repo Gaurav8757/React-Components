@@ -75,30 +75,30 @@ function LoginAll() {
     const [showPassword, setShowPassword] = useState(false);
     const [emp, setEmp] = useState([]);
     // eslint-disable-next-line no-unused-vars
-const [error, setError] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const token = sessionStorage.getItem("token");
-            const response = await axios.get(`${VITE_DATA}/api/employee-list`, {
-              headers: {
-                Authorization: token,
-              },
-            });
-            setEmp(response.data); // Assuming the response contains the data you want to set
-          } catch (error) {
-            setError(error.message);
-          }
+            try {
+                const token = sessionStorage.getItem("token");
+                const response = await axios.get(`${VITE_DATA}/api/employee-list`, {
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+                setEmp(response.data); // Assuming the response contains the data you want to set
+            } catch (error) {
+                setError(error.message);
+            }
         };
-    
+
         fetchData();
-      }, []); // Empty de
-    
-   
-      const filteredIds = emp
-      .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
-      .map(filteredData => filteredData._id);
+    }, []); // Empty de
+
+
+    const filteredIds = emp
+        .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
+        .map(filteredData => filteredData._id);
 
     //   const filteredIds1 = emp
     //   .filter(data => data.empname === 'KAMLESH THAKUR' || data.empname === 'Kamlesh Thakur')
@@ -137,7 +137,7 @@ const [error, setError] = useState(null);
                     await handleToggleAttendance(response.data.user._id);
                     break;
 
-                     case "hrmanager":
+                case "hrmanager":
                     response = await axios.post(`${VITE_DATA}/hradmin/login`, {
                         hrademail: email,
                         hradmobile: mobile,
@@ -168,7 +168,7 @@ const [error, setError] = useState(null);
 
                     break;
 
-               
+
 
                 case "branches":
                     response = await axios.post(`${VITE_DATA}/branches/loginbranch`, {
@@ -320,109 +320,114 @@ const [error, setError] = useState(null);
                         className="h-1/3 mt-80  w-3/4 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-1/4 "
                         alt="Logo"
                     />
+                    
                     {/* <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div> */}
-
-
-                    <div className="flex-shrink-1 mt-10 md:h-1/4 h-full w-full xs:w-full  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-5">
-                        <div className="w-full max-w-xl p-6 space-y-1 sm:p-8 mx-auto  rounded-lg shadow bg-slate-100 ">
-                            <img
-                                src="/logo.jpg"
-                                className="h-1/4 w-1/4  mx-auto "
-                                alt="Logo"
-                            />
-                            <div className="text-base font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
-                            <form
-                                className="mt-8 space-y-4"
-                                method="POST"
-                                onSubmit={handleSubmit}
-                            >
-                                <div>
-                                    <label
-                                        htmlFor="email"
-                                        className="block mb-3 text-base text-start font-medium text-gray-900 "
-                                    >
-                                        Your email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        value={mobile || email}
-                                        onChange={(e) => {
-                                            setEmail(e.target.value);
-                                            setMobile(e.target.value);
-                                        }}
-                                        autoComplete="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm text-base rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400 focus:border-primary-500 block w-full p-2.5 "
-                                        placeholder="name@company.com"
-                                        required
-                                    />
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="password"
-                                        className="block mb-2 text-base text-start font-medium text-gray-900 ">
-                                        Your password
-                                    </label>
-                                    <div className="relative">
+                    <div className="flex-shrink-1 mt-10 md:h-1/4 h-full w-full xs:w-full backdrop:bg-transparent  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-5">
+                        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+                            <div
+                                className="absolute inset-0 bg-gradient-to-r from-orange-700 to-red-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+                            </div>
+                            <div className="w-full max-w-xl p-6 space-y-1  mx-auto  rounded-lg  relative px-4 py-10 bg-slate-100 shadow-lg sm:rounded-3xl sm:p-10">
+                                <img
+                                    src="/logo.jpg"
+                                    className="h-1/4 w-1/4  mx-auto "
+                                    alt="Logo"
+                                />
+                                <div className="text-base font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
+                                <form
+                                    className="mt-8 space-y-4"
+                                    method="POST"
+                                    onSubmit={handleSubmit}
+                                >
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block mb-3 text-base text-start font-medium text-gray-900 "
+                                        >
+                                            Your email
+                                        </label>
                                         <input
-                                            type={showPassword ? 'text' : 'password'}
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            autoComplete="current-password"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            value={mobile || email}
+                                            onChange={(e) => {
+                                                setEmail(e.target.value);
+                                                setMobile(e.target.value);
+                                            }}
+                                            autoComplete="email"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm text-base rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400 focus:border-primary-500 block w-full p-2.5 "
+                                            placeholder="name@company.com"
                                             required
                                         />
-                                        <button
-                                            type="button"
-                                            onClick={handleTogglePassword}
-                                            className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
-                                        >
-                                            {showPassword ? (
-                                                <IoEyeOutline size={25} />
-                                            ) : (
-                                                <IoEyeOffOutline size={25} />
-                                            )}
-                                        </button>
                                     </div>
-                                </div>
+                                    <div>
+                                        <label
+                                            htmlFor="password"
+                                            className="block mb-2 text-base text-start font-medium text-gray-900 ">
+                                            Your password
+                                        </label>
+                                        <div className="relative">
+                                            <input
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                id="password"
+                                                placeholder="••••••••"
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                autoComplete="current-password"
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={handleTogglePassword}
+                                                className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
+                                            >
+                                                {showPassword ? (
+                                                    <IoEyeOutline size={25} />
+                                                ) : (
+                                                    <IoEyeOffOutline size={25} />
+                                                )}
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                <div className=" text-justify mt-1 ml-0">
-                                    <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type</label>
-                                    <select
-                                        className="input-style g-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                        value={loginType}
-                                        onChange={handleLoginTypeChange}>
-                                        <option value="">  ------------- Select ------------  </option>
-                                        <option value="admin">Admin</option>
-                                        <option value="branches">Branch</option>
-                                        <option value="employee">Employee</option>
-                                        <option value="hrmanager">HR Manager</option>
-                                        <option value="ops">OPS Admin</option>
-                                        <option value="advisor">Advisor</option>
-                                        <option value="finance">Finance Admin</option>
-                                    </select>
-                                </div>
+                                    <div className=" text-justify mt-1 ml-0 ">
+                                        <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type</label>
+                                        <select
+                                            className="input-style  g-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
+                                            value={loginType}
+                                            onChange={handleLoginTypeChange}>
+                                            <option value="" >  -------------- Select Login Type -----------------</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="branches">Branch</option>
+                                            <option value="employee">Employee</option>
+                                            <option value="hrmanager">HR Manager</option>
+                                            <option value="ops">OPS Admin</option>
+                                            <option value="advisor">Advisor</option>
+                                            <option value="finance">Finance Admin</option>
+                                        </select>
+                                    </div>
 
-                                <div className="flex items-start">
-                                    <NavLink
-                                        to={forgotPasswordLink()}
-                                        className="ml-auto text-base font-semibold text-red-600 hover:underline "
-                                        target="_blank"
+                                    <div className="flex items-start">
+                                        <NavLink
+                                            to={forgotPasswordLink()}
+                                            className="ml-auto text-base font-semibold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 text-red-800 hover:underline hover:text-orange-600 "
+                                            target="_blank"
+                                        >
+                                            Forgot Password?
+                                        </NavLink>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        // style={{ backgroundColor: "rgb(170 35 0)" }}
+                                        className="w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 flex justify-center py-2 px-4 rounded-md hover:bg-orange-600 bg-orange-800  focus:ring-1 focus:ring-blue-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
                                     >
-                                        Forgot Password?
-                                    </NavLink>
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full flex justify-center py-2 px-4 rounded-md bg-blue-950 hover:bg-blue-800 focus:ring-1 focus:ring-blue-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
-                                >
-                                    SIGN IN
-                                </button>
-                            </form>
+                                        SIGN IN
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -36,10 +36,34 @@ let dates = formatDate(getCurrentDateAndTime());
 function AddHrAttendance() {
   let digitalTime = new Date().toLocaleTimeString();
   const [emp, setEmp] = useState([]);
+  // const [APIData, setAPIData] = useState([]);
   const [ctime, setTime] = useState(digitalTime);
   const [attendanceStatus, setAttendanceStatus] = useState('');
 // eslint-disable-next-line no-unused-vars
 const [error, setError] = useState(null);
+
+
+// useEffect(() => {
+//   const token = sessionStorage.getItem("token");
+//   if (!token) {
+//       toast.error("Not Authorized yet.. Try again! ");
+//   } else {
+//       // The user is authenticated, so you can make your API request here.
+//       axios
+//           .get(`${VITE_DATA}/leave/type/show`, {
+//               headers: {
+//                   Authorization: `${token}`, // Send the token in the Authorization header
+//               },
+//           })
+//           .then((response) => {
+//               setAPIData(response.data);
+//           })
+//           .catch((error) => {
+//               console.error(error);
+//           });
+//   }
+// }, []);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,26 +133,28 @@ const [error, setError] = useState(null);
   }
   const empnam = sessionStorage.getItem('name');
   return (
-    <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-200">
-    <div className="container-fluid flex justify-center p-2 w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
-      <div className="inline-block min-w-full   w-full py-0 sm:px-5 lg:px-1">
-        <h2 className="text-4xl tracking-wider font-medium">Attendance</h2>
-        <div className="overflow-x-auto mt-10 bg-slate-200">
+    <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-100">
+    <div className="container-fluid flex justify-center p-2 w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-100">
+      <div className="inline-block min-w-full   w-full py-0 ">
+        <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl tracking-wider text-center  font-medium">Attendance</h2>
+        <div className="overflow-x-auto my-0 bg-slate-200">
           {/* name, date, time */}
-          <div className='flex justify-between text-xl sm:text-md md:text-xl lg:text-xl xl:text-xl'>
-            <span className="text-start font-semibold ">
-              Your Name: <span className="font-base tracking-wide text-green-700">{empnam}</span>
-            </span>
-            <span className="text-start font-semibold ">Time: <span className='font-medium tracking-wide text-green-500   md:text-lg xl:text-xl  text-lg sm:text-md'> {ctime}</span> </span>
-            <span className="text-start font-semibold ">Date: <span className='font-medium tracking-wide text-blue-600 md:text-lg xl:text-xl text-lg sm:text-md'> {dates}</span> </span>
-          </div>
+          <div className='flex justify-between  shadow-2xl border border-slate-100 py-1 text-xl sm:text-md md:text-xl lg:text-xl xl:text-xl'>
+              <span className="text-start font-semibold text-base ">
+                Your Name: <span className="font-base tracking-wide text-orange-700">{empnam}</span>
+              </span>
+              <span className="text-start font-semibold text-base">Time: <span className='font-medium   tracking-wide text-orange-700   md:text-base xl:text-base   sm:text-base'> {ctime}</span> </span>
+              <span className="text-start font-semibold text-base">Date: <span className='font-medium  tracking-wide text-orange-700 md:text-base xl:text-base  sm:text-base'> {dates}</span> </span>
+            </div>
           {/* part-2 */}
           <div className='flex flex-wrap '>
-          <div className="mt-12   w-full sm:w-full md:w-full lg:w-full xl:w-1/2">
-          <h1 className='text-2xl tracking-wide text-start font-medium text-blue-600 me-10'>Mark Attendance</h1>
-            <div className=" mx-2 text-center justify-center mt-4">
+          <div className=" w-full sm:w-full md:w-full lg:w-full xl:w-1/2">
+          <div className='flex justify-center text-center shadow-2xl'>
+            <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide text-start font-medium text-orange-700 me-10'>Make Attendance</h1>
+            </div>
+            <div className="flex flex-wrap mx-2 text-center justify-center mt-4">
            
-              <div className="flex items-center me-10 ">
+              <div className="flex items-center me-10 my-2">
                 <input
                   id="red-radio"
                   type="radio"
@@ -162,7 +188,7 @@ const [error, setError] = useState(null);
                   Present
                 </label>
               </div>
-              <div className="flex items-center me-4">
+              <div className="flex items-center me-10">
                 <input
                   id="yellow-radio"
                   type="radio"
@@ -197,11 +223,11 @@ const [error, setError] = useState(null);
               </div>
             </div>
             
-            <div className='text-center my-8 mx-4 flex justify-start'>
-              <button className='text-white cursor-pointer  bg-gradient-to-r from-green-600 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-3 py-0.5 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Submit</button>
+            <div className='text-center my-8 mx-4 flex justify-center'>
+              <button className='text-white cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300  bg-orange-700 hover:bg-orange-600 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-3 py-1 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Submit</button>
             </div>
           </div>
-          <LeaveApplication/>
+          <LeaveApplication  />
           </div>
         </div>
         

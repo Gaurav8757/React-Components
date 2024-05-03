@@ -355,7 +355,7 @@ const exportToExcel = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                                    {sortedData.reverse().slice(startIndex, endIndex).map((data) => {
+                                    {sortedData.slice(startIndex, endIndex).map((data) => {
                                         return (
                                             <tr
                                                 className=":border-neutral-200 text-sm font-medium"

@@ -175,6 +175,7 @@ function ViewFinance() {
           row.vehicleAge,
           row.fuel,
           row.gvw,
+          row.sitcapacity,
           row.cc,
           row.productCode,
           row.advisorName,
@@ -224,6 +225,7 @@ function ViewFinance() {
         "Vehicle Age",
         "Fuel",
         "GVW",
+        "Seating Capacity",
         "C.C",
         "Product Code",
         "Advisor Name",
@@ -401,6 +403,7 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Age</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Fuel</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">GVW</th>
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">Seating Capacity</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">C.C</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Product Code</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Advisor Name</th>
@@ -457,6 +460,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehicleAge}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.fuel}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.gvw}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sitcapacity}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.cc}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.productCode}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.advisorName}</td>

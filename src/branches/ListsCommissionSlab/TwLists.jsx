@@ -92,7 +92,7 @@ function TwLists() {
         "Category",
         "State",
         "District",
-        "Sitting Capacity",
+        "Seating Capacity",
         "Segment",
         "Policy Type",
         "Product Code",
@@ -170,7 +170,7 @@ function TwLists() {
               Segment
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              Sitting Capacity
+              Seating Capacity
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Policy Type

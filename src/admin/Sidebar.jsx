@@ -307,10 +307,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-cyan-700">
+      <nav className="fixed top-0 z-50 w-full bg-orange-800">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
-            <button onClick={toggleSidebar} className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gradient-to-r from-black to-cyan-600 focus:outline-none focus:ring-1 focus:ring-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:focus:ring-gray-200">
+            <button onClick={toggleSidebar} className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gradient-to-r from-orange-700 to-orange-600 focus:outline-none focus:ring-1 focus:ring-gray-100 dark:text-gray-200  ">
               <span className="sr-only">Open sidebar</span>
               <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
@@ -357,14 +357,14 @@ const Sidebar = () => {
         </div>
       </nav>
 
-      <aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-cyan-900 border-r sm:translate-x-0`} aria-label="Sidebar">
-        <div className="h-full px-4 pb-4 overflow-y-auto text-white bg-cyan-900">
+      <aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-orange-800 border-r sm:translate-x-0`} aria-label="Sidebar">
+        <div className="h-full px-4 pb-4 overflow-y-auto text-white bg-orange-800">
           <ul className="space-y-2 font-medium ">
             {dashboardRoutes.map((route, idx) => (
               <li key={idx} className="">
                 {route.subRoutes ? (
                   <div className="relative group ">
-                    <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-gray-600 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
+                    <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
                       <span className="ms-3  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
                     </NavLink>

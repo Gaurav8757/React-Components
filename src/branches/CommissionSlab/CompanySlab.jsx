@@ -45,8 +45,40 @@ function CompanySlab() {
   const token = sessionStorage.getItem("token");
 
 
-  // const countryName = 'India';
-  // const statesAndCities = getAllStatesAndCitiesOfCountry(countryName);
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+  "Bhagalpur",
+  "Bhojpur",
+  "Buxar",
+  "Darbhanga",
+  "East Champaran (Motihari)",
+  "Gaya",
+  "Gopalganj",
+  "Jamui",
+  "Jehanabad",
+  "Kaimur (Bhabua)",
+  "Katihar",
+  "Khagaria",
+  "Kishanganj",
+  "Lakhisarai",
+  "Madhepura",
+  "Madhubani",
+  "Munger (Monghyr)",
+  "Muzaffarpur",
+  "Nalanda",
+  "Nawada",
+  "Patna",
+  "Purnia (Purnea)",
+  "Rohtas",
+  "Saharsa",
+  "Samastipur",
+  "Saran",
+  "Sheikhpura",
+  "Sheohar",
+  "Sitamarhi",
+  "Siwan",
+  "Supaul",
+  "Vaishali",
+  "West Champaran"];
 
   useEffect(() => {
     // Fetch and set states for India when component mounts
@@ -431,72 +463,30 @@ function CompanySlab() {
             </div>
 
 
-            {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                value={selectedCity}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  if (value ) {
-                    // const allCityNames = cities.map(city => city.name);
-                    setSelectedCity(value);
-                  } else {
-                    setSelectedCity(e.target.value);
-                  }
-                }}
-                disabled={!selectedState} // Disable city dropdown until a state is selected
-              >
-                <option value="">------------------- Select -------------------</option>
-                <option value="All_RTO">All RTO</option>
-               
-              </select>
-            </div> */}
-            {/* {cities.map((city,index) => (
-                  <option key={index} value={city.name}>
-                    {city.name}
-                  </option>
-                ))} */}
-            {/* 3 */}
-
-
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               {
-                selectedCity ? (
+                // selectedCity ? (
                   <select
                     className="input-style text-lg p-1 rounded-lg"
                     value={selectedCity}
                     onChange={(e) => setSelectedCity(e.target.value)}
                     disabled={!selectedState} // Disable city dropdown until a state is selected
                   >
-                    <option value="">------------------- Select or Add -------------------</option>
-                    <option value="All_RTO">All RTO</option>
-                    {/* Render other city options here if needed */}
-                    <option value="">Add New District</option> {/* Remove id attribute */}
+                    <option value="">------------- Select District-------------------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
                   </select>
-                ) : (
-                  selectedCity === "" && (
-                    <input
-                      type="text"
-                      name="selectedCity"
-                      id="selectedCity"
-                      className="input-style text-lg p-1 rounded-lg "
-                      placeholder="Enter new district name"
-                      value={newCity} // Assuming newCity is a separate state to hold input data
-                      onChange={(e) => setNewCity(e.target.value)}
-                    />
-                  )
-                )
               }
-
-              {/* Input field for entering a new district */}
-
             </div>
 
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+            <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
               <label className="text-base mx-1 ">Seating Capacity:</label>
               <select
                 className="input-style p-1 text-lg rounded-lg"
@@ -506,12 +496,13 @@ function CompanySlab() {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="" >--------------- Select Seating --------------</option>
+                <option value="0">--------------- Select Seating --------------</option>
                 {
-                  sit && sit.map((data)=> (
+                  sit && sit.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
+                <option value="">NOT APPLICABLE</option>
               </select>
             </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">

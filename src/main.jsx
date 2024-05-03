@@ -170,8 +170,6 @@ import TwLists from "./branches/ListsCommissionSlab/TwLists.jsx";
 import CompanySlab from "./branches/CommissionSlab/CompanySlab.jsx";
 import AddAdvisors from "./advisor/RegisterAdvisor/AddAdvisors.jsx";
 import ListAdvisor from "./advisor/ShowListAdvisor/ListAdvisor.jsx";
-
-import StateCities from "./data/stateCities.jsx";
 import OdDiscount from "./admin/admincomponents/odDiscount/OdDiscount.jsx";
 import Cc from "./admin/admincomponents/CC/Cc.jsx";
 import SitCapacity from "./admin/admincomponents/SittingCapacity/SitCapacity.jsx";
@@ -287,7 +285,6 @@ const router = createBrowserRouter(
           <Route path="/dashboard/advisor/slabs" element={<CompanySlab />} />
           <Route path="/dashboard/payout/lists" element={<PCLists />} />
           <Route path="/dashboard/advisor/payout/lists" element={<TwLists />} />
-          <Route path="/dashboard/states" element={<StateCities />} />
           <Route path="/dashboard/oddiscount" element={<OdDiscount />} />
           <Route path="/dashboard/CC" element={<Cc />} />
           <Route path="/dashboard/ncb" element={<NcbData />} />

@@ -43,9 +43,43 @@ function PrivateCar() {
   const [sits, setSit] = useState([]);
   const token = sessionStorage.getItem("token");
 
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
 
-  // const countryName = 'India';
-  // const statesAndCities = getAllStatesAndCitiesOfCountry(countryName);
+  //   const districtCount = citiesToShow.length;
+  // console.log("Total number of districts:", districtCount);
 
   useEffect(() => {
     // Fetch and set states for India when component mounts
@@ -134,38 +168,38 @@ function PrivateCar() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/sit/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-              setSit(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-}, [formSubmitted]);
-
-  useEffect(() => {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/od/list`, {
+        .get(`${VITE_DATA}/sit/show`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
         })
         .then((response) => {
-          setOdList(response.data);
+          setSit(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
+    }
+  }, [formSubmitted]);
+
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    axios
+      .get(`${VITE_DATA}/od/list`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setOdList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [token]);
 
   useEffect(() => {
@@ -376,7 +410,7 @@ function PrivateCar() {
               </select>
             </div> */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-            <label className="text-lg mx-1 text-center mb-1 font-bold"><span className="text-red-600 font-bold">*</span>Company Name<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-lg mx-1 text-center mb-1 font-bold"><span className="text-red-600 font-bold">*</span>Company Name<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
                 className="input-style text-lg p-0.5 rounded-lg"
@@ -400,8 +434,6 @@ function PrivateCar() {
           </div>
 
           <div className="flex flex-wrap mb-12 justify-between">
-            
-
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -463,31 +495,23 @@ function PrivateCar() {
             <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               {
-                selectedCity ? (
-                  <select
-                    className="input-style text-lg p-1 rounded-lg"
-                    value={selectedCity}
-                    onChange={(e) => setSelectedCity(e.target.value)}
-                    disabled={!selectedState} // Disable city dropdown until a state is selected
-                  >
-                    <option value="">------------------- Select or Add -------------------</option>
-                    <option value="All_RTO">All RTO</option>
-                    {/* Render other city options here if needed */}
-                    <option value="">Add New District</option> {/* Remove id attribute */}
-                  </select>
-                ) : (
-                  selectedCity === "" && (
-                    <input
-                      type="text"
-                      name="selectedCity"
-                      id="selectedCity"
-                      className="input-style text-lg p-1 rounded-lg "
-                      placeholder="Enter new district name"
-                      value={newCity} // Assuming newCity is a separate state to hold input data
-                      onChange={(e) => setNewCity(e.target.value)}
-                    />
-                  )
-                )
+                // selectedCity ? (
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  disabled={!selectedState} // Disable city dropdown until a state is selected
+                >
+                  <option value="">------------- Select District-------------------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                </select>
+              
               }
 
               {/* Input field for entering a new district */}
@@ -496,7 +520,7 @@ function PrivateCar() {
 
 
             <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 ">Sitting Capacity:</label>
+              <label className="text-base mx-1 ">Seating Capacity:</label>
               <select
                 className="input-style p-1 text-lg rounded-lg"
                 type="text"
@@ -505,12 +529,13 @@ function PrivateCar() {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="" >--------------- Select Seating --------------</option>
+                <option value="0">--------------- Select Seating --------------</option>
                 {
-                 sits && sits.map((data)=> ( 
+                  sits && sits.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
+                <option value="">NOT APPLICABLE</option>
               </select>
             </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -612,10 +637,10 @@ function PrivateCar() {
                 onChange={(e) => setNcb(e.target.value)} >
                 <option className="w-1" value="" >-------------- Select NCB ------------------</option>
                 {
-                  ncbList.map((data)=>(
+                  ncbList.map((data) => (
                     <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
                   ))
-                 }
+                }
               </select>
             </div>
 
@@ -630,8 +655,8 @@ function PrivateCar() {
                 placeholder="Enter OD Discount">
                 <option className="w-1" value="" >------------ Select OD Discount -------------</option>
                 {
-                  odList.map((data)=>(
-                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  odList.map((data) => (
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
                   ))
                 }
               </select>
@@ -647,11 +672,11 @@ function PrivateCar() {
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC">
                 <option className="w-1" value="" >----------------- Select CC ------------------</option>
-               {
-                ccList.map((data)=>(
-                  <option key={data._id} value={data.cc}>{data.cc}</option>
-                ))
-               }
+                {
+                  ccList.map((data) => (
+                    <option key={data._id} value={data.cc}>{data.cc}</option>
+                  ))
+                }
               </select>
             </div>
             {/* payout on */}

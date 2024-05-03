@@ -6,7 +6,8 @@ import { State, City } from 'country-state-city';
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
 function AddFinance() {
-
+  const [sitcapacity, setSitCapacity] = useState('');
+  const [sits, setSit] = useState([]);
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
@@ -97,6 +98,40 @@ function AddFinance() {
     fetchStates();
   }, []);
 
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+  "Bhagalpur",
+  "Bhojpur",
+  "Buxar",
+  "Darbhanga",
+  "East Champaran (Motihari)",
+  "Gaya",
+  "Gopalganj",
+  "Jamui",
+  "Jehanabad",
+  "Kaimur (Bhabua)",
+  "Katihar",
+  "Khagaria",
+  "Kishanganj",
+  "Lakhisarai",
+  "Madhepura",
+  "Madhubani",
+  "Munger (Monghyr)",
+  "Muzaffarpur",
+  "Nalanda",
+  "Nawada",
+  "Patna",
+  "Purnia (Purnea)",
+  "Rohtas",
+  "Saharsa",
+  "Samastipur",
+  "Saran",
+  "Sheikhpura",
+  "Sheohar",
+  "Sitamarhi",
+  "Siwan",
+  "Supaul",
+  "Vaishali",
+  "West Champaran"];
 
   const handleStateChange = (e) => {
     const stateIsoCode = e.target.value;
@@ -156,6 +191,26 @@ function AddFinance() {
     }
   }, [formSubmitted]);
 
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [formSubmitted]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -1166,40 +1221,35 @@ function AddFinance() {
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
                 <select className="input-style text-base p-1 rounded-lg" value={selectedState} onChange={handleStateChange}>
-                  <option value="">-------- Select State ----------- </option>
+                  <option value="">------------- Select State -------------- </option>
                   {states.map(state => (
                     <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
                   ))}
                 </select>
               </div>
 
-
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                {/* <select
-                  className="input-style text-lg p-1 rounded-lg"
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  disabled={!selectedState} // Disable city dropdown until a state is selected
-                >
-                  <option value="">--------------- Select City -------------</option>
-                  {cities.map((city) => (
-
-                    <option key={city.id} value={city.name}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select> */}
-                <input
-                  type="text"
-                  name="district"
-                  id="district"
-                  className="input-style  p-1 rounded-lg "
-                  placeholder="Enter new district name"
-                  value={selectedCity} // Assuming newCity is a separate state to hold input data
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                />
-              </div>
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                // selectedCity ? (
+                  <select
+                    className="input-style text-base p-1 rounded-lg"
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">------------- Select District-------------------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                  </select>          
+              }
+            </div>
+             
 
               {/* FIELD - 20 */}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
@@ -1418,6 +1468,28 @@ function AddFinance() {
                 />
                 {/* {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>} */}
               </div>
+
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1 ">Seating Capacity:</label>
+              <select
+                className="input-style p-1 text-base rounded-lg"
+                type="text"
+                value={sitcapacity}
+                onChange={(e) => setSitCapacity(e.target.value)}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              >
+                <option value="">------------ Select Seating -----------</option>
+                {
+                  sits && sits.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+                <option value="">NOT APPLICABLE</option>
+              </select>
+            </div>
+
+
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                 <select
@@ -1494,8 +1566,9 @@ function AddFinance() {
                 />
               </div>
 
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
-              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/5"></div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/5"></div>
+              <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/5"></div>
               <div className="mt-10 p-2 flex justify-center lg:w-full w-full">
                 <button
                   className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center me-2 mb-2"

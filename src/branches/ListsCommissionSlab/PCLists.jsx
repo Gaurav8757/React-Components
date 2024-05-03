@@ -78,6 +78,7 @@ function PCLists() {
           row.vfuels,
           row.vncb,
           row.voddiscount,
+          row.sitcapacity,
           row.vcc,
           row.payoutons,
           row.cvpercentage,
@@ -99,6 +100,7 @@ function PCLists() {
         "Fuel Type",
         "NCB",
         "OD Discount(%)",
+        "Seating Capacity",
         "C.C",
         "PayOut On",
         "Advisor Payout",
@@ -174,7 +176,7 @@ function PCLists() {
               Segment
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
-              Sitting Capacity
+              Seating Capacity
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Policy Type

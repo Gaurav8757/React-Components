@@ -351,6 +351,7 @@ useEffect(() => {
           row.vehicleAge,
           row.fuel,
           row.gvw,
+          row.sitcapacity,
           row.cc,
           row.productCode,
           row.advisorName,
@@ -410,6 +411,7 @@ useEffect(() => {
         "Vehicle Age",
         "Fuel",
         "GVW",
+        "Seating Capacity",
         "C.C",
         "Product Code",
         "Advisor Name",
@@ -743,6 +745,9 @@ useEffect(() => {
                     GVW
                   </th>
                   <th scope="col" className="px-1 border border-black">
+                    Seating Capacity
+                  </th>
+                  <th scope="col" className="px-1 border border-black">
                     C.C
                   </th>
                   <th scope="col" className="px-1 border border-black">
@@ -929,6 +934,9 @@ useEffect(() => {
                     </td>
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.gvw}
+                    </td>
+                    <td className="whitespace-nowrap px-1 border border-black">
+                      {data.sitcapacity}
                     </td>
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.cc}

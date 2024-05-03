@@ -11,6 +11,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [sit, setSit] = useState([]);
   const [ncbLists, setNcbLists] = useState([]);
   const [fuelType, setFuelType] = useState([]);
   const [pmade, setPmade] = useState([]);
@@ -26,7 +27,40 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [selectedCity, setSelectedCity] = useState('');
-
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+  "Bhagalpur",
+  "Bhojpur",
+  "Buxar",
+  "Darbhanga",
+  "East Champaran (Motihari)",
+  "Gaya",
+  "Gopalganj",
+  "Jamui",
+  "Jehanabad",
+  "Kaimur (Bhabua)",
+  "Katihar",
+  "Khagaria",
+  "Kishanganj",
+  "Lakhisarai",
+  "Madhepura",
+  "Madhubani",
+  "Munger (Monghyr)",
+  "Muzaffarpur",
+  "Nalanda",
+  "Nawada",
+  "Patna",
+  "Purnia (Purnea)",
+  "Rohtas",
+  "Saharsa",
+  "Samastipur",
+  "Saran",
+  "Sheikhpura",
+  "Sheohar",
+  "Sitamarhi",
+  "Siwan",
+  "Supaul",
+  "Vaishali",
+  "West Champaran"];
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
@@ -36,6 +70,27 @@ function UpdateMaster({ insurance, onUpdate }) {
 
     fetchStates();
   }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/sit/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+              setSit(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, []);
 
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
@@ -744,32 +799,30 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </select>
                         </div>
 
+
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
-                          <label className="text-base mx-1">District:</label>
-                          {/* <select
-                            className="input-style text-base  p-1 rounded-lg"
-                            name="selectedCity"
-                            value={allDetails.selectedCity}
-                            onChange={handleInputChange}
-                            disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
-                          >
-                            <option value="">------------ Select City ----------</option>
-                            {cities.map((city, idx) => (
-                              <option key={idx} value={city.name}>
-                                {city.name}
-                              </option>
-                            ))}
-                          </select> */}
-                           <input
-                            type="text"
-                            name="selectedCity"
-                            id="selectedCity"
-                            className="input-style text-base p-1 rounded-lg "
-                            placeholder="Enter new district name"
-                            value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
-                            onChange={handleInputChange}
-                          />
-                        </div>
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                // selectedCity ? (
+                  <select
+                    className="input-style text-base p-1 rounded-lg"
+                    name="selectedCity"
+                    id="selectedCity"
+                    value={allDetails.selectedCity}
+                    onChange={handleInputChange}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">----------- Select District  -----------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                  </select>          
+              }
+            </div>
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Vehicle Reg No:</label>
@@ -847,6 +900,26 @@ function UpdateMaster({ insurance, onUpdate }) {
                             placeholder="Enter GVW"
                           />
                         </div>
+
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1 ">Seating Capacity:</label>
+              <select
+                className="input-style p-1 text-base rounded-lg"
+                type="text"
+                value={allDetails.sitcapacity}
+                onChange={handleInputChange}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              >
+                <option value="0">------- Select Seating ---------</option>
+                {
+                  sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+                <option value="">NOT APPLICABLE</option>
+              </select>
+            </div>
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Segment:</label>
                           <select
@@ -865,7 +938,10 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </select>
                         </div>
 
-                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                       
+                      </div>
+                      <div className="flex flex-wrap mb-8 justify-between">
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Sourcing:</label>
                           <select
                             className="input-style p-1 text-base rounded-lg"
@@ -878,8 +954,6 @@ function UpdateMaster({ insurance, onUpdate }) {
                             <option value="ROLL OVER">ROLL OVER</option>
                           </select>
                         </div>
-                      </div>
-                      <div className="flex flex-wrap mb-8 justify-between">
 
                         <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Policy Start Date:</label>
@@ -926,7 +1000,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             min="2025-01-01"
                           />
                         </div>
-                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                        <div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">IDV:</label>
                           <input
                             className="input-style p-1 rounded-lg"
@@ -992,7 +1066,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           />
                         </div>
                         {
-                          insurance.policyType === "SATP" ? (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          insurance.policyType === "SATP" ? (<div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">OD Premium:</label>
                             <input
                               className="input-style p-1 rounded-lg"
@@ -1004,7 +1078,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                               onBlur={updateNetPremium}
                               disabled
                             />
-                          </div>) : (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                          </div>) : (<div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">OD Premium:</label>
                             <input
                               className="input-style p-1 rounded-lg"
@@ -1018,7 +1092,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </div>)}
 
                         {
-                          allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          allDetails.policyType === "SAOD" ? (<div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Liability Premium:</label>
                             <input
                               className="input-style p-1 rounded-lg"
@@ -1031,7 +1105,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                               disabled
                             />
                           </div>)
-                            : (<div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                            : (<div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                               <label className="text-base mx-1">Liability Premium:</label>
                               <input
                                 className="input-style p-1 rounded-lg"
@@ -1044,7 +1118,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             </div>)
                         }
 
-                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                        <div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Net Premium:</label>
                           <input
                             className="input-style p-1 rounded-lg"
@@ -1057,7 +1131,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                           <span className="mx-1 text-xs text-green-600">(odPremium + liabilityPremium)</span>
                         </div>
 
-                        <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
+                        <div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">GST% :</label>
                           <input
                             className="input-style p-1 rounded-lg"
@@ -1154,7 +1228,11 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </select>
                         </div>
 
-                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                        
+                      </div>
+                      <div className="flex flex-wrap justify-between">
+
+                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Advisor Name:</label>
                           <select
                                                     className="input-style p-1 text-base rounded-lg"
@@ -1171,20 +1249,6 @@ function UpdateMaster({ insurance, onUpdate }) {
 
                                                 </select>
                         </div>
-                      </div>
-                      <div className="flex flex-wrap justify-between">
-
-                        {/* <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
-                        <label className="text-base mx-1">Sub Advisor:</label>
-                        <input
-                          className="input-style p-1 rounded-lg"
-                          type="text"
-                          value={allDetails.subAdvisor}
-                          onChange={handleInputChange}
-                          name="subAdvisor"
-                          placeholder="Enter Sub Advisor"
-                        />
-                      </div> */}
                         {/* FIELD - 38 */}
                         <div className="flex flex-col p-1  text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Payout On:</label>

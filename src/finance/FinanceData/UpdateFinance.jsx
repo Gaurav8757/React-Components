@@ -19,6 +19,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [selectedCity, setSelectedCity] = useState('');
+  const [sit, setSit] = useState([]);
   const [empTime, setEmpTime] = useState(getFormattedTime());
   function getFormattedTime() {
     const date = new Date();
@@ -31,6 +32,41 @@ function UpdateFinance({ insurance, onUpdate }) {
   }
 
 
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
+
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
@@ -38,6 +74,27 @@ function UpdateFinance({ insurance, onUpdate }) {
         setStates(indiaStates);
     };
     fetchStates();
+}, []);
+
+useEffect(() => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+  } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+          .get(`${VITE_DATA}/sit/show`, {
+              headers: {
+                  Authorization: `${token}`, // Send the token in the Authorization header
+              },
+          })
+          .then((response) => {
+            setSit(response.data);
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+  }
 }, []);
 
   useEffect(() => {
@@ -83,6 +140,7 @@ useEffect(() => {
     entryDate: '',
     company: '',
     states: '',
+    sitcapacity: '',
     district: '',
     category: '',
     segment: '',
@@ -428,7 +486,7 @@ useEffect(() => {
   return (
     <>
       {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center ">
+      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-1 text-center ">
         Update
       </button>
 
@@ -796,31 +854,28 @@ useEffect(() => {
 
 
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                                                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                                                {/* <select
-                                                    className="input-style  text-lg p-0.5 rounded-lg"
-                                                    name="selectedCity"
-                                                    value={allDetails.selectedCity}
-                                                    onChange={handleInputChange}
-                                                    disabled={!allDetails.selectedState} // Disable city dropdown until a state is selected
-                                                >
-                                                    <option value="">-------- Select City -------</option>
-                                                    {cities.map((city, idx) => (
-                                                        <option key={idx} value={city.name}>
-                                                            {city.name}
-                                                        </option>
-                                                    ))}
-                                                </select> */}
-                                                <input
-                            type="text"
-                            name="selectedCity"
-                            id="selectedCity"
-                            className="input-style text-lg p-1 rounded-lg "
-                            placeholder="Enter new district name"
-                            value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
-                            onChange={handleInputChange}
-                          />
-                                            </div>
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                // selectedCity ? (
+                  <select
+                    className="input-style text-base p-1 rounded-lg"
+                    name="selectedCity"
+                    id="selectedCity"
+                    value={allDetails.selectedCity}
+                    onChange={handleInputChange}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">-------- Select District ---------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                  </select>          
+              }
+            </div>
 
                       {/* FIELD - 9 */}
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
@@ -1029,17 +1084,25 @@ useEffect(() => {
                       </div>
 
 
-                      {/* FIELD - 22 */}
-                      {/* <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
-                        <label className="text-base mx-1">CC:</label>
-                        <input
-                          className="input-style p-1 rounded-lg"
-                          type="text"
-                          value={allDetails.cc}
-                          onChange={handleInputChange}
-                          name="cc"
-                        />
-                      </div> */}
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1 ">Seating Capacity:</label>
+              <select
+                className="input-style p-1 text-base rounded-lg"
+                type="text"
+                value={allDetails.sitcapacity}
+                onChange={handleInputChange}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              >
+                <option value="">------ Select Seating -----------</option>
+                {
+                  sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+                <option value="">NOT APPLICABLE</option>
+              </select>
+            </div>
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                         <select

@@ -80,7 +80,63 @@ function MasterForm() {
   const [advLists, setAdvLists] = useState([]);
   const [advId, setAdvId] = useState('');
   const [advisorPayoutAmount, setAdvisorPayoutAmount] = useState();
-  // console.log(APIData);
+  const [sit, setSit] = useState([]);
+  const [sitcapacity, setSitCapacity] = useState('');
+  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+  "Bhagalpur",
+  "Bhojpur",
+  "Buxar",
+  "Darbhanga",
+  "East Champaran (Motihari)",
+  "Gaya",
+  "Gopalganj",
+  "Jamui",
+  "Jehanabad",
+  "Kaimur (Bhabua)",
+  "Katihar",
+  "Khagaria",
+  "Kishanganj",
+  "Lakhisarai",
+  "Madhepura",
+  "Madhubani",
+  "Munger (Monghyr)",
+  "Muzaffarpur",
+  "Nalanda",
+  "Nawada",
+  "Patna",
+  "Purnia (Purnea)",
+  "Rohtas",
+  "Saharsa",
+  "Samastipur",
+  "Saran",
+  "Sheikhpura",
+  "Sheohar",
+  "Sitamarhi",
+  "Siwan",
+  "Supaul",
+  "Vaishali",
+  "West Champaran"];
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/sit/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+              setSit(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+}, [formSubmitted]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -1196,36 +1252,32 @@ function MasterForm() {
               </div>
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-                {/* <select
-                  className="input-style text-lg p-0.5 rounded-lg"
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  disabled={!selectedState}> 
-                  <option value="">--------------- Select City -------------</option>
-                  {cities.map((city) => (
-
-                    <option key={city.id} value={city.name}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select> */}
-                 <input
-                            type="text"
-                            name="district"
-                            id="district"
-                            className="input-style text-lg p-0.5 rounded-lg"
-                            placeholder="Enter new district name"
-                            value={selectedCity} // Assuming newCity is a separate state to hold input data
-                            onChange={(e) => setSelectedCity(e.target.value)}
-                          />
-              </div>
+              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+              {
+                // selectedCity ? (
+                  <select
+                    className="input-style text-base p-1 rounded-lg"
+                    value={selectedCity}
+                    onChange={(e) => setSelectedCity(e.target.value)}
+                    disabled={!selectedState} // Disable city dropdown until a state is selected
+                  >
+                    <option value="">------------------- Select District --------------</option>
+                  <option value="All">All</option>
+                  {/* Render other city options here if needed */}
+                  {
+                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                      <option key={index} value={data.name}>{data.name}</option>
+                    ))
+                  }
+                  </select>
+              }
+            </div>
 
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Vehicle Reg No:<span className="text-red-600 font-bold">*</span></label>
                 <input
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-1  rounded-lg"
                   type="text"
                   value={vehRegNo}
                   name="vehRegNo"
@@ -1451,20 +1503,26 @@ function MasterForm() {
 
 
 
-
-              {/* FIELD - 35 */}
-              {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-                <input
-                  className="input-style p-1 rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value.toUpperCase())}
-                  placeholder="Enter CC"
-                />
-                {errors.cc && <span className="text-red-600 text-sm ">{errors.cc}</span>}
-              </div> */}
+              <div className="flex flex-col mt-0 p-1 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1 ">Seating Capacity:</label>
+              <select
+                className="input-style p-1 text-base rounded-lg"
+                type="text"
+                value={sitcapacity}
+                onChange={(e) => setSitCapacity(e.target.value)}
+                name="sitcapacity"
+                placeholder="Enter Sitting Capacity"
+              >
+                <option value="">----------------- Select Seating -----------------</option>
+                {
+                  sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))
+                }
+                <option value="">NOT APPLICABLE</option>
+              </select>
+            </div>
+             
 
               <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
@@ -1507,7 +1565,7 @@ function MasterForm() {
               </div>
 
               {/* FIELD - 37*/}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                 <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   className="input-style p-1 rounded-lg"
