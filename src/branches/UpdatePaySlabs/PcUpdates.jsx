@@ -465,13 +465,13 @@ function PcUpdates({ slab, update }) {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="0">---------- Select Seating -----------</option>
+                <option value="">---------- Select Seating -----------</option>
                 {
                   sit && sit.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                <option value="All">NOT APPLICABLE</option>
               </select>
             </div>
                       {/* 4 */}
@@ -540,10 +540,13 @@ function PcUpdates({ slab, update }) {
                           onChange={handleInputChange}
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
-                          {ncbLists.map((data) => (
+                          {/* {ncbLists.map((data) => (
                             <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
-                          ))}
+                          ))} */}
+                          <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="both">Both</option>
                         </select>
                       </div>
 
@@ -558,6 +561,7 @@ function PcUpdates({ slab, update }) {
                           placeholder=""
                         >
                           <option className="w-1" value="" >------- Select OD Discount ---------</option>
+                          <option value="All">All</option>
                           {
                             odList.map((data) => (
                               <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
@@ -577,6 +581,7 @@ function PcUpdates({ slab, update }) {
                           placeholder="Enter CC"
                         >
                           <option className="w-1" value="" >------------- Select CC --------------</option>
+                          <option value="All">All</option>
                           {
                             ccList.map((data) => (
                               <option key={data._id} value={data.cc}>{data.cc}</option>

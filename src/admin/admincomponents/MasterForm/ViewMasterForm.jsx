@@ -11,6 +11,7 @@ function ViewMasterForm() {
   const [startDate, setStartDate] = useState("");
   const [totalPages, setTotalPages] = useState();
   const [endDate, setEndDate] = useState("");
+  const [years, setYears] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState();
   const [searchId, setSearchId] = useState("");
@@ -126,6 +127,7 @@ function ViewMasterForm() {
     const branchLower = data.branch?.toLowerCase() || "";
     const product = data.productCode?.toLowerCase() || "";
     const payouts = data.payoutOn?.toLowerCase() || "";
+    const year = data.vehicleAge?.toLowerCase() || "";
 
     return (
       // Filter conditions using optional chaining and nullish coalescing
@@ -139,11 +141,13 @@ function ViewMasterForm() {
         searchCompany === "") &&
       // Update the state variable for company correctly
       (contacNoLower.includes(contactNo.toLowerCase()) || contactNo === "") &&
+      (year.includes(years.toLowerCase()) || years === "") &&
       (product.includes(productcodes.toLowerCase()) || productcodes === "") &&
       (payouts.includes(payon.toLowerCase()) || payon === "") &&
       // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
+
     );
   });
   // Calculate total number of pages
@@ -176,123 +180,6 @@ function ViewMasterForm() {
   };
 
 
-  // useEffect(() => {
-  //   // Check if there are matching CSLabs and allDetailsData is not empty
-  //   if (payoutSlab.length > 0 && allDetailsData.length > 0) {
-  //     payoutSlab.forEach((matchingCSLab) => {
-  //       const percentage = matchingCSLab.cvpercentage || 0;
-  //       const branchpercent = matchingCSLab.branchpayoutper || 0;
-  //       const companypercent = matchingCSLab.companypayoutper || 0;
-  //       allDetailsData.forEach((data) => {
-  //         if (
-  //           matchingCSLab.pcodes === data.productCode &&
-  //           matchingCSLab.cnames === data.company &&
-  //           matchingCSLab.catnames === data.category &&
-  //           matchingCSLab.policytypes === data.policyType &&
-  //           matchingCSLab.vfuels === data.fuel &&
-  //           matchingCSLab.payoutons === data.payoutOn &&
-  //           matchingCSLab.sitcapacity === data.sitcapacity &&
-  //           matchingCSLab.segments === data.segment  &&
-  //           matchingCSLab.voddiscount === data.odDiscount &&
-  //           matchingCSLab.vcc === data.cc &&
-  //           if (matchingCSLab.ncb) {
-  //             if(matchingCSLab.ncb === "yes"){
-  //               data.vehRegNo === "NEW",
-  //               data.ncb === 0
-  //             }else{
-  //               data.vehRegNo !== "NEW",
-  //               data.ncb > 0
-  //             }    
-  //           } else if (matchingCSLab.ncb === "no") {
-  //             data.vehRegNo !== "NEW",
-  //               data.ncb === 0
-  //           }
-  //         ) {
-
-  //           // if (matchingCSLab.ncb) {
-  //           //   if(matchingCSLab.ncb === "yes"){
-  //           //     data.vehRegNo === "NEW",
-  //           //     data.ncb === 0
-  //           //   }else{
-  //           //     data.vehRegNo !== "NEW",
-  //           //     data.ncb > 0
-  //           //   }    
-  //           // } else if (matchingCSLab.ncb === "no") {
-  //           //   data.vehRegNo !== "NEW",
-  //           //     data.ncb === 0
-  //           // }
-
-
-  //           const netPremium = parseFloat(data.netPremium);
-  //           const finalEntryFields = parseFloat(data.finalEntryFields);
-  //           const odPremium = parseFloat(data.odPremium);
-
-  //           let advisorPayout, branchPayout, companyPayout;
-  //           let advisorPayable, branchPayable, profitLoss;
-
-  //           if (
-  //             // Conditions for using specific calculation functions
-  //             data.policyType === "COMP" &&
-  //             data.productCode === "PVT-CAR" &&
-  //             data.payoutOn === "OD"
-
-  //           ) {
-  //             advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-  //             advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-  //             branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
-  //             branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-  //             companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
-  //             profitLoss = companyPayout - branchPayout;
-  //           } else {
-  //             // Default calculation functions
-  //             advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-  //             advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-  //             branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
-  //             branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-  //             companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
-  //             profitLoss = companyPayout - branchPayout;
-  //           }
-  //           // Prepare data for API request
-  //           const postData = {
-  //             advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-  //             advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-  //             branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-  //             branchPayout: parseFloat(branchPayout.toFixed(2)),
-  //             companyPayout: parseFloat(companyPayout.toFixed(2)),
-  //             profitLoss: parseFloat(profitLoss.toFixed(2)),
-  //           };
-
-  //           try {
-  //             // Send data to API
-  //             const response = axios.put(
-  //               `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-  //               postData,
-  //               {
-  //                 headers: {
-  //                   "Content-Type": "application/json",
-  //                 },
-  //               }
-  //             );
-  //             // Handle response status
-  //             if (response.status !== 200) {
-  //               console.error(`Error updating data for policy ID ${data._id}`);
-  //             }
-  //           } catch (error) {
-  //             console.error(
-  //               `Error updating data for policy ID ${data._id}:`,
-  //               error
-  //             );
-  //           }
-  //         }
-  //       });
-  //     });
-  //   } else {
-  //     console.log("No matching CSLabs found or allDetailsData is empty.");
-  //   }
-  // }, [allDetailsData, payoutSlab]);
-
-
-
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
@@ -303,36 +190,40 @@ function ViewMasterForm() {
         allDetailsData.forEach((data) => {
           if (
             matchingCSLab.pcodes === data.productCode &&
+            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All') &&
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
-            matchingCSLab.vfuels === data.fuel &&
+            (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            matchingCSLab.sitcapacity === data.sitcapacity &&
+            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All') &&
             matchingCSLab.segments === data.segment &&
-            matchingCSLab.voddiscount === data.odDiscount &&
+            (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === 'All') &&
+            (
+              (matchingCSLab.vage === 'NA') ||
+              (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
+              (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
+              (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
+              (matchingCSLab.vage === 'MORE THAN 10 YEARS' && data.vehicleAge >= '10 years')
+            ) &&
+            // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
             matchingCSLab.states === data.states &&
-            matchingCSLab.vcc === data.cc
+            (matchingCSLab.vcc === data.cc || matchingCSLab.vcc === 'All')
           ) {
-            let isValidNcb = false;
-            if (matchingCSLab.ncb) {
-              if (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) {
-                isValidNcb = true;
-              } else if (matchingCSLab.ncb !== 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) {
-                isValidNcb = true;
-              }
-            } else if (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) {
-              isValidNcb = true;
-            }
-            
-            if (isValidNcb) {
+            // Add new conditions here
+            if (
+              (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
+              (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
+              (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
+              (matchingCSLab.ncb === 'both')
+            ) {
               const netPremium = parseFloat(data.netPremium);
               const finalEntryFields = parseFloat(data.finalEntryFields);
               const odPremium = parseFloat(data.odPremium);
-              
+
               let advisorPayout, branchPayout, companyPayout;
               let advisorPayable, branchPayable, profitLoss;
-              
+
               if (
                 data.policyType === 'COMP' &&
                 data.productCode === 'PVT-CAR' &&
@@ -353,7 +244,7 @@ function ViewMasterForm() {
                 companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
                 profitLoss = companyPayout - branchPayout;
               }
-              
+
               // Prepare data for API request
               const postData = {
                 advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
@@ -363,7 +254,7 @@ function ViewMasterForm() {
                 companyPayout: parseFloat(companyPayout.toFixed(2)),
                 profitLoss: parseFloat(profitLoss.toFixed(2)),
               };
-              
+
               try {
                 // Send data to API
                 const response = axios.put(
@@ -393,7 +284,103 @@ function ViewMasterForm() {
       console.log('No matching CSLabs found or allDetailsData is empty.');
     }
   }, [allDetailsData, payoutSlab]);
-  
+
+
+
+
+  // useEffect(() => {
+  //   // Check if there are matching CSLabs and allDetailsData is not empty
+  //   if (payoutSlab.length > 0 && allDetailsData.length > 0) {
+  //     payoutSlab.forEach((matchingCSLab) => {
+  //       const percentage = matchingCSLab.cvpercentage || 0;
+  //       const branchpercent = matchingCSLab.branchpayoutper || 0;
+  //       const companypercent = matchingCSLab.companypayoutper || 0;
+  //       allDetailsData.forEach((data) => {
+  //         if (
+  //           matchingCSLab.pcodes === data.productCode  &&
+  //           (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All') &&
+  //           matchingCSLab.cnames === data.company &&
+  //           matchingCSLab.catnames === data.category &&
+  //           matchingCSLab.policytypes === data.policyType &&
+  //           (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === "ALL" )&&
+  //           matchingCSLab.payoutons === data.payoutOn &&
+  //           (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All') &&
+  //           matchingCSLab.segments === data.segment &&
+  //           (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === "All") &&
+  //           (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === "NA") &&
+  //           matchingCSLab.states === data.states &&
+  //           (matchingCSLab.vncb === "both") &&
+  //           (matchingCSLab.vcc === data.cc || matchingCSLab.vcc === "All") 
+  //         ) {
+
+  //             const netPremium = parseFloat(data.netPremium);
+  //             const finalEntryFields = parseFloat(data.finalEntryFields);
+  //             const odPremium = parseFloat(data.odPremium);
+
+  //             let advisorPayout, branchPayout, companyPayout;
+  //             let advisorPayable, branchPayable, profitLoss;
+
+  //             if (
+  //               data.policyType === 'COMP' &&
+  //               data.productCode === 'PVT-CAR' &&
+  //               data.payoutOn === 'OD'
+  //             ) {
+  //               advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+  //               advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+  //               branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
+  //               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+  //               companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
+  //               profitLoss = companyPayout - branchPayout;
+  //             } else {
+  //               // Default calculation functions
+  //               advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+  //               advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+  //               branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
+  //               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+  //               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
+  //               profitLoss = companyPayout - branchPayout;
+  //             }
+
+  //             // Prepare data for API request
+  //             const postData = {
+  //               advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+  //               advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+  //               branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+  //               branchPayout: parseFloat(branchPayout.toFixed(2)),
+  //               companyPayout: parseFloat(companyPayout.toFixed(2)),
+  //               profitLoss: parseFloat(profitLoss.toFixed(2)),
+  //             };
+
+  //             try {
+  //               // Send data to API
+  //               const response = axios.put(
+  //                 `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+  //                 postData,
+  //                 {
+  //                   headers: {
+  //                     'Content-Type': 'application/json',
+  //                   },
+  //                 }
+  //               );
+  //               // Handle response status
+  //               if (response.status !== 200) {
+  //                 console.error(`Error updating data for policy ID ${data._id}`);
+  //               }
+  //             } catch (error) {
+  //               console.error(
+  //                 `Error updating data for policy ID ${data._id}:`,
+  //                 error
+  //               );
+  //             }
+  //           // }
+  //         }
+  //       });
+  //     });
+  //   } else {
+  //     console.log('No matching CSLabs found or allDetailsData is empty.');
+  //   }
+  // }, [allDetailsData, payoutSlab]);
+
 
 
   useEffect(() => {
@@ -740,6 +727,17 @@ function ViewMasterForm() {
                 onChange={(e) => setPayon(e.target.value)}
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Search by PayoutOn"
+              />
+            </div>
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                VehicleAge:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setYears(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by VehicleAge"
               />
             </div>
           </div>

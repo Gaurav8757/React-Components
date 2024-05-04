@@ -1100,7 +1100,7 @@ useEffect(() => {
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                {/* <option value="">NOT APPLICABLE</option> */}
               </select>
             </div>
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">

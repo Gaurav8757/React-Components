@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import UpdateSeat from "./updateSeat.jsx";
+import UpdateSeat from "./UpdateSeat.jsx"
 import VITE_DATA from "../../../config/config.jsx";
 function SitCapacity() {
     const [sitcapacity, setSit] = useState("");

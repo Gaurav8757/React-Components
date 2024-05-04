@@ -911,13 +911,13 @@ function UpdateMaster({ insurance, onUpdate }) {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="0">------- Select Seating ---------</option>
+                <option value="">------- Select Seating ---------</option>
                 {
                   sit && sit.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                {/* <option value="">NOT APPLICABLE</option> */}
               </select>
             </div>
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">

@@ -1519,7 +1519,7 @@ function MasterForm() {
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                {/* <option value="">NOT APPLICABLE</option> */}
               </select>
             </div>
              

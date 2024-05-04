@@ -501,13 +501,13 @@ function TwoWheelers() {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="0">--------------- Select Seating --------------</option>
+                <option value="">--------------- Select Seating --------------</option>
                 {
                   sits && sits.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                <option value="All">NOT APPLICABLE</option>
               </select>
             </div>
 
@@ -632,6 +632,7 @@ function TwoWheelers() {
                 placeholder="Enter OD Discount"
               >
                 <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                <option value="All">All</option>
                 {
                   odList.map((data)=>(
                     <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
@@ -651,6 +652,7 @@ function TwoWheelers() {
                 placeholder="Enter CC"
               >
                 <option className="w-1" value="" >----------------- Select CC ------------------</option>
+                <option value="All">All</option>
                {
                 ccList.map((data)=>(
                   <option key={data._id} value={data.cc}>{data.cc}</option>

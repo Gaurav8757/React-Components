@@ -497,13 +497,13 @@ function CompanySlab() {
                 name="sitcapacity"
                 placeholder="Enter Sitting Capacity"
               >
-                <option value="0">--------------- Select Seating --------------</option>
+                <option value="">--------------- Select Seating --------------</option>
                 {
                   sit && sit.map((data) => (
                     <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                   ))
                 }
-                <option value="">NOT APPLICABLE</option>
+                <option value="All">NOT APPLICABLE</option>
               </select>
             </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -625,6 +625,7 @@ function CompanySlab() {
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount">
                 <option className="w-1" value="" >------------ Select OD Discount -------------</option>
+                <option value="All">All</option>
                 {
                   odList.map((data)=>(
                     <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
@@ -643,6 +644,7 @@ function CompanySlab() {
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC">
                 <option className="w-1" value="" >----------------- Select CC ------------------</option>
+                <option value="All">All</option>
                {
                 ccList.map((data)=>(
                   <option key={data._id} value={data.cc}>{data.cc}</option>
