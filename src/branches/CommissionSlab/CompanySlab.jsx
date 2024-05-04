@@ -43,6 +43,8 @@ function CompanySlab() {
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
   const [sit, setSit] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [local, setCompanyGrid] = useState([]);
   const token = sessionStorage.getItem("token");
 
 
@@ -108,6 +110,29 @@ function CompanySlab() {
       }
     }
   };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/company/grid/slab/view`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+
+          setCompanyGrid(response.data);
+
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");

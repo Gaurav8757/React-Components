@@ -13,6 +13,8 @@ function TwUpdateSlab({ slab, update }) {
   const [pdata, setPdata] = useState([]);
   const [state, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [local, setCompanyGrid] = useState([]);
   const [fuelType, setFuelType] = useState([]);
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
@@ -24,6 +26,9 @@ function TwUpdateSlab({ slab, update }) {
   const [allCities, setAllCities] = useState('');
   const [sit, setSit] = useState([]);
   const [catTypesForSelectedPolicy, setCatTypesForSelectedPolicy] = useState('');
+
+
+
   const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
   "Bhagalpur",
   "Bhojpur",
@@ -70,6 +75,7 @@ function TwUpdateSlab({ slab, update }) {
     fetchStates();
   }, []);
 
+  
 
   const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
@@ -106,6 +112,29 @@ function TwUpdateSlab({ slab, update }) {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/company/grid/slab/view`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+
+          setCompanyGrid(response.data);
+
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -180,6 +209,7 @@ function TwUpdateSlab({ slab, update }) {
             });
     }
 }, []);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -271,6 +301,7 @@ function TwUpdateSlab({ slab, update }) {
     cvpercentage: slab.cvpercentage || '', // Pre-saved advisor payout percentage
     branchpayoutper: slab.branchpayoutper || '',  //same matched with cvpercentage
     sitcapacity: slab.sitcapacity || '',
+    companypayoutper:slab.companypayoutper || ''
   });
 
    // Update branchpayoutper when cvpercentage changes
@@ -540,8 +571,8 @@ function TwUpdateSlab({ slab, update }) {
                           onChange={handleInputChange}
                           placeholder=""
                         >
-                          <option className="w-1" value="" >------- Select OD Discount ---------</option>
-                          <option value="All">All</option>
+                          <option className="w-1" value="NA" >------- Select OD Discount ---------</option>
+                          <option value="">All</option>
                           {
                             odList.map((data) => (
                               <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
@@ -600,7 +631,17 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder="%"
                         />
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
+                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+                        <input
+                          className="input-style p-1 rounded-lg"
+                          type="text"
+                          value={allDetails.companypayoutper}
+                          onChange={handleInputChange}
+                          name="companypayoutper"
+                          placeholder="%"
+                        />
+                      </div>
                     <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
                     </div>
                    

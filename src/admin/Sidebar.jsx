@@ -99,26 +99,26 @@ const Sidebar = () => {
       ]
     },
 
-    {
-      title: "Company Payout Grid",
-      path: "#",
-      logo: <GiReceiveMoney size={25} />,
-      subRoutes: [
+    // {
+    //   title: "Company Payout Grid",
+    //   path: "#",
+    //   logo: <GiReceiveMoney size={25} />,
+    //   subRoutes: [
 
-        {
-          title: "Add Payout",
-          path: "/dashboard/payout/slab",
-          dash: ""
-        },
-        {
-          title: "Payout Lists",
-          path: "/dashboard/payout/lists",
-          dash: ""
-        },
-      ]
-    },
+    //     {
+    //       title: "Add Payout",
+    //       path: "/dashboard/payout/slab",
+    //       dash: ""
+    //     },
+    //     {
+    //       title: "Payout Lists",
+    //       path: "/dashboard/payout/lists",
+    //       dash: ""
+    //     },
+    //   ]
+    // },
     {
-      title: "Advisor Payout Grid",
+      title: "Payout Grid",
       path: "#",
       logo: <GiReceiveMoney size={25} />,
       subRoutes: [
