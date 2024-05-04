@@ -342,12 +342,12 @@ function PrivateCar() {
         branchpayoutper,
         companypayoutper
       };
-      await axios.post(`${VITE_DATA}/commission/slab/add`, formData, {
+      await axios.post(`${VITE_DATA}/company/grid/slab/add`, formData, {
         headers: {
           Authorization: `${token}`
         }
       });
-      toast.success("Payout Added Successfully");
+      toast.success("Company Grid Added Successfully.....!");
       setFormSubmitted(true);
       // Reset form fields after successful submission if needed
       setCompany('');
@@ -657,8 +657,8 @@ function PrivateCar() {
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount">
-                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                <option value="All">All</option>
+                <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
+                <option value="">All</option>
                 {
                   odList.map((data) => (
                     <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>

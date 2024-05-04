@@ -198,7 +198,14 @@ function ViewMasterForm() {
             matchingCSLab.payoutons === data.payoutOn &&
             (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All') &&
             matchingCSLab.segments === data.segment &&
-            (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === 'All') &&
+            (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
+
+            // (
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
+            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'both')
+            // ) &&
             (
               (matchingCSLab.vage === 'NA') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
@@ -211,12 +218,12 @@ function ViewMasterForm() {
             (matchingCSLab.vcc === data.cc || matchingCSLab.vcc === 'All')
           ) {
             // Add new conditions here
-            if (
-              (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
-              (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
-              (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
-              (matchingCSLab.ncb === 'both')
-            ) {
+            // if (
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
+            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'both')
+            // ) {
               const netPremium = parseFloat(data.netPremium);
               const finalEntryFields = parseFloat(data.finalEntryFields);
               const odPremium = parseFloat(data.odPremium);
@@ -276,7 +283,7 @@ function ViewMasterForm() {
                   error
                 );
               }
-            }
+            // }
           }
         });
       });

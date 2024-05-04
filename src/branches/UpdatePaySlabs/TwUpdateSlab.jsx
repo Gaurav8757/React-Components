@@ -560,8 +560,8 @@ function TwUpdateSlab({ slab, update }) {
                           onChange={handleInputChange}
                           placeholder="Enter CC"
                         >
-                          <option className="w-1" value="" >------------- Select CC --------------</option>
-                          <option value="All">All</option>
+                          <option className="w-1" value="NA" >------------- Select CC --------------</option>
+                          <option value="">All</option>
                           {
                             ccList.map((data) => (
                               <option key={data._id} value={data.cc}>{data.cc}</option>

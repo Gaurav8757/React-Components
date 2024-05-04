@@ -624,8 +624,8 @@ function CompanySlab() {
                 value={odDiscount}
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount">
-                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                <option value="All">All</option>
+                <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
+                <option value="">All</option>
                 {
                   odList.map((data)=>(
                     <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  

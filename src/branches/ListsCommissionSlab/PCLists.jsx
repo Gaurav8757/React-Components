@@ -4,6 +4,9 @@ import PcUpdates from "../UpdatePaySlabs/PcUpdates.jsx";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
 import VITE_DATA from "../../config/config.jsx";
+// company-payouts
+
+
 function PCLists() {
   const [APIData, setAPIData] = useState([]);
   const [deletingStaffId, setDeletingStaffId] = useState(null);
@@ -20,7 +23,7 @@ function PCLists() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/commission/slab/view`, {
+        .get(`${VITE_DATA}/company/grid/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -43,7 +46,7 @@ function PCLists() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `${VITE_DATA}/commission/slab/view`,
+          `${VITE_DATA}/company/grid/slab/view`,
           {
             headers: {
               Authorization: `${token}`,
@@ -135,7 +138,7 @@ function PCLists() {
 
   const confirmDeleteVeh = async (_id) => {
     try {
-      await axios.delete(`${VITE_DATA}/commission/slab/del/${_id}`);
+      await axios.delete(`${VITE_DATA}/company/grid/slab/del/${_id}`);
       toast.error("Company Payout Grid Deleted Successfully.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {

@@ -631,8 +631,8 @@ function TwoWheelers() {
                 onChange={(e) => setOdDiscount(e.target.value)}
                 placeholder="Enter OD Discount"
               >
-                <option className="w-1" value="" >------------ Select OD Discount -------------</option>
-                <option value="All">All</option>
+                <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
+                <option value="">All</option>
                 {
                   odList.map((data)=>(
                     <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
@@ -651,7 +651,7 @@ function TwoWheelers() {
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC"
               >
-                <option className="w-1" value="" >----------------- Select CC ------------------</option>
+                <option className="w-1" value="">----------------- Select CC ------------------</option>
                 <option value="All">All</option>
                {
                 ccList.map((data)=>(

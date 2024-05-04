@@ -295,7 +295,7 @@ function PcUpdates({ slab, update }) {
     try {
       setLoading(true);
       // Use the selected category ID in the patch method
-      const resp = await axios.put(`${VITE_DATA}/commission/slab/${slab._id}`, allDetails);
+      const resp = await axios.put(`${VITE_DATA}/company/grid/slab/${slab._id}`, allDetails);
       toast.success(`${resp.data.status}`);
       closeModal(); // Close the modal after successful submission
       update();
@@ -560,8 +560,8 @@ function PcUpdates({ slab, update }) {
                           onChange={handleInputChange}
                           placeholder=""
                         >
-                          <option className="w-1" value="" >------- Select OD Discount ---------</option>
-                          <option value="All">All</option>
+                          <option className="w-1" value="NA" >------- Select OD Discount ---------</option>
+                          <option value="">All</option>
                           {
                             odList.map((data) => (
                               <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
