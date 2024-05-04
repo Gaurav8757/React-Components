@@ -200,6 +200,9 @@ function TwLists() {
               Branch Percentage%
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
+              Company Percentage%
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black sticky">
               Delete
             </th>
           </tr>
@@ -246,6 +249,7 @@ function TwLists() {
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
                   <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
                   <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
+                  <td className="px-1 py-0 border border-black">{data.companypayoutper}</td>
                   <td className="px-1 py-0 border border-black">
                     <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
                   </td>
