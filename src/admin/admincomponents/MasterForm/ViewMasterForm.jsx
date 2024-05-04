@@ -12,7 +12,7 @@ function ViewMasterForm() {
   const [totalPages, setTotalPages] = useState();
   const [endDate, setEndDate] = useState("");
   const [years, setYears] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
   const [itemsPerPage, setItemsPerPage] = useState();
   const [searchId, setSearchId] = useState("");
   const [searchBranch, setSearchBranch] = useState("");
@@ -78,7 +78,7 @@ function ViewMasterForm() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get("page")) || 1;
-    const limit = parseInt(params.get("limit")) || 20;
+    const limit = parseInt(params.get("limit")) || 100;
 
     setCurrentPage(page);
     setItemsPerPage(limit);
@@ -210,8 +210,8 @@ function ViewMasterForm() {
               (matchingCSLab.vage === 'NA') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
               (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
-              (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
-              (matchingCSLab.vage === 'MORE THAN 10 YEARS' && data.vehicleAge >= '10 years')
+              // (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
+              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
             ) &&
             // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
             matchingCSLab.states === data.states &&

@@ -52,7 +52,7 @@ function ViewFinance() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get('page')) || 1;
-    const limit = parseInt(params.get('limit')) || 20;
+    const limit = parseInt(params.get('limit')) || 100;
 
     setCurrentPage(page);
     setItemsPerPage(limit);

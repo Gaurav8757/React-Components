@@ -173,6 +173,9 @@ function TwLists() {
               Seating Capacity
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
+              Vehicle Age
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black sticky">
               Policy Type
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -239,6 +242,7 @@ function TwLists() {
                   </td>
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 border border-black">{data.sitcapacity}</td>
+                  <td className="px-1 py-0 border border-black">{data.vage}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>
                   <td className="px-1 py-0 border border-black">{data.vfuels}</td>

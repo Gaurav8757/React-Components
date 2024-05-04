@@ -30,39 +30,39 @@ function TwUpdateSlab({ slab, update }) {
 
 
   const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
-  "Bhagalpur",
-  "Bhojpur",
-  "Buxar",
-  "Darbhanga",
-  "East Champaran (Motihari)",
-  "Gaya",
-  "Gopalganj",
-  "Jamui",
-  "Jehanabad",
-  "Kaimur (Bhabua)",
-  "Katihar",
-  "Khagaria",
-  "Kishanganj",
-  "Lakhisarai",
-  "Madhepura",
-  "Madhubani",
-  "Munger (Monghyr)",
-  "Muzaffarpur",
-  "Nalanda",
-  "Nawada",
-  "Patna",
-  "Purnia (Purnea)",
-  "Rohtas",
-  "Saharsa",
-  "Samastipur",
-  "Saran",
-  "Sheikhpura",
-  "Sheohar",
-  "Sitamarhi",
-  "Siwan",
-  "Supaul",
-  "Vaishali",
-  "West Champaran"];
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
 
 
   useEffect(() => {
@@ -75,7 +75,7 @@ function TwUpdateSlab({ slab, update }) {
     fetchStates();
   }, []);
 
-  
+
 
   const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
@@ -151,23 +151,23 @@ function TwUpdateSlab({ slab, update }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/sit/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-              setSit(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     // The user is authenticated, so you can make your API request here.
@@ -192,23 +192,23 @@ function TwUpdateSlab({ slab, update }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/ncb/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setNcbLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -301,33 +301,34 @@ function TwUpdateSlab({ slab, update }) {
     cvpercentage: slab.cvpercentage || '', // Pre-saved advisor payout percentage
     branchpayoutper: slab.branchpayoutper || '',  //same matched with cvpercentage
     sitcapacity: slab.sitcapacity || '',
-    companypayoutper:slab.companypayoutper || ''
+    companypayoutper: slab.companypayoutper || '',
+    vage: slab.vage || ''
   });
 
-   // Update branchpayoutper when cvpercentage changes
-   useEffect(() => {
+  // Update branchpayoutper when cvpercentage changes
+  useEffect(() => {
     setAllDetails((prevData) => ({
       ...prevData,
       branchpayoutper: prevData.cvpercentage,
     }));
   }, [allDetails.cvpercentage]);
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // If the user selects "All Cities", save all city names in an array
     if (value === "All_Cities") {
       const allCityNames = cities.map(city => city.name);
       setAllDetails((prevData) => ({
         ...prevData,
         [name]: allCityNames,
-        
+
       }));
     } else {
       setAllDetails((prevData) => ({
         ...prevData,
         [name]: value,
-        
+
       }));
     }
   };
@@ -438,15 +439,15 @@ function TwUpdateSlab({ slab, update }) {
                           onChange={handleInputChange}
                           disabled={!selectedState} // Disable city dropdown until a state is selected
                         >
-                         <option value="">----------- Select District  -----------</option>
-                  <option value="All">All</option>
-                  {/* Render other city options here if needed */}
-                  {
-                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
-                      <option key={index} value={data.name}>{data.name}</option>
-                    ))
-                  }
-                         
+                          <option value="">----------- Select District  -----------</option>
+                          <option value="All">All</option>
+                          {/* Render other city options here if needed */}
+                          {
+                            cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                              <option key={index} value={data.name}>{data.name}</option>
+                            ))
+                          }
+
                         </select>
                       </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -467,24 +468,24 @@ function TwUpdateSlab({ slab, update }) {
                       </div>
 
                       <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-lg rounded-lg"
-                type="text"
-                value={allDetails.sitcapacity}
-                onChange={handleInputChange}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">---------- Select Seating -----------</option>
-                {
-                  sit && sit.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                <option value="All">NOT APPLICABLE</option>
-              </select>
-            </div>
+                        <label className="text-base mx-1 ">Seating Capacity:</label>
+                        <select
+                          className="input-style p-1 text-lg rounded-lg"
+                          type="text"
+                          value={allDetails.sitcapacity}
+                          onChange={handleInputChange}
+                          name="sitcapacity"
+                          placeholder="Enter Sitting Capacity"
+                        >
+                          <option value="">---------- Select Seating -----------</option>
+                          {
+                            sit && sit.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                            ))
+                          }
+                          <option value="All">NOT APPLICABLE</option>
+                        </select>
+                      </div>
                       {/* 4 */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
@@ -526,6 +527,22 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          id="vage" name="vage"
+                          className="input-style text-lg p-1 rounded-lg"
+                          value={allDetails.vage}
+                          onChange={handleInputChange}>
+                          <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
+                          <option value="NA">NA</option>
+                          <option value="NEW">NEW</option>
+                          <option value="1-7 YEARS">1-7 Years</option>
+
+                          <option value="MORE THAN 7 YEARS">More Than 7 Years</option>
+                        </select>
+                      </div>
+
+                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                         <select
                           className="input-style p-1 text-lg rounded-lg"
@@ -555,9 +572,9 @@ function TwUpdateSlab({ slab, update }) {
                                                         <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
                                                     ))} */}
-                                                    <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="both">Both</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                          <option value="both">Both</option>
                         </select>
                       </div>
 
@@ -632,7 +649,7 @@ function TwUpdateSlab({ slab, update }) {
                         />
                       </div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-                      <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+                        <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 rounded-lg"
                           type="text"
@@ -642,9 +659,9 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder="%"
                         />
                       </div>
-                    <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
+                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
                     </div>
-                   
+
                     {/* button */}
                     <div className="col-span-4 p-2 mt-4 flex justify-center">
                       <button

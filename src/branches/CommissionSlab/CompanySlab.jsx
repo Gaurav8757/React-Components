@@ -599,9 +599,9 @@ function CompanySlab() {
                 <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
                 <option value="NA">NA</option>
                 <option value="NEW">NEW</option>
-                <option value="1-5 YEARS">1-5 Years</option>
-                <option value="6-10 YEARS">6-10 Years</option>
-                <option value="MORE THAN 10 YEARS">More than 10 Years</option>
+                <option value="1-7 YEARS">1-7 Years</option>
+               
+                <option value="MORE THAN 7 YEARS">More Than 7 Years</option>
               </select>
             </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -668,13 +668,14 @@ function CompanySlab() {
                 value={cc}
                 onChange={(e) => setCc(e.target.value.toUpperCase())}
                 placeholder="Enter CC">
-                <option className="w-1" value="" >----------------- Select CC ------------------</option>
+                <option className="w-1" value="">----------------- Select CC ------------------</option>
                 <option value="All">All</option>
                {
                 ccList.map((data)=>(
                   <option key={data._id} value={data.cc}>{data.cc}</option>
                 ))
                }
+               
               </select>
             </div>
             {/* payout on */}
