@@ -9,7 +9,6 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [pdata, setPdata] = useState([]);
     const [loading, setLoading] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [ncbLists, setNcbLists] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
@@ -42,6 +41,41 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     // useEffect(()=>{
     //     setEmpTime(time);
     // }, [time]);
+
+    const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -76,26 +110,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         fetchStates();
     }, []);
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`${VITE_DATA}/ncb/show`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    },
-                })
-                .then((response) => {
-                    setNcbLists(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, [formSubmitted]);
+   
 
 
     const [allDetails, setAllDetails] = useState({
@@ -443,8 +458,8 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                 </select>
                                             </div>
 
-                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                                            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                                                <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label> */}
                                                 {/* <select
                                                     className="input-style  text-base p-1 rounded-lg"
                                                     name="selectedCity"
@@ -459,7 +474,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                         </option>
                                                     ))}
                                                 </select> */}
-                                                <input
+                                                {/* <input
                                                     type="text"
                                                     name="selectedCity"
                                                     id="selectedCity"
@@ -467,8 +482,31 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                                     placeholder="Enter new district name"
                                                     value={allDetails.selectedCity} // Assuming newCity is a separate state to hold input data
                                                     onChange={handleInputChange}
-                                                />
-                                            </div>
+                                                /> */}
+                                            {/* </div> */}
+                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                        {
+                          // selectedCity ? (
+                          <select
+                            className="input-style text-base p-1 rounded-lg"
+                            name="selectedCity"
+                            id="selectedCity"
+                            value={allDetails.selectedCity}
+                            onChange={handleInputChange}
+                            disabled={!selectedState} // Disable city dropdown until a state is selected
+                          >
+                            <option value="">-------- Select District ---------</option>
+                            <option value="All">All</option>
+                            {/* Render other city options here if needed */}
+                            {
+                              cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                                <option key={index} value={data.name}>{data.name}</option>
+                              ))
+                            }
+                          </select>
+                        }
+                      </div>
 
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Vehicle Reg No:</label>
@@ -662,21 +700,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                             </div>
                                             {/* FIELD - 11 */}
 
-                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                                                <select
-                                                    className="input-style p-1 text-base rounded-lg"
-                                                    type="text"
-                                                    value={allDetails.ncb}
-                                                    name="ncb"
-                                                    onChange={handleInputChange}>
-                                                    <option className="w-1" value="">-------------- Select NCB ---------------</option>
-                                                    {ncbLists.map((data) => (
-                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
-
-                                                    ))}
-                                                </select>
-                                            </div>
+                                           
                                             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
                                                 <select

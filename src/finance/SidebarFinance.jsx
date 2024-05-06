@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutFinance from "./LogoutFinance.jsx";
 
@@ -17,14 +17,14 @@ const SidebarFinance = () => {
     {
       title: "Create Policy",
       path: "/finance/home/new",
-      logo: < FcViewDetails size={25}/>
+      logo: < FcViewDetails size={25} />
     },
     {
       title: "Finance Policy",
       path: "/finance/home/view",
       logo: <LuGitBranchPlus size={25} />
     },
-    
+
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -95,8 +95,8 @@ const SidebarFinance = () => {
                 </div>
               </div>
               <span>
-                      <LogoutFinance />
-                    </span>
+                <LogoutFinance />
+              </span>
             </div>
 
           </div>

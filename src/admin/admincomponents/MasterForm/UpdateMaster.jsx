@@ -11,6 +11,7 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+
   const [sit, setSit] = useState([]);
   const [ncbLists, setNcbLists] = useState([]);
   const [fuelType, setFuelType] = useState([]);
@@ -28,39 +29,39 @@ function UpdateMaster({ insurance, onUpdate }) {
   // eslint-disable-next-line no-unused-vars
   const [selectedCity, setSelectedCity] = useState('');
   const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
-  "Bhagalpur",
-  "Bhojpur",
-  "Buxar",
-  "Darbhanga",
-  "East Champaran (Motihari)",
-  "Gaya",
-  "Gopalganj",
-  "Jamui",
-  "Jehanabad",
-  "Kaimur (Bhabua)",
-  "Katihar",
-  "Khagaria",
-  "Kishanganj",
-  "Lakhisarai",
-  "Madhepura",
-  "Madhubani",
-  "Munger (Monghyr)",
-  "Muzaffarpur",
-  "Nalanda",
-  "Nawada",
-  "Patna",
-  "Purnia (Purnea)",
-  "Rohtas",
-  "Saharsa",
-  "Samastipur",
-  "Saran",
-  "Sheikhpura",
-  "Sheohar",
-  "Sitamarhi",
-  "Siwan",
-  "Supaul",
-  "Vaishali",
-  "West Champaran"];
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur (Bhabua)",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
@@ -74,23 +75,23 @@ function UpdateMaster({ insurance, onUpdate }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/sit/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-              setSit(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
@@ -130,7 +131,7 @@ function UpdateMaster({ insurance, onUpdate }) {
     ncb: '',
     rsa: '',
     advisorName: '',
-    advId:'',
+    advId: '',
     subAdvisor: '',
     policyMadeBy: '',
     branch: '',
@@ -173,25 +174,46 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
     // const branch = sessionStorage.getItem("name");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/advisor/all/lists`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                }
-            })
-            .then((response) => {
-                setAdvLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/advisor/all/lists`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          }
+        })
+        .then((response) => {
+          setAdvLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
@@ -252,23 +274,23 @@ function UpdateMaster({ insurance, onUpdate }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/ncb/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setNcbLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -788,6 +810,23 @@ function UpdateMaster({ insurance, onUpdate }) {
                             placeholder="Enter Policy No"
                           />
                         </div>
+                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">Segment:</label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            value={allDetails.segment}
+                            onChange={handleInputChange}
+                            name="segment"
+                          >
+                            <option className="w-1" value="" >---------- Select Segment ----------</option>
+                            <option value="C V">C V</option>
+                            <option value="PVT-CAR">PVT-CAR</option>
+                            <option value="TW">TW</option>
+                            <option value="HEALTH">HEALTH</option>
+                            <option value="NON-MOTOR">NON-MOTOR</option>
+                            <option value="LIFE">LIFE</option>
+                          </select>
+                        </div>
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">State:</label>
@@ -801,28 +840,28 @@ function UpdateMaster({ insurance, onUpdate }) {
 
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              {
-                // selectedCity ? (
-                  <select
-                    className="input-style text-base p-1 rounded-lg"
-                    name="selectedCity"
-                    id="selectedCity"
-                    value={allDetails.selectedCity}
-                    onChange={handleInputChange}
-                    disabled={!selectedState} // Disable city dropdown until a state is selected
-                  >
-                    <option value="">----------- Select District  -----------</option>
-                  <option value="All">All</option>
-                  {/* Render other city options here if needed */}
-                  {
-                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
-                      <option key={index} value={data.name}>{data.name}</option>
-                    ))
-                  }
-                  </select>          
-              }
-            </div>
+                          <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                          {
+                            // selectedCity ? (
+                            <select
+                              className="input-style text-base p-1 rounded-lg"
+                              name="selectedCity"
+                              id="selectedCity"
+                              value={allDetails.selectedCity}
+                              onChange={handleInputChange}
+                              disabled={!selectedState} // Disable city dropdown until a state is selected
+                            >
+                              <option value="">----------- Select District  -----------</option>
+                              <option value="All">All</option>
+                              {/* Render other city options here if needed */}
+                              {
+                                cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                                  <option key={index} value={data.name}>{data.name}</option>
+                                ))
+                              }
+                            </select>
+                          }
+                        </div>
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Vehicle Reg No:</label>
@@ -850,7 +889,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             }
                           </select>
                         </div>
-                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                        {/* <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                           <select
                             className="input-style p-1 text-base  rounded-lg"
@@ -866,7 +905,44 @@ function UpdateMaster({ insurance, onUpdate }) {
                               ))
                             }
                           </select>
-                        </div>
+                        </div> */}
+                        {
+                          allDetails.segment === "PVT-CAR" || allDetails.segment === "TW" ? (<div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                            <select
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              name="cc"
+                              value={allDetails.cc}
+                              onChange={handleInputChange}
+                              placeholder="Enter CC">
+                              <option className="w-1" value="" >----------- Select CC -----------</option>
+                              {
+                                ccList.map((data) => (
+                                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                                ))
+                              }
+                            </select>
+                          </div>)
+                            : (<div className="flex flex-col p-1 text-start w-full mt-3 lg:w-1/5">
+                              <label className="text-base mx-1">CC:<span className="text-red-600 text-sm">Disabled</span></label>
+                              <select
+                                className="input-style p-1 rounded-lg"
+                                type="text"
+                                name="cc"
+                                value={allDetails.cc}
+                                onChange={handleInputChange}
+                                placeholder="Enter CC"
+                                disabled>
+                                <option className="w-1" value="" >----------- Select CC -----------</option>
+                                {
+                                  ccList.map((data) => (
+                                    <option key={data._id} value={data.cc}>{data.cc}</option>
+                                  ))
+                                }
+                              </select>
+                            </div>)
+                        }
 
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Engine No:</label>
@@ -889,59 +965,82 @@ function UpdateMaster({ insurance, onUpdate }) {
                             placeholder="Enter Chassis No"
                           />
                         </div>
-                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
-                          <label className="text-base mx-1">GVW (kg):</label>
-                          <input
-                            className="input-style p-1 rounded-lg"
-                            type="text"
-                            value={allDetails.gvw}
-                            onChange={handleInputChange}
-                            name="gvw"
-                            placeholder="Enter GVW"
-                          />
-                        </div>
+                        {
+                          allDetails.segment === "C V" ? (<div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">GVW (kg):</label>
+                            <input
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              value={allDetails.gvw}
+                              onChange={handleInputChange}
+                              placeholder="Enter GVW"
+                              name="gvw"
 
-                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-base rounded-lg"
-                type="text"
-                value={allDetails.sitcapacity}
-                onChange={handleInputChange}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">------- Select Seating ---------</option>
-                {
-                  sit && sit.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                {/* <option value="">NOT APPLICABLE</option> */}
-              </select>
-            </div>
-                        <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
-                          <label className="text-base mx-1">Segment:</label>
-                          <select
-                            className="input-style p-1 text-base rounded-lg"
-                            value={allDetails.segment}
-                            onChange={handleInputChange}
-                            name="segment"
-                          >
-                            <option className="w-1" value="" >---------- Select Segment ----------</option>
-                            <option value="C V">C V</option>
-                            <option value="PVT-CAR">PVT-CAR</option>
-                            <option value="TW">TW</option>
-                            <option value="HEALTH">HEALTH</option>
-                            <option value="NON-MOTOR">NON-MOTOR</option>
-                            <option value="LIFE">LIFE</option>
-                          </select>
-                        </div>
+                            />
+                          </div>)
+                            : (<div className="flex flex-col p-1 text-start w-full mt-3 lg:w-1/5">
+                              <label className="text-base mx-1">GVW (kg):<span className="text-red-600 text-sm">Disabled</span></label>
+                              <input
+                                className="input-style p-1 rounded-lg"
+                                type="text"
+                                value={allDetails.gvw}
+                                onChange={handleInputChange}
+                                name="gvw"
+                                placeholder="Disabled"
+                                disabled
+                              />
+                            </div>)
+                        }
 
-                       
+
+                        {
+                          allDetails.segment === "C V" && (allDetails.productCode === "SCHOOL BUS" || allDetails.productCode === "ROUTE BUS" || allDetails.productCode === "TAXI") ? (<div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1 ">Seating Capacity:</label>
+                            <select
+                              className="input-style p-1 text-base rounded-lg"
+                              type="text"
+                              value={allDetails.sitcapacity}
+                              onChange={handleInputChange}
+                              name="sitcapacity"
+                              placeholder="Enter Sitting Capacity"
+                            >
+                              <option value="">----- Select Seating Capacity -------</option>
+                              {
+                                sit && sit.map((data) => (
+                                  <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                                ))
+                              }
+                              {/* <option value="">NOT APPLICABLE</option> */}
+                            </select>
+                          </div>)
+                            : (<div className="flex flex-col p-1 text-start w-full mt-3 lg:w-1/5">
+                              <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 text-sm">Disabled</span></label>
+                              <select
+                                className="input-style p-1 text-base rounded-lg"
+                                type="text"
+                                value={allDetails.sitcapacity}
+                                onChange={handleInputChange}
+                                name="sitcapacity"
+                                placeholder="Disabled"
+                                disabled
+
+                              >
+                                <option value="">----- Select Seating Capacity -------</option>
+                                {
+                                  sit && sit.map((data) => (
+                                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                                  ))
+                                }
+                                {/* <option value="">NOT APPLICABLE</option> */}
+                              </select>
+                            </div>)
+                        }
+
+
+
                       </div>
                       <div className="flex flex-wrap mb-8 justify-between">
-                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
+                        <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Sourcing:</label>
                           <select
                             className="input-style p-1 text-base rounded-lg"
@@ -1188,22 +1287,45 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </select>
                         </div>
 
-                        <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
-                          <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                          <select
-                            className="input-style p-1 text-base rounded-lg"
-                            type="text"
-                            name="ncb"
-                            value={allDetails.ncb}
-                            onChange={handleInputChange}
-                          >
-                            <option className="w-1" value="" >------------ Select NCB ------------</option>
-                            {ncbLists.map((data) => (
-                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
-                                                    ))}
-                          </select>
-                        </div>
+                        {
+                          allDetails.segment === "PVT-CAR" ? (<div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
+                            <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                            <select
+                              className="input-style p-1 text-base rounded-lg"
+                              type="text"
+                              name="ncb"
+                              value={allDetails.ncb}
+                              onChange={handleInputChange}
+                            >
+                              <option className="w-1" value="" >-------------- Select NCB -------------</option>
+                              {
+                                ncbLists.map((data) => (
+                                  <option key={data._id} value={data.ncb}>{data.ncb}</option>
+                                ))
+                              }
+                            </select>
+                          </div>)
+                            : (<div className="flex flex-col p-1 text-start w-full mt-1 lg:w-1/5">
+                              <label className="text-base mx-1">NCB%:<span className="text-red-600 text-sm">Disabled</span></label>
+                              <select
+                                className="input-style p-1 text-base rounded-lg"
+                                type="text"
+                                name="ncb"
+                                value={allDetails.ncb}
+                                onChange={handleInputChange}
+                                disabled
+                              >
+                                <option className="w-1" value="" >-------------- Select NCB -------------</option>
+                                {
+                                  ncbLists.map((data) => (
+                                    <option key={data._id} value={data.ncb}>{data.ncb}</option>
+                                  ))
+                                }
+                              </select>
+                            </div>)
+                        }
+
 
                         <div className="flex flex-col p-1 mt-1 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Policy Payment Mode:</label>
@@ -1228,26 +1350,26 @@ function UpdateMaster({ insurance, onUpdate }) {
                           </select>
                         </div>
 
-                        
+
                       </div>
                       <div className="flex flex-wrap justify-between">
 
-                      <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                        <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1">Advisor Name:</label>
                           <select
-                                                    className="input-style p-1 text-base rounded-lg"
-                                                    type="text"
-                                                    value={allDetails.advisorName}
-                                                    onChange={handleInputChange}
-                                                    name="advisorName"
-                                                    placeholder="Enter Advisor Name"
-                                                >
-                                                    <option value="">------------- Select Advisor -----------</option>
-                                                    {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
-                                                        <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
-                                                    ))}
+                            className="input-style p-1 text-base rounded-lg"
+                            type="text"
+                            value={allDetails.advisorName}
+                            onChange={handleInputChange}
+                            name="advisorName"
+                            placeholder="Enter Advisor Name"
+                          >
+                            <option value="">------------- Select Advisor -----------</option>
+                            {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                              <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
+                            ))}
 
-                                                </select>
+                          </select>
                         </div>
                         {/* FIELD - 38 */}
                         <div className="flex flex-col p-1  text-start w-full lg:w-1/5">

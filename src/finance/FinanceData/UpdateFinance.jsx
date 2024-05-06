@@ -9,6 +9,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [ncbLists, setNcbLists] = useState([]);
   const [pdata, setPdata] = useState([]);
   const [advLists, setAdvLists] = useState([]);
   const [states, setStates] = useState([]);
@@ -70,31 +71,51 @@ function UpdateFinance({ insurance, onUpdate }) {
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
-        const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
-        setStates(indiaStates);
+      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+      setStates(indiaStates);
     };
     fetchStates();
-}, []);
+  }, []);
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
-  } else {
+    } else {
       // The user is authenticated, so you can make your API request here.
       axios
-          .get(`${VITE_DATA}/sit/show`, {
-              headers: {
-                  Authorization: `${token}`, // Send the token in the Authorization header
-              },
-          })
-          .then((response) => {
-            setSit(response.data);
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-  }
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/ncb/show`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+                setNcbLists(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }, []);
 
   useEffect(() => {
@@ -108,33 +129,33 @@ useEffect(() => {
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
-        const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
-        setStates(indiaStates);
+      const indiaStates = State.getStatesOfCountry("IN"); // Assuming "IN" is the country code for India
+      setStates(indiaStates);
     };
 
     fetchStates();
-}, []);
+  }, []);
 
-useEffect(() => {
-  const token = sessionStorage.getItem("token");
-  if (!token) {
-    toast.error("Not Authorized yet.. Try again! ");
-  } else {
-    // The user is authenticated, so you can make your API request here.
-    axios
-      .get(`${VITE_DATA}/cc/show`, {
-        headers: {
-          Authorization: `${token}`, // Send the token in the Authorization header
-        },
-      })
-      .then((response) => {
-        setCCList(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-}, []);
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/cc/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setCCList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
   const [allDetails, setAllDetails] = useState({
     entryDate: '',
@@ -175,7 +196,7 @@ useEffect(() => {
     odDiscount: '',
     ncb: '',
     advisorName: '',
-    advId:'',
+    advId: '',
     subAdvisor: '',
     policyMadeBy: '',
     branch: '',
@@ -252,41 +273,41 @@ useEffect(() => {
   //   }));
   // };
 
-  
-   
+
+
   // Add dependency
   useEffect(() => {
-  const calculateAge = () => {
-    const today = new Date();
-    const birthdateDate = new Date(allDetails.mfgYear);
+    const calculateAge = () => {
+      const today = new Date();
+      const birthdateDate = new Date(allDetails.mfgYear);
 
-    if (isNaN(birthdateDate.getTime())) {
-      console.error('Invalid date format for mfgYear');
-      return;
-    }
+      if (isNaN(birthdateDate.getTime())) {
+        console.error('Invalid date format for mfgYear');
+        return;
+      }
 
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
+      let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+      let ageMonths = today.getMonth() - birthdateDate.getMonth();
+      let ageDays = today.getDate() - birthdateDate.getDate();
 
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
+      if (ageDays < 0) {
+        const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        ageDays = lastDayOfPreviousMonth + ageDays;
+        ageMonths--;
+      }
 
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
+      if (ageMonths < 0) {
+        ageYears--;
+        ageMonths = 12 + ageMonths;
+      }
 
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      vehicleAge: `${ageYears} years`
-    }));
-  };
-   calculateAge();
-}, [allDetails.mfgYear]); 
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        vehicleAge: `${ageYears} years`
+      }));
+    };
+    calculateAge();
+  }, [allDetails.mfgYear]);
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {
@@ -333,23 +354,23 @@ useEffect(() => {
     const token = sessionStorage.getItem("token");
     // const branch = sessionStorage.getItem("name");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/advisor/all/lists`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                }
-            })
-            .then((response) => {
-                setAdvLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/advisor/all/lists`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          }
+        })
+        .then((response) => {
+          setAdvLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
   // useEffect(() => {
   //   const token = sessionStorage.getItem("token");
   //   if (!token) {
@@ -415,11 +436,11 @@ useEffect(() => {
       tpExpiry,
       policyEndDate: policyEnd,
       policyStartDate: startDate,
-      
+
     }));
   };
 
-  
+
 
 
   // show all data inside input tag
@@ -441,28 +462,28 @@ useEffect(() => {
     //  console.log(name + " : " + value);
 
     if (name === 'selectedState') {
-        setSelectedState(value);
-        const stateIsoCode = value;
-        // Fetch and set cities based on selected state
-        try {
-            const stateCities = City.getCitiesOfState("IN", stateIsoCode);
-            setCities(stateCities);
-            setSelectedCity('');
-        } catch (error) {
-            console.error("Error fetching cities:", error);
-            // Handle error appropriately
-        }
+      setSelectedState(value);
+      const stateIsoCode = value;
+      // Fetch and set cities based on selected state
+      try {
+        const stateCities = City.getCitiesOfState("IN", stateIsoCode);
+        setCities(stateCities);
+        setSelectedCity('');
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+        // Handle error appropriately
+      }
     }
     // For setting other details, assuming allDetails is correctly set and has a structure like { selectedState: '', selectedCity: '', ...otherDetails }
     setAllDetails((prevData) => ({
-        ...prevData,
-        [name]: value.toUpperCase(),
-        empTime: empTime,
-        states: name === 'selectedState' ? value : prevData.selectedState,
-        district: name === 'selectedCity' ? value : prevData.selectedCity,
-        advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
+      ...prevData,
+      [name]: value.toUpperCase(),
+      empTime: empTime,
+      states: name === 'selectedState' ? value : prevData.selectedState,
+      district: name === 'selectedCity' ? value : prevData.selectedCity,
+      advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
     }));
-};
+  };
 
 
 
@@ -842,40 +863,40 @@ useEffect(() => {
                           ))}
                         </select>
                       </div> */}
-                       <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
-                                                <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
-                                                <select className="input-style flex flex-wrap text-lg p-0.5 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
-                                                    <option value="">------- Select State -------- </option>
-                                                    {states.map(state => (
-                                                        <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
-                                                    ))}
-                                                </select>
-                                            </div>
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
+                        <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
+                        <select className="input-style flex flex-wrap text-lg p-0.5 rounded-lg" name="selectedState" value={allDetails.selectedState} onChange={handleInputChange}>
+                          <option value="">------- Select State -------- </option>
+                          {states.map(state => (
+                            <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
+                          ))}
+                        </select>
+                      </div>
 
 
-                                            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              {
-                // selectedCity ? (
-                  <select
-                    className="input-style text-base p-1 rounded-lg"
-                    name="selectedCity"
-                    id="selectedCity"
-                    value={allDetails.selectedCity}
-                    onChange={handleInputChange}
-                    disabled={!selectedState} // Disable city dropdown until a state is selected
-                  >
-                    <option value="">-------- Select District ---------</option>
-                  <option value="All">All</option>
-                  {/* Render other city options here if needed */}
-                  {
-                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
-                      <option key={index} value={data.name}>{data.name}</option>
-                    ))
-                  }
-                  </select>          
-              }
-            </div>
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                        <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                        {
+                          // selectedCity ? (
+                          <select
+                            className="input-style text-base p-1 rounded-lg"
+                            name="selectedCity"
+                            id="selectedCity"
+                            value={allDetails.selectedCity}
+                            onChange={handleInputChange}
+                            disabled={!selectedState} // Disable city dropdown until a state is selected
+                          >
+                            <option value="">-------- Select District ---------</option>
+                            <option value="All">All</option>
+                            {/* Render other city options here if needed */}
+                            {
+                              cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                                <option key={index} value={data.name}>{data.name}</option>
+                              ))
+                            }
+                          </select>
+                        }
+                      </div>
 
                       {/* FIELD - 9 */}
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
@@ -908,7 +929,21 @@ useEffect(() => {
                           <option value="LIFE">LIFE</option>
                         </select>
                       </div>
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                                                <select
+                                                    className="input-style p-1 text-base rounded-lg"
+                                                    type="text"
+                                                    value={allDetails.ncb}
+                                                    name="ncb"
+                                                    onChange={handleInputChange}>
+                                                    <option className="w-1" value="">----------- Select NCB ----------</option>
+                                                    {ncbLists.map((data) => (
+                                                        <option key={data._id} value={data.ncb}>{data.ncb}</option>
 
+                                                    ))}
+                                                </select>
+                                            </div>
                       {/* FIELD - 5 */}
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sourcing:</label>
@@ -1071,6 +1106,7 @@ useEffect(() => {
                         </select>
                       </div> */}
                       {/* FIELD - 21 */}
+                      {/* 
                       <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">GVW (kg):</label>
                         <input
@@ -1081,45 +1117,117 @@ useEffect(() => {
                           name="gvw"
                           placeholder="Enter GVW"
                         />
-                      </div>
+                      </div> */}
+                      {
+                        allDetails.segment === "C V" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">GVW (kg):</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={allDetails.gvw}
+                            onChange={handleInputChange}
+                            placeholder="Enter GVW"
+                            name="gvw"
+
+                          />
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">GVW (kg):<span className="text-red-600 text-sm">Disabled</span></label>
+                            <input
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              value={allDetails.gvw}
+                              onChange={handleInputChange}
+                              name="gvw"
+                              placeholder="Disabled"
+                              disabled
+                            />
+                          </div>)
+                      }
 
 
-                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-base rounded-lg"
-                type="text"
-                value={allDetails.sitcapacity}
-                onChange={handleInputChange}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">------ Select Seating -----------</option>
-                {
-                  sit && sit.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                {/* <option value="">NOT APPLICABLE</option> */}
-              </select>
-            </div>
-                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                        <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                     
+                      {
+                        allDetails.segment === "C V" && (allDetails.productCode === "SCHOOL BUS" || allDetails.productCode === "ROUTE BUS" || allDetails.productCode === "TAXI") ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1 ">Seating Capacity:</label>
                         <select
-                          className="input-style p-1 rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           type="text"
-                          name="cc"
-                          value={allDetails.cc}
+                          value={allDetails.sitcapacity}
                           onChange={handleInputChange}
-                          placeholder="Enter CC">
-                          <option className="w-1" value="" >----------- Select CC -----------</option>
+                          name="sitcapacity"
+                          placeholder="Enter Sitting Capacity"
+                        >
+                          <option value="">------ Select Seating -----------</option>
                           {
-                            ccList.map((data) => (
-                              <option key={data._id} value={data.cc}>{data.cc}</option>
+                            sit && sit.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
                             ))
                           }
+                          {/* <option value="">NOT APPLICABLE</option> */}
                         </select>
-                      </div>
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 text-sm">Disabled</span></label>
+                            <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          value={allDetails.sitcapacity}
+                          onChange={handleInputChange}
+                          name="sitcapacity"
+                          placeholder="Disabled"
+                          disabled
+
+                        >
+                          <option value="">------ Select Seating -----------</option>
+                          {
+                            sit && sit.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                            ))
+                          }
+                          {/* <option value="">NOT APPLICABLE</option> */}
+                        </select>
+                          </div>)
+                      }
+
+
+                      {
+                        allDetails.segment === "PVT-CAR" || allDetails.segment === "TW" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            name="cc"
+                            value={allDetails.cc}
+                            onChange={handleInputChange}
+                            placeholder="Enter CC">
+                            <option className="w-1" value="" >----------- Select CC -----------</option>
+                            {
+                              ccList.map((data) => (
+                                <option key={data._id} value={data.cc}>{data.cc}</option>
+                              ))
+                            }
+                          </select>
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">CC:<span className="text-red-600 text-sm">Disabled</span></label>
+                            <select
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              name="cc"
+                              value={allDetails.cc}
+                              onChange={handleInputChange}
+                              placeholder="Enter CC"
+                              disabled>
+                              <option className="w-1" value="" >----------- Select CC -----------</option>
+                              {
+                                ccList.map((data) => (
+                                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                                ))
+                              }
+                            </select>
+                          </div>)
+                      }
 
 
                       {/* FIELD - 34*/}

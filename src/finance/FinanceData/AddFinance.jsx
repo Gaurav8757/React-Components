@@ -1131,19 +1131,7 @@ function AddFinance() {
                 />
               </div>
 
-              {/* FIELD - 17 */}
-              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">OD Discount%:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="odDiscount"
-                  value={odDiscount}
-                  onChange={(e) => setOdDiscount(e.target.value)}
-                  placeholder="Enter OD Discount"
-                />
-               
-              </div> */}
+             
 
               <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
@@ -1165,22 +1153,29 @@ function AddFinance() {
 
               </div>
 
-              {/* FIELD - 18 */}
-              {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">NCB%:</label>
-                <input
-                  className="input-style rounded-lg"
-                  type="text"
-                  name="ncb"
-                  value={ncb}
-                  onChange={(e) => setNcb(e.target.value)}
-                  placeholder="Enter NCB"
-                />
-              </div> */}
-
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
-                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+              <div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                 <select
+                  className="input-style p-1 text-base rounded-lg"
+                  name="segment"
+                  value={segment}
+                  onChange={(e) => setSegment(e.target.value)}>
+                  <option className="w-1" value="" >----------- Select Segment ------------</option>
+                  <option value="C V">C V</option>
+                  <option value="PVT-CAR">PVT-CAR</option>
+                  <option value="TW">TW</option>
+                  <option value="HEALTH">HEALTH</option>
+                  <option value="NON-MOTOR">NON-MOTOR</option>
+                  <option value="LIFE">LIFE</option>
+                </select>
+                {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
+              </div>
+
+             
+              {
+                        segment === "PVT-CAR" ? (<div className="flex flex-col p-1 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                          <select
                   className="input-style p-1 text-base rounded-lg"
                   type="text"
                   name="ncb"
@@ -1190,15 +1185,35 @@ function AddFinance() {
                   <option className="w-1" value="" >-------------- Select NCB -------------</option>
                   {
                     ncbList.map((data) => (
+                      <option key={data._id} value={data.ncb}>{data.ncb}</option>
+                    ))
+                  }
+                </select>
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full  lg:w-1/5">
+                            <label className="text-base mx-1">NCB%:<span className="text-red-600 text-sm">Disabled</span></label>
+                            <select
+                  className="input-style p-1 text-base rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                  disabled
+                >
+                  <option className="w-1" value="" >-------------- Select NCB -------------</option>
+                  {
+                    ncbList.map((data) => (
                       <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
                     ))
                   }
                 </select>
-              </div>
+                          </div>)
+                      }
+
 
 
               {/* FIELD - 19 */}
-              <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/5">
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Policy Payment Mode:<span className="text-red-600 font-bold">*</span></label>
                 <select
                   id="policyPaymentMode"
@@ -1266,23 +1281,7 @@ function AddFinance() {
               </div>
 
               {/* FIELD - 21 */}
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
-                <select
-                  className="input-style p-1 text-base rounded-lg"
-                  name="segment"
-                  value={segment}
-                  onChange={(e) => setSegment(e.target.value)}>
-                  <option className="w-1" value="" >----------- Select Segment ------------</option>
-                  <option value="C V">C V</option>
-                  <option value="PVT-CAR">PVT-CAR</option>
-                  <option value="TW">TW</option>
-                  <option value="HEALTH">HEALTH</option>
-                  <option value="NON-MOTOR">NON-MOTOR</option>
-                  <option value="LIFE">LIFE</option>
-                </select>
-                {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
-              </div>
+             
 
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Sourcing:<span className="text-red-600 font-bold">*</span></label>
@@ -1456,58 +1455,118 @@ function AddFinance() {
                 </select>
               </div>
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                <label className="text-base mx-1">GVW(kg):</label>
-                <input
-                  className="input-style p-1 rounded-lg"
-                  type="text"
-                  value={gvw}
-                  name="gvw"
-                  onChange={(e) => setGvw(e.target.value)}
-                  placeholder="Enter GVW"
-                />
-                {/* {errors.gvw && <span className="text-red-600 text-sm ">{errors.gvw}</span>} */}
-              </div>
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-base rounded-lg"
-                type="text"
-                value={sitcapacity}
-                onChange={(e) => setSitCapacity(e.target.value)}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">------------ Select Seating -----------</option>
-                {
-                  sits && sits.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                {/* <option value="">NOT APPLICABLE</option> */}
-              </select>
-            </div>
+{
+                        segment === "C V" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">GVW (kg):</label>
+                          <input
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            value={gvw}
+                            onChange={(e) => setGvw(e.target.value)}
+                            placeholder="Enter GVW"
+                            name="gvw"
+
+                          />
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">GVW (kg):<span className="text-red-600 text-sm">Disabled</span></label>
+                            <input
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              value={gvw}
+                              onChange={(e) => setGvw(e.target.value)}
+                              name="gvw"
+                              placeholder="Disabled"
+                              disabled
+                            />
+                          </div>)
+                      }
+
+             
+ {
+                        segment === "C V" && (productCode === "SCHOOL BUS" || productCode === "ROUTE BUS" || productCode === "TAXI") ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1 ">Seating Capacity:</label>
+                        <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          value={sitcapacity}
+                          onChange={(e) => setSitCapacity(e.target.value)}
+                          name="sitcapacity"
+                          placeholder="Enter Sitting Capacity"
+                        >
+                          <option value="">------ Select Seating -----------</option>
+                          {
+                            sits && sits.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                            ))
+                          }
+                          {/* <option value="">NOT APPLICABLE</option> */}
+                        </select>
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 text-sm">Disabled</span></label>
+                            <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          value={sitcapacity}
+                          onChange={(e) => setSitCapacity(e.target.value)}
+                          name="sitcapacity"
+                          placeholder="Disabled"
+                          disabled
+                        >
+                          <option value="">------ Select Seating -----------</option>
+                          {
+                            sits && sits.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                            ))
+                          }
+                          {/* <option value="">NOT APPLICABLE</option> */}
+                        </select>
+                          </div>)
+                      }
 
 
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-                <select
-                  className="input-style p-1 rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value.toUpperCase())}
-                  placeholder="Enter CC"
-                >
-                  <option className="w-1" value="" >-------------- Select CC --------------</option>
-                  {
-                    ccList.map((data) => (
-                      <option key={data._id} value={data.cc}>{data.cc}</option>
-                    ))
-                  }
-                </select>
-              </div>
+
+
+
+              {
+                        segment === "PVT-CAR" || segment === "TW" ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                          <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 rounded-lg"
+                            type="text"
+                            name="cc"
+                            value={cc}
+                            onChange={(e) => setCc(e.target.value.toUpperCase())}
+                            placeholder="Enter CC">
+                            <option className="w-1" value="" >----------- Select CC -----------</option>
+                            {
+                              ccList.map((data) => (
+                                <option key={data._id} value={data.cc}>{data.cc}</option>
+                              ))
+                            }
+                          </select>
+                        </div>)
+                          : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
+                            <label className="text-base mx-1">CC:<span className="text-red-600 text-sm">Disabled</span></label>
+                            <select
+                              className="input-style p-1 rounded-lg"
+                              type="text"
+                              name="cc"
+                              value={cc}
+                              onChange={(e) => setCc(e.target.value.toUpperCase())}
+                              placeholder="Enter CC"
+                              disabled>
+                              <option className="w-1" value="" >----------- Select CC -----------</option>
+                              {
+                                ccList.map((data) => (
+                                  <option key={data._id} value={data.cc}>{data.cc}</option>
+                                ))
+                              }
+                            </select>
+                          </div>)
+                      }
 
               {/* FIELD - 36 */}
               <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
