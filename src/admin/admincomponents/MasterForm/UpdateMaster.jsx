@@ -435,7 +435,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
     setAllDetails(prevDetails => ({
       ...prevDetails,
-      finalEntryFields: finalAmountValue.toFixed(2)
+      finalEntryFields: finalAmountValue.toFixed(0)
     }));
   };
 

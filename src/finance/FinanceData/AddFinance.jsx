@@ -480,7 +480,7 @@ function AddFinance() {
     const rsaValue = parseFloat(rsa) || 0;
     const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
 
-    setFinalEntryFields(finalAmountValue.toFixed(2)); // Assuming you want to display the final amount with two decimal places
+    setFinalEntryFields(finalAmountValue.toFixed(0)); // Assuming you want to display the final amount with two decimal places
   };
 
   // calculate branch payable amount

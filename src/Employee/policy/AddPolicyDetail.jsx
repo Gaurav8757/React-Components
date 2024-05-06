@@ -262,7 +262,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
         setAllDetails(prevDetails => ({
             ...prevDetails,
-            finalEntryFields: finalAmountValue.toFixed(2)
+            finalEntryFields: finalAmountValue.toFixed(0)
         }));
     };
 
