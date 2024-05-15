@@ -21,9 +21,7 @@ function ViewFinance() {
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [policyNo, setPolicyNo] = useState("");
   const name = sessionStorage.getItem('finname');
-  //   console.log(currentPage);
-  //   console.log(itemsPerPage);
-  //  console.log(allDetailsData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,11 +37,9 @@ function ViewFinance() {
           }
         });
         setAllDetailsData(response.data.allList);
-        // console.log(response.data.totalPages);
         setTotalPages(response.data.totalPages);
       } catch (error) {
         setError(error.message);
-        // setLoading(false);
       }
     };
     fetchData();
@@ -53,7 +49,6 @@ function ViewFinance() {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get('page')) || 1;
     const limit = parseInt(params.get('limit')) || 100;
-
     setCurrentPage(page);
     setItemsPerPage(limit);
   }, []);
@@ -62,7 +57,6 @@ function ViewFinance() {
   const onUpdateInsurance = async () => {
     try {
       const token = sessionStorage.getItem("token");
-
       if (!token) {
         toast.error("Not Authorized yet.. Try again!");
       } else {
@@ -275,7 +269,6 @@ function ViewFinance() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 ">
-          {/* <div className=" flex relative text-blue-500 min-w-full w-full pt-5  justify-between"> */}
           <div className=" m-2 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
             <h1></h1>
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
@@ -296,7 +289,6 @@ function ViewFinance() {
               <span className='text-justify mx-1 my-1 '>to</span>
               <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
             </div>
-
             <div className=" p-0   text-center  lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
               <input
@@ -306,7 +298,6 @@ function ViewFinance() {
                 placeholder="ID"
               />
             </div>
-
             <div className="flex justify-start p-0 text-end  lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
               <input
@@ -316,8 +307,7 @@ function ViewFinance() {
                 placeholder="Company Name"
               />
             </div>
-
-            <div className="   text-start  lg:w-1/4">
+            <div className="text-start lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Insured Name:</label>
               <input
                 type="search"
@@ -326,7 +316,6 @@ function ViewFinance() {
                 placeholder="Insured Name"
               />
             </div>
-
             <div className="flex justify-start my-3  text-start lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Branch:</label>
               <input
@@ -355,7 +344,6 @@ function ViewFinance() {
                 placeholder="Policy Number"
               /></div>
           </div>
-
 
           <div className="inline-block min-w-full w-full py-0 relative bg-slate-300">
             <table className="min-w-full text-center bg-slate-300 text-sm font-light table border border-black">
@@ -387,8 +375,7 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">NCB</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">States</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">District</th>
-                 
+                  <th scope="col" className="px-1 pt-0 sticky border border-black">District</th>    
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Segment</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sourcing</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Start Date</th>
@@ -422,7 +409,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyrefno}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.branch}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.insuredName}</td>
+                    <td className="whitespace-wrap px-1 py-1 border border-black">{data.insuredName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.contactNo}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.staffName}</td>
@@ -444,8 +431,7 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.ncb}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
                     <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
-                   
+                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td> 
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.segment}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sourcing}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyStartDate}</td>

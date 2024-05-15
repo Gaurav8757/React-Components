@@ -14,7 +14,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     const [data, setData] = useState([]);
     const [advLists, setAdvLists] = useState([]);
     const [states, setStates] = useState([]);
-    // eslint-disable-next-line no-unused-vars
+   
     const [cities, setCities] = useState([]);
     const [odList, setOdList] = useState([]);
     // eslint-disable-next-line no-unused-vars
@@ -38,33 +38,31 @@ function AddPolicyDetail({ insurance, onUpdates }) {
     }
     const time = getFormattedTime();
 
-    // useEffect(()=>{
-    //     setEmpTime(time);
-    // }, [time]);
+   console.log(cities);
 
     const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
     "Bhagalpur",
     "Bhojpur",
     "Buxar",
     "Darbhanga",
-    "East Champaran (Motihari)",
+    "East Champaran(Motihari)",
     "Gaya",
     "Gopalganj",
     "Jamui",
     "Jehanabad",
-    "Kaimur (Bhabua)",
+    "Kaimur District",
     "Katihar",
     "Khagaria",
     "Kishanganj",
     "Lakhisarai",
     "Madhepura",
     "Madhubani",
-    "Munger (Monghyr)",
+    "Munger(Monghyr)",
     "Muzaffarpur",
     "Nalanda",
     "Nawada",
     "Patna",
-    "Purnia (Purnea)",
+    "Purnia(Purnea)",
     "Rohtas",
     "Saharsa",
     "Samastipur",
@@ -496,7 +494,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                             onChange={handleInputChange}
                             disabled={!selectedState} // Disable city dropdown until a state is selected
                           >
-                            <option value="">-------- Select District ---------</option>
+                            <option value="">------------- Select District ---------------</option>
                             <option value="All">All</option>
                             {/* Render other city options here if needed */}
                             {

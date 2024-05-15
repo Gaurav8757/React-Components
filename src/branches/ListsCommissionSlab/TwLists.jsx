@@ -22,7 +22,7 @@ function TwLists() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/commission/slab/view`, {
+        .get(`${VITE_DATA}/company/grid/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -46,7 +46,7 @@ function TwLists() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `${VITE_DATA}/commission/slab/view`,
+          `${VITE_DATA}/company/grid/slab/view`,
           {
             headers: {
               Authorization: `${token}`,
@@ -83,6 +83,8 @@ function TwLists() {
           row.vcc,
           row.payoutons,
           row.cvpercentage, 
+          row.branchpayoutper,
+          row.companypayoutper
         ];
       });
   
@@ -101,7 +103,9 @@ function TwLists() {
         "OD Discount(%)",
         "C.C",
         "PayOut On",
-        "Advisor Percentage"
+        "Advisor Percentage",
+        "Branch Percentage",
+        "Company Percentage"
       ];
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -131,8 +135,8 @@ function TwLists() {
 
   const confirmDeleteVeh = async (_id) => {
     try {
-      await axios.delete(`${VITE_DATA}/commission/slab/del/${_id}`);
-      toast.error("Advisor Payout Grid Deleted Successfully.....!", { theme: "dark", position: "top-right" });
+      await axios.delete(`${VITE_DATA}/company/grid/slab/del/${_id}`);
+      toast.error("Payout Grid Deleted Successfully.....!", { theme: "dark", position: "top-right" });
       setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
     } catch (error) {
       console.error('Error Deleting Slabs', error);
@@ -144,7 +148,7 @@ function TwLists() {
       <div className="container-fluid  p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
         <div className=" flex justify-between text-red-700">
           <h1 className="flex "></h1>
-          <span className="  text-center my-1 mt-2 text-3xl font-semibold">Advisor Payout Grid List&apos;s</span>
+          <span className="  text-center my-1 mt-2 text-3xl font-semibold">Payout Grid&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
       </div>
@@ -159,6 +163,9 @@ function TwLists() {
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Category Name
+            </th>
+            <th scope="col" className="px-1 pt-2 sticky border border-black">
+              Advisor Name
             </th>
             <th scope="col" className="px-1 pt-2 sticky border border-black">
               State
@@ -212,7 +219,7 @@ function TwLists() {
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
           {APIData.reverse().map((data) => {
-            if (data.advisorId && data.advisorName) {
+            if (data) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-0 py-0 border border-black">
@@ -220,6 +227,7 @@ function TwLists() {
                     </td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
+                  <td className="px-1 py-0 border border-black">{data.advisorName}</td>
                   <td className="px-1 py-0 border border-black">{data.states}</td>
                   <td className="px-1 py-0 border border-black">
                   <div className="max-h-10 overflow-hidden">
@@ -240,6 +248,7 @@ function TwLists() {
                       )}
                     </div>
                   </td>
+                  
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 border border-black">{data.sitcapacity}</td>
                   <td className="px-1 py-0 border border-black">{data.vage}</td>

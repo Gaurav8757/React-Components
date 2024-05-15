@@ -337,12 +337,12 @@ function TwUpdateSlab({ slab, update }) {
     try {
       setLoading(true);
       // Use the selected category ID in the patch method
-      const resp = await axios.put(`${VITE_DATA}/commission/slab/${slab._id}`, allDetails);
-      toast.success(`${resp.data.status}`);
+      await axios.put(`${VITE_DATA}/company/grid/slab/${slab._id}`, allDetails);
+      toast.success(`${"Grid Updated Successfully.....!"}`);
       closeModal(); // Close the modal after successful submission
       update();
     } catch (error) {
-      console.error("Error updating insurance details:", error);
+      console.error("Error to updating Grid:", error);
     } finally {
       setLoading(false);
     }
@@ -351,7 +351,7 @@ function TwUpdateSlab({ slab, update }) {
   return (
     <>
       {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-1 py-1 my-1 text-center ">
+      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
         Update
       </button>
       {/* <!-- Main modal --> */}
@@ -364,7 +364,7 @@ function TwUpdateSlab({ slab, update }) {
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
           <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
-            <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-700 rounded-lg shadow dark:bg-slate-100">
+            <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow dark:bg-slate-100">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-100">
@@ -379,15 +379,18 @@ function TwUpdateSlab({ slab, update }) {
               </div>
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-600 to-cyan-700">
+              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-700 to-orange-700">
                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <div className="flex flex-wrap justify-between">
+
+                   
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+
                         <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
                         <select
                           id="company"
-                          className="input-style p-1 rounded-lg text-lg"
+                          className="input-style p-1 rounded-lg text-base"
                           value={allDetails.cnames}
                           name="cnames"
                           onChange={(e) => {
@@ -407,7 +410,7 @@ function TwUpdateSlab({ slab, update }) {
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Category:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style w-full p-1 text-lg rounded-lg"
+                          className="input-style w-full p-1 text-base rounded-lg"
                           value={allDetails.catnames}
                           name="catnames"
                           onChange={handleInputChange}>
@@ -423,7 +426,7 @@ function TwUpdateSlab({ slab, update }) {
 
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">State:<span className="text-red-600 font-bold">*</span></label>
-                        <select className="input-style text-lg p-1 rounded-lg" name="states" value={selectedState} onChange={handleStateChange}>
+                        <select className="input-style text-base p-1 rounded-lg" name="states" value={selectedState} onChange={handleStateChange}>
                           <option value="">----------- Select State ----------- </option>
                           {state.map(state => (
                             <option key={state.isoCode} value={state.isoCode}>{state.name}</option>
@@ -433,7 +436,7 @@ function TwUpdateSlab({ slab, update }) {
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style text-lg p-1 rounded-lg"
+                          className="input-style text-base p-1 rounded-lg"
                           value={allDetails.districts}
                           name="districts"
                           onChange={handleInputChange}
@@ -450,10 +453,10 @@ function TwUpdateSlab({ slab, update }) {
 
                         </select>
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           name="segments"
                           value={allDetails.segments}
                           onChange={handleInputChange}>
@@ -467,10 +470,10 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
 
-                      <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col mt-4 p-1 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1 ">Seating Capacity:</label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           type="text"
                           value={allDetails.sitcapacity}
                           onChange={handleInputChange}
@@ -487,10 +490,10 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       {/* 4 */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           value={allDetails.policytypes}
                           name="policytypes"
                           onChange={handleInputChange
@@ -509,11 +512,11 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       {/* PRODUCT CODE */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
                         <select
                           id="productCode"
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           value={allDetails.pcodes}
                           name="pcodes"
                           onChange={handleInputChange}
@@ -526,11 +529,11 @@ function TwUpdateSlab({ slab, update }) {
                             )))}
                         </select>
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
                         <select
                           id="vage" name="vage"
-                          className="input-style text-lg p-1 rounded-lg"
+                          className="input-style text-base p-1 rounded-lg"
                           value={allDetails.vage}
                           onChange={handleInputChange}>
                           <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
@@ -542,10 +545,10 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
 
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           value={allDetails.vfuels}
                           name="vfuels"
                           onChange={handleInputChange}>
@@ -558,10 +561,10 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       {/* FIELD - 18 */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           type="text"
                           value={allDetails.vncb}
                           name="vncb"
@@ -578,10 +581,10 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
 
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           type="text"
                           name="voddiscount"
                           value={allDetails.voddiscount}
@@ -598,18 +601,18 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
 
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
                         <select
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           type="text"
                           name="vcc"
                           value={allDetails.vcc}
                           onChange={handleInputChange}
                           placeholder="Enter CC"
                         >
-                          <option className="w-1" value="NA" >------------- Select CC --------------</option>
-                          <option value="">All</option>
+                          <option className="w-1" value="" >------------- Select CC --------------</option>
+                          <option value="ALL">All</option>
                           {
                             ccList.map((data) => (
                               <option key={data._id} value={data.cc}>{data.cc}</option>
@@ -618,12 +621,12 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       {/* payout on */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>
                         <select
                           id="payoutons"
                           name="payoutons"
-                          className="input-style p-1 text-lg rounded-lg"
+                          className="input-style p-1 text-base rounded-lg"
                           value={allDetails.payoutons}
                           onChange={handleInputChange}
                         >
@@ -637,7 +640,7 @@ function TwUpdateSlab({ slab, update }) {
                         </select>
                       </div>
                       {/* PERCENTAGE */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 rounded-lg"
@@ -648,7 +651,20 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder="%"
                         />
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                     
+
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+                        <input
+                          className="input-style p-1 rounded-lg"
+                          type="text"
+                          value={allDetails.branchpayoutper}
+                          onChange={handleInputChange}
+                          name="branchpayoutper"
+                          placeholder="%"
+                        />
+                      </div>
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 rounded-lg"
@@ -659,7 +675,7 @@ function TwUpdateSlab({ slab, update }) {
                           placeholder="%"
                         />
                       </div>
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
                     </div>
 
                     {/* button */}

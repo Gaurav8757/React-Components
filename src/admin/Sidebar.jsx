@@ -142,13 +142,19 @@ const Sidebar = () => {
       subRoutes: [
 
         {
-          title: "Leger 1",
+          title: "Daily Leger",
           path: "/dashboard/ledger1",
+          dash: "/dashboard/daily/view"
+        },
+       
+        {
+          title: "Monthly Leger",
+          path: "/dashboard/ledger2",
           dash: ""
         },
         {
-          title: "Ledger 2",
-          path: "/dashboard/ledger2",
+          title: "Company Leger",
+          path: "/dashboard/ledger3",
           dash: ""
         },
       ]

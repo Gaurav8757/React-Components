@@ -16,6 +16,7 @@ function CompanySlab() {
   const [category, setCategory] = useState('');
   const [policyType, setPolicyType] = useState('');
   const [newCity, setNewCity] = useState('');
+  const [branchname, setBranchname] = useState('');
   const [productCode, setProductCode] = useState('');
   const [vage, setVage] = useState("");
   const [payoutOnList, setPayoutOnList] = useState([]);
@@ -28,12 +29,12 @@ function CompanySlab() {
   const [odDiscount, setOdDiscount] = useState('');
   const [ncb, setNcb] = useState('');
   const [cc, setCc] = useState('');
-  const [advisors, setAdvisors] = useState([]);
+  // const [advisors, setAdvisors] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [ncbList, setNcbLists] = useState([]);
   const [advisorName, setAdvisorName] = useState("");
-  const [advisorId, setAdvisorId] = useState('');
-  const [advisorUniqueId, setAdvisorUniqueId] = useState('');
+  // const [advisorId, setAdvisorId] = useState('');
+  // const [advisorUniqueId, setAdvisorUniqueId] = useState('');
   const [states, setStates] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [cities, setCities] = useState([]);
@@ -43,6 +44,7 @@ function CompanySlab() {
   const [odList, setOdList] = useState([]);
   const [ccList, setCCList] = useState([]);
   const [sit, setSit] = useState([]);
+  const [APIData, setAPIData] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [local, setCompanyGrid] = useState([]);
   const token = sessionStorage.getItem("token");
@@ -58,7 +60,7 @@ function CompanySlab() {
   "Gopalganj",
   "Jamui",
   "Jehanabad",
-  "Kaimur (Bhabua)",
+  "Kaimur District",
   "Katihar",
   "Khagaria",
   "Kishanganj",
@@ -92,7 +94,6 @@ function CompanySlab() {
 
     fetchStates();
   }, []);
-
 
   const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
@@ -176,20 +177,63 @@ function CompanySlab() {
     }
   }, [formSubmitted]);
 
+  // useEffect(() => {
+  //   axios.get(`${VITE_DATA}/advisor/lists`, {
+  //     headers: {
+  //       Authorization: `${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       // Assuming response.data is an array
+  //       setAdvisors(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [token]);
   useEffect(() => {
-    axios.get(`${VITE_DATA}/advisor/lists`, {
-      headers: {
-        Authorization: `${token}`,
-      },
-    })
-      .then((response) => {
-        // Assuming response.data is an array
-        setAdvisors(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [token]);
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+    } else {
+        // The user is authenticated, so you can make your API request here.
+        axios
+            .get(`${VITE_DATA}/api/branch-list`, {
+                headers: {
+                    Authorization: `${token}`, // Send the token in the Authorization header
+                },
+            })
+            .then((response) => {
+                setAPIData(response.data);
+
+            })
+            .catch((error) => {
+
+                console.error(error);
+            });
+    }
+}, []);
+
+//   useEffect(() => {
+//     if (branchname) {
+//         const token = sessionStorage.getItem("token");
+//         axios
+//             .get(`${VITE_DATA}/advisor/lists`, {
+//                 headers: {
+//                     Authorization: `${token}`,
+//                 },
+//             })
+//             .then((response) => {
+//                 const filteredAdvisors = response.data.filter(
+//                     (advisor) => advisor.branch == branchname
+//                 );
+//                 setAdvisors(filteredAdvisors);
+//             })
+//             .catch((error) => {
+//                 console.error(error);
+//             });
+//     }
+// }, [branchname]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -292,50 +336,38 @@ function CompanySlab() {
     }
   }, []);
 
-  const handleChange = (e) => {
-    const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
-    setAdvisorName(selectedAdvisor?.advisorname || "");
-    setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
-    setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
-  };
+
+
+  // const handleChange = (e) => {
+  //   const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
+  //   setAdvisorName(selectedAdvisor?.advisorname || "");
+  //   setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
+  //   setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
+  // };
 
 
   const handleVageChange = (e) => {
     const selectedVage = e.target.value;
     setVage(selectedVage);
-    // Perform calculations based on the selected value
-    // switch (selectedVage) {
-    //   case 'NEW':
-    //     // Perform calculations for NEW vehicles
-    //     break;
-    //   case '1-5 YEARS':
-    //     // Perform calculations for vehicles aged 1-5 years
-    //     break;
-    //   case '6-10 YEARS':
-    //     // Perform calculations for vehicles aged 6-10 years
-    //     break;
-    //   case 'MORE THAN 10 YEARS':
-    //     // Perform calculations for vehicles aged more than 10 years
-    //     break;
-    //   default:
-    //     // Handle default case or invalid input
-    // }
   };
 
-  const handleAdvisorPayoutChange = (e) => {
-    const advisorPercentage = e.target.value;
-    // Your calculation logic for branch payout percentage based on advisor percentage
-    // const calculatedBranchPayout = advisorPercentage;
-
-    // Set both advisor and branch payout percentages
-    setPoPercentage(advisorPercentage);
-    setBranchpayoutper(advisorPercentage);
-  };
+  // const handleAdvisorPayoutChange = (e) => {
+  //   const advisorPercentage = e.target.value;
+  
+  //   setPoPercentage(advisorPercentage);
+  //   setBranchpayoutper(advisorPercentage);
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formSubmitted) {
       return;
     }
+    if (!branchname) {
+      // If branchname is empty, display an error message or handle it as needed
+      // For example, you can show a toast message:
+      toast.error("Please select a branch");
+      return; // Exit the function to prevent further execution
+  }
 
     try {
       const token = sessionStorage.getItem("token");
@@ -343,8 +375,18 @@ function CompanySlab() {
         toast.error("Not Authorized yet.. Try again! ");
         return;
       }
+      if (!company ) {
+        toast.error('Please Select a valid Company Name!');
+        return; // Prevent further execution if advisorName is not selected
+      }
+      if (!category ) {
+        toast.error('Please Select a valid Category Type!');
+        return; // Prevent further execution if advisorName is not selected
+      }
       const formData = {
         vehicleSlab: "Payout-Slab",
+        company: "EleedomIMF",
+        branch: branchname,
         cnames: company,
         catnames: category,
         segments: segment,
@@ -358,15 +400,15 @@ function CompanySlab() {
         vncb: ncb,
         advisorName,
         cvpercentage: popercentage,
-        advisorId,
-        advisorUniqueId,
+        // advisorId,
+        // advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
         districts: selectedCity || newCity,
         branchpayoutper,
         companypayoutper
       };
-      await axios.post(`${VITE_DATA}/commission/slab/add`, formData, {
+      await axios.post(`${VITE_DATA}/company/grid/slab/add`, formData, {
         headers: {
           Authorization: `${token}`
         }
@@ -391,6 +433,7 @@ function CompanySlab() {
       // setAdvisors('');
       setCc('');
       setOdDiscount('');
+      setBranchname('');
       setSit('');
       setPayoutOn('');
       // setPoPercentage('');
@@ -408,10 +451,35 @@ function CompanySlab() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl  text-white dark:text-black">Payout Grid</h1>
-
+          <h1 className="font-bold text-2xl text-black">Payout Grid</h1>
+          <h1 className="flex my-5 font-bold text-2xl justify-center text-orange-800">
+            EleedomIMF Pvt Ltd
+            </h1>
           <div className="flex justify-center mb-5">
-            <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
+           
+          <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
+              <label className="text-xl mx-1 my-2 font-bold"><span className="text-red-600 font-bold">*</span>Branch:<span className="text-red-600 font-bold">*</span></label>
+              <select
+                className="input-style p-1  text-lg rounded-lg"
+                value={branchname}
+                name="branchname"
+                onChange={(e)=>{setBranchname(e.target.value)}}
+                required 
+                >
+                <option className="w-1 text-lg" value="" >--------------- Select Branch --------------</option>
+                <option value="ALL">ALL</option>
+                {
+                  APIData.map((name) => {
+                      return (
+                        <option className="text-lg" key={name._id} value={name.branchname}>
+                          {`${name.branchname}`}
+                        </option>
+                      );
+                  })
+                }
+              </select>
+            </div>
+            {/* <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
               <label className="text-xl mx-1 my-2 font-bold"><span className="text-red-600 font-bold">*</span>Advisor Name<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1  text-lg rounded-lg"
@@ -433,7 +501,7 @@ function CompanySlab() {
                   })
                 }
               </select>
-            </div>
+            </div> */}
            
 
           </div>
@@ -696,7 +764,7 @@ function CompanySlab() {
                 }
               </select>
             </div>
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+            {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
               <input
                 className="input-style p-1 text-lg rounded-lg"
@@ -706,8 +774,20 @@ function CompanySlab() {
                 name="popercentage"
                 placeholder="%"
               />
+            </div> */}
+            {/* branch payout % */}
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1 ">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style p-1 text-lg rounded-lg"
+                type="number"
+                value={branchpayoutper}
+                onChange={(e) => setBranchpayoutper(e.target.value)}
+                name="branchpayoutper"
+                placeholder="%"
+                
+              />
             </div>
-           
             {/* COMPANY payout % */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
@@ -720,19 +800,7 @@ function CompanySlab() {
                 placeholder="%"
               />
             </div>
-             {/* branch payout % */}
-             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 hidden">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
-              <input
-                className="input-style p-1 text-lg rounded-lg"
-                type="number"
-                value={branchpayoutper}
-                onChange={(e) => setBranchpayoutper(e.target.value)}
-                name="branchpayoutper"
-                placeholder="%"
-                hidden
-              />
-            </div>
+            
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
           </div>

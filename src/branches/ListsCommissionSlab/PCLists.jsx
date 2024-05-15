@@ -10,7 +10,7 @@ import VITE_DATA from "../../config/config.jsx";
 function PCLists() {
   const [APIData, setAPIData] = useState([]);
   const [deletingStaffId, setDeletingStaffId] = useState(null);
-
+  const name = sessionStorage.getItem("name");
   const deleteStaff = (_id) => {
     // Show modal confirmation dialog
     setDeletingStaffId(_id);
@@ -24,9 +24,13 @@ function PCLists() {
       // The user is authenticated, so you can make your API request here.
       axios
         .get(`${VITE_DATA}/company/grid/slab/view`, {
+          
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
+            params:{
+              branch:name
+          }
         })
         .then((response) => {
 
@@ -37,7 +41,7 @@ function PCLists() {
           console.error(error);
         });
     }
-  }, []);
+  }, [name]);
 
   const updateSlabs = async () => {
     try {
@@ -50,7 +54,9 @@ function PCLists() {
           {
             headers: {
               Authorization: `${token}`,
-            },
+            },params:{
+              branch:name
+          }
           }
         );
         setAPIData(response.data);
@@ -85,8 +91,8 @@ function PCLists() {
           row.vcc,
           row.payoutons,
           row.cvpercentage,
-          row.branchpayoutper,
-          row.companypayoutper,
+          // row.branchpayoutper,
+        
         ];
       });
 
@@ -106,9 +112,8 @@ function PCLists() {
         "Seating Capacity",
         "C.C",
         "PayOut On",
-        "Advisor Payout",
-        "Branch Percentage",
-        "Company Percentage"
+        "Advisor Percentage",
+        // "Branch Percentage",
       ];
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -152,7 +157,7 @@ function PCLists() {
       <div className="container-fluid  p-2  w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-200">
         <div className="flex justify-between text-red-700 mt-2 ">
           <h1></h1>
-          <span className=" flex justify-center text-center  text-3xl font-semibold">Company Payout Grid List&apos;s</span>
+          <span className=" flex justify-center text-center  text-3xl font-semibold">Advisor Payout Grid List&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
       </div>
@@ -162,6 +167,12 @@ function PCLists() {
 
             <th scope="col" className="px-0 py-0 border border-black">
               Update
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black">
+              Advisor ID
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black">
+              Advisor Name
             </th>
             <th scope="col" className="px-1 py-0 border border-black">
               Company Name
@@ -202,28 +213,30 @@ function PCLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               PayoutOn
             </th>
-            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
+            <th scope="col" className="px-1 py-0 border border-black sticky">
               Advisor Percentage
-            </th> */}
+            </th>
             {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
             </th> */}
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Company Percentage%
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            </th> */}
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Delete
-            </th>
+            </th> */}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-        {APIData.reverse().filter(data => data.advisorName === "").map((data) => {
+        {APIData.reverse().map((data) => {
             if (data.vehicleSlab) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 border border-black">
                     <PcUpdates slab={data} update={updateSlabs} />
                   </td>
+                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorUniqueId}</td>
+                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorName}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
                   <td className="px-1 py-0 border border-black">{data.states}</td>
@@ -257,12 +270,12 @@ function PCLists() {
                   <td className="px-1 py-0 border border-black">{data.vcc}</td>
                   {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                  {/* <td className="px-1 py-0 border border-black">{data.cvpercentage}</td> */}
-                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td> */}
-                  <td className="px-1 py-0 border border-black">{data.companypayoutper}{"%"}</td>
-                  <td className="px-1 py-0 border border-black">
+                  <td className="px-1 py-0 border border-black">{data.cvpercentage}{"%"}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}{"%"}</td> */}
+                  {/* <td className="px-1 py-0 border border-black">{data.companypayoutper}{"%"}</td> */}
+                  {/* <td className="px-1 py-0 border border-black">
                     <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             } else {

@@ -38,7 +38,7 @@ function ListAdvisor() {
                     console.error(error);
                 });
         }
-    }, []);
+    });
 
     // refreshing page after updating data
     const onUpdateAdvisor = async () => {
@@ -110,6 +110,7 @@ function ListAdvisor() {
                     row.advisoremail,
                     row.advisormobile,
                     row.advisoraddress,
+                    row.advisortype
                 ];
             });
 
@@ -120,6 +121,7 @@ function ListAdvisor() {
                 "Email ID",
                 "Mobile No.",
                 "Address",
+                "Advisor Payout Type"
             ];
             // Create worksheet
             const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -175,8 +177,8 @@ function ListAdvisor() {
                         </div>
 
 
-                        <div className="flex-wrap flex my-5 justify-between  text-blue-500  ">
-                            <div className=" p-0  my-auto text-center  lg:w-1/4">
+                        <div className="flex-wrap flex my-auto mt-5 justify-between  text-blue-500  ">
+                            <div className=" p-0  my-auto text-center  lg:w-1/5">
                                 <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
                                 <input
                                     type="search"
@@ -206,7 +208,7 @@ function ListAdvisor() {
                                 />
                             </div>
 
-                            <div className="fp-0  my-auto text-center  lg:w-1/4">
+                            <div className="p-0  my-auto text-center  lg:w-1/4">
                                 <label className="my-0 text-lg font-medium text-gray-900">Email:</label>
                                 <input
                                     type="search"
@@ -239,6 +241,9 @@ function ListAdvisor() {
                                         Location
                                     </th>
                                     <th scope="col" className="px-1 border border-black">
+                                        Payout Type
+                                    </th>
+                                    <th scope="col" className="px-1 border border-black">
                                         Update
                                     </th>
                                     <th scope="col" className="px-1 border border-black">
@@ -257,29 +262,29 @@ function ListAdvisor() {
                                     return (
                                         <tr key={data._id}
                                             className="border-b  bg-slate-200 text-sm font-medium">
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.uniqueId}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisorname}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisoremail}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisormobile}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisoraddress}
                                             </td>
-                                            {/* <td className="whitespace-nowrap px-1 border border-black">
-                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm my-1 px-2 py-2 text-center 2">Delete</button>
-                                            </td> */}
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                           <td className="whitespace-nowrap px-0.5 border border-black">
+                                            {data.advisortype}
+                                           </td>
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 <AdvisorUpdates advisors={data} onUpdates={onUpdateAdvisor} />
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
-                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center ">Delete</button>
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
+                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
                                             </td>
                                         </tr>
                                     );
@@ -290,7 +295,7 @@ function ListAdvisor() {
                 </div>
             </div>
             {/* Pagination */}
-            <nav aria-label="Page navigation  flex example sticky   ">
+            <nav aria-label="Page navigation  flex example sticky">
                 <ul className="flex space-x-2 mt-2 justify-end">
                     <li>
                         <button

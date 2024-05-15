@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "antd": "^5.17.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "country-state-city": "^3.2.1",

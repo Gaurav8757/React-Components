@@ -178,6 +178,8 @@ import Ledger1 from "./admin/admincomponents/Ledger/Ledger1.jsx";
 import Ledger2 from "./admin/admincomponents/Ledger/Ledger2.jsx";
 import Ledger3 from "./admin/admincomponents/Ledger/Ledger3.jsx";
 import LeaveBalance from "./HumanResources/LeaveBalance/LeaveBalance.jsx";
+import PayoutView from "./advisor/payout/PayoutView.jsx";
+// import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -292,6 +294,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/ledger1" element={<Ledger1 />} />
           <Route path="/dashboard/ledger2" element={<Ledger2 />} />
           <Route path="/dashboard/ledger3" element={<Ledger3/>} />
+          {/* <Route path="/dashboard/daily/view" element={<LegerDailyView/>} /> */}
         </Route>
       </Route>
 
@@ -311,7 +314,7 @@ const router = createBrowserRouter(
           <Route path="/branches/home/advisor/register" element={< AddAdvisors />} />
           <Route path="/branches/home/advisor/lists" element={<ListAdvisor />} />
           <Route path="/branches/home/commvehicle/lists" element={<CvLists />} />
-          {/* <Route path="/branches/home/pvtvehicle/lists" element={<PCLists/>} /> */}
+          <Route path="/branches/home/advisor/grids" element={<PCLists/>} />
           <Route path="/branches/home/payout/lists" element={<TwLists />} />
         </Route>
       </Route>
@@ -324,6 +327,7 @@ const router = createBrowserRouter(
         <Route path="/advisor/home" element={<LayoutAdvisor />}>
           <Route path="/advisor/home" element={<HomepageAdvisor />} />
           <Route path="/advisor/home/viewinsurance" element={<InsuranceLists />} />
+          <Route path="/advisor/home/payout/view" element={<PayoutView />} />
         </Route>
       </Route>
 

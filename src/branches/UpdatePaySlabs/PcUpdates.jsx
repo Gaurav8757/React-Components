@@ -32,7 +32,7 @@ function PcUpdates({ slab, update }) {
     "Gopalganj",
     "Jamui",
     "Jehanabad",
-    "Kaimur (Bhabua)",
+    "Kaimur District",
     "Katihar",
     "Khagaria",
     "Kishanganj",
@@ -96,23 +96,23 @@ function PcUpdates({ slab, update }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/sit/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-              setSit(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   // OPEN MODAL
   const openModal = () => {
@@ -267,10 +267,11 @@ function PcUpdates({ slab, update }) {
     voddiscount: slab.voddiscount || '', // Pre-saved OD discount
     vcc: slab.vcc || '', // Pre-saved CC
     payoutons: slab.payoutons || '', // Pre-saved payout on
-    // branchpayoutper: slab.branchpayoutper || '', // Pre-saved advisor payout percentage
-    companypayoutper: slab.companypayoutper || '',
+    branchpayoutper: slab.branchpayoutper || '', // Pre-saved advisor payout percentage
+    // companypayoutper: slab.companypayoutper || '',
     sitcapacity: slab.sitcapacity || '',
-    // cvpercentage: slab.popercentage || '',
+    cvpercentage: slab.popercentage || '',
+    advisorName: slab.advisorName || ''
   });
 
   const handleInputChange = (e) => {
@@ -308,7 +309,7 @@ function PcUpdates({ slab, update }) {
   return (
     <>
       {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-1 py-1 my-1 text-center ">
+      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 text-center ">
         Update
       </button>
       {/* <!-- Main modal --> */}
@@ -321,25 +322,38 @@ function PcUpdates({ slab, update }) {
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
           <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
-            <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-700 rounded-lg shadow dark:bg-slate-100">
+            <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow dark:bg-slate-100">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-100">
-                  Update Company Payout Grid
+                  Update Advisor Payout Grid
                 </h3>
                 <button
                   onClick={closeModal}
                   type="button"
-                  className=" bg-transparent hover:text-red-500 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                  className=" bg-transparent hover:text-blue-700 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
                   <CgCloseR size={25} />
                 </button>
               </div>
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-600 to-cyan-700">
+              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-700 to-orange-700">
                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <div className="flex flex-wrap justify-between">
+                      <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">Advisor Name:<span className="text-red-600 font-bold"></span></label>
+                        <input
+                          className="input-style bg-red-200 p-1 rounded-lg"
+                          type="text"
+                          value={allDetails.advisorName}
+                          onChange={handleInputChange}
+                          name="advisorName"
+                          // placeholder="%"
+                          readOnly
+                        />
+                      </div>
+
                       <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                         <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
                         <select
@@ -387,33 +401,33 @@ function PcUpdates({ slab, update }) {
                           ))}
                         </select>
                       </div>
-                      
-                      
 
-<div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
-              {
-                // selectedCity ? (
-                  <select
-                    className="input-style text-lg p-1 rounded-lg"
-                    name="districts"
-                    id="districts"
-                    value={allDetails.districts}
-                    onChange={handleInputChange}
-                    disabled={!selectedState} // Disable city dropdown until a state is selected
-                  >
-                    <option value="">----------- Select District  -----------</option>
-                  <option value="All">All</option>
-                  {/* Render other city options here if needed */}
-                  {
-                    cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
-                      <option key={index} value={data.name}>{data.name}</option>
-                    ))
-                  }
-                  </select>          
-              }
-            </div>
-                        
+
+
+                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
+                        {
+                          // selectedCity ? (
+                          <select
+                            className="input-style text-lg p-1 rounded-lg"
+                            name="districts"
+                            id="districts"
+                            value={allDetails.districts}
+                            onChange={handleInputChange}
+                            disabled={!selectedState} // Disable city dropdown until a state is selected
+                          >
+                            <option value="">----------- Select District  -----------</option>
+                            <option value="All">All</option>
+                            {/* Render other city options here if needed */}
+                            {
+                              cities.filter(data => citiesToShow.includes(data.name)).map((data, index) => (
+                                <option key={index} value={data.name}>{data.name}</option>
+                              ))
+                            }
+                          </select>
+                        }
+                      </div>
+
                       {/* <div className="flex flex-col p-1 mt-0 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
                         {
@@ -455,25 +469,25 @@ function PcUpdates({ slab, update }) {
                           placeholder="Enter Sitting Capacity"
                         />
                       </div> */}
-            <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-lg rounded-lg"
-                type="text"
-                value={allDetails.sitcapacity}
-                onChange={handleInputChange}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">---------- Select Seating -----------</option>
-                {
-                  sit && sit.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                <option value="All">NOT APPLICABLE</option>
-              </select>
-            </div>
+                      <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
+                        <label className="text-base mx-1 ">Seating Capacity:</label>
+                        <select
+                          className="input-style p-1 text-lg rounded-lg"
+                          type="text"
+                          value={allDetails.sitcapacity}
+                          onChange={handleInputChange}
+                          name="sitcapacity"
+                          placeholder="Enter Sitting Capacity"
+                        >
+                          <option value="">---------- Select Seating -----------</option>
+                          {
+                            sit && sit.map((data) => (
+                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                            ))
+                          }
+                          <option value="All">NOT APPLICABLE</option>
+                        </select>
+                      </div>
                       {/* 4 */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Policy Type:<span className="text-red-600 font-bold">*</span></label>
@@ -545,8 +559,8 @@ function PcUpdates({ slab, update }) {
 
                           ))} */}
                           <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="both">Both</option>
+                          <option value="no">No</option>
+                          <option value="both">Both</option>
                         </select>
                       </div>
 
@@ -610,7 +624,7 @@ function PcUpdates({ slab, update }) {
                         </select>
                       </div>
                       {/* PERCENTAGE */}
-                      {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 text-lg  rounded-lg"
@@ -620,7 +634,7 @@ function PcUpdates({ slab, update }) {
                           name="cvpercentage"
                           placeholder="%"
                         />
-                      </div> */}
+                      </div>
 
                       {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
@@ -633,7 +647,7 @@ function PcUpdates({ slab, update }) {
                           placeholder="%"
                         />
                       </div> */}
-                      <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Company Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 text-lg  rounded-lg"
@@ -643,7 +657,7 @@ function PcUpdates({ slab, update }) {
                           name="companypayoutper"
                           placeholder="%"
                         />
-                      </div>
+                      </div> */}
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
                       <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4"></div>
                     </div>

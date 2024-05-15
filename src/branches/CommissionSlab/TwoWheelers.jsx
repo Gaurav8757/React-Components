@@ -41,6 +41,7 @@ function TwoWheelers() {
   const [ccList, setCCList] = useState([]);
   const [sitcapacity, setSitCapacity] = useState('');
   const [sits, setSit] = useState([]);
+  const branchs = sessionStorage.getItem("name");
   const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
     "Bhagalpur",
     "Bhojpur",
@@ -51,7 +52,7 @@ function TwoWheelers() {
     "Gopalganj",
     "Jamui",
     "Jehanabad",
-    "Kaimur (Bhabua)",
+    "Kaimur District",
     "Katihar",
     "Khagaria",
     "Kishanganj",
@@ -311,14 +312,29 @@ function TwoWheelers() {
     if (formSubmitted) {
       return;
     }
+    if (!advisorName ) {
+      toast.error('Please Select a valid Advisor Name!');
+      return; // Prevent further execution if advisorName is not selected
+    }
+    if (!company ) {
+      toast.error('Please Select a valid Company Name!');
+      return; // Prevent further execution if advisorName is not selected
+    }
+    if (!category ) {
+      toast.error('Please Select a valid Category Type!');
+      return; // Prevent further execution if advisorName is not selected
+    }
     try {
       const token = sessionStorage.getItem("token");
       if (!token) {
         toast.error("Not Authorized yet.. Try again! ");
         return;
       }
+      
       const formData = {
         vehicleSlab: "Advisor-Slab",
+        company: "EleedomIMF",
+        branch: branchs,
         cnames: company,
         catnames: category,
         segments: segment,
@@ -339,7 +355,7 @@ function TwoWheelers() {
         vcc: cc,
         branchpayoutper
       };
-      await axios.post(`${VITE_DATA}/commission1/slab/tw/add`, formData, {
+      await axios.post(`${VITE_DATA}/company/grid/slab/add`, formData, {
         headers: {
           Authorization: `${token}`
         }
@@ -491,7 +507,7 @@ function TwoWheelers() {
               }
             </div>
 
-            <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1 ">Seating Capacity:</label>
               <select
                 className="input-style p-1 text-lg rounded-lg"
@@ -652,7 +668,7 @@ function TwoWheelers() {
                 placeholder="Enter CC"
               >
                 <option className="w-1" value="">----------------- Select CC ------------------</option>
-                <option value="All">All</option>
+                <option value="ALL">All</option>
                {
                 ccList.map((data)=>(
                   <option key={data._id} value={data.cc}>{data.cc}</option>
@@ -691,6 +707,18 @@ function TwoWheelers() {
                 placeholder="%"
               />
             </div>
+             {/* <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1 ">Branch Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
+              <input
+                className="input-style p-1 text-lg rounded-lg"
+                type="number"
+                value={branchpayoutper}
+                onChange={(e) => setBranchpayoutper(e.target.value)}
+                name="branchpayoutper"
+                placeholder="%"
+                
+              />
+            </div> */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
           </div>

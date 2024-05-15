@@ -13,6 +13,7 @@ function AdvisorUpdates({ advisors, onUpdates }) {
         advisoremail: "",
         advisormobile: "",
         advisorpassword: "",
+        advisortype:""
     })
     // OPEN MODAL
     const openModal = () => {
@@ -66,7 +67,7 @@ function AdvisorUpdates({ advisors, onUpdates }) {
             <button
                 onClick={openModal}
                 type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 my-1 text-center">
+                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 text-center">
                 Update
             </button>
 
@@ -81,16 +82,16 @@ function AdvisorUpdates({ advisors, onUpdates }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-gradient-to-r from-orange-800 to-orange-700 rounded-lg shadow px-4 pb-4">
                             {/* <!-- Modal header --> */}
-                            <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                                    Update Advisor
+                            <div className="flex items-center justify-between p-2 md:p-3 rounded-lg ">
+                                <h3 className="text-xl font-semibold text-gray-100 ">
+                                    Update Advisor Details
                                 </h3>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className=" bg-transparent hover:text-red-900 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                 >
                                     <CgCloseR size={25} />
                                 </button>
@@ -149,7 +150,19 @@ function AdvisorUpdates({ advisors, onUpdates }) {
                                             />
                                         </div>
 
-                                    {/* </div> */}
+                                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Advisor Payout Type:</label>
+              <select
+                className="input-style p-1 rounded-lg"
+                type="text"
+                value={advInfo.advisortype}
+                name="advisortype"
+                onChange={handleInputChange}>
+                <option value="">------ Select Payout Type --------</option>
+                <option value="DAILYPAYOUT">Daily Payout</option>
+                <option value="MONTHPAYOUT">Monthly Payout</option>
+              </select>
+            </div>
 
 
                                     <div className="w-full p-1 mt-2 justify-center flex">

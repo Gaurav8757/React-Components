@@ -149,7 +149,7 @@ function ViewAdvisor() {
                 <div className="inline-block min-w-full w-full py-0 ">
                 <div className="flex justify-between">
                             <h1 className="mr-20"></h1>
-                            <span className=" flex justify-center text-center text-3xl font-semibold">Advisor&apos;s List</span>
+                            <span className=" flex justify-center text-center text-blue-600 text-3xl font-semibold">Advisor&apos;s List</span>
                             <div className="flex">
                                 <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 " /></button>
                                 {/* <NavLink to="/branches/home/advisor/register" className="my-auto">
@@ -157,8 +157,8 @@ function ViewAdvisor() {
                                 </NavLink> */}
                             </div>
                         </div>
-                        <div className="flex-wrap flex my-5 justify-between  text-blue-500  ">
-                            <div className=" p-0  my-auto text-center  lg:w-1/4">
+                        <div className="flex-wrap flex mt-4 my-auto  justify-between  text-blue-500 ">
+                            <div className=" p-0  my-4 text-center  lg:w-1/4">
                                 <label className="my-0 text-lg font-medium text-gray-900">ID:</label>
                                 <input
                                     type="search"
@@ -223,6 +223,9 @@ function ViewAdvisor() {
                                         Location
                                     </th>
                                     <th scope="col" className="px-1 border border-black">
+                                        Payout Type
+                                    </th>
+                                    <th scope="col" className="px-1 border border-black">
                                         Update
                                     </th>
                                     <th scope="col" className="px-1 border border-black">
@@ -240,27 +243,29 @@ function ViewAdvisor() {
                                     return (
                                         <tr key={data._id}
                                             className="border-b dark:border-neutral-200 text-sm font-medium">
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.uniqueId}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisorname}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisoremail}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisormobile}
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 {data.advisoraddress}
                                             </td>
-
-                                            <td className="whitespace-nowrap px-1 border border-black">
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
+                                            {data.advisortype}
+                                           </td>
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
                                                 <UpdateAdvisor advisor={data} onUpdate={onUpdateAdvisor} />
                                             </td>
-                                            <td className="whitespace-nowrap px-1 border border-black">
-                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center ">Delete</button>
+                                            <td className="whitespace-nowrap px-0.5 border border-black">
+                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
                                             </td>
                                         </tr>
                                     );

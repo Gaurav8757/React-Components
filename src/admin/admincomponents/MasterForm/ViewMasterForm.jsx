@@ -33,7 +33,7 @@ function ViewMasterForm() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/commission/slab/view`, {
+        .get(`${VITE_DATA}/company/grid/slab/view`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -61,7 +61,7 @@ function ViewMasterForm() {
           },
           params: {
             page: currentPage,
-            limit: itemsPerPage,
+            // limit: itemsPerPage,
           },
         })
         .then((response) => {
@@ -78,7 +78,7 @@ function ViewMasterForm() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get("page")) || 1;
-    const limit = parseInt(params.get("limit")) || 100;
+    const limit = parseInt(params.get("limit")) || 1000;
 
     setCurrentPage(page);
     setItemsPerPage(limit);
@@ -215,7 +215,7 @@ function ViewMasterForm() {
             ) &&
             // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
             matchingCSLab.states === data.states &&
-            (matchingCSLab.vcc === data.cc || matchingCSLab.vcc === 'All')
+            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'All'))
           ) {
             // Add new conditions here
             // if (
@@ -224,65 +224,65 @@ function ViewMasterForm() {
             //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
             //   (matchingCSLab.ncb === 'both')
             // ) {
-              const netPremium = parseFloat(data.netPremium);
-              const finalEntryFields = parseFloat(data.finalEntryFields);
-              const odPremium = parseFloat(data.odPremium);
+            const netPremium = parseFloat(data.netPremium);
+            const finalEntryFields = parseFloat(data.finalEntryFields);
+            const odPremium = parseFloat(data.odPremium);
 
-              let advisorPayout, branchPayout, companyPayout;
-              let advisorPayable, branchPayable, profitLoss;
+            let advisorPayout, branchPayout, companyPayout;
+            let advisorPayable, branchPayable, profitLoss;
 
-              if (
-                data.policyType === 'COMP' &&
-                data.productCode === 'PVT-CAR' &&
-                data.payoutOn === 'OD'
-              ) {
-                advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-                advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-                branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
-                branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-                companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
-                profitLoss = companyPayout - branchPayout;
-              } else {
-                // Default calculation functions
-                advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-                advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-                branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
-                branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-                companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
-                profitLoss = companyPayout - branchPayout;
-              }
+            if (
+              data.policyType === 'COMP' &&
+              data.productCode === 'PVT-CAR' &&
+              data.payoutOn === 'OD'
+            ) {
+              advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
+              branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+              companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
+              profitLoss = companyPayout - branchPayout;
+            } else {
+              // Default calculation functions
+              advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
+              branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
+              companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
+              profitLoss = companyPayout - branchPayout;
+            }
 
-              // Prepare data for API request
-              const postData = {
-                advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-                advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-                branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-                branchPayout: parseFloat(branchPayout.toFixed(2)),
-                companyPayout: parseFloat(companyPayout.toFixed(2)),
-                profitLoss: parseFloat(profitLoss.toFixed(2)),
-              };
+            // Prepare data for API request
+            const postData = {
+              advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+              advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+              branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+              branchPayout: parseFloat(branchPayout.toFixed(2)),
+              companyPayout: parseFloat(companyPayout.toFixed(2)),
+              profitLoss: parseFloat(profitLoss.toFixed(2)),
+            };
 
-              try {
-                // Send data to API
-                const response = axios.put(
-                  `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-                  postData,
-                  {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  }
-                );
-                // Handle response status
-                if (response.status !== 200) {
-                  console.error(`Error updating data for policy ID ${data._id}`);
+            try {
+              // Send data to API
+              const response = axios.put(
+                `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+                postData,
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
                 }
-              } catch (error) {
-                console.error(
-                  `Error updating data for policy ID ${data._id}:`,
-                  error
-                );
+              );
+              // Handle response status
+              if (response.status !== 200) {
+                console.error(`Error updating data for policy ID ${data._id}`);
               }
+            } catch (error) {
+              console.error(
+                `Error updating data for policy ID ${data._id}:`,
+                error
+              );
+            }
             // }
           }
         });
@@ -291,104 +291,6 @@ function ViewMasterForm() {
       console.log('No matching CSLabs found or allDetailsData is empty.');
     }
   }, [allDetailsData, payoutSlab]);
-
-
-
-
-  // useEffect(() => {
-  //   // Check if there are matching CSLabs and allDetailsData is not empty
-  //   if (payoutSlab.length > 0 && allDetailsData.length > 0) {
-  //     payoutSlab.forEach((matchingCSLab) => {
-  //       const percentage = matchingCSLab.cvpercentage || 0;
-  //       const branchpercent = matchingCSLab.branchpayoutper || 0;
-  //       const companypercent = matchingCSLab.companypayoutper || 0;
-  //       allDetailsData.forEach((data) => {
-  //         if (
-  //           matchingCSLab.pcodes === data.productCode  &&
-  //           (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All') &&
-  //           matchingCSLab.cnames === data.company &&
-  //           matchingCSLab.catnames === data.category &&
-  //           matchingCSLab.policytypes === data.policyType &&
-  //           (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === "ALL" )&&
-  //           matchingCSLab.payoutons === data.payoutOn &&
-  //           (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All') &&
-  //           matchingCSLab.segments === data.segment &&
-  //           (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === "All") &&
-  //           (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === "NA") &&
-  //           matchingCSLab.states === data.states &&
-  //           (matchingCSLab.vncb === "both") &&
-  //           (matchingCSLab.vcc === data.cc || matchingCSLab.vcc === "All") 
-  //         ) {
-
-  //             const netPremium = parseFloat(data.netPremium);
-  //             const finalEntryFields = parseFloat(data.finalEntryFields);
-  //             const odPremium = parseFloat(data.odPremium);
-
-  //             let advisorPayout, branchPayout, companyPayout;
-  //             let advisorPayable, branchPayable, profitLoss;
-
-  //             if (
-  //               data.policyType === 'COMP' &&
-  //               data.productCode === 'PVT-CAR' &&
-  //               data.payoutOn === 'OD'
-  //             ) {
-  //               advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-  //               advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-  //               branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
-  //               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-  //               companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
-  //               profitLoss = companyPayout - branchPayout;
-  //             } else {
-  //               // Default calculation functions
-  //               advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-  //               advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-  //               branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
-  //               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
-  //               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
-  //               profitLoss = companyPayout - branchPayout;
-  //             }
-
-  //             // Prepare data for API request
-  //             const postData = {
-  //               advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-  //               advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-  //               branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-  //               branchPayout: parseFloat(branchPayout.toFixed(2)),
-  //               companyPayout: parseFloat(companyPayout.toFixed(2)),
-  //               profitLoss: parseFloat(profitLoss.toFixed(2)),
-  //             };
-
-  //             try {
-  //               // Send data to API
-  //               const response = axios.put(
-  //                 `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-  //                 postData,
-  //                 {
-  //                   headers: {
-  //                     'Content-Type': 'application/json',
-  //                   },
-  //                 }
-  //               );
-  //               // Handle response status
-  //               if (response.status !== 200) {
-  //                 console.error(`Error updating data for policy ID ${data._id}`);
-  //               }
-  //             } catch (error) {
-  //               console.error(
-  //                 `Error updating data for policy ID ${data._id}:`,
-  //                 error
-  //               );
-  //             }
-  //           // }
-  //         }
-  //       });
-  //     });
-  //   } else {
-  //     console.log('No matching CSLabs found or allDetailsData is empty.');
-  //   }
-  // }, [allDetailsData, payoutSlab]);
-
-
 
   useEffect(() => {
     allDetailsData.forEach(async (data) => {
@@ -961,7 +863,7 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.branch}
                     </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
+                    <td className="whitespace-wrap px-1 border border-black">
                       {data.insuredName}
                     </td>
                     <td className="whitespace-nowrap px-1 border border-black">
@@ -1095,7 +997,10 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayout}`}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayableAmount}`}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.companyPayout}`}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.profitLoss}`}</td>
+                    <td className={`whitespace-nowrap px-1 border border-black ${data.profitLoss > 0 ? 'text-green-600 font-bold' : (data.profitLoss < 0 ? 'text-red-600 font-bold' : 'text-black')}`}>
+                      {`₹${data.profitLoss}`}
+                    </td>
+
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.paymentDoneBy}
                     </td>
