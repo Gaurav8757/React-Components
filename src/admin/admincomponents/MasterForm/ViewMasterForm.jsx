@@ -178,7 +178,7 @@ function ViewMasterForm() {
     const deduction = finalEntryFields * (companypayoutper / 100);
     return deduction;
   };
-
+// console.log(payoutSlab);
 
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
@@ -215,7 +215,7 @@ function ViewMasterForm() {
             ) &&
             // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
             matchingCSLab.states === data.states &&
-            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'All'))
+            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' || matchingCSLab.vcc === 'OTHER'))
           ) {
             // Add new conditions here
             // if (

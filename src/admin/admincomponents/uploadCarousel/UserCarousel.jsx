@@ -103,7 +103,7 @@ function UserCarousel() {
                         <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Image Upload:</label>
                             <input
-                                className="input-style p-1 h-10  rounded-lg"
+                                className="input-style border h-8 text-xs border-black  rounded-lg"
                                 type="file"
                                 name="usercarousel_upload"
                                 accept="image/*"

@@ -791,13 +791,14 @@ function MasterForm() {
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+      <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+      <h1 className="font-semibold text-2xl my-4 text-white dark:text-black">Add Policy Detail&apos;s </h1>
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Add Policy Detail&apos;s </h1>
-          <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
+         
+          <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-0 overflow-hidden"
             stepCustomStyle={{
               display: "inline",
-              width: "50%",
+              width: "30%",
               marginBottom: "0"
               // justifyContent: "center", // Center align the steps
               // alignItems: "center", // Center align vertically
@@ -806,14 +807,14 @@ function MasterForm() {
             contentCustomStyle={{ color: "#2D3748" }}
             prevButton={{
               title: (
-                <span className="flex justify-start">
+                <span className="flex justify-start text-base">
                   <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
                 </span>
               ),
               style: {
                 display: "inline",
                 width: "max-content",
-                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                background: 'red',
                 color: 'white',
                 fontWeight: '',
                 borderRadius: '12rem',
@@ -829,14 +830,14 @@ function MasterForm() {
             }}
             nextButton={{
               title: (
-                <span className="flex justify-end">Next
+                <span className="flex justify-end text-base">Next
                   <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
                 </span>
               ),
               style: {
                 display: "inline",
                 width: "max-content",
-                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                background: 'green',
                 color: 'white',
                 fontWeight: '',
                 borderRadius: '12rem',

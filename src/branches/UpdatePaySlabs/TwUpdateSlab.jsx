@@ -327,7 +327,7 @@ function TwUpdateSlab({ slab, update }) {
     } else {
       setAllDetails((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: value.toUpperCase(),
 
       }));
     }

@@ -68,9 +68,10 @@ function AddPolicyType() {
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-            <div className="container-fluid flex-col  flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-                <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
-                    <h1 className="font-semibold text-3xl mb-3">Add Policy Type</h1>
+            <div className="container-fluid flex-col   justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+            <h1 className="font-semibold text-3xl my-3">Add Policy Type</h1>
+                <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+                    
                     <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
                         <label className="text-base mx-1 mb-2">Enter Policy Type<span className="text-red-600 font-bold">*</span></label>
                         <input
@@ -103,13 +104,13 @@ function AddPolicyType() {
                                 {/* <th scope="col" className="px-5 py-4">
                                     Sr No.
                                 </th> */}
-                                <th scope="col" className=" px-5 py-4">
+                                <th scope="col" className=" px-1 py-1">
                                     Policy Type
                                 </th>
                                 {/* <th scope="col" className="px-5 py-4">
                                     Update
                                 </th> */}
-                                <th scope="col" className="px-5 py-4">
+                                <th scope="col" className="px-1 py-1">
                                     Delete
                                 </th>
                             </tr>
@@ -121,18 +122,18 @@ function AddPolicyType() {
                                         className="border-b dark:border-neutral-200 text-sm font-medium"
                                         key={data._id}
                                     >
-                                        <td className="whitespace-nowrap px-4 py-4">
+                                        <td className="whitespace-nowrap px-1 py-1">
                                             {data.p_type}
                                         </td>
                                         {/* <td className="whitespace-nowrap px-4 py-4">
                                             Your Update button
                                         </td> */}
-                                        <td className="whitespace-nowrap px-4 py-4">
+                                        <td className="whitespace-nowrap px-1 py-1">
                                             <button 
                                                 type="button" 
                                                 // _ID MADE TO DELETE
                                                 onClick={() => deletePolicyTypes(data._id)} 
-                                                className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">
+                                                className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center">
                                                 Delete
                                             </button>
                                         </td>

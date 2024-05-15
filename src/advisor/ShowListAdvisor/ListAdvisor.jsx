@@ -38,7 +38,7 @@ function ListAdvisor() {
                     console.error(error);
                 });
         }
-    });
+    }, []);
 
     // refreshing page after updating data
     const onUpdateAdvisor = async () => {

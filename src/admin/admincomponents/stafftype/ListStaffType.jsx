@@ -45,16 +45,16 @@ function ListStaffType() {
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
-                <table className="min-w-full text-center text-sm font-light ">
+                <table className="min-w-full text-center text-sm font-light mt-5 ">
                     <thead className="border-b font-medium dark:border-neutral-500">
-                        <tr className="text-blue-700">
+                        <tr className="text-blue-700 border border-black">
                             {/* <th scope="col" className="px-4 py-4">
                                 S.No
                             </th> */}
-                            <th scope="col" className="px-4 py-4">
+                            <th scope="col" className="px-1 my-1 border border-black">
                                 Employee Type
                             </th>
-                            <th scope="col" className="px-4 py-4">
+                            <th scope="col" className="px-1 py-1 border border-black">
                                 Delete
                             </th>
                         </tr>
@@ -64,18 +64,18 @@ function ListStaffType() {
                            
                             return (
                                 <tr
-                                    className="border-b dark:border-neutral-200 text-sm font-medium"
+                                    className="border border-black text-sm font-medium"
                                     key={data._id}
                                 >
 
 
-                                    <td className="whitespace-nowrap px-3 py-4">
+                                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                                         {data.s_type}
                                     </td>
 
 
-                                    <td className="whitespace-nowrap px-3 py-4">
-                                        <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                                    <td className="whitespace-nowrap px-1 py-1 border border-black">
+                                        <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center">Delete</button>
                                     </td>
                                 </tr>
                             );

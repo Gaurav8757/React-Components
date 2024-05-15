@@ -13,6 +13,7 @@ const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ defa
 const MdOutlineCategory = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlineCategory })));
 const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
 const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
+const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
 
 const Sidebar = () => {
   const dashboardRoutes = [
@@ -60,7 +61,7 @@ const Sidebar = () => {
     {
       title: "View Advisor",
       path: "/dashboard/viewadvisor",
-      logo: <FaImages size={24} />,
+      logo: <CgProfile size={24} />,
     },
 
     {
