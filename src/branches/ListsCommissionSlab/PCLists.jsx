@@ -11,6 +11,7 @@ function PCLists() {
   const [APIData, setAPIData] = useState([]);
   const [deletingStaffId, setDeletingStaffId] = useState(null);
   const name = sessionStorage.getItem("name");
+  // console.log(name);
   const deleteStaff = (_id) => {
     // Show modal confirmation dialog
     setDeletingStaffId(_id);
@@ -23,7 +24,7 @@ function PCLists() {
     } else {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/company/grid/slab/view`, {
+        .get(`${VITE_DATA}/commission/grid/branch/view`, {
           
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
@@ -33,9 +34,7 @@ function PCLists() {
           }
         })
         .then((response) => {
-
           setAPIData(response.data);
-
         })
         .catch((error) => {
           console.error(error);
@@ -50,7 +49,7 @@ function PCLists() {
         toast.error("Not Authorized yet.. Try again!");
       } else {
         const response = await axios.get(
-          `${VITE_DATA}/company/grid/slab/view`,
+          `${VITE_DATA}/commission/grid/branch/view`,
           {
             headers: {
               Authorization: `${token}`,

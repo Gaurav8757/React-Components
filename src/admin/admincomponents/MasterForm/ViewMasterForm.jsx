@@ -196,7 +196,7 @@ function ViewMasterForm() {
             matchingCSLab.policytypes === data.policyType &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All') &&
+            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
             matchingCSLab.segments === data.segment &&
             (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
 

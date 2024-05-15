@@ -15,6 +15,7 @@ function Ledger1() {
     fromDate: "",
     toDate: ""
   });
+  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +54,8 @@ function Ledger1() {
           },
         })
         .then((response) => {
-          setAdvisors(response.data);
+          const adv = response.data.filter((advisr)=> advisr.advisortype === "DAILY")
+          setAdvisors(adv);
         })
         .catch((error) => {
           console.error(error);
@@ -63,12 +65,14 @@ function Ledger1() {
 
   const handleFilter = () => {
     let filteredData = data.filter((item) => {
+     
       let match = true;
       if (
         filterOptions.advisorName &&
         !item.advisorName?.includes(filterOptions.advisorName)
       ) {
         match = false;
+
       }
       else if (
         filterOptions.policyNo &&
@@ -98,6 +102,7 @@ function Ledger1() {
     });
     setFilteredData(filteredData);
   };
+  
 
   const clearFilters = () => {
     setFilterOptions({
@@ -151,9 +156,6 @@ function Ledger1() {
   const isFilterApplied = () => {
     return Object.values(filterOptions).some(option => option !== "");
   };
-
-
-
 
   const handleSubmit = async () => {
     try {
@@ -297,7 +299,7 @@ function Ledger1() {
     exportToExcel();
   };
 
-
+// console.log(filterOptions.advisorName);
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
@@ -355,7 +357,7 @@ function Ledger1() {
                   })
                   .map((api, index) => (
                     <option
-                      className={`${api.branch ? "text-bold" : ""}`}
+                      className={`${api.branch ? "font-semibold" : ""}`}
                       key={index}
                       value={api.advisorname}
                     >{`${api.branch} --  -- ${api.advisorname}`}</option>
@@ -381,7 +383,7 @@ function Ledger1() {
               > <option value="">---- Select Insured Name -------</option>
                 {
                   uniqueNames.sort().map((api, idx) => (
-                    <option key={idx} value={api}>{api}</option>
+                    <option    className={`${api ? "font-semibold" : ""}`} key={idx} value={api}>{api}</option>
                   ))} </select>
               <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
               <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
@@ -409,7 +411,7 @@ function Ledger1() {
 
                 <tbody>
                   {filteredData.map((item) => {
-
+                    
                     if (item.advisorName === filterOptions.advisorName || filterOptions.insuredName || filterOptions.policyNo || filterOptions.fromDate || filterOptions.toDate) {
                       let debitAmount;
                       const currentYear = new Date().getFullYear();
@@ -432,7 +434,7 @@ function Ledger1() {
                             <td className="whitespace-wrap w-1/12">{item.policyNo}</td>
                             <td className="whitespace-wrap w-1/12">{item.company}</td>
                             <td >{item.insuredName}</td>
-                            <td >{`₹ ${item.finalEntryFields.toFixed(0)}`}</td>
+                            <td >{`₹ ${item.finalEntryFields}`}</td>
                             <td>{`₹ ${item.advisorPayoutAmount}`}</td>
                             <td>{`₹ ${debitAmount.toFixed(0)}`}</td>
                             <td className="">

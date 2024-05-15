@@ -370,7 +370,7 @@ function Ledger3() {
                   })
                   .map((api, index) => (
                     <option
-                      className={`${api.c_type ? "text-bold" : ""}`}
+                      className={`${api.c_type ? "font-semibold" : ""}`}
                       key={index}
                       value={api.c_type}
                     >{`${api.c_type}`}</option>
@@ -396,7 +396,7 @@ function Ledger3() {
               > <option value="">---- Select Insured Name --------</option>
                 {
                   uniqueNames.sort().map((api, idx) => (
-                    <option key={idx} value={api}>{api}</option>
+                    <option className={`${api ? "font-semibold" : ""}`} key={idx} value={api}>{api}</option>
                   ))} </select>
               <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
               <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
