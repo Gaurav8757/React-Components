@@ -52,9 +52,8 @@ function AdminForgot() {
                 <div className="">
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-base text-start font-medium text-gray-900 "
-                  >
-                    Your email
+                    className="block mb-2 text-base text-start font-medium text-gray-900">
+                    Your Email
                   </label>
                   <input
                     type="email"
