@@ -159,8 +159,8 @@ function AdvisorUpdates({ advisors, onUpdates }) {
                 name="advisortype"
                 onChange={handleInputChange}>
                 <option value="">------ Select Payout Type --------</option>
-                <option value="DAILYPAYOUT">Daily Payout</option>
-                <option value="MONTHPAYOUT">Monthly Payout</option>
+                <option value="DAILY">Daily Payout</option>
+                <option value="MONTHLY">Monthly Payout</option>
               </select>
             </div>
 

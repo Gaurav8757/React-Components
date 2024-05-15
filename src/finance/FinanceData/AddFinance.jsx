@@ -763,9 +763,10 @@ function AddFinance() {
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+      <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+      <h1 className="font-semibold text-3xl my-4 text-white dark:text-black">Create Policy</h1>
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black">Create Policy</h1>
+        
           <MultiStep activeStep={step} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
             stepCustomStyle={{
               display: "inline",

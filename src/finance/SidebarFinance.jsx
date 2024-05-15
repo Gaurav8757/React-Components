@@ -122,7 +122,7 @@ const SidebarFinance = () => {
                       className={`flex items-center p-2  rounded-lg text-white hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-6">{route.title}</span>
+                      <span className="ms-4 text-sm whitespace-nowrap">{route.title}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -145,7 +145,7 @@ const SidebarFinance = () => {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white  hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-4">{route.title}</span>
+                    <span className="ms-4 text-sm">{route.title}</span>
                   </NavLink>
                 )}
               </li>

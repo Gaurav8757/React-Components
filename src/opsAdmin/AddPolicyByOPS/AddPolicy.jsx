@@ -151,9 +151,10 @@ function AddPolicy() {
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-            <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+            <div className="container-fluid justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+            <h1 className="font-semibold text-3xl my-4">Create Policy</h1>
                 <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center mt-3 bg-slate-200">
-                    <h1 className="font-semibold text-3xl mb-10">Create Policy</h1>
+                   
                     <div className="flex flex-wrap justify-between">
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
                             <label className="text-base mx-1">Entry Date<span className="text-red-600 font-bold">*</span></label>

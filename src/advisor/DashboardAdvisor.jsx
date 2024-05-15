@@ -143,7 +143,7 @@ function DashboardAdvisor() {
                           className={`flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                         >
                           <span className="">{route.logo}</span>
-                          <span className="ms-10">{route.title}</span>
+                          <span className="ms-4 text-sm">{route.title}</span>
                         </NavLink>
                         <ul
                           onClick={() => toggleSubmenu(idx)}
@@ -166,7 +166,7 @@ function DashboardAdvisor() {
                       // Render regular route without sub-routes
                       <NavLink to={route.path} className="flex items-center p-2 text-gray-200 rounded-lg  hover:bg-gray-500 hover:text-white group">
                         <span className="">{route.logo}</span>
-                        <span className="ms-5">{route.title}</span>
+                        <span className="ms-4 text-sm">{route.title}</span>
                       </NavLink>
                     )}
                   </li>

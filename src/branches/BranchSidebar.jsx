@@ -153,7 +153,7 @@ const BranchSidebar = () => {
                       className={`flex items-center p-2  rounded-lg text-white  hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-6">{route.title}</span>
+                      <span className="ms-4 text-sm">{route.title}</span>
                       <span className="ms-2"><IoMdArrowDropdown /></span>
                     </NavLink>
                     <ul
@@ -165,7 +165,7 @@ const BranchSidebar = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex p-2 text-white text-start mx-0  hover:rounded-xl hover:bg-gray-500"
+                            className="flex p-2  text-sm text-white text-start mx-0  hover:rounded-xl hover:bg-gray-500"
                           >
                             {<IoMdArrowDropright size={30} />}{subRoute.title}
                           </NavLink>
@@ -177,7 +177,7 @@ const BranchSidebar = () => {
                   // Render regular route without sub-routes
                   <NavLink to={route.path} className="flex items-center p-2  rounded-lg text-white hover:bg-gray-500 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-6">{route.title}</span>
+                    <span className="ms-4 text-sm">{route.title}</span>
                   </NavLink>
                 )}
               </li>

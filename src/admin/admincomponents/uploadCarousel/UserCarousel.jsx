@@ -56,16 +56,17 @@ function UserCarousel() {
 
     return (
         <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
-            <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
+            <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
+            <h1 className="font-semibold text-3xl my-4 text-white dark:text-black ">Add Carousel&apos;s</h1>
                 <div className="relative w-full lg:w-full   rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
-                    <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Carousel&apos;s</h1>
+                    
                     <form className="flex flex-wrap" method="post" onSubmit={handleSubmit} encType="multipart/form-data">
                         <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Title:</label>
                             <input
                                 type="text"
                                 name="usercarousel_title"
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 value={formData.usercarousel_title}
                                 onChange={handleChange}
                                 placeholder="Title"
@@ -75,7 +76,7 @@ function UserCarousel() {
                         <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Description:</label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 name="usercarousel_desc"
                                 value={formData.usercarousel_desc}
@@ -88,7 +89,7 @@ function UserCarousel() {
                         <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Link:</label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 rounded-lg"
                                 type="text"
                                 name="usercarousel_link"
                                 value={formData.usercarousel_link}
@@ -102,7 +103,7 @@ function UserCarousel() {
                         <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                             <label className="text-base mx-1">Image Upload:</label>
                             <input
-                                className="input-style rounded-lg"
+                                className="input-style p-1 h-10  rounded-lg"
                                 type="file"
                                 name="usercarousel_upload"
                                 accept="image/*"

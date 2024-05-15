@@ -12,7 +12,7 @@ function ProfileUpdate() {
         empmobile: "",
         empgender: "",
         empdob: "",
-       
+
         permanentempaddress: "",
         currentempaddress: "",
         empaadharno: "",
@@ -27,106 +27,106 @@ function ProfileUpdate() {
     });
 
 
-const Id = sessionStorage.getItem("employeeId");
+    const Id = sessionStorage.getItem("employeeId");
 
-useEffect(() => {
-    axios.get(`${VITE_DATA}/api/employee/${Id}`)
-        .then((resp) => {
-            const employeeData = resp.data;
-            // Update the state with employee data
-            setData({
-                empid: employeeData.empid,
-                empname: employeeData.empname,
-                empemail: employeeData.empemail,
-                empmobile: employeeData.empmobile,
-                empgender: employeeData.empgender,
-                empdob: employeeData.empdob,
-                permanentempaddress: employeeData.permanentempaddress,
-                currentempaddress: employeeData.currentempaddress,
-                empaadharno: employeeData.empaadharno,
-                panno: employeeData.panno,
-                pan: employeeData.pan,
-                accNumber: employeeData.accNumber,
-                ifsc: employeeData.ifsc,
-                bankName: employeeData.bankName,
-                empjoiningdate: employeeData.empjoiningdate,
-                staffType: employeeData.staffType,
-                empbranch: employeeData.empbranch
+    useEffect(() => {
+        axios.get(`${VITE_DATA}/api/employee/${Id}`)
+            .then((resp) => {
+                const employeeData = resp.data;
+                // Update the state with employee data
+                setData({
+                    empid: employeeData.empid,
+                    empname: employeeData.empname,
+                    empemail: employeeData.empemail,
+                    empmobile: employeeData.empmobile,
+                    empgender: employeeData.empgender,
+                    empdob: employeeData.empdob,
+                    permanentempaddress: employeeData.permanentempaddress,
+                    currentempaddress: employeeData.currentempaddress,
+                    empaadharno: employeeData.empaadharno,
+                    panno: employeeData.panno,
+                    pan: employeeData.pan,
+                    accNumber: employeeData.accNumber,
+                    ifsc: employeeData.ifsc,
+                    bankName: employeeData.bankName,
+                    empjoiningdate: employeeData.empjoiningdate,
+                    staffType: employeeData.staffType,
+                    empbranch: employeeData.empbranch
 
+                });
+            })
+            .catch((error) => {
+                console.error("Error fetching employee data:", error);
             });
-        })
-        .catch((error) => {
-            console.error("Error fetching employee data:", error);
-        });
-}, [Id]);
+    }, [Id]);
 
-const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
+    const handleInputChange = (e) => {
+        const { name, value, files } = e.target;
 
-    if (name === "empaadharfile" || name === "panno") {
-        setData((prevData) => ({
-            ...prevData,
-            [name]: files[0] // assuming single file upload
-        }));
-    } else {
-        setData((prevData) => ({
-            ...prevData,
-            [name]: value.toUpperCase(),
-        }));
-    }
-};
+        if (name === "empaadharfile" || name === "panno") {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: files[0] // assuming single file upload
+            }));
+        } else {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: value.toUpperCase(),
+            }));
+        }
+    };
 
-const updateEmpAPI = async () => {
-    try {
-        setLoading(true);
-        
-        const formData = new FormData();
-        formData.append("empaadharfile", data.empaadharfile);
-        formData.append("panno", data.panno);
-        formData.append("pan", data.pan);
-        formData.append("accNumber", data.accNumber);
-        formData.append("ifsc", data.ifsc);
-        formData.append("empid", data.empid);
-        formData.append("bankName", data.bankName);
-        formData.append("empname", data.empname);
-        formData.append("empemail", data.empemail);
-        formData.append("empmobile", data.empmobile);
-        formData.append("empgender", data.empgender);
-        formData.append("empdob", data.empdob);
-        formData.append("permanentempaddress", data.permanentempaddress);
-        formData.append("currentempaddress", data.currentempaddress);
-        formData.append("empaadharno", data.empaadharno);
-       
+    const updateEmpAPI = async () => {
+        try {
+            setLoading(true);
 
-        const response = await axios.put(
-            `${VITE_DATA}/api/emp/update/${Id}`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data"
+            const formData = new FormData();
+            formData.append("empaadharfile", data.empaadharfile);
+            formData.append("panno", data.panno);
+            formData.append("pan", data.pan);
+            formData.append("accNumber", data.accNumber);
+            formData.append("ifsc", data.ifsc);
+            formData.append("empid", data.empid);
+            formData.append("bankName", data.bankName);
+            formData.append("empname", data.empname);
+            formData.append("empemail", data.empemail);
+            formData.append("empmobile", data.empmobile);
+            formData.append("empgender", data.empgender);
+            formData.append("empdob", data.empdob);
+            formData.append("permanentempaddress", data.permanentempaddress);
+            formData.append("currentempaddress", data.currentempaddress);
+            formData.append("empaadharno", data.empaadharno);
+
+
+            const response = await axios.put(
+                `${VITE_DATA}/api/emp/update/${Id}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
                 }
-            }
-        );
-        toast.success(`${response.data.status}`);
-    } catch (error) {
-        toast.error(`${error}`);
-        console.error("Error updating Employee:", error);
-    } finally {
-        setLoading(false);
-    }
-};
+            );
+            toast.success(`${response.data.status}`);
+        } catch (error) {
+            toast.error(`${error}`);
+            console.error("Error updating Employee:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
 
-            <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
-                <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-                    <span className="text-4xl p-8 tracking-wider text-green-700 font-medium">Update Your Profile</span>
-                   
+            <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
+                <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+                    <span className="text-3xl py-4 tracking-wider text-blue-700 font-medium">Update Your Profile</span>
+
                     <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
 
                         <form className="flex flex-wrap justify-between">
-                        <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
+                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1 ">Employee ID:</label>
                                 <input
                                     className="input-style p-1 bg-red-50 rounded-lg"
@@ -137,10 +137,10 @@ const updateEmpAPI = async () => {
                                     disabled
 
                                 />
-                                  <span className="text-xs mx-2 text-red-500"> Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500"> Not Editable</span>
                             </div>
 
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
+                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1 ">Employee Name:</label>
                                 <input
                                     className="input-style p-1 bg-red-50 rounded-lg"
@@ -151,9 +151,9 @@ const updateEmpAPI = async () => {
                                     disabled
 
                                 />
-                                  <span className="text-xs mx-2 text-red-500">Not Editable</span>
+                                <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
+                            <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1">Email ID:</label>
                                 <input
                                     className="input-style p-1 bg-red-50 rounded-lg"
@@ -167,7 +167,7 @@ const updateEmpAPI = async () => {
                                 <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
 
-                            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/5">
+                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base  mx-1">Branch:</label>
                                 <input
                                     className="input-style p-1 bg-red-50 rounded-lg"
@@ -179,7 +179,7 @@ const updateEmpAPI = async () => {
                                 />
                                 <span className="text-xs mx-2 text-red-500">Not Editable</span>
                             </div>
-                            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Joining Date:</label>
                                 <input
                                     className="input-style p-1 bg-red-50 rounded-lg"
@@ -234,7 +234,7 @@ const updateEmpAPI = async () => {
                                 </select>
                             </div>
 
-                            
+
                             <div className="flex flex-col mt-3 p-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Mobile No:</label>
                                 <input
@@ -305,8 +305,8 @@ const updateEmpAPI = async () => {
                                     autoComplete="off"
                                 />
                             </div> */}
-                          
-                           
+
+
                             <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Aadhar No:</label>
                                 <input
@@ -315,7 +315,7 @@ const updateEmpAPI = async () => {
                                     value={data.empaadharno}
                                     onChange={handleInputChange}
                                     name="aadharno"
-                                    
+
                                 />
                             </div>
                             {/* <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
@@ -341,7 +341,7 @@ const updateEmpAPI = async () => {
                                     placeholder="Your Address"
                                 />
                             </div>
-                            
+
                             <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                 <label className="text-base mx-1">Permanent Address:</label>
                                 <textarea

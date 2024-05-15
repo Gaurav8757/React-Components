@@ -392,13 +392,14 @@ function TwoWheelers() {
 
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl  text-white dark:text-black">Advisor Payout Grid </h1>
+      <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+      <h1 className="font-semibold my-4 text-3xl text-blue-600">Advisor Payout Grid </h1>
+        <div className="relative w-full lg:w-full p-0 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+         
 
           <div className="flex justify-center mb-10">
-            <div className="flex flex-col p-1 mt-5 text-center justify-center w-full lg:w-1/4">
-              <label className="text-xl mx-1 my-2 font-bold">Advisor Name<span className="text-red-600 font-bold">*</span></label>
+            <div className="flex flex-col p-1 mt-3 text-center justify-center w-full lg:w-1/4">
+              <label className="text-xl mx-1 my-1 font-bold">Advisor Name<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1  text-lg rounded-lg"
                 value={advisorName}

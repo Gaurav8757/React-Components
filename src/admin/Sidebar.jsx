@@ -372,7 +372,7 @@ const Sidebar = () => {
                   <div className="relative group ">
                     <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
-                      <span className="ms-3  flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
+                      <span className="ms-3  text-sm flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
                     </NavLink>
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
@@ -387,7 +387,7 @@ const Sidebar = () => {
                 ) : (
                   <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 dark:hover:bg-gray-700 group">
                     <span className="">{route.logo}</span>
-                    <span className="ms-2 hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
+                    <span className="ms-4 text-sm hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
                   </NavLink>
                 )}
               </li>

@@ -112,12 +112,13 @@ setErrors({}); // Clear previous errors
 
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-white">
-    <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
-      <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-400">
-      <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Branch</h1>
+    <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-white">
+    <h1 className="font-semibold text-2xl my-4 text-black ">Add Branch</h1>
+      <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
+      
         <form className="flex flex-wrap justify-between">
           
-          <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+          <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Name:</label>
               <input
                 className="input-style rounded-lg"
@@ -128,7 +129,7 @@ setErrors({}); // Clear previous errors
               />
               {errors.branch && <span className="text-red-600 text-sm ">{errors.branch}</span>}
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Email ID:</label>
               <input
                 className="input-style rounded-lg"
@@ -139,7 +140,7 @@ setErrors({}); // Clear previous errors
               />
               {errors.email && <span className="text-red-600 text-sm ">{errors.email}</span>}
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Mobile No:</label>
               <input
                 className="input-style rounded-lg"
@@ -151,7 +152,7 @@ setErrors({}); // Clear previous errors
               {errors.number && <span className="text-red-600 text-sm ">{errors.number}</span>}
             </div>
           
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Phone No:</label>
               <input
                 className="input-style rounded-lg"
@@ -162,7 +163,7 @@ setErrors({}); // Clear previous errors
               />
               
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Branch Code:</label>
               <input
                 className="input-style rounded-lg"
@@ -173,10 +174,29 @@ setErrors({}); // Clear previous errors
               />
               {errors.code && <span className="text-red-600 text-sm ">{errors.code}</span>}
             </div>
-
-
-
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">Branch Manager:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={person}
+                onChange={(e) => setPerson(e.target.value.toUpperCase())}
+                placeholder="Enter Name"
+              />
+              {errors.person && <span className="text-red-600 text-sm ">{errors.person}</span>}
+            </div>
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">District:</label>
+              <input
+                className="input-style rounded-lg"
+                type="text"
+                value={district}
+                onChange={(e) => setDistrict(e.target.value.toUpperCase())}
+                placeholder="Enter Your District Name"
+              />
+              {errors.district && <span className="text-red-600 text-sm ">{errors.district}</span>}
+            </div>
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">New Password:</label>
               <div className="relative">
               <input
@@ -199,18 +219,7 @@ setErrors({}); // Clear previous errors
                                     </button></div>
               {errors.password && <span className="text-red-600 text-sm ">{errors.password}</span>}
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-              <label className="text-base mx-1">Branch Manager:</label>
-              <input
-                className="input-style rounded-lg"
-                type="text"
-                value={person}
-                onChange={(e) => setPerson(e.target.value.toUpperCase())}
-                placeholder="Enter Name"
-              />
-              {errors.person && <span className="text-red-600 text-sm ">{errors.person}</span>}
-            </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Address:</label>
               <textarea
                 className="input-style rounded-lg"
@@ -223,18 +232,8 @@ setErrors({}); // Clear previous errors
               {errors.address && <span className="text-red-600 text-sm ">{errors.address}</span>}
             </div>
             
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-              <label className="text-base mx-1">District:</label>
-              <input
-                className="input-style rounded-lg"
-                type="text"
-                value={district}
-                onChange={(e) => setDistrict(e.target.value.toUpperCase())}
-                placeholder="Enter Your District Name"
-              />
-              {errors.district && <span className="text-red-600 text-sm ">{errors.district}</span>}
-            </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+          
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">State:</label>
               <input
                 className="input-style rounded-lg"
@@ -247,7 +246,7 @@ setErrors({}); // Clear previous errors
             </div>
            
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
+            <div className="flex flex-col mt-4 p-2 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Pincode:</label>
               <input
                 className="input-style rounded-lg"
@@ -258,9 +257,8 @@ setErrors({}); // Clear previous errors
               />
               {errors.pincode && <span className="text-red-600 text-sm ">{errors.pincode}</span>}
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/3"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
             
-         
           <div className="w-full p-2 mt-10">
             <button
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"

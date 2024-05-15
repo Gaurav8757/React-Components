@@ -76,7 +76,7 @@ function UpdateBranch({ branch, onUpdate }) {
             <button
                 onClick={openModal}
                 type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center"
+                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80  rounded-lg text-sm px-2 py-1 text-center"
             >
                 Update
             </button>
@@ -91,28 +91,27 @@ function UpdateBranch({ branch, onUpdate }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-orange-700 rounded-lg shadow pb-4 px-4">
                             {/* <!-- Modal header --> */}
-                            <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                            <div className="flex items-center justify-between p-2 md:p-3 rounded-lg ">
+                                <h3 className="text-xl font-semibold text-gray-100">
                                     Update Branch
                                 </h3>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className=" bg-transparent hover:text-red-900 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                 >
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap ">
-                                    {/* ... other form elements ... */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
+                                <form className="flex flex-wrap justify-between ">
+                                
+                                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Branch Code:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={allDetails.branchcode.toUpperCase()}
                                                 onChange={handleInputChange}
@@ -120,10 +119,10 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="Enter Branch Code"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Email ID:</label>
+                                        <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <label className="text-base  mx-1">Email ID:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="email"
                                                 value={allDetails.branchemail}
                                                 onChange={handleInputChange}
@@ -131,10 +130,10 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="abc@gmail.com"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Phone No:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="number"
                                                 value={allDetails.branchphone}
                                                 onChange={handleInputChange}
@@ -142,10 +141,10 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder=""
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">District:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={allDetails.branchdistrict}
                                                 onChange={handleInputChange}
@@ -153,10 +152,10 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="Enter Your District Name"
                                             />
                                         </div>
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">State:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={allDetails.branchstate}
                                                 onChange={handleInputChange}
@@ -164,15 +163,11 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="Enter Your State Name"
                                             />
                                         </div>
-                                    </div>
-
-
-                                    {/* part-2 */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col">
+               
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Branch Name:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={allDetails.branchname}
                                                 onChange={handleInputChange}
@@ -180,10 +175,10 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="Enter Branch Name"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Mobile No:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="number"
                                                 value={allDetails.branchmobile}
                                                 onChange={handleInputChange}
@@ -191,7 +186,29 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="+91"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                            <label className="text-base mx-1">Pincode:</label>
+                                            <input
+                                                className="input-style p-1 rounded-lg"
+                                                type="text"
+                                                value={allDetails.branchpincode}
+                                                onChange={handleInputChange}
+                                                name="branchpincode"
+                                                placeholder="805110"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                            <label className="text-base mx-1">Concern Person:</label>
+                                            <input
+                                                className="input-style p-1 rounded-lg"
+                                                type="text"
+                                                value={allDetails.concernperson}
+                                                onChange={handleInputChange}
+                                                name="concernperson"
+                                                placeholder="Enter Name"
+                                            />
+                                        </div>
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/2">
                                             <label className="text-base mx-1">Address:</label>
                                             <textarea
                                                 className="input-style rounded-lg"
@@ -203,32 +220,7 @@ function UpdateBranch({ branch, onUpdate }) {
                                                 placeholder="Enter Your Address"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Pincode:</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={allDetails.branchpincode}
-                                                onChange={handleInputChange}
-                                                name="branchpincode"
-                                                placeholder="805110"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col my-5">
-                                            <label className="text-base mx-1">Concern Person</label>
-                                            <input
-                                                className="input-style rounded-lg"
-                                                type="text"
-                                                value={allDetails.concernperson}
-                                                onChange={handleInputChange}
-                                                name="concernperson"
-                                                placeholder="Enter Name"
-                                            />
-                                        </div>
-
-                                    </div>
-
-
+                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4"></div>
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
                                             className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
