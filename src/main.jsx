@@ -415,6 +415,9 @@ const router = createBrowserRouter(
           <Route path="" element={<DashboardFinance />} />
           <Route path="/finance/home/new" element={<AddFinance />} />
           <Route path="/finance/home/view" element={<ViewFinance />} />
+          <Route path="/finance/home/daily/leger" element={<Ledger1 />} />
+          <Route path="/finance/home/monthly/leger" element={<Ledger2 />} />
+          <Route path="/finance/home/company/leger" element={<Ledger3 />} />
         </Route>
       </Route>
     </Route>

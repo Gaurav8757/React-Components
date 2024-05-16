@@ -13,7 +13,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
         advisormobile: "",
         advisorpassword: "",
         uniqueId: "",
-        advisortype:""
+        advisortype: ""
     })
     // OPEN MODAL
     const openModal = () => {
@@ -101,82 +101,82 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                                     {/* ... other form elements ... */}
                                     {/* <div className="w-full lg:w-1/2 p-2 text-start"> */}
 
-                                    <div  className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">ID:</label>
-                                            <input
-                                                className="input-style p-1 rounded-lg"
-                                                type="text"
-                                                value={advInfo.uniqueId}
-                                                onChange={handleInputChange}
-                                                name="uniqueId"
-                                                placeholder="Enter UniqueID"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">ID:</label>
+                                        <input
+                                            className="input-style p-1 rounded-lg"
+                                            type="text"
+                                            value={advInfo.uniqueId}
+                                            onChange={handleInputChange}
+                                            name="uniqueId"
+                                            placeholder="Enter UniqueID"
+                                        />
+                                    </div>
 
-                                        <div  className="flex flex-col p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Name:</label>
-                                            <input
-                                                className="input-style p-1 rounded-lg"
-                                                type="text"
-                                                value={advInfo.advisorname}
-                                                onChange={handleInputChange}
-                                                name="advisorname"
-                                                placeholder="Enter Name"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Mobile No:</label>
-                                            <input
-                                                className="input-style p-1 rounded-lg"
-                                                type="number"
-                                                value={advInfo.advisormobile}
-                                                onChange={handleInputChange}
-                                                name="advisormobile"
-                                                placeholder="+91"
-                                            />
-                                        </div>
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Name:</label>
+                                        <input
+                                            className="input-style p-1 rounded-lg"
+                                            type="text"
+                                            value={advInfo.advisorname}
+                                            onChange={handleInputChange}
+                                            name="advisorname"
+                                            placeholder="Enter Name"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Mobile No:</label>
+                                        <input
+                                            className="input-style p-1 rounded-lg"
+                                            type="number"
+                                            value={advInfo.advisormobile}
+                                            onChange={handleInputChange}
+                                            name="advisormobile"
+                                            placeholder="+91"
+                                        />
+                                    </div>
                                     {/* </div> */}
 
 
                                     {/* part-2 */}
                                     {/* <div className="w-full lg:w-1/2 p-2 text-start"> */}
-                                        <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Email ID:</label>
-                                            <input
-                                                className="input-style p-1 rounded-lg"
-                                                type="email"
-                                                value={advInfo.advisoremail}
-                                                onChange={handleInputChange}
-                                                name="advisoremail"
-                                                placeholder="abc@gmail.com"
-                                            />
-                                        </div>
-                                        <div className="flex flex-col my-4 p-2 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Advisor Payout Type:</label>
-              <select
-                className="input-style p-1 rounded-lg"
-                type="text"
-                value={advInfo.advisortype}
-                name="advisortype"
-                onChange={handleInputChange}>
-                <option value="">------ Select Payout Type --------</option>
-                <option value="DAILYPAYOUT">Daily Payout</option>
-                <option value="MONTHPAYOUT">Monthly Payout</option>
-              </select>
-            </div>
-                                        <div className="flex flex-col my-4 p-2 text-start w-full lg:w-1/4">
-                                            <label className="text-base mx-1">Address:</label>
-                                            <input
-                                                className="input-style p-1 rounded-lg"
-                                                type="text"
-                                                value={advInfo.advisoraddress}
-                                                onChange={handleInputChange}
-                                                name="advisoraddress"
-                                                placeholder=""
-                                            />
-                                        </div>
+                                    <div className="flex flex-col  p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Email ID:</label>
+                                        <input
+                                            className="input-style p-1 rounded-lg"
+                                            type="email"
+                                            value={advInfo.advisoremail}
+                                            onChange={handleInputChange}
+                                            name="advisoremail"
+                                            placeholder="abc@gmail.com"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col my-4 p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Advisor Payout Type:</label>
+                                        <select
+                                            className="input-style p-1 rounded-lg"
+                                            type="text"
+                                            value={advInfo.advisortype}
+                                            name="advisortype"
+                                            onChange={handleInputChange}>
+                                            <option value="">------ Select Payout Type --------</option>
+                                            <option value="DAILY">Daily Payout</option>
+                                            <option value="MONTHLY">Monthly Payout</option>
+                                        </select>
+                                    </div>
+                                    <div className="flex flex-col my-4 p-2 text-start w-full lg:w-1/4">
+                                        <label className="text-base mx-1">Address:</label>
+                                        <input
+                                            className="input-style p-1 rounded-lg"
+                                            type="text"
+                                            value={advInfo.advisoraddress}
+                                            onChange={handleInputChange}
+                                            name="advisoraddress"
+                                            placeholder=""
+                                        />
+                                    </div>
 
-                                        
+
 
 
                                     <div className="w-full p-1 mt-2 justify-center flex">

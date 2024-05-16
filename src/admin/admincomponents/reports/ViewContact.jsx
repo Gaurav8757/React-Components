@@ -67,30 +67,27 @@ const ViewContact = () => {
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-slate-200 to-slate-200">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
-        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto w-xl text-blue-500">
-           
-            <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">All Contact&apos;s List</h1>
-            <hr />
-          </div>
-          <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+      <div className="container-fluid  justify-center py-4 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
+      <h1 className="flex justify-center text-3xl font-semibold w-full ">All Contact&apos;s List</h1>
+        <div className="inline-block min-w-full w-full py-3">
+        
+          <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
             <table className="min-w-full text-center text-sm font-light">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr className="text-blue-700">
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 border border-black py-1">
                     Email
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 border border-black py-1">
                     Mobile
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 border border-black py-1">
                     Query
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 border border-black py-1">
                     Edit
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 border border-black py-1">
                     Delete
                   </th>
                 </tr>
@@ -98,20 +95,20 @@ const ViewContact = () => {
               <tbody>
                 {contacts.map((contact) => (
                   <tr
-                    className="border-b dark:border-neutral-200 text-sm font-medium"
+                    className="border border-black text-sm font-medium"
                     key={contact._id}
                   >
-                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_email}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_mobile}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{contact.usercontact_query}</td>
-                    <td className="whitespace-nowrap px-4 py-4">
+                    <td className="whitespace-nowrap border border-black px-1 py-1">{contact.usercontact_email}</td>
+                    <td className="whitespace-nowrap border border-black px-1 py-1">{contact.usercontact_mobile}</td>
+                    <td className="whitespace-nowrap border border-black px-1 py-1">{contact.usercontact_query}</td>
+                    <td className="whitespace-nowrap border border-black px-1 py-1">
                           <UpdateContact data = {contact} onUpdate={onUpdateContact} />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-4">
+                    <td className="whitespace-nowrap px-1 py-1">
                       <button
                         type="button"
                         onClick={() => onDeleteComplaint(contact._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-2 text-center "
                       >
                         Delete
                       </button>

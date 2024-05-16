@@ -256,21 +256,21 @@ const Sidebar = () => {
       path: "#",
       logo: <TbReport size={24} />,
       subRoutes: [
-        {
-          title: "Policies",
-          path: "/dashboard/policy",
-          dash: ""
-        },
-        {
-          title: "Add Policy Details",
-          path: "/dashboard/addpolicy",
-          dash: ""
-        },
-        {
-          title: "View All Claim's",
-          path: "/dashboard/viewclaim",
-          dash: ""
-        },
+        // {
+        //   title: "Policies",
+        //   path: "/dashboard/policy",
+        //   dash: ""
+        // },
+        // {
+        //   title: "Add Policy Details",
+        //   path: "/dashboard/addpolicy",
+        //   dash: ""
+        // },
+        // {
+        //   title: "View All Claim's",
+        //   path: "/dashboard/viewclaim",
+        //   dash: ""
+        // },
         {
           title: "View All Feedback's",
           path: "/dashboard/viewfeedback",

@@ -433,18 +433,18 @@ function Ledger3() {
                       const entryDate = new Date(item.entryDate);
                       if (entryDate >= startDate && entryDate <= endDate) {
                         // Calculate the debitAmount
-                        debitAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0));
+                        debitAmount = parseFloat(item.finalEntryFields );
                         // Update the balance
                         if (debitAmount === item.creditCompanyAmount) {
-                          balance -= debitAmount - (item.creditCompanyAmount || 0);
+                          balance -= item.finalEntryFields - (item.creditCompanyAmount || 0);
                         } else {
-                          balance += debitAmount - (item.creditCompanyAmount || 0);
+                          balance += item.finalEntryFields - (item.creditCompanyAmount || 0);
                         }
                         return (
                           <tr key={item._id} className="odd:bg-white text-sm even:bg-gray-100 border-b dark:border-gray-700">
                             <td className="whitespace-nowrap">{item.entryDate}</td>
-                            <td className="whitespace-wrap w-1/9">{item.policyNo}</td>
-                            <td className="whitespace-wrap w-1/12">{item.advisorName}</td>
+                            <td className="whitespace-wrap w-1/8">{item.policyNo}</td>
+                            <td className="whitespace-wrap w-1/8">{item.advisorName}</td>
                             <td >{item.insuredName}</td>
                             <td >{`₹ ${item.finalEntryFields}`}</td>
                             <td>{`₹ ${item.advisorPayoutAmount}`}</td>

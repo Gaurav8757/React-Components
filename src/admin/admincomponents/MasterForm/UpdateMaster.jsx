@@ -431,7 +431,8 @@ function UpdateMaster({ insurance, onUpdate }) {
   const calculateFinalAmount = () => {
     const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
     const taxesValue = parseFloat(allDetails.taxes) || 0;
-    const finalAmountValue = netPremiumValue + (netPremiumValue * taxesValue) / 100;
+    const rsaValue = parseFloat(allDetails.rsa) || 0;
+    const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
 
     setAllDetails(prevDetails => ({
       ...prevDetails,
@@ -1231,14 +1232,14 @@ function UpdateMaster({ insurance, onUpdate }) {
                         </div>
 
                         <div className="flex flex-col p-1 mt-3  text-start w-full lg:w-1/5">
-                          <label className="text-base mx-1">GST% :</label>
+                          <label className="text-base mx-1">GST:</label>
                           <input
                             className="input-style p-1 rounded-lg"
                             type="text"
                             value={allDetails.taxes}
                             onChange={handleInputChange}
                             onBlur={calculateFinalAmount}
-                            name="finalEntryFields"
+                            name="taxes"
                             placeholder="GST"
                           />
                         </div>

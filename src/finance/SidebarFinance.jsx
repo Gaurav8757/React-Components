@@ -5,7 +5,8 @@ import LogoutFinance from "./LogoutFinance.jsx";
 const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
 const FcViewDetails = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
 const LuGitBranchPlus = React.lazy(() => import("react-icons/lu").then(module => ({ default: module.LuGitBranchPlus })));
-
+const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+const FaMoneyBill = React.lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
 const SidebarFinance = () => {
   const dashboardRouted = [
     {
@@ -23,6 +24,28 @@ const SidebarFinance = () => {
       title: "Finance Policy",
       path: "/finance/home/view",
       logo: <LuGitBranchPlus size={25} />
+    },
+    {
+      title: "Leger",
+      path: "#",
+      logo: <FaMoneyBill size={25} />, 
+      subRoutes: [
+        {
+          title: "Daily Leger",
+          path: "/finance/home/daily/leger",
+          dash: ""
+        },
+        {
+          title: "Monthly Leger",
+          path: "/finance/home/monthly/leger",
+          dash: ""
+        },
+        {
+          title: "Company Leger",
+          path: "/finance/home/company/leger",
+          dash: ""
+        },
+      ]
     },
 
   ];
@@ -122,7 +145,7 @@ const SidebarFinance = () => {
                       className={`flex items-center p-2  rounded-lg text-white hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-4 text-sm whitespace-nowrap">{route.title}</span>
+                      <span className="ms-4 text-sm flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -133,7 +156,7 @@ const SidebarFinance = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="block p-2 text-white text-start mx-8  hover:rounded-xl hover:bg-gray-500"
+                            className="block p-2 text-white text-start mx-8  text-sm hover:rounded-xl hover:bg-gray-500"
                           >
                             {subRoute.title}
                           </NavLink>

@@ -69,93 +69,76 @@ const ViewFeedback = () => {
   };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
-        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto w-xl text-blue-500">
-            <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">All Feedback Lists</h1>
-            <hr />
-          </div>
-          <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
+      <h1 className="flex justify-center text-3xl font-semibold w-full py-4">All Feedback Lists</h1>
+      <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg bg-slate-200">
+        <div className="inline-block min-w-full w-full py-0 ">
+          <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
             <table className="min-w-full text-center text-sm font-light">
-              <thead className="border-b font-medium dark:border-neutral-500">
-                <tr className="text-blue-700">
-                  <th scope="col" className="px-5 py-4">
+              <thead className="border-b font-medium ">
+                <tr className="text-blue-700 border border-black">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Name
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Email
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Mobile
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Query
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Upload
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Feedback Control
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Delete
                   </th>
-
                 </tr>
               </thead>
               <tbody>
                 {feedbackList.length > 0 ? (
-                feedbackList.map((feedback) => (
-                  <tr
-                    className="border-b dark:border-neutral-200 text-sm font-medium"
-                    key={feedback._id}
-                  >
-
-                    <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_name}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_email}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{feedback.feedbackuser_mobile}</td>
-
-                    <td className="whitespace-wrap px-4 py-4 flex justify-center"><div className=" w-80 text-justify  overflow-y-auto overflow-x-auto">{feedback.feedbackuser_query}</div></td>
-
-                    <td className="whitespace-nowrap px-4 py-4">
-                      {feedback.feedbackuser_upload && (
-                        <NavLink
-                          to={feedback.feedbackuser_upload}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          View File
-                        </NavLink>
-                      )}
-
+                  feedbackList.map((feedback) => (
+                    <tr className="border border-black  text-sm font-medium" key={feedback._id}>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">{feedback.feedbackuser_name}</td>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">{feedback.feedbackuser_email}</td>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">{feedback.feedbackuser_mobile}</td>
+                      <td className="whitespace-wrap px-1 py-1  flex justify-center">{feedback.feedbackuser_query}</td>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        {feedback.feedbackuser_upload && (
+                          <NavLink
+                            to={feedback.feedbackuser_upload}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View File
+                          </NavLink>
+                        )}
+                      </td>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        <label className="relative inline-flex items-center justify-center  cursor-pointer">
+                          <input type="checkbox" value="" className="sr-only peer" onClick={() => handleToggleFeedback(feedback._id, feedback.feedbackuser_status)} checked={feedback.feedbackuser_status} />
+                          <div className="w-10 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-1 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.22 after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
+                          <span className="text-sm font-medium text-gray-900 dark:text-gray-300"></span>
+                        </label>
+                      </td>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        <button
+                          type="button"
+                          onClick={() => onDeleteFeedback(feedback._id)}
+                          className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-2 my-0.5 text-center">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))) : (<tr>
+                    <td colSpan="8" className="text-center pt-40 text-2xl font-semibold py-4 text-gray-900 dark:text-gray-00">
+                      No feedback available.
                     </td>
-
-                    <td className="whitespace-nowrap px-4 py-4 ">
-                      <label className="relative inline-flex items-center justify-center me-5 cursor-pointer">
-                        <input type="checkbox" value="" className="sr-only peer"  onClick={() => handleToggleFeedback(feedback._id, feedback.feedbackuser_status)} checked={feedback.feedbackuser_status}  />
-                        <div className="w-10 h-5 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-1 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.22 after:start-[0px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                        <span className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"></span>
-                      </label>
-                    </td>
-
-          
-                    <td className="whitespace-nowrap px-4 py-4">
-                      <button
-                        type="button"
-                        onClick={() => onDeleteFeedback(feedback._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
-                      >
-                        Delete
-                      </button>
-                    </td>
-
-                  </tr>
-                ))):(<tr>
-                  <td colSpan="8" className="text-center pt-40 text-2xl font-semibold py-4 text-gray-900 dark:text-gray-00">
-                    No feedback available.
-                  </td>
-                </tr>)}
+                  </tr>)}
               </tbody>
             </table>
           </div>

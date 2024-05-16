@@ -82,11 +82,11 @@ function HolidayAdd() {
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex-col  flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-
-        <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
-          <h1 className="font-semibold text-3xl mb-3">Add Holiday </h1>
-          <div className="flex mt-10">
+      <div className="container-fluid flex-col justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+      <h1 className="font-semibold text-3xl my-3">Add Holiday </h1>
+        <div className="relative w-full lg:w-full p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+          
+          <div className="flex mt-3">
             <div className="flex flex-col p-2 text-start w-full lg:w-1/3 ">
               <label className="text-base mx-1 mb-2">Choose Holiday Date<span className="text-red-600 font-bold">*</span></label>
               <input
