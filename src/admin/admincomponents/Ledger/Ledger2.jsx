@@ -165,8 +165,9 @@ function Ledger2() {
         return;
       }
 
-      let totalBalance = 0; // Initialize totalBalance outside of the loop
-      let debitAmount = 0;
+     
+      let debitMonthlyAmount = 0;
+      let totalBalance = 0;
       const dataToSave = modifiedData.map((item) => {
         // Calculate debitAmount for each item
         const currentYear = new Date().getFullYear();
@@ -175,17 +176,21 @@ function Ledger2() {
         const entryDate = new Date(item.entryDate);
 
         if (entryDate >= startDate && entryDate <= endDate) {
-          debitAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0)).toFixed(0);
+          debitMonthlyAmount = item.company === "GO-DIGIT" ? parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0)).toFixed(2) : parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0)).toFixed(0);
         }
         const paymentMonthlyDate = item.paymentMonthlyDate || '';
         const paymentMonthlyType = item.paymentMonthlyDate || '';
         const paymentMonthlyRefNo = item.paymentMonthlyRefNo || '';
         const creditMonthlyAmount = parseFloat(item.creditMonthlyAmount) || 0;
-        const debit = parseFloat(debitAmount);
+        if (debitMonthlyAmount === creditMonthlyAmount) {
+          totalBalance -= debitMonthlyAmount - creditMonthlyAmount;
+        } else {
+          totalBalance += debitMonthlyAmount - creditMonthlyAmount;
+        }
         // Calculate balance for each item
-        const balanceMonthly = (totalBalance + parseInt(debitAmount, 10) - parseInt(creditMonthlyAmount, 10)).toFixed(0);
+        // const balanceMonthly = (totalBalance + parseInt(debitMonthlyAmount, 10) - parseInt(creditMonthlyAmount, 10)).toFixed(0);
         // Update totalBalance for the next iteration
-        totalBalance = parseInt(balanceMonthly, 10);
+        // totalBalance = parseInt(balanceMonthly, 10);
   
         // Return the modified item with updated fields
         return {
@@ -195,12 +200,12 @@ function Ledger2() {
           advisorName: item.advisorName,
           policyNo: item.policyNo,
           entryDate: item.entryDate,
-          debitAmount: debit,
+          debitMonthlyAmount,
           paymentMonthlyDate,
           paymentMonthlyType,
           paymentMonthlyRefNo,
           creditMonthlyAmount: parseFloat(item.creditMonthlyAmount) || 0,
-          balanceMonthly: totalBalance,
+          balanceMonthly:totalBalance,
         };
       })
   
@@ -246,7 +251,7 @@ function Ledger2() {
           row.insuredName,
           row.finalEntryFields,
           row.advisorPayoutAmount,
-          row.debitAmount,
+          row.debitMonthlyAmount,
           row.paymentMonthlyDate,
           row.paymentMonthlyType,
           row.paymentMonthlyRefNo,
@@ -412,22 +417,13 @@ function Ledger2() {
                       item.advisorName === filterOptions.advisorName || filterOptions.insuredName || filterOptions.policyNo || filterOptions.fromDate || filterOptions.toDate //heck if the entry date year matches the current year
                     ) {
                       if (entryDate >= startDate && entryDate <= endDate) {
-                        let debitAmount;
-                        // const nextEntry = filteredData[index];
-                        // const nextEntryDate = nextEntry ? nextEntry.entryDate : null;
-                        // const isLastEntryOfMonth =
-                        //   !nextEntryDate ||
-                        //   entryDate !== nextEntryDate ||
-                        //   entryDate !== nextEntryDate;
-                        // // Enable input fields only for the last entry of the month
-                        // const isEditable = isLastEntryOfMonth && entryDate.getDate() >= 28;
-                        // Calculate the debitAmount
-                        debitAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0));
+                        let debitMonthlyAmount;
+                        debitMonthlyAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0));
                         // Update the balance
-                        if (debitAmount === item.creditMonthlyAmount) {
-                          balanceMonthly -= debitAmount - (item.creditMonthlyAmount || 0);
+                        if (debitMonthlyAmount === item.creditMonthlyAmount) {
+                          balanceMonthly -= debitMonthlyAmount - (item.creditMonthlyAmount || 0);
                         } else {
-                          balanceMonthly += debitAmount - (item.creditMonthlyAmount || 0);
+                          balanceMonthly += debitMonthlyAmount - (item.creditMonthlyAmount || 0);
                         }
                         return (
                           <tr key={item._id} className="odd:bg-white text-sm even:bg-gray-100 border-b dark:border-gray-700">
@@ -437,7 +433,7 @@ function Ledger2() {
                             <td>{item.insuredName}</td>
                             <td>{`₹ ${item.finalEntryFields.toFixed(0)}`}</td>
                             <td>{`₹ ${item.advisorPayoutAmount}`}</td>
-                            <td>{`₹ ${debitAmount.toFixed(0)}`}</td>
+                            <td>{`₹ ${item.company ==="GO-DIGIT" ? debitMonthlyAmount.toFixed(2): debitMonthlyAmount.toFixed(0)}`}</td>
                             <td className="">
                               <input
                                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-32 ps-2 p-1`}
@@ -487,7 +483,7 @@ function Ledger2() {
                                 // disabled={!isEditable}
                               />
                             </td>
-                            <td className={`whitespace-nowrap px-1 ${balanceMonthly > 0 ? 'text-green-600 font-bold' : (balanceMonthly < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`} name="balanceMonthly">{`₹ ${balanceMonthly.toFixed(0)}`}</td>
+                            <td className={`whitespace-nowrap px-1 ${balanceMonthly > 0 ? 'text-green-600 font-bold' : (balanceMonthly < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`} name="balanceMonthly">{`₹ ${item.company ==="GO-DIGIT" ? balanceMonthly.toFixed(2) : balanceMonthly.toFixed(0)}`}</td>
                           </tr>
                         );
                       }

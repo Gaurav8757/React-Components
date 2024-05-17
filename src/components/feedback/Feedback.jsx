@@ -96,15 +96,15 @@ const Feedback = () => {
             slidesPerView={4} // Adjust the number of slides per view based on screen size
             direction="vertical"
             autoplay={{
-              delay: 4000, // Set the delay in milliseconds between slides
+              delay: 2000, // Set the delay in milliseconds between slides
               disableOnInteraction: false, // Continue autoplay even when the user interacts with the slider
             }}
-            className="flex max-h-screen justify-center w-auto mt-2 sm:w-3/4 md:w-3/4 lg:w-full xl:w-full sm:text-lg md:text-lg xl:2xl text-md"
+            className="flex max-h-96 justify-center w-auto  sm:w-3/4 md:w-3/4 lg:w-full xl:w-full sm:text-lg md:text-lg xl:2xl text-md"
           >
             {APIData.length > 0 ? (
               APIData.map((obj) => (
                 <SwiperSlide key={obj._id}>
-                  <div className="flex justify-between ">
+                  <div className="flex justify-between">
                     <div className="w-full max-w-md border border-gray-200 rounded-lg shadow bg-slate-100 dark:border-red-800">
                       <div className="text-center px-4 ">
                         <h1 className="text-xl font-medium text-blue-700">
@@ -137,9 +137,9 @@ const Feedback = () => {
           </Swiper>
         </div>
         {/* part-2 */}
-        <div className="w-1/2 ">
+        <div className="w-full sm:w-1/2">
           <p className="text-2xl font-semibold">Your Opinion</p>
-          <div className="flex flex-wrap justify-between  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+          <div className="flex flex-wrap p-8 justify-between  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
 
             <div className=" flex-col p-2 text-start w-full lg:w-1/2">
               <label className="text-base mx-1 font-semibold">Name</label>

@@ -120,7 +120,7 @@ export default function ViewCompany() {
                             <label className=" my-2  text-xl font-medium text-gray-900" > Filter:</label>
                             <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-0 px-0 mb-2 ml-2" placeholder="ID Date Branch InsuredName" />
                         </form>
-                        <span className=" flex justify-center text-center  text-3xl font-semibold  ">All Company Lists</span>
+                        <span className=" flex justify-center text-center  text-3xl font-semibold  ">Hompage Company Details</span>
                         <div className="flex ">
                             <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                             <NavLink to="/dashboard/addcompanies" className="flex justify-center">
@@ -183,7 +183,7 @@ export default function ViewCompany() {
                                                 <UpdateCompanyModal onUpdate={onUpdateCompany} datas={data} />
                                             </td>
                                             <td className=" px-1 border border-black">
-                                                <button type="button" onClick={() => onDeleteCompany(data.id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Active</button>
+                                                <button type="button" onClick={() => onDeleteCompany(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
                                             </td>
                                         </tr>
                                     );

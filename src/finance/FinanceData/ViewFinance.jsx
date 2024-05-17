@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
+const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
 import UpdateFinance from "./UpdateFinance.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,11 +17,13 @@ function ViewFinance() {
   const [itemsPerPage, setItemsPerPage] = useState();
   const [error, setError] = useState("");
   const [searchId, setSearchId] = useState("");
+  const [advs, setAdv] = useState("");
   const [searchCompany, setSearchCompany] = useState("");
   const [veh, setVeh] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [policyNo, setPolicyNo] = useState("");
   const name = sessionStorage.getItem('finname');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +51,7 @@ function ViewFinance() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get('page')) || 1;
-    const limit = parseInt(params.get('limit')) || 100;
+    const limit = parseInt(params.get('limit')) || 1000;
     setCurrentPage(page);
     setItemsPerPage(limit);
   }, []);
@@ -68,7 +71,7 @@ function ViewFinance() {
             },
             params: {
               page: currentPage, // Send current page as a parameter
-              limit: itemsPerPage // Send items per page as a parameter
+             
             }
           }
         );
@@ -90,6 +93,7 @@ function ViewFinance() {
 
   const filteredData = allDetailsData.filter(data => {
     // Check if data is defined
+   
     if (!data) return false;
     // Filter conditions
     const idLower = data.policyrefno?.toLowerCase() || "";
@@ -97,10 +101,12 @@ function ViewFinance() {
     const companyLower = data.company?.toLowerCase() || "";
     const policyLower = data.policyNo?.toLowerCase() || "";
     const branchLower = data.branch?.toLowerCase() || "";
+    const adv = data.advisorName?.toLowerCase( ) || "";
     const vehRegLower = data.vehRegNo?.toLowerCase() || "";
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
+      (adv.includes(advs.toLowerCase()) || advs === "") &&
       (branchLower.includes(searchBranch.toLowerCase()) || searchBranch === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
@@ -112,7 +118,7 @@ function ViewFinance() {
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
   });
-
+  
   // Calculate total number of pages
   const totalItems = filteredData.length;
 
@@ -174,6 +180,13 @@ function ViewFinance() {
           row.productCode,
           row.advisorName,
           row.subAdvisor,
+          row.payoutOn,
+        row.cvpercentage,
+        row.advisorPayoutAmount,
+        row.advisorPayableAmount,
+        row.branchpayoutper,
+        row.branchPayout,
+        row.branchPayableAmount
         ];
       });
 
@@ -224,6 +237,13 @@ function ViewFinance() {
         "Product Code",
         "Advisor Name",
         "Sub Advisor",
+        "Payout On",
+        "Advisor %",
+        "Advisor Payout",
+        "Advisor Payable Amount",
+        "Branch %",
+        "Branch Payout",
+        "Branch Payable Amount"
       ];
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -247,6 +267,100 @@ function ViewFinance() {
   };
   const handleExportClick = () => {
     exportToExcel();
+  };
+
+
+  const exportMisToExcel = () => {
+    try {
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = `${name}_executive`;
+      // Map all data without filtering by current date
+      const dataToExports = filteredData.map(row => {
+        return [
+          row.entryDate,
+          row.company,
+          row.policyNo,
+          row.insuredName,
+          row.vehRegNo,
+          row.makeModel,
+          row.gvw,
+          row.cc,
+          row.ncb,
+          row.odDiscount,
+          row.sitcapacity,
+          row.fuel,
+          row.productCode,
+          row.policyType,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.finalEntryFields,
+          row.branch,
+          row.advisorName,
+          row.payoutOn,
+          row.cvpercentage,
+          row.advisorPayoutAmount,
+          row.advisorPayableAmount,
+          row.branchpayoutper,
+          row.branchPayout,
+          row.branchPayableAmount,
+        ];
+      });
+
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Entry Date", // corresponds to row.entryDate
+        "Company Name", // corresponds to row.company
+        "Policy No", // corresponds to row.policyNo
+        "Insured Name", // corresponds to row.insuredName
+        "Vehicle Reg No", // corresponds to row.vehRegNo
+        "Make & Model", // corresponds to row.makeModel
+        "GVW", // corresponds to row.gvw
+        "C.C", // corresponds to row.cc
+        "NCB", // corresponds to row.ncb
+        "OD Discount(%)", // corresponds to row.odDiscount
+        "Seating Capacity", // corresponds to row.sitcapacity
+        "Fuel Type", // corresponds to row.fuel
+        "Product Code", // corresponds to row.productCode
+        "Policy Type", // corresponds to row.policyType
+        "OD Premium", // corresponds to row.odPremium
+        "Liability Premium", // corresponds to row.liabilityPremium
+        "Net Premium", // corresponds to row.netPremium
+        "Final Amount", // corresponds to row.finalEntryFields
+        "Branch Name", // corresponds to row.branch
+        "Advisor Name", // corresponds to row.advisorName
+        "Payout On", // corresponds to row.payoutOn
+        "Advisor Percentage%", // corresponds to row.cvpercentage
+        "Advisor Payout", // corresponds to row.advisorPayoutAmount
+        "Advisor Payable Amount", // corresponds to row.advisorPayableAmount
+        "Branch Percentage%", // corresponds to row.branchpayoutper
+        "Branch Payout", // corresponds to row.branchPayout
+        "Branch Payable Amount" // corresponds to row.branchPayableAmount
+      ];
+      
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExports]);
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+    }
+  };
+  const handleMisExportClick = () => {
+    exportMisToExcel();
   };
   if (error) return <div>Error: {error}</div>;
 
@@ -273,7 +387,10 @@ function ViewFinance() {
             <h1></h1>
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">
-              <button className="text-end  mx-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+              <button className="text-end  mr-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}><FaRegCircleDown size={20} />
+              <span>MIS</span>
+              </button>
               <NavLink to={{
                 pathname: "/finance/home/new",
                 search: `?page=${currentPage}&limit=${itemsPerPage}`
@@ -334,7 +451,7 @@ function ViewFinance() {
                 placeholder="Vehicle Registration Number"
               />
             </div>
-            <div className="flex justify-start my-3  text-start lg:w-1/4"></div>
+            {/* <div className="flex justify-start my-3  text-start lg:w-1/4"></div> */}
             <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg font-medium text-gray-900">Policy No:</label>
               <input
@@ -343,6 +460,17 @@ function ViewFinance() {
                 className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Policy Number"
               /></div>
+               <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                Advisor Name:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setAdv(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by Advisor"
+              />
+            </div>
           </div>
 
           <div className="inline-block min-w-full w-full py-0 relative bg-slate-300">
@@ -395,6 +523,27 @@ function ViewFinance() {
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Product Code</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Advisor Name</th>
                   <th scope="col" className="px-1 pt-0 sticky border border-black">Sub Advisor</th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Payout On
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payout %
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payout
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payable Amount
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Branch Payout %
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Branch Payout
+                  </th>
+                  <th scope="col" className="px-1 pt-2 sticky border border-black">
+                    Branch Payable Amount
+                  </th>
                 </tr>
               </thead>
 
@@ -451,6 +600,17 @@ function ViewFinance() {
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.productCode}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.advisorName}</td>
                     <td className="whitespace-nowrap px-1 py-1 border border-black">{data.subAdvisor}</td>
+                    <td className="whitespace-nowrap px-1  py-0 border border-black">
+                      {data.payoutOn}
+                    </td>
+                    <td className="whitespace-nowrap px-1  py-0 border border-black">
+                      {data.cvpercentage}
+                    </td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{data.branchpayoutper}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
+                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td> 
                   </tr>
                 ))}
               </tbody>

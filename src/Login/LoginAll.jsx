@@ -313,7 +313,7 @@ function LoginAll() {
     return (
         <>
             <section className="container-fluid h-screen relative bg-orange-500" >
-                <div className="container-fluid pt-0 flex flex-col md:flex-row items-center pb-0 justify-between bg-orange-400" >
+                <div className="container-fluid pt-0 flex flex-col md:flex-row items-center pb-0 justify-between bg-orange-500" >
                     {/* <div className="flex-shrink-4  md:h-full h-full w-full xs:w-full   sm:w-full md:w-full mx-auto  lg:w-2/5 xl:py-20"> */}
                     <img
                         src="/insurance.png"

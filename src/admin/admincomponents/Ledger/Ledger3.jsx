@@ -179,33 +179,36 @@ function Ledger3() {
       const modifiedData = filteredData.filter(item => (
         item.paymentCompanyDate || item.paymentCompanyType || item.paymentCompanyRefNo || item.creditCompanyAmount
       ));
-
       if (modifiedData.length === 0) {
         toast.info("Please make changes to submit.");
         return;
       }
-
+  
       let totalBalance = 0;
-      let debitAmount = 0;
       const dataToSave = modifiedData.map(item => {
         const currentYear = new Date().getFullYear();
         const startDate = new Date(`${currentYear}-01-01`);
         const endDate = new Date(`${currentYear}-12-31`);
         const entryDate = new Date(item.entryDate);
-
+        let debitCompanyAmount = 0;
+        
         if (entryDate >= startDate && entryDate <= endDate) {
-          debitAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0)).toFixed(0);
+          debitCompanyAmount = parseFloat(item.finalEntryFields) || 0;
         }
+  
         const paymentCompanyDate = item.paymentCompanyDate || '';
         const paymentCompanyType = item.paymentCompanyType || '';
         const paymentCompanyRefNo = item.paymentCompanyRefNo || '';
-        const creditCompanyAmount = parseFloat(item.creditCompanyAmount)
-        const debit = parseFloat(debitAmount);
-        const balance = (totalBalance + parseInt(debitAmount, 10) - parseInt(creditCompanyAmount, 10)).toFixed(0);
-        // Update totalBalance for the next iteration
-        totalBalance = parseInt(balance, 10);
-
-
+        const creditCompanyAmount = parseFloat(item.creditCompanyAmount) || 0;
+  
+        if (debitCompanyAmount === creditCompanyAmount) {
+          totalBalance -= debitCompanyAmount - creditCompanyAmount;
+        } else {
+          totalBalance += debitCompanyAmount - creditCompanyAmount;
+        }
+        debitCompanyAmount = item.company ==="GO-DIGIT" ? debitCompanyAmount.toFixed(2): debitCompanyAmount.toFixed(0)
+       
+  
         return {
           _id: item._id, // Assuming _id is the unique identifier for each item
           advId: item.advId,
@@ -213,31 +216,30 @@ function Ledger3() {
           advisorName: item.advisorName,
           policyNo: item.policyNo,
           entryDate: item.entryDate,
-          debitAmount: debit,
+          debitCompanyAmount,
           company: item.company,
           paymentCompanyDate,
           paymentCompanyType,
           paymentCompanyRefNo,
-          creditCompanyAmount: parseFloat(item.creditCompanyAmount) || 0,
-          balanceCompany: totalBalance,
-          // Include other fields if needed
+          creditCompanyAmount,
+          balanceCompany: totalBalance
         };
       });
-
+  
       // Send the modified data to the backend API
       const response = await axios.put(`${VITE_DATA}/leger/daily/update`, dataToSave);
       if (response.status === 200) {
         toast.success(`Company Ledger Updated Successfully...!`);
-        // Refresh the data by fetching it again
         fetchData();
         // Optionally, clear filtered data after submission
         setFilteredData([]);
       }
     } catch (error) {
-      console.error('Error saving data:', error.response.data.message);
+      console.error('Error saving data:', error.response?.data?.message || error.message);
       toast.error(`${error.response ? error.response.data.message : error.message}`);
     }
   };
+  
 
 
   function getCurrentDate() {
@@ -257,8 +259,11 @@ function Ledger3() {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${currentDate}_Company_Leger`;
+      
       // Map all data without filtering by current date
       const dataToExport = filteredData.map((row) => {
+        if (row.company === filterOptions.company || filterOptions.insuredName || filterOptions.policyNo || filterOptions.fromDate || filterOptions.toDate) {
+        
         return [
           row.entryDate,
           row.policyNo,
@@ -266,14 +271,15 @@ function Ledger3() {
           row.insuredName,
           row.finalEntryFields,
           row.advisorPayoutAmount,
-          row.debitAmount,
+          row.debitCompanyAmount,
           row.paymentCompanyDate,
           row.paymentCompanyType,
           row.paymentCompanyRefNo,
           row.creditCompanyAmount,
           row.balanceCompany
-        ];
-      });
+        ]}
+      })
+      // console.log(dataToExport);
       // Get all table headers in the same order
       const tableHeaders = [
         "Entry Date",
@@ -426,16 +432,15 @@ function Ledger3() {
                   {filteredData.map((item) => {
 
                     if (item.company === filterOptions.company || filterOptions.insuredName || filterOptions.policyNo || filterOptions.fromDate || filterOptions.toDate) {
-                      let debitAmount;
+                      let debitCompanyAmount;
                       const currentYear = new Date().getFullYear();
                       const startDate = new Date(`${currentYear}-01-01`);
                       const endDate = new Date(`${currentYear}-12-31`);
                       const entryDate = new Date(item.entryDate);
                       if (entryDate >= startDate && entryDate <= endDate) {
-                        // Calculate the debitAmount
-                        debitAmount = parseFloat(item.finalEntryFields );
+                        debitCompanyAmount = parseFloat(item.finalEntryFields);
                         // Update the balance
-                        if (debitAmount === item.creditCompanyAmount) {
+                        if (debitCompanyAmount === item.creditCompanyAmount) {
                           balance -= item.finalEntryFields - (item.creditCompanyAmount || 0);
                         } else {
                           balance += item.finalEntryFields - (item.creditCompanyAmount || 0);
@@ -448,7 +453,7 @@ function Ledger3() {
                             <td >{item.insuredName}</td>
                             <td >{`₹ ${item.finalEntryFields}`}</td>
                             <td>{`₹ ${item.advisorPayoutAmount}`}</td>
-                            <td>{`₹ ${debitAmount.toFixed(0)}`}</td>
+                            <td>{`₹ ${item.company ==="GO-DIGIT" ? debitCompanyAmount.toFixed(2): debitCompanyAmount.toFixed(0)}`}</td>
                             <td className="">
                               <input
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-32 ps-2 p-1"
@@ -490,7 +495,7 @@ function Ledger3() {
                                 onChange={(e) => handleCreditChange(item._id, e.target.value)}
                               />
                             </td>
-                            <td className={`whitespace-nowrap px-1 ${balance > 0 ? 'text-green-600 font-bold' : (balance < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>{`₹ ${balance.toFixed(0)}`}</td>
+                            <td className={`whitespace-nowrap px-1 ${balance > 0 ? 'text-green-600 font-bold' : (balance < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>{`₹ ${item.company ==="GO-DIGIT" ? balance.toFixed(2) : balance.toFixed(0)}`}</td>
 
                           </tr>
                         );

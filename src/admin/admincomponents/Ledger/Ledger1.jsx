@@ -213,6 +213,7 @@ function Ledger1() {
      
       // Check if the response status is 200
       if (response.status === 200) {
+        // console.log(response.data);
         toast.success(`${response.data.message}`);
         fetchData();
       }

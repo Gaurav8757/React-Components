@@ -173,11 +173,11 @@ function UpdateCompanyModal({ datas, onUpdate }) {
             className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
             <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
               {/* <!-- Modal content --> */}
-              <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+              <div className="relative bg-gradient-to-r from-orange-800 to-orange-800 rounded-lg shadow ">
                 {/* <!-- Modal header --> */}
                 <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                   <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
-                    Update Company
+                    Update Homepage Company Details
                   </h3>
                   <button
                     onClick={closeModal}
@@ -190,7 +190,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
 
 
                 {/* <!-- Modal body --> */}
-                <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
+                <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-800 to-orange-800  ">
                   <form className="flex flex-wrap" method="post" encType="multipart/form-data">
                     <div className="w-full lg:w-1/2 p-2 text-start">
 

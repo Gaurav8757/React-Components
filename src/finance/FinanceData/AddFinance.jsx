@@ -479,8 +479,11 @@ function AddFinance() {
     const taxesValue = parseFloat(taxes) || 0;
     const rsaValue = parseFloat(rsa) || 0;
     const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
-
-    setFinalEntryFields(finalAmountValue.toFixed(0)); // Assuming you want to display the final amount with two decimal places
+    if(company === "GO-DIGIT"){
+      setFinalEntryFields(finalAmountValue.toFixed(2));
+    }else{
+      setFinalEntryFields(finalAmountValue.toFixed(0));
+    }
   };
 
   // calculate branch payable amount
@@ -767,7 +770,7 @@ function AddFinance() {
       <h1 className="font-semibold text-3xl my-4 text-white dark:text-black">Create Policy</h1>
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
         
-          <MultiStep activeStep={step} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-20 overflow-hidden"
+          <MultiStep activeStep={step} showNavigation={true} className="bg-orange-700 rounded-lg shadow-md flex justify-between mt-0 overflow-hidden"
             stepCustomStyle={{
               display: "inline",
               width: "50%",
@@ -777,14 +780,14 @@ function AddFinance() {
             contentCustomStyle={{ color: "#2D3748" }}
             prevButton={{
               title: (
-                <span className="flex justify-start" >
-                  <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
+                <span className="flex justify-start text-base" >
+                  <SlArrowLeftCircle className="mr-2 mx-auto font-semibold my-auto" /> Back
                 </span>
               ),
               style: {
                 display: "inline",
                 width: "max-content",
-                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                background: 'red',
                 color: 'white',
                 fontWeight: '',
                 borderRadius: '12rem',
@@ -800,14 +803,14 @@ function AddFinance() {
             }}
             nextButton={{
               title: (
-                <span className="flex justify-end" >Next
+                <span className="flex justify-end text-base" >Next
                   <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
                 </span>
               ),
               style: {
                 display: "inline",
                 width: "max-content",
-                background: 'linear-gradient(to right, #15a3c7, #15a3c7)',
+                background: 'green',
                 color: 'white',
                 fontWeight: '',
                 borderRadius: '12rem',

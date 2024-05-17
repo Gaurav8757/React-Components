@@ -51,39 +51,39 @@ function CompanySlab() {
 
 
   const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
-  "Bhagalpur",
-  "Bhojpur",
-  "Buxar",
-  "Darbhanga",
-  "East Champaran (Motihari)",
-  "Gaya",
-  "Gopalganj",
-  "Jamui",
-  "Jehanabad",
-  "Kaimur District",
-  "Katihar",
-  "Khagaria",
-  "Kishanganj",
-  "Lakhisarai",
-  "Madhepura",
-  "Madhubani",
-  "Munger (Monghyr)",
-  "Muzaffarpur",
-  "Nalanda",
-  "Nawada",
-  "Patna",
-  "Purnia (Purnea)",
-  "Rohtas",
-  "Saharsa",
-  "Samastipur",
-  "Saran",
-  "Sheikhpura",
-  "Sheohar",
-  "Sitamarhi",
-  "Siwan",
-  "Supaul",
-  "Vaishali",
-  "West Champaran"];
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "East Champaran (Motihari)",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur District",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Madhepura",
+    "Madhubani",
+    "Munger (Monghyr)",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia (Purnea)",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
 
   useEffect(() => {
     // Fetch and set states for India when component mounts
@@ -194,81 +194,81 @@ function CompanySlab() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/api/branch-list`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setAPIData(response.data);
-
-            })
-            .catch((error) => {
-
-                console.error(error);
-            });
-    }
-}, []);
-
-//   useEffect(() => {
-//     if (branchname) {
-//         const token = sessionStorage.getItem("token");
-//         axios
-//             .get(`${VITE_DATA}/advisor/lists`, {
-//                 headers: {
-//                     Authorization: `${token}`,
-//                 },
-//             })
-//             .then((response) => {
-//                 const filteredAdvisors = response.data.filter(
-//                     (advisor) => advisor.branch == branchname
-//                 );
-//                 setAdvisors(filteredAdvisors);
-//             })
-//             .catch((error) => {
-//                 console.error(error);
-//             });
-//     }
-// }, [branchname]);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
-    } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/sit/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-              setSit(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-}, [formSubmitted]);
-  useEffect(() => {
       // The user is authenticated, so you can make your API request here.
       axios
-        .get(`${VITE_DATA}/od/list`, {
+        .get(`${VITE_DATA}/api/branch-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
         })
         .then((response) => {
-          setOdList(response.data);
+          setAPIData(response.data);
+
+        })
+        .catch((error) => {
+
+          console.error(error);
+        });
+    }
+  }, []);
+
+  //   useEffect(() => {
+  //     if (branchname) {
+  //         const token = sessionStorage.getItem("token");
+  //         axios
+  //             .get(`${VITE_DATA}/advisor/lists`, {
+  //                 headers: {
+  //                     Authorization: `${token}`,
+  //                 },
+  //             })
+  //             .then((response) => {
+  //                 const filteredAdvisors = response.data.filter(
+  //                     (advisor) => advisor.branch == branchname
+  //                 );
+  //                 setAdvisors(filteredAdvisors);
+  //             })
+  //             .catch((error) => {
+  //                 console.error(error);
+  //             });
+  //     }
+  // }, [branchname]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      toast.error("Not Authorized yet.. Try again! ");
+    } else {
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/sit/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setSit(response.data);
         })
         .catch((error) => {
           console.error(error);
         });
+    }
+  }, [formSubmitted]);
+  useEffect(() => {
+    // The user is authenticated, so you can make your API request here.
+    axios
+      .get(`${VITE_DATA}/od/list`, {
+        headers: {
+          Authorization: `${token}`, // Send the token in the Authorization header
+        },
+      })
+      .then((response) => {
+        setOdList(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [token]);
 
   useEffect(() => {
@@ -353,7 +353,7 @@ function CompanySlab() {
 
   // const handleAdvisorPayoutChange = (e) => {
   //   const advisorPercentage = e.target.value;
-  
+
   //   setPoPercentage(advisorPercentage);
   //   setBranchpayoutper(advisorPercentage);
   // };
@@ -362,12 +362,19 @@ function CompanySlab() {
     if (formSubmitted) {
       return;
     }
+
     if (!branchname) {
-      // If branchname is empty, display an error message or handle it as needed
-      // For example, you can show a toast message:
       toast.error("Please select a branch");
-      return; // Exit the function to prevent further execution
-  }
+      return;
+    }
+    if (!company) {
+      toast.error('Please Select a valid Company Name!');
+      return;
+    }
+    if (!category) {
+      toast.error('Please Select a valid Category Type!');
+      return;
+    }
 
     try {
       const token = sessionStorage.getItem("token");
@@ -375,14 +382,7 @@ function CompanySlab() {
         toast.error("Not Authorized yet.. Try again! ");
         return;
       }
-      if (!company ) {
-        toast.error('Please Select a valid Company Name!');
-        return; // Prevent further execution if advisorName is not selected
-      }
-      if (!category ) {
-        toast.error('Please Select a valid Category Type!');
-        return; // Prevent further execution if advisorName is not selected
-      }
+
       const formData = {
         vehicleSlab: "Payout-Slab",
         company: "EleedomIMF",
@@ -400,21 +400,25 @@ function CompanySlab() {
         vncb: ncb,
         advisorName,
         cvpercentage: popercentage,
-        // advisorId,
-        // advisorUniqueId,
         payoutons: payoutOn,
         states: selectedState,
         districts: selectedCity || newCity,
         branchpayoutper,
         companypayoutper
       };
-      await axios.post(`${VITE_DATA}/company/grid/slab/add`, formData, {
+
+      setFormSubmitted(true);
+
+      const response = await axios.post(`${VITE_DATA}/company/grid/slab/add`, formData, {
         headers: {
           Authorization: `${token}`
         }
       });
-      toast.success("Payout Added Successfully");
-      setFormSubmitted(true);
+
+      if (response.status === 200 || response.status === 201) {
+       
+        toast.success("Payout Added Successfully...!");
+     
       // Reset form fields after successful submission if needed
       setCompany('');
       setCategory('');
@@ -430,52 +434,57 @@ function CompanySlab() {
       setVage('');
       setFuel('');
       setAdvisorName('');
-      // setAdvisors('');
       setCc('');
       setOdDiscount('');
       setBranchname('');
       setSit('');
       setPayoutOn('');
-      // setPoPercentage('');
       setBranchpayoutper('');
       setCompanypayoutper('');
+    }else {
+      toast.error("Unexpected response status");
+      throw new Error('Unexpected response status');
+      
+    }
     } catch (error) {
       console.error("Error adding Payout:", error.response);
-      toast.error("Failed to add Payout ");
+      toast.error("Failed to add Payout");
     } finally {
       setFormSubmitted(false);
     }
   };
 
+
+
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-      <h1 className="font-bold text-2xl my-4 text-black">Payout Grid</h1>
+        <h1 className="font-bold text-2xl my-4 text-black">Payout Grid</h1>
         <div className="relative w-full lg:w-full p-0  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-          
+
           <h1 className="flex font-bold text-2xl justify-center text-orange-800">
             EleedomIMF Pvt Ltd
-            </h1>
+          </h1>
           <div className="flex justify-center mb-4">
-           
-          <div className="flex flex-col p-1 mt-1 text-center justify-center w-full lg:w-1/4">
+
+            <div className="flex flex-col p-1 mt-1 text-center justify-center w-full lg:w-1/4">
               <label className="text-xl mx-1 my-2 font-bold"><span className="text-red-600 font-bold">*</span>Branch:<span className="text-red-600 font-bold">*</span></label>
               <select
                 className="input-style p-1  text-lg rounded-lg"
                 value={branchname}
                 name="branchname"
-                onChange={(e)=>{setBranchname(e.target.value)}}
-                required 
-                >
+                onChange={(e) => { setBranchname(e.target.value) }}
+                required
+              >
                 <option className="w-1 text-lg" value="" >--------------- Select Branch --------------</option>
                 <option value="ALL">ALL</option>
                 {
                   APIData.map((name) => {
-                      return (
-                        <option className="text-lg" key={name._id} value={name.branchname}>
-                          {`${name.branchname}`}
-                        </option>
-                      );
+                    return (
+                      <option className="text-lg" key={name._id} value={name.branchname}>
+                        {`${name.branchname}`}
+                      </option>
+                    );
                   })
                 }
               </select>
@@ -503,12 +512,12 @@ function CompanySlab() {
                 }
               </select>
             </div> */}
-           
+
 
           </div>
 
           <div className="flex flex-wrap mb-12 justify-between">
-             <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-1  text-start w-full lg:w-1/4">
               <label className="text-base  mx-1">Company Name:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="company" name="company"
@@ -562,13 +571,13 @@ function CompanySlab() {
               <label className="text-base mx-1">District:<span className="text-red-600 font-bold">*</span></label>
               {
                 // selectedCity ? (
-                  <select
-                    className="input-style text-lg p-1 rounded-lg"
-                    value={selectedCity}
-                    onChange={(e) => setSelectedCity(e.target.value)}
-                    disabled={!selectedState} // Disable city dropdown until a state is selected
-                  >
-                    <option value="">------------- Select District-------------------</option>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  disabled={!selectedState} // Disable city dropdown until a state is selected
+                >
+                  <option value="">------------- Select District-------------------</option>
                   <option value="All">All</option>
                   {/* Render other city options here if needed */}
                   {
@@ -576,7 +585,7 @@ function CompanySlab() {
                       <option key={index} value={data.name}>{data.name}</option>
                     ))
                   }
-                  </select>
+                </select>
               }
             </div>
 
@@ -669,7 +678,7 @@ function CompanySlab() {
                 <option value="NA">NA</option>
                 <option value="NEW">NEW</option>
                 <option value="1-7 YEARS">1-7 Years</option>
-               
+
                 <option value="MORE THAN 7 YEARS">More Than 7 Years</option>
               </select>
             </div>
@@ -721,8 +730,8 @@ function CompanySlab() {
                 <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
                 <option value="">All</option>
                 {
-                  odList.map((data)=>(
-                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>  
+                  odList.map((data) => (
+                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
                   ))
                 }
               </select>
@@ -739,12 +748,12 @@ function CompanySlab() {
                 placeholder="Enter CC">
                 <option className="w-1" value="">----------------- Select CC ------------------</option>
                 <option value="All">All</option>
-               {
-                ccList.map((data)=>(
-                  <option key={data._id} value={data.cc}>{data.cc}</option>
-                ))
-               }
-               
+                {
+                  ccList.map((data) => (
+                    <option key={data._id} value={data.cc}>{data.cc}</option>
+                  ))
+                }
+
               </select>
             </div>
             {/* payout on */}
@@ -786,7 +795,7 @@ function CompanySlab() {
                 onChange={(e) => setBranchpayoutper(e.target.value)}
                 name="branchpayoutper"
                 placeholder="%"
-                
+
               />
             </div>
             {/* COMPANY payout % */}
@@ -801,9 +810,9 @@ function CompanySlab() {
                 placeholder="%"
               />
             </div>
-            
-           
-        
+
+
+
           </div>
 
           <button
@@ -818,7 +827,7 @@ function CompanySlab() {
     </section>
   )
 }
-    
-   
+
+
 
 export default CompanySlab;

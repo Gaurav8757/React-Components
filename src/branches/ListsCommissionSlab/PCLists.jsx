@@ -11,6 +11,9 @@ function PCLists() {
   const [APIData, setAPIData] = useState([]);
   const [deletingStaffId, setDeletingStaffId] = useState(null);
   const name = sessionStorage.getItem("name");
+  const [searchCompany, setSearchCompany] = useState("");
+  const [ pCodes, setPcodes] = useState("");
+  const [advs, setAdv] = useState("");
   // console.log(name);
   const deleteStaff = (_id) => {
     // Show modal confirmation dialog
@@ -64,6 +67,19 @@ function PCLists() {
       console.error("Error fetching updated insurance data:", error);
     }
   };
+  const filteredData = APIData.filter(data => {
+    // Check if data is defined
+    if (!data) return false;
+    // Filter conditions
+    const idLower = data.pcodes?.toLowerCase() || "";
+    const companyLower = data.cnames?.toLowerCase() || "";
+    const adv = data.advisorName?.toLowerCase( ) || "";
+    return (
+      (adv.includes(advs.toLowerCase()) || advs === "") &&
+      (idLower.includes(pCodes.toLowerCase()) || pCodes === '') &&
+      (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') 
+    );
+  });
 
 
   const exportToExcel = () => {
@@ -73,7 +89,7 @@ function PCLists() {
       const fileName = `Payout_Lists`;
 
       // Map all data without filtering by current date
-      const dataToExport = APIData.map(row => {
+      const dataToExport = filteredData.map(row => {
         return [
           row.cnames,
           row.catnames,
@@ -159,6 +175,38 @@ function PCLists() {
           <span className=" flex justify-center text-center  text-3xl font-semibold">Advisor Payout Grid List&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
+        <div className="flex-wrap flex justify-between  text-blue-500  ">
+          
+          <div className="p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+            <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
+            <input
+              type="search"
+              onChange={(e) => setSearchCompany(e.target.value)}
+              className="shadow input-style w-52 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+              placeholder="Company Name"
+            />
+          </div>
+          <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+            <label className="my-0 text-lg font-medium text-gray-900">Product Code:</label>
+            <input
+              type="search"
+              onChange={(e) => setPcodes(e.target.value)}
+              className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+              placeholder="Product Code"
+            /></div>
+             <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+            <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+              Advisor Name:
+            </label>
+            <input
+              type="search"
+              onChange={(e) => setAdv(e.target.value)}
+              className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+              placeholder="Search by Advisor"
+            />
+          </div>
+          
+        </div>
       </div>
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
@@ -190,6 +238,9 @@ function PCLists() {
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Seating Capacity
+            </th>
+            <th scope="col" className="px-1 py-0 border border-black sticky">
+              Vehicle Age
             </th>
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Policy Type
@@ -227,7 +278,7 @@ function PCLists() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-        {APIData.reverse().map((data) => {
+        {filteredData.reverse().map((data) => {
             if (data.vehicleSlab) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
@@ -261,6 +312,7 @@ function PCLists() {
                   </td>
                   <td className="px-1 py-0 border border-black">{data.segments}</td>
                   <td className="px-1 py-0 border border-black">{data.sitcapacity}</td>
+                  <td className="px-1 py-0 border border-black">{data.vage}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
                   <td className="px-1 py-0 border border-black">{data.pcodes}</td>
                   <td className="px-1 py-0 border border-black">{data.vfuels}</td>

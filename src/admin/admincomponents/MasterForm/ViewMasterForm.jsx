@@ -23,6 +23,7 @@ function ViewMasterForm() {
   const [policyMade, setPolicyMade] = useState("");
   const [payon, setPayon] = useState("");
   const [payoutSlab, setPayoutSlab] = useState([]);
+  const [advs, setAdv] = useState("");
   const name = sessionStorage.getItem("email");
 
   // payout slab list api
@@ -61,7 +62,7 @@ function ViewMasterForm() {
           },
           params: {
             page: currentPage,
-            // limit: itemsPerPage,
+            limit: itemsPerPage,
           },
         })
         .then((response) => {
@@ -74,6 +75,7 @@ function ViewMasterForm() {
         });
     }
   }, [currentPage, itemsPerPage]);
+  
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -96,7 +98,7 @@ function ViewMasterForm() {
           },
           params: {
             page: currentPage,
-            limit: itemsPerPage,
+            // limit: itemsPerPage,
           },
         });
         setAllDetailsData(response.data.allList);
@@ -128,10 +130,12 @@ function ViewMasterForm() {
     const product = data.productCode?.toLowerCase() || "";
     const payouts = data.payoutOn?.toLowerCase() || "";
     const year = data.vehicleAge?.toLowerCase() || "";
+    const adv = data.advisorName?.toLowerCase( ) || "";
 
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === "") &&
+      (adv.includes(advs.toLowerCase()) || advs === "") &&
       (branchLower.includes(searchBranch.toLowerCase()) ||
         searchBranch === "") &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) ||
@@ -147,7 +151,6 @@ function ViewMasterForm() {
       // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
-
     );
   });
   // Calculate total number of pages
@@ -190,13 +193,13 @@ function ViewMasterForm() {
         allDetailsData.forEach((data) => {
           if (
             matchingCSLab.pcodes === data.productCode &&
-            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All') &&
+            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
+            // (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
             matchingCSLab.segments === data.segment &&
             (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
 
@@ -210,7 +213,7 @@ function ViewMasterForm() {
               (matchingCSLab.vage === 'NA') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
               (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
-              // (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
+              (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
             ) &&
             // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
@@ -260,7 +263,11 @@ function ViewMasterForm() {
               branchPayout: parseFloat(branchPayout.toFixed(2)),
               companyPayout: parseFloat(companyPayout.toFixed(2)),
               profitLoss: parseFloat(profitLoss.toFixed(2)),
+              cvpercentage: matchingCSLab.cvpercentage,
+              branchpayoutper:matchingCSLab.branchpayoutper,
+              companypayoutper:matchingCSLab.companypayoutper,
             };
+            // console.log(postData);
 
             try {
               // Send data to API
@@ -338,6 +345,7 @@ function ViewMasterForm() {
       const fileName = `${name}`;
       // Map all data without filtering by current date
       const dataToExport = filteredData.map((row) => {
+
         return [
           row.entryDate,
           row.policyrefno,
@@ -385,16 +393,20 @@ function ViewMasterForm() {
           row.advisorName,
           row.subAdvisor,
           row.payoutOn,
+          row.advisorPayout,
+          row.cvpercentage,
           row.advisorPayableAmount,
-          row.branchPayout,
+          row.branchpayoutper,
+          row.branchPayout, 
           row.branchPayableAmount,
+          row.companypayoutper,
           row.companyPayout,
           row.profitLoss,
-          row.paymentDoneBy,
-          row.chqNoRefNo,
-          row.bankName,
-          row.chqPaymentDate,
-          row.chqStatus,
+          row.na,
+          // row.chqNoRefNo,
+          // row.bankName,
+          // row.chqPaymentDate,
+          // row.chqStatus,
         ];
       });
       // Get all table headers in the same order
@@ -445,17 +457,20 @@ function ViewMasterForm() {
         "Advisor Name",
         "Sub Advisor",
         "Payout On",
+        "Adivsor %",
         "Advisor Payout",
         "Advisor Payable Amount",
+        "Branch Payout %",
         "Branch Payout",
         "Branch Payable Amount",
+        "Company Payout %",
         "Company Payout",
         "Profit/Loss",
-        "Payment Done By",
-        "CHQ No / Ref No",
-        "Bank Name",
-        "CHQ / Payment Date",
-        "CHQ Status",
+        " ",
+        // "CHQ No / Ref No",
+        // "Bank Name",
+        // "CHQ / Payment Date",
+        // "CHQ Status",
       ];
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -649,6 +664,18 @@ function ViewMasterForm() {
                 placeholder="Search by VehicleAge"
               />
             </div>
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                Advisor Name:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setAdv(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by Advisor"
+              />
+            </div>
+            {/* <div className="flex text-center justify-start mt-4  lg:w-1/4"> */}
           </div>
           <div className="inline-block min-w-full w-full py-0 relative">
             <table className="min-w-full text-center text-sm font-light table border border-black">
@@ -802,10 +829,16 @@ function ViewMasterForm() {
                     Payout On
                   </th>
                   <th scope="col" className="px-1 border border-black">
+                    Advisor Payout %
+                  </th>
+                  <th scope="col" className="px-1 border border-black">
                     Advisor Payout
                   </th>
                   <th scope="col" className="px-1 border border-black">
                     Advisor Payable Amount
+                  </th>
+                  <th scope="col" className="px-1 border border-black">
+                    Branch Payout %
                   </th>
                   <th scope="col" className="px-1 border border-black">
                     Branch Payout
@@ -814,15 +847,18 @@ function ViewMasterForm() {
                     Branch Payable Amount
                   </th>
                   <th scope="col" className="px-1 border border-black">
+                    Company Payout %
+                  </th>
+                  <th scope="col" className="px-1 border border-black">
                     Company Payout
                   </th>
                   <th scope="col" className="px-1 border border-black">
                     Profit/Loss
                   </th>
                   <th scope="col" className="px-1 border border-black">
-                    Payment Done By
+                   
                   </th>
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-1 border whitespace-nowrap border-black"
                   >
@@ -836,7 +872,7 @@ function ViewMasterForm() {
                   </th>
                   <th scope="col" className="px-1 border border-black">
                     CHQ Status
-                  </th>
+                  </th> */}
                   <th scope="col" className="px-1 border border-black">
                     Delete
                   </th>
@@ -992,19 +1028,28 @@ function ViewMasterForm() {
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.payoutOn}
                     </td>
+                    <td className="whitespace-nowrap px-1 border border-black">
+                      {data.cvpercentage}
+                    </td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayoutAmount}`}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">
+                      {data.branchpayoutper}
+                    </td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayout}`}</td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1 border border-black">
+                      {data.companypayoutper}
+                    </td>
                     <td className="whitespace-nowrap px-1 border border-black">{`₹${data.companyPayout}`}</td>
-                    <td className={`whitespace-nowrap px-1 border border-black ${data.profitLoss > 0 ? 'text-green-600 font-bold' : (data.profitLoss < 0 ? 'text-red-600 font-bold' : 'text-black')}`}>
+                    <td className={`whitespace-nowrap px-1 border border-black ${data.profitLoss > 0 ? 'text-green-600 font-bold' : (data.profitLoss < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>
                       {`₹${data.profitLoss}`}
                     </td>
 
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.paymentDoneBy}
+                    <td className="whitespace-nowrap px-8 border border-black">
+                      {}
                     </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
+                    {/* <td className="whitespace-nowrap px-1 border border-black">
                       {data.chqNoRefNo}
                     </td>
                     <td className="whitespace-nowrap px-1 border border-black">
@@ -1015,7 +1060,7 @@ function ViewMasterForm() {
                     </td>
                     <td className="whitespace-nowrap px-1 border border-black">
                       {data.chqStatus}
-                    </td>
+                    </td> */}
                     <td className="whitespace-nowrap px-1 border border-black">
                       <button
                         type="button"

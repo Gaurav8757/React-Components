@@ -276,38 +276,64 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
   // Add dependency
-  useEffect(() => {
-    const calculateAge = () => {
-      const today = new Date();
-      const birthdateDate = new Date(allDetails.mfgYear);
+  // useEffect(() => {
+  //   const calculateAge = () => {
+  //     const today = new Date();
+  //     const birthdateDate = new Date(allDetails.mfgYear);
 
-      if (isNaN(birthdateDate.getTime())) {
-        console.error('Invalid date format for mfgYear');
-        return;
-      }
+  //     if (isNaN(birthdateDate.getTime())) {
+  //       console.error('Invalid date format for mfgYear');
+  //       return;
+  //     }
 
-      let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-      let ageMonths = today.getMonth() - birthdateDate.getMonth();
-      let ageDays = today.getDate() - birthdateDate.getDate();
+  //     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+  //     let ageMonths = today.getMonth() - birthdateDate.getMonth();
+  //     let ageDays = today.getDate() - birthdateDate.getDate();
 
-      if (ageDays < 0) {
-        const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-        ageDays = lastDayOfPreviousMonth + ageDays;
-        ageMonths--;
-      }
+  //     if (ageDays < 0) {
+  //       const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  //       ageDays = lastDayOfPreviousMonth + ageDays;
+  //       ageMonths--;
+  //     }
 
-      if (ageMonths < 0) {
-        ageYears--;
-        ageMonths = 12 + ageMonths;
-      }
+  //     if (ageMonths < 0) {
+  //       ageYears--;
+  //       ageMonths = 12 + ageMonths;
+  //     }
 
-      setAllDetails(prevDetails => ({
-        ...prevDetails,
-        vehicleAge: `${ageYears} years`
-      }));
-    };
-    calculateAge();
-  }, [allDetails.mfgYear]);
+  //     setAllDetails(prevDetails => ({
+  //       ...prevDetails,
+  //       vehicleAge: `${ageYears} years`
+  //     }));
+  //   };
+  //   calculateAge();
+  // }, [allDetails.mfgYear]);
+  const calculateAge = (mfgYear) => {
+    const today = new Date();
+    const birthdateDate = new Date(mfgYear);
+  
+    if (isNaN(birthdateDate.getTime())) {
+      console.error('Invalid date format for mfgYear');
+      return null;
+    }
+  
+    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+    let ageMonths = today.getMonth() - birthdateDate.getMonth();
+    let ageDays = today.getDate() - birthdateDate.getDate();
+  
+    if (ageDays < 0) {
+      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      ageDays = lastDayOfPreviousMonth + ageDays;
+      ageMonths--;
+    }
+  
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths = 12 + ageMonths;
+    }
+  
+    return `${ageYears} years`;
+  };
 
   // // Calculate taxes with netPremium
   // const calculateFinalAmount = () => {
@@ -448,15 +474,16 @@ function UpdateFinance({ insurance, onUpdate }) {
     setAllDetails(insurance);
   }, [insurance]);
 
-  // handle input change
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setAllDetails((prevData) => ({
-  //     ...prevData,
-  //     [name]: value.toUpperCase(),
-  //     
-  //   }));
-  // };
+  useEffect(() => {
+    const vehicleAge = calculateAge(allDetails.mfgYear);
+    if (vehicleAge !== null) {
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        vehicleAge
+      }));
+    }
+  }, [allDetails.mfgYear]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     //  console.log(name + " : " + value);
@@ -507,7 +534,7 @@ function UpdateFinance({ insurance, onUpdate }) {
   return (
     <>
       {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-1 text-center ">
+      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">
         Update
       </button>
 
@@ -522,7 +549,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
           <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
-            <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-700 rounded-lg shadow dark:bg-slate-100">
+            <div className="relative bg-orange-800 rounded-lg shadow ">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-100">
@@ -539,7 +566,7 @@ function UpdateFinance({ insurance, onUpdate }) {
 
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-600 to-cyan-700">
+              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-orange-800">
                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <div className="flex flex-wrap justify-between">
@@ -1266,7 +1293,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                     {/* button */}
                     <div className="col-span-4 p-2 mt-4 flex justify-center">
                       <button
-                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50  font-medium rounded-lg text-sm px-4 py-2 text-center "
                         onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
                     </div>
                   </div>

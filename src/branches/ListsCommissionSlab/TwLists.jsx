@@ -7,9 +7,10 @@ import VITE_DATA from "../../config/config.jsx";
 
 function TwLists() {
   const [APIData, setAPIData] = useState([]);
-  const name = sessionStorage.getItem('name');
   const [deletingStaffId, setDeletingStaffId] = useState(null);
-
+  const [searchCompany, setSearchCompany] = useState("");
+  const [ pCodes, setPcodes] = useState("");
+  const [advs, setAdv] = useState("");
   const deleteStaff = (_id) => {
     // Show modal confirmation dialog
     setDeletingStaffId(_id);
@@ -60,53 +61,72 @@ function TwLists() {
     }
   };
 
+  const filteredData = APIData.filter(data => {
+    // Check if data is defined
+    if (!data) return false;
+    // Filter conditions
+    const idLower = data.pcodes?.toLowerCase() || "";
+    const companyLower = data.cnames?.toLowerCase() || "";
+    const adv = data.advisorName?.toLowerCase( ) || "";
+    return (
+      (adv.includes(advs.toLowerCase()) || advs === "") &&
+      (idLower.includes(pCodes.toLowerCase()) || pCodes === '') &&
+      (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') 
+    );
+  });
+
   const exportToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
-      const fileName = `${name}_Payout_Lists`;
+      const fileName = `Admin_Payout_Lists`;
   
       // Map all data without filtering by current date
-      const dataToExport = APIData.map(row => {
-        return [ 
-          row.cnames,
-          row.catnames,
-          row.states,
-          row.districts,
-          row.sitcapacity,
-          row.segments,
-          row.policytypes,
-          row.pcodes,
-          row.vfuels,
-          row.vncb,
-          row.voddiscount,
-          row.vcc,
-          row.payoutons,
-          row.cvpercentage, 
-          row.branchpayoutper,
-          row.companypayoutper
+      const dataToExport = filteredData.map(row => {
+        return [
+          row.cnames, // "Company Name"
+          row.catnames, // "Category Name"
+          row.advisorName, // "Advisor Name"
+          row.states, // "State"
+          row.districts, // "District"
+          row.segments, // "Segment"
+          row.sitcapacity, // "Seating Capacity"
+          row.vehicleAge, // "Vehicle Age"
+          row.policytypes, // "Policy Type"
+          row.pcodes, // "Product Code"
+          row.vfuels, // "Fuel Type"
+          row.vncb, // "NCB"
+          row.voddiscount, // "OD Discount(%)"
+          row.vcc, // "C.C"
+          row.payoutons, // "Payout On"
+          row.cvpercentage, // "Advisor Percentage%"
+          row.branchpayoutper, // "Branch Percentage%"
+          row.companypayoutper // "Company Percentage%"
         ];
       });
   
       // Get all table headers in the same order
       const tableHeaders = [
-        "Company",
-        "Category",
-        "State",
-        "District",
-        "Seating Capacity",
-        "Segment",
-        "Policy Type",
-        "Product Code",
-        "Fuel Type",
-        "NCB",
-        "OD Discount(%)",
-        "C.C",
-        "PayOut On",
-        "Advisor Percentage",
-        "Branch Percentage",
-        "Company Percentage"
+        "Company Name", // corresponds to row.company
+        "Category Name", // corresponds to row.category
+        "Advisor Name", // corresponds to row.advisorName
+        "State", // corresponds to row.states
+        "District", // corresponds to row.district
+        "Segment", // corresponds to row.segment
+        "Seating Capacity", // corresponds to row.sitcapacity
+        "Vehicle Age", // corresponds to row.vehicleAge
+        "Policy Type", // corresponds to row.policyType
+        "Product Code", // corresponds to row.productCode
+        "Fuel Type", // corresponds to row.fuel
+        "NCB", // corresponds to row.ncb
+        "OD Discount(%)", // corresponds to row.odDiscount
+        "C.C", // corresponds to row.cc
+        "Payout On", // corresponds to row.payoutOn
+        "Advisor Percentage%", // corresponds to row.advisorpercentage
+        "Branch Percentage%", // corresponds to row.branchpayoutper
+        "Company Percentage%" // corresponds to row.companypayoutper
       ];
+      
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
       // Create workbook and export
@@ -151,6 +171,38 @@ function TwLists() {
           <span className="  text-center my-1 mt-2 text-3xl font-semibold">Payout Grid&apos;s</span>
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
+        <div className="flex-wrap flex justify-between  text-blue-500  ">
+          
+            <div className="p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
+              <input
+                type="search"
+                onChange={(e) => setSearchCompany(e.target.value)}
+                className="shadow input-style w-52 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Company Name"
+              />
+            </div>
+            <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg font-medium text-gray-900">Product Code:</label>
+              <input
+                type="search"
+                onChange={(e) => setPcodes(e.target.value)}
+                className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Product Code"
+              /></div>
+               <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                Advisor Name:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setAdv(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Search by Advisor"
+              />
+            </div>
+            
+          </div>
       </div>
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
@@ -218,7 +270,7 @@ function TwLists() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-          {APIData.reverse().map((data) => {
+          {filteredData.reverse().map((data) => {
             if (data) {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>

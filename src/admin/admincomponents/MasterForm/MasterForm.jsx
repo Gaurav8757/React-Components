@@ -420,7 +420,7 @@ function MasterForm() {
     const birthdateDate = new Date(mfgYear);
     console.log(today, " ", birthdateDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    console.log(ageYears);
+    
     setVehicleAge(`${ageYears} years`);
   };
   useEffect(() => {
@@ -433,8 +433,13 @@ function MasterForm() {
     const taxesValue = parseFloat(taxes) || 0;
     const rsaValue = parseFloat(rsa) || 0;
     const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
+if(company === "GO-DIGIT"){
+  setFinalEntryFields(finalAmountValue.toFixed(2));
+}else{
+  setFinalEntryFields(finalAmountValue.toFixed(0));
+}
 
-    setFinalEntryFields(finalAmountValue.toFixed(0)); // Assuming you want to display the final amount with two decimal places
+     // Assuming you want to display the final amount with two decimal places
   };
 
   useEffect(() => {

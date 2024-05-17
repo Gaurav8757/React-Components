@@ -11,7 +11,6 @@ function UpdateMaster({ insurance, onUpdate }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-
   const [sit, setSit] = useState([]);
   const [ncbLists, setNcbLists] = useState([]);
   const [fuelType, setFuelType] = useState([]);
@@ -433,11 +432,17 @@ function UpdateMaster({ insurance, onUpdate }) {
     const taxesValue = parseFloat(allDetails.taxes) || 0;
     const rsaValue = parseFloat(allDetails.rsa) || 0;
     const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
-
-    setAllDetails(prevDetails => ({
-      ...prevDetails,
-      finalEntryFields: finalAmountValue.toFixed(0)
-    }));
+    if (allDetails.company === "GO-DIGIT") {
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        finalEntryFields: finalAmountValue.toFixed(2)
+      }));
+    } else {
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        finalEntryFields: finalAmountValue.toFixed(0)
+      }));
+    }
   };
 
   // // Calculate branch payable amount

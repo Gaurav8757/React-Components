@@ -94,48 +94,58 @@ function MasterView() {
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
         return [    
-          row.policyrefno,
-          row.entryDate,
-          row.branch,
-          row.insuredName,
-          row.contactNo,
-          row.staffName,
-          row.states,
-          row.district,
-          row.vehRegNo,
-          row.segment,
-          row.sourcing,
-          row.company,
-          row.category,
-          row.policyType,
-          row.policyNo,
-          row.engNo,
-          row.chsNo,
-          row.odPremium,
-          row.liabilityPremium,
-          row.netPremium,
-          row.rsa,
-          row.taxes,
-          row.finalEntryFields,
-          row.odDiscount,
-          row.ncb,
-          row.policyPaymentMode,
-          row.policyStartDate,
-          row.policyEndDate,
-          row.odExpiry,
-          row.tpExpiry,
-          row.idv,
-          row.bodyType,
-          row.makeModel,
-          row.mfgYear,
-          row.registrationDate,
-          row.vehicleAge,
-          row.fuel,
-          row.gvw,
-          row.cc,
-          row.productCode,
-          row.advisorName,
-          row.subAdvisor,
+        
+            row.policyrefno, // "Reference ID"
+            row.entryDate, // "Entry Date"
+            row.branch, // "Branch"
+            row.insuredName, // "Insured Name"
+            row.contactNo, // "Contact No"
+            row.staffName, // "Policy Made By"
+            row.states, // "State"
+            row.district, // "District"
+            row.vehRegNo, // "Vehicle Reg No"
+            row.segment, // "Segment"
+            row.sourcing, // "Sourcing"
+            row.company, // "Company"
+            row.category, // "Category"
+            row.policyType, // "Policy Type"
+            row.productCode, // "Product Code"
+            row.policyNo, // "Policy No"
+            row.engNo, // "Engine No"
+            row.chsNo, // "Chassis No"
+            row.odPremium, // "OD Premium"
+            row.liabilityPremium, // "Liability Premium"
+            row.netPremium, // "Net Premium"
+            row.rsa, // "RSA"
+            row.taxes, // "GST(in Amount)"
+            row.finalEntryFields, // "Final Amount"
+            row.odDiscount, // "OD Discount(%)"
+            row.ncb, // "NCB"
+           
+            row.policyPaymentMode, // "Policy Payment Mode"
+            row.policyStartDate, // "Policy Start Date"
+            row.policyEndDate, // "Policy End Date"
+            row.odExpiry, // "OD Expiry"
+            row.tpExpiry, // "TP Expiry"
+            row.idv, // "IDV"
+            row.bodyType, // "Body Type"
+            row.makeModel, // "Make & Model"
+            row.mfgYear, // "MFG Year"
+            row.registrationDate, // "Registration Date"
+            row.vehicleAge, // "Vehicle Age"
+            row.fuel, // "Fuel Type"
+            row.gvw, // "GVW"
+            row.cc, // "C.C"
+            row.advisorName, // "Advisor Name"
+            row.subAdvisor, // "Sub Advisor"
+            row.payoutOn, // "Payout On"
+            row.cvpercentage, // "Adivsor %"
+            row.advisorPayoutAmount, // "Advisor Payout"
+            row.advisorPayableAmount, // "Advisor Payable Amount"
+            row.branchpayoutper, // "Branch Payout %"
+            row.branchPayout, // "Branch Payout"
+            row.branchPayableAmount // "Branch Payable Amount"
+          
         ];
       });
   
@@ -167,6 +177,7 @@ function MasterView() {
         "Final Amount",
         "OD Discount(%)",
         "NCB",
+       
         "Policy Payment Mode",
         "Policy Start Date",
         "Policy End Date",
@@ -183,6 +194,13 @@ function MasterView() {
         "C.C",
         "Advisor Name",
         "Sub Advisor",
+        "Payout On",
+        "Adivsor %",
+        "Advisor Payout",
+        "Advisor Payable Amount",
+        "Branch Payout %",
+        "Branch Payout",
+        "Branch Payable Amount",
       ];
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExport]);
@@ -315,10 +333,16 @@ function MasterView() {
                     Payout On
                   </th>
                   <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Advisor Payout %
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
                     Advisor Payout
                   </th>
                   <th scope="col" className="px-1  pt-2 sticky border border-black">
                     Advisor Payable Amount
+                  </th>
+                  <th scope="col" className="px-1  pt-2 sticky border border-black">
+                    Branch Payout %
                   </th>
                   <th scope="col" className="px-1  pt-2 sticky border border-black">
                     Branch Payout
@@ -377,8 +401,14 @@ function MasterView() {
                     <td className="whitespace-nowrap px-1  py-0 border border-black">
                       {data.payoutOn}
                     </td>
+                    <td className="whitespace-nowrap px-1  py-0 border border-black">
+                      {data.cvpercentage}
+                    </td>
                     <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
                     <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                    <td className="whitespace-nowrap px-1  py-0 border border-black">
+                      {data.branchpayoutper}
+                    </td>
                     <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
                     <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td>  
                   </tr>
