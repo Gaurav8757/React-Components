@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import UpdateMaster from "./UpdateMaster.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
 import * as XLSX from "xlsx";
 import VITE_DATA from "../../../config/config.jsx";
 import PaginationAdmin from "./PaginationAdmin.jsx";
@@ -495,6 +496,104 @@ function ViewMasterForm() {
   const handleExportClick = () => {
     exportToExcel();
   };
+  const exportMisToExcel = () => {
+    try {
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = `${name}_executive`;
+      // Map all data without filtering by current date
+      const dataToExports = filteredData.map(row => {
+        return [
+          row.entryDate,
+          row.company,
+          row.policyNo,
+          row.insuredName,
+          row.vehRegNo,
+          row.makeModel,
+          row.gvw,
+          row.cc,
+          row.ncb,
+          row.odDiscount,
+          row.sitcapacity,
+          row.fuel,
+          row.productCode,
+          row.policyType,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.finalEntryFields,
+          row.branch,
+          row.advisorName,
+          row.payoutOn,
+          row.cvpercentage,
+          row.advisorPayoutAmount,
+          row.advisorPayableAmount,
+          row.branchpayoutper,
+          row.branchPayout,
+          row.branchPayableAmount,
+          row.companypayoutper,
+          row.companyPayout,
+          row.profitLoss,
+        ];
+      });
+
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Entry Date", // corresponds to row.entryDate
+        "Company Name", // corresponds to row.company
+        "Policy No", // corresponds to row.policyNo
+        "Insured Name", // corresponds to row.insuredName
+        "Vehicle Reg No", // corresponds to row.vehRegNo
+        "Make & Model", // corresponds to row.makeModel
+        "GVW", // corresponds to row.gvw
+        "C.C", // corresponds to row.cc
+        "NCB", // corresponds to row.ncb
+        "OD Discount(%)", // corresponds to row.odDiscount
+        "Seating Capacity", // corresponds to row.sitcapacity
+        "Fuel Type", // corresponds to row.fuel
+        "Product Code", // corresponds to row.productCode
+        "Policy Type", // corresponds to row.policyType
+        "OD Premium", // corresponds to row.odPremium
+        "Liability Premium", // corresponds to row.liabilityPremium
+        "Net Premium", // corresponds to row.netPremium
+        "Final Amount", // corresponds to row.finalEntryFields
+        "Branch Name", // corresponds to row.branch
+        "Advisor Name", // corresponds to row.advisorName
+        "Payout On", // corresponds to row.payoutOn
+        "Advisor Percentage%", // corresponds to row.cvpercentage
+        "Advisor Payout", // corresponds to row.advisorPayoutAmount
+        "Advisor Payable Amount", // corresponds to row.advisorPayableAmount
+        "Branch Percentage%", // corresponds to row.branchpayoutper
+        "Branch Payout", // corresponds to row.branchPayout
+        "Branch Payable Amount", // corresponds to row.branchPayableAmount
+        "Company Payout %",
+        "Company Payout",
+        "Profit/Loss",
+      ];
+      
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExports]);
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+    }
+  };
+  const handleMisExportClick = () => {
+    exportMisToExcel();
+  };
 
   // delete function
   const onDeleteAllData = async (_id) => {
@@ -527,6 +626,9 @@ function ViewMasterForm() {
                 onClick={handleExportClick}
               >
                 <img src="/excel.png" alt="download" className="w-12" />
+              </button>
+              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}><FaRegCircleDown size={20} />
+              <span>MIS</span>
               </button>
               <NavLink
                 to="/dashboard/masterform"
