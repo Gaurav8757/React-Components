@@ -211,6 +211,7 @@ function ViewMasterForm() {
             //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
             //   (matchingCSLab.ncb === 'both')
             // ) &&
+            
             (
               (matchingCSLab.vage === 'NA') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
