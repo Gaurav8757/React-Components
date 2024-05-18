@@ -193,6 +193,7 @@ function ViewMasterForm() {
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData.forEach((data) => {
           if (
+            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
             matchingCSLab.cnames === data.company &&
