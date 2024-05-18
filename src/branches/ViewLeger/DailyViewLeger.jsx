@@ -5,6 +5,7 @@ import VITE_DATA from "../../config/config.jsx";
 function DailyViewLeger() {
     let balance = 0;
     const [data, setData] = useState([]);
+    const [uniqueNames, setUniqueNames] = useState([]);
     const [advisors, setAdvisors] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({
@@ -19,9 +20,23 @@ function DailyViewLeger() {
             try {
                 const response = await axios.get(`${VITE_DATA}/alldetails/view/policies`);
                 const responseData = response.data; // Assuming data is stored in response.data
-                setData(responseData.allList);
+                
+                const branchName = sessionStorage.getItem("name");
+                if (!branchName) {
+                    toast.error("Branch name not found");
+                    return;
+                }
+
+                // Filter data by branchName
+                const filteredData = responseData.allList.filter(item => item.branch.includes(branchName));
+                setData(filteredData);
+
+                // Extract unique insured names from filtered data
+                const uniqueNames = [...new Set(filteredData.map(item => item.insuredName))];
+                setUniqueNames(uniqueNames);
             } catch (error) {
                 console.error("Error fetching data:", error);
+                toast.error("Error fetching data");
             }
         };
         fetchData();
@@ -33,7 +48,11 @@ function DailyViewLeger() {
         if (!token) {
             toast.error("Not Authorized yet.. Try again! ");
         } else {
-            // The user is authenticated, so you can make your API request here.
+            const branchName = sessionStorage.getItem("name");
+                if (!branchName) {
+                    toast.error("Branch name not found");
+                    return;
+                }
             axios
                 .get(`${VITE_DATA}/advisor/lists`, {
                     headers: {
@@ -41,7 +60,7 @@ function DailyViewLeger() {
                     },
                 })
                 .then((response) => {
-                    const adv = response.data.filter((advisr) => advisr.advisortype === "DAILY")
+                    const adv = response.data.filter((advisr) => advisr.advisortype === "DAILY").filter((advisr) => advisr.branch.includes(branchName));
                     setAdvisors(adv);
                 })
                 .catch((error) => {
@@ -100,7 +119,8 @@ function DailyViewLeger() {
         setFilteredData([]);
     };
 
-    const uniqueNames = [...new Set(data.map(api => api.insuredName))];
+   
+
     const isFilterApplied = () => {
         return Object.values(filterOptions).some(option => option !== "");
     };
@@ -147,8 +167,8 @@ function DailyViewLeger() {
                                 {advisors
                                     .sort((a, b) => {
                                         // Check if both a.branch and b.branch are strings before comparing
-                                        if (typeof a.branch === 'string' && typeof b.branch === 'string') {
-                                            return a.branch.localeCompare(b.branch);
+                                        if (typeof a.advisorname === 'string' && typeof b.advisorname === 'string') {
+                                            return a.advisorname.localeCompare(b.advisorname);
                                         } else {
                                             // If one or both of them are not strings, return 0 to maintain the order
                                             return 0;
@@ -159,7 +179,7 @@ function DailyViewLeger() {
                                             className={`${api.branch ? "font-semibold" : ""}`}
                                             key={index}
                                             value={api.advisorname}
-                                        >{`${api.branch} --  -- ${api.advisorname}`}</option>
+                                        >{`${api.advisorname} --  -- ${api.branch}`}</option>
                                     ))}
 
                             </select> <span className="text-sm my-auto">OR</span>

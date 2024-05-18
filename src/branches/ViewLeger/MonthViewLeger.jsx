@@ -5,6 +5,7 @@ import VITE_DATA from "../../config/config.jsx";
 function MonthViewLeger() {
   let balanceMonthly = 0;
   const [data, setData] = useState([]);
+  const [uniqueNames, setUniqueNames] = useState([]);
   const [advisors, setAdvisors] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [filterOptions, setFilterOptions] = useState({
@@ -17,16 +18,30 @@ function MonthViewLeger() {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(`${VITE_DATA}/alldetails/view/policies`);
-        const responseData = response.data; // Assuming data is stored in response.data
-        setData(responseData.allList);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+        try {
+            const response = await axios.get(`${VITE_DATA}/alldetails/view/policies`);
+            const responseData = response.data; // Assuming data is stored in response.data
+            
+            const branchName = sessionStorage.getItem("name");
+            if (!branchName) {
+                toast.error("Branch name not found");
+                return;
+            }
+
+            // Filter data by branchName
+            const filteredData = responseData.allList.filter(item => item.branch.includes(branchName));
+            setData(filteredData);
+
+            // Extract unique insured names from filtered data
+            const uniqueNames = [...new Set(filteredData.map(item => item.insuredName))];
+            setUniqueNames(uniqueNames);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            toast.error("Error fetching data");
+        }
     };
     fetchData();
-  }, []);
+}, []);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -34,7 +49,11 @@ function MonthViewLeger() {
     if (!token) {
       toast.error("Not Authorized yet.. Try again! ");
     } else {
-      // The user is authenticated, so you can make your API request here.
+      const branchName = sessionStorage.getItem("name");
+      if (!branchName) {
+          toast.error("Branch name not found");
+          return;
+      }
       axios
         .get(`${VITE_DATA}/advisor/lists`, {
           headers: {
@@ -42,7 +61,7 @@ function MonthViewLeger() {
           },
         })
         .then((response) => {
-          const adv = response.data.filter((advisr) => advisr.advisortype === "MONTHLY")
+          const adv = response.data.filter((advisr) => advisr.advisortype === "MONTHLY").filter((advisr) => advisr.branch.includes(branchName));
           setAdvisors(adv);
           // setAdvisors(response.data);
         })
@@ -100,7 +119,7 @@ function MonthViewLeger() {
     });
     setFilteredData([]);
   };
-  const uniqueNames = [...new Set(data.map(api => api.insuredName))];
+  
 
   const isFilterApplied = () => {
     return Object.values(filterOptions).some(option => option !== "");
