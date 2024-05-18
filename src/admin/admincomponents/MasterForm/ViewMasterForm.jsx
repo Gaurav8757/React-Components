@@ -193,7 +193,7 @@ function ViewMasterForm() {
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData.forEach((data) => {
           if (
-            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
+           
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
             matchingCSLab.cnames === data.company &&
@@ -218,7 +218,7 @@ function ViewMasterForm() {
               (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
             ) &&
-            // (matchingCSLab.vage === data.vehicleAge || matchingCSLab.vage === 'NA') &&
+            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             matchingCSLab.states === data.states &&
             (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' || matchingCSLab.vcc === 'OTHER'))
           ) {
