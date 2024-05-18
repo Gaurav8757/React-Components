@@ -63,12 +63,14 @@ const BranchSidebar = () => {
       subRoutes:[
         {
           title: "Daily Advisor",
-          path: "/branches/home/daily/leger",
+          // path: "/branches/home/daily/leger",
+          path: "#",
           dash: ""
         },
         {
           title: "Monthly Advisor",
-          path: "/branches/home/monthly/leger",
+          // path: "/branches/home/monthly/leger",
+          path: "#",
           dash: ""
         },
       ]
