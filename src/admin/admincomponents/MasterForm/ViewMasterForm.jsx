@@ -193,25 +193,17 @@ function ViewMasterForm() {
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData.forEach((data) => {
           if (
-           
-            matchingCSLab.pcodes === data.productCode &&
-            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
+            matchingCSLab.pcodes === data.productCode &&
+            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
             matchingCSLab.payoutons === data.payoutOn &&
-            // (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
+            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
             matchingCSLab.segments === data.segment &&
             (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
-
-            // (
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
-            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'both')
-            // ) &&
-            
+            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
               (matchingCSLab.vage === 'NA') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
@@ -219,10 +211,19 @@ function ViewMasterForm() {
               (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
             ) &&
-            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
+           
             matchingCSLab.states === data.states &&
             (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' || matchingCSLab.vcc === 'OTHER'))
-          ) {
+          )
+          
+            // (
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
+            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
+            //   (matchingCSLab.ncb === 'both')
+            // ) &&
+            
+           {
             // Add new conditions here
             // if (
             //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
