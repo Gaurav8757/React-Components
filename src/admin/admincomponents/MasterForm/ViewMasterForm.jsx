@@ -182,7 +182,7 @@ function ViewMasterForm() {
     const deduction = finalEntryFields * (companypayoutper / 100);
     return deduction;
   };
-// console.log(payoutSlab);
+
 
   useEffect(() => {
     // Check if there are matching CSLabs and allDetailsData is not empty
@@ -301,6 +301,8 @@ function ViewMasterForm() {
       console.log('No matching CSLabs found or allDetailsData is empty.');
     }
   }, [allDetailsData, payoutSlab]);
+
+
 
   useEffect(() => {
     allDetailsData.forEach(async (data) => {
