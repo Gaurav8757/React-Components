@@ -25,7 +25,7 @@ function AddFinance() {
   const [bodyType, setBodyType] = useState('');
   const [makeModel, setMakeModel] = useState('');
   const [mfgYear, setMfgYear] = useState('');
-  const [registrationDate, setRegistrationDate] = useState('');
+  const [registrationDate, setRegistrationDate] = useState("0");
   const [vehicleAge, setVehicleAge] = useState('');
   const [fuel, setFuel] = useState('');
   const [gvw, setGvw] = useState('');
@@ -427,50 +427,66 @@ function AddFinance() {
     setNetPremium(newNetPremium);
   };
 
-  // Calculate the last day of the previous month
-  // const getLastDayOfPreviousMonth = () => {
-  //   const today = new Date();
-  // const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(6), 0);
-  //   return today.toISOString().split('T')[0];
-  // };
-  //  VEHICLE AGE CALCULATED
+
+
   // const calculateAge = () => {
-  //   if (!registrationDate) {
-  //     setVehicleAge("0 years 0 months 0 days");
+  //   if (!mfgYear) {
+  //     setVehicleAge("0 years");
   //     return;
   //   }
+    
   //   const today = new Date();
-  //   const birthdateDate = new Date(registrationDate);
+  //   const birthdateDate = new Date(mfgYear);
+    
+  //   if (isNaN(birthdateDate)) {
+  //     setVehicleAge("Invalid date");
+  //     return;
+  //   }
+    
   //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
-  //   let ageDays = today.getDate() - birthdateDate.getDate();
-
-  //   if (ageDays < 0) {
-  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  //     ageDays = lastDayOfPreviousMonth + ageDays;
-  //     ageMonths--;
-  //   }
-
-  //   if (ageMonths < 0) {
+  //   const monthDiff = today.getMonth() - birthdateDate.getMonth();
+  //   const dayDiff = today.getDate() - birthdateDate.getDate();
+    
+  //   // Adjust age if the birthdate hasn't occurred yet this year
+  //   if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
   //     ageYears--;
-  //     ageMonths = 12 + ageMonths;
   //   }
-  //   setVehicleAge(`${ageYears} years ${ageMonths} months ${ageDays} days`);
-  // };
 
-  const calculateAge = () => {
-    if (!mfgYear) {
-      setVehicleAge("0 years");
+  //   setVehicleAge(`${ageYears} years`);
+
+  // };
+  //  useEffect(() => {
+  //   calculateAge();
+  // }, [mfgYear]);
+
+  
+  const calculateAge = (year) => {
+    if (!year) {
+      setVehicleAge("Enter MFG Year");
       return;
     }
-    const today = new Date();
-    const birthdateDate = new Date(mfgYear);
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    setVehicleAge(`${ageYears} years`);
+
+    const currentYear = new Date().getFullYear();
+    const birthYearInt = parseInt(year, 10);
+
+    if (isNaN(birthYearInt)) {
+      setVehicleAge("Invalid year");
+      return;
+    }
+
+    let calculatedAge = currentYear - birthYearInt;
+
+    setVehicleAge(`${calculatedAge} years`);
   };
+
   useEffect(() => {
-    calculateAge();
-  },);
+    calculateAge(mfgYear);
+  }, [mfgYear]);
+
+  const handleMfgYearChange = (event) => {
+    const year = event.target.value;
+    setMfgYear(year);
+  };
 
   // calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -1409,7 +1425,7 @@ function AddFinance() {
                   type="text"
                   name="mfgYear"
                   value={mfgYear}
-                  onChange={(e) => setMfgYear(e.target.value)}
+                  onChange={handleMfgYearChange}
                   placeholder="Enter Manufacturing Year"
                 />
                 {errors.mfgYear && <span className="text-red-600 text-sm ">{errors.mfgYear}</span>}

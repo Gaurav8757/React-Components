@@ -411,19 +411,33 @@ function MasterForm() {
   };
 
 
-   const calculateAge = () => {
-    if (!mfgYear) {
-      setVehicleAge("0 years");
+  const calculateAge = (year) => {
+    if (!year) {
+      setVehicleAge("Enter MFG Year");
       return;
     }
-    const today = new Date();
-    const birthdateDate = new Date(mfgYear);
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    setVehicleAge(`${ageYears} years`);
+
+    const currentYear = new Date().getFullYear();
+    const birthYearInt = parseInt(year, 10);
+
+    if (isNaN(birthYearInt)) {
+      setVehicleAge("Invalid year");
+      return;
+    }
+
+    let calculatedAge = currentYear - birthYearInt;
+
+    setVehicleAge(`${calculatedAge} years`);
   };
+
   useEffect(() => {
-    calculateAge();
-  },);
+    calculateAge(mfgYear);
+  }, [mfgYear]);
+
+  const handleMfgYearChange = (event) => {
+    const year = event.target.value;
+    setMfgYear(year);
+  };
 
   // calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -1446,7 +1460,7 @@ if(company === "GO-DIGIT"){
                   type="text"
                   name="mfgYear"
                   value={mfgYear}
-                  onChange={(e) => setMfgYear(e.target.value)}
+                  onChange={handleMfgYearChange}
                   placeholder="Enter Manufacturing Year"
                 />
                 {errors.mfgYear && <span className="text-red-600 text-sm ">{errors.mfgYear}</span>}

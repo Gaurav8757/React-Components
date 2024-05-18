@@ -368,60 +368,43 @@ function UpdateMaster({ insurance, onUpdate }) {
       netPremium: newNetPremium.toFixed(2)
     }));
   };
-
-
-
-  // // VEHICLE AGE CALCULATED
-  // const calculateAge = () => {
-  //   const today = new Date();
-  //   const birthdateDate = new Date(allDetails.registrationDate);
-
-
-
-  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
-  //   let ageDays = today.getDate() - birthdateDate.getDate();
-
-  //   if (ageDays < 0) {
-  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  //     ageDays = lastDayOfPreviousMonth + ageDays;
-  //     ageMonths--;
-  //   }
-
-  //   if (ageMonths < 0) {
-  //     ageYears--;
-  //     ageMonths = 12 + ageMonths;
-  //   }
-
-  //   setAllDetails(prevDetails => ({
-  //     ...prevDetails,
-  //     vehicleAge: `${ageYears} years ${ageMonths} months ${ageDays} days`
-  //   }));
-  // };
-
-  
   const calculateAge = (mfgYear) => {
     if (!mfgYear) {
-      return "0 year";
+      return "0";
     }
-    const today = new Date();
-    const birthdateDate = new Date(mfgYear);
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-   return `${ageYears} years`;
+    
+    const currentYear = new Date().getFullYear();
+    const birthYearInt = parseInt(mfgYear, 10);
+
+    if (isNaN(birthYearInt)) {
+      return "Invalid year";
+    }
+
+    let ageYears = currentYear - birthYearInt;
+    return `${ageYears} years`;
   };
-  useEffect(() => {
-    calculateAge();
-  },);
 
   useEffect(() => {
     const vehicleAge = calculateAge(allDetails.mfgYear);
     if (vehicleAge !== null) {
       setAllDetails(prevDetails => ({
         ...prevDetails,
-        vehicleAge
+        vehicleAge,
       }));
     }
   }, [allDetails.mfgYear]);
+
+  const handleYearChange = (event) => {
+    const { name, value } = event.target;
+    setAllDetails(prevDetails => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  
+
+ 
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {
@@ -1139,7 +1122,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                             className="input-style p-1 rounded-lg"
                             type="text"
                             value={allDetails.mfgYear}
-                            onChange={handleInputChange}
+                            onChange={handleYearChange}
                             name="mfgYear"
                             placeholder="Enter Manufacturing Year" />
                         </div>

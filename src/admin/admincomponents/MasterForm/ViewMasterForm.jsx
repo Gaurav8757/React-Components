@@ -196,6 +196,7 @@ function ViewMasterForm() {
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
+            matchingCSLab.states === data.states &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
@@ -210,10 +211,8 @@ function ViewMasterForm() {
               (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
               (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
-            ) &&
-           
-            matchingCSLab.states === data.states &&
-            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' || matchingCSLab.vcc === 'OTHER'))
+            ) && 
+            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' ))
           )
           
             // (

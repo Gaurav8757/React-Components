@@ -100,23 +100,23 @@ function UpdateFinance({ insurance, onUpdate }) {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
-        toast.error("Not Authorized yet.. Try again! ");
+      toast.error("Not Authorized yet.. Try again! ");
     } else {
-        // The user is authenticated, so you can make your API request here.
-        axios
-            .get(`${VITE_DATA}/ncb/show`, {
-                headers: {
-                    Authorization: `${token}`, // Send the token in the Authorization header
-                },
-            })
-            .then((response) => {
-                setNcbLists(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+      // The user is authenticated, so you can make your API request here.
+      axios
+        .get(`${VITE_DATA}/ncb/show`, {
+          headers: {
+            Authorization: `${token}`, // Send the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          setNcbLists(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-}, []);
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -273,81 +273,41 @@ function UpdateFinance({ insurance, onUpdate }) {
   //   }));
   // };
 
-
-
-  // Add dependency
-  // useEffect(() => {
-  //   const calculateAge = () => {
-  //     const today = new Date();
-  //     const birthdateDate = new Date(allDetails.mfgYear);
-
-  //     if (isNaN(birthdateDate.getTime())) {
-  //       console.error('Invalid date format for mfgYear');
-  //       return;
-  //     }
-
-  //     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-  //     let ageMonths = today.getMonth() - birthdateDate.getMonth();
-  //     let ageDays = today.getDate() - birthdateDate.getDate();
-
-  //     if (ageDays < 0) {
-  //       const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  //       ageDays = lastDayOfPreviousMonth + ageDays;
-  //       ageMonths--;
-  //     }
-
-  //     if (ageMonths < 0) {
-  //       ageYears--;
-  //       ageMonths = 12 + ageMonths;
-  //     }
-
-  //     setAllDetails(prevDetails => ({
-  //       ...prevDetails,
-  //       vehicleAge: `${ageYears} years`
-  //     }));
-  //   };
-  //   calculateAge();
-  // }, [allDetails.mfgYear]);
-  // const calculateAge = (mfgYear) => {
-  //   const today = new Date();
-  //   const birthdateDate = new Date(mfgYear);
-  
-  //   if (isNaN(birthdateDate.getTime())) {
-  //     console.error('Invalid date format for mfgYear');
-  //     return null;
-  //   }
-  
-  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
-  //   let ageDays = today.getDate() - birthdateDate.getDate();
-  
-  //   if (ageDays < 0) {
-  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-  //     ageDays = lastDayOfPreviousMonth + ageDays;
-  //     ageMonths--;
-  //   }
-  
-  //   if (ageMonths < 0) {
-  //     ageYears--;
-  //     ageMonths = 12 + ageMonths;
-  //   }
-  
-  //   return `${ageYears} years`;
-  // };
-
   const calculateAge = (mfgYear) => {
     if (!mfgYear) {
-      return "0 year";
+      return "0";
     }
-    const today = new Date();
-    const birthdateDate = new Date(mfgYear);
-    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-   return `${ageYears} years`;
+    
+    const currentYear = new Date().getFullYear();
+    const birthYearInt = parseInt(mfgYear, 10);
+
+    if (isNaN(birthYearInt)) {
+      return "Invalid year";
+    }
+
+    let ageYears = currentYear - birthYearInt;
+    return `${ageYears} years`;
   };
+
   useEffect(() => {
-    calculateAge();
-  },);
- 
+    const vehicleAge = calculateAge(allDetails.mfgYear);
+    if (vehicleAge !== null) {
+      setAllDetails(prevDetails => ({
+        ...prevDetails,
+        vehicleAge,
+      }));
+    }
+  }, [allDetails.mfgYear]);
+
+  const handleYearChange = (event) => {
+    const { name, value } = event.target;
+    setAllDetails(prevDetails => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
@@ -458,15 +418,9 @@ function UpdateFinance({ insurance, onUpdate }) {
     setAllDetails(insurance);
   }, [insurance]);
 
-  useEffect(() => {
-    const vehicleAge = calculateAge(allDetails.mfgYear);
-    if (vehicleAge !== null) {
-      setAllDetails(prevDetails => ({
-        ...prevDetails,
-        vehicleAge
-      }));
-    }
-  }, [allDetails.mfgYear]);
+
+
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -941,20 +895,20 @@ function UpdateFinance({ insurance, onUpdate }) {
                         </select>
                       </div>
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
-                                                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-                                                <select
-                                                    className="input-style p-1 text-base rounded-lg"
-                                                    type="text"
-                                                    value={allDetails.ncb}
-                                                    name="ncb"
-                                                    onChange={handleInputChange}>
-                                                    <option className="w-1" value="">----------- Select NCB ----------</option>
-                                                    {ncbLists.map((data) => (
-                                                        <option key={data._id} value={data.ncb}>{data.ncb}</option>
+                        <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                        <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          value={allDetails.ncb}
+                          name="ncb"
+                          onChange={handleInputChange}>
+                          <option className="w-1" value="">----------- Select NCB ----------</option>
+                          {ncbLists.map((data) => (
+                            <option key={data._id} value={data.ncb}>{data.ncb}</option>
 
-                                                    ))}
-                                                </select>
-                                            </div>
+                          ))}
+                        </select>
+                      </div>
                       {/* FIELD - 5 */}
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                         <label className="text-base mx-1">Sourcing:</label>
@@ -1070,7 +1024,7 @@ function UpdateFinance({ insurance, onUpdate }) {
                           className="input-style p-1 rounded-lg"
                           type="text"
                           value={allDetails.mfgYear}
-                          onChange={handleInputChange}
+                          onChange={handleYearChange}
                           name="mfgYear"
                           placeholder="Enter Manufacturing Year" />
                       </div>
@@ -1157,47 +1111,47 @@ function UpdateFinance({ insurance, onUpdate }) {
                       }
 
 
-                     
+
                       {
                         allDetails.segment === "C V" && (allDetails.productCode === "SCHOOL BUS" || allDetails.productCode === "ROUTE BUS" || allDetails.productCode === "TAXI") ? (<div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                           <label className="text-base mx-1 ">Seating Capacity:</label>
-                        <select
-                          className="input-style p-1 text-base rounded-lg"
-                          type="text"
-                          value={allDetails.sitcapacity}
-                          onChange={handleInputChange}
-                          name="sitcapacity"
-                          placeholder="Enter Sitting Capacity"
-                        >
-                          <option value="">------ Select Seating -----------</option>
-                          {
-                            sit && sit.map((data) => (
-                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                            ))
-                          }
-                          {/* <option value="">NOT APPLICABLE</option> */}
-                        </select>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            type="text"
+                            value={allDetails.sitcapacity}
+                            onChange={handleInputChange}
+                            name="sitcapacity"
+                            placeholder="Enter Sitting Capacity"
+                          >
+                            <option value="">------ Select Seating -----------</option>
+                            {
+                              sit && sit.map((data) => (
+                                <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                              ))
+                            }
+                            {/* <option value="">NOT APPLICABLE</option> */}
+                          </select>
                         </div>)
                           : (<div className="flex flex-col p-1 text-start w-full mt-4 lg:w-1/5">
                             <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 text-sm">Disabled</span></label>
                             <select
-                          className="input-style p-1 text-base rounded-lg"
-                          type="text"
-                          value={allDetails.sitcapacity}
-                          onChange={handleInputChange}
-                          name="sitcapacity"
-                          placeholder="Disabled"
-                          disabled
+                              className="input-style p-1 text-base rounded-lg"
+                              type="text"
+                              value={allDetails.sitcapacity}
+                              onChange={handleInputChange}
+                              name="sitcapacity"
+                              placeholder="Disabled"
+                              disabled
 
-                        >
-                          <option value="">------ Select Seating -----------</option>
-                          {
-                            sit && sit.map((data) => (
-                              <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                            ))
-                          }
-                          {/* <option value="">NOT APPLICABLE</option> */}
-                        </select>
+                            >
+                              <option value="">------ Select Seating -----------</option>
+                              {
+                                sit && sit.map((data) => (
+                                  <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                                ))
+                              }
+                              {/* <option value="">NOT APPLICABLE</option> */}
+                            </select>
                           </div>)
                       }
 
