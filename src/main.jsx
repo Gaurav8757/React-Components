@@ -179,6 +179,8 @@ import Ledger2 from "./admin/admincomponents/Ledger/Ledger2.jsx";
 import Ledger3 from "./admin/admincomponents/Ledger/Ledger3.jsx";
 import LeaveBalance from "./HumanResources/LeaveBalance/LeaveBalance.jsx";
 import PayoutView from "./advisor/payout/PayoutView.jsx";
+import DailyViewLeger from "./branches/ViewLeger/DailyViewLeger.jsx";
+import MonthViewLeger from "./branches/ViewLeger/MonthViewLeger.jsx";
 // import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 
 const router = createBrowserRouter(
@@ -316,6 +318,8 @@ const router = createBrowserRouter(
           <Route path="/branches/home/commvehicle/lists" element={<CvLists />} />
           <Route path="/branches/home/advisor/grids" element={<PCLists/>} />
           <Route path="/branches/home/payout/lists" element={<TwLists />} />
+          <Route path="/branches/home/daily/leger" element={<DailyViewLeger />} />
+          <Route path="/branches/home/monthly/leger" element={<MonthViewLeger />} />
         </Route>
       </Route>
 

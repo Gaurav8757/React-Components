@@ -308,62 +308,46 @@ function UpdateFinance({ insurance, onUpdate }) {
   //   };
   //   calculateAge();
   // }, [allDetails.mfgYear]);
+  // const calculateAge = (mfgYear) => {
+  //   const today = new Date();
+  //   const birthdateDate = new Date(mfgYear);
+  
+  //   if (isNaN(birthdateDate.getTime())) {
+  //     console.error('Invalid date format for mfgYear');
+  //     return null;
+  //   }
+  
+  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+  //   let ageMonths = today.getMonth() - birthdateDate.getMonth();
+  //   let ageDays = today.getDate() - birthdateDate.getDate();
+  
+  //   if (ageDays < 0) {
+  //     const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  //     ageDays = lastDayOfPreviousMonth + ageDays;
+  //     ageMonths--;
+  //   }
+  
+  //   if (ageMonths < 0) {
+  //     ageYears--;
+  //     ageMonths = 12 + ageMonths;
+  //   }
+  
+  //   return `${ageYears} years`;
+  // };
+
   const calculateAge = (mfgYear) => {
+    if (!mfgYear) {
+      return "0 year";
+    }
     const today = new Date();
     const birthdateDate = new Date(mfgYear);
-  
-    if (isNaN(birthdateDate.getTime())) {
-      console.error('Invalid date format for mfgYear');
-      return null;
-    }
-  
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    let ageMonths = today.getMonth() - birthdateDate.getMonth();
-    let ageDays = today.getDate() - birthdateDate.getDate();
-  
-    if (ageDays < 0) {
-      const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-      ageDays = lastDayOfPreviousMonth + ageDays;
-      ageMonths--;
-    }
-  
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths = 12 + ageMonths;
-    }
-  
-    return `${ageYears} years`;
+   return `${ageYears} years`;
   };
-
-  // // Calculate taxes with netPremium
-  // const calculateFinalAmount = () => {
-  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
-
-  //   const taxesValue = parseFloat(allDetails.taxes) || 0;
-
-  //   const rsaValue = parseFloat(allDetails.rsa) || 0;
-
-  //   const finalAmountValue = netPremiumValue + taxesValue + rsaValue;
-
-  //   setAllDetails(prevDetails => ({
-  //     ...prevDetails,
-  //     finalEntryFields: finalAmountValue.toFixed(2)
-  //   }));
-  // };
-
-  // // Calculate branch payable amount
-  // const calculateBranchPayableAmount = () => {
-  //   const netPremiumValue = parseFloat(allDetails.netPremium) || 0;
-  //   const branchPayoutValue = parseFloat(allDetails.branchPayout) || 0;
-  //   const branchPayableAmountValue = netPremiumValue - branchPayoutValue;
-
-  //   setAllDetails(prevDetails => ({
-  //     ...prevDetails,
-  //     branchPayableAmount: branchPayableAmountValue.toFixed(2)
-  //   }));
-  // };
-
-
+  useEffect(() => {
+    calculateAge();
+  },);
+ 
   useEffect(() => {
     axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {

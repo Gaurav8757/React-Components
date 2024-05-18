@@ -399,32 +399,29 @@ function UpdateMaster({ insurance, onUpdate }) {
   //   }));
   // };
 
-  // useEffect(() => {
-  //   calculateAge();
-  // },);
+  
+  const calculateAge = (mfgYear) => {
+    if (!mfgYear) {
+      return "0 year";
+    }
+    const today = new Date();
+    const birthdateDate = new Date(mfgYear);
+    let ageYears = today.getFullYear() - birthdateDate.getFullYear();
+   return `${ageYears} years`;
+  };
   useEffect(() => {
-    const calculateAge = () => {
-      if (!allDetails.mfgYear) {
-        setAllDetails(prevDetails => ({
-          ...prevDetails,
-          vehicleAge: "0 years"
-        }));
-        return;
-      }
+    calculateAge();
+  },);
 
-      const today = new Date();
-      const birthdateDate = new Date(allDetails.mfgYear);
-      const ageYears = today.getFullYear() - birthdateDate.getFullYear();
-
+  useEffect(() => {
+    const vehicleAge = calculateAge(allDetails.mfgYear);
+    if (vehicleAge !== null) {
       setAllDetails(prevDetails => ({
         ...prevDetails,
-        vehicleAge: `${ageYears} years`
+        vehicleAge
       }));
-    };
-
-
-    calculateAge();
-  }, [allDetails.mfgYear]); // Add appropriate dependency here
+    }
+  }, [allDetails.mfgYear]);
 
   // // Calculate taxes with netPremium
   const calculateFinalAmount = () => {

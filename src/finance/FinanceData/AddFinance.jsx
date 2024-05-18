@@ -466,7 +466,6 @@ function AddFinance() {
     const today = new Date();
     const birthdateDate = new Date(mfgYear);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-
     setVehicleAge(`${ageYears} years`);
   };
   useEffect(() => {

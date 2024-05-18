@@ -411,16 +411,14 @@ function MasterForm() {
   };
 
 
-  const calculateAge = () => {
+   const calculateAge = () => {
     if (!mfgYear) {
       setVehicleAge("0 years");
       return;
     }
     const today = new Date();
     const birthdateDate = new Date(mfgYear);
-    console.log(today, " ", birthdateDate);
     let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-    
     setVehicleAge(`${ageYears} years`);
   };
   useEffect(() => {

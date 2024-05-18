@@ -7,7 +7,7 @@ const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({
 const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
 const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
 const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
-
+const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
@@ -56,6 +56,23 @@ const BranchSidebar = () => {
        
       ]
     },
+    {
+      title: "Leger",
+      path: "#",
+      logo: <FaMoneyBill size={25} />,
+      subRoutes:[
+        {
+          title: "Daily Advisor",
+          path: "/branches/home/daily/leger",
+          dash: ""
+        },
+        {
+          title: "Monthly Advisor",
+          path: "/branches/home/monthly/leger",
+          dash: ""
+        },
+      ]
+    }
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -167,7 +184,7 @@ const BranchSidebar = () => {
                             to={subRoute.path}
                             className="flex p-2  text-sm text-white text-start mx-0  hover:rounded-xl hover:bg-gray-500"
                           >
-                            {<IoMdArrowDropright size={30} />}{subRoute.title}
+                            {<IoMdArrowDropright size={20} />}{subRoute.title}
                           </NavLink>
                         </li>
                       ))}

@@ -379,7 +379,7 @@ const Sidebar = () => {
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
                           <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-2 text-sm hover:bg-gray-500 hover:rounded-xl ">
-                            {<IoMdArrowDropright size={30} />} {subRoute.title}
+                            {<IoMdArrowDropright size={20} />} {subRoute.title}
                           </NavLink>
                         </li>
                       ))}
