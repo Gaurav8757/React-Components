@@ -258,6 +258,15 @@ function ViewMasterForm() {
               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
               profitLoss = companyPayout - branchPayout;
             }
+             // Check if data needs an update
+          if (
+            data.advisorPayoutAmount !== advisorPayout ||
+            data.advisorPayableAmount !== advisorPayable ||
+            data.branchPayableAmount !== branchPayable ||
+            data.branchPayout !== branchPayout ||
+            data.companyPayout !== companyPayout ||
+            data.profitLoss !== profitLoss
+          ) {
 
             // Prepare data for API request
             const postData = {
@@ -294,7 +303,7 @@ function ViewMasterForm() {
                 error
               );
             }
-            // }
+            }
           }
         });
       });
