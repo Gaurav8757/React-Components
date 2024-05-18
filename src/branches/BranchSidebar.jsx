@@ -19,12 +19,12 @@ const BranchSidebar = () => {
       title: "Advisor",
       path: "#",
       logo: <CgProfile size={25} />,
-      subRoutes:[
+      subRoutes: [
         {
           title: "Add Advisor",
           path: "/branches/home/advisor/register",
           dash: ""
-        }, 
+        },
         {
           title: "Advisor Lists",
           path: "/branches/home/advisor/lists",
@@ -42,7 +42,7 @@ const BranchSidebar = () => {
       title: "Payout Grid",
       path: "#",
       logo: <GiReceiveMoney size={25} />,
-      subRoutes:[
+      subRoutes: [
         {
           title: "Add Payout",
           path: "/branches/home/payout",
@@ -53,24 +53,22 @@ const BranchSidebar = () => {
           path: "/branches/home/advisor/grids",
           dash: ""
         },
-       
+
       ]
     },
     {
       title: "Leger",
       path: "#",
       logo: <FaMoneyBill size={25} />,
-      subRoutes:[
+      subRoutes: [
         {
           title: "Daily Advisor",
-          // path: "/branches/home/daily/leger",
-          path: "#",
+          path: "/branches/home/daily/leger",
           dash: ""
         },
         {
           title: "Monthly Advisor",
-          // path: "/branches/home/monthly/leger",
-          path: "#",
+          path: "/branches/home/monthly/leger",
           dash: ""
         },
       ]
@@ -204,8 +202,6 @@ const BranchSidebar = () => {
           </ul>
         </div>
       </aside>
-
-
       <main className="mt-16 ">
         {/* ALL PAGES RENDER HERE */}
       </main>
