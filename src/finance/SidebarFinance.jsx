@@ -81,7 +81,7 @@ const SidebarFinance = () => {
                 </svg>
               </button>
               <NavLink to="/finance" className="flex ms-2 md:me-24">
-                <img src="/logo.jpg " className="h-10 me-1 " alt="Logo" />
+                <img src="/logo.webp"  className="h-10 me-1 w-20" alt="Logo" />
                 <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
               </NavLink>
             </div>

@@ -80,14 +80,14 @@ useEffect( () => {setIncDate(date)}, [date] );
       <h1 className="font-semibold text-3xl mt-20 ">Increment Letter</h1>
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
 
-        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
+        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Current Date</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="text"
                   value={incdate}
                   onChange={(e) => setIncDate(e.target.value)}
@@ -95,14 +95,14 @@ useEffect( () => {setIncDate(date)}, [date] );
                   readOnly
                 />
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Select Employee</label>
                 <select
-                  className="input-style p-1 rounded-lg"
+                  className="input-style p-1 text-base rounded-lg"
                   value={selectedEmployeeId}
                   onChange={handleEmployeeChange}
                 >
-                  <option value="">--------- Select Employee ----------</option>
+                  <option value="">--------- Select Employee --------</option>
                   {employees.map((employee) => (
                     <option key={employee._id} value={employee._id} >
                       {employee.empid} - {employee.empname}
@@ -110,21 +110,23 @@ useEffect( () => {setIncDate(date)}, [date] );
                   ))}
                 </select>
               </div>
-              <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Increment Amount</label>
                 <input
-                  className="input-style rounded-lg"
+                  className="input-style p-1 rounded-lg"
                   type="number"
                   value={incrementAmount}
                   onChange={(e) => setIncrementAmount(e.target.value)}
                   placeholder="Enter Increment Amount"
                 />
               </div>
-              
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
             </div>
             <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
               <button
-                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-6 py-2.5 text-center me-2 mb-2"
+                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
                 type="submit"
                 disabled={formSubmitted}
               >

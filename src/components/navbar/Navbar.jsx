@@ -39,8 +39,8 @@ export default function Navbar({ navigation }) {
             </div>
             <div className="flex flex-1  items-center sm:justify-center justify-evenly sm:items-stretch md:justify-between">
               <NavLink to="/" className="flex ms-4 md:me-2  items-center">
-                <img src="/logo.jpg " className=" h-16  py-2 xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20  mx-2 w-28 sm:w-28 md:w-28 lg:w-32 xl:w-32 " alt="Logo" />
-                
+                <img src="/logo.webp" rel='preload' loading='lazy' className=" h-16  py-2 xs:h-12 sm:h-12 md:h-16   lg:h-16   xl:h-20  mx-2 w-28 sm:w-28 md:w-28 lg:w-32 xl:w-32 " alt="Logo" />
+               
               </NavLink>
 
               <div className="hidden sm:ml-2  items-center sm:block md:block py-10">

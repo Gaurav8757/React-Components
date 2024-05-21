@@ -190,7 +190,7 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.user.opsemail);
                     sessionStorage.setItem("name", response.data.user.opsname);
                     // Mark attendance after successful login
-                    await handleToggleAttendance();
+                    // await handleToggleAttendance();
                     break;
 
                 case "finance":
@@ -329,8 +329,10 @@ function LoginAll() {
                             </div>
                             <div className="w-full max-w-xl p-6 space-y-1  mx-auto  rounded-lg  relative px-4 py-10 bg-slate-100 shadow-lg sm:rounded-3xl sm:p-10">
                                 <img
-                                    src="/logo.jpg"
+                                    src="/logo.webp"
                                     className="h-1/4 w-1/4  mx-auto "
+                                    loading="lazy"
+                                    rel="preload"
                                     alt="Logo"
                                 />
                                 <div className="text-base font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Eleedom IMF Private Limited</div>

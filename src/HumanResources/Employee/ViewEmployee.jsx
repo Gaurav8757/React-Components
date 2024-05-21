@@ -226,22 +226,22 @@ const exportToExcel = () => {
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
-            <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
+            <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-orange-200">
 
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 ">
-                    <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
+                    <div className="overflow-x-none w-xl flex mt-2 text-blue-600">
                         <h1 className="flex justify-center text-3xl w-full font-semibold">All Employee Lists</h1>
                         <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
 
                         <NavLink to="/hr/home/addemployee" >
-                            <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                            <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center">Go Back</button>
                         </NavLink>
                     </div>
                     <div className=" relative mt-2">
                         <div className="inline-block min-w-full w-full">
-                        <h1 className="text-start text-xl underline text-red-900 font-semibold">Filters</h1>
-                        <div className="flex-wrap  flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+                        {/* <h1 className="text-start text-xl underline text-red-900 font-semibold">Filters</h1> */}
+                        <div className="flex-wrap  flex justify-between my-4  text-blue-700 max-w-auto mx-auto w-auto ">
                             {/* date range filter */}
                            
                             <div className="flex  justify-start p-0 text-start w-full lg:w-1/4">
@@ -286,7 +286,7 @@ const exportToExcel = () => {
                                     placeholder="Aadhar Number"
                                 /></div> */}
                         </div>
-                            <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
+                            <table className="min-w-full text-center text-sm font-light table bg-orange-100 ">
                                 <thead className="border-b  font-medium bg-slate-200  sticky top-16">
                                     <tr className="text-blue-700 sticky top-16">
                                     <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -337,10 +337,10 @@ const exportToExcel = () => {
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
                                             Branch
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
                                             Current Address
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
+                                        <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
                                             Permanent Address
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -412,10 +412,10 @@ const exportToExcel = () => {
                                                 <td className="px-1 py-0 border border-black">
                                                     {data.empbranch}
                                                 </td>
-                                                <td className="px-1 py-0 border whitespace-nowrap border-black">
+                                                <td colSpan={3} className="px-1 py-0 border border-black">
                                                     {data.currentempaddress}
                                                 </td>
-                                                <td className="px-1 py-0 border whitespace-nowrap border-black">
+                                                <td colSpan={3}  className="px-1 py-0 border  border-black">
                                                     {data.permanentempaddress}
                                                 </td>
                                                 <td className="px-1 py-0 border border-black">
@@ -426,7 +426,7 @@ const exportToExcel = () => {
                                                 </td> */}
                                                 <td className="px-1 py-0 border border-black">
                                                     {/* to enable delete from here */}
-                                                    <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-3 py-1 text-center">Active</button>
+                                                    <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-2 py-1 text-center">Active</button>
                                                 </td>
                                             </tr>
                                         );

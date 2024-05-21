@@ -79,7 +79,7 @@ function DashboardAdvisor() {
                     </svg>
                   </button>
                   <NavLink to="/advisor/home" className="flex ms-2 md:me-24">
-                    <img src="/logo.jpg" className="h-10 w-20 me-2" alt="Logo" />
+                    <img src="/logo.webp"  className="h-10 w-20 me-2" alt="Logo" />
                     <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
                   </NavLink>
                 </div>

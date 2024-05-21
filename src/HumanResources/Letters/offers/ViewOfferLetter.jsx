@@ -157,31 +157,25 @@ function ViewOfferLetter() {
 
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
+      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-orange-200">
 
         {/* <div className="sm:-mx-6 lg:-mx-8"> */}
         <div className="inline-block min-w-full w-full py-0 ">
-          <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-            <h1 className="flex justify-center text-3xl w-full font-semibold">Offer Lists</h1>
+          <div className="overflow-x-none w-xl flex mt-2 text-blue-700">
+            <h1 className="flex justify-center text-3xl w-full font-semibold">Offer Letter List&apos;s</h1>
             <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-
             <NavLink to="/hr/home/add/offer/letter" >
               <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
             </NavLink>
           </div>
-          <div className=" relative mt-2">
-            <div className="inline-block min-w-full w-full">
-              <h1 className="text-start text-xl underline text-red-900 font-semibold">Filters</h1>
-              <div className="flex-wrap  flex justify-between mb-10  text-blue-500 max-w-auto mx-auto w-auto ">
-                {/* date range filter */}
-
-                <div className="flex  justify-start p-0 text-start w-full lg:w-1/4">
-                  <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">DATE:</label>
-                  <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-64 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
+              <div className="flex-wrap my-8 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
+                <div className="flex my-auto ml-4 mx-auto justify-start p-0 text-start w-full lg:w-1/5">
+                  <label className="flex text-base whitespace-nowrap font-medium text-gray-900">DATE:</label>
+                  <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-64 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0" placeholder="From Date" />
                   <span className='text-justify mx-1 my-1 '>to</span>
-                  <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-64 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
+                  <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-64  my-auto ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0" placeholder="To Date" />
                 </div>
-                <div className="flex p-0  justify-start text-center w-full lg:w-1/5">
+                <div className="flex p-0  mx-auto text-center w-full lg:w-1/4">
                   <label className="my-1 text-base font-medium text-gray-900">REFERENCE-ID:</label>
                   <input
                     type="search"
@@ -208,10 +202,10 @@ function ViewOfferLetter() {
                     placeholder="Designation"
                   />
                 </div>
-
               </div>
-              <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
-                <thead className="border-b  font-medium bg-slate-200  sticky top-16">
+
+              <table className="min-w-full text-center text-sm font-light table bg-orange-100 ">
+                <thead className="border-b  font-medium bg-slate-200 border border-black  sticky top-16">
                   <tr className="text-blue-700 sticky top-16">
                     <th scope="col" className="px-1 py-0 border border-black sticky">
                       Reference No
@@ -275,7 +269,7 @@ function ViewOfferLetter() {
                         <td className="px-1 py-0 border border-black">
                           {data.ofmobile}
                         </td>
-                        <td className="px-1 py-0 whitespace-nowrap border border-black">
+                        <td className="px-1 py-0 whitespace-wrap border border-black">
                           {data.ofaddress}
                         </td>
                         <td className="px-1 py-0 border border-black">
@@ -305,8 +299,8 @@ function ViewOfferLetter() {
                   })}
                 </tbody>
               </table>
-            </div>
-          </div>
+            {/* </div> */}
+         
           {sendStaffId && (
             <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-4 rounded-lg ">

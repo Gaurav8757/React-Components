@@ -52,15 +52,16 @@ function AddSalary() {
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
-        <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Add Salary</h1>
-          <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+      <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
+      <h1 className="font-semibold text-3xl my-4 text-black ">Add Salary</h1>
+        <div className="relative w-full lg:w-full  p-0 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
+          
+          <div className="flex flex-wrap justify-between p-4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">  Employee:</label>
               {/* // Render the dropdown in your form */}
               <select
-                className="input-style rounded-lg text-base h-10"
+                className="input-style rounded-lg text-base p-1"
                 name="empadd"
                 value={selectedEmployee}
                 onChange={(e) => {
@@ -74,7 +75,7 @@ function AddSalary() {
                 }}
               >
                 <option value="" className="text-base">
-                   ------------------ Select Employee -----------------
+                   --------- Select Employee ----------
                 </option>
                 {sortedAPIData.map((employee) => (
                   <option key={employee.empid} value={employee.empname} className="text-base">
@@ -84,10 +85,10 @@ function AddSalary() {
               </select>
             </div>
            
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Monthly Salary:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="number"
                 min="0"
                 name="monthsalary"
@@ -96,10 +97,10 @@ function AddSalary() {
                 placeholder=""
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Monthly Leave:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="number"
                 min="0"
                 name="monthleave"
@@ -108,7 +109,7 @@ function AddSalary() {
                 placeholder=""
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
             {/* button */}
             <div className="w-full p-2 mt-10">
               <button

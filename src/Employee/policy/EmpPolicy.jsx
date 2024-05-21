@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import AddPolicyDetail from './AddPolicyDetail.jsx';
 import * as XLSX from 'xlsx';
+import TextLoader from '../../loader/TextLoader.jsx';
 import VITE_DATA from '../../config/config.jsx';
 // update policy
 function EmpPolicy() {
@@ -214,13 +215,7 @@ function EmpPolicy() {
                         <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                     </div>
 
-                    {isLoading ? ( // Conditional rendering for loading state
-                        <p className='mt-20 text-2xl font-bold'>Loading policies...</p>
-                    ) : (
-                        <div className="inline-block min-w-full w-full py-0 ">
-                            {APIData.length === 0 ? ( // Conditional rendering when there are no policies
-                                <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
-                            ) : (
+                   
                                 <div className="min-w-full w-full py-0  block z-50">
                                     <div className="flex-wrap mb-4 flex justify-between  text-blue-500  ">
                                         {/* date range filter */}
@@ -280,6 +275,13 @@ function EmpPolicy() {
                                     </div>
 
                                     <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
+                                    {isLoading ? ( // Conditional rendering for loading state
+                       <TextLoader/>
+                    ) : (
+                        <div className="inline-block min-w-full w-full py-0 ">
+                            {APIData.length === 0 ? ( // Conditional rendering when there are no policies
+                                <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
+                            ) : (<>
                                         <thead className="   font-medium sticky bg-slate-200">
                                             <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky">
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
@@ -475,12 +477,16 @@ function EmpPolicy() {
                                                 );
                                             })}
                                         </tbody>
-                                    </table>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                                        </>)}
+                                    
+                                    </div>)}
+                                    </table> 
+                              
+                                       
+                       
+                    
                 </div>
+            </div>
             </div>
             {/* Pagination */}
 
@@ -526,6 +532,7 @@ function EmpPolicy() {
                     </li>
                 </ul>
             </nav>
+            
         </section>
     )
 }

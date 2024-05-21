@@ -57,7 +57,36 @@ function DashboardHr() {
         },
       ]
     },
-
+    {
+      title: "Offer",
+      path: "#",
+      logo: <FaEnvelopeOpenText size={25} />,
+      subRoutes: [
+        {
+          title: 'Add Letter',
+          path: '/hr/home/add/offer/letter'
+        },
+        {
+          title: 'View Letter',
+          path: '/hr/home/view/offer/letter'
+        },
+      ],
+    },
+    {
+      title: "Joining",
+      path: "#",
+      logo: <FcKindle size={25} />,
+      subRoutes: [
+        {
+          title: 'Add Letter',
+          path: '/hr/home/add/joining/letter'
+        },
+        {
+          title: 'View Letter',
+          path: '/hr/home/view/joining/letter'
+        } 
+      ],
+    },
     {
       title: "Employee",
       path: "#",
@@ -75,8 +104,7 @@ function DashboardHr() {
         },
 
       ]
-    },
-
+    },  
     {
       title: "Salary",
       path: "#",
@@ -110,36 +138,7 @@ function DashboardHr() {
         // },
 
       ]
-    }, {
-      title: "Offer",
-      path: "#",
-      logo: <FaEnvelopeOpenText size={25} />,
-      subRoutes: [
-        {
-          title: 'Add Letter',
-          path: '/hr/home/add/offer/letter'
-        },
-        {
-          title: 'View Letter',
-          path: '/hr/home/view/offer/letter'
-        },
-      ],
-    },
-    {
-      title: "Joining",
-      path: "#",
-      logo: <FcKindle size={25} />,
-      subRoutes: [
-        {
-          title: 'Add Letter',
-          path: '/hr/home/add/joining/letter'
-        },
-        {
-          title: 'View Letter',
-          path: '/hr/home/view/joining/letter'
-        } 
-      ],
-    },
+    }, 
     {
       title: "Increment",
       path: "#",
@@ -232,7 +231,7 @@ function DashboardHr() {
               </svg>
             </button>
             <NavLink to="/hr/home" className="flex ms-2 md:me-24">
-              <img src="/logo.jpg " className="h-10 me-1 w-20 " alt="Logo" />
+              <img src="/logo.webp" className="h-10 me-1 w-20 " alt="Logo" />
               <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
             </NavLink>
             <div>

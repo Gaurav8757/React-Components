@@ -67,20 +67,20 @@ function SeparateLetter({ offers }) {
                     aria-hidden="true"
                     className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
                     <div className="relative p-4 w-full max-w-7xl max-h-7xl mx-auto my-20 backdrop-blur-lg">
-                        <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto ">
+                        <div className="flex flex-col bg-orange-700 border shadow-sm rounded-xl pointer-events-auto ">
                             <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
                                 <div className='flex justify-end mx-5  '>
                                     <button onClick={downloadPDF} className="flex justify-end my-0 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
                                         Download
                                     </button>
-                                    <button onClick={handlePrint} className="flex justify- text-end my-0   px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
+                                    <button onClick={handlePrint} className="flex justify- text-end my-0   px-4 py-2 bg-green-700 hover:bg-green-500 hover:text-black text-white rounded-md shadow-md">
                                         Print
                                     </button>
                                 </div>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                                    className=" bg-transparent hover:text-red-900 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
@@ -94,7 +94,7 @@ function SeparateLetter({ offers }) {
                                         <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div>
                                         {/* 1 */}
                                         <div className="relative z-10 p-8 text-white">
-                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
+                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.webp" alt="logo" />
                                         </div>
                                         {/* 2 */}
                                         <div className="px-4 leading-8 relative rounded-s-xl text-end text-white">

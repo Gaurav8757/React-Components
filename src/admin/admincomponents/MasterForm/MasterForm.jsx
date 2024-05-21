@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import MultiStep from "react-multistep";
-import { State, City } from 'country-state-city';
+
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function MasterForm() {
@@ -380,24 +380,56 @@ function MasterForm() {
   }, [pdata]);
 
 
+  // useEffect(() => {
+  //   // Load states asynchronously when the component mounts
+  //   const fetchStates = async () => {
+  //     const fetchedStates = await State.getStatesOfCountry('IN');
+  //     setStates(fetchedStates);
+  //   };
+  //   fetchStates();
+  // }, []);
+
+  // const handleStateChange = (e) => {
+  //   const stateIsoCode = e.target.value;
+  //   setSelectedState(stateIsoCode);
+  //   // Fetch cities only when a state is selected
+  //   const fetchCities = async () => {
+  //     const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
+  //     setCities(stateCities);
+  //   };
+  //   fetchCities();
+  // };
+
   useEffect(() => {
     // Load states asynchronously when the component mounts
     const fetchStates = async () => {
-      const fetchedStates = await State.getStatesOfCountry('IN');
-      setStates(fetchedStates);
+      try {
+        const { State } = await import('country-state-city').then(module => module);
+        const fetchedStates = State.getStatesOfCountry('IN');
+        setStates(fetchedStates);
+      } catch (error) {
+        console.error('Error fetching states:', error);
+      }
     };
     fetchStates();
   }, []);
 
-  const handleStateChange = (e) => {
+  const handleStateChange = async (e) => {
     const stateIsoCode = e.target.value;
     setSelectedState(stateIsoCode);
-    // Fetch cities only when a state is selected
-    const fetchCities = async () => {
-      const stateCities = await City.getCitiesOfState("IN", stateIsoCode);
-      setCities(stateCities);
-    };
-    fetchCities();
+
+    if (stateIsoCode) {
+      // Fetch cities only when a state is selected
+      try {
+        const { City } = await import('country-state-city').then(module => module);
+        const stateCities = City.getCitiesOfState('IN', stateIsoCode);
+        setCities(stateCities);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    } else {
+      setCities([]);
+    }
   };
 
   // Function to update netPremium when odPremium or liabilityPremium changes

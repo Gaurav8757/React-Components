@@ -57,7 +57,7 @@ function OfferLetter() {
                     <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div>
                     {/* 1 */}
                     <div className="relative z-10 p-8 text-white">
-                        <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
+                        <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.webp"  alt="logo" />
                     </div>
                     {/* 2 */}
                     <div className="px-4 leading-8 relative rounded-s-xl text-end text-white">

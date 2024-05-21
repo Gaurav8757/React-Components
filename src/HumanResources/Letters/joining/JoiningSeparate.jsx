@@ -72,20 +72,20 @@ function JoiningSeparate({ offers }) {
                     className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50"
                 >
                     <div className="relative p-4 w-full max-w-7xl max-h-7xl mx-auto my-20 backdrop-blur-lg">
-                        <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto">
+                        <div className="flex flex-col bg-orange-700 border shadow-sm rounded-xl pointer-events-auto">
                             <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
                                 <div className="flex justify-end mx-5">
                                     <button onClick={downloadPDF} className="flex justify-end my-0 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
                                         Download
                                     </button>
-                                    <button onClick={handlePrint} className="flex justify-end my-0 mx-4 px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
+                                    <button onClick={handlePrint} className="flex justify-end my-0 mx-4 px-4 py-2 bg-green-700 text-white rounded-md shadow-md">
                                         Print
                                     </button>
                                 </div>
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className=" bg-transparent hover:text-red-900 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                 >
                                     <CgCloseR size={25} />
                                 </button>
@@ -100,7 +100,7 @@ function JoiningSeparate({ offers }) {
                                         <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div>
                                         {/* 1 */}
                                         <div className="relative z-10 p-8 text-white">
-                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
+                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.webp" alt="logo" />
                                         </div>
                                         {/* 2 */}
                                         <div className="px-4 leading-8 relative  rounded-s-xl text-end text-white">
@@ -127,7 +127,7 @@ function JoiningSeparate({ offers }) {
                                         <p className="mb-4 mx-4 text-start font-semibold">Dear {offers.ofname}</p>
                                         <p className="mb-4 mx-4 text-justify">We are pleased to offer you, the position of {offers.ofdesignation} with <span className='font-bold'> Eleedom IMF Pvt. Ltd.</span>  (the ‘Company’) on the following terms and conditions:</p>
                                         <ul className="list-disc mb-4 text-start mx-16">
-                                            <li>Commencement of employment<br /> Your employment will be effective, as of 1st July 2022</li><br />
+                                            <li>Commencement of employment<br /> Your employment will be effective, as of {offers.joinempdate}</li><br />
                                             <li>Job title:<br />
                                                 Your job title will be {offers.ofdesignation}, and   you will report to Mr. Kamlesh Thakur, Manager Accounts.
                                             </li><br />
@@ -191,60 +191,64 @@ function JoiningSeparate({ offers }) {
                                         </ul>
                                         <p className="mb-4 text-start mx-4">We welcome you, and look forward to receiving your acceptance and to working with you.</p>
                                         <p className="mb-4 text-start mx-4 font-semibold">Yours sincerely,</p>
-                                        <p className='text-start mx-4 font-semibold'>Kamlesh Thakur<br />
-                                            Manager – HR (01-07-2022)
+                                        <p className='text-start mx-4  font-bold'>Kamlesh Thakur<br />
+                                            (Manager – HR)
+
                                         </p>
+                                        <p className="text-start mx-7">{offers.joinsigndate}</p>
 
-                                        <p className="mb-4 mt-20 mx-4 font-semibold">Schedule I - Compensation Details:</p>
-                                        <table className='flex justify-center'>
+                                        <p className="mb-4 mt-20 mx-4 font-bold">Schedule I - Compensation Details:</p>
+                                        <div className="flex justify-center ">
+                                            <table className=' text-center border-collapse border border-slate-900'>
+                                                <tbody className='text-center '>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Basic Salary</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinbasicSalary || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>House rent allowance</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinhrapercentageamount || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Medical allowance</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinma || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Kit allowance</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinkitallowance || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Additional Benefits</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinbenefitsamount || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Performance incentive</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinpi || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>PF Contribution</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinpf || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>ESI Contribution</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinesi || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Stock Option</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joinstock || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>Car</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2'>{`₹${offers.joincar || 0}`}</td>
+                                                    </tr>
+                                                    <tr className='border border-slate-600'>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2 font-bold'>Total</td>
+                                                        <td className='whitespace-nowrap text-center px-10 lg:px-40 py-2 font-bold'>{`₹${offers.joiningtotal || 0}`}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
 
-                                            <tbody className='flex justify-center flex-col'>
-                                                <tr className='flex justify-center  border border-slate-600'>
-                                                    <td className=' whitespace-nowrap px-40 py-2'>Basic Salary</td>
-                                                    <td className=' whitespace-nowrap px-40 py-2'>234</td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className=' whitespace-nowrap px-40 py-2'>House rent allowance</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Medical allowance</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Kit allowance</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Additional Benefits</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Performance incentive</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>PF Contribution</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>ESI Contribution</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Stock Option</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2'>Car</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                                <tr className='flex justify-center border border-slate-600'>
-                                                    <td className='whitespace-nowrap px-40 py-2 font-bold'>Total</td>
-                                                    <td className='whitespace-nowrap px-40 py-2'></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
 
 
 
@@ -272,18 +276,12 @@ function JoiningSeparate({ offers }) {
                                     </div>
                                 </div>
                             </div>
-
-
                             {/* footer */}
                             <div className=" flex w-full h-1.5 bg-red-700 mb-0.5"></div>
                             <footer className="flex relative  overflow-hidden">
                                 <div className="z-50 py-4 w-full h-full bg-red-700 transform origin-top-left -skew-y-3"></div>
                                 <div className="absolute py-4 w-full h-full bg-black transform origin-bottom-right -skew-y-4"></div>
                             </footer>
-
-
-
-
                         </div>
                     </div>
                 </div>

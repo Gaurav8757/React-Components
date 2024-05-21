@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import PcUpdates from "../UpdatePaySlabs/PcUpdates.jsx";
 import * as XLSX from 'xlsx';
+import TextLoader from "../../loader/TextLoader.jsx";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../config/config.jsx";
 // company-payouts
@@ -208,7 +209,10 @@ function PCLists() {
           
         </div>
       </div>
+
+    
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
+      {filteredData.length === 0 ? (<TextLoader />):(<>
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
           <tr className="text-blue-700 sticky top-16">
 
@@ -334,7 +338,10 @@ function PCLists() {
             }
           })}
         </tbody>
+        </> )}
+
       </table>
+      
       {deletingStaffId && (
         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg ">

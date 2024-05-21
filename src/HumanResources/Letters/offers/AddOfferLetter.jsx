@@ -162,7 +162,7 @@ function AddOfferLetter() {
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
             <div className="container-fluid  flex-col flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
             <h1 className="font-semibold text-3xl my-2">Create Offer Letter</h1>
-                <div className="relative w-full lg:w-full pt-20 mt-2 rounded-xl shadow-xl text-2xl items-center bg-slate-300">
+                <div className="relative w-full lg:w-full pt-20 mt-2 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     
                     <div className="flex flex-wrap justify-between">
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">

@@ -41,7 +41,11 @@ const HomeHeading = () => {
                 {/* part-1 */}
                 <div className=" col ml-2 mb-4 flex justify-center  md:block sm:flex relative  ">
                     <div className='flex flex-col'>
-                        <img src="/logo.jpg " className="xl:w-78 xl:h-32 lg:h-32 md:h-32 sm:h-32 xs:h-32 h-32  max-w-lg mx-auto" alt="Logo" />
+                        <picture>
+                            <source srcSet="logo.webp" type="image/webp" />
+                            <img src="/logo.webp" alt="Description" className="xl:w-78 xl:h-32 lg:h-32 md:h-32 sm:h-32 xs:h-32 h-auto mx-auto  max-w-lg " loading="lazy" />
+                        </picture>
+                        {/* <img src="/logo.webp" rel='preload' className="xl:w-78 xl:h-32 lg:h-32 md:h-32 sm:h-32 xs:h-32 h-32  max-w-lg mx-auto" alt="Logo"/> */}
                         <span className="self-center xs:text-xl sm:text-xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold  whitespace-nowrap font-sans ">Eleedom IMF Private Limited</span>
                     </div>
                 </div>

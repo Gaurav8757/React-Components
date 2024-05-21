@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import TextLoader from "../../loader/TextLoader.jsx";
 import TwUpdateSlab from "../UpdatePaySlabs/TwUpdateSlab.jsx";
 import * as XLSX from 'xlsx';
 import { toast } from "react-toastify";
@@ -205,6 +206,7 @@ function TwLists() {
           </div>
       </div>
       <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
+      {filteredData.length === 0 ? (<TextLoader />):(<>
         <thead className="border-b  font-medium bg-slate-200  sticky top-16">
           <tr className="text-blue-700 sticky top-16">
           <th scope="col" className="px-0 py-0 border border-black">
@@ -324,7 +326,10 @@ function TwLists() {
               return null; // Return nothing if vehicleSlab is not 'CV-Slab'
             }
           })}
+          
         </tbody>
+        </> )}
+       
         {deletingStaffId && (
         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg ">

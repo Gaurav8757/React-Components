@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect, useState, lazy } from "react";
-import UpdateMaster from "./UpdateMaster.jsx";
+import { useEffect, useState, lazy, startTransition } from "react";
+import TextLoader from "../../../loader/TextLoader.jsx";
+import TableData from "./TableData.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
@@ -27,65 +28,65 @@ function ViewMasterForm() {
   const [advs, setAdv] = useState("");
   const name = sessionStorage.getItem("email");
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+      } else {
+        try {
+          const response = await axios.get(`${VITE_DATA}/alldetails/viewdata`, {
+            headers: {
+              Authorization: `${token}`, // Send the token in the Authorization header
+            },
+            params: {
+              page: currentPage,
+              limit: itemsPerPage,
+            },
+          });
+          startTransition(() => {
+            setAllDetailsData(response.data.allList);
+            setTotalPages(response.data.totalPages);
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [currentPage, itemsPerPage]);
+
   // payout slab list api
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`${VITE_DATA}/company/grid/slab/view`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-        })
-        .then((response) => {
-          setPayoutSlab(response.data);
-        })
-        .catch((error) => {
+    const fetchPayoutSlab = async () => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again! ");
+      } else {
+        try {
+          const response = await axios.get(`${VITE_DATA}/company/grid/slab/view`, {
+            headers: {
+              Authorization: `${token}`, // Send the token in the Authorization header
+            },
+          });
+          startTransition(() => {
+            setPayoutSlab(response.data);
+          });
+        } catch (error) {
           console.error(error);
-        });
-    }
+        }
+      }
+    };
+
+    fetchPayoutSlab();
   }, []);
   // console.log(payoutSlab)
 
-  useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      toast.error("Not Authorized yet.. Try again! ");
-    } else {
-      // The user is authenticated, so you can make your API request here.
-      axios
-        .get(`${VITE_DATA}/alldetails/viewdata`, {
-          headers: {
-            Authorization: `${token}`, // Send the token in the Authorization header
-          },
-          params: {
-            page: currentPage,
-            limit: itemsPerPage,
-          },
-        })
-        .then((response) => {
-          setAllDetailsData(response.data.allList);
-          // console.log(response.data.totalPages);
-          setTotalPages(response.data.totalPages);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [currentPage, itemsPerPage]);
+  
   
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const page = parseInt(params.get("page")) || 1;
-    const limit = parseInt(params.get("limit")) || 1000;
-
-    setCurrentPage(page);
-    setItemsPerPage(limit);
-  }, []);
+ 
 
   const onUpdateInsurance = async () => {
     try {
@@ -99,12 +100,14 @@ function ViewMasterForm() {
           },
           params: {
             page: currentPage,
-            // limit: itemsPerPage,
+            // limit: itemsPerPage, // Uncomment if you need to use itemsPerPage
           },
         });
-        setAllDetailsData(response.data.allList);
-        // console.log(response.data.totalPages);
-        setTotalPages(response.data.totalPages);
+        
+        startTransition(() => {
+          setAllDetailsData(response.data.allList);
+          setTotalPages(response.data.totalPages);
+        });
       }
     } catch (error) {
       console.error("Error fetching updated insurance data:", error);
@@ -118,6 +121,44 @@ function ViewMasterForm() {
       setEndDate(event.target.value);
     }
   };
+
+  useEffect(() => {
+    allDetailsData.forEach(async (data) => {
+      let paydata;
+      if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
+        paydata = {
+          payoutOn: "OD"
+        };
+      } else {
+        paydata = {
+          payoutOn: "NET"
+        };
+      }
+
+      try {
+        // Send data to API
+        const response = await axios.put(
+          `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+          paydata,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // Handle response status
+        if (response.status !== 200) {
+          console.error(`Error updating data for policy ID ${data._id}`);
+        }
+      } catch (error) {
+        console.error(
+          `Error updating data for policy ID ${data._id}:`,
+          error
+        );
+      }
+    });
+  }, [allDetailsData]);
+
   const filteredData = allDetailsData.filter((data) => {
     // Check if data is defined
     if (!data) return false;
@@ -311,44 +352,17 @@ function ViewMasterForm() {
     }
   }, [allDetailsData, payoutSlab]);
 
-
-
   useEffect(() => {
-    allDetailsData.forEach(async (data) => {
-      let paydata;
-      if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
-        paydata = {
-          payoutOn: "OD"
-        };
-      } else {
-        paydata = {
-          payoutOn: "NET"
-        };
-      }
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get("page")) || 1;
+    const limit = parseInt(params.get("limit")) || 1000;
+    startTransition(() => {
+    setCurrentPage(page);
+    setItemsPerPage(limit);
+  })
+  }, []);
 
-      try {
-        // Send data to API
-        const response = await axios.put(
-          `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-          paydata,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        // Handle response status
-        if (response.status !== 200) {
-          console.error(`Error updating data for policy ID ${data._id}`);
-        }
-      } catch (error) {
-        console.error(
-          `Error updating data for policy ID ${data._id}:`,
-          error
-        );
-      }
-    });
-  }, [allDetailsData]);
+  
 
 
   const exportToExcel = () => {
@@ -509,6 +523,7 @@ function ViewMasterForm() {
   const handleExportClick = () => {
     exportToExcel();
   };
+
   const exportMisToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
@@ -625,7 +640,9 @@ function ViewMasterForm() {
     }
   };
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
+    // loader
+    
+    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0">
           <div className=" mb-4 mt-2 flex justify-between text-blue-500 max-w-auto mx-auto w-auto">
@@ -790,419 +807,42 @@ function ViewMasterForm() {
                 placeholder="Search by Advisor"
               />
             </div>
-            {/* <div className="flex text-center justify-start mt-4  lg:w-1/4"> */}
           </div>
-          <div className="inline-block min-w-full w-full py-0 relative">
-            <table className="min-w-full text-center text-sm font-light table border border-black">
-              <thead className="border-b font-medium bg-slate-300 sticky top-16 ">
-                <tr className="text-blue-700 sticky top-16 ">
-                  <th scope="col" className="px-1 border border-black">
-                    Update
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Reference ID
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Entry Date
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Branch
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Insured Name
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Contact No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Made By
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Received Time
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Updated Time
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Company
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Category
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Type
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Engine No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Chassis No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    OD Premium
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Liability Premium
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Net Premium
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    RSA
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    GST(in rupees)
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Final Amount
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    OD Discount(%)
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    NCB
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Payment Mode
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-1 pt-2 sticky border border-black"
-                  >
-                    State
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-1 pt-2 sticky border border-black"
-                  >
-                    District
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Vehicle Reg No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Segment
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Sourcing
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy Start Date
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Policy End Date
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    OD Expiry
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    TP Expiry
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    IDV
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Body Type
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Make & Model
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    MFG Year
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Registration Date
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Vehicle Age
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Fuel
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    GVW
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Seating Capacity
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    C.C
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Product Code
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Advisor Name
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Sub Advisor
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Payout On
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Advisor Payout %
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Advisor Payout
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Advisor Payable Amount
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Branch Payout %
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Branch Payout
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Branch Payable Amount
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Company Payout %
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Company Payout
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Profit/Loss
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                   
-                  </th>
-                  {/* <th
-                    scope="col"
-                    className="px-1 border whitespace-nowrap border-black"
-                  >
-                    CHQ No / Ref No
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    Bank Name
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    CHQ / Payment Date
-                  </th>
-                  <th scope="col" className="px-1 border border-black">
-                    CHQ Status
-                  </th> */}
-                  <th scope="col" className="px-1 border border-black">
-                    Delete
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-                {filteredData.map((data) => (
-                  <tr
-                    className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
-                    key={data._id}
-                  >
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      <UpdateMaster
-                        insurance={data}
-                        onUpdate={onUpdateInsurance}
-                      />
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyrefno}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.entryDate}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.branch}
-                    </td>
-                    <td className="whitespace-wrap px-1 border border-black">
-                      {data.insuredName}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.contactNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.staffName}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.currentTime}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.empTime}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.company}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.category}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyType}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.engNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.chsNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.odPremium}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.liabilityPremium}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.netPremium}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.rsa}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.taxes}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.finalEntryFields}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.odDiscount}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.ncb}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyPaymentMode}
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                      {data.states}
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                      {data.district}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.vehRegNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.segment}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.sourcing}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyStartDate}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.policyEndDate}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.odExpiry}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.tpExpiry}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.idv}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.bodyType}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.makeModel}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.mfgYear}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.registrationDate}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.vehicleAge}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.fuel}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.gvw}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.sitcapacity}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.cc}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.productCode}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.advisorName}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.subAdvisor}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.payoutOn}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.cvpercentage}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayoutAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.advisorPayableAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.branchpayoutper}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayout}`}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.branchPayableAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.companypayoutper}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">{`₹${data.companyPayout}`}</td>
-                    <td className={`whitespace-nowrap px-1 border border-black ${data.profitLoss > 0 ? 'text-green-600 font-bold' : (data.profitLoss < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>
-                      {`₹${data.profitLoss}`}
-                    </td>
 
-                    <td className="whitespace-nowrap px-8 border border-black">
-                      {}
-                    </td>
-                    {/* <td className="whitespace-nowrap px-1 border border-black">
-                      {data.chqNoRefNo}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.bankName}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.chqPaymentDate}
-                    </td>
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      {data.chqStatus}
-                    </td> */}
-                    <td className="whitespace-nowrap px-1 border border-black">
-                      <button
-                        type="button"
-                        onClick={() => onDeleteAllData(data._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          <div className="inline-block min-w-full w-full py-0 relative">
+
+            {/* <table className="min-w-full text-center text-sm font-light table "> */}
+            {/* {
+              filteredData === 0 && (<TextLoader/>)
+           
+             <TableData filteredData = {filteredData} onUpdateInsurance={onUpdateInsurance} onDeleteAllData = {onDeleteAllData} totalItems = {totalItems} />
+              )} */}
+               <>
+            {filteredData.length === 0 ? (
+                <TextLoader />
+            ) : (
+                <TableData 
+                    filteredData={filteredData} 
+                    onUpdateInsurance={onUpdateInsurance} 
+                    onDeleteAllData={onDeleteAllData} 
+                    totalItems={totalItems} 
+                />
+            )}
+        </>
+             {/* </table> */}
           </div>
-          {totalItems === 0 && (
-            <div className="mt-4 text-gray-500 dark:text-gray-400">
-              No records found.
-            </div>
-          )}
+          
         </div>
       </div>
+
       {/* Pagination */}
       <PaginationAdmin
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+
     </section>
   );
 }

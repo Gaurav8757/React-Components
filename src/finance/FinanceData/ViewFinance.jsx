@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState, lazy } from "react";
+import FinanceTable from "./FinanceTable.jsx";
 const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
-import UpdateFinance from "./UpdateFinance.jsx";
+import TextLoader from "../../loader/TextLoader.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as XLSX from 'xlsx';
@@ -71,7 +72,7 @@ function ViewFinance() {
             },
             params: {
               page: currentPage, // Send current page as a parameter
-             
+
             }
           }
         );
@@ -93,7 +94,7 @@ function ViewFinance() {
 
   const filteredData = allDetailsData.filter(data => {
     // Check if data is defined
-   
+
     if (!data) return false;
     // Filter conditions
     const idLower = data.policyrefno?.toLowerCase() || "";
@@ -101,7 +102,7 @@ function ViewFinance() {
     const companyLower = data.company?.toLowerCase() || "";
     const policyLower = data.policyNo?.toLowerCase() || "";
     const branchLower = data.branch?.toLowerCase() || "";
-    const adv = data.advisorName?.toLowerCase( ) || "";
+    const adv = data.advisorName?.toLowerCase() || "";
     const vehRegLower = data.vehRegNo?.toLowerCase() || "";
     return (
       // Filter conditions using optional chaining and nullish coalescing
@@ -118,7 +119,7 @@ function ViewFinance() {
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
   });
-  
+
   // Calculate total number of pages
   const totalItems = filteredData.length;
 
@@ -181,12 +182,12 @@ function ViewFinance() {
           row.advisorName,
           row.subAdvisor,
           row.payoutOn,
-        row.cvpercentage,
-        row.advisorPayoutAmount,
-        row.advisorPayableAmount,
-        row.branchpayoutper,
-        row.branchPayout,
-        row.branchPayableAmount
+          row.cvpercentage,
+          row.advisorPayoutAmount,
+          row.advisorPayableAmount,
+          row.branchpayoutper,
+          row.branchPayout,
+          row.branchPayableAmount
         ];
       });
 
@@ -338,7 +339,7 @@ function ViewFinance() {
         "Branch Payout", // corresponds to row.branchPayout
         "Branch Payable Amount" // corresponds to row.branchPayableAmount
       ];
-      
+
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExports]);
       // Create workbook and export
@@ -389,7 +390,7 @@ function ViewFinance() {
             <div className="flex ">
               <button className="text-end  mr-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
               <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}><FaRegCircleDown size={20} />
-              <span>MIS</span>
+                <span>MIS</span>
               </button>
               <NavLink to={{
                 pathname: "/finance/home/new",
@@ -460,7 +461,7 @@ function ViewFinance() {
                 className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
                 placeholder="Policy Number"
               /></div>
-               <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+            <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
                 Advisor Name:
               </label>
@@ -473,152 +474,13 @@ function ViewFinance() {
             </div>
           </div>
 
-          <div className="inline-block min-w-full w-full py-0 relative bg-slate-300">
-            <table className="min-w-full text-center bg-slate-300 text-sm font-light table border border-black">
-              <thead className="border-b font-medium bg-slate-300 border border-black sticky top-16">
-                <tr className="text-blue-700 sticky top-16 border border-black">
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Update</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Reference ID</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Entry Date</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Branch</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Insured Name</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Reg No</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Contact No</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Made By</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Received Time</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Update Time</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Company</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Category</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Type</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy No</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Engine No</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Chassis No</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">OD Premium</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Liability Premium</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Net Premium</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">RSA</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">GST Amount</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Final Amount</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">OD Discount(%)</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">NCB</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Payment Mode</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">States</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">District</th>    
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Segment</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Sourcing</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy Start Date</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Policy End Date</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">OD Expiry</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">TP Expiry</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">IDV</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Body Type</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Make & Model</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">MFG Year</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Registration Date</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Vehicle Age</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Fuel</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">GVW</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Seating Capacity</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">C.C</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Product Code</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Advisor Name</th>
-                  <th scope="col" className="px-1 pt-0 sticky border border-black">Sub Advisor</th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Payout On
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payout %
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payout
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payable Amount
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Branch Payout %
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Branch Payout
-                  </th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">
-                    Branch Payable Amount
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody className="divide-y divide-gray-200 overflow-y-hidden bg-slate-200">
-                {filteredData.map((data) => (
-                  <tr
-                    className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
-                    key={data._id}>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">
-                      <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyrefno}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.branch}</td>
-                    <td className="whitespace-wrap px-1 py-1 border border-black">{data.insuredName}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehRegNo}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.contactNo}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.staffName}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.currentTime}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.empTime}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.company}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.category}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyType}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyNo}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.engNo}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.chsNo}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.odPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.liabilityPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.netPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.rsa}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.taxes}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.finalEntryFields}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.odDiscount}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.ncb}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td> 
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.segment}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sourcing}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyStartDate}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyEndDate}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.odExpiry}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.tpExpiry}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.idv}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.bodyType}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.makeModel}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.mfgYear}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.registrationDate}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.vehicleAge}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.fuel}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.gvw}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.sitcapacity}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.cc}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.productCode}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.advisorName}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.subAdvisor}</td>
-                    <td className="whitespace-nowrap px-1  py-0 border border-black">
-                      {data.payoutOn}
-                    </td>
-                    <td className="whitespace-nowrap px-1  py-0 border border-black">
-                      {data.cvpercentage}
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{data.branchpayoutper}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td> 
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {totalItems === 0 && (
-            <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
-          )}
+         
+          {filteredData.length === 0 ? (
+                <TextLoader />
+            ) : (
+              <FinanceTable filteredData = {filteredData} onUpdateInsurance = {onUpdateInsurance} totalItems = {totalItems}/>
+            )}
+         
         </div>
       </div>
       <Pagination
