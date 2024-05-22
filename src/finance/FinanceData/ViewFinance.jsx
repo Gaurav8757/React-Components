@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, lazy } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import FinanceTable from "./FinanceTable.jsx";
 const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
 import TextLoader from "../../loader/TextLoader.jsx";
@@ -389,7 +389,10 @@ function ViewFinance() {
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">
               <button className="text-end  mr-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}><FaRegCircleDown size={20} />
+              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
+              <Suspense fallback={<div>Loading...</div>}>
+              <FaRegCircleDown size={20} />
+            </Suspense> 
                 <span>MIS</span>
               </button>
               <NavLink to={{

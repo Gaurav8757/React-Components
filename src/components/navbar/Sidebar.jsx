@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 function classNames(...classes) {
     // console.log(classes.filter(Boolean).join(' '));
@@ -13,7 +13,9 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
 
   // Function to toggle the submenu
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   return (

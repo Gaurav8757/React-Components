@@ -1,4 +1,4 @@
-import { useState, lazy } from "react";
+import { useState, lazy, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "./logout/Logout.jsx";
 const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
@@ -303,11 +303,15 @@ const Sidebar = () => {
   };
 
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   const closeSubmenu = () => {
+    startTransition(() => {
     setOpenSubmenu(null);
+    });
   };
 
   const loginemail = sessionStorage.getItem("email");

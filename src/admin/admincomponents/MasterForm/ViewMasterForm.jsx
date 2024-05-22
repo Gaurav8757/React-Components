@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, lazy, startTransition } from "react";
+import { useEffect, useState, lazy, startTransition, Suspense } from "react";
 import TextLoader from "../../../loader/TextLoader.jsx";
 import TableData from "./TableData.jsx";
 import { NavLink } from "react-router-dom";
@@ -49,7 +49,7 @@ function ViewMasterForm() {
             setTotalPages(response.data.totalPages);
           });
         } catch (error) {
-          console.error(error);
+          console.error("Policy calulation by ID Catched Error");
         }
       }
     };
@@ -74,7 +74,8 @@ function ViewMasterForm() {
             setPayoutSlab(response.data);
           });
         } catch (error) {
-          console.error(error);
+          console.error("Payout Grid Catched Error");
+          
         }
       }
     };
@@ -110,7 +111,7 @@ function ViewMasterForm() {
         });
       }
     } catch (error) {
-      console.error("Error fetching updated insurance data:", error);
+      console.error("Error fetching updated insurance data");
     }
   };
 
@@ -122,42 +123,80 @@ function ViewMasterForm() {
     }
   };
 
-  useEffect(() => {
-    allDetailsData.forEach(async (data) => {
-      let paydata;
-      if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
-        paydata = {
-          payoutOn: "OD"
-        };
-      } else {
-        paydata = {
-          payoutOn: "NET"
-        };
-      }
+  // useEffect(() => {
+  //   allDetailsData.forEach(async (data) => {
+  //     let paydata;
+  //     if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
+  //       paydata = {
+  //         payoutOn: "OD"
+  //       };
+  //     } else {
+  //       paydata = {
+  //         payoutOn: "NET"
+  //       };
+  //     }
 
+  //     try {
+  //       // Send data to API
+  //       const response = await axios.put(
+  //         `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+  //         paydata,
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+        
+  //       if (response.status !== 200) {
+  //         console.error(`Error updating data for policy ID ${data._id}`);
+  //       }else{
+  //         startTransition(() => {
+  //         if(response.status === 200){
+  //           console.log("Data updated successfully")
+  //         }
+  //       });
+  //       }
+  //     } catch (error) {
+  //       console.error(
+  //         `Error updating data of od net for policy ID  `,
+  //         error
+  //       );
+  //     }
+  //   });
+  // }, [allDetailsData]);
+
+  useEffect(() => {
+    const updateData = async (data, paydata) => {
       try {
-        // Send data to API
         const response = await axios.put(
           `${VITE_DATA}/alldetails/updatedata/${data._id}`,
           paydata,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
+          { headers: { "Content-Type": "application/json" } }
         );
-        // Handle response status
+
         if (response.status !== 200) {
           console.error(`Error updating data for policy ID ${data._id}`);
+        } else {
+          console.log("Data updated successfully");
         }
       } catch (error) {
-        console.error(
-          `Error updating data for policy ID ${data._id}:`,
-          error
-        );
+        console.error(`Error updating data of od net for policy ID`, error);
       }
+    };
+
+    allDetailsData.forEach(async (data) => {
+      let paydata;
+      if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
+        paydata = { payoutOn: "OD" };
+      } else {
+        paydata = { payoutOn: "NET" };
+      }
+
+      updateData(data, paydata);
     });
   }, [allDetailsData]);
+
 
   const filteredData = allDetailsData.filter((data) => {
     // Check if data is defined
@@ -195,6 +234,7 @@ function ViewMasterForm() {
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
   });
+  
   // Calculate total number of pages
   const totalItems = filteredData.length;
   // Handle page change
@@ -203,26 +243,32 @@ function ViewMasterForm() {
   };
 
   // calculate payout
-  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
-    const deduction = finalEntryFields - advisorPayout;
-    return deduction;
-  };
-  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
-    const deduction = finalEntryFields * (percentage / 100);
-    return deduction;
-  };
-  const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => {
-    const deduction = finalEntryFields - branchPayout;
-    return deduction;
-  };
-  const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
-    const deduction = finalEntryFields * (branchpayoutper / 100);
-    return deduction;
-  };
-  const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => {
-    const deduction = finalEntryFields * (companypayoutper / 100);
-    return deduction;
-  };
+  // const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
+  //   const deduction = finalEntryFields - advisorPayout;
+  //   return deduction;
+  // };
+  // const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
+  //   const deduction = finalEntryFields * (percentage / 100);
+  //   return deduction;
+  // };
+  // const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => {
+  //   const deduction = finalEntryFields - branchPayout;
+  //   return deduction;
+  // };
+  // const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
+  //   const deduction = finalEntryFields * (branchpayoutper / 100);
+  //   return deduction;
+  // };
+  // const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => {
+  //   const deduction = finalEntryFields * (companypayoutper / 100);
+  //   return deduction;
+  // };
+
+  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
+  const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => finalEntryFields - branchPayout;
+  const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => finalEntryFields * (branchpayoutper / 100);
+  const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => finalEntryFields * (companypayoutper / 100);
 
 
   useEffect(() => {
@@ -339,8 +385,7 @@ function ViewMasterForm() {
               }
             } catch (error) {
               console.error(
-                `Error updating data for policy ID ${data._id}:`,
-                error
+                `Error updating data for policy ID:`       
               );
             }
             }
@@ -657,7 +702,13 @@ function ViewMasterForm() {
               >
                 <img src="/excel.png" alt="download" className="w-12" />
               </button>
-              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}><FaRegCircleDown size={20} />
+              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
+                
+              <Suspense fallback={<div>Loading...</div>}>
+              <FaRegCircleDown size={20} />
+            </Suspense>
+
+
               <span>MIS</span>
               </button>
               <NavLink
