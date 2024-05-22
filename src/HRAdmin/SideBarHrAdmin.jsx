@@ -1,29 +1,20 @@
-import { useState, lazy } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
-const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const FcKindle = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcKindle })));
-const FaUserGroup = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaUserGroup })));
-const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
-const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const IoCalendarNumberOutline = lazy(() => import("react-icons/io5").then(module => ({ default: module.IoCalendarNumberOutline })));
-const IoPersonRemoveSharp = lazy(() => import("react-icons/io5").then(module => ({ default: module.IoPersonRemoveSharp })));
-const FaEnvelopeOpenText = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaEnvelopeOpenText })));
-const MdAutoGraph = lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
-const SlNote = lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
-
 import LogoutHrAdmin from "./LogoutHrAdmin.jsx";
 function SideBarHrAdmin() {
   const dashboardRouted = [
     {
       title: "Home",
       path: "/hr/home",
-      logo: <RxDashboard size={25} />
+      // logo: <RxDashboard size={25} />
+      logo: <img src="/pages.png" height={10} width={25} alt="dashboard" />
     },
 
     {
       title: "Attendance Report",
       path: "#",
-      logo: <IoCalendarNumberOutline size={25} />,
+      // logo: <IoCalendarNumberOutline size={25} />,
+      logo: <img src="/attendance.png" height={10} width={25} alt="dashboard" />,
       subRoutes: [
         {
           title: "All Report",
@@ -41,7 +32,8 @@ function SideBarHrAdmin() {
     {
       title: "Employee",
       path: "#",
-      logo: <FaUserGroup size={25} />,
+      // logo: <FaUserGroup size={25} />,
+      logo: <img src="/staff.png" height={5} width={25} alt="staff" />,
       subRoutes: [
         {
           title: "Add Employee",
@@ -94,7 +86,7 @@ function SideBarHrAdmin() {
     {
       title: "Offer Letter",
       path: "#",
-      logo: <FaEnvelopeOpenText size={25} />,
+      logo: <img src="/marketing.png" height={10} width={25} alt="market" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -109,7 +101,7 @@ function SideBarHrAdmin() {
     {
       title: "Joining Letter",
       path: "#",
-      logo: <FcKindle size={25} />,
+      logo: <img src="/cover.png" height={10} width={25} alt="cover" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -128,7 +120,7 @@ function SideBarHrAdmin() {
     {
       title: "Increment Letter",
       path: "#",
-      logo: <MdAutoGraph size={25} />,
+      logo: <img src="/increment.png" height={10} width={25} alt="inc" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -147,7 +139,7 @@ function SideBarHrAdmin() {
     {
       title: "Termination Letter",
       path: "#",
-      logo: <IoPersonRemoveSharp size={25} />,
+      logo: <img src="/reject.png" height={10} width={25} alt="reject" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -164,9 +156,9 @@ function SideBarHrAdmin() {
       ],
     },
     {
-      title: "Resignation Letter",
+      title: "Resignation Acceptance",
       path: "#",
-      logo: <SlNote size={25} />,
+      logo: <img src="/contract.png" height={10} width={25} alt="contract" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -187,15 +179,21 @@ function SideBarHrAdmin() {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+    startTransition(() => {
+      setSidebarOpen(!sidebarOpen);
+    });
   };
 
   const toggleSubmenu = (idx) => {
-    setOpenSubmenu(openSubmenu === idx ? null : idx);
+    startTransition(() => {
+      setOpenSubmenu(openSubmenu === idx ? null : idx);
+    });
   };
 
   const closeSubmenu = () => {
-    setOpenSubmenu(null);
+    startTransition(() => {
+      setOpenSubmenu(null);
+    });
   };
 
   const loginBranch = sessionStorage.getItem("email");
@@ -213,7 +211,7 @@ function SideBarHrAdmin() {
               </svg>
             </button>
             <NavLink to="/hr/admin/home" className="flex ms-2 md:me-24">
-              <img src="/logo.webp"  className="h-10 me-1 w-20" alt="Logo" />
+              <img src="/logo.webp" className="h-10 me-1 w-20" alt="Logo" />
               <span className="self-center text-xl font-semibold sm:text-xl whitespace-nowrap text-white">ELEEDOM IMF</span>
             </NavLink>
             <div>
@@ -230,7 +228,7 @@ function SideBarHrAdmin() {
               <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                 <div className="mx-4 py-3" role="none">
                   <p className="text-sm text-gray-900 dark:text-white" role="none">
-                  HR Admin
+                    HR Admin
                   </p>
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     {loginBranch}
@@ -273,7 +271,7 @@ function SideBarHrAdmin() {
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-4 text-sm whitespace-nowrap">{route.title}</span>
-                      <span className="ms-2"><IoMdArrowDropdown /></span>
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown" />
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -286,7 +284,8 @@ function SideBarHrAdmin() {
                             to={subRoute.path}
                             className="flex  p-2 text-white text-start mx-6  hover:rounded-xl hover:bg-gray-500"
                           >
-                            {<IoMdArrowDropright size={30} />}{subRoute.title}
+                            <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right" />
+                            {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

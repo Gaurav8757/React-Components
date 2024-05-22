@@ -1,32 +1,24 @@
-import React, { useState } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutHr from "./LogoutHr.jsx";
-const RiGitBranchFill = React.lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
-const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const FcKindle = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcKindle })));
-const TbMoneybag = React.lazy(() => import("react-icons/tb").then(module => ({ default: module.TbMoneybag })));
-const FaUserGroup = React.lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaUserGroup })));
-const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
-const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const IoCalendarNumberOutline = React.lazy(() => import("react-icons/io5").then(module => ({ default: module.IoCalendarNumberOutline })));
-const IoPersonRemoveSharp = React.lazy(() => import("react-icons/io5").then(module => ({ default: module.IoPersonRemoveSharp })));
-const FaEnvelopeOpenText = React.lazy(() => import("react-icons/fa").then(module => ({ default: module.FaEnvelopeOpenText })));
-const MdAutoGraph = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdAutoGraph })));
-const SlNote = React.lazy(() => import("react-icons/sl").then(module => ({ default: module.SlNote })));
-const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
-const FcLeave = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcLeave })));
+
+// const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+// const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+// const FcLeave = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcLeave })));
 
 function DashboardHr() {
   const dashboardRouted = [
     {
       title: "Home",
       path: "/hr/home",
-      logo: <RxDashboard size={25} />
+      // logo: <RxDashboard size={25} />
+      logo: <img src="/pages.png" height={10} width={25} alt="dashboard" />
     },
     {
       title: "Attendance",
       path: "#",
-      logo: <FcPlanner size={25} />,
+      // logo: <FcPlanner size={25} />,
+      logo: <img src="/calendar.png" height={10} width={25} alt="attend" />,
       subRoutes: [
         {
           title: "Add Attendance",
@@ -43,7 +35,8 @@ function DashboardHr() {
     {
       title: "Attendance Report",
       path: "#",
-      logo: <IoCalendarNumberOutline size={25} />,
+      // logo: <IoCalendarNumberOutline size={25} />,
+      logo: <img src="/attendance.png" height={10} width={25} alt="report" />,
       subRoutes: [
         {
           title: "All Report",
@@ -60,7 +53,7 @@ function DashboardHr() {
     {
       title: "Offer",
       path: "#",
-      logo: <FaEnvelopeOpenText size={25} />,
+      logo: <img src="/marketing.png" height={10} width={25} alt="market" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -75,7 +68,7 @@ function DashboardHr() {
     {
       title: "Joining",
       path: "#",
-      logo: <FcKindle size={25} />,
+      logo: <img src="/cover.png" height={10} width={25} alt="cover" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -84,13 +77,14 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/joining/letter'
-        } 
+        }
       ],
     },
     {
       title: "Employee",
       path: "#",
-      logo: <FaUserGroup size={25} />,
+      // logo: <FaUserGroup size={25} />,
+      logo: <img src="/staff.png" height={5} width={25} alt="staff" />,
       subRoutes: [
         {
           title: "Add Employee",
@@ -104,11 +98,12 @@ function DashboardHr() {
         },
 
       ]
-    },  
+    },
     {
       title: "Salary",
       path: "#",
-      logo: <TbMoneybag size={25} />,
+      // logo: <TbMoneybag size={25} />,
+      logo: <img src="/salary.png" height={10} width={25} alt="salary" />,
       subRoutes: [
         {
           title: "Add Salary",
@@ -123,7 +118,7 @@ function DashboardHr() {
         {
           title: "Generate Salary",
           path: "/hr/home/generate/salary",
-          dash: <RiGitBranchFill size={25} />
+          dash: ""
         },
         {
           title: "View Final Salary",
@@ -138,11 +133,12 @@ function DashboardHr() {
         // },
 
       ]
-    }, 
+    },
     {
       title: "Increment",
       path: "#",
-      logo: <MdAutoGraph size={25} />,
+      // logo: <MdAutoGraph size={25} />,
+      logo: <img src="/increment.png" height={10} width={25} alt="inc" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -151,13 +147,14 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/increment/letter'
-        }, 
+        },
       ],
     },
     {
       title: "Termination",
       path: "#",
-      logo: <IoPersonRemoveSharp size={25} />,
+      // logo: <IoPersonRemoveSharp size={25} />,
+      logo: <img src="/reject.png" height={10} width={25} alt="reject" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -166,13 +163,14 @@ function DashboardHr() {
         {
           title: 'View Letter',
           path: '/hr/home/view/terminate/letter'
-        }, 
+        },
       ],
     },
     {
       title: "Resignation Acceptance",
       path: "#",
-      logo: <SlNote size={25} />,
+      // logo: <SlNote size={25} />,
+      logo: <img src="/contract.png" height={10} width={25} alt="contract" />,
       subRoutes: [
         {
           title: 'Add Letter',
@@ -190,14 +188,15 @@ function DashboardHr() {
     {
       title: "Leave Approval",
       path: "/hr/home/leave/approval",
-      logo: <IoPersonRemoveSharp size={25} />,
-      
+      // logo: <IoPersonRemoveSharp size={25} />,
+      logo: <img src="/exit.png" height={10} width={25} alt="exit" />,
+
     },
     {
       title: "Leave Balance",
       path: "/hr/home/leave/balance",
-      logo: <FcLeave size={25} />,
-      
+      // logo: <FcLeave size={25} />,
+      logo: <img src="/visits.png" height={10} width={25} alt="visit" />,
     },
   ];
 
@@ -205,15 +204,21 @@ function DashboardHr() {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
+    startTransition(() => {
+      setSidebarOpen(!sidebarOpen);
+    });
   };
 
   const toggleSubmenu = (idx) => {
-    setOpenSubmenu(openSubmenu === idx ? null : idx);
+    startTransition(() => {
+      setOpenSubmenu(openSubmenu === idx ? null : idx);
+    });
   };
 
   const closeSubmenu = () => {
-    setOpenSubmenu(null);
+    startTransition(() => {
+      setOpenSubmenu(null);
+    });
   };
 
   const loginBranch = sessionStorage.getItem("email");
@@ -248,7 +253,7 @@ function DashboardHr() {
               <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                 <div className="mx-4 py-3" role="none">
                   <p className="text-sm text-gray-900 dark:text-white" role="none">
-                  HR Manager
+                    HR Manager
                   </p>
                   <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     {loginBranch}
@@ -291,7 +296,7 @@ function DashboardHr() {
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-4 text-sm whitespace-nowrap">{route.title}</span>
-                      <span className="ms-2"><IoMdArrowDropdown /></span>
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown" />
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -304,7 +309,8 @@ function DashboardHr() {
                             to={subRoute.path}
                             className="flex text-sm  p-2 text-white text-start mx-4  hover:rounded-xl hover:bg-gray-500"
                           >
-                            {<IoMdArrowDropright size={30} />}{subRoute.title}
+                            <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right" />
+                            {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

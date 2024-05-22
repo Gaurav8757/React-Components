@@ -309,7 +309,9 @@ const Sidebar = () => {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
+    startTransition(() => {
     setSidebarOpen(!sidebarOpen);
+  });
   };
 
   const toggleSubmenu = (idx) => {

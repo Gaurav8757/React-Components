@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useState, useEffect, startTransition } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
@@ -20,14 +20,14 @@ function UpdateOps({ UpdateOps, update, APIData }) {
 
     const openModal = () => {
         startTransition(() => {
-        setIsModalOpen(true);
-    });
+            setIsModalOpen(true);
+        });
     };
 
     const closeModal = () => {
         startTransition(() => {
-        setIsModalOpen(false);
-    });
+            setIsModalOpen(false);
+        });
     };
 
     function getFormattedTime() {
@@ -51,13 +51,26 @@ function UpdateOps({ UpdateOps, update, APIData }) {
         setAllDetails(UpdateOps);
     }, [UpdateOps]);
 
+    // const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     const selectedEmployee = APIData.find(emp => emp.empname === value);
+    //     console.log(selectedEmployee);
+    //     setAllDetails((prevData) => ({
+    //         ...prevData,
+    //         employee_id: selectedEmployee ? selectedEmployee._id : '',
+    //         currentTime: currentTime,
+    //         [name]: value,
+    //     }));
+
+    // };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        const selectedEmployee = APIData.find(emp => emp.empname === value);
+        const selectedEmployee = APIData.find(emp => emp.empname === value) || {};
 
         setAllDetails((prevData) => ({
             ...prevData,
-            employee_id: selectedEmployee ? selectedEmployee._id : '',
+            employee_id: selectedEmployee._id || '',
             currentTime: currentTime,
             [name]: value,
         }));
@@ -66,18 +79,19 @@ function UpdateOps({ UpdateOps, update, APIData }) {
     const updateInsuranceAPI = async () => {
         try {
             const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${UpdateOps._id}`, allDetails);
-            update();
             toast.success(`${resp.data.status}`);
+            update();
             closeModal();
         } catch (error) {
-            console.error("Error updating insurance details:", error);
-            toast.error("Failed to update insurance details");
+            console.error("Error updating policy details:", error);
+            toast.error("Failed to update policy details");
         }
     };
 
+
     return (
         <>
-            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-5 py-2 text-center me-2 m-1">
+            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 text-center m-1">
                 Update
             </button>
 
@@ -170,7 +184,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                         </div>
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
                                             <button
-                                                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
                                                 onClick={updateInsuranceAPI}
                                                 type="button"
                                             >

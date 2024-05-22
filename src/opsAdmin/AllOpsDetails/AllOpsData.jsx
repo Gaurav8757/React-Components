@@ -5,7 +5,7 @@ function AllOpsData({ datas, policy, deleteStaff, empData }) {
         <tr
             className="divide-y text-sm font-medium border border-black">
             <td className="whitespace-nowrap px-1  border border-black">
-                <UpdateOps UpdateOps={datas} update={policy} APIData = {empData} />
+                <UpdateOps UpdateOps={datas} update={policy} APIData={empData} />
             </td>
             <td className="whitespace-nowrap px-1  border border-black">
                 {datas.policyrefno}
@@ -78,7 +78,7 @@ function AllOpsData({ datas, policy, deleteStaff, empData }) {
                 {datas.policyPaymentMode}
             </td>
             <td className="px-1 py-0 border border-black">
-                <button type="button" onClick={() => deleteStaff(datas._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
+                <button type="button" onClick={() => deleteStaff(datas._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 text-center ">Delete</button>
             </td>
 
         </tr>

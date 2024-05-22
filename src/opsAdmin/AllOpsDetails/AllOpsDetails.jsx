@@ -46,9 +46,9 @@ function AllOpsDetails() {
         };
         fetchData();
     }, []);
-    
 
-   
+
+
 
     // POLICY DATA LISTS
     useEffect(() => {
@@ -81,7 +81,7 @@ function AllOpsDetails() {
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const page = parseInt(params.get('page')) || 1;
-        const limit = parseInt(params.get('limit')) || 20;
+        const limit = parseInt(params.get('limit')) || 20000;
 
         setCurrentPage(page);
         setItemsPerPage(limit);
@@ -145,7 +145,6 @@ function AllOpsDetails() {
                         },
                         params: {
                             page: currentPage, // Send current page as a parameter
-                            limit: itemsPerPage // Send items per page as a parameter
                         }
                     }
                 );
@@ -238,8 +237,8 @@ function AllOpsDetails() {
 
     const confirmDelPolicy = async (_id) => {
         try {
-           const resp = await axios.delete(`${VITE_DATA}/alldetails/deletedata/${_id}`);
-           console.log(resp);
+            const resp = await axios.delete(`${VITE_DATA}/alldetails/deletedata/${_id}`);
+            console.log(resp);
             toast.error(`${resp.data.message}`, { theme: "dark", position: "top-right" });
             setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
         } catch (error) {
@@ -255,14 +254,14 @@ function AllOpsDetails() {
         <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
                 <div className="inline-block min-w-full w-full py-0 ">
-                    <div className=" mb-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
+                    <div className=" mb-4 flex justify-between text-blue-700 max-w-auto mx-auto w-auto ">
                         <h1></h1>
-                        <span className=" flex justify-center text-center  text-3xl font-semibold  ">Policies Lists</span>
+                        <span className=" flex justify-center text-center  text-3xl font-semibold  ">Policies Assign List&apos;s</span>
                         <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                     </div>
                     {/* filter with table */}
                     <div className="inline min-w-full w-full pt-2 ">
-                        <div className="flex-wrap  flex justify-between  text-blue-500  ">
+                        <div className="flex-wrap  flex justify-between  text-blue-700  ">
                             {/* date range filter */}
                             <div className="flex  justify-start p-0 text-start lg:w-1/4">
                                 <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
@@ -390,7 +389,7 @@ function AllOpsDetails() {
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
                                 {filteredData.map((data) => (
-                                    <AllOpsData key={data._id} datas={data} policy={onUpdatePolicy} deleteStaff = {deleteStaff} empData = {empData} />
+                                    <AllOpsData key={data._id} datas={data} policy={onUpdatePolicy} deleteStaff={deleteStaff} empData={empData} />
                                 ))}
                             </tbody>
                         </table>
@@ -400,7 +399,7 @@ function AllOpsDetails() {
                             <div className="bg-white p-4 rounded-lg ">
                                 <h2 className="text-lg font-semibold text-gray-800">{`Are you sure you want to delete `}
                                     <span className="text-red-600">{APIData.find(data => data._id === deleteStaff)?.policyrefno}</span>
-                                    
+
                                     {`?`}</h2>
                                 <div className="flex justify-end mt-10">
                                     <button onClick={() => { confirmDelPolicy(deletingStaffId); setDeletingStaffId(null) }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-4 py-2 mr-2">
