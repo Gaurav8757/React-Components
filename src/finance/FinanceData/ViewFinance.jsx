@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import FinanceTable from "./FinanceTable.jsx";
-const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
 import TextLoader from "../../loader/TextLoader.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -388,18 +387,18 @@ function ViewFinance() {
             <h1></h1>
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">
-              <button className="text-end  mr-4 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
+              <button className="text-end  mr-1 flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" height={50} width={40} /></button>
+              <button className="text-end   mr-1  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
               <Suspense fallback={<div>Loading...</div>}>
-              <FaRegCircleDown size={20} />
+              <img src="/public/xls.png"  className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis "/>
             </Suspense> 
-                <span>MIS</span>
+              
               </button>
               <NavLink to={{
                 pathname: "/finance/home/new",
                 search: `?page=${currentPage}&limit=${itemsPerPage}`
               }} className="flex justify-center">
-                <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                <button type="button" className="text-white  mt-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-2 text-center me-2 mb-2 ">Go Back</button>
               </NavLink></div>
           </div>
           <div className="flex-wrap flex justify-between  text-blue-500  ">

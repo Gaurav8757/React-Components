@@ -1,13 +1,5 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { NavLink } from 'react-router-dom';
-
-const LazyBsUmbrella = React.lazy(() => import('react-icons/bs').then(module => ({ default: module.BsUmbrella })));
-const LazyBsShieldFillCheck = React.lazy(() => import('react-icons/bs').then(module => ({ default: module.BsShieldFillCheck })));
-const LazyBsShieldFillPlus = React.lazy(() => import('react-icons/bs').then(module => ({ default: module.BsShieldFillPlus })));
-const LazyTbHeartHandshake = React.lazy(() => import('react-icons/tb').then(module => ({ default: module.TbHeartHandshake })));
-const LazyTbMoneybag = React.lazy(() => import('react-icons/tb').then(module => ({ default: module.TbMoneybag })));
-
-
 const Footers = () => {
   return (
     <section className="bg-gradient-to-r from-white to-slate-100">
@@ -15,10 +7,10 @@ const Footers = () => {
       <Suspense fallback={<div>Loading...</div>}>
       <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2  text-black bg-gradient-to-r from-white to-slate-100">
         <div>
-          <LazyBsUmbrella size={25} className="inline-block m-2" />
+        <img src="/umbrell.png" height={5} width={25} alt="life" className="inline-block m-2"/>
           <NavLink className="leading-10">
             Life Insurance
-            <LazyBsUmbrella size={25} className="inline-block m-2" />
+            <img src="/umbrell.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
               <li>
                 Life Insurance
@@ -37,10 +29,10 @@ const Footers = () => {
         </div>
 
         <div>
-          <LazyTbHeartHandshake size={25} className="inline-block m-2 " />
+        <img src="/healthcare.png" height={5} width={25} alt="life" className="inline-block m-2"/>
           <NavLink className="leading-10">
             Health Insurance
-            <LazyTbHeartHandshake size={25} className="inline-block m-2 " />
+            <img src="/healthcare.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
               <li>
                 Health Insurance
@@ -57,10 +49,10 @@ const Footers = () => {
         </div>
 
         <div>
-          <LazyTbMoneybag size={25} className="inline-block m-2" />
+        <img src="/earning.png" height={5} width={25} alt="life" className="inline-block m-2"/>
           <NavLink className="leading-10">
             Investment
-            <LazyTbMoneybag size={25} className="inline-block m-2" />
+            <img src="/earning.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
               <li>
                 Investment Plans
@@ -79,10 +71,10 @@ const Footers = () => {
         </div>
 
         <div>
-          <LazyBsShieldFillCheck size={25} className="inline-block m-2" />
+        <img src="/ger.png" height={5} width={25} alt="life" className="inline-block m-2"/>
           <NavLink className="leading-10 ">
             General Insurance
-            <LazyBsShieldFillCheck size={25} className="inline-block m-2" />
+            <img src="/ger.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
               <li>
                 Car Insurance
@@ -101,10 +93,10 @@ const Footers = () => {
         </div>
 
         <div>
-          <LazyBsShieldFillPlus size={25} className="inline-block m-2 " />
+        <img src="/ins.png" height={5} width={25} alt="life" className="inline-block m-2"/>
           <NavLink className="leading-10">
             Other Insurance
-            <LazyBsShieldFillPlus size={25} className="inline-block m-2 " />
+            <img src="/ins.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
               <li>
                 Group Health Insurance

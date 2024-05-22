@@ -1,42 +1,50 @@
-import { useState } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutOps from "./LogoutOps.jsx";
-import { RxDashboard } from "react-icons/rx";
-import { IoPeopleOutline } from "react-icons/io5";
-import { FcViewDetails } from "react-icons/fc"; 
+// const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+// const IoPeopleOutline = lazy(() => import("react-icons/io5").then(module => ({ default: module.IoPeopleOutline })));
+// const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails }))); 
+
 const SidebarOps = () => {
   const dashboardRouted = [
     {
       title: "Home",
       path: "/ops/home",
-      logo: <RxDashboard size={25} />
+      logo: <img src="/pages.png" height={10} width={25} alt="dashboard"/>
     },
     {
       title: "Create Policy",
       path: "/ops/home/add/policy",
-      logo: < FcViewDetails size={24}/>
+      // logo: < FcViewDetails size={24}/>
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
     },
     {
       title: "Policy Lists",
       path: "/ops/home/policy",
-      logo: <IoPeopleOutline size={25} />
+      // logo: <IoPeopleOutline size={25} />
+      logo: <img src="/grids.png" height={5} width={25} alt="grid"/>
     },
-    
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
+    startTransition(() => {
     setSidebarOpen(!sidebarOpen);
+  });
   };
 
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   const closeSubmenu = () => {
+    startTransition(() => {
     setOpenSubmenu(null);
+  });
   };
 
   // const loginBranch = sessionStorage.getItem("email");

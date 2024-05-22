@@ -1,24 +1,20 @@
-import { useState, lazy } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import BranchLogout from "./BranchLogout.jsx";
-const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
-const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
-const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
-const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
-const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
+
 const BranchSidebar = () => {
   const dashboardRouted = [
     {
       title: "Home",
       path: "/branches/home",
-      logo: <RxDashboard size={25} />
+      // logo: <RxDashboard size={25} />
+      logo:<img src="/pages.png" height={10} width={25} alt="dashboard"/>
     },
     {
       title: "Advisor",
       path: "#",
-      logo: <CgProfile size={25} />,
+      // logo: <CgProfile size={25} />,
+      logo: <img src="/advisor.png" height={5} width={25} alt="leger"/>,
       subRoutes: [
         {
           title: "Add Advisor",
@@ -36,12 +32,13 @@ const BranchSidebar = () => {
     {
       title: "Policy Lists",
       path: "/branches/home/viewinsurance",
-      logo: <RiGitBranchFill size={25} />,
+      // logo: <RiGitBranchFill size={25} />,
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
     },
     {
       title: "Payout Grid",
       path: "#",
-      logo: <GiReceiveMoney size={25} />,
+      logo: <img src="/grids.png" height={5} width={25} alt="grid"/>,
       subRoutes: [
         {
           title: "Add Payout",
@@ -59,7 +56,8 @@ const BranchSidebar = () => {
     {
       title: "Leger",
       path: "#",
-      logo: <FaMoneyBill size={25} />,
+      // logo: <FaMoneyBill size={25} />,
+      logo: <img src="/account.png" height={5} width={25} alt="leger"/>,
       subRoutes: [
         {
           title: "Daily Advisor",
@@ -79,15 +77,21 @@ const BranchSidebar = () => {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
+    startTransition(() => {
     setSidebarOpen(!sidebarOpen);
+  });
   };
 
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   const closeSubmenu = () => {
+    startTransition(() => {
     setOpenSubmenu(null);
+  });
   };
 
   const loginBranch = sessionStorage.getItem("email");
@@ -171,7 +175,7 @@ const BranchSidebar = () => {
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-4 text-sm">{route.title}</span>
-                      <span className="ms-2"><IoMdArrowDropdown /></span>
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown"/>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -183,8 +187,8 @@ const BranchSidebar = () => {
                           <NavLink
                             to={subRoute.path}
                             className="flex p-2  text-sm text-white text-start mx-0  hover:rounded-xl hover:bg-gray-500"
-                          >
-                            {<IoMdArrowDropright size={20} />}{subRoute.title}
+                          ><img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
+                            {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

@@ -1,34 +1,39 @@
-import React, { useState } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutFinance from "./LogoutFinance.jsx";
 
-const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const FcViewDetails = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
-const LuGitBranchPlus = React.lazy(() => import("react-icons/lu").then(module => ({ default: module.LuGitBranchPlus })));
-const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const FaMoneyBill = React.lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
+// const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+// const FcViewDetails = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
+// const LuGitBranchPlus = React.lazy(() => import("react-icons/lu").then(module => ({ default: module.LuGitBranchPlus })));
+// const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+// const FaMoneyBill = React.lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
+
 const SidebarFinance = () => {
   const dashboardRouted = [
     {
       title: "Home",
       path: "/finance/home",
-      logo: <RxDashboard size={25} />
+      // logo: <RxDashboard size={25} />
+      logo: <img src="/pages.png" height={10} width={25} alt="dashboard"/>
     },
 
     {
       title: "Create Policy",
       path: "/finance/home/new",
-      logo: < FcViewDetails size={25} />
+      // logo: < FcViewDetails size={25} />
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
     },
     {
       title: "Finance Policy",
       path: "/finance/home/view",
-      logo: <LuGitBranchPlus size={25} />
+      // logo: <LuGitBranchPlus size={25} />
+      logo: <img src="/grids.png" height={5} width={25} alt="grid"/>
     },
     {
       title: "Leger",
       path: "#",
-      logo: <FaMoneyBill size={25} />, 
+      // logo: <FaMoneyBill size={25} />, 
+      logo: <img src="/account.png" height={5} width={25} alt="leger"/>,
       subRoutes: [
         {
           title: "Daily Leger",
@@ -55,15 +60,21 @@ const SidebarFinance = () => {
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
+    startTransition(() => {
     setSidebarOpen(!sidebarOpen);
+  });
   };
 
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   const closeSubmenu = () => {
+    startTransition(() => {
     setOpenSubmenu(null);
+  });
   };
 
   // const loginBranch = sessionStorage.getItem("finemail");
@@ -146,7 +157,9 @@ const SidebarFinance = () => {
                       className={`flex items-center p-2  rounded-lg text-white hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-4 text-sm flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
+                      <span className="ms-4 text-sm flex whitespace-nowrap">{route.title}
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown"/>
+                      </span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -157,8 +170,9 @@ const SidebarFinance = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="block p-2 text-white text-start mx-8  text-sm hover:rounded-xl hover:bg-gray-500"
+                            className="flex p-2 text-white text-start mx-2  text-sm hover:rounded-xl hover:bg-gray-500"
                           >
+                             <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
                             {subRoute.title}
                           </NavLink>
                         </li>

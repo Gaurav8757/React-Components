@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import  { useState, useEffect } from "react";
+import  { useState, useEffect, startTransition } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
@@ -19,11 +19,15 @@ function UpdateOps({ UpdateOps, update, APIData }) {
     });
 
     const openModal = () => {
+        startTransition(() => {
         setIsModalOpen(true);
+    });
     };
 
     const closeModal = () => {
+        startTransition(() => {
         setIsModalOpen(false);
+    });
     };
 
     function getFormattedTime() {
@@ -73,7 +77,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
 
     return (
         <>
-            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 m-1">
+            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-5 py-2 text-center me-2 m-1">
                 Update
             </button>
 

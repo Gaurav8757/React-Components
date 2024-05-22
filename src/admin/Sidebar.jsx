@@ -1,32 +1,33 @@
-import { useState, lazy, startTransition } from "react";
+import { useState,  startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "./logout/Logout.jsx";
-const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
-const MdOutlinePolicy = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
-const TbReport = lazy(() => import("react-icons/tb").then(module => ({ default: module.TbReport })));
-const FaRegBuilding = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaRegBuilding })));
-const FaImages = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaImages })));
-const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
-const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
-const MdOutlineCategory = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlineCategory })));
-const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
-const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
-const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
+// const RxDashboard = lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+// const RiGitBranchFill = lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
+// const MdOutlinePolicy = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
+// const TbReport = lazy(() => import("react-icons/tb").then(module => ({ default: module.TbReport })));
+// const FaRegBuilding = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaRegBuilding })));
+// const FaImages = lazy(() => import("react-icons/fa").then(module => ({ default: module.FaImages })));
+// const IoMdArrowDropright = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+// const IoMdArrowDropdown = lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+// const FcViewDetails = lazy(() => import("react-icons/fc").then(module => ({ default: module.FcViewDetails })));
+// const MdOutlineCategory = lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlineCategory })));
+// const GiReceiveMoney = lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
+// const FaMoneyBill = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaMoneyBill })));
+// const CgProfile = lazy(() => import("react-icons/cg").then(module => ({ default: module.CgProfile })));
 
 const Sidebar = () => {
   const dashboardRoutes = [
     {
       title: "Dashboard",
       path: "/dashboard",
-      logo: <RxDashboard size={24} />
+      logo: <img src="/pages.png" height={10} width={25} alt="dashboard"/>
     },
 
     {
       title: "Company",
       path: "#",
-      logo: <FaRegBuilding size={24} />,
+      // logo: <FaRegBuilding size={24} />,
+      logo: <img src="/enterprise.png" height={5} width={25} alt="company"/>,
       subRoutes: [
         {
           title: "Add Company",
@@ -44,7 +45,8 @@ const Sidebar = () => {
     {
       title: "Branch",
       path: "#",
-      logo: <RiGitBranchFill size={24} />,
+      // logo: <RiGitBranchFill size={24} />,
+      logo: <img src="/franchise.png" height={5} width={25} alt="branch"/>,
       subRoutes: [
         {
           title: "Add Branch",
@@ -61,13 +63,15 @@ const Sidebar = () => {
     {
       title: "View Advisor",
       path: "/dashboard/viewadvisor",
-      logo: <CgProfile size={24} />,
+      // logo: <CgProfile size={24} />,
+      logo: <img src="/advisor.png" height={5} width={25} alt="adviosr"/>
     },
 
     {
       title: "Snap",
       path: "#",
-      logo: <FaImages size={24} />,
+      // logo: <FaImages size={24} />,
+      logo: <img src="/avatar.png" height={5} width={25} alt="snap"/>,
       subRoutes: [
         {
           title: "Add Snap",
@@ -85,7 +89,8 @@ const Sidebar = () => {
     {
       title: "Policy",
       path: "#",
-      logo: < FcViewDetails size={24} />,
+      // logo: < FcViewDetails size={24} />,
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>,
       subRoutes: [
         {
           title: "Add Policy",
@@ -121,7 +126,8 @@ const Sidebar = () => {
     {
       title: "Payout Grid",
       path: "#",
-      logo: <GiReceiveMoney size={25} />,
+      // logo: <GiReceiveMoney size={25} />,
+      logo: <img src="/grids.png" height={5} width={25} alt="grid"/>,
       subRoutes: [
 
         {
@@ -139,7 +145,8 @@ const Sidebar = () => {
     {
       title: "Leger",
       path: "#",
-      logo: <FaMoneyBill size={25} />,
+      // logo: <FaMoneyBill size={25} />,
+      logo: <img src="/account.png" height={5} width={25} alt="leger"/>,
       subRoutes: [
 
         {
@@ -163,7 +170,8 @@ const Sidebar = () => {
     {
       title: "Employee",
       path: "#",
-      logo: <MdOutlineCategory size={24} />,
+      // logo: <MdOutlineCategory size={24} />,
+      logo: <img src="/staff.png" height={5} width={25} alt="staff"/>,
       subRoutes: [
         {
           title: "Add Employee Type",
@@ -180,7 +188,8 @@ const Sidebar = () => {
     {
       title: "Master",
       path: "#",
-      logo: <MdOutlinePolicy size={24} />,
+      // logo: <MdOutlinePolicy size={24} />,
+      logo: <img src="/filter.png" height={5} width={25} alt="filter"/>,
       subRoutes: [
         {
           title: "Add Policy Type",
@@ -254,7 +263,8 @@ const Sidebar = () => {
     {
       title: "Report",
       path: "#",
-      logo: <TbReport size={24} />,
+      // logo: <TbReport size={24} />,
+      logo: <img src="/report.png" height={5} width={25} alt="report"/>,
       subRoutes: [
         // {
         //   title: "Policies",
@@ -377,13 +387,16 @@ const Sidebar = () => {
                   <div className="relative group ">
                     <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
                       <span className="">{route.logo}</span>
-                      <span className="ms-3  text-sm flex whitespace-nowrap">{route.title}{<IoMdArrowDropdown size={20} className="mx-1" />}</span>
+                      <span className="ms-3  text-sm flex whitespace-nowrap">{route.title}
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown"/>
+                      </span>
                     </NavLink>
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
                           <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-2 text-sm hover:bg-gray-500 hover:rounded-xl ">
-                            {<IoMdArrowDropright size={20} />} {subRoute.title}
+                          <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
+                            {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

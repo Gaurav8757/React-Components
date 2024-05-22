@@ -52,7 +52,7 @@ const TextLoader = () => {
         `}
       </style>
       <div className="flex justify-center items-center bg-gray-100 h-32">
-        <div className="relative flex space-x-1 text-xl font-bold text-gray-800">
+        <div className="relative flex space-x-0.5 text-xl font-bold text-gray-800">
           {text.split('').map((char, index) => (
             <span
               key={index}

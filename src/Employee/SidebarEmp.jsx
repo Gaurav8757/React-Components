@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import  { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import LogoutEmp from "./LogoutEmp.jsx";
-const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
-const MdOutlinePolicy = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
-const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
-const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
-const RxAvatar = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxAvatar })));
+// const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+// const FcPlanner = React.lazy(() => import("react-icons/fc").then(module => ({ default: module.FcPlanner })));
+// const MdOutlinePolicy = React.lazy(() => import("react-icons/md").then(module => ({ default: module.MdOutlinePolicy })));
+// const IoMdArrowDropright = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropright })));
+// const IoMdArrowDropdown = React.lazy(() => import("react-icons/io").then(module => ({ default: module.IoMdArrowDropdown })));
+// const RxAvatar = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxAvatar })));
 
 
 function DashboardEmp() {
@@ -14,17 +14,20 @@ function DashboardEmp() {
     {
       title: "Home",
       path: "/employee/home",
-      logo: <RxDashboard size={25} />
+      // logo: <RxDashboard size={25} />
+      logo:<img src="/pages.png" height={10} width={25} alt="dashboard"/>
     },
     {
       title: "Update Profile",
       path: "/employee/home/profile",
-      logo: <RxAvatar size={25} />
+      // logo: <RxAvatar size={25} />
+      logo: <img src="/avatar.png" height={5} width={25} alt="snap"/>
     },
     {
       title: "Attendance",
       path: "#",
-      logo: <FcPlanner size={25} />,
+      // logo: <FcPlanner size={25} />,
+      logo: <img src="/attendance.png" height={5} width={25} alt="snap"/>,
       subRoutes: [
         {
           title: "Add Attendance",
@@ -41,28 +44,30 @@ function DashboardEmp() {
     {
       title: "Policy Lists",
       path: "/employee/home/policy",
-      logo: <MdOutlinePolicy size={25} />
+      // logo: <MdOutlinePolicy size={25} />
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
     }, 
-    // {
-    //   title: "Leave Application",
-    //   path: "/employee/home/leave/application",
-    //   logo: <FcLeave size={25} />
-    // },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
+    startTransition(() => {
     setSidebarOpen(!sidebarOpen);
+  });
   };
 
   const toggleSubmenu = (idx) => {
+    startTransition(() => {
     setOpenSubmenu(openSubmenu === idx ? null : idx);
+  });
   };
 
   const closeSubmenu = () => {
+    startTransition(() => {
     setOpenSubmenu(null);
+  });
   };
 
   const loginBranch = sessionStorage.getItem("email");
@@ -144,8 +149,10 @@ function DashboardEmp() {
                       className={`flex items-center p-2 text-gray-100 rounded-lg dark:text-white  hover:bg-gray-500 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}
                     >
                       <span className="">{route.logo}</span>
-                      <span className="ms-4 text-sm">{route.title}</span>
-                      <span className="ms-2"><IoMdArrowDropdown /></span>
+                      <span className="ms-2 text-sm">{route.title}</span>
+                      <span className="ms-2">
+                      <img src="/chivron.png" height={1} width={8} className="my-auto mx-0" alt="dropdown"/>
+                      </span>
                     </NavLink>
                     <ul
                       onClick={() => toggleSubmenu(idx)}
@@ -156,9 +163,10 @@ function DashboardEmp() {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex p-2 text-sm text-white text-start mx-8  hover:rounded-xl hover:bg-gray-500"
+                            className="flex p-2 text-sm text-white text-start mx-2  hover:rounded-xl hover:bg-gray-500"
                           >
-                            {<IoMdArrowDropright size={30} />}{subRoute.title}
+                            <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
+                            {subRoute.title}
                           </NavLink>
                         </li>
                       ))}

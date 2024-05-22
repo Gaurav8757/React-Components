@@ -1,26 +1,29 @@
-import React, { useState } from "react";
+import { useState, startTransition } from "react";
 import { NavLink } from "react-router-dom";
 import  LogoutAdvisor  from "../advisor/LogoutAdvisor.jsx";
 
-const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
-const GiReceiveMoney = React.lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
-const RiGitBranchFill = React.lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
+// const RxDashboard = React.lazy(() => import("react-icons/rx").then(module => ({ default: module.RxDashboard })));
+// const GiReceiveMoney = React.lazy(() => import("react-icons/gi").then(module => ({ default: module.GiReceiveMoney })));
+// const RiGitBranchFill = React.lazy(() => import("react-icons/ri").then(module => ({ default: module.RiGitBranchFill })));
 function DashboardAdvisor() {
     const dashboardRouted = [
         {
           title: "Dashboard",
           path: "/advisor/home",
-          logo: <RxDashboard size={25} />
+          // logo: <RxDashboard size={25} />
+          logo:<img src="/pages.png" height={10} width={25} alt="dashboard"/>
         },
         {
            title: "View Insurance",
           path: "/advisor/home/viewinsurance",
-          logo: <RiGitBranchFill size={25} />
+          // logo: <RiGitBranchFill size={25} />
+          logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
         },
         {
           title: "Payout Grid",
           path: "/advisor/home/payout/view",
-          logo: <GiReceiveMoney size={25} />
+          // logo: <GiReceiveMoney size={25} />
+          logo: <img src="/grids.png" height={5} width={25} alt="grid"/>
         },
         // {
         //   title: "Add Salary",
@@ -54,15 +57,21 @@ function DashboardAdvisor() {
       const [openSubmenu, setOpenSubmenu] = useState(null);
     
       const toggleSidebar = () => {
+        startTransition(() => {
         setSidebarOpen(!sidebarOpen);
+      });
       };
     
       const toggleSubmenu = (idx) => {
+        startTransition(() => {
         setOpenSubmenu(openSubmenu === idx ? null : idx);
+      });
       };
     
       const closeSubmenu = () => {
+        startTransition(() => {
         setOpenSubmenu(null);
+      });
       };
       const loginBranch = sessionStorage.getItem("advisoremail");
       const names = sessionStorage.getItem('name');

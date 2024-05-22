@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect, useState, lazy, startTransition, Suspense } from "react";
+import { useEffect, useState, startTransition, Suspense } from "react";
 import TextLoader from "../../../loader/TextLoader.jsx";
 import TableData from "./TableData.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
+// const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
 import * as XLSX from "xlsx";
 import VITE_DATA from "../../../config/config.jsx";
 import PaginationAdmin from "./PaginationAdmin.jsx";
@@ -697,19 +697,18 @@ function ViewMasterForm() {
             </span>
             <div className="flex">
               <button
-                className="text-end mx-4 flex justify-end  text-3xl font-semibold"
+                className="text-end mx-0 flex justify-end  text-3xl font-semibold"
                 onClick={handleExportClick}
               >
-                <img src="/excel.png" alt="download" className="w-12" />
+                <img src="/excel.png" alt="download" height={50} width={40}  />
               </button>
-              <button className="text-end   mr-4  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
+              <button className="text-end   mr-1  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
                 
               <Suspense fallback={<div>Loading...</div>}>
-              <FaRegCircleDown size={20} />
+              <img src="/public/xls.png"  className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis "/>
+              {/* <span className="text-base">MIS</span> */}
             </Suspense>
-
-
-              <span>MIS</span>
+              
               </button>
               <NavLink
                 to="/dashboard/masterform"
@@ -862,13 +861,6 @@ function ViewMasterForm() {
 
 
           <div className="inline-block min-w-full w-full py-0 relative">
-
-            {/* <table className="min-w-full text-center text-sm font-light table "> */}
-            {/* {
-              filteredData === 0 && (<TextLoader/>)
-           
-             <TableData filteredData = {filteredData} onUpdateInsurance={onUpdateInsurance} onDeleteAllData = {onDeleteAllData} totalItems = {totalItems} />
-              )} */}
                <>
             {filteredData.length === 0 ? (
                 <TextLoader />
