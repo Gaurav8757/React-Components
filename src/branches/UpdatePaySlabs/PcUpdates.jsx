@@ -6,8 +6,7 @@ import { State, City } from 'country-state-city';
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
-function PcUpdates({ slab, update }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function PcUpdates({ slab, update, onClose,  }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [ncbLists, setNcbLists] = useState([]);
@@ -114,15 +113,7 @@ function PcUpdates({ slab, update }) {
     }
   }, []);
 
-  // OPEN MODAL
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
 
-  // CLOSE MODAL
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -298,7 +289,7 @@ function PcUpdates({ slab, update }) {
       // Use the selected category ID in the patch method
       const resp = await axios.put(`${VITE_DATA}/company/grid/slab/${slab._id}`, allDetails);
       toast.success(`${resp.data.status}`);
-      closeModal(); // Close the modal after successful submission
+      onClose(); // Close the modal after successful submission
       update();
     } catch (error) {
       console.error("Error updating insurance details:", error);
@@ -308,12 +299,8 @@ function PcUpdates({ slab, update }) {
   };
   return (
     <>
-      {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 text-center ">
-        Update
-      </button>
-      {/* <!-- Main modal --> */}
-      {isModalOpen && (
+   
+    
         <div
           id="static-modal"
           data-modal-backdrop="static"
@@ -329,10 +316,10 @@ function PcUpdates({ slab, update }) {
                   Update Advisor Payout Grid
                 </h3>
                 <button
-                  onClick={closeModal}
+                  onClick={onClose}
                   type="button"
-                  className=" bg-transparent hover:text-blue-700 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
-                  <CgCloseR size={25} />
+                  className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                   <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                 </button>
               </div>
 
@@ -664,7 +651,7 @@ function PcUpdates({ slab, update }) {
                     {/* button */}
                     <div className="col-span-4 p-2 mt-4 flex justify-center">
                       <button
-                        className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                        className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50  font-medium rounded text-sm px-3 py-2 text-center"
                         onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
                     </div>
                   </div>
@@ -673,7 +660,6 @@ function PcUpdates({ slab, update }) {
             </div>
           </div>
         </div>
-      )}
     </>
   )
 }

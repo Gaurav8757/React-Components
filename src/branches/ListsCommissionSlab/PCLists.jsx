@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+
 import PcUpdates from "../UpdatePaySlabs/PcUpdates.jsx";
 import * as XLSX from 'xlsx';
 import TextLoader from "../../loader/TextLoader.jsx";
@@ -10,7 +11,10 @@ import VITE_DATA from "../../config/config.jsx";
 
 function PCLists() {
   const [APIData, setAPIData] = useState([]);
+  const [ ptypes, setPtypes] = useState("");
   const [deletingStaffId, setDeletingStaffId] = useState(null);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+  const [selectedRowId, setSelectedRowId] = useState(null);
   const name = sessionStorage.getItem("name");
   const [searchCompany, setSearchCompany] = useState("");
   const [ pCodes, setPcodes] = useState("");
@@ -20,7 +24,15 @@ function PCLists() {
     // Show modal confirmation dialog
     setDeletingStaffId(_id);
   };
+  const handleUpdateClick = (id) => {
+    setSelectedRowId(id);
+    setShowUpdatePopup(true);
+  };
 
+  const handleClosePopup = () => {
+    setSelectedRowId(null);
+    setShowUpdatePopup(false);
+  };
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -73,10 +85,12 @@ function PCLists() {
     if (!data) return false;
     // Filter conditions
     const idLower = data.pcodes?.toLowerCase() || "";
+    const ptype = data.policytypes?.toLowerCase() || "";
     const companyLower = data.cnames?.toLowerCase() || "";
     const adv = data.advisorName?.toLowerCase( ) || "";
     return (
       (adv.includes(advs.toLowerCase()) || advs === "") &&
+      (ptype.includes(ptypes.toLowerCase()) || ptypes === "") &&
       (idLower.includes(pCodes.toLowerCase()) || pCodes === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') 
     );
@@ -188,6 +202,14 @@ function PCLists() {
             />
           </div>
           <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+              <label className="my-0 text-lg font-medium text-gray-900">Policy Type:</label>
+              <input
+                type="search"
+                onChange={(e) => setPtypes(e.target.value)}
+                className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Policy Type"
+              /></div>
+          <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
             <label className="my-0 text-lg font-medium text-gray-900">Product Code:</label>
             <input
               type="search"
@@ -287,7 +309,10 @@ function PCLists() {
               return (
                 <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
                   <td className="px-1 py-0 border border-black">
-                    <PcUpdates slab={data} update={updateSlabs} />
+                  <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+        Update
+      </button> 
+                 
                   </td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorUniqueId}</td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorName}</td>
@@ -341,7 +366,9 @@ function PCLists() {
         </> )}
 
       </table>
-      
+      {showUpdatePopup && selectedRowId && (
+                  <PcUpdates slab={selectedRowId} update = {updateSlabs} onClose={handleClosePopup} />
+                )}
       {deletingStaffId && (
         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg ">
@@ -349,10 +376,10 @@ function PCLists() {
               <span className="text-red-600">{APIData.find(data => data._id === deleteStaff)?.staffType}</span>
               {`?`}</h2>
             <div className="flex justify-end mt-10">
-              <button onClick={() => { confirmDeleteVeh(deletingStaffId); setDeletingStaffId(null) }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-4 py-2 mr-2">
+              <button onClick={() => { confirmDeleteVeh(deletingStaffId); setDeletingStaffId(null) }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded text-sm px-4 py-2 mr-2">
                 Yes, I&apos;m sure
               </button>
-              <button onClick={() => setDeletingStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+              <button onClick={() => setDeletingStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded border border-gray-200 text-sm font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                 No, cancel
               </button>
             </div>

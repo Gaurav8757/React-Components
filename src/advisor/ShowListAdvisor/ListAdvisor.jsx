@@ -14,10 +14,22 @@ function ListAdvisor() {
     const [advaddress, setAdvAddress] = useState("");
     const [searchAdv, setSearchAdv] = useState("");
     const [advemail, setAdvEmail] = useState("");
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
     const name = sessionStorage.getItem('name');
     useEffect(() => {
-        setItemsPerPage(20);
+        setItemsPerPage(100);
     }, []);
+
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+      };
+    
+      const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+      };
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -38,7 +50,7 @@ function ListAdvisor() {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [name]);
 
     // refreshing page after updating data
     const onUpdateAdvisor = async () => {
@@ -171,7 +183,7 @@ function ListAdvisor() {
                             <div className="flex">
                                 <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 " /></button>
                                 <NavLink to="/branches/home/advisor/register" className="my-auto">
-                                    <button type="button" className="text-white  justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-2 mx-2 text-center ">Go Back</button>
+                                    <button type="button" className="text-white  justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Go Back</button>
                                 </NavLink>
                             </div>
                         </div>
@@ -281,10 +293,13 @@ function ListAdvisor() {
                                             {data.advisortype}
                                            </td>
                                             <td className="whitespace-nowrap px-0.5 border border-black">
-                                                <AdvisorUpdates advisors={data} onUpdates={onUpdateAdvisor} />
+                                            <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+        Update
+      </button> 
+                                              
                                             </td>
                                             <td className="whitespace-nowrap px-0.5 border border-black">
-                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
+                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 text-center ">Delete</button>
                                             </td>
                                         </tr>
                                     );
@@ -294,7 +309,7 @@ function ListAdvisor() {
                     </div>
                 </div>
             </div>
-            {/* Pagination */}
+           
             <nav aria-label="Page navigation  flex example sticky">
                 <ul className="flex space-x-2 mt-2 justify-end">
                     <li>
@@ -337,6 +352,9 @@ function ListAdvisor() {
                     </li>
                 </ul>
             </nav>
+            {showUpdatePopup && selectedRowId && (
+                <AdvisorUpdates advisors={selectedRowId} onUpdates={onUpdateAdvisor} onClose={handleClosePopup} />
+                )}
         </section>
     );
 }

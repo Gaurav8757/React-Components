@@ -724,7 +724,7 @@ function TwoWheelers() {
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
           </div>
           <button
-            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
+            className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300  shadow-lg shadow-green-500/50  font-medium rounded text-base px-3 py-1 text-center "
             onClick={handleSubmit}
             disabled={formSubmitted}
             type="button">
