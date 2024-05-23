@@ -8,7 +8,7 @@ const Footers = () => {
       <div className="grid grid-cols-2 xs:grid-cols-2 justify-center text-xl xs:text-xl sm:text-xl md:text-xl xl:text-xl sm:grid-cols-2 md:grid-cols-4  lg:grid-cols-5 xl:grid-cols-5 gap-2 justify-items-center p-5 ml-2 mr-2  text-black bg-gradient-to-r from-white to-slate-100">
         <div>
         <img src="/umbrell.png" height={5} width={25} alt="life" className="inline-block m-2"/>
-          <NavLink className="leading-10">
+          <NavLink className="leading-8 xl:text-xl lg:text-xl md:text-lg sm:text-lg text-base">
             Life Insurance
             <img src="/umbrell.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
@@ -30,7 +30,7 @@ const Footers = () => {
 
         <div>
         <img src="/healthcare.png" height={5} width={25} alt="life" className="inline-block m-2"/>
-          <NavLink className="leading-10">
+          <NavLink className="leading-8 xl:text-xl lg:text-xl md:text-lg sm:text-lg text-base">
             Health Insurance
             <img src="/healthcare.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
@@ -50,7 +50,7 @@ const Footers = () => {
 
         <div>
         <img src="/earning.png" height={5} width={25} alt="life" className="inline-block m-2"/>
-          <NavLink className="leading-10">
+          <NavLink className="leading-8 xl:text-xl lg:text-xl md:text-lg sm:text-lg text-base">
             Investment
             <img src="/earning.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
@@ -72,7 +72,7 @@ const Footers = () => {
 
         <div>
         <img src="/ger.png" height={5} width={25} alt="life" className="inline-block m-2"/>
-          <NavLink className="leading-10 ">
+          <NavLink className="leading-8 xl:text-xl lg:text-xl md:text-lg sm:text-lg text-base">
             General Insurance
             <img src="/ger.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">
@@ -94,7 +94,7 @@ const Footers = () => {
 
         <div>
         <img src="/ins.png" height={5} width={25} alt="life" className="inline-block m-2"/>
-          <NavLink className="leading-10">
+          <NavLink className="leading-8 xl:text-xl lg:text-xl md:text-lg sm:text-lg text-base">
             Other Insurance
             <img src="/ins.png" height={5} width={25} alt="life" className="inline-block m-2"/>
             <ul className="text-blue-600">

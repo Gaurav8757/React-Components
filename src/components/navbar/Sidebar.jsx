@@ -20,7 +20,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
 
   return (
     <aside
-      className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-teal-500 h-full transform transition-transform md:hidden ${
+      className={`absolute inset-y-20 w-64 z-50 bg-gradient-to-r from-orange-800 to-orange-900 h-full transform transition-transform md:hidden ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -34,8 +34,8 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                 to={item.to}
                 
                 className={classNames(
-                  item.current ? 'bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent text-xl font-bold' : 'text-gray-300 hover:text-white',
-                  'rounded-md px-2 font-medium text-gray-900 block py-2'
+                  item.current ? 'bg-black bg-clip-text text-transparent text-xl font-bold' : 'text-gray-300 hover:text-white',
+                  'rounded-md px-2 font-medium text-teal-300 block py-2'
                 )}
                 aria-current={item.current ? 'page' : undefined}
               >
@@ -43,7 +43,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                 {item.submenus && (
                   <span className="float-right">
                     <svg
-                      className="inline-flex h-5 w-5 text-gray-900 group-hover:text-white transition-all ease-in duration-75"
+                      className="inline-flex h-5 w-5 text-teal-300 group-hover:text-white transition-all ease-in duration-75"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       aria-hidden="true"
@@ -68,7 +68,7 @@ const Sidebar = ({navigation, isSidebarOpen}) => {
                   <li key={subIdx} className="mb-1">
                     <NavLink
                       to={submenu.to}
-                      className="text-lg text-gray-900 hover:text-white block py-2 px-4 rounded-md"
+                      className="text-lg text-teal-400 hover:text-white block py-2 px-4 rounded-md"
                     >
                       {submenu.name}
                     </NavLink>

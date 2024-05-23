@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import Sidebar from './Sidebar';
-import { useState, startTransition, lazy } from "react";
+import { useState, startTransition } from "react";
 
 import { NavLink } from 'react-router-dom';
-const Bars3Icon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.Bars3Icon })));
-const XMarkIcon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.XMarkIcon })));
+// const Bars3Icon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.Bars3Icon })));
+// const XMarkIcon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.XMarkIcon })));
 function classNames(...classes) {
   // console.log(classes.filter(Boolean).join(' '));
   return classes.filter(Boolean).join(' ');
@@ -29,15 +29,17 @@ export default function Navbar({ navigation }) {
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  sm:hidden">
               {/* Mobile menu button*/}
               <button
-                className="relative inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-800"
+                className="relative inline-flex items-center justify-center rounded-lg  text-white hover:bg-red-500 "
                 onClick={toggleSidebar}
               >
-                <span className="absolute -inset-0.5" />
+               
                 <span className="sr-only">Open main menu</span>
                 {isSidebarOpen ? (
-                  <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  // <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                  <img src="/off.png" height={5} width={25} alt="staff"/>
                 ) : (
-                  <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                  <img src="/app.png" height={5} width={25} alt="leger"/>
+                  // <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                 )}
               </button>
             </div>
@@ -57,7 +59,7 @@ export default function Navbar({ navigation }) {
                           classNames(
                             isActive
                               ? ' text-slate-200   sm:text-sm md:text-sm lg:text-sm xl:text-lg'
-                              : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 hover:text-#6ee7b7',
+                              : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 ',
                             'rounded-md px-2 py-2 font-medium text-gray-900'
                           )
                         }

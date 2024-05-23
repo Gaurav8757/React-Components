@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { NavLink } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 const Footer2 = ({ footer }) => {
     return (
         <section className="bg-gradient-to-r from-slate-200  to-slate-200 ">
@@ -29,17 +28,17 @@ const Footer2 = ({ footer }) => {
                     <div className="flex mt-4  justify-center md:mt-0 space-x-5 text-blue-700   rtl:space-x-reverse">
 
                         <NavLink to="#">
-                            <FaFacebook size={20} className="hover:text-gray-900" />
+                            <img src="/facebook.png" height={5} width={20} alt="facebook"/>
                         </NavLink>
                         <NavLink to="#" >
-                            <FaInstagram size={20} className="hover:text-gray-900" />
+                        <img src="/instagram.png" height={5} width={20} alt="instagram"/>
                         </NavLink>
                         <NavLink to="#" >
-                            <FaTwitter size={20} className="hover:text-gray-900" />
+                        <img src="/twitter.png" height={5} width={20} alt="twitter"/>
                         </NavLink>
                        
                         <NavLink to="#" >
-                            <FaLinkedinIn size={20} className="hover:text-gray-900" />
+                        <img src="/linkedin.png" height={5} width={20} alt="linkedin"/>
                         </NavLink>
                     </div>
                 </div>

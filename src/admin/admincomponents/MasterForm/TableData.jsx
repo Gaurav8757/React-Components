@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
-
+import { useState } from "react";
 import UpdateMaster from "./UpdateMaster.jsx";
-
-const TableData = ({ filteredData, onUpdateInsurance, onDeleteAllData, totalItems }) => {
+const TableData = ({ filteredData, onDeleteAllData, onUpdateInsurance, totalItems }) => {
+  const [selectedRowId, setSelectedRowId] = useState(null);
+  const handleRowClick = (id) => {
+    setSelectedRowId((id));
+  };
   return (
     <div className="inline-block min-w-full w-full py-0 relative">
       <table className="min-w-full text-center text-sm font-light table border border-black">
@@ -78,10 +81,11 @@ const TableData = ({ filteredData, onUpdateInsurance, onDeleteAllData, totalItem
           {filteredData.map((data) => (
             <tr
               className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
-              key={data._id}
-            >
+              key={data._id}  onClick={() => handleRowClick(data._id)}>
               <td className="whitespace-nowrap px-1 border border-black">
-                <UpdateMaster insurance={data} onUpdate={onUpdateInsurance} />
+              {selectedRowId === data._id && (
+                  <UpdateMaster insurance={data} onUpdate={onUpdateInsurance} />
+                )}
               </td>
               <td className="whitespace-nowrap px-1 border border-black">
                 {data.policyrefno}

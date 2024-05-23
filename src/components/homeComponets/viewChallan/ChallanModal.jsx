@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { RxCross2 } from "react-icons/rx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 
 function ChallanModal() {
     const [showOtpInput, setShowOtpInput] = useState(false);
@@ -11,14 +10,18 @@ function ChallanModal() {
     const [isGetOtpActive, setIsGetOtpActive] = useState(false);
 
     const startTimer = () => {
+        startTransition(() => {
         setShowOtpInput(true);
         setTimer(30);
+    });
     };
 
     const handleMobileNumberChange = (e) => {
         const inputMobileNumber = e.target.value;
+        startTransition(() => {
         setMobileNumber(inputMobileNumber);
         setIsGetOtpActive(inputMobileNumber.length === 10);
+    });
     };
 
     useEffect(() => {
@@ -37,7 +40,9 @@ function ChallanModal() {
     }, [showOtpInput, timer]);
 
     const handleOtpInputChange = (e) => {
+        startTransition(() => {
         setOtp(e.target.value);
+    });
     };
 
     const handleSubmit = (e) => {
@@ -47,9 +52,13 @@ function ChallanModal() {
     };
 
     const handleResendOTP = () => {
+       
         if (!showOtpInput && !timer && isGetOtpActive) {
+            startTransition(() => {
             startTimer();
+        });
         }
+        
     };
 
     return (
@@ -121,8 +130,8 @@ function ChallanModal() {
                     </div>
 
                     <div className="mt-3 mr-4">
-                        <RxCross2 size={30}
-                            className="transition text-slate-200 duration-500 ase-in-out cursor-pointer text-end inline-flex justify-end"
+                        <img src="/close.png" height={5} width={25} alt="report"
+                            className=" text-slate-200  cursor-pointer text-end inline-flex justify-end"
                             data-modal-hide="static-modal33" />
                     </div>
                 </section>

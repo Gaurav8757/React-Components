@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 // Form.jsx
-
-import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -60,7 +58,7 @@ const Form = ({ companyName, setShowModal }) => {
                 onClick={() => setShowModal(false)}
               >
                 <span className="text-white hover:text-orange-600 opacity-7 h-6 w-6 text-xl block py-0 rounded-full transition duration-0 hover:duration-500">
-                  <IoMdClose size={30} />
+                <img src="/close.png" height={5} width={25} alt="close"/>
                 </span>
               </button>
             </div>

@@ -82,12 +82,6 @@ function ViewMasterForm() {
 
     fetchPayoutSlab();
   }, []);
-  // console.log(payoutSlab)
-
-  
-  
-
- 
 
   const onUpdateInsurance = async () => {
     try {
@@ -122,49 +116,6 @@ function ViewMasterForm() {
       setEndDate(event.target.value);
     }
   };
-
-  // useEffect(() => {
-  //   allDetailsData.forEach(async (data) => {
-  //     let paydata;
-  //     if (data.policyType === "COMP" && data.productCode === "PVT-CAR") {
-  //       paydata = {
-  //         payoutOn: "OD"
-  //       };
-  //     } else {
-  //       paydata = {
-  //         payoutOn: "NET"
-  //       };
-  //     }
-
-  //     try {
-  //       // Send data to API
-  //       const response = await axios.put(
-  //         `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-  //         paydata,
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-        
-  //       if (response.status !== 200) {
-  //         console.error(`Error updating data for policy ID ${data._id}`);
-  //       }else{
-  //         startTransition(() => {
-  //         if(response.status === 200){
-  //           console.log("Data updated successfully")
-  //         }
-  //       });
-  //       }
-  //     } catch (error) {
-  //       console.error(
-  //         `Error updating data of od net for policy ID  `,
-  //         error
-  //       );
-  //     }
-  //   });
-  // }, [allDetailsData]);
 
   useEffect(() => {
     const updateData = async (data, paydata) => {
@@ -242,28 +193,6 @@ function ViewMasterForm() {
     setCurrentPage(page);
   };
 
-  // calculate payout
-  // const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
-  //   const deduction = finalEntryFields - advisorPayout;
-  //   return deduction;
-  // };
-  // const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
-  //   const deduction = finalEntryFields * (percentage / 100);
-  //   return deduction;
-  // };
-  // const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => {
-  //   const deduction = finalEntryFields - branchPayout;
-  //   return deduction;
-  // };
-  // const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => {
-  //   const deduction = finalEntryFields * (branchpayoutper / 100);
-  //   return deduction;
-  // };
-  // const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => {
-  //   const deduction = finalEntryFields * (companypayoutper / 100);
-  //   return deduction;
-  // };
-
   const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
   const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
   const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => finalEntryFields - branchPayout;
@@ -301,22 +230,7 @@ function ViewMasterForm() {
             ) && 
             (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' ))
           )
-          
-            // (
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
-            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'both')
-            // ) &&
-            
            {
-            // Add new conditions here
-            // if (
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo === 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'yes' && data.vehRegNo !== 'NEW' && data.ncb > 0) ||
-            //   (matchingCSLab.ncb === 'no' && data.vehRegNo !== 'NEW' && data.ncb === 0) ||
-            //   (matchingCSLab.ncb === 'both')
-            // ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
             const odPremium = parseFloat(data.odPremium);
@@ -407,9 +321,6 @@ function ViewMasterForm() {
   })
   }, []);
 
-  
-
-
   const exportToExcel = () => {
     try {
       const fileType =
@@ -418,7 +329,6 @@ function ViewMasterForm() {
       const fileName = `${name}`;
       // Map all data without filtering by current date
       const dataToExport = filteredData.map((row) => {
-
         return [
           row.entryDate,
           row.policyrefno,
@@ -875,7 +785,6 @@ function ViewMasterForm() {
         </>
              {/* </table> */}
           </div>
-          
         </div>
       </div>
 

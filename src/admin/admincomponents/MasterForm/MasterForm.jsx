@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import MultiStep from "react-multistep";
-
-import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+// import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function MasterForm() {
   const [states, setStates] = useState([]);
@@ -857,7 +856,9 @@ if(company === "GO-DIGIT"){
             prevButton={{
               title: (
                 <span className="flex justify-start text-base">
-                  <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> Back
+                  <img src="/left.png" height={5} width={20} alt="report" className="mr-1 mx-auto mt-auto rounded-xl"/>
+                  {/* <SlArrowLeftCircle className="mr-2 mx-auto my-auto" /> */}
+                   Back
                 </span>
               ),
               style: {
@@ -880,7 +881,7 @@ if(company === "GO-DIGIT"){
             nextButton={{
               title: (
                 <span className="flex justify-end text-base">Next
-                  <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
+                  <img src="/right.png" height={5} width={20} alt="report" className=" mx-auto ml-1 mt-auto rounded-xl"/>
                 </span>
               ),
               style: {

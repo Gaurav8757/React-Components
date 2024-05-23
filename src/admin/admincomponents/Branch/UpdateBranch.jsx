@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../../config/config.jsx";
@@ -102,7 +101,7 @@ function UpdateBranch({ branch, onUpdate }) {
                                     type="button"
                                     className=" bg-transparent hover:text-red-900 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                 >
-                                    <CgCloseR size={25} />
+                                    <img src="/close.png" className="hover:bg-gradient-to-r from-stone-400 to-stone-600 rounded-xl bg-clip-image text-transparent" height={5} width={25} alt="report"/>
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">

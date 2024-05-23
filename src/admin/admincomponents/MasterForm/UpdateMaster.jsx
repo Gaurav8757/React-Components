@@ -8,6 +8,7 @@ import MultiStep from "react-multistep";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function UpdateMaster({ insurance, onUpdate }) {
+  // console.log(insurance);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);

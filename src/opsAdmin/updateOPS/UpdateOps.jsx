@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, startTransition } from "react";
+import { useState, useEffect  } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
 import { CgCloseR } from "react-icons/cg";
 
 function UpdateOps({ UpdateOps, update, APIData }) {
+    // console.log(UpdateOps);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentTime, setCurrentTime] = useState(getFormattedTime());
     const [allDetails, setAllDetails] = useState({
@@ -18,17 +19,8 @@ function UpdateOps({ UpdateOps, update, APIData }) {
         employee_id: ''
     });
 
-    const openModal = () => {
-        startTransition(() => {
-            setIsModalOpen(true);
-        });
-    };
-
-    const closeModal = () => {
-        startTransition(() => {
-            setIsModalOpen(false);
-        });
-    };
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false)
 
     function getFormattedTime() {
         const date = new Date();
@@ -43,7 +35,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentTime(getFormattedTime());
-        }, 1000);
+        }, 100);
         return () => clearInterval(intervalId);
     }, []);
 
@@ -64,16 +56,31 @@ function UpdateOps({ UpdateOps, update, APIData }) {
 
     // };
 
+    // const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     const selectedEmployee = APIData.find(emp => emp.empname === value) || {};
+
+    //     setAllDetails((prevData) => ({
+    //         ...prevData,
+    //         employee_id: selectedEmployee._id || '',
+    //         currentTime: currentTime,
+    //         [name]: value,
+    //     }));
+    // };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        const selectedEmployee = APIData.find(emp => emp.empname === value) || {};
-
-        setAllDetails((prevData) => ({
-            ...prevData,
-            employee_id: selectedEmployee._id || '',
+        let updatedDetails = {
+            ...allDetails,
             currentTime: currentTime,
             [name]: value,
-        }));
+        };
+
+        if (name === "staffName") {
+            const selectedEmployee = APIData.find(emp => emp.empname === value) || {};
+            updatedDetails.employee_id = selectedEmployee._id || '';
+        }
+
+        setAllDetails(updatedDetails);
     };
 
     const updateInsuranceAPI = async () => {
@@ -104,7 +111,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                     className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50"
                 >
                     <div className="relative p-1 w-full max-w-6xl max-h-7xl mx-auto mt-40">
-                        <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-600 rounded-lg shadow">
+                        <div className="relative bg-gradient-to-r from-orange-800 to-orange-800 rounded-lg shadow">
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-100">
                                     Update Policy Details
@@ -117,7 +124,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                     <CgCloseR size={25} />
                                 </button>
                             </div>
-                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-700 to-cyan-600">
+                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-800 to-orange-800">
                                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg bg-white">
                                     <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                                         <div className="flex flex-wrap justify-between">
@@ -184,7 +191,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                         </div>
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
                                             <button
-                                                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
+                                                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
                                                 onClick={updateInsuranceAPI}
                                                 type="button"
                                             >

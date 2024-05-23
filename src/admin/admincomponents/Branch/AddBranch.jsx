@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import VITE_DATA from "../../../config/config.jsx";
 function AddBranch() {
   const [branch, setBranch] = useState("");
@@ -212,9 +211,10 @@ setErrors({}); // Clear previous errors
                                         className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
                                     >
                                         {showPassword ? (
-                                            <IoEyeOutline size={25}/>
+                                          <img src="/view.png" height={5} width={25} alt="show"/>
+                                            
                                         ) : (
-                                            <IoEyeOffOutline size={25}/>
+                                          <img src="/eye.png" height={5} width={25} alt="close"/>
                                         )}
                                     </button></div>
               {errors.password && <span className="text-red-600 text-sm ">{errors.password}</span>}

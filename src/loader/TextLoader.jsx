@@ -19,7 +19,7 @@
 // export default TextLoader;
 import  { useEffect, useState } from 'react';
 const TextLoader = () => {
-  const text = 'ELEEDOMIMF';
+  const text = 'ELEEDOM';
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {

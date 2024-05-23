@@ -76,7 +76,6 @@ import AddAdvisor from "./admin/admincomponents/Advisor/AddAdvisor.jsx";
 import ViewAdvisor from "./admin/admincomponents/Advisor/ViewAdvisor.jsx";
 import UpdateAdvisor from "./admin/admincomponents/Advisor/UpdateAdvisor.jsx";
 import HomepageAdvisor from "./advisor/Home/HomepageAdvisor.jsx";
-import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ForgotPassword from "./advisor/ForgotPassword.jsx";
 import ForgetPassBranch from "./branches/ForgetPassBranch.jsx";
 import UpdateEmployee from "./HumanResources/Employee/UpdateEmployee.jsx";
@@ -181,6 +180,8 @@ import LeaveBalance from "./HumanResources/LeaveBalance/LeaveBalance.jsx";
 import PayoutView from "./advisor/payout/PayoutView.jsx";
 import DailyViewLeger from "./branches/ViewLeger/DailyViewLeger.jsx";
 import MonthViewLeger from "./branches/ViewLeger/MonthViewLeger.jsx";
+import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
+// import UpdateFinance from "./finance/FinanceData/UpdateFinance.jsx";
 // import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 
 const router = createBrowserRouter(
@@ -266,7 +267,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/firstview/carousel" element={<ViewCarousel />} />
           <Route path="/dashboard/viewfilledform" element={<ViewUserFillCompany />} />
           <Route path="/dashboard/masterform" element={<MasterForm />} />
-          <Route path="/dashboard/updatemasterform" element={<UpdateMaster />} />
+         
           <Route path="/dashboard/viewmasterform" element={<ViewMasterForm />} />
           <Route path="/dashboard/addAdvisor" element={<AddAdvisor />} />
           <Route path="/dashboard/viewadvisor" element={<ViewAdvisor />} />
@@ -296,7 +297,8 @@ const router = createBrowserRouter(
           <Route path="/dashboard/ledger1" element={<Ledger1 />} />
           <Route path="/dashboard/ledger2" element={<Ledger2 />} />
           <Route path="/dashboard/ledger3" element={<Ledger3/>} />
-          {/* <Route path="/dashboard/daily/view" element={<LegerDailyView/>} /> */}
+          <Route path="/dashboard/updatemasterform" element={<UpdateMaster />} />
+          
         </Route>
       </Route>
 
@@ -419,6 +421,7 @@ const router = createBrowserRouter(
           <Route path="" element={<DashboardFinance />} />
           <Route path="/finance/home/new" element={<AddFinance />} />
           <Route path="/finance/home/view" element={<ViewFinance />} />
+          {/* <Route path="/finance/home/update" element={<UpdateFinance />} /> */}
           <Route path="/finance/home/daily/leger" element={<Ledger1 />} />
           <Route path="/finance/home/monthly/leger" element={<Ledger2 />} />
           <Route path="/finance/home/company/leger" element={<Ledger3 />} />

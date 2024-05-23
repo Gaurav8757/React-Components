@@ -1,3 +1,4 @@
+
 /* eslint-disable react/prop-types */
 import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
@@ -411,8 +412,6 @@ function UpdateFinance({ insurance, onUpdate }) {
   };
 
 
-
-
   // show all data inside input tag
   useEffect(() => {
     setAllDetails(insurance);
@@ -449,9 +448,6 @@ function UpdateFinance({ insurance, onUpdate }) {
       advId: name === 'advisorName' ? advLists.find(advisor => advisor.advisorname === value).uniqueId : prevData.advId
     }));
   };
-
-
-
 
 
   const updateInsuranceAPI = async () => {
