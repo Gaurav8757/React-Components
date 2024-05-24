@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CgCloseR } from "react-icons/cg";
+// import { CgCloseR } from "react-icons/cg";
 import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
-function AddPolicyDetail({ insurance, onUpdates }) {
+function AddPolicyDetail({ insurance, onUpdates, onClose }) {
     const [pdata, setPdata] = useState([]);
     const [loading, setLoading] = useState("");
-    const [isModalOpen, setIsModalOpen] = useState(false);
     // eslint-disable-next-line no-unused-vars
     const [APIData, setAPIData] = useState([]);
     const [data, setData] = useState([]);
@@ -37,8 +36,6 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         return `${formattedHours}:${formattedMinutes} ${ampm}`;
     }
     const time = getFormattedTime();
-
-   console.log(cities);
 
     const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
     "Bhagalpur",
@@ -136,16 +133,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
         advId: insurance.advId || ''
     });
 
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
+   
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -344,7 +332,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
             toast.success(`${resp.data.status}`);
             // console.log(resp.data.message.updatedDetails.district);
             // Close the modal after successful submission
-            closeModal();
+            onClose();
         } catch (error) {
             console.error("Error updating insurance details:", error);
         } finally {
@@ -354,12 +342,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
     return (
         <>
-            {/* <!-- Modal toggle --> */}
-            <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 my-1 py-2 text-center  ">
-                Update
-            </button>
-            {/* <!-- Main modal --> */}
-            {isModalOpen && (
+           
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -369,24 +352,24 @@ function AddPolicyDetail({ insurance, onUpdates }) {
 
                     <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-cyan-700 to-cyan-500 rounded-lg shadow ">
+                        <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow ">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-gray-100 ">
                                     Fill Policy Details
                                 </h3>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                   <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                                 </button>
                             </div>
                             {/* <!-- Modal body --> */}
-                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-cyan-700 to-cyan-400">
-                                <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-white to-cyan-700">
+                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-700 to-orange-700">
+                                <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-gradient-to-r from-white to-orange-700">
                                     <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-                                        <div className="flex flex-wrap justify-between">
+                                        <div className="flex flex-wrap justify-between font-semibold">
                                             <div className="flex flex-col p-1 text-start w-full lg:w-1/4">
                                                 <label className="text-base mx-1">Company Name<span className="text-red-600 font-bold">*</span></label>
                                                 <select
@@ -743,7 +726,7 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                                         {/* button */}
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
                                             <button
-                                                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-4 py-2 text-center me-2 mb-2"
                                                 onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
                                         </div>
                                     </div>
@@ -752,7 +735,6 @@ function AddPolicyDetail({ insurance, onUpdates }) {
                         </div>
                     </div>
                 </div>
-            )}
         </>
     );
 }

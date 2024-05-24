@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
@@ -7,9 +6,7 @@ import axios from "axios";
 import MultiStep from "react-multistep";
 import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
-function UpdateMaster({ insurance, onUpdate }) {
-  // console.log(insurance);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateMaster({ insurance, onUpdate, onClose }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [sit, setSit] = useState([]);
@@ -150,15 +147,6 @@ function UpdateMaster({ insurance, onUpdate }) {
     profitLoss: ''
   })
 
-  // OPEN MODAL
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // CLOSE MODAL
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     axios.get(`${VITE_DATA}/staff/policy/lists`)
@@ -543,7 +531,7 @@ function UpdateMaster({ insurance, onUpdate }) {
       // Use the selected category ID in the patch method
       const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${insurance._id}`, allDetails);
       toast.success(`${resp.data.status}`);
-      closeModal(); // Close the modal after successful submission
+      onClose(); // Close the modal after successful submission
       onUpdate()
     } catch (error) {
       console.error("Error updating insurance details:", error);
@@ -554,13 +542,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
   return (
     <>
-      {/* <!-- Modal toggle --> */}
-      <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80  font-bold py-1 px-2 rounded text-center">
-        Update
-      </button>
-
-      {/* <!-- Main modal --> */}
-      {isModalOpen && (
+     
         <div
           id="static-modal"
           data-modal-backdrop="static"
@@ -577,10 +559,10 @@ function UpdateMaster({ insurance, onUpdate }) {
                   Update Policy Details
                 </h3>
                 <button
-                  onClick={closeModal}
+                  onClick={onClose}
                   type="button"
-                  className=" bg-transparent hover:text-red-900 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
-                  <CgCloseR size={25} />
+                  className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                  <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                 </button>
 
               </div>
@@ -589,7 +571,7 @@ function UpdateMaster({ insurance, onUpdate }) {
 
               {/* <!-- Modal body --> */}
               <section className="p-4 md:p-3   rounded-lg max-h-auto text-justify overflow-y-auto bg-orange-700">
-                <div className="container-fluid  flex justify-center p-1 border-gray-200 border-dashed rounded-lg  bg-orange-700">
+                <div className="container-fluid font-semibold flex justify-center p-1 border-gray-200 border-dashed rounded-lg  bg-orange-700">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <MultiStep activeStep={0} showNavigation={true} className="bg-orange-500 rounded-lg shadow-md flex justify-between  overflow-hidden"
                       stepCustomStyle={{
@@ -1520,7 +1502,7 @@ function UpdateMaster({ insurance, onUpdate }) {
                         <div className="flex flex-col p-1 text-start w-full lg:w-1/5"></div>
 
                         <div className="mt-8 p-2 flex justify-center lg:w-full w-full">
-                          <button className="text-white  bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-4 py-2 text-center me-2 mb-2"
+                          <button className="text-white  bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-4 py-2 text-center"
                             onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
                         </div>
 
@@ -1532,8 +1514,6 @@ function UpdateMaster({ insurance, onUpdate }) {
             </div>
           </div>
         </div>
-
-      )}
     </>
   );
 }

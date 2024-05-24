@@ -840,7 +840,7 @@ if(company === "GO-DIGIT"){
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-      <h1 className="font-semibold text-2xl my-4 text-white dark:text-black">Add Policy Detail&apos;s </h1>
+      <h1 className="font-semibold text-3xl my-2 text-orange-700">Create Policy</h1>
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
          
           <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-0 overflow-hidden"
@@ -1928,7 +1928,7 @@ if(company === "GO-DIGIT"){
               <div className="flex flex-col p-1 mt-2 text-start w-full lg:w-1/4"></div>
               <div className="mt-8 p-2 flex justify-center lg:w-full w-full">
                 <button
-                  className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-4 py-2 text-center "
+                  className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 dark:shadow-lg font-medium rounded text-base px-4 py-2 text-center "
                   onClick={handleSubmit}
                   disabled={formSubmitted}
                   type="button">

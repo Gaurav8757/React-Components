@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../../config/config.jsx";
-function UpdateCarousel({ carouselFirst, onUpload }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateCarousel({ carouselFirst, onUpload, onClose }) {
+    
     const [loading, setLoading] = useState(false);
     const [carousel, setCarousel] = useState({
         usercarousel_title: "",
@@ -14,15 +13,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
         usercarousel_upload: null,
     })
 
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+  
 
     // show all data inside input tag
     useEffect(() => {
@@ -75,7 +66,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
 
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
-            closeModal();
+            onClose();
             onUpload();
         } catch (error) {
             toast.error(`${error}`)
@@ -87,15 +78,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center"
-            >
-                Update
-            </button>
-
-            {isModalOpen && (
+         
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -105,28 +88,26 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-blue-200 to-cyan-200 rounded-lg shadow dark:bg-slate-100">
+                        <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                                <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                                <h3 className="text-xl font-semibold text-white">
                                     Update Carousel
                                 </h3>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                                    <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                                 </button>
                             </div>
-                            <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap ">
-                                    {/* ... other form elements ... */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-                                        <div className="flex flex-col my-5">
+                            <section className="p-4 md:p-3 bg-orange-700 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto ">
+                                <form className="flex flex-wrap justify-between p-2 font-semibold bg-gradient-to-r from-slate-100 to-white ">
+                                   
+                                        <div className="flex flex-col mt-4 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Title:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={carousel.usercarousel_title}
                                                 onChange={handleInputChange}
@@ -135,27 +116,22 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                             />
                                         </div>
 
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col mt-4 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Link:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 value={carousel.usercarousel_link}
                                                 onChange={handleInputChange}
                                                 name="usercarousel_link"
                                             />
                                         </div>
-                                    </div>
+                                  
 
-
-
-                                    {/* part-2 */}
-                                    <div className="w-full lg:w-1/2 p-2 text-start">
-
-                                        <div className="flex flex-col my-5">
+                                        <div className="flex flex-col mt-4 mr-4 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Description:</label>
                                             <input
-                                                className="input-style rounded-lg"
+                                                className="input-style p-1 rounded-lg"
                                                 type="text"
                                                 name="usercarousel_desc"
                                                 value={carousel.usercarousel_desc}
@@ -163,10 +139,10 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                                 placeholder="Enter Description"
                                             />
                                         </div>
-                                        <div className="flex flex-col my-6">
+                                        <div className="flex flex-col mt-4 text-start w-full lg:w-1/4">
                                             <label className="text-base mx-1">Image Upload:</label>
                                             <input
-                                                className="input-style border w-full h-12 items-center rounded-lg"
+                                                className="input-style p-1 my-auto h-10 items-center rounded-lg"
                                                 type="file"
                                                 accept="image/*"
                                                 // value={carousel.usercarousel_upload || ""}
@@ -175,12 +151,12 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                                             />
                                         </div>
 
-                                    </div>
+                                   
 
 
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
-                                            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                            className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 font-medium rounded text-sm px-4 py-2 text-center"
                                             onClick={updateCarouselAPI}
                                             type="button"
                                         >
@@ -192,8 +168,7 @@ function UpdateCarousel({ carouselFirst, onUpload }) {
                         </div>
                     </div>
                 </div>
-            )}
-
+          
         </>
     )
 }

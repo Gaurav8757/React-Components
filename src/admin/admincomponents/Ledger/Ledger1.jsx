@@ -306,7 +306,7 @@ function Ledger1() {
       <div className="container-fluid  p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="flex justify-between">
           <h1></h1>
-        <h1 className="font-semibold my-auto text-3xl mb-2 text-white dark:text-black">Daily Leger</h1>
+        <h1 className="font-semibold my-auto text-3xl mb-2 text-orange-700">Daily Leger</h1>
         <button
           className=" text-white my-auto font-medium rounded-full text-base px-3 py-1 text-center"
           onClick={handleExportClick}
@@ -386,8 +386,8 @@ function Ledger1() {
                   uniqueNames.sort().map((api, idx) => (
                     <option    className={`${api ? "font-semibold" : ""}`} key={idx} value={api}>{api}</option>
                   ))} </select>
-              <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
-              <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
+              <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
+              <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
             </div>
           </div>
           {isFilterApplied() && filteredData.length > 0 && (
@@ -494,7 +494,7 @@ function Ledger1() {
             </div>
           )}
         </div>
-        <button className="text-white my-5 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center" onClick={handleSubmit} type="submit">Submit</button>
+        <button className="text-white my-5 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded text-base px-3 py-1 text-center" onClick={handleSubmit} type="submit">Submit</button>
       </div>
     </section>
   );

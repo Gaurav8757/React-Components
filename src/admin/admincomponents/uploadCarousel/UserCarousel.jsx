@@ -57,7 +57,7 @@ function UserCarousel() {
     return (
         <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
             <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
-            <h1 className="font-semibold text-3xl my-4 text-white dark:text-black ">Add Carousel&apos;s</h1>
+            <h1 className="font-semibold text-3xl my-2 text-orange-700 ">Add Carousel&apos;s</h1>
                 <div className="relative w-full lg:w-full   rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
                     
                     <form className="flex flex-wrap" method="post" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -113,7 +113,7 @@ function UserCarousel() {
                         </div>
                         <div className="w-full p-2">
                             <button
-                                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 font-medium rounded text-sm px-4 py-2 text-center mt-5"
                                 type="submit"
                             >
                                 Submit

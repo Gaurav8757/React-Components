@@ -4,10 +4,18 @@ import UpdateFinance from "./UpdateFinance.jsx";
 
 const FinanceTable = ({ filteredData, onUpdateInsurance }) => {
   // State to hold the selected row ID
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
-  const handleRowClick = (id) => {
-    setSelectedRowId((id));
-  };
+
+ const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+      };
+    
+      const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+      };
 
 
 
@@ -81,18 +89,14 @@ const FinanceTable = ({ filteredData, onUpdateInsurance }) => {
           {filteredData.map((data) => (
             <tr
               className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
-              key={data._id} onClick={() => handleRowClick(data._id)} >
+              key={data._id}  >
              <td className="whitespace-nowrap px-1 py-1 border border-black">
-               
-                {selectedRowId === data._id && (
-                  <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
-                )}
+             <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+        Update
+      </button> 
+                
               </td>
-              {/* <td className="whitespace-nowrap px-1 py-1 border border-black">
-                {selectedRowId === data._id && (
-                  <UpdateFinance insurance={data} onUpdate={onUpdateInsurance} />
-                )}
-              </td> */}
+             
               <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyrefno}</td>
               <td className="whitespace-nowrap px-1 py-1 border border-black">{data.entryDate}</td>
               <td className="whitespace-nowrap px-1 py-1 border border-black">{data.branch}</td>
@@ -151,6 +155,9 @@ const FinanceTable = ({ filteredData, onUpdateInsurance }) => {
               <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td>
             </tr>
           ))}
+          {showUpdatePopup && selectedRowId && (
+                  <UpdateFinance insurance={selectedRowId} onUpdate={onUpdateInsurance} onClose={handleClosePopup}/>
+                )}
         </tbody>
       </table>
     </div>

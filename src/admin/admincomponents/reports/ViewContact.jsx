@@ -5,10 +5,21 @@ import { toast } from "react-toastify";
 import VITE_DATA from "../../../config/config.jsx";
 const ViewContact = () => {
   const [contacts, setContacts] = useState([]);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
+
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+    };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-
     if (!token) {
       toast.error("Not Authorized yet.. Try again!");
     } else {
@@ -68,7 +79,7 @@ const ViewContact = () => {
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-slate-200 to-slate-200">
       <div className="container-fluid  justify-center py-4 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
-      <h1 className="flex justify-center text-3xl font-semibold w-full ">All Contact&apos;s List</h1>
+      <h1 className="flex justify-center text-3xl font-semibold w-full text-orange-700 ">All Contact List&apos;s</h1>
         <div className="inline-block min-w-full w-full py-3">
         
           <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
@@ -85,7 +96,7 @@ const ViewContact = () => {
                     Query
                   </th>
                   <th scope="col" className="px-1 border border-black py-1">
-                    Edit
+                    Update
                   </th>
                   <th scope="col" className="px-1 border border-black py-1">
                     Delete
@@ -102,13 +113,15 @@ const ViewContact = () => {
                     <td className="whitespace-nowrap border border-black px-1 py-1">{contact.usercontact_mobile}</td>
                     <td className="whitespace-nowrap border border-black px-1 py-1">{contact.usercontact_query}</td>
                     <td className="whitespace-nowrap border border-black px-1 py-1">
-                          <UpdateContact data = {contact} onUpdate={onUpdateContact} />
+                    <button onClick={() => handleUpdateClick(contacts)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                            Update
+                                                        </button>
                     </td>
                     <td className="whitespace-nowrap px-1 py-1">
                       <button
                         type="button"
                         onClick={() => onDeleteComplaint(contact._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-2 text-center "
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-3 py-1 text-center "
                       >
                         Delete
                       </button>
@@ -120,6 +133,9 @@ const ViewContact = () => {
           </div>
         </div>
       </div>
+      {showUpdatePopup && selectedRowId && (
+                <UpdateContact data={selectedRowId} onUpdate={onUpdateContact} onClose={handleClosePopup} />
+            )}
     </section>
   );
 };

@@ -81,7 +81,7 @@ function AddAttendance() {
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 w-full sm:w-full md:w-full lg:w-full xl:w-full border-dashed rounded-lg  bg-slate-100">
         <div className="flex flex-col min-w-full   w-full py-0">
-          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl tracking-wider text-center  font-medium">Attendance</h2>
+          <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl xl:text-3xl tracking-wider text-center text-orange-700  font-medium">Attendance</h2>
           <div className="overflow-x-auto  bg-slate-200">
             {/* name, date, time */}
             <div className='flex justify-between  shadow-2xl border border-slate-100 py-1 text-xl sm:text-md md:text-xl lg:text-xl xl:text-xl'>
@@ -169,7 +169,7 @@ function AddAttendance() {
               </div>
               
               <div className='text-center my-8 mx-4 flex justify-center'>
-                <button className='text-white cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 bg-orange-700 hover:bg-orange-600 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-base px-3 py-1 text-center me-2 mb-2"' onClick={handleToggleAttendance}>Submit</button>
+                <button className='text-white cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 bg-orange-700 hover:bg-orange-600 focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded text-base px-3 py-1 text-center me-2 mb-2' onClick={handleToggleAttendance}>Submit</button>
               </div>
             </div>
             <LeaveApplication/>

@@ -2,10 +2,19 @@
 import { useState } from "react";
 import UpdateMaster from "./UpdateMaster.jsx";
 const TableData = ({ filteredData, onDeleteAllData, onUpdateInsurance, totalItems }) => {
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
-  const handleRowClick = (id) => {
-    setSelectedRowId((id));
-  };
+
+  const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+    };
+
   return (
     <div className="inline-block min-w-full w-full py-0 relative">
       <table className="min-w-full text-center text-sm font-light table border border-black">
@@ -81,11 +90,11 @@ const TableData = ({ filteredData, onDeleteAllData, onUpdateInsurance, totalItem
           {filteredData.map((data) => (
             <tr
               className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
-              key={data._id}  onClick={() => handleRowClick(data._id)}>
+              key={data._id} >
               <td className="whitespace-nowrap px-1 border border-black">
-              {selectedRowId === data._id && (
-                  <UpdateMaster insurance={data} onUpdate={onUpdateInsurance} />
-                )}
+              <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                            Update
+                                                        </button>
               </td>
               <td className="whitespace-nowrap px-1 border border-black">
                 {data.policyrefno}
@@ -258,7 +267,11 @@ const TableData = ({ filteredData, onDeleteAllData, onUpdateInsurance, totalItem
         </tbody>
       </table>
       <div className="font-bold">Total Items: {totalItems}</div>
+      {showUpdatePopup && selectedRowId && (
+                <UpdateMaster insurance={selectedRowId} onUpdate={onUpdateInsurance} onClose={handleClosePopup} />
+            )}
     </div>
+    
   );
 };
 

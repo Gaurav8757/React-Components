@@ -3,9 +3,22 @@ import UpdateCarousel from "./UpdateCarousel.jsx";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import TextLoader from "../../../loader/TextLoader.jsx";
 import VITE_DATA from "../../../config/config.jsx";
 function ViewCarousel() {
     const [APIData, setAPIData] = useState([]);
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+    };
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -45,7 +58,6 @@ function ViewCarousel() {
             },
           }
         );
-
         setAPIData(response.data);
       }
     } catch (error) {
@@ -72,15 +84,23 @@ function ViewCarousel() {
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-slate-200">
                 {/* <div className="sm:-mx-6 lg:-mx-8"> */}
-                <div className="inline-block min-w-full w-full py-4 ">
-                    <div className="overflow-x-none w-xl  text-white">
-                        <NavLink to="/dashboard/addcarousel" className="flex justify-end text-red-700 ">
-                        <button type="button" className="text-white absolute top-3 mt-4 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                <div className="inline-block min-w-full w-full py-0">
+                    <div className="flex justify-between w-xl  text-white">
+                        <h1></h1>
+                        <h1 className="text-3xl text-orange-700 font-semibold w-full my-2">All Carousel&apos;s List</h1>
+                        <span className="flex justify-end">
+                        <NavLink to="/dashboard/addcarousel" className=" my-auto text-red-700 ">
+                        <button type="button" className="text-white  bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-3 py-2 text-center me-2 whitespace-nowrap">Go Back</button>
                         </NavLink>
-                        <h1 className="flex justify-center text-3xl text-blue-500 font-semibold w-full mb-8">All Carousel&apos;s List</h1><hr></hr>
+                        </span>
                     </div>
+
+
                     <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light border border-slate-800 ">
+                        {APIData.length === 0 ? ( // Conditional rendering when there are no policies
+                                    <TextLoader/>
+                                ) : (<>
                             <thead className="border-b font-medium border-black">
                                 <tr className="text-blue-700 border-black">
                                     <th scope="col" className="px-1 py-0.5">
@@ -126,22 +146,27 @@ function ViewCarousel() {
                                             </td>
 
                                             <td className="whitespace-nowrap px-1 py-0.5">
-                                               <UpdateCarousel carouselFirst = {data} onUpload = {onUpdateCarousel}/>
+                                            <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                            Update
+                                                        </button>
                                             </td>
 
                                             <td className="whitespace-nowrap px-1 py-0.5">
-                                                <button type="button" onClick={() => onDeleteCarousel(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 text-center">Delete</button>
+                                                <button type="button" onClick={() => onDeleteCarousel(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 text-center">Delete</button>
                                             </td>
                                             
                                         </tr>
                                     );
                                 })}
                             </tbody>
+                            </> )}
                         </table>
                     </div>
                 </div>
             </div>
-            {/* </div> */}
+            {showUpdatePopup && selectedRowId && (
+                <UpdateCarousel carouselFirst={selectedRowId} onUpload={onUpdateCarousel} onClose={handleClosePopup} />
+            )}
         </section>
     )
 

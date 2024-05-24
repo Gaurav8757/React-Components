@@ -18,12 +18,23 @@ function EmpPolicy() {
     const [searchCompany, setSearchCompany] = useState("");
     const [searchInsuredName, setSearchInsuredName] = useState("");
     const [contactNo, setContactNo] = useState("");
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
     const empid = sessionStorage.getItem("employeeId");
     const name = sessionStorage.getItem("name");
 
     useEffect(() => {
-        setItemsPerPage(15);
+        setItemsPerPage(100);
     }, []);
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+    };
 
 
     useEffect(() => {
@@ -206,84 +217,85 @@ function EmpPolicy() {
         // exportToPDF();
     };
     return (
-        <section className="container-fluid relative   p-0 sm:ml-64 bg-slate-200">
+        <section className="container-fluid    p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
                 <div className="inline-block min-w-full w-full py-0">
-                    <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
+                    <div className=" m-4 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
                         <h1></h1>
                         <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
                         <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                     </div>
+                    <div className="min-w-full w-full py-0  block z-50">
+                        <div className="flex-wrap mb-4 flex justify-between  text-blue-500  ">
+                            {/* date range filter */}
+                            <div className="flex p-0 text-start w-full lg:w-1/4">
+                                <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
+                                <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
+                                <span className='text-justify mx-1 my-1 '>to</span>
+                                <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
+                            </div>
 
-                   
-                                <div className="min-w-full w-full py-0  block z-50">
-                                    <div className="flex-wrap mb-4 flex justify-between  text-blue-500  ">
-                                        {/* date range filter */}
-                                        <div className="flex p-0 text-start w-full lg:w-1/4">
-                                            <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
-                                            <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
-                                            <span className='text-justify mx-1 my-1 '>to</span>
-                                            <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
-                                        </div>
+                            <div className="  p-0   w-full lg:w-1/4">
+                                <label className="my-1 text-base font-medium text-gray-900">ID:</label>
+                                <input
+                                    type="search"
+                                    onChange={(e) => setSearchId(e.target.value)}
+                                    className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="ID"
+                                />
+                            </div>
 
-                                        <div className="  p-0   w-full lg:w-1/4">
-                                            <label className="my-1 text-base font-medium text-gray-900">ID:</label>
-                                            <input
-                                                type="search"
-                                                onChange={(e) => setSearchId(e.target.value)}
-                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                                placeholder="ID"
-                                            />
-                                        </div>
+                            <div className="flex justify-start p-0 text-end w-full  lg:w-1/4">
+                                <label className="my-1 text-base font-medium text-gray-900">Company:</label>
+                                <input
+                                    type="search"
+                                    onChange={(e) => setSearchCompany(e.target.value)}
+                                    className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Company Name"
+                                />
+                            </div>
 
-                                        <div className="flex justify-start p-0 text-end w-full  lg:w-1/4">
-                                            <label className="my-1 text-base font-medium text-gray-900">Company:</label>
-                                            <input
-                                                type="search"
-                                                onChange={(e) => setSearchCompany(e.target.value)}
-                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                                placeholder="Company Name"
-                                            />
-                                        </div>
+                            <div className="flex justify-start p-0 text-start w-full  lg:w-1/4">
+                                <label className="my-1 text-base font-medium text-gray-900">Insured Name:</label>
+                                <input
+                                    type="search"
+                                    onChange={(e) => setSearchInsuredName(e.target.value)}
+                                    className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Insured Name"
+                                />
+                            </div>
+                            <div className="flex justify-start mt-3  text-start w-full lg:w-1/4">
+                                <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
+                                <input
+                                    type="search"
+                                    onChange={(e) => setSearchBranch(e.target.value)}
+                                    className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Branch Name"
+                                />
+                            </div>
+                            <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4">
+                                <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Contact No:</label>
+                                <input
+                                    type="search"
+                                    onChange={(e) => setContactNo(e.target.value)}
+                                    className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                                    placeholder="Contact Number"
+                                /></div>
+                            <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4"></div>
+                            <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4"></div>
+                            <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4"></div>
+                        </div>
 
-                                        <div className="flex justify-start p-0 text-start w-full  lg:w-1/4">
-                                            <label className="my-1 text-base font-medium text-gray-900">Insured Name:</label>
-                                            <input
-                                                type="search"
-                                                onChange={(e) => setSearchInsuredName(e.target.value)}
-                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                                placeholder="Insured Name"
-                                            />
-                                        </div>
-                                        <div className="flex justify-start mt-3  text-start w-full lg:w-1/4">
-                                            <label className="flex justify-start p-0 text-lg font-medium text-gray-900">Branch:</label>
-                                            <input
-                                                type="search"
-                                                onChange={(e) => setSearchBranch(e.target.value)}
-                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                                placeholder="Branch Name"
-                                            />
-                                        </div>
-                                        <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4">
-                                            <label className="my-1 text-base font-medium whitespace-nowrap text-gray-900">Filter by Contact No:</label>
-                                            <input
-                                                type="search"
-                                                onChange={(e) => setContactNo(e.target.value)}
-                                                className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                                                placeholder="Contact Number"
-                                            /></div>
-                                    </div>
-
-                                    <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
-                                    {isLoading ? ( // Conditional rendering for loading state
-                       <TextLoader/>
-                    ) : (
-                        <div className="inline-block min-w-full w-full py-0 ">
-                            {APIData.length === 0 ? ( // Conditional rendering when there are no policies
-                                <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
-                            ) : (<>
-                                        <thead className="   font-medium sticky bg-slate-200">
-                                            <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky">
+                        <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
+                            {isLoading ? ( // Conditional rendering for loading state
+                                <TextLoader />
+                            ) : (
+                                <div className="inline-block min-w-full w-full py-0 ">
+                                    {APIData.length === 0 ? ( // Conditional rendering when there are no policies
+                                        <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
+                                    ) : (<>
+                                        <thead className="   font-medium  bg-slate-200">
+                                            <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky -top-1">
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Update
                                                 </th>
@@ -384,7 +396,9 @@ function EmpPolicy() {
                                                         className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium"
                                                         key={data._id}>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                            <AddPolicyDetail insurance={data} onUpdates={onUpdatePolicy} />
+                                                            <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                                Update
+                                                            </button>
                                                         </td>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             {data.entryDate}
@@ -477,18 +491,14 @@ function EmpPolicy() {
                                                 );
                                             })}
                                         </tbody>
-                                        </>)}
-                                    
-                                    </div>)}
-                                    </table> 
-                              
-                                       
-                       
-                    
+                                    </>)}
+
+                                </div>)}
+                        </table>
+                    </div>
                 </div>
             </div>
-            </div>
-            {/* Pagination */}
+
 
             <nav aria-label="Page navigation flex example sticky   ">
                 <ul className="flex space-x-2 justify-end">
@@ -532,7 +542,9 @@ function EmpPolicy() {
                     </li>
                 </ul>
             </nav>
-            
+            {showUpdatePopup && selectedRowId && (
+                <AddPolicyDetail insurance={selectedRowId} onUpdates={onUpdatePolicy} onClose={handleClosePopup} />
+            )}
         </section>
     )
 }

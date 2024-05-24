@@ -11,13 +11,13 @@ import VITE_DATA from "../../config/config.jsx";
 
 function PCLists() {
   const [APIData, setAPIData] = useState([]);
-  const [ ptypes, setPtypes] = useState("");
+  const [ptypes, setPtypes] = useState("");
   const [deletingStaffId, setDeletingStaffId] = useState(null);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const name = sessionStorage.getItem("name");
   const [searchCompany, setSearchCompany] = useState("");
-  const [ pCodes, setPcodes] = useState("");
+  const [pCodes, setPcodes] = useState("");
   const [advs, setAdv] = useState("");
   // console.log(name);
   const deleteStaff = (_id) => {
@@ -41,12 +41,12 @@ function PCLists() {
       // The user is authenticated, so you can make your API request here.
       axios
         .get(`${VITE_DATA}/commission/grid/branch/view`, {
-          
+
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
-            params:{
-              branch:name
+          params: {
+            branch: name
           }
         })
         .then((response) => {
@@ -69,9 +69,9 @@ function PCLists() {
           {
             headers: {
               Authorization: `${token}`,
-            },params:{
-              branch:name
-          }
+            }, params: {
+              branch: name
+            }
           }
         );
         setAPIData(response.data);
@@ -87,12 +87,12 @@ function PCLists() {
     const idLower = data.pcodes?.toLowerCase() || "";
     const ptype = data.policytypes?.toLowerCase() || "";
     const companyLower = data.cnames?.toLowerCase() || "";
-    const adv = data.advisorName?.toLowerCase( ) || "";
+    const adv = data.advisorName?.toLowerCase() || "";
     return (
       (adv.includes(advs.toLowerCase()) || advs === "") &&
       (ptype.includes(ptypes.toLowerCase()) || ptypes === "") &&
       (idLower.includes(pCodes.toLowerCase()) || pCodes === '') &&
-      (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') 
+      (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '')
     );
   });
 
@@ -122,7 +122,7 @@ function PCLists() {
           row.payoutons,
           row.cvpercentage,
           // row.branchpayoutper,
-        
+
         ];
       });
 
@@ -191,7 +191,7 @@ function PCLists() {
           <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 my-2" /></button>
         </div>
         <div className="flex-wrap flex justify-between  text-blue-500  ">
-          
+
           <div className="p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
             <label className="my-0 text-lg font-medium text-gray-900">Company:</label>
             <input
@@ -202,13 +202,13 @@ function PCLists() {
             />
           </div>
           <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
-              <label className="my-0 text-lg font-medium text-gray-900">Policy Type:</label>
-              <input
-                type="search"
-                onChange={(e) => setPtypes(e.target.value)}
-                className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                placeholder="Policy Type"
-              /></div>
+            <label className="my-0 text-lg font-medium text-gray-900">Policy Type:</label>
+            <input
+              type="search"
+              onChange={(e) => setPtypes(e.target.value)}
+              className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+              placeholder="Policy Type"
+            /></div>
           <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
             <label className="my-0 text-lg font-medium text-gray-900">Product Code:</label>
             <input
@@ -217,7 +217,7 @@ function PCLists() {
               className="shadow p-0 text-start w-52 lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
               placeholder="Product Code"
             /></div>
-             <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
+          <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
             <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
               Advisor Name:
             </label>
@@ -228,147 +228,147 @@ function PCLists() {
               placeholder="Search by Advisor"
             />
           </div>
-          
+
         </div>
       </div>
 
-    
-      <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
-      {filteredData.length === 0 ? (<TextLoader />):(<>
-        <thead className="border-b  font-medium bg-slate-200  sticky top-16">
-          <tr className="text-blue-700 sticky top-16">
 
-            <th scope="col" className="px-0 py-0 border border-black">
-              Update
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black">
-              Advisor ID
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black">
-              Advisor Name
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black">
-              Company Name
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Category Name
-            </th>
-            <th scope="col" className="px-1 pt-2 sticky border border-black">
-              State
-            </th>
-            <th scope="col" className="px-1 pt-2 sticky border border-black">
-              District
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Segment
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Seating Capacity
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Vehicle Age
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Policy Type
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Product Code
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Fuel Type
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              NCB
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              OD Discount%
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              CC
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              PayoutOn
-            </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
-              Advisor Percentage
-            </th>
-            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
+      <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
+        {filteredData.length === 0 ? (<TextLoader />) : (<>
+          <thead className="border-b  font-medium bg-slate-200  sticky top-16">
+            <tr className="text-blue-700 sticky top-16">
+
+              <th scope="col" className="px-0 py-0 border border-black">
+                Update
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black">
+                Advisor ID
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black">
+                Advisor Name
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black">
+                Company Name
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Category Name
+              </th>
+              <th scope="col" className="px-1 pt-2 sticky border border-black">
+                State
+              </th>
+              <th scope="col" className="px-1 pt-2 sticky border border-black">
+                District
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Segment
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Seating Capacity
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Vehicle Age
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Policy Type
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Product Code
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Fuel Type
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                NCB
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                OD Discount%
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                CC
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                PayoutOn
+              </th>
+              <th scope="col" className="px-1 py-0 border border-black sticky">
+                Advisor Percentage
+              </th>
+              {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Payout Percentage
             </th> */}
-            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
+              {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Company Percentage%
             </th> */}
-            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
+              {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Delete
             </th> */}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200 overflow-y-hidden">
-        {filteredData.reverse().map((data) => {
-            if (data.vehicleSlab) {
-              return (
-                <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
-                  <td className="px-1 py-0 border border-black">
-                  <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
-        Update
-      </button> 
-                 
-                  </td>
-                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorUniqueId}</td>
-                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorName}</td>
-                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
-                  <td className="px-1 py-0 border border-black">{data.catnames}</td>
-                  <td className="px-1 py-0 border border-black">{data.states}</td>
-                  <td className="px-1 py-0 border border-black">
-                    {/* {data.districts} */}
-                    <div className="max-h-10 overflow-hidden">
-                      {Array.isArray(data.districts) ? (
-                        data.districts.length <= 3 ? (
-                          data.districts.join(", ")
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 overflow-y-hidden">
+            {filteredData.reverse().map((data) => {
+              if (data.vehicleSlab) {
+                return (
+                  <tr className=":border-neutral-200 text-sm font-medium" key={data._id}>
+                    <td className="px-1 py-0 border border-black">
+                      <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                        Update
+                      </button>
+
+                    </td>
+                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorUniqueId}</td>
+                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.advisorName}</td>
+                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
+                    <td className="px-1 py-0 border border-black">{data.catnames}</td>
+                    <td className="px-1 py-0 border border-black">{data.states}</td>
+                    <td className="px-1 py-0 border border-black">
+                      {/* {data.districts} */}
+                      <div className="max-h-10 overflow-hidden">
+                        {Array.isArray(data.districts) ? (
+                          data.districts.length <= 3 ? (
+                            data.districts.join(", ")
+                          ) : (
+                            <div className="max-h-10 overflow-y-auto cursor-pointer">
+                              {data.districts.map((district, index) => (
+                                <div key={index} className="whitespace-nowrap overflow-hidden text-ellipsis py-2">
+                                  {district}
+                                </div>
+                              ))}
+                            </div>
+                          )
                         ) : (
-                          <div className="max-h-10 overflow-y-auto cursor-pointer">
-                            {data.districts.map((district, index) => (
-                              <div key={index} className="whitespace-nowrap overflow-hidden text-ellipsis py-2">
-                                {district}
-                              </div>
-                            ))}
-                          </div>
-                        )
-                      ) : (
-                        data.districts
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-1 py-0 border border-black">{data.segments}</td>
-                  <td className="px-1 py-0 border border-black">{data.sitcapacity}</td>
-                  <td className="px-1 py-0 border border-black">{data.vage}</td>
-                  <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
-                  <td className="px-1 py-0 border border-black">{data.pcodes}</td>
-                  <td className="px-1 py-0 border border-black">{data.vfuels}</td>
-                  <td className="px-1 py-0 border border-black">{data.vncb}</td>
-                  <td className="px-1 py-0 border border-black">{data.voddiscount}{"%"}</td>
-                  <td className="px-1 py-0 border border-black">{data.vcc}</td>
-                  {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
-                  <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                  <td className="px-1 py-0 border border-black">{data.cvpercentage}{"%"}</td>
-                  {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}{"%"}</td> */}
-                  {/* <td className="px-1 py-0 border border-black">{data.companypayoutper}{"%"}</td> */}
-                  {/* <td className="px-1 py-0 border border-black">
+                          data.districts
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-1 py-0 border border-black">{data.segments}</td>
+                    <td className="px-1 py-0 border border-black">{data.sitcapacity}</td>
+                    <td className="px-1 py-0 border border-black">{data.vage}</td>
+                    <td className="px-1 py-0 whitespace-nowrap border border-black">{data.policytypes}</td>
+                    <td className="px-1 py-0 border border-black">{data.pcodes}</td>
+                    <td className="px-1 py-0 border border-black">{data.vfuels}</td>
+                    <td className="px-1 py-0 border border-black">{data.vncb}</td>
+                    <td className="px-1 py-0 border border-black">{data.voddiscount}{"%"}</td>
+                    <td className="px-1 py-0 border border-black">{data.vcc}</td>
+                    {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
+                    <td className="px-1 py-0 border border-black">{data.payoutons}</td>
+                    <td className="px-1 py-0 border border-black">{data.cvpercentage}{"%"}</td>
+                    {/* <td className="px-1 py-0 border border-black">{data.branchpayoutper}{"%"}</td> */}
+                    {/* <td className="px-1 py-0 border border-black">{data.companypayoutper}{"%"}</td> */}
+                    {/* <td className="px-1 py-0 border border-black">
                     <button type="button" onClick={() => deleteStaff(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
                   </td> */}
-                </tr>
-              );
-            } else {
-              return null; // Return nothing if vehicleSlab is not 'CV-Slab'
-            }
-          })}
-        </tbody>
-        </> )}
+                  </tr>
+                );
+              } else {
+                return null; // Return nothing if vehicleSlab is not 'CV-Slab'
+              }
+            })}
+          </tbody>
+        </>)}
 
       </table>
       {showUpdatePopup && selectedRowId && (
-                  <PcUpdates slab={selectedRowId} update = {updateSlabs} onClose={handleClosePopup} />
-                )}
+        <PcUpdates slab={selectedRowId} update={updateSlabs} onClose={handleClosePopup} />
+      )}
       {deletingStaffId && (
         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg ">

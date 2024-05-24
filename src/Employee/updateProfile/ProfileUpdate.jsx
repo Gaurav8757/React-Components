@@ -121,7 +121,7 @@ function ProfileUpdate() {
 
             <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
                 <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-                    <span className="text-3xl py-4 tracking-wider text-blue-700 font-medium">Update Your Profile</span>
+                    <span className="text-3xl py-1 tracking-wider text-orange-700 font-medium">Update Your Profile</span>
 
                     <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
 
@@ -360,7 +360,7 @@ function ProfileUpdate() {
 
                             <div className="w-full p-1  mt-8 justify-center flex">
                                 <button
-                                    className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                    className="text-white bg-gradient-to-r hover:text-black from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-4 py-2 text-center me-2 mb-2"
                                     onClick={updateEmpAPI}
                                     type="button"
                                 >

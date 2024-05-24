@@ -183,7 +183,7 @@ function Ledger3() {
         toast.info("Please make changes to submit.");
         return;
       }
-  
+
       let totalBalance = 0;
       const dataToSave = modifiedData.map(item => {
         const currentYear = new Date().getFullYear();
@@ -191,24 +191,24 @@ function Ledger3() {
         const endDate = new Date(`${currentYear}-12-31`);
         const entryDate = new Date(item.entryDate);
         let debitCompanyAmount = 0;
-        
+
         if (entryDate >= startDate && entryDate <= endDate) {
           debitCompanyAmount = parseFloat(item.finalEntryFields) || 0;
         }
-  
+
         const paymentCompanyDate = item.paymentCompanyDate || '';
         const paymentCompanyType = item.paymentCompanyType || '';
         const paymentCompanyRefNo = item.paymentCompanyRefNo || '';
         const creditCompanyAmount = parseFloat(item.creditCompanyAmount) || 0;
-  
+
         if (debitCompanyAmount === creditCompanyAmount) {
           totalBalance -= debitCompanyAmount - creditCompanyAmount;
         } else {
           totalBalance += debitCompanyAmount - creditCompanyAmount;
         }
-        debitCompanyAmount = item.company ==="GO-DIGIT" ? debitCompanyAmount.toFixed(2): debitCompanyAmount.toFixed(0)
-       
-  
+        debitCompanyAmount = item.company === "GO-DIGIT" ? debitCompanyAmount.toFixed(2) : debitCompanyAmount.toFixed(0)
+
+
         return {
           _id: item._id, // Assuming _id is the unique identifier for each item
           advId: item.advId,
@@ -225,7 +225,7 @@ function Ledger3() {
           balanceCompany: totalBalance
         };
       });
-  
+
       // Send the modified data to the backend API
       const response = await axios.put(`${VITE_DATA}/leger/daily/update`, dataToSave);
       if (response.status === 200) {
@@ -239,7 +239,7 @@ function Ledger3() {
       toast.error(`${error.response ? error.response.data.message : error.message}`);
     }
   };
-  
+
 
 
   function getCurrentDate() {
@@ -259,25 +259,26 @@ function Ledger3() {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${currentDate}_Company_Leger`;
-      
+
       // Map all data without filtering by current date
       const dataToExport = filteredData.map((row) => {
         if (row.company === filterOptions.company || filterOptions.insuredName || filterOptions.policyNo || filterOptions.fromDate || filterOptions.toDate) {
-        
-        return [
-          row.entryDate,
-          row.policyNo,
-          row.company,
-          row.insuredName,
-          row.finalEntryFields,
-          row.advisorPayoutAmount,
-          row.debitCompanyAmount,
-          row.paymentCompanyDate,
-          row.paymentCompanyType,
-          row.paymentCompanyRefNo,
-          row.creditCompanyAmount,
-          row.balanceCompany
-        ]}
+
+          return [
+            row.entryDate,
+            row.policyNo,
+            row.company,
+            row.insuredName,
+            row.finalEntryFields,
+            row.advisorPayoutAmount,
+            row.debitCompanyAmount,
+            row.paymentCompanyDate,
+            row.paymentCompanyType,
+            row.paymentCompanyRefNo,
+            row.creditCompanyAmount,
+            row.balanceCompany
+          ]
+        }
       })
       // console.log(dataToExport);
       // Get all table headers in the same order
@@ -324,7 +325,7 @@ function Ledger3() {
       <div className="container-fluid  p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="flex justify-between">
           <h1></h1>
-          <h1 className="font-semibold text-3xl my-auto text-white dark:text-black">Company Leger</h1>
+          <h1 className="font-semibold text-3xl my-auto text-orange-700">Company Leger</h1>
           <button
             className=" text-white my-auto font-medium rounded-full text-base px-3 py-1 text-center"
             onClick={handleExportClick}
@@ -404,8 +405,8 @@ function Ledger3() {
                   uniqueNames.sort().map((api, idx) => (
                     <option className={`${api ? "font-semibold" : ""}`} key={idx} value={api}>{api}</option>
                   ))} </select>
-              <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
-              <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded-full text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
+              <button className="text-white  mx-4 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded text-base px-3 py-1 text-center  " onClick={handleFilter}>Filter</button>
+              <button className="text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-1 focus:ring-red-300 font-medium rounded text-base px-3 py-1 text-center  " onClick={clearFilters}>Clear</button>
             </div>
           </div>
           {isFilterApplied() && filteredData.length > 0 && (
@@ -453,7 +454,7 @@ function Ledger3() {
                             <td >{item.insuredName}</td>
                             <td >{`₹ ${item.finalEntryFields}`}</td>
                             <td>{`₹ ${item.advisorPayoutAmount}`}</td>
-                            <td>{`₹ ${item.company ==="GO-DIGIT" ? debitCompanyAmount.toFixed(2): debitCompanyAmount.toFixed(0)}`}</td>
+                            <td>{`₹ ${item.company === "GO-DIGIT" ? debitCompanyAmount.toFixed(2) : debitCompanyAmount.toFixed(0)}`}</td>
                             <td className="">
                               <input
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-32 ps-2 p-1"
@@ -495,7 +496,7 @@ function Ledger3() {
                                 onChange={(e) => handleCreditChange(item._id, e.target.value)}
                               />
                             </td>
-                            <td className={`whitespace-nowrap px-1 ${balance > 0 ? 'text-green-600 font-bold' : (balance < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>{`₹ ${item.company ==="GO-DIGIT" ? balance.toFixed(2) : balance.toFixed(0)}`}</td>
+                            <td className={`whitespace-nowrap px-1 ${balance > 0 ? 'text-green-600 font-bold' : (balance < 0 ? 'text-red-600 font-bold' : 'text-black font-bold')}`}>{`₹ ${item.company === "GO-DIGIT" ? balance.toFixed(2) : balance.toFixed(0)}`}</td>
 
                           </tr>
                         );
@@ -508,7 +509,7 @@ function Ledger3() {
             </div>
           )}
         </div>
-        <button className="text-white my-5 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded-full text-base px-3 py-1 text-center" onClick={handleSubmit} type="submit">Submit</button>
+        <button className="text-white my-5 bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-300 font-medium rounded text-base px-3 py-1 text-center" onClick={handleSubmit} type="submit">Submit</button>
       </div>
     </section>
   );

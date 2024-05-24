@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import VITE_DATA from "../config/config.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 // dates
 const formatDate = (dateTimeString) => {
@@ -335,7 +334,7 @@ function LoginAll() {
                                     rel="preload"
                                     alt="Logo"
                                 />
-                                <div className="text-base font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
+                                <div className="text-base font-bold mt-3 w-64 mx-auto text-orange-800 text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
                                 <form
                                     className="mt-8 space-y-4"
                                     method="POST"
@@ -344,9 +343,9 @@ function LoginAll() {
                                     <div>
                                         <label
                                             htmlFor="email"
-                                            className="block mb-3 text-base text-start font-medium text-gray-900 "
+                                            className="block mb-1 text-base text-start font-medium text-orange-900 "
                                         >
-                                            Your email
+                                            Email
                                         </label>
                                         <input
                                             type="email"
@@ -358,7 +357,7 @@ function LoginAll() {
                                                 setMobile(e.target.value);
                                             }}
                                             autoComplete="email"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm text-base rounded-lg focus:ring-primary-500 active:placeholderbg-gray-400 focus:border-primary-500 block w-full p-2.5 "
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm text-base rounded focus:ring-primary-500 active:placeholderbg-gray-400 focus:border-primary-500 block w-full p-2.5 "
                                             placeholder="name@company.com"
                                             required
                                         />
@@ -366,8 +365,8 @@ function LoginAll() {
                                     <div>
                                         <label
                                             htmlFor="password"
-                                            className="block mb-2 text-base text-start font-medium text-gray-900 ">
-                                            Your password
+                                            className="block mb-1 text-base text-start font-medium text-orange-900 ">
+                                            Password
                                         </label>
                                         <div className="relative">
                                             <input
@@ -378,7 +377,7 @@ function LoginAll() {
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="current-password"
-                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
                                                 required
                                             />
                                             <button
@@ -387,18 +386,20 @@ function LoginAll() {
                                                 className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
                                             >
                                                 {showPassword ? (
-                                                    <IoEyeOutline size={25} />
+                                                    // <IoEyeOutline size={25} />
+                                                    <img src="/view.png" height={5} width={25} alt="close" className=" rounded-full"/>
                                                 ) : (
-                                                    <IoEyeOffOutline size={25} />
+                                                    // <IoEyeOffOutline size={25} />
+                                                    <img src="/eye.png" height={5} width={25} alt="close" className="rounded-full"/>
                                                 )}
                                             </button>
                                         </div>
                                     </div>
 
                                     <div className=" text-justify mt-1 ml-0 ">
-                                        <label className="block mx-0  text-base font-medium mt-3 ml-1 text-gray-900">Login Type</label>
+                                        <label className="block mx-0  text-base font-medium mt-3 ml-1 text-orange-900">Login Type</label>
                                         <select
-                                            className="input-style  g-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
+                                            className="input-style  bg-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
                                             value={loginType}
                                             onChange={handleLoginTypeChange}>
                                             <option value="" >  -------------- Select Login Type -----------------</option>
@@ -423,8 +424,7 @@ function LoginAll() {
                                     </div>
                                     <button
                                         type="submit"
-                                        // style={{ backgroundColor: "rgb(170 35 0)" }}
-                                        className="w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 flex justify-center py-2 px-4 rounded-md hover:bg-orange-600 bg-orange-800  focus:ring-1 focus:ring-blue-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
+                                        className="w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 flex justify-center py-2 px-4 rounded hover:bg-orange-600 bg-orange-800  focus:ring-1 focus:ring-orange-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                                     >
                                         SIGN IN
                                     </button>

@@ -4,13 +4,17 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import VITE_DATA from '../../config/config.jsx';
+import TextLoader from '../../loader/TextLoader.jsx';
 import Paginationops from './Paginationops.jsx';
 function AllOpsDetails() {
     const [APIData, setAPIData] = useState([]);
     const [empData, setEmpData] = useState([]);
     const [startDate, setStartDate] = useState("");
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
     const [totalPages, setTotalPages] = useState();
     const [endDate, setEndDate] = useState("");
+    // const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState();
     const [searchId, setSearchId] = useState("");
@@ -24,7 +28,15 @@ function AllOpsDetails() {
         // Show modal confirmation dialog
         setDeletingStaffId(_id);
     };
-
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+      };
+    
+      const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+      };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,6 +52,7 @@ function AllOpsDetails() {
                     },
                 });
                 setEmpData(response.data);
+                // setIsLoading(false);
             } catch (error) {
                 console.error(error);
             }
@@ -70,6 +83,7 @@ function AllOpsDetails() {
                 .then((response) => {
                     setAPIData(response.data.allList);
                     setTotalPages(response.data.totalPages);
+                    // setIsLoading(false);
                 })
                 .catch((error) => {
                     toast.error(error);
@@ -120,7 +134,7 @@ function AllOpsDetails() {
     };
 
     // Calculate total number of pages
-    const totalItems = filteredData.length;
+    // const totalItems = filteredData.length;
     // const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     // Handle page change
@@ -254,7 +268,7 @@ function AllOpsDetails() {
         <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
                 <div className="inline-block min-w-full w-full py-0 ">
-                    <div className=" mb-4 flex justify-between text-blue-700 max-w-auto mx-auto w-auto ">
+                    <div className=" mb-4 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
                         <h1></h1>
                         <span className=" flex justify-center text-center  text-3xl font-semibold  ">Policies Assign List&apos;s</span>
                         <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
@@ -308,78 +322,81 @@ function AllOpsDetails() {
                         </div>
 
                         <table className="min-w-full  text-center text-sm font-light table bg-slate-200">
+                       
+                        <div className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
+                            {APIData.length > 0 ?  (<>
                             <thead className="border-b border-black font-medium bg-slate-300  sticky top-16">
                                 <tr className="text-blue-700 sticky   border border-black top-16">
                                     <th scope="col" className="  border py-1 border-black sticky">
                                         Update
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black">
+                                    <th scope="col" className="px-1 py-1 border border-black">
                                         Reference ID
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black">
+                                    <th scope="col" className="px-1 py-1 border border-black">
                                         Entry Date
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black">
+                                    <th scope="col" className="px-1 py-1 border border-black">
                                         Branch
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black sticky">
+                                    <th scope="col" className="px-1 py-1 border border-black sticky">
                                         Insured By
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black sticky">
+                                    <th scope="col" className="px-1 py-1 border border-black sticky">
                                         Contact No.
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black sticky">
+                                    <th scope="col" className="px-1 py-1 border border-black sticky">
                                         Policy Made By
                                     </th>
-                                    <th scope="col" className="px-3 py-1 border border-black sticky">
+                                    <th scope="col" className="px-1 py-1 border border-black sticky">
                                         Sent Time
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Update Time
                                     </th>
-                                    <th scope="col" className="px-3 border border-black">
+                                    <th scope="col" className="px-1 border border-black">
                                         Company
                                     </th>
-                                    <th scope="col" className="px-3 border border-black">
+                                    <th scope="col" className="px-1 border border-black">
                                         Category
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Policy Type
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Policy No.
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Engine No.
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Chassis No
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         OD Premium
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Liability Premium
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Net Premium
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         GST(in rupees)
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         RSA
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Final Amount
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         OD Discount(%)
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         NCB
                                     </th>
-                                    <th scope="col" className="px-3 border border-black sticky">
+                                    <th scope="col" className="px-1 border border-black sticky">
                                         Policy Pay Mode
                                     </th>
                                     <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -389,11 +406,16 @@ function AllOpsDetails() {
                             </thead>
                             <tbody className="divide-y divide-gray-200 border border-black overflow-y-hidden">
                                 {filteredData.map((data) => (
-                                    <AllOpsData key={data._id} datas={data} policy={onUpdatePolicy} deleteStaff={deleteStaff} empData={empData} />
+                                    <AllOpsData key={data._id} datas={data} policy={onUpdatePolicy} deleteStaff={deleteStaff} empData={empData} showUpdatePopup = {showUpdatePopup} selectedRowId = {selectedRowId} onClose={handleClosePopup} handleUpdateClick = {handleUpdateClick}/>
                                 ))}
                             </tbody>
+                            </>):( // Conditional rendering when there are no policies
+                                 <TextLoader/>
+                            ) }
+                            </div>
                         </table>
                     </div>
+                    
                     {deletingStaffId && (
                         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                             <div className="bg-white p-4 rounded-lg ">
@@ -412,9 +434,7 @@ function AllOpsDetails() {
                             </div>
                         </div>
                     )}
-                    {totalItems === 0 && (
-                        <div className="mt-4 text-gray-500 dark:text-gray-400">No records found.</div>
-                    )}
+                  
                 </div>
             </div>
 

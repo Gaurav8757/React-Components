@@ -393,11 +393,11 @@ function TwoWheelers() {
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-      <h1 className="font-semibold my-4 text-3xl text-blue-600">Advisor Payout Grid </h1>
+      <h1 className="font-semibold my-1 text-3xl text-orange-700">Advisor Payout Grid </h1>
         <div className="relative w-full lg:w-full p-0 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
          
 
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-5">
             <div className="flex flex-col p-1 mt-3 text-center justify-center w-full lg:w-1/4">
               <label className="text-xl mx-1 my-1 font-bold">Advisor Name<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -721,10 +721,10 @@ function TwoWheelers() {
               />
             </div> */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4"></div>
+            <div className="flex flex-col p-1  text-start w-full lg:w-1/4"></div>
           </div>
           <button
-            className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300  shadow-lg shadow-green-500/50  font-medium rounded text-base px-3 py-1 text-center "
+            className="text-white bg-gradient-to-r my-4 from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300  shadow-lg shadow-green-500/50  font-medium rounded text-base px-3 py-1 text-center "
             onClick={handleSubmit}
             disabled={formSubmitted}
             type="button">

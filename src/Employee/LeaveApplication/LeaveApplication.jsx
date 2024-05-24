@@ -153,7 +153,7 @@ function LeaveApplication() {
         <label htmlFor="message" className="block mb-1 text-base text-start font-medium text-orange-700 ">Reason for Leave:</label>
         <textarea id="message" rows="4" className="block p-2.5 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..." value={reason} onChange={(e) => setReason(e.target.value)}></textarea>
       </div>
-      <button className="text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 cursor-pointer mt-4 bg-orange-700 hover:bg-orange-600  focus:ring-1 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base px-3 py-2 text-center" onClick={handleSubmit}>{loading ? "Submitting..." : statusSubmitted ? "Leave submitted" : "Submit"}</button>
+      <button className="text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 cursor-pointer mt-4 bg-orange-700 hover:bg-orange-600  focus:ring-1 focus:outline-none focus:ring-orange-300 font-medium rounded text-base px-3 py-2 text-center" onClick={handleSubmit}>{loading ? "Submitting..." : statusSubmitted ? "Leave submitted" : "Submit"}</button>
     </div>
   )
 }

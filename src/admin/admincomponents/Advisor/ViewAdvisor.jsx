@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
 import UpdateAdvisor from "./UpdateAdvisor.jsx";
 import { toast } from "react-toastify";
+import TextLoader from "../../../loader/TextLoader.jsx";
 // import { TiArrowBack } from "react-icons/ti";
 import VITE_DATA from "../../../config/config.jsx";
 
@@ -13,6 +14,17 @@ function ViewAdvisor() {
     const [advaddress, setAdvAddress] = useState("");
     const [searchAdv, setSearchAdv] = useState("");
     const [advemail, setAdvEmail] = useState("");
+    const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
+    const handleUpdateClick = (id) => {
+        setSelectedRowId(id);
+        setShowUpdatePopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedRowId(null);
+        setShowUpdatePopup(false);
+    };
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -149,7 +161,7 @@ function ViewAdvisor() {
                 <div className="inline-block min-w-full w-full py-0 ">
                 <div className="flex justify-between">
                             <h1 className="mr-20"></h1>
-                            <span className=" flex justify-center text-center text-blue-600 text-3xl font-semibold">Advisor&apos;s List</span>
+                            <span className=" flex justify-center text-center text-orange-700 text-3xl font-semibold">Advisor&apos;s List</span>
                             <div className="flex">
                                 <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 " /></button>
                                 {/* <NavLink to="/branches/home/advisor/register" className="my-auto">
@@ -205,6 +217,9 @@ function ViewAdvisor() {
 
                     <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
                         <table className="min-w-full text-center text-sm font-light ">
+                        {APIData.length <= 0 ? ( // Conditional rendering when there are no policies
+                                    <TextLoader/>
+                                ) : (<>
                             <thead className="border-b font-medium dark:border-neutral-500">
                                 <tr className="text-blue-700">
                                     <th scope="col" className="px-1 border border-black">
@@ -262,20 +277,25 @@ function ViewAdvisor() {
                                             {data.advisortype}
                                            </td>
                                             <td className="whitespace-nowrap px-0.5 border border-black">
-                                                <UpdateAdvisor advisor={data} onUpdate={onUpdateAdvisor} />
+                                            <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                            Update
+                                                        </button>
                                             </td>
                                             <td className="whitespace-nowrap px-0.5 border border-black">
-                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-2 py-1 text-center ">Delete</button>
+                                                <button type="button" onClick={() => onDeleteAdvisor(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 text-center ">Delete</button>
                                             </td>
                                         </tr>
                                     );
                                 })}
                             </tbody>
+                            </> )}
                         </table>
                     </div>
                 </div>
             </div>
-            {/* </div> */}
+            {showUpdatePopup && selectedRowId && (
+                <UpdateAdvisor advisor={selectedRowId} onUpdate={onUpdateAdvisor} onClose={handleClosePopup} />
+            )}
         </section>
     );
 }

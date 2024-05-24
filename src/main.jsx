@@ -106,7 +106,7 @@ import AddDataByBranch from "./branches/AddDetails/AddDataByBranch.jsx";
 import OperationHead from "./admin/admincomponents/operationHead/OperationHead.jsx";
 // import TeamLead from "./admin/admincomponents/Teams/TeamLead.jsx";
 import StaffType from "./admin/admincomponents/stafftype/StaffType.jsx";
-import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
+// import ListStaffType from "./admin/admincomponents/stafftype/ListStaffType.jsx";
 import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
 import ForgetPassOps from "./opsAdmin/ForgetPassOps.jsx";
 import ProtectOps from "./opsAdmin/ProtectOps.jsx";
@@ -275,7 +275,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/operation/head" element={<OperationHead />} />
           {/* <Route path="/dashboard/team/operation" element={<TeamLead />} /> */}
           <Route path="/dashboard/staff/type" element={<StaffType />} />
-          <Route path="/dashboard/staff/lists" element={<ListStaffType />} />
+          {/* <Route path="/dashboard/staff/lists" element={<ListStaffType />} /> */}
           <Route path="/dashboard/policy/type" element={<AddPolicyType />} />
           <Route path="/dashboard/policy/lists" element={<AddProductType />} />
           <Route path="/dashboard/company/type" element={<CompanyType />} />

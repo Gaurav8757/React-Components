@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CgCloseR } from "react-icons/cg";
 import axios from "axios";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../../config/config.jsx";
-function UpdateAdvisor({ advisor, onUpdate }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateAdvisor({ advisor, onUpdate, onClose }) {
     const [loading, setLoading] = useState(false);
     const [advInfo, setAdvInfo] = useState({
         advisorname: "",
@@ -15,15 +13,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
         uniqueId: "",
         advisortype: ""
     })
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+ 
 
     // show all data inside input tag
     useEffect(() => {
@@ -51,7 +41,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
-            closeModal();
+            onClose();
             onUpdate();
         } catch (error) {
             toast.error(`${error}`)
@@ -64,15 +54,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-2 py-1 my-0.5 text-center">
-                Update
-            </button>
-
-
-            {isModalOpen && (
+           
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -89,15 +71,14 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                                     Update Advisor Details
                                 </h3>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-800 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                                    <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap ">
+                                <form className="flex flex-wrap font-semibold">
                                     {/* ... other form elements ... */}
                                     {/* <div className="w-full lg:w-1/2 p-2 text-start"> */}
 
@@ -181,7 +162,7 @@ function UpdateAdvisor({ advisor, onUpdate }) {
 
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
-                                            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                            className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300  shadow-lg shadow-green-500/50 font-medium rounded text-sm px-4 py-2 text-center "
                                             onClick={updateAdvisorAPI}
                                             type="button"
                                         >
@@ -193,7 +174,6 @@ function UpdateAdvisor({ advisor, onUpdate }) {
                         </div>
                     </div>
                 </div>
-            )}
 
         </>
 

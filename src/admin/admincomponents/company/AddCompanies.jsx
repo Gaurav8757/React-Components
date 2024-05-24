@@ -161,7 +161,7 @@ function AddCompanies() {
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
-        <h1 className="font-semibold text-3xl my-4 text-black ">Add Homepage Company Details</h1>
+        <h1 className="font-semibold text-3xl my-4 text-orange-700 ">Add Homepage Company Details</h1>
         <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
           {/* <form className="flex flex-wrap" method="post" encType="multipart/form-data"> */}
           <div className="flex flex-wrap justify-between">
@@ -251,7 +251,7 @@ function AddCompanies() {
             <div className="flex my-5 p-2 text-center w-full lg:w-1/4"></div> */}
           <div className="flex mt-5 justify-center p-2 text-center w-full lg:w-full">
             <button
-              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center"
+              className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 font-medium rounded text-sm px-5 py-2 text-center"
               onClick={handleSubmit}
               type="button"
             >

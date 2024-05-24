@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { CgCloseR } from "react-icons/cg";
 import { useState, useEffect } from "react";
 // import {useParams} from "react-router-dom";
 import { toast } from "react-toastify";
@@ -81,8 +80,7 @@ let homesection = [
   },
 ]
 
-function UpdateCompanyModal({ datas, onUpdate }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateCompanyModal({ datas, onUpdate, onClose }) {
   const [loading, setLoading] = useState(false);
   const [companyData, setCompanyData] = useState({
     comp_cname: "",
@@ -92,15 +90,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
     comp_cfiles: null
   });
 
-  // OPEN MODAL
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // CLOSE MODAL
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  
 
 
   const handleInputChange = (e) => {
@@ -147,7 +137,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
         });
         console.log(resp.data);
         toast.success(`${resp.data.status}`)
-        closeModal(); // Close the modal after successful submissi
+        onClose(); // Close the modal after successful submissi
         onUpdate();
       } catch (error) {
         console.error("Error updating company:", error);
@@ -158,13 +148,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
 
     return (
       <>
-        {/* <!-- Modal toggle --> */}
-        <button onClick={openModal} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center">
-          Update
-        </button>
-
-        {/* <!-- Main modal --> */}
-        {isModalOpen && (
+      
           <div
             id="static-modal"
             data-modal-backdrop="static"
@@ -176,14 +160,14 @@ function UpdateCompanyModal({ datas, onUpdate }) {
               <div className="relative bg-gradient-to-r from-orange-800 to-orange-800 rounded-lg shadow ">
                 {/* <!-- Modal header --> */}
                 <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-black">
+                  <h3 className="text-xl font-semibold text-orange-700">
                     Update Homepage Company Details
                   </h3>
                   <button
-                    onClick={closeModal}
+                    onClick={onClose}
                     type="button"
-                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
-                    <CgCloseR size={25} />
+                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                    <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                   </button>
                 </div>
 
@@ -289,7 +273,7 @@ function UpdateCompanyModal({ datas, onUpdate }) {
               </div>
             </div>
           </div>
-        )}
+       
       </>
     );
   }

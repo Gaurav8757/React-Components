@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import VITE_DATA from "../../config/config.jsx";
+import TextLoader from "../../loader/TextLoader.jsx";
 // import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +38,7 @@ function MasterView() {
           }
         );
         setAllDetailsData(response.data);
+        setIsLoading(false);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -231,7 +234,7 @@ function MasterView() {
   return (
     <section className="container-fluid  p-0 sm:ml-64 bg-slate-200">
       <div className="inline-block min-w-full w-full py-0">
-        <div className=" m-4 flex justify-between text-blue-500 max-w-auto mx-auto w-auto ">
+        <div className=" m-4 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
           <h1></h1>
           <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
           <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
@@ -283,7 +286,15 @@ function MasterView() {
                   placeholder="Policy Made By"
                 /></div>
             </div>
+
             <table className="min-w-full text-center text-sm font-light table  bg-white border border-gray-200 divide-y divide-gray-200  ">
+            {isLoading ? ( // Conditional rendering for loading state
+                <TextLoader />
+              ) : (
+                <div className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
+                  {filteredData.length === 0 ? ( // Conditional rendering when there are no policies
+                    <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No Policies Found.</p>
+                  ) : (<>
               <thead className=" font-medium  bg-slate-300 sticky top-16 border border-black">
                 <tr className="text-blue-700 sticky top-16 border border-black">
                   {/* <th scope="col" className=" border border-black">Update</th> */}
@@ -414,6 +425,8 @@ function MasterView() {
                   </tr>
                 ))}
               </tbody>
+              </>)}
+                            </div>)}
             </table>
           </div>
         </div>

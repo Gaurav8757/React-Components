@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import VITE_DATA from "../../config/config.jsx";
-import { CgCloseR } from "react-icons/cg";
+// import { CgCloseR } from "react-icons/cg";
 
 function UpdateOps({ UpdateOps, update, APIData }) {
     // console.log(UpdateOps);
@@ -119,49 +119,48 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                 <button
                                     onClick={closeModal}
                                     type="button"
-                                    className="bg-transparent hover:text-red-500 text-slate-50 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  ">
+                                    <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full" />
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-800 to-orange-800">
                                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg bg-white">
                                     <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                                         <div className="flex flex-wrap justify-between">
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">Entry Date:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className="input-style p-1 text-base rounded-lg"
                                                     type="date"
                                                     value={allDetails.entryDate}
                                                     onChange={handleInputChange}
                                                     name="entryDate"
                                                 />
                                             </div>
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">Branch:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className="input-style p-1 text-base rounded-lg"
                                                     type="text"
                                                     value={allDetails.branch}
                                                     onChange={handleInputChange}
                                                     name="branch"
                                                 />
                                             </div>
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">Insured Name:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className="input-style p-1 text-base rounded-lg"
                                                     type="text"
                                                     value={allDetails.insuredName}
                                                     onChange={handleInputChange}
                                                     name="insuredName"
                                                 />
                                             </div>
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">Contact No:</label>
                                                 <input
-                                                    className="input-style rounded-lg"
+                                                    className="input-style p-1 text-base rounded-lg"
                                                     type="text"
                                                     value={allDetails.contactNo}
                                                     onChange={handleInputChange}
@@ -169,10 +168,10 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                                     placeholder="Enter Contact No"
                                                 />
                                             </div>
-                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                                 <label className="text-base mx-1">Policy Made By:</label>
                                                 <select
-                                                    className="input-style rounded-lg cursor-pointer"
+                                                    className="input-style p-1 text-base rounded-lg cursor-pointer"
                                                     type="text"
                                                     name="staffName"
                                                     value={allDetails.staffName}
@@ -191,7 +190,7 @@ function UpdateOps({ UpdateOps, update, APIData }) {
                                         </div>
                                         <div className="col-span-2 p-2 mt-10 flex justify-center">
                                             <button
-                                                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
+                                                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-3 py-2 text-center"
                                                 onClick={updateInsuranceAPI}
                                                 type="button"
                                             >

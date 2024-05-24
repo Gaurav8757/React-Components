@@ -4,8 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import VITE_DATA from "../../../config/config.jsx";
 // eslint-disable-next-line react/prop-types
-function UpdateBranch({ branch, onUpdate }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateBranch({ branch, onUpdate, onClose }) {
     const [loading, setLoading] = useState(false);
 
     const [allDetails, setAllDetails] = useState({
@@ -24,15 +23,7 @@ function UpdateBranch({ branch, onUpdate }) {
         password: ""
     });
 
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    
 
     // show all data inside input tag
     useEffect(() => {
@@ -60,7 +51,7 @@ function UpdateBranch({ branch, onUpdate }) {
 
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
-            closeModal();
+            onClose();
             onUpdate();
         } catch (error) {
             toast.error(`${error}`)
@@ -72,15 +63,7 @@ function UpdateBranch({ branch, onUpdate }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80  rounded-lg text-sm px-2 py-1 text-center"
-            >
-                Update
-            </button>
-
-            {isModalOpen && (
+      
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -97,11 +80,11 @@ function UpdateBranch({ branch, onUpdate }) {
                                     Update Branch
                                 </h3>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-900 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
                                 >
-                                    <img src="/close.png" className="hover:bg-gradient-to-r from-stone-400 to-stone-600 rounded-xl bg-clip-image text-transparent" height={5} width={25} alt="report"/>
+                                    <img src="/close.png" className=" rounded-xl bg-clip-image text-transparent" height={5} width={25} alt="report"/>
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
@@ -222,7 +205,7 @@ function UpdateBranch({ branch, onUpdate }) {
                                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/4"></div>
                                     <div className="w-full p-1 mt-2 justify-center flex">
                                         <button
-                                            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                            className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-5 py-2 my-2 text-center"
                                             onClick={updateBranchAPI}
                                             type="button"
                                         >
@@ -234,7 +217,7 @@ function UpdateBranch({ branch, onUpdate }) {
                         </div>
                     </div>
                 </div>
-            )}
+           
         </>
     );
 }

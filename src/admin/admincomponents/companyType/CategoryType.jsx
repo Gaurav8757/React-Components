@@ -14,7 +14,6 @@ function CategoryType() {
     axios.get(`${VITE_DATA}/view/company/lists`)
       .then((resp) => {
         const ctType = resp.data;
-
         setData(ctType);
       })
       .catch((error) => {
@@ -55,14 +54,14 @@ function CategoryType() {
 
 
   return (
-    <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 tracking-wider text-green-900 font-medium">Add Category Type</span>
+    <section className="container-fluid relative flex  p-0 sm:ml-64 bg-slate-200">
+      <div className="container-fluid  flex flex-col w-full lg:w-1/2 p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">Add Category Type</span>
         <div className="container-fluid flex flex-wrap justify-between p-2 border-dashed rounded-lg bg-slate-200">
           <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
             <label className="text-base mx-1 my-1">Company Name:</label>
             <select
-              className="input-style p-2 w-full rounded-lg"
+              className="input-style p-1 text-base rounded-lg"
               name="c_type"
               value={cType}
               onChange={(e) => {
@@ -71,8 +70,8 @@ function CategoryType() {
                 setCatTypesForSelectedPolicy(selectedCatId);
               }}
             >
-              <option className="w-1" value="">
-                ----------------------- Select Company Name -----------------------------
+              <option className="w-1 ps-2" value="">
+                 Select Company Name ---
               </option>
               {data.map((policy) => (
                 <option key={policy._id} value={policy.c_type} data-id={policy._id}>
@@ -85,7 +84,7 @@ function CategoryType() {
           <div className="flex flex-col   p-2 text-start w-full lg:w-1/3">
             <label className="text-base mx-1 my-1">Category Type:</label>
             <input
-              className="input-style w-full p-2  rounded-lg"
+              className="input-style  p-1  rounded-lg"
               value={catType}
               onChange={(e) => setCatType(e.target.value.toUpperCase())}
               name="catType"
@@ -96,7 +95,7 @@ function CategoryType() {
 
           <div className="w-full p-1 mt-8 justify-center flex">
             <button
-              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-3 py-2 text-center"
               onClick={handleSubmit}
               type="button"
             >
@@ -106,22 +105,19 @@ function CategoryType() {
           {/* </form> */}
         </div>
       </div>
-      <div className="container-fluid  flex flex-col   justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 mt-10 tracking-wider text-gray-900 font-medium">List of Company with Category</span>
+      <div className="container-fluid  flex flex-col w-full lg:w-1/2  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+        <span className="text-3xl p-2  tracking-wider text-orange-700 font-medium">List of Company with Category</span>
         <div className="container-fluid flex justify-center p-2   border-gray-200 border-dashed rounded-lg   bg-slate-200">
           <table className="min-w-full text-center text-sm font-light ">
             <thead className="border-b font-medium dark:border-neutral-500">
               <tr className="text-blue-700">
-                {/* <th scope="col" className="px-4 py-4">
-                                S.No
-                            </th> */}
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Company Type
                 </th>
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Category Type
                 </th>
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Delete
                 </th>
               </tr>
@@ -136,14 +132,14 @@ function CategoryType() {
                   >
 
 
-                    <td className="whitespace-nowrap px-3 py-4">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       {data.c_type}
                     </td>
 
                     {data.c_type &&
 
-                      <td className="whitespace-nowrap px-3 py-4">
-                        <select className="w-1/3 p-2  rounded-lg">
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        <select className="w-full p-1  rounded-lg">
                           <option value="" defaultChecked >ADD MORE PRODUCT</option>
                           {data.category.map((product, index) => (
                             <option key={index} value={product}>
@@ -154,10 +150,10 @@ function CategoryType() {
                       </td>
                     }
 
-                    <td className="whitespace-nowrap px-3 py-4">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       <button type="button"
                         onClick={() => deleteCategoryTypes(data._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-3 py-1 text-center">Delete</button>
                     </td>
                   </tr>
                 );
