@@ -70,7 +70,7 @@ const ViewFeedback = () => {
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-      <h1 className="flex justify-center text-3xl font-semibold w-full py-4">All Feedback Lists</h1>
+      <h1 className="flex justify-center text-3xl text-orange-700 font-semibold w-full py-4">Feedback List&apos;s</h1>
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg bg-slate-200">
         <div className="inline-block min-w-full w-full py-0 ">
           <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
@@ -90,7 +90,7 @@ const ViewFeedback = () => {
                     Query
                   </th>
                   <th scope="col" className="px-1 py-1 border border-black">
-                    Upload
+                    Uploaded
                   </th>
                   <th scope="col" className="px-1 py-1 border border-black">
                     Feedback Control
@@ -129,7 +129,7 @@ const ViewFeedback = () => {
                         <button
                           type="button"
                           onClick={() => onDeleteFeedback(feedback._id)}
-                          className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-3 py-2 my-0.5 text-center">
+                          className="text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded text-sm px-3 py-1 my-0.5 text-center">
                           Delete
                         </button>
                       </td>

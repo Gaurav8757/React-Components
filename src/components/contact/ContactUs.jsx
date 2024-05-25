@@ -36,10 +36,10 @@ const ContactUs = () => {
 
     return (
         <section className="container-fluid relative bg-white">
-            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 pt-20 pb-20 bg-white">
+            <div className="container-fluid mx-auto md:flex md:justify-around ml-2 mr-2 pt-20 pb-20 bg-orange-50">
 
-                <div className="md:w-1/3 w-auto  rounded-md md:h-auto p-4  m-5 mx-5  bg-gradient-to-r from-slate-200 to-slate-300 shadow-xl mb-4 md:mb-0">
-                    <h5 className="text-2xl font-bold bg-gradient-to-r from-teal-500 to-emerald-700 bg-clip-text text-transparent ">Reach Us At</h5>
+                <div className="md:w-1/3 w-auto  rounded-md md:h-auto p-4  m-5 mx-5  bg-orange-200 shadow-xl mb-4 md:mb-0">
+                    <h5 className="text-2xl font-bold bg-orange-800 bg-clip-text text-transparent ">Reach Us At</h5>
                     <ul className=" ">
                         <li className="mt-2 text-lg font-bold">
                             <i className="fa fa-phone mr-2"></i>+91 9430608622
@@ -50,8 +50,8 @@ const ContactUs = () => {
                         <li className="mt-1 text-lg font-bold">
                             <i className="fa fa-phone mr-2"></i>+91 9905886633
                         </li>
-                        </ul>
-                        <ul className="mt-5 ">
+                    </ul>
+                    <ul className="mt-5 ">
                         <li className="mt-1 text-lg font-bold">
                             <i className="fa fa-envelope mr-2"></i>support@eleedomimf.com
                         </li>
@@ -64,9 +64,9 @@ const ContactUs = () => {
                         </li>
                     </ul>
                 </div>
-                <div className="relative  md:w-1/3  mx-5 bg-gradient-to-b from-slate-200 to-slate-300 rounded-xl shadow-xl text-xl ">
+                <div className="relative  md:w-1/3  mx-5 bg-orange-200 rounded-xl shadow-xl text-xl ">
                     <form >
-                        <p className="text-2xl font-bold bg-gradient-to-r pt-8 from-teal-500 to-emerald-700 bg-clip-text text-transparent">Contact Us</p>
+                        <p className="text-2xl font-bold bg-orange-800 pt-8  bg-clip-text text-transparent">Contact Us</p>
                         <div className="space-y-2 text-start p-4">
                             <label className="text-sm mx-1 ">Email Address*</label>
                             <br></br>
@@ -103,14 +103,15 @@ const ContactUs = () => {
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Max Allowed Characters: 300">
                             </textarea>
-                            <br></br>
-                            <button className="bg-blue-500 hover:bg-blue-700  
-                                        text-white font-bold  
-                                        py-2 px-4 rounded"
+                          <div className="flex justify-center">
+                            <button className="bg-orange-700 hover:bg-orange-800 text-center justify-center  
+                                        text-white font-semibold  
+                                        py-1 px-3 rounded"
                                 onClick={handleSubmit}
                                 type="button">
                                 Submit
                             </button>
+                            </div>
                         </div>
                     </form>
                 </div>

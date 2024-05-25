@@ -68,8 +68,8 @@ const Feedback = () => {
   };
 
   return (
-    <section className="container-fluid relative bg-white">
-      <div className="container-fluid  mx-auto md:flex md:justify-around ml-2 mr-2 p-10 bg-white">
+    <section className="container-fluid relative bg-orange-50">
+      <div className="container-fluid  mx-auto md:flex md:justify-around ml-2 mr-2 p-10 bg-orange-50">
         {/* <div className=""> */}
         <div className="container-fluid w-auto sm:w-auto md:w-1/2 lg:w-1/2 xl:w-1/2">
           <div className="text-3xl font-medium text-start">
@@ -139,7 +139,7 @@ const Feedback = () => {
         {/* part-2 */}
         <div className="w-full sm:w-1/2">
           <p className="text-2xl font-semibold">Your Opinion</p>
-          <div className="flex flex-wrap p-8 justify-between  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+          <div className="flex flex-wrap p-8 justify-between  rounded-xl shadow-xl text-2xl items-center bg-orange-200">
 
             <div className=" flex-col p-2 text-start w-full lg:w-1/2">
               <label className="text-base mx-1 font-semibold">Name</label>
@@ -208,7 +208,7 @@ const Feedback = () => {
             <div className="flex flex-col p-2 text-start w-full lg:w-full ">
               <div className="flex justify-center ">
                 <button
-                  className="bg-blue-500 text-base hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+                  className="bg-orange-700 text-base hover:bg-orange-800 text-white font-bold py-1 px-3 mt-4 rounded "
                   onClick={handleSubmit}
                   type="button"
                 >

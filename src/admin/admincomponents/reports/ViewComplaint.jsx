@@ -40,37 +40,37 @@ const ViewComplaint = () => {
   };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-slate-200 to-slate-200">
-      <div className="container-fluid flex justify-center p-2 border-gray-200  rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
-        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto w-xl text-blue-500">
+    <section className="container-fluid relative p-0 sm:ml-64 bg-white">
+      <div className="container-fluid flex justify-center p-2 border-gray-200  rounded-lg  bg-white">
+        <div className="inline-block min-w-full w-full py-0">
+          <div className="overflow-x-auto w-xl text-orange-700">
             {/* <NavLink to="/dashboard/addemployee" className="flex justify-end">
               Back
             </NavLink> */}
-            <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">All Complaint&apos;s List</h1>
+            <h1 className="flex justify-center text-3xl font-semibold w-full my-2 text-orange-700">Complaint List&apos;s</h1>
             <hr />
           </div>
-          <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+          <div className="inline-block min-w-full w-full py-0  bg-slate-200">
             <table className="min-w-full text-center text-sm font-light">
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr className="text-blue-700">
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Name
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Email
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Mobile
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Subject
                   </th>
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Query
                   </th>
                  
-                  <th scope="col" className="px-5 py-4">
+                  <th scope="col" className="px-1 py-1 border border-black">
                     Delete
                   </th>
                 </tr>
@@ -81,18 +81,17 @@ const ViewComplaint = () => {
                     className="border-b dark:border-neutral-200 text-sm font-medium"
                     key={complaint._id}
                   >
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_name}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_email}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_mobile}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_subject}</td>
-                    <td className="whitespace-nowrap px-4 py-4">{complaint.complaint_query}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{complaint.complaint_name}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{complaint.complaint_email}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{complaint.complaint_mobile}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{complaint.complaint_subject}</td>
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">{complaint.complaint_query}</td>
                     
-                    <td className="whitespace-nowrap px-4 py-4">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       <button
                         type="button"
                         onClick={() => onDeleteComplaint(complaint._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
-                      >
+                        className="text-white bg-gradient-to-r from-red-600 via-red-500 to-red-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-3 py-1 text-center ">
                         Delete
                       </button>
                     </td>

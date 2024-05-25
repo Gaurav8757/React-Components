@@ -8,6 +8,7 @@ import VITE_DATA from "../../config/config.jsx";
 function AddFinance() {
   const [sitcapacity, setSitCapacity] = useState('');
   const [sits, setSit] = useState([]);
+  const [filteredAdvLists, setFilteredAdvLists] = useState([]);
   const [entryDate, setEntryDate] = useState('');
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
@@ -277,30 +278,6 @@ function AddFinance() {
     }
   }, []);
 
-
-  // useEffect(() => {
-  //   const token = sessionStorage.getItem("token");
-  //   if (!token) {
-  //     toast.error("Not Authorized yet.. Try again! ");
-  //   } else {
-  //     // The user is authenticated, so you can make your API request here.
-  //     axios
-  //       .get(`${VITE_DATA}/view/payouton`, {
-  //         headers: {
-  //           Authorization: `${token}`, // Send the token in the Authorization header
-  //         },
-  //       })
-  //       .then((response) => {
-  //         setPayoutOnList(response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   }
-  // }, []);
-
-
-
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (!token) {
@@ -413,8 +390,13 @@ function AddFinance() {
       });
   }, []);
 
-
-
+// filter advisor based on branch
+  useEffect(() => {
+    if (branch) {
+      const filteredAdvisors = advLists.filter((adv) => adv.branch[0] === branch);
+      setFilteredAdvLists(filteredAdvisors);
+    }
+  }, [branch, advLists]);
 
 
   // Function to update netPremium when odPremium or liabilityPremium changes
@@ -426,38 +408,6 @@ function AddFinance() {
     // Set the updated netPremium value directly
     setNetPremium(newNetPremium);
   };
-
-
-
-  // const calculateAge = () => {
-  //   if (!mfgYear) {
-  //     setVehicleAge("0 years");
-  //     return;
-  //   }
-    
-  //   const today = new Date();
-  //   const birthdateDate = new Date(mfgYear);
-    
-  //   if (isNaN(birthdateDate)) {
-  //     setVehicleAge("Invalid date");
-  //     return;
-  //   }
-    
-  //   let ageYears = today.getFullYear() - birthdateDate.getFullYear();
-  //   const monthDiff = today.getMonth() - birthdateDate.getMonth();
-  //   const dayDiff = today.getDate() - birthdateDate.getDate();
-    
-  //   // Adjust age if the birthdate hasn't occurred yet this year
-  //   if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-  //     ageYears--;
-  //   }
-
-  //   setVehicleAge(`${ageYears} years`);
-
-  // };
-  //  useEffect(() => {
-  //   calculateAge();
-  // }, [mfgYear]);
 
   
   const calculateAge = (year) => {
@@ -1618,15 +1568,15 @@ function AddFinance() {
                   name="advisorName"
                   // onChange={(e) => setAdvisorName(e.target.value.toUpperCase())}
                   onChange={(e) => {
-                    const selectedAdvisor = advLists.find((adv) => adv.advisorname === e.target.value);
+                    const selectedAdvisor = filteredAdvLists.find((adv) => adv.advisorname === e.target.value);
                     setAdvisorName(e.target.value.toUpperCase());
                     setAdvId(selectedAdvisor ? selectedAdvisor.uniqueId : '');
                   }}
 
                   placeholder="Enter Advisor Name">
                   <option value="">------------- Select Advisor -----------</option>
-                  {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
-                    <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
+                  {filteredAdvLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
+                    <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.branch[0]}`}</option>
                   ))}
                 </select>
                 {errors.advisorName && <span className="text-red-600 text-sm ">{errors.advisorName}</span>}

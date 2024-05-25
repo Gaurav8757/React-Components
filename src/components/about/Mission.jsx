@@ -1,10 +1,10 @@
 const Mission = () => {
     return (
         <section className="container-fluid relative bg-slate-100">
-            <div className="container-fluid h-3/4 items-center ml-2 mr-2 pb-4 bg-gradient-to-r from-slate-100 to-slate-100">
+            <div className="container-fluid h-3/4 items-center ml-2 mr-2 pb-4 bg-gradient-to-r from-slate-50 to-slate-50">
                 
 
-                <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly text-justify shadow-lg p-10 items-center">
+                <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly text-justify shadow-lg p-10 items-center bg-orange-50">
                     
                     <div className="mb-6 lg:mb-0 lg:mr-5 h-auto  rounded-lg ">
                         <img
@@ -23,7 +23,7 @@ const Mission = () => {
                 </div>
 
                 {/* part 2 */}
-                <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly text-justify shadow-lg p-10 items-center">
+                <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly text-justify shadow-lg p-10 items-center bg-orange-100">
                     <div className="max-w-lg text-base lg:max-w-3xl sm:max-w-lg md:max-w-xl xl:max-w-3xl ">
                     <h1 className="text-4xl mb-10 text-blue-700 font-medium text-center">Vision</h1>
 

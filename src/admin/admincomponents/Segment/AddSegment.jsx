@@ -22,7 +22,7 @@ function AddSegment() {
       });
   }, []);
 
-// console.log(data.map((comp)=>comp.c_type));
+  // console.log(data.map((comp)=>comp.c_type));
 
   const handleSubmit = async () => {
     setFormSubmitted(true);
@@ -61,17 +61,15 @@ function AddSegment() {
 
 
   return (
-    <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 tracking-wider text-green-900 font-medium">Add Segment Type</span>
-
-        <div className="container-fluid flex flex-wrap justify-between p-2 border-dashed rounded-lg bg-slate-200">
-          {/* <form className="flex flex-wrap justify-between"> */}
-
+    <section className="container-fluid relative flex p-0 sm:ml-64 bg-slate-200">
+      <div className="container-fluid  flex flex-col  w-full lg:w-1/2 p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">Add Segment Type</span>
+        <div className="container-fluid   p-2 border-dashed rounded-lg bg-slate-200">
+          <div className="flex">
           <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
-            <label className="text-base mx-1 my-1">Company Name:</label>
+            <label className="text-sm text-semibold mx-1 my-1">Company Name:</label>
             <select
-              className="input-style p-2 w-full rounded-lg"
+              className="input-style p-1 text-sm font-semibold w-full ps-2 rounded-lg"
               name="c_type"
               value={cType}
               onChange={(e) => {
@@ -80,12 +78,12 @@ function AddSegment() {
                 setProductTypesForSelectedPolicy(selectedCatId);
               }}
             >
-              <option className="w-1" value="">
-                ------------------------------ Select Company --------------------------
+              <option className="" value="">
+                -- Select Company --
               </option>
-              
-              {data.map((comp) => ( 
-                <option key={comp._id} value={comp.c_type} data-id={comp._id}>
+
+              {data.map((comp) => (
+                <option className="font-semibold" key={comp._id} value={comp.c_type} data-id={comp._id}>
                   {comp.c_type}
                 </option>
               ))}
@@ -93,42 +91,36 @@ function AddSegment() {
           </div>
 
           <div className="flex flex-col   p-2 text-start w-full lg:w-1/3">
-            <label className="text-base mx-1 my-1">Category Name:</label>
+            <label className="text-sm text-semibold mx-1 my-1">Category Name:</label>
             <select
-              className="input-style w-full p-2 rounded-lg"
+              className="input-style  p-1 text-sm font-semibold w-full ps-2 rounded-lg"
               value={catType}
               name="catType"
               onChange={(e) => setCatType(e.target.value)}
             >
-              <option value="">---------------------------- Select Category Name -----------------------</option>
-              {data.map((cat) => ( 
+              <option value=""> -- Select Category -- </option>
+              {data.map((cat) => (
                 cat._id === productTypesForSelectedPolicy &&
                 cat.category.map((product, idx) => (
-                  <option key={idx} value={product}>{product}</option>
+                  <option className="font-semibold" key={idx} value={product}>{product}</option>
                 ))))
               }
             </select>
           </div>
 
           <div className="flex flex-col   p-2 text-start w-full lg:w-1/3">
-              <label className="text-base mx-1 my-1">Segment:</label>
-              <input
-                className="input-style w-full p-2  rounded-lg"
-                value={segment}
-                onChange={(e) => setSegment(e.target.value.toUpperCase())}
-                name="segment"
-              />
-
-            </div>
-
-
-
-
-          <div className="flex flex-col  p-2 text-start w-full lg:w-1/3"></div>
-
-          <div className="w-full p-1 mt-8 justify-center flex">
+            <label className="text-sm text-semibold mx-1 my-1">Segment:</label>
+            <input
+              className="input-style p-1 text-sm font-semibold w-full ps-2  rounded-lg"
+              value={segment}
+              onChange={(e) => setSegment(e.target.value.toUpperCase())}
+              name="segment"
+            />
+          </div>
+          </div>
+          <div className="w-full p-1 mt-8 justify-center lg:w-full">
             <button
-              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+              className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-3 py-1 text-center"
               onClick={handleSubmit}
               type="button"
             >
@@ -138,23 +130,24 @@ function AddSegment() {
           {/* </form> */}
         </div>
       </div>
-      <div className="container-fluid  flex flex-col   justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 mt-10 tracking-wider text-gray-900 font-medium">Segment with Company-Category</span>
+      <div className="w-4/5">
+      <div className="container-fluid  flex flex-col justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
+        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">Segment with Company-Category</span>
 
         <div className="container-fluid flex justify-center p-2   border-gray-200 border-dashed rounded-lg   bg-slate-200">
           <table className="min-w-full text-center text-sm font-light ">
-            <thead className="border-b font-medium dark:border-neutral-500">
+            <thead className="border border-black font-medium">
               <tr className="text-blue-700">
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Company Name
                 </th>
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Category Name
                 </th>
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Segments
                 </th>
-                <th scope="col" className="px-4 py-4">
+                <th scope="col" className="px-1 py-1 border border-black">
                   Delete
                 </th>
               </tr>
@@ -167,14 +160,14 @@ function AddSegment() {
                     className="border-b dark:border-neutral-200 text-sm font-medium"
                     key={data._id}
                   >
-                    <td className="whitespace-nowrap px-3 py-4">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       {data.c_type}
                     </td>
 
                     {data.c_type &&
-                      <td className="whitespace-nowrap px-3 py-4">
-                        <select className="w-1/3 p-2  rounded-lg">
-                          <option value="" defaultChecked >-----Select Category-----</option>
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        <select className="w-1/2 p-1 ps-3  rounded-lg">
+                          <option value="" defaultChecked> --- Select Category --- </option>
                           {data.category.map((product, index) => (
                             <option key={index} value={product}>
                               {product}
@@ -185,8 +178,8 @@ function AddSegment() {
                     }
 
                     {data.c_type &&
-                      <td className="whitespace-nowrap px-3 py-4">
-                        <select className="w-1/3 p-2  rounded-lg">
+                      <td className="whitespace-nowrap px-1 py-1 border border-black">
+                        <select className="w-1/2 p-1 ps-2  rounded-lg">
                           <option value="" defaultChecked >ADD MORE SEGMENT</option>
                           {data.category.map((segment, index) => (
                             <option key={index} value={segment}>
@@ -197,10 +190,10 @@ function AddSegment() {
                       </td>
                     }
 
-                    <td className="whitespace-nowrap px-3 py-4">
+                    <td className="whitespace-nowrap px-1 py-1 border border-black">
                       <button type="button"
                         // onClick={() => deleteProductTypes(data._id)}
-                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2">Delete</button>
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-3 py-1 text-center">Delete</button>
                     </td>
                   </tr>
                 );
@@ -208,6 +201,7 @@ function AddSegment() {
             </tbody>
           </table>
         </div>
+      </div>
       </div>
     </section>
   )

@@ -3,12 +3,12 @@ function TrackRequest() {
   const [textInput, setTextInput] = useState("");
   const [textareaInput, setTextareaInput] = useState("");
   return (
-    <section className="container-fluid relative p-0 flex justify-center my-10 bg-white">
-    <div className="relative  flex-col  md:w-1/3 rounded-xl shadow-xl text-xl container-fluid bg-gradient-to-r from-gray-300 to-slate-300">
+    <section className="container-fluid relative p-0 flex justify-center my-10 bg-orange-50">
+    <div className="relative  flex-col  md:w-1/3 rounded-xl shadow-xl text-xl container-fluid bg-orange-100">
       <h1 className="text-blue-800 text-xl font-semibold my-4">Track Your Request</h1>
       <div className="space-y-2 p-4 text-start">
          {/* Other form fields */}
-         <label className="text-sm mx-1 ">Topic</label>
+         <label className="text-base mx-1 font-medium ">Topic</label>
         <textarea
           className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-blue-500 w-full p-2.5"
           type="text"
@@ -17,7 +17,7 @@ function TrackRequest() {
           placeholder="TEXT"
         />
 
-      <label className="text-sm mx-1 "> Query</label>
+      <label className="text-base mx-1 font-medium"> Query</label>
         <textarea
           className="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:border-blue-500 w-full p-2.5"
           rows="4"
@@ -31,7 +31,7 @@ function TrackRequest() {
        
         <div className="flex justify-center ">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+            className="bg-orange-700 hover:bg-orange-800 text-white font-medium py-1 px-4 rounded "
             // onClick={handleSubmit}
             type="button"
           >

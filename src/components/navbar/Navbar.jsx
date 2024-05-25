@@ -24,7 +24,7 @@ export default function Navbar({ navigation }) {
     <>
       {/* Navbar */}
       <nav style={{backgroundColor: "#A31217"}}>
-        <div className="mx-auto max-w-auto px-2 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-auto px-2">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:justify-center  sm:hidden">
               {/* Mobile menu button*/}
@@ -59,7 +59,7 @@ export default function Navbar({ navigation }) {
                           classNames(
                             isActive
                               ? ' text-slate-200   sm:text-sm md:text-sm lg:text-sm xl:text-lg'
-                              : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-blue-600 ',
+                              : 'bg-gradient-to-r from-slate-100 via-slate-100 to-slate-200 bg-clip-text text-transparent hover:bg-orange-600 ',
                             'rounded-md px-2 py-2 font-medium text-gray-900'
                           )
                         }
@@ -71,7 +71,7 @@ export default function Navbar({ navigation }) {
                         <>
                           <NavLink>
                             <svg
-                              className="inline-flex h-5 w-6 text-gray-900 group-hover:text-white transition-all ease-in duration-75"
+                              className="inline-flex h-5 w-6 text-gray-100 group-hover:text-orange-400 transition-all ease-in duration-75"
                               viewBox="0 0 20 20"
                               fill="currentColor"
                               aria-hidden="true"
@@ -91,7 +91,7 @@ export default function Navbar({ navigation }) {
                                   <NavLink
                                     key={idx}
                                     to={submenu.to}
-                                    className="block px-2 py-2 text-md hover:bg-cyan-400"
+                                    className="block px-2 py-2 text-md hover:bg-orange-700 hover:text-white"
                                   >
                                     {submenu.name}
                                   </NavLink>

@@ -1,7 +1,7 @@
 const DirectorMessage = () => {
   return (
-    <section className="container-fluid relative bg-white">
-      <div className="container-fluid h-3/4 items-center mt-12 ml-2 mr-2 pb-12 bg-gradient-to-r from-slate-50 to-slate-50 ">
+    <section className="container-fluid relative bg-orange-50">
+      <div className="container-fluid h-3/4 items-center pt-10 ml-2 mr-2 pb-12 bg-orange-50 ">
         {/* <h1 className="text-3xl font-semibold mb-6 md:mb-20">Director&apos;s Message</h1> */}
         <div className="flex flex-col md:flex-row text-xl justify-evenly text-justify items-center">
           <div className="h-auto   rounded-lg shadow-2xl mb-6 md:mb-0 md:mr-10 ">

@@ -29,24 +29,25 @@ const ClaimForm = () => {
  
 
   return (
-    <section className="container-fluid relative h-screen bg-white">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
+    <section className="container-fluid relative h-screen bg-orange-50">
+      <div className="container-fluid flex flex-col justify-center p-2 border-gray-200 border-dashed rounded-lg">
+      <h1 className="flex justify-center font-semibold text-3xl text-orange-700 w-full my-2">Claim Form&apos;s</h1>
+        <div className="inline-block min-w-full w-full py-0 bg-orange-100">
           <div className="overflow-x-auto w-xl text-black">
-            <h1 className="flex justify-center text-4xl w-full mb-8">Form&apos;s</h1>
+           
             <hr></hr>
           </div>
-          <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">
+          <div className="inline-block min-w-full w-full py-0  overflow-x-auto">
             <table className="min-w-full text-center text-sm font-light">
-              <thead className="border-b font-medium dark:border-neutral-500">
-                <tr className="text-black">
-                  <th scope="col" className="px-5 py-4 text-slate-500">
+              <thead className="border border-black font-medium">
+                <tr className="text-blue-600">
+                  <th scope="col" className="px-1 py-1  ">
                     Serial No.
                   </th>
-                  <th scope="col" className="px-5 py-4 text-slate-500">
+                  <th scope="col" className="px-1 py-1 ">
                     Company Name
                   </th>
-                  <th scope="col" className="px-5 py-4 text-slate-500">
+                  <th scope="col" className="px-1 py-1 ">
                     Download Form
                   </th>
                 </tr>
@@ -55,7 +56,7 @@ const ClaimForm = () => {
                 {companies.map((company, index) => (
                   <tr key={index} className="border-b dark:border-neutral-500 text-sm font-medium">
                     <td>{company.s_no}</td>
-                    <td className="whitespace-nowrap px-4 py-4 font-bold">{company.c_name}</td>
+                    <td className="whitespace-nowrap px-1 py-1 font-bold">{company.c_name}</td>
                     <td className="whitespace-nowrap ">
                       <NavLink
                         to={`https://eleedomimf.com/${company.link}`}
@@ -64,7 +65,7 @@ const ClaimForm = () => {
                         target="_blank"
                       >
                         
-                        <img src="/pdf.png" alt="download" className="w-14 h-12 text-center" />
+                        <img src="/pdf.png" alt="download" width={45} className="text-center" />
                       </NavLink>
                     </td>
                   </tr>

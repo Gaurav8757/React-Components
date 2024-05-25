@@ -2,9 +2,9 @@ function Companies() {
   return (
     <section className="container-fluid relative bg-white">
       <div className="container-fluid  pb-4 pt-10
-       sm:pt-10  bg-gradient-to-b from-white to-slate-100">
+       sm:pt-10 bg-orange-50">
         {/* part - 1 */}
-        <div className="flex flex-col lg:flex-row ">
+        <div className="flex flex-col lg:flex-row bg-orange-50">
           <div className="lg:w-1/2  max-w-4xl  lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
             <img
               src="/cname.png" // Add the actual image source
@@ -13,9 +13,9 @@ function Companies() {
             />
           </div>
 
-          <div className="w-full lg:w-1/2 max-w-5xl mb-5 mt-16 lg:mr-10 rounded-lg  dark:border-gray-100">
+          <div className="w-full lg:w-1/2 max-w-5xl mb-5 mt-16 lg:mr-10 rounded-lg  bg-orange-50">
 
-            <div className="text-2xl text-blue-700 font-semibold">
+            <div className="text-2xl text-blue-700 font-semibold bg-orange-50">
               Welcome to Eleedom IMF PVT. LTD. - Your Trusted Insurance Partner
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
@@ -25,7 +25,7 @@ function Companies() {
         </div>
 
         {/* part-2 */}
-        <div className="flex flex-col lg:flex-row ">
+        <div className="flex flex-col lg:flex-row bg-orange-50">
           <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
            {/* Update UI on Monday */}
             {/* <img
@@ -47,7 +47,7 @@ function Companies() {
         </div>
 
         {/* part - 3 */}
-        <div className="flex flex-col lg:flex-row ">
+        <div className="flex flex-col lg:flex-row bg-orange-50">
           <div className="lg:w-1/2 max-w-4xl lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
             {/* <img
               src="/logo.png" // Add the actual image source
@@ -67,7 +67,7 @@ function Companies() {
           </div>
         </div>
         {/* part-4 */}
-        <div className="bg-gradient-to-b from-slate-100 to-slate-200">
+        <div className="bg-orange-100">
         <div className="text-2xl mt-32 mb-12 w-full text-blue-700 flex-nowrap font-semibold ">Why Choose Eleedom IMF PVT. LTD.</div>
         
 <div className="flex justify-center ">
@@ -84,7 +84,7 @@ function Companies() {
         </ol>
         </div>
 </div>
-<div className="bg-gradient-to-b from-slate-100 to-slate-200">
+<div className="bg-orange-100">
         <div className="text-2xl mt-10  mb-8 w-full text-blue-700 flex-nowrap font-semibold">Our Services</div>
         <div className="flex justify-center">
         <ol className="text-xl text-justify w-3/4 leading-relaxed">
@@ -98,7 +98,8 @@ function Companies() {
           3. Business Insurance:</b> We understand the complexities of running a business. Our business insurance plans are designed to mitigate risks and support your growth.
           </li>
         </ol></div></div>
-        <div className="bg-gradient-to-b from-slate-100 to-slate-200">
+
+        <div className="bg-orange-100">
         <div className="text-2xl mt-10  mb-8 w-full text-blue-700 flex-nowrap font-semibold">Join Us in Securing Your Future</div>
         <div className="flex justify-center ">
         <ol className="text-xl text-justify w-3/4 leading-relaxed">
