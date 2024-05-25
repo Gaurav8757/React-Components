@@ -369,6 +369,7 @@ function LoginAll() {
                                             Password
                                         </label>
                                         <div className="relative">
+                                           
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 name="password"
@@ -397,8 +398,9 @@ function LoginAll() {
                                     </div>
 
                                     <div className=" text-justify mt-1 ml-0 ">
-                                        <label className="block mx-0  text-base font-medium mt-3 ml-1 text-orange-900">Login Type</label>
+                                        <label htmlFor="type" className="block mx-0  text-base font-medium mt-3 ml-1 text-orange-900">Login Type</label>
                                         <select
+                                        id="type"
                                             className="input-style  bg-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
                                             value={loginType}
                                             onChange={handleLoginTypeChange}>

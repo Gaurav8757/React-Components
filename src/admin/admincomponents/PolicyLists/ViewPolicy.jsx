@@ -3,7 +3,6 @@ import UpdatePolicy from "./UpdatePolicy.jsx";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-import { TiArrowBack } from "react-icons/ti";
 import VITE_DATA from "../../../config/config.jsx";
 
 export default function ViewPolicy() {
@@ -74,7 +73,7 @@ const updatePolicyLists = async () => {
             {/* <div className="sm:-mx-6 lg:-mx-8"> */}
                 <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8">
                     <div className="overflow-x-auto w-xl  text-blue-500"
-                    ><NavLink to = "/dashboard/addpolicy" className="flex justify-end text-red-700 "><TiArrowBack size={30}/></NavLink>
+                    >
                         <h1 className="flex justify-center text-3xl font-semibold w-full mb-8">Policy Lists</h1><hr></hr>
                         </div>
                         <div className="inline-block min-w-full w-full py-0 sm:px-6 lg:px-8 overflow-x-auto">

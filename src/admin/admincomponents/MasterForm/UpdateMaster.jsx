@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { State, City } from 'country-state-city';
 import axios from "axios";
 import MultiStep from "react-multistep";
-import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
+// import { SlArrowRightCircle, SlArrowLeftCircle } from "react-icons/sl";
 import VITE_DATA from "../../../config/config.jsx";
 function UpdateMaster({ insurance, onUpdate, onClose }) {
   const [loading, setLoading] = useState(false);
@@ -584,7 +584,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
                       prevButton={{
                         title: (
                           <span className="flex justify-start text-base">
-                            <SlArrowLeftCircle className="mr-2 mx-auto my-auto " /> Back
+                             <img src="/left.png" height={5} width={20} alt="left" className="hover:bg-red-200 mr-1 mx-auto my-auto rounded-full"/> Back
                           </span>
                         ),
                         style: {
@@ -607,7 +607,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
                       nextButton={{
                         title: (
                           <span className="flex justify-end text-base">Next
-                            <SlArrowRightCircle className="ml-2 mx-auto my-auto" />
+                          <img src="/right.png" height={5} width={20} alt="left" className="hover:bg-green-200 ml-1 mx-auto my-auto rounded-full"/>
                           </span>
                         ),
                         style: {
