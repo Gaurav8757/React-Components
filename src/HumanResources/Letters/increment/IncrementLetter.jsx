@@ -1,20 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import html2canvas from "html2canvas";
-import { CgCloseR } from "react-icons/cg";
 import jsPDF from "jspdf";
-function IncrementLetter({ offers }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
+function IncrementLetter({ offers, onClose }) {
     //    print function
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
@@ -52,15 +41,6 @@ function IncrementLetter({ offers }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-3 py-1 text-center "
-            >
-                View
-            </button>
-
-            {isModalOpen && (
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -68,22 +48,28 @@ function IncrementLetter({ offers }) {
                     aria-hidden="true"
                     className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
                     <div className="relative p-4 w-full max-w-7xl max-h-7xl mx-auto my-20 backdrop-blur-lg">
-                        <div className="flex flex-col bg-slate-200 border shadow-sm rounded-xl pointer-events-auto ">
-                            <div className="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
-                                <div className='flex justify-end mx-5  '>
-                                    <button onClick={downloadPDF} className="flex justify-end my-0 mx-4 px-4 py-2 bg-blue-700 text-white rounded-md shadow-md">
+                        <div className="flex flex-col bg-orange-700 border shadow-sm rounded-xl pointer-events-auto ">
+                            <div className="flex justify-between items-center py-3 px-4">
+                                <div className='flex justify-end mx-5'>
+                                    <button onClick={downloadPDF} className="flex justify-end my-0 mx-4 px-4 py-2 bg-blue-500 hover:bg-blue-800  text-white rounded shadow-md">
                                         Download
                                     </button>
-                                    <button onClick={handlePrint} className="flex justify- text-end my-0   px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
+                                    <button onClick={handlePrint} className="flex justify- text-end my-0   px-4 py-2 bg-green-600 hover:bg-green-800 text-white rounded shadow-md">
                                         Print
                                     </button>
                                 </div>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-500 text-slate-500  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
+                            >
+                                <img
+                                    src="/close.png"
+                                    height={5}
+                                    width={25}
+                                    alt="close"
+                                    className="hover:bg-red-100 rounded-full"
+                                />
                                 </button>
                             </div>
                             <div className="overflow-y-auto h-full">
@@ -96,7 +82,7 @@ function IncrementLetter({ offers }) {
                                         <div className="absolute bottom-0 left-0 w-full h-full bg-red-700 transform origin-top-left -skew-y-6"></div>
                                         {/* 1 */}
                                         <div className="relative z-10 p-8 text-white">
-                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.jpg" alt="logo" />
+                                            <img className="h-40 w-80 shadow shadow-slate-100" src="/logo.webp" alt="logo" />
                                         </div>
                                         {/* 2 */}
                                         <div className="px-4 leading-8 relative rounded-s-xl text-end text-white">
@@ -118,7 +104,7 @@ function IncrementLetter({ offers }) {
                                                 Employee ID: <span>{offers.empid}</span></span>
                                             <span>Date: {offers.incdate}</span>
                                         </div>
-                                        <p className='text-center font-bold'>
+                                        <p className='text-center text-lg font-bold'>
                                             Salary Increment Letter
                                         </p>
                                         {/* <h2 className="text-xl font-bold mb-4 text-start mx-4"> <span>Dear [Employee Name]</h2> */}
@@ -139,11 +125,11 @@ function IncrementLetter({ offers }) {
                                             We are glad to notify you that, following an evaluation of your performance, your
                                             salary has been updated W.E.F {offers.incdate}, and the new salary structure
                                             is as follows:
-                                            <ul className="list-disc mb-4  mx-16">
+                                            <ul className="list-disc mb-4 font-semibold mx-16">
 
                                             {/* <li className=''>Previous Salary: /- </li> */}
-                                            <li className=''> Increment: {offers.incmoney}/-  </li>
-                                            <li className=''> New Salary: {parseInt(offers.salary) + parseInt(offers.incmoney)}/-    </li>
+                                            <li className=''> Increment: {offers.incmoney || 0}/-  </li>
+                                            <li className=''> New Salary: {offers.salary || 0}/-    </li>
                                             </ul> 
 
                                             Please contact the HR department for the remainder of the wage breakdown and
@@ -172,8 +158,6 @@ function IncrementLetter({ offers }) {
                         </div>
                     </div>
                 </div>
-            )}
-
         </>
     );
 }

@@ -107,9 +107,9 @@ function CurrentAttendance() {
             const isHoliday = !!holiday;
 
             headers.push(
-                <th className={`border border-blue-700 text-lg p-0 py-2 sticky ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
+                <th className={`border z-100  border-orange-700 text-lg p-0 py-2 sticky ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : 'bg-slate-100'}`}
                     key={i} >
-                    <div>{formattedDate}</div>
+                    <div >{formattedDate}</div>
                     <div>{weekday}</div>
                     <span className="text-red-700 ">{isHoliday ? holiday.hdays : ''}</span>
 
@@ -161,13 +161,13 @@ function CurrentAttendance() {
             }
             calendarRows.push(
                 <tr key={employee.empid}>
-                    <td className="whitespace-nowrap px-0 py-2 border sticky border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-2 border sticky bg-orange-200  border-black text-lg font-semibold">
                         {employee.empid}
                     </td>
-                    <td className="whitespace-nowrap px-0 py-2 border sticky border-black text-lg font-semibold">
+                    <td className="whitespace-nowrap px-0 py-2 border sticky bg-orange-200 border-black text-lg font-semibold">
                         {employee.empname}
                     </td>
-                    <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : ''}`}>
+                    <td className={`z-1 border border-black px-0  text-lg font-bold text-slate-200 ${status === 'present' ? 'bg-green-600 ' : status === 'absent' ? 'bg-red-600 ' : status === 'halfday' ? 'bg-yellow-600 ' : 'bg-orange-200'}`}>
                         {text}
                         <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Login Time: ${attendance.time}` : ''}</div>
                         <div className="text-xs whitespace-nowrap my-1">{`${totalHours}`}</div>
@@ -232,21 +232,22 @@ function CurrentAttendance() {
     };
 
     return (
-        <section className={`container-fluid relative p-0 sm:ml-64 bg-slate-200`}>
-            <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200`}>
-                <div className="inline-block max-w-full w-full py-3 ">
+        <section className={`container-fluid relative p-0 sm:ml-64 bg-orange-100`}>
+            <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-orange-100`}>
+                <div className="inline-block max-w-full w-full py-0">
                     <div className="flex justify-between">
-                        <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Todays Attendance </h1>
+                        <h1></h1>
+                        <h1 className="flex justify-center text-3xl text-orange-700 w-full font-semibold">Day-wise Attendance </h1>
                         <div className="flex justify-center">
                             <button className="mx-3 my-0" onClick={handleExportClick}>
-                                <img src="/excel.png" alt="download" className="w-16" />
+                                <img src="/excel.png" alt="download" className="w-14" />
                             </button>
-                            <NavLink to="/hr/home/addemployee" >
-                                <button type="button" className="text-white  justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 whitespace-nowrap text-center me-2 mb-2 ">Go Back</button>
+                            <NavLink to="/hr/home" className="my-auto">
+                                <button type="button" className="text-white  justify-end bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded text-sm px-3 py-1 whitespace-nowrap text-center  ">Go Back</button>
                             </NavLink>
                         </div>
                     </div>
-                    <div className="flex justify-between items-center my-4 mt-5  text-blue-600">
+                    <div className="flex justify-between items-center my-4 mt-5  text-orange-600">
                         <h1 className="font-bold text-md flex-wrap xl:flex-nowrap"> DD-MM-YY: <span className="text-green-600 text-lg ">{date}-{month}-{year}</span></h1>
                         <div className="flex">
                             <div className="mx-3">
@@ -271,14 +272,14 @@ function CurrentAttendance() {
                     </div>
 
                     <div className="relative">
-                        <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1">
+                        <div className="flex min-w-full w-full bg-orange-100">
                             <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border border-black">
-                                <thead className="sticky bg-slate-300 top-16">
-                                    <tr className="border border-black text-lg  text-blue-700 ">
-                                        <th scope="col" className="sticky overflow-hidden p-0 whitespace-nowrap border  border-blue-700">
+                                <thead className="sticky bg-orange-100 top-16 z-30">
+                                    <tr className="border border-black text-lg sticky overflow-hidden z-30 text-orange-700 ">
+                                        <th scope="col" className="bg-slate-100 sticky p-0 whitespace-nowrap border  border-orange-700">
                                             Employee ID
                                         </th>
-                                        <th scope="col" className="sticky overflow-hidden p-0 whitespace-nowrap border border-blue-700">
+                                        <th scope="col" className="bg-slate-100 sticky p-0 whitespace-nowrap border border-orange-700">
                                             Employee Name
                                         </th>
                                         {renderTableHeaders()}

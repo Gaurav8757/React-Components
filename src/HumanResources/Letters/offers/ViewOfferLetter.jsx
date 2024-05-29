@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import TextLoader from "../../../loader/TextLoader.jsx";
 import SeparateLetter from "./SeparateLetter.jsx";
 import VITE_DATA from "../../../config/config.jsx";
 
 function ViewOfferLetter() {
   const [APIData, setAPIData] = useState([]);
-  
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+    const [selectedRowId, setSelectedRowId] = useState(null);
   const [sendStaffId, setSendStaffId] = useState(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -23,8 +25,19 @@ function ViewOfferLetter() {
     setSendStaffId(_id);
   };
 
+  const handleUpdateClick = (id) => {
+    setSelectedRowId(id);
+    setShowUpdatePopup(true);
+};
+
+const handleClosePopup = () => {
+    setSelectedRowId(null);
+    setShowUpdatePopup(false);
+};
+
+
   useEffect(() => {
-    setItemsPerPage(14);
+    setItemsPerPage(20);
   }, [])
 
   useEffect(() => {
@@ -157,15 +170,16 @@ function ViewOfferLetter() {
 
   return (
     <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
-      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-orange-200">
+      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-orange-100">
 
-        {/* <div className="sm:-mx-6 lg:-mx-8"> */}
         <div className="inline-block min-w-full w-full py-0 ">
-          <div className="overflow-x-none w-xl flex mt-2 text-blue-700">
+          <div className="overflow-x-none w-xl flex mt-2 text-orange-700">
+            <h1></h1>
             <h1 className="flex justify-center text-3xl w-full font-semibold">Offer Letter List&apos;s</h1>
-            <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-            <NavLink to="/hr/home/add/offer/letter" >
-              <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+
+            <button className="" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10" /></button>
+            <NavLink to="/hr/home/add/offer/letter"  className="my-auto ml-2">
+              <button type="button" className="text-white whitespace-nowrap justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-3 py-1 text-center m">Go Back</button>
             </NavLink>
           </div>
               <div className="flex-wrap my-8 flex justify-between  text-blue-500 max-w-auto mx-auto w-auto ">
@@ -204,7 +218,8 @@ function ViewOfferLetter() {
                 </div>
               </div>
 
-              <table className="min-w-full text-center text-sm font-light table bg-orange-100 ">
+              <table className="min-w-full text-center text-sm font-light table bg-orange-200 ">
+              {filteredData.length === 0 ? (<TextLoader />) : (<>
                 <thead className="border-b  font-medium bg-slate-200 border border-black  sticky top-16">
                   <tr className="text-blue-700 sticky top-16">
                     <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -288,18 +303,24 @@ function ViewOfferLetter() {
                           {data.oflocation}
                         </td>
                         <td className="px-1 py-0 border border-black">
-                          <SeparateLetter offers={data}  />
+                        <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-base px-3 py-1 my-0.5 text-center ">
+                                                                View
+                                                            </button>
+                         
                         </td>
                         <td className="px-1 py-0 border border-black">
                           {/* to enable delete from here */}
-                          <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-2 py-1 my-1 text-center">Delete</button>
+                          <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-base px-2 py-1 my-1 text-center">Delete</button>
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
+                </>)}
               </table>
-            {/* </div> */}
+              {showUpdatePopup && selectedRowId && (
+                <SeparateLetter offers={selectedRowId}  onClose={handleClosePopup} />
+            )}
          
           {sendStaffId && (
             <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

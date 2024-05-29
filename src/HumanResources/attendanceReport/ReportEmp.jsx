@@ -219,7 +219,7 @@ function ReportEmp() {
             }
 
             headers.push(
-                <th className={`border   border-blue-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
+                <th className={`border   border-orange-700 text-lg px-10 py-2 sticky  ${isHoliday === true ? 'bg-cyan-400 ' : weekdayIndex === 0 ? 'bg-red-300 text-red-700' : ''}`}
                     key={i} >
                     <div >{formattedDate}</div>
                     <div>{weekday}</div>
@@ -227,6 +227,7 @@ function ReportEmp() {
                 </th>
             )
         }
+        
         console.log(sundayCount);
         return headers;
     };
@@ -253,6 +254,8 @@ function ReportEmp() {
                 });
         }
     }, []);
+
+    
 
     const exportToExcel = () => {
         try {
@@ -327,21 +330,23 @@ function ReportEmp() {
     };
 
     return (
-        <section className={`container-fluid relative  p-0 sm:ml-64 bg-slate-200`}>
-            <div className={`container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200`}>
-                <div className="inline-block max-w-full w-full py-6 sm:px-6 lg:px-8">
-                    <h1 className="flex justify-center text-3xl w-full font-semibold">Employee&apos;s Attendance Report</h1>
-                    <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-                        <button className="absolute top-2 right-24" onClick={handleExportClick}>
+        <section className={`container-fluid relative  p-0 sm:ml-64 bg-orange-200`}>
+            <div className={`container-fluid flex justify-center border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-orange-100`}>
+                <div className="inline-block max-w-full w-full ">
+                   
+                    <div className="flex w-xl  mt-2 text-orange-500">
+                        <h1></h1>
+                    <h1 className="flex justify-center text-3xl w-full text-orange-700 font-semibold">Employee&apos;s Attendance Report</h1>
+                        <button className="" onClick={handleExportClick}>
                             <img src="/excel.png" alt="download" className="w-12" />
                         </button>
-                        <NavLink to="/hr/home/addemployee" >
-                            <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+                        <NavLink to="/hr/home/addemployee"  className="my-auto me-2 ms-1">
+                            <button type="button" className="text-white  justify-end bg-gradient-to-r whitespace-nowrap from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded text-sm px-3 py-1.5 text-center  ">Go Back</button>
                         </NavLink>
                     </div>
 
                     {/* year */}
-                    <div className="flex justify-between items-center my-5 mt-5  text-blue-600  ">
+                    <div className="flex justify-between items-center my-5 mt-5  text-orange-600  ">
                         <h1 className="font-bold text-lg flex-wrap xl:flex-nowrap">Current MM-YY: <span className="text-green-600 ">{month} - {year}</span></h1>
                         <div className="flex">
                             <div>
@@ -364,40 +369,40 @@ function ReportEmp() {
 
                     {/* part-3 */}
                     <div className=" relative ">
-                        <div className="flex min-w-full w-full 3 sm:px-4 lg:px-1   ">
-                            <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border  border-black">
-                                <thead className="sticky bg-slate-300 top-16">
-                                    <tr className="border border-black z-50 text-blue-700 text-sm ">
-                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
+                        <div className="flex min-w-full w-full    ">
+                            <table className="min-w-full text-center  divide-y divide-gray-200 text-sm font-light table border  border-black">
+                                <thead className="sticky bg-slate-100 top-16">
+                                    <tr className="border border-black z-50 text-orange-700 text-sm ">
+                                        <th scope="col" className="sticky text-base  whitespace-nowrap border border-orange-700">
                                             Employee ID
                                         </th>
-                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700">
+                                        <th scope="col" className="sticky text-base whitespace-nowrap border border-orange-700">
                                             Employee Name
                                         </th>
                                         {renderTableHeaders()}
                                         {/* {renderTableRows()} */}
-                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 ">
+                                        <th scope="col" className="sticky whitespace-wrap border border-orange-700 ">
                                             Total Working Days
                                         </th>
-                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-green-400">
-                                            Present Days
+                                        <th scope="col" className="sticky whitespace-wrap border text-green-800 border-orange-700 bg-green-200">
+                                            Present Day
                                         </th>
-                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-red-500">
-                                            Absent Days
+                                        <th scope="col" className="sticky whitespace-wrap border border-orange-700 bg-red-200 text-red-700">
+                                            Absent Day
                                         </th>
-                                        <th scope="col" className="sticky whitespace-wrap border border-blue-700 bg-yellow-400">
-                                            Half Days
+                                        <th scope="col" className="sticky whitespace-wrap border border-orange-700 bg-yellow-200 text-yellow-700">
+                                            Half Day
                                         </th>
-                                        <th scope="col" className="sticky  whitespace-nowrap border border-blue-700 bg-cyan-300">
-                                            HoliDays
+                                        <th scope="col" className="sticky  whitespace-nowrap border border-orange-700 bg-cyan-200 text-cyan-700">
+                                            HoliDay
                                         </th>
-                                        <th scope="col" className="sticky whitespace-nowrap border border-blue-700">
+                                        <th scope="col" className="sticky whitespace-nowrap border border-orange-700 bg-green-500">
                                             Attendance(%)
                                         </th>
                                     </tr></thead>
 
                                 {/* td data */}
-                                <tbody className="bg-white divide-y  overflow-hidden">
+                                <tbody className="bg-orange-200 divide-y  overflow-hidden">
                                     {renderCalendar()}
                                 </tbody>
 

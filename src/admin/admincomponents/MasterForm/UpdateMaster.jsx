@@ -25,40 +25,45 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
   const [selectedState, setSelectedState] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [selectedCity, setSelectedCity] = useState('');
-  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
-    "Bhagalpur",
-    "Bhojpur",
-    "Buxar",
-    "Darbhanga",
-    "East Champaran (Motihari)",
-    "Gaya",
-    "Gopalganj",
-    "Jamui",
-    "Jehanabad",
-    "Kaimur (Bhabua)",
-    "Katihar",
-    "Khagaria",
-    "Kishanganj",
-    "Lakhisarai",
-    "Madhepura",
-    "Madhubani",
-    "Munger (Monghyr)",
-    "Muzaffarpur",
-    "Nalanda",
-    "Nawada",
-    "Patna",
-    "Purnia (Purnea)",
-    "Rohtas",
-    "Saharsa",
-    "Samastipur",
-    "Saran",
-    "Sheikhpura",
-    "Sheohar",
-    "Sitamarhi",
-    "Siwan",
-    "Supaul",
-    "Vaishali",
-    "West Champaran"];
+  const citiesToShow = [ "Araria",
+  "Arwal",
+  "Aurangabad",
+  "Banka",
+  "Begusarai",
+  "Bhagalpur",
+  "Bhojpur",
+  "Buxar",
+  "Darbhanga",
+  "Gaya",
+  "Gopalganj",
+  "Jamui",
+  "Jehanabad",
+  "Kaimur District",
+  "Katihar",
+  "Khagaria",
+  "Kishanganj",
+  "Lakhisarai",
+  "Munger",
+  "Madhepura",
+  "Madhubani",
+  "Muzaffarpur",
+  "Nalanda",
+  "Nawada",
+  "Patna",
+  "Purnia",
+  "Pashchim Champaran",
+  "Purba Champaran",
+  "Rohtas",
+  "Saharsa",
+  "Samastipur",
+  "Saran",
+  "Sheikhpura",
+  "Sheohar",
+  "Sitamarhi",
+  "Siwan",
+  "Supaul",
+  "Vaishali",
+  "West Champaran"];
   useEffect(() => {
     // Fetch and set states for India when component mounts
     const fetchStates = () => {
@@ -1333,7 +1338,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
                             name="advisorName"
                             placeholder="Enter Advisor Name"
                           >
-                            <option value="">------------- Select Advisor -----------</option>
+                            <option value="data">------------- Select Advisor -----------</option>
                             {advLists.sort((a, b) => a.advisorname.localeCompare(b.advisorname)).map((data) => (
                               <option key={data._id} value={data.advisorname}>{`${data.advisorname}  -  ${data.advisoraddress}`}</option>
                             ))}

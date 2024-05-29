@@ -47,7 +47,6 @@ function AddPolicyDetail({ insurance, onUpdates, onClose }) {
         "Bhojpur",
         "Buxar",
         "Darbhanga",
-        "East Champaran(Motihari)",
         "Gaya",
         "Gopalganj",
         "Jamui",
@@ -57,14 +56,16 @@ function AddPolicyDetail({ insurance, onUpdates, onClose }) {
         "Khagaria",
         "Kishanganj",
         "Lakhisarai",
+        "Munger",
         "Madhepura",
         "Madhubani",
-        "Munger(Monghyr)",
         "Muzaffarpur",
         "Nalanda",
         "Nawada",
         "Patna",
-        "Purnia(Purnea)",
+        "Purnia",
+        "Pashchim Champaran",
+        "Purba Champaran",
         "Rohtas",
         "Saharsa",
         "Samastipur",
@@ -155,6 +156,9 @@ function AddPolicyDetail({ insurance, onUpdates, onClose }) {
                 });
         }
     }, [formSubmitted]);
+
+let citys = cities.map((data)=> data.name);
+console.log(citys);
 
 
     useEffect(() => {

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import TextLoader from "../../../loader/TextLoader.jsx";
 import JoiningSeparate from "./JoiningSeparate.jsx";
 import VITE_DATA from "../../../config/config.jsx";
 
@@ -16,14 +17,25 @@ function ViewJoining() {
   const [searchId, setSearchId] = useState("");
   const [searchBranch, setSearchBranch] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+  const [selectedRowId, setSelectedRowId] = useState(null);
   const name = sessionStorage.getItem("name");
   // popup
   const staffSend = (_id) => {
     setSendStaffId(_id);
   };
+  const handleUpdateClick = (id) => {
+    setSelectedRowId(id);
+    setShowUpdatePopup(true);
+  };
 
+  const handleClosePopup = () => {
+    setSelectedRowId(null);
+    setShowUpdatePopup(false);
+  };
+  
   useEffect(() => {
-    setItemsPerPage(14);
+    setItemsPerPage(20);
   }, [])
 
   useEffect(() => {
@@ -153,22 +165,20 @@ function ViewJoining() {
   };
 
   return (
-    <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
+    <section className="container-fluid relative p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-orange-200">
-
-        {/* <div className="sm:-mx-6 lg:-mx-8"> */}
         <div className="inline-block min-w-full w-full py-0 ">
-          <div className="overflow-x-none w-xl my-4 flex justify-between  text-blue-700">
+
+          <div className="overflow-x-none w-xl flex mt-2 text-orange-700">
+            <h1></h1>
             <h1 className="flex justify-center text-3xl w-full font-semibold">Joining Letter List&apos;s</h1>
-            <button className="absolute top-2 right-24" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
-            <NavLink to="/hr/home/add/offer/letter" >
-              <button type="button" className="text-white absolute top-3 right-2 justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 ">Go Back</button>
+            <button className="" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10" /></button>
+            <NavLink to="/hr/home/add/offer/letter" className="my-auto ml-2">
+              <button type="button" className="text-white whitespace-nowrap justify-end bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-3 py-1 text-center ">Go Back</button>
             </NavLink>
           </div>
-
-          <div className="flex-wrap  flex justify-between my-4   text-blue-500 max-w-auto mx-auto w-auto ">
+          <div className="flex-wrap  flex justify-between my-4 py-5   text-blue-500 max-w-auto mx-auto w-auto ">
             {/* date range filter */}
-
             <div className="flex my-auto justify-start p-0 text-start w-full lg:w-1/5">
               <label className="my-1 text-base whitespace-nowrap font-medium text-gray-900">DATE:</label>
               <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-64 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
@@ -204,7 +214,8 @@ function ViewJoining() {
             </div>
 
           </div>
-          <table className="min-w-full text-center text-sm font-light table bg-orange-100 ">
+          <table className="min-w-full text-center text-sm font-light table bg-orange-200 ">
+          {filteredData.length === 0 ? (<TextLoader />) : (<>
             <thead className="border-b  font-medium bg-slate-200  sticky top-16">
               <tr className="text-blue-700 sticky top-16">
                 <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -267,10 +278,10 @@ function ViewJoining() {
                     <td className="px-1 py-0 border border-black">
                       {data.ofmobile}
                     </td>
-                    <td className="px-1 py-0 whitespace-nowrap border border-black">
+                    <td className="px-1 py-0  whitespace-nowrap border border-black">
                       {data.ofaddress}
                     </td>
-                    <td className="px-1 py-0 border border-black">
+                    <td className="px-0 py-0 border border-black">
                       {data.ofdesignation}
                     </td>
                     <td className="px-1 py-0 border whitespace-nowrap border-black">
@@ -283,18 +294,23 @@ function ViewJoining() {
                       {`₹ ${data.joinbasicSalary || 0}`}
                     </td>
                     <td className="px-1 py-0 border border-black">
-                      <JoiningSeparate offers={data} />
+                      <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-3 py-1 my-0.5 text-center ">
+                        View
+                      </button>
                     </td>
                     <td className="px-1 py-0 border border-black">
                       {/* to enable delete from here */}
-                      <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-base px-2 py-1 my-1 text-center">Delete</button>
+                      <button type="button" onClick={() => staffSend(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 my-1 text-center">Delete</button>
                     </td>
                   </tr>
                 );
               })}
             </tbody>
+            </>)}
           </table>
-
+          {showUpdatePopup && selectedRowId && (
+            <JoiningSeparate offers={selectedRowId} onClose={handleClosePopup} />
+          )}
           {sendStaffId && (
             <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-4 rounded-lg ">

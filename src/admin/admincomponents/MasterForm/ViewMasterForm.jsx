@@ -616,7 +616,7 @@ function ViewMasterForm() {
               <button className="text-end   mr-1  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
                 
               <Suspense fallback={<div>Loading...</div>}>
-              <img src="/public/xls.png"  className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis "/>
+              <img src="/xls.png"  className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis "/>
               {/* <span className="text-base">MIS</span> */}
             </Suspense>
               

@@ -1,10 +1,7 @@
 /* eslint-disable react/prop-types */
 import Sidebar from './Sidebar';
 import { useState, startTransition } from "react";
-
 import { NavLink } from 'react-router-dom';
-// const Bars3Icon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.Bars3Icon })));
-// const XMarkIcon = lazy(() => import("@heroicons/react/24/outline").then(module => ({ default: module.XMarkIcon })));
 function classNames(...classes) {
   // console.log(classes.filter(Boolean).join(' '));
   return classes.filter(Boolean).join(' ');
@@ -12,7 +9,6 @@ function classNames(...classes) {
 
 export default function Navbar({ navigation }) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  // const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSidebar = () => {
     startTransition(() => {

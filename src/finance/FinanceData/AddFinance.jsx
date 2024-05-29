@@ -99,29 +99,34 @@ function AddFinance() {
     fetchStates();
   }, []);
 
-  const citiesToShow = ["Araria", "Arwal", "Aurangabad", "Banka", "Begusarai",
+  const citiesToShow = [ "Araria",
+  "Arwal",
+  "Aurangabad",
+  "Banka",
+  "Begusarai",
   "Bhagalpur",
   "Bhojpur",
   "Buxar",
   "Darbhanga",
-  "East Champaran (Motihari)",
   "Gaya",
   "Gopalganj",
   "Jamui",
   "Jehanabad",
-  "Kaimur (Bhabua)",
+  "Kaimur District",
   "Katihar",
   "Khagaria",
   "Kishanganj",
   "Lakhisarai",
+  "Munger",
   "Madhepura",
   "Madhubani",
-  "Munger (Monghyr)",
   "Muzaffarpur",
   "Nalanda",
   "Nawada",
   "Patna",
-  "Purnia (Purnea)",
+  "Purnia",
+  "Pashchim Champaran",
+  "Purba Champaran",
   "Rohtas",
   "Saharsa",
   "Samastipur",
@@ -132,7 +137,7 @@ function AddFinance() {
   "Siwan",
   "Supaul",
   "Vaishali",
-  "West Champaran"];
+  "West Champaran",];
 
   const handleStateChange = (e) => {
     const stateIsoCode = e.target.value;

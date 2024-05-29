@@ -1,27 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState, useRef } from "react";
-import { CgCloseR } from "react-icons/cg";
+import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-function JoiningSeparate({ offers }) {
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
+function JoiningSeparate({ offers, onClose }) {
     // Print function
     const componentRef = useRef();
-
     const handlePrint = useReactToPrint({
         documentTitle: `${offers.ofname}_Joining_letter`,
         content: () => componentRef.current,
@@ -55,15 +40,7 @@ function JoiningSeparate({ offers }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-3 py-1 text-center"
-            >
-                View
-            </button>
-
-            {isModalOpen && (
+          
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -83,11 +60,17 @@ function JoiningSeparate({ offers }) {
                                     </button>
                                 </div>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-red-900 text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
+                            >
+                                <img
+                                    src="/close.png"
+                                    height={5}
+                                    width={25}
+                                    alt="close"
+                                    className="hover:bg-red-100 rounded-full"
+                                />
                                 </button>
                             </div>
 
@@ -285,7 +268,6 @@ function JoiningSeparate({ offers }) {
                         </div>
                     </div>
                 </div>
-            )}
         </>
     );
 }

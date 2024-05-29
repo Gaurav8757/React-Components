@@ -2,11 +2,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CgCloseR } from "react-icons/cg";
 import VITE_DATA from "../../config/config.jsx";
 
-function UpdateEmployee({ employee, onUpdate }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+function UpdateEmployee({ employee, onUpdate, onClose }) {
     const [loading, setLoading] = useState(false);
     const [type, setType] = useState([]);
     const [data, setData] = useState({
@@ -24,21 +22,11 @@ function UpdateEmployee({ employee, onUpdate }) {
         empdesignation: "",
         empaadharfile: "",
         staffType: "",
-        // panno: "",
         pan: "",
         accNumber: "",
         ifsc: "",
         bankName: ""
     });
-    // OPEN MODAL
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    // CLOSE MODAL
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     useEffect(() => {
         // Fetch the list of branches when the component mounts
@@ -72,7 +60,7 @@ function UpdateEmployee({ employee, onUpdate }) {
             );
             toast.success(`${response.data.status}`)
             // Close the modal after successful update
-            closeModal();
+            onClose();
             onUpdate();
         } catch (error) {
             toast.error(`${error}`)
@@ -84,16 +72,6 @@ function UpdateEmployee({ employee, onUpdate }) {
 
     return (
         <>
-            <button
-                onClick={openModal}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-base px-2 py-1 text-center"
-            >
-                Update
-            </button>
-
-
-            {isModalOpen && (
                 <div
                     id="static-modal"
                     data-modal-backdrop="static"
@@ -110,17 +88,23 @@ function UpdateEmployee({ employee, onUpdate }) {
                                     Update Employee
                                 </h3>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onClose}
                                     type="button"
-                                    className=" bg-transparent hover:text-black text-slate-50  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                >
-                                    <CgCloseR size={25} />
+                                    className=" bg-transparent hover:bg-red-100 text-slate-100  rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  "
+                            >
+                                <img
+                                    src="/close.png"
+                                    height={5}
+                                    width={25}
+                                    alt="close"
+                                    className="hover:bg-red-100 rounded-full"
+                                />
                                 </button>
                             </div>
                             <section className="p-4 md:p-3 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-slate-100 to-white">
-                                <form className="flex flex-wrap justify-between">
+                                <form className="flex flex-wrap justify-between font-semibold">
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1 ">Employee Name:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -132,7 +116,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">DOB:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -143,7 +127,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Branch Code"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Gender:</label>
                                         <select
                                             className="input-style p-1 rounded-lg"
@@ -153,14 +137,14 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             name="empgender"
                                             placeholder="Enter Your District Name"
                                         >
-                                            <option value="">----- Select Gender -----</option>
+                                            <option value="">----- Select Gender ------</option>
                                             <option value="MALE">Male</option>
                                             <option value="FEMALE">Female</option>
                                             <option value="OTHERS">Others</option>
                                         </select>
                                     </div>
 
-                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Email ID:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -172,7 +156,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">  Branch:</label>
                                         <select
                                             className="input-style p-1 rounded-lg"
@@ -187,7 +171,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             </option>
                                         </select>
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Mobile No:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -199,7 +183,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="+91"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Account No.:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -210,7 +194,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Account Number"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">IFSC Code:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -222,7 +206,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Bank Name:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -233,7 +217,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Bank Name"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Pan No.:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -258,7 +242,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                         />
                                     </div> */}
 
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Joining Date:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -269,7 +253,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder=""
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Aadhar No.:</label>
                                         <input
                                             className="input-style p-1 rounded-lg"
@@ -299,7 +283,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             value={data.s_type}
                                             name="staffType"
                                             onChange={handleInputChange}>
-                                            <option value="">----- Select -----</option>
+                                            <option value="">------- Select Designation -------</option>
                                             {
                                                 type.map((data) => (
                                                     <option key={data._id} value={data.s_type}>{data.s_type}</option>
@@ -311,7 +295,7 @@ function UpdateEmployee({ employee, onUpdate }) {
                                     <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
                                         <label className="text-base mx-1">Current Address:</label>
                                         <textarea
-                                            className="input-style p-1 rounded-lg"
+                                            className="input-style p-1 w-full rounded-lg"
                                             type="text"
                                             rows={2}
                                             name="currentempaddress"
@@ -320,10 +304,10 @@ function UpdateEmployee({ employee, onUpdate }) {
                                             placeholder="Enter Your Address"
                                         />
                                     </div>
-                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/4">
+                                    <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
                                         <label className="text-base mx-1">Permanent Address:</label>
                                         <textarea
-                                            className="input-style p-1 rounded-lg"
+                                            className="input-style p-1 w-full rounded-lg"
                                             type="text"
                                             rows={2}
                                             value={data.permanentempaddress}
@@ -352,8 +336,6 @@ function UpdateEmployee({ employee, onUpdate }) {
                         </div>
                     </div>
                 </div>
-            )}
-
         </>
     )
 }

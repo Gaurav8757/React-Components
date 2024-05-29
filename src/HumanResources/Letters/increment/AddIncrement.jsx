@@ -8,6 +8,7 @@ function AddIncrement() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
   const [incdate, setIncDate] = useState("");
   const [incrementAmount, setIncrementAmount] = useState("");
+  const [selectedEmployeeSalary, setSelectedEmployeeSalary] = useState(0);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
@@ -35,16 +36,25 @@ function AddIncrement() {
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
-}
+  }
 
-const date = getFormattedDate();
-useEffect( () => {setIncDate(date)}, [date] );
+  const date = getFormattedDate();
+  useEffect(() => { setIncDate(date) }, [date]);
 
 
   // console.log(employees);
   const handleEmployeeChange = (e) => {
-    setSelectedEmployeeId(e.target.value);
+    const selectedId = e.target.value;
+    setSelectedEmployeeId(selectedId);
+
+    const selectedEmployee = employees.find(employee => employee._id === selectedId);
+    if (selectedEmployee) {
+     
+      setSelectedEmployeeSalary(selectedEmployee.salary);
+    }
   };
+
+  const newSalary = parseFloat(selectedEmployeeSalary) + parseFloat(incrementAmount);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,11 +65,12 @@ useEffect( () => {setIncDate(date)}, [date] );
     try {
       const response = await axios.put(
         `${VITE_DATA}/api/salary/update/${selectedEmployeeId}`,
-        { incmoney: incrementAmount,
-          incdate}
-         
+        {
+          incmoney: incrementAmount,
+          salary: newSalary,
+          incdate
+        }
       );
-
       if (response.data) {
         toast.success(`${response.data.status}`);
         setFormSubmitted(true);
@@ -77,14 +88,14 @@ useEffect( () => {setIncDate(date)}, [date] );
 
   return (
     <section className="container-fluid relative p-0 sm:ml-64 bg-white">
-      <h1 className="font-semibold text-3xl mt-20 ">Increment Letter</h1>
+      <h1 className="font-semibold text-3xl py-1 ">Increment Letter</h1>
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
 
-        <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
+        <div className="relative w-full  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+              <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                 <label className="text-base mx-1">Current Date</label>
                 <input
                   className="input-style p-1 rounded-lg"
@@ -126,7 +137,7 @@ useEffect( () => {setIncDate(date)}, [date] );
             </div>
             <div className="flex justify-center p-2 text-center w-full my-2 mt-10 gap-10">
               <button
-                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center"
+                className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-3 py-2 text-center"
                 type="submit"
                 disabled={formSubmitted}
               >

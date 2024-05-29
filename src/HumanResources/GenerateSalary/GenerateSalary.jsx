@@ -60,20 +60,6 @@ function GenerateSalary() {
     setTotaldays(daysInMonth); // Update total days state
   };
 
-  // months retuen  array with number of days for each month
-  // const renderMonths = () => {
-  //   const currentMonth = new Date().getMonth();
-  //   const months = [];
-  //   for (let m = 0; m < 12; m++) {
-  //     const monthValue = String(m).padStart(2, '0'); // Ensure month value has two digits
-  //     const date = new Date(currentMonth, m, 1); // Create a date object for each month
-  //     const monthName = format(date, 'MMMM'); // Format the date to get the month name
-  //     // months.push({ value: monthValue, name: monthName });
-  //     // console.log(monthValue);
-  //     months.push(<option key={monthValue} value={monthValue}>{monthName}</option>);
-  //   }
-  //   return months;
-  // };
   const renderMonths = () => {
     const currentYear = new Date().getFullYear(); // Get the current year
     const months = [];
@@ -298,45 +284,46 @@ function GenerateSalary() {
 
   return (
     <section className="container-fluid h-screen relative p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg bg-white">
-        <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
-          <h1 className="font-semibold text-3xl mb-8 text-white dark:text-black ">Generate Employee Salary</h1>
+      <div className="container-fluid flex w-full lg:w-full px-2   flex-col justify-center  border-gray-200 border-dashed rounded-lg bg-white">
+      <h1 className="font-semibold text-3xl text-orange-700 py-2 ">Generate Employee Salary</h1>
+        <div className="relative  p-0  rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
+         
           <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col   p-2 text-start w-full lg:w-1/4 ">
+            <div className="flex flex-col   p-2 text-start w-full lg:w-1/5 ">
               <label className="text-base mx-1">Employee Name</label>
               <select
-                className="input-style rounded-lg text-base h-10"
+                className="input-style rounded-lg text-base p-1"
                 value={empName}
                 onChange={(e) => handleEmployeeChange(e.target.value)}
                 name="empName">
                 <option value=""  className="text-base">
-                  ---------------- Select Employee ---------------
+                  -------- Select Employee ----------
                 </option>
                 {sortedAPIData.map((emp) => (
                   <option key={emp._id} value={emp.empname} className="text-base">
-                    {emp.empid} {emp.empname}
+                    {`${emp.empid}  -  ${emp.empname}`}
                   </option>
                 ))}
               </select>
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Monthly Salary:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={monthsalary}
                 name="monthsalary"
                 placeholder=""
-                readOnly
+                disabled
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Monthly Leave:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 max="12"
@@ -344,14 +331,14 @@ function GenerateSalary() {
                 onChange={(e) => setMonthleave(e.target.value)}
                 name="monthleave"
                 placeholder={monthleave}
-                readOnly
+                disabled
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Months:</label>
               <select
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={months}
                 onChange={(e) => {
@@ -359,26 +346,26 @@ function GenerateSalary() {
                   handleMonthChange(parseInt(e.target.value)); // Call handleMonthChange on month selection change
                 }}
                 name="genMonths">
-                <option value="" >--------------- Select Month&apos;s ----------------</option>
+                <option value="" >------------- Select Month ----------</option>
                 {renderMonths()}
               </select>
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Total Days:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={totaldays}
                 name="totalDays"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Present Days:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style bg-red-100 p-1 rounded-lg"
                 type="number"
                 min="0"
                 value={persentday}
@@ -386,10 +373,10 @@ function GenerateSalary() {
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Total Absent:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={totalAbsentDays}
@@ -397,23 +384,23 @@ function GenerateSalary() {
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Total Half Days:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={halfday}
                 onChange={(e) => setHalfday(e.target.value)}
                 name="totalHalfDays"
-                readOnly
+                disabled
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Salary:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={salaries}
@@ -421,10 +408,10 @@ function GenerateSalary() {
                 placeholder="₹"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Incentive:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="number"
                 min="0"
                 value={incentive}
@@ -434,10 +421,10 @@ function GenerateSalary() {
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Total Amount:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
                 value={amount}
@@ -445,13 +432,13 @@ function GenerateSalary() {
                 placeholder="₹"
               />
             </div>
-            <div className="flex flex-col p-2 my-8 lg:my-16 text-start w-full lg:w-1/4"></div>
+           
 
             {/* next part starts here */}
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Gross Salary:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="empgrossSalary"
@@ -459,105 +446,106 @@ function GenerateSalary() {
                 placeholder="Gross Salary"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Basic Salary:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="empbasicSalary"
                 value={empbasicSalary}
                 onChange={(e) => setBasicEmpSalary(e.target.value)}
                 placeholder="Basic Salary"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">HRA:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="emphra"
                 value={emphra}
                 onChange={(e) => setEmpHra(e.target.value)}
                 placeholder="HRA"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">CA:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1  bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="empca"
                 value={empca}
                 onChange={(e) => setEmpCa(e.target.value)}
                 placeholder="CA"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Medical Allowance:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style bg-red-100 p-1 rounded-lg"
                 type="text"
                 rows={2}
                 name="empmedical"
                 value={empmedical}
                 onChange={(e) => setEmpMedical(e.target.value)}
                 placeholder="Medical Allowance"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Tiffin/DAS Allowance:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style bg-red-100 p-1 rounded-lg"
                 type="text"
                 rows={2}
                 name="emptiffin"
                 value={emptiffin}
                 onChange={(e) => setEmpTiffin(e.target.value)}
                 placeholder="Tiffin Allowance"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Company PF:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="empcompanyPf"
                 value={empcompanyPf}
                 onChange={(e) => setEmpCompanyPf(e.target.value)}
                 placeholder="PF"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 my-8 lg:my-16 text-start w-full lg:w-1/4"></div>
-
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
             {/* part-3 */}
-            <div className="w-full col-span-4 my-4 text-white border-b border border-slate-500 bg-slate-600">Employee Contribution/Deduction</div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="w-full col-span-4 my-4 text-white border-b border border-orange-500 bg-orange-700">Employee Contribution/Deduction</div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">PF:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style bg-red-100  p-1 rounded-lg"
                 type="text"
                 rows={2}
                 name="emppf"
                 value={emppf}
                 onChange={(e) => setEmpPf(e.target.value)}
                 placeholder="PF"
-                readOnly
+                disabled
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Load EMI:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style  p-1 rounded-lg"
                 type="text"
                 rows={2}
                 name="emploanemi"
@@ -567,10 +555,10 @@ function GenerateSalary() {
               />
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 border-t">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5 border-t">
               <label className="text-base mx-1">ESI:</label>
               <input
-                className="input-style rounded-lg"
+                className="input-style  p-1 rounded-lg"
                 type="text"
                 rows={2}
                 name="empesi"
@@ -579,11 +567,12 @@ function GenerateSalary() {
                 placeholder="Basic ESI"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/4 "></div>
-
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
             <div className="w-full mt-5 p-2">
               <button
-                className="text-white bg-gradient-to-r leading-4 from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg shadow-lg shadow-blue-500/50  dark:shadow-lg dark:shadow-blue-800/80 text-sm px-5 py-2.5 text-center me-2 mb-2"
+                className="text-white bg-gradient-to-r leading-4 from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded shadow-lg shadow-green-500/50  dark:shadow-lg dark:shadow-green-800/80 text-sm px-5 py-2.5 text-center me-2 mb-2"
                 onClick={handleSubmit}
                 type="button"
               >

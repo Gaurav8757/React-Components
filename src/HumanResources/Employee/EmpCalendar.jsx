@@ -10,18 +10,8 @@ function EmpCalendar() {
   const [APIData, setAPIData] = useState([]);
 
   const tileClassName = ({ date }) => {
-    // const currentDate = new Date();
-    // const isCurrentDate =
-    //   date.getDate() === currentDate.getDate() &&
-    //   date.getMonth() === currentDate.getMonth() &&
-    //   date.getFullYear() === currentDate.getFullYear();
 
     let classNames = '';
-
-    // if (isCurrentDate) {
-    //   classNames += 'current-day ';
-    // }
-
     const statusForDate = getAttendanceStatusForDateSync(date);
 
     if (statusForDate) {

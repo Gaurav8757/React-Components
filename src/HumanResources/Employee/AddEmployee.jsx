@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import VITE_DATA from "../../config/config.jsx";
-// import TextLoader from "../../loader/TextLoader.jsx";
+
 function AddEmployee() {
   const [joiningAPI, setJoinapi] = useState([]);
-
   const [branchList, setBranchList] = useState([]);
   const [staffType, setStaffType] = useState("");
   const [type, setType] = useState([]);
@@ -31,34 +29,30 @@ function AddEmployee() {
   const [showPassword, setShowPassword] = useState(false);
   const [bankName, setBankName] = useState("");
   const [permanentaddress, setPermanentaddress] = useState("");
- 
   const [pan, setPan] = useState("");
   const emp = empid.toUpperCase();
 
-
   useEffect(() => {
-    // Fetch the list of branches when the component mounts
     axios.get(`${VITE_DATA}/api/branch-list`)
       .then((resp) => {
         setBranchList(resp.data);
       })
       .catch((error) => {
-        console.error('Error fetching data branch lists:', error);
+        console.error('Error fetching branch lists:', error);
       });
   }, []);
 
   useEffect(() => {
-    // Fetch the list of branches when the component mounts
     axios.get(`${VITE_DATA}/staff/lists`)
       .then((resp) => {
         setType(resp.data);
       })
       .catch((error) => {
-        console.error('Error fetching data staff lists:', error);
+        console.error('Error fetching staff lists:', error);
       });
   }, []);
+
   useEffect(() => {
-    // Fetch the list of branches when the component mounts
     axios.get(`${VITE_DATA}/letters/view/offer`)
       .then((resp) => {
         setJoinapi(resp.data);
@@ -67,36 +61,34 @@ function AddEmployee() {
         console.error('Error fetching data:', error);
       });
   }, []);
-console.log(joiningAPI);
+
+  const handleEmployeeChange = (e) => {
+    const selectedEmpName = e.target.value;
+    setEmpname(selectedEmpName);
+    const selectedEmp = joiningAPI.find(emp => emp.ofname === selectedEmpName);
+    if (selectedEmp) {
+      setEmail(selectedEmp.ofemail);
+      setEmpid(selectedEmp.referenceno);
+      setJoining(selectedEmp.joinempdate);
+      setStaffType(selectedEmp.ofdesignation);
+      setMobile(selectedEmp.ofmobile);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Prevent multiple submissions
     if (formSubmitted) {
       return;
     }
-    setErrors({}); // Clear previous errors
+    setErrors({});
     const errors = {};
-    if (!empid) {
-      errors.empid = "required*";
-    }
-    if (!empname) {
-      errors.empname = "required*";
-    }
-    if (!emppassword) {
-      errors.emppassword = "required*";
-    }
-    if (!email) {
-      errors.email = "required*";
-    }
-    if (!branch) {
-      errors.branch = "required*";
-    }
-    if (!joining) {
-      errors.joining = "required*";
-    }
-    if (!staffType) {
-      errors.staffType = "required*";
-    }
+    if (!empid) errors.empid = "required*";
+    if (!empname) errors.empname = "required*";
+    if (!emppassword) errors.emppassword = "required*";
+    if (!email) errors.email = "required*";
+    if (!branch) errors.branch = "required*";
+    if (!joining) errors.joining = "required*";
+    if (!staffType) errors.staffType = "required*";
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return;
@@ -124,21 +116,14 @@ console.log(joiningAPI);
       formData.append("pan", pan);
       formData.append("panno", panno);
       formData.append("emppassword", emppassword);
-      // Make sure to replace this URL with your actual API endpoint
-      const response = await axios.post(
-        `${VITE_DATA}/dashboard/addemployee`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+
+      const response = await axios.post(`${VITE_DATA}/dashboard/addemployee`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
 
       if (response.data) {
         toast.success("Employee added successfully!");
         setFormSubmitted(true);
-        // Reset the form on successful submission
         setAccNumber("");
         setIfsce("");
         setEmpPassword("");
@@ -160,10 +145,10 @@ console.log(joiningAPI);
         setPanno("");
         setPan("");
       } else {
-        toast.error("Error Occurred. Try again!",);
+        toast.error("Error occurred. Try again!");
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`);
+      toast.error(`${"User Email Already Exists.......!"}`);
     }
   };
 
@@ -173,22 +158,24 @@ console.log(joiningAPI);
 
   return (
     <section className="container-fluid relative p-0 sm:ml-64 bg-white">
-      <div className="container-fluid  justify-center p-2   rounded-lg   bg-white">
-      <h1 className="font-semibold text-3xl my-2 text-white dark:text-black ">Add Employee</h1>
-        <div className="relative w-full lg:w-full  p-0  rounded-xl shadow-xl text-2xl mt-4  items-center bg-gradient-to-r from-slate-200 to-slate-200">
-        {/* <TextLoader/> */}
+      <div className="container-fluid justify-center rounded-lg bg-white">
+        <h1 className="font-semibold text-3xl my-4 text-orange-700">Add Employee</h1>
+        <div className="relative w-full lg:w-full p-0 rounded-xl shadow-xl text-2xl items-center bg-gradient-to-r from-slate-200 to-slate-200">
           <form className="flex flex-wrap justify-between" method="POST" encType="multipart/form-data">
-
-            <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1 ">Employee Name:</label>
-              <input
-                className="input-style p-1 rounded-lg"
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">Employee Name:</label>
+              <select
+                className="input-style p-1 ps-2 rounded-lg"
                 type="text"
                 name="empname"
                 value={empname}
-                onChange={(e) => setEmpname(e.target.value.toUpperCase())}
-                placeholder="Enter Name"
-              />
+                onChange={handleEmployeeChange}
+              >
+                <option value="">------ Select Employee Name -------</option>
+                {joiningAPI.map((emp) => (
+                  <option key={emp._id} value={emp.ofname}>{emp.ofname}</option>
+                ))}
+              </select>
               {errors.empname && <span className="text-red-600 text-sm ">{errors.empname}</span>}
             </div>
 
@@ -218,11 +205,12 @@ console.log(joiningAPI);
               />
               {errors.empid && <span className="text-red-600 text-sm ">{errors.empid}</span>}
             </div>
+
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Joining Date:</label>
               <input
                 className="input-style p-1 rounded-lg"
-                type="date"
+                type="text"
                 value={joining}
                 name="empjoiningdate"
                 onChange={(e) => setJoining(e.target.value)}
@@ -234,20 +222,20 @@ console.log(joiningAPI);
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Designation:</label>
               <select
-                className="input-style p-1  rounded-lg"
+                className="input-style p-1 rounded-lg"
                 type="text"
                 value={staffType}
                 name="staffType"
-                onChange={(e) => setStaffType(e.target.value)}>
+                onChange={(e) => setStaffType(e.target.value)}
+              >
                 <option value="">--------- Select Designation ---------</option>
-                {
-                  type.map((data) => (
-                    <option key={data._id} value={data.s_type}>{data.s_type}</option>
-                  ))
-                }
+                {type.map((data) => (
+                  <option key={data._id} value={data.s_type}>{data.s_type}</option>
+                ))}
               </select>
               {errors.staffType && <span className="text-red-600 text-sm">{errors.staffType}</span>}
             </div>
+
             <div className="flex flex-col p-2 mt-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Branch:</label>
               <select
@@ -272,7 +260,7 @@ console.log(joiningAPI);
               <label className="text-base mx-1">Create Password:</label>
               <div className="relative">
                 <input
-                  className="bg-gray-50 border p-1.5 text-base border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full  "
+                  className="bg-gray-50 border p-1.5 text-base border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full"
                   type={showPassword ? 'text' : 'password'}
                   value={emppassword}
                   autoComplete="false"
@@ -284,26 +272,26 @@ console.log(joiningAPI);
                   type="button"
                   onClick={handleTogglePassword}
                   aria-autocomplete="none"
-                  className="absolute inset-y-0 right-1 bottom-0  px-3 flex items-center focus:outline-none"
+                  className="absolute inset-y-0 p-1.5 right-1 bottom-0 px-3 flex items-center focus:outline-none"
                 >
                   {showPassword ? (
-                    <IoEyeOutline size={25} />
+                    <img src="/view.png" height={5} width={25} alt="show"/>
                   ) : (
-                    <IoEyeOffOutline size={25} />
+                    <img src="/eye.png" height={5} width={25} alt="close"/>
                   )}
-                </button></div>
+                </button>
+              </div>
               {errors.emppassword && <span className="text-red-600 text-sm ">{errors.emppassword}</span>}
             </div>
-            <div className="flex flex-col mt-0 p-2 text-start w-full lg:w-1/5"></div>
-            <div className="flex flex-col mt-0 p-2 text-start w-full lg:w-1/5"></div>
             <div className="flex flex-col mt-2 p-2 text-start w-full lg:w-1/5"></div>
             <div className="flex flex-col mt-2 p-2 text-start w-full lg:w-1/5"></div>
-
-            <div className="w-full p-2 mt-10">
+            <div className="flex flex-col mt-2 p-2 text-start w-full lg:w-1/5"></div>
+            <div className="w-full p-2 my-10">
               <button
-                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300  shadow-lg shadow-green-400/50 hover:text-black hover:text-base font-medium rounded text-sm px-4 py-2 text-center"
                 onClick={handleSubmit}
-                type="button">
+                type="button"
+              >
                 {formSubmitted ? "Submitted" : "Submit"}
               </button>
             </div>
@@ -311,6 +299,7 @@ console.log(joiningAPI);
         </div>
       </div>
     </section>
-  )
+  );
 }
+
 export default AddEmployee;

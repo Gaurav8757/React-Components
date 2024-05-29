@@ -51,14 +51,14 @@ function AddSalary() {
   };
 
   return (
-    <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-      <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
-      <h1 className="font-semibold text-3xl my-4 text-black ">Add Salary</h1>
+    <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
+      <div className="container-fluid  justify-center px-2  border-gray-200 border-dashed rounded-lg  bg-white">
+      <h1 className="font-semibold text-3xl py-2 text-orange-700 ">Add Salary</h1>
         <div className="relative w-full lg:w-full  p-0 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
-          
+
           <div className="flex flex-wrap justify-between p-4">
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">  Employee:</label>
+              <label className="text-base mx-1">Employee:</label>
               {/* // Render the dropdown in your form */}
               <select
                 className="input-style rounded-lg text-base p-1"
@@ -110,10 +110,11 @@ function AddSalary() {
               />
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
             {/* button */}
-            <div className="w-full p-2 mt-10">
+            <div className="w-full p-2 mt-7">
               <button
-                className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-2"
+                className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-base px-3 py-2 text-center"
                 onClick={handleSubmit}
                 type="button">
                 {loading ? "Submitting..." : "Submit"}
