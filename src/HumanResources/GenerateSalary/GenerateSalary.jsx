@@ -1,205 +1,304 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { format, getDaysInMonth } from 'date-fns';
-import VITE_DATA from "../../config/config";
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDaysInMonth } from 'date-fns';
+import VITE_DATA from "../../config/config.jsx";
 function GenerateSalary() {
   const [empList, setEmployeeList] = useState([]);
+  const [year, setYear] = useState("");
   const [empName, setEmpname] = useState("");
+  const [total, setTotal] = useState(0);
   const [empId, setEmpId] = useState("");
-  const [designation, setDesignation]  = useState("");
-  const [branchName, setBranchName]  = useState("") ;
-  const [accNo, setAccNo] = useState();
+  const [designation, setDesignation] = useState("");
+  const [branchName, setBranchName] = useState("");
+  const [accNo, setAccNo] = useState("");
   const [months, setMonths] = useState("");
-  const [persentday, setPersentday] = useState("");
-  const [halfday, setHalfday] = useState("");
+  const [presentDay, setPresentDay] = useState(0);
+  const [halfDay, setHalfDay] = useState(0);
   const [salaries, setSalaries] = useState("");
-  const [monthsalary, setMonthsalary] = useState("");
-  const [monthleave, setMonthleave] = useState("");
-  const [totaldays, setTotaldays] = useState();
-  const [incentive, setIncentive] = useState("");
+  const [monthSalary, setMonthSalary] = useState(0);
+  const [monthLeave, setMonthLeave] = useState(0);
+  const [totalDays, setTotalDays] = useState("");
+  const [incentive, setIncentive] = useState();
   const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  const [empgrossSalary, setGrossEmpSalary] = useState("");
-  const [empbasicSalary, setBasicEmpSalary] = useState("");
-  const [emphra, setEmpHra] = useState("");
-  const [empca, setEmpCa] = useState("");
-  const [empmedical, setEmpMedical] = useState("");
-  const [emptiffin, setEmpTiffin] = useState("");
-  const [empcompanyPf, setEmpCompanyPf] = useState("");
-  const [emppf, setEmpPf] = useState("");
-  const [empesi, setEmpESI] = useState("");
-  const [emploanemi, setEmpLoanemi] = useState("");
- 
+  const [empGrossSalary, setGrossEmpSalary] = useState("");
+  const [empBasicSalary, setBasicEmpSalary] = useState("");
+  const [empHra, setEmpHra] = useState("");
+  const [empCa, setEmpCa] = useState("");
+  const [empMedical, setEmpMedical] = useState("");
+  const [empTiffin, setEmpTiffin] = useState("");
+  const [empCompanyPf, setEmpCompanyPf] = useState("");
+  const [empPf, setEmpPf] = useState("");
+  const [empEsi, setEmpESI] = useState();
+  const [empLoanemi, setEmpLoanemi] = useState();
+  const [totalAbsentDays, setTotalAbsentDays] = useState(0);
+  const [sundays, setSundays] = useState(0);
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [holidayCount, setHolidayCount] = useState("");
+  const [holidayData, setHolidayData] = useState([]);
 
   useEffect(() => {
     // Fetch the list of employees when the component mounts
     axios.get(`${VITE_DATA}/api/employee-list`).then((response) => {
       setEmployeeList(response.data);
     });
+    // Fetch the list of holidays
+    axios.get(`${VITE_DATA}/holidays/alllists`).then((response) => {
+      setHolidayData(response.data);
+    });
   }, []);
 
+  // Function to format a Date object to dd/mm/yyyy
+  function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  const handleYearChange = (e) => {
+    const selectedYear = parseInt(e.target.value);
+    setYear(selectedYear);
+  };
+
+  const handleMonthChange = (e) => {
+    const selectedMonth = parseInt(e.target.value);
+    setMonths(selectedMonth);
+  };
+
+
+  useEffect(() => {
+    // Calculate total days in the selected month
+    setTotalDays(getDaysInMonth(new Date(year, months - 1)));
+    // Update employee details for the selected month and year
+    if (empName) {
+      const selectedEmp = empList.find((emp) => emp.empname === empName);
+      filterEmployeeDetailsByMonthAndYear(selectedEmp, year, months);
+    }
+  }, [year, months, empName, empList]);
 
   const handleEmployeeChange = (selectedEmployee) => {
     const selectedEmp = empList.find((emp) => emp.empname === selectedEmployee);
-    // console.log(selectedEmp);
     setEmpname(selectedEmployee);
     setEmpId(selectedEmp.empid);
-    setDesignation(selectedEmp.empdesignation);
+    setDesignation(selectedEmp.staffType);
     setBranchName(selectedEmp.empbranch);
     setAccNo(selectedEmp.accNumber);
-    setMonthleave(selectedEmp ? selectedEmp.leavemonth : "");
-    setMonthsalary(selectedEmp ? selectedEmp.salary : "");
+    setEmail(selectedEmp.empemail);
+    setMobile(selectedEmp.empmobile);
+    setMonthLeave(selectedEmp ? selectedEmp.leavemonth : "");
+    setMonthSalary(selectedEmp ? selectedEmp.salary : "");
+    filterEmployeeDetailsByMonthAndYear(selectedEmp, year, months);
+
   };
 
-  // current year of months of total days
-  const handleMonthChange = (selectedMonth) => {
-    // Calculate total days in the selected month
-    const year = new Date().getFullYear(); // Get current year
-    const daysInMonth = getDaysInMonth(new Date(year, selectedMonth)); // Calculate total days
-    setTotaldays(daysInMonth); // Update total days state
+  const filterEmployeeDetailsByMonthAndYear = (employee, selectedYear, selectedMonth) => {
+    if (!employee) return;
+
+    const startDate = startOfMonth(new Date(selectedYear, selectedMonth - 1));
+    const endDate = endOfMonth(new Date(selectedYear, selectedMonth - 1));
+    const daysOfMonth = eachDayOfInterval({ start: startDate, end: endDate });
+    const formattedDays = daysOfMonth.map((day) => day.getDay());
+
+    const filteredDetails = employee.employeeDetails.filter((detail) => {
+      // eslint-disable-next-line no-unused-vars
+      const [day, month, year] = detail.date.split("/").map(Number);
+      return year === selectedYear && month === selectedMonth;
+    });
+
+
+    // Calculate total present, absent, and half days
+    let totalPresentDays = 0;
+    let totalAbsentDays = 0;
+    let totalHalfDays = 0;
+    let holiDayCount = 0;
+    let sundayCount = 0
+    let workingDaysCount = 0;
+
+    filteredDetails.forEach((detail) => {
+
+      switch (detail.status) {
+        case 'present':
+          totalPresentDays++;
+          break;
+        case 'absent':
+          totalAbsentDays++;
+          break;
+        case 'halfday':
+          totalHalfDays++;
+          break;
+        default:
+          break;
+      }
+    });
+
+    //  holiday and working days counts
+
+    daysOfMonth.map((date, dateIndex) => {
+      // Convert date to dd/mm/yyyy format
+      const formattedDate = formatDate(date);
+      const holiday = holidayData.find(holiday => holiday.hdate === formattedDate);
+      const isHoliday = !!holiday;
+      if (isHoliday) {
+        holiDayCount++;
+      }
+      if (formattedDays[dateIndex] !== 0) {
+        workingDaysCount++;
+      }else if(formattedDays[dateIndex] === 0){
+        sundayCount++;
+      }
+    });
+    const workday = workingDaysCount - holiDayCount;
+    setPresentDay(totalPresentDays);
+    setTotal(formattedDays.length);
+    setTotalDays(workday);
+    setTotalAbsentDays(totalAbsentDays);
+    setHalfDay(totalHalfDays);
+    setSundays(sundayCount);
+    setHolidayCount(holiDayCount);
+  };
+
+  const renderYears = () => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let y = currentYear; y >= 2000; y--) {
+      years.push(<option key={y} value={y}>{y}</option>);
+    }
+    return years;
   };
 
   const renderMonths = () => {
-    const currentYear = new Date().getFullYear(); // Get the current year
     const months = [];
-    for (let m = 0; m < 12; m++) {
-      const monthValue = `${String(m + 1).padStart(2, '0')}/${currentYear}`; // Month value format: MM/YYYY
-      const date = new Date(currentYear, m, 1);
+    for (let m = 1; m <= 12; m++) {
+      const date = new Date(year, m - 1, 1);
       const monthName = format(date, 'MMMM');
-      months.push(<option key={monthValue} value={monthValue}>{monthName}</option>);
+      months.push(<option key={m} value={m}>{monthName}</option>);
     }
     return months;
   };
 
+  // HANDLE Gross-Salary
+  useEffect(() => {
+    const handleGrossSalary = () => {
+      setGrossEmpSalary(monthSalary);
+    };
+    handleGrossSalary();
+  }, [monthSalary, presentDay]);
+
+  // salary handle
+  useEffect(() => {
+    const handleSalary = () => {
+      let salary = (monthSalary / 30.5) * presentDay;
+      salary = parseFloat(salary.toFixed(2));
+      setSalaries(salary);
+    };
+    handleSalary();
+  }, [monthSalary, presentDay]);
+
+  // incentive
+  useEffect(() => {
+    const handleIncentive = () => {
+      const salariesValue = parseFloat(salaries) || 0;
+      const incentiveValue = parseFloat(incentive) || 0;
+      const incent = parseFloat(salariesValue + incentiveValue);
+      setAmount(incent);
+    };
+    handleIncentive(); // Call the function when the component mounts or when 'absent' state changes
+  }, [salaries, incentive]);
+
   // handle basic salary
   useEffect(() => {
     const handleBasic = () => {
-      const basic = parseFloat(empgrossSalary) || 0;
+      const basic = parseFloat(empGrossSalary) || 0;
       const final_basic = basic / 2;
-      // console.log(final_basic);
       setBasicEmpSalary(final_basic);
     }
     handleBasic();
-  }, [empgrossSalary]);
-
+  }, [empGrossSalary]);
 
   // HANDLE HRA
   useEffect(() => {
     const handleHra = () => {
-      const calculateHra = parseFloat(empgrossSalary) || 0;
+      const calculateHra = parseFloat(empGrossSalary) || 0;
       const finalHra = (calculateHra * 30) / 100;
-      // console.log(finalHra);
       setEmpHra(finalHra);
     }
     handleHra();
-  }, [empgrossSalary]);
+  }, [empGrossSalary]);
 
   // HANDLE CA
   useEffect(() => {
     const handleCa = () => {
-      const calculateCa = parseFloat(empgrossSalary) || 0;
+      const calculateCa = parseFloat(empGrossSalary) || 0;
       const finalCa = (calculateCa * 10) / 100;
       setEmpCa(finalCa);
     }
     handleCa();
-  }, [empgrossSalary]);
+  }, [empGrossSalary]);
 
   // Handle MEDICAL
   useEffect(() => {
     const handleMedical = () => {
-      const calculateMedical = parseFloat(empgrossSalary) || 0;
+      const calculateMedical = parseFloat(empGrossSalary) || 0;
       const finalMedical = (calculateMedical * 5) / 100;
       setEmpMedical(finalMedical);
     }
     handleMedical();
-  }, [empgrossSalary]);
+  }, [empGrossSalary]);
 
   // HANDLE TIFFIN
   useEffect(() => {
     const handleTiffin = () => {
-      const calculateTiffin = parseFloat(empgrossSalary) || 0;
+      const calculateTiffin = parseFloat(empGrossSalary) || 0;
       const finalTiffin = (calculateTiffin * 5) / 100;
       setEmpTiffin(finalTiffin);
     }
     handleTiffin();
-  }, [empgrossSalary]);
+  }, [empGrossSalary]);
 
   // HANDLE COMPANY
   useEffect(() => {
     const handleCompanyPf = () => {
-      const calculatePf = parseFloat(empbasicSalary) || 0;
-      const finalPf = (calculatePf * 125) / 1000;
+      const calculatePf = parseFloat(empGrossSalary) || 0;
+      const finalPf = (calculatePf * 12) / 100;
       setEmpCompanyPf(finalPf);
     }
     handleCompanyPf();
-  }, [empbasicSalary]);
+  }, [empGrossSalary]);
 
+  // Handle PF
   useEffect(() => {
-    const handleEmpPf = () => {
-      setEmpPf(empcompanyPf);
+    const handlePf = () => {
+      const calculatePf = parseFloat(empGrossSalary) || 0;
+      const finalPf = (calculatePf * 12) / 100;
+      setEmpPf(finalPf);
     }
-    handleEmpPf();
-  }, [empcompanyPf])
+    handlePf();
+  }, [empGrossSalary]);
 
+  // Handle ESI
+  // useEffect(() => {
+  //   const handleESI = () => {
+  //     const calculateESI = parseFloat(empGrossSalary) || 0;
+  //     const finalESI = (calculateESI * 0.75) / 100;
+  //     setEmpESI(finalESI);
+  //   }
+  //   handleESI();
+  // }, [empGrossSalary]);
 
-  // sorting lists
-  const sortedAPIData = empList.slice().sort((a, b) => {
-    const empidA = parseInt(a.empid.split('-')[1]);
-    const empidB = parseInt(b.empid.split('-')[1]);
-    return empidA - empidB;
-  });
-  // sortedAPIData.map((emp)=>emp.employeeDetails.find(emp => console.log(emp.date )))
-  let totalAbsentDays = 0;
-  const selectedEmployee = empList.find((emp) => emp.empname === empName);
-  if (selectedEmployee) {
-    selectedEmployee.employeeDetails.forEach((detail) => {
-      if (detail.status === 'absent') {
-        totalAbsentDays++;
-      }
-    });
-  }
+  // Handle Employee Loan EMI
+  // useEffect(() => {
+  //   const handleLoanEmi = () => {
+  //     const loanEmi = parseFloat(empGrossSalary) || 0;
+  //     const finalLoanEmi = (loanEmi * 2) / 100;
+  //     setEmpLoanemi(finalLoanEmi);
+  //   }
+  //   handleLoanEmi();
+  // }, [empGrossSalary]);
 
-  //  total present days
-  useEffect(() => {
-    const handlePresent = () => {
-      const presentDays = totaldays - parseInt(totalAbsentDays, 10); // Subtract total absent days from total days
-      setPersentday(presentDays);
-    };
-    handlePresent(); // Call the function when the component mounts or when 'absent' state changes
-  }, [totaldays, totalAbsentDays]); // Run the effect whenever 'totaldays' or 'absent' state changes
-
-  // absent/present
-  useEffect(() => {
-    const handleSalaries = () => {
-      const salaries = totaldays - parseInt(totalAbsentDays, 10); // Subtract total absent days from total days
-      setPersentday(salaries);
-    };
-    handleSalaries(); // Call the function when the component mounts or when 'absent' state changes
-  }, [totaldays, totalAbsentDays]); // Run the effect whenever 'totaldays' or 'absent' state changes
-
-  // salary handle
-  useEffect(() => {
-    // salary 
-    const handleSalary = () => {
-      let salary = (monthsalary / 30.5) * persentday;
-      salary = parseFloat(salary.toFixed(2)); // Round the salary to two decimal places
-      setSalaries(salary);
-    };
-    handleSalary(); // Call the function when the component mounts or when 'absent' state changes
-  }, [monthsalary, persentday]);
-
-
-  // HANDLE Gross-Salary
-  useEffect(() => {
-    // salary 
-    const handleGrossSalary = () => {
-      // Round the salary to two decimal places
-      setGrossEmpSalary(monthsalary);
-    };
-    handleGrossSalary(); // Call the function when the component mounts or when 'absent' state changes
-  }, [monthsalary, persentday]);
-
+  let genSalary = months + "/" + year;
   // post data
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -207,26 +306,31 @@ function GenerateSalary() {
     try {
       // Proceed with the rest of the submission logic
       const response = await axios.post(`${VITE_DATA}/dashboard/gensalary`, {
-        empName: empName.toString(),
-        presentDays: persentday, // Send the total present days to the backend
-        totalHalfDays: halfday,
+        empName,
+        presentDays: presentDay,
+        totalHalfDays: halfDay,
+        sundays,
+        email,
+        mobile,
+        holidayCount,
         totalAbsent: totalAbsentDays,
         genSalary: salaries,
-        monthsalary: monthsalary,
-        genMonths: months,
-        monthleave: monthleave,
-        totalDays: totaldays,
-        incentive: incentive,
-        empgrossSalary: empgrossSalary,
-        empbasicSalary: empbasicSalary,
-        emphra: emphra,
-        empca: empca,
-        empmedical: empmedical,
-        emptiffin: emptiffin,
-        empcompanyPf: empcompanyPf,
-        emppf: emppf,
-        empesi: empesi,
-        emploanemi: emploanemi,
+        monthsalary: monthSalary,
+        genMonths: genSalary,
+        monthleave: monthLeave,
+        totalMonthDays: total,
+        totalDays: totalDays,
+        incentive,
+        empgrossSalary: empGrossSalary,
+        empbasicSalary: empBasicSalary,
+        emphra: empHra,
+        empca: empCa,
+        empmedical: empMedical,
+        emptiffin: empTiffin,
+        empcompanyPf: empCompanyPf,
+        emppf: empPf,
+        empesi: empEsi,
+        emploanemi: empLoanemi,
         totalAmount: amount,
         empid: empId,
         empdesignation: designation,
@@ -237,18 +341,22 @@ function GenerateSalary() {
       if (response.data) {
         toast.success("Added Successfully!");
         // Reset the form and loading state on successful submission
+        setTotal("");
+        setTotalDays("");
         setEmpname("");
         setMonths("");
-        setPersentday("");
-        setHalfday("");
+        setYear("");
+        setPresentDay("");
+        setTotalAbsentDays("");
+        setHalfDay("");
         setAccNo("");
         setBranchName("");
         setEmpId("");
         setDesignation("");
         setSalaries("");
-        setMonthsalary("");
-        setMonthleave("");
-        setTotaldays("");
+        setMonthSalary("");
+        setMonthLeave("");
+        setTotalDays("");
         setIncentive("");
         setAmount("");
         setGrossEmpSalary("");
@@ -266,41 +374,31 @@ function GenerateSalary() {
         toast.error("Error Occurred. Try again...!");
       }
     } catch (error) {
-      console.error("Error during salary generation:", error.response);
-      toast.error("Error Occurred. Try again...!");
+      console.error(error.response.data.status);
+      toast.info(error.response.data.status);
       setLoading(false);
     }
   };
-  // incentive
-  useEffect(() => {
-    const handleIncentive = () => {
-      const salariesValue = parseFloat(salaries) || 0;
-      const incentiveValue = parseFloat(incentive) || 0;
-      const incent = salariesValue + incentiveValue;
-      setAmount(incent);
-    };
-    handleIncentive(); // Call the function when the component mounts or when 'absent' state changes
-  }, [salaries, incentive]);
 
   return (
     <section className="container-fluid h-screen relative p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex w-full lg:w-full px-2   flex-col justify-center  border-gray-200 border-dashed rounded-lg bg-white">
-      <h1 className="font-semibold text-3xl text-orange-700 py-2 ">Generate Employee Salary</h1>
+        <h1 className="font-semibold text-3xl text-orange-700 py-2 ">Generate Employee Salary</h1>
         <div className="relative  p-0  rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
-         
+
           <div className="flex flex-wrap justify-between">
             <div className="flex flex-col   p-2 text-start w-full lg:w-1/5 ">
               <label className="text-base mx-1">Employee Name</label>
               <select
-                className="input-style rounded-lg text-base p-1"
+                className="input-style text-base rounded-lg text-red-900 p-1"
                 value={empName}
                 onChange={(e) => handleEmployeeChange(e.target.value)}
                 name="empName">
-                <option value=""  className="text-base">
+                <option value="" className="text-base">
                   -------- Select Employee ----------
                 </option>
-                {sortedAPIData.map((emp) => (
-                  <option key={emp._id} value={emp.empname} className="text-base">
+                {empList.map((emp) => (
+                  <option key={emp.empid} value={emp.empname} className="text-base">
                     {`${emp.empid}  -  ${emp.empname}`}
                   </option>
                 ))}
@@ -313,9 +411,9 @@ function GenerateSalary() {
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
-                value={monthsalary}
-                name="monthsalary"
-                placeholder=""
+                value={monthSalary}
+                name="monthSalary"
+                placeholder="₹ 0"
                 disabled
               />
             </div>
@@ -327,38 +425,60 @@ function GenerateSalary() {
                 type="number"
                 min="0"
                 max="12"
-                value={monthleave}
-                onChange={(e) => setMonthleave(e.target.value)}
-                name="monthleave"
-                placeholder={monthleave}
+                value={monthLeave}
+                onChange={(e) => setMonthLeave(e.target.value)}
+                name="monthLeave"
+                placeholder="0"
                 disabled
               />
             </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+              <label htmlFor="year" className="text-base mx-1">Year:</label>
+              <select id="year" value={year} onChange={handleYearChange} className="input-style p-1 text-base rounded-lg text-red-900" disabled={!empName}>
+                <option value="" >------------- Select Year ----------</option>
+                {renderYears()}
+              </select>
+            </div>
 
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">Months:</label>
+              <label htmlFor="month" className="text-base mx-1">Months:</label>
+
               <select
-                className="input-style p-1 rounded-lg"
+                className="input-style p-1 text-base rounded-lg text-red-900"
                 type="text"
+                id="month"
                 value={months}
-                onChange={(e) => {
-                  setMonths(e.target.value);
-                  handleMonthChange(parseInt(e.target.value)); // Call handleMonthChange on month selection change
-                }}
-                name="genMonths">
+                onChange={handleMonthChange}
+                placeholder="0"
+                name="genMonths"
+                disabled={!year}
+              >
                 <option value="" >------------- Select Month ----------</option>
                 {renderMonths()}
               </select>
             </div>
 
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+            <div className="flex flex-col p-2  mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Total Days:</label>
               <input
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
-                value={totaldays}
+                value={total}
+                name="totalMonthDays"
+                placeholder="0"
+                disabled
+              />
+            </div>
+            <div className="flex flex-col p-2  mt-4 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">Total Working Days:</label>
+              <input
+                className="input-style p-1 bg-red-100 rounded-lg"
+                type="number"
+                min="0"
+                value={totalDays}
                 name="totalDays"
+                placeholder="0"
                 disabled
               />
             </div>
@@ -368,8 +488,9 @@ function GenerateSalary() {
                 className="input-style bg-red-100 p-1 rounded-lg"
                 type="number"
                 min="0"
-                value={persentday}
-                name="presentDays"
+                value={presentDay}
+                placeholder="0"
+                name="presentDay"
               />
             </div>
 
@@ -380,6 +501,7 @@ function GenerateSalary() {
                 type="number"
                 min="0"
                 value={totalAbsentDays}
+                placeholder="0"
                 name="totalAbsent"
               />
             </div>
@@ -390,9 +512,10 @@ function GenerateSalary() {
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="number"
                 min="0"
-                value={halfday}
-                onChange={(e) => setHalfday(e.target.value)}
+                value={halfDay}
+                onChange={(e) => setHalfDay(e.target.value)}
                 name="totalHalfDays"
+                placeholder="0"
                 disabled
               />
             </div>
@@ -405,7 +528,7 @@ function GenerateSalary() {
                 min="0"
                 value={salaries}
                 name="genSalary"
-                placeholder="₹"
+                placeholder="₹ 0"
               />
             </div>
             <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
@@ -417,7 +540,7 @@ function GenerateSalary() {
                 value={incentive}
                 onChange={(e) => setIncentive(e.target.value)}
                 name="incentive"
-                placeholder="₹"
+                placeholder="₹ 0"
               />
             </div>
 
@@ -429,70 +552,78 @@ function GenerateSalary() {
                 min="0"
                 value={amount}
                 name="totalAmount"
-                placeholder="₹"
+                placeholder="₹ 0"
               />
             </div>
-           
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+          </div>
 
+
+
+          <div className="w-full col-span-4 mt-10 mb-4 text-white border-b border border-orange-700 bg-orange-700"></div>
+          <div className="flex flex-wrap justify-between">
             {/* next part starts here */}
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Gross Salary:</label>
               <input
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
-                name="empgrossSalary"
-                value={empgrossSalary}
-                placeholder="Gross Salary"
+                name="empGrossSalary"
+                value={empGrossSalary}
+                placeholder="₹ 0"
               />
             </div>
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Basic Salary:</label>
               <input
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
                 name="empbasicSalary"
-                value={empbasicSalary}
+                value={empBasicSalary}
                 onChange={(e) => setBasicEmpSalary(e.target.value)}
                 placeholder="Basic Salary"
                 disabled
               />
             </div>
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
               <label className="text-base mx-1">HRA:</label>
               <input
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
-                name="emphra"
-                value={emphra}
+                name="empHra"
+                value={empHra}
                 onChange={(e) => setEmpHra(e.target.value)}
-                placeholder="HRA"
+                placeholder="₹ 0"
+                // placeholder="HRA"
                 disabled
               />
             </div>
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">CA:</label>
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">DA:</label>
               <input
                 className="input-style p-1  bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
-                name="empca"
-                value={empca}
+                name="empCa"
+                value={empCa}
                 onChange={(e) => setEmpCa(e.target.value)}
                 placeholder="CA"
                 disabled
               />
             </div>
-            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+            <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Medical Allowance:</label>
               <input
                 className="input-style bg-red-100 p-1 rounded-lg"
                 type="text"
                 rows={2}
-                name="empmedical"
-                value={empmedical}
+                name="empMedical"
+                value={empMedical}
                 onChange={(e) => setEmpMedical(e.target.value)}
                 placeholder="Medical Allowance"
                 disabled
@@ -504,8 +635,8 @@ function GenerateSalary() {
                 className="input-style bg-red-100 p-1 rounded-lg"
                 type="text"
                 rows={2}
-                name="emptiffin"
-                value={emptiffin}
+                name="empTiffin"
+                value={empTiffin}
                 onChange={(e) => setEmpTiffin(e.target.value)}
                 placeholder="Tiffin Allowance"
                 disabled
@@ -517,8 +648,8 @@ function GenerateSalary() {
                 className="input-style p-1 bg-red-100 rounded-lg"
                 type="text"
                 rows={2}
-                name="empcompanyPf"
-                value={empcompanyPf}
+                name="empCompanyPf"
+                value={empCompanyPf}
                 onChange={(e) => setEmpCompanyPf(e.target.value)}
                 placeholder="PF"
                 disabled
@@ -535,8 +666,8 @@ function GenerateSalary() {
                 className="input-style bg-red-100  p-1 rounded-lg"
                 type="text"
                 rows={2}
-                name="emppf"
-                value={emppf}
+                name="empPf"
+                value={empPf}
                 onChange={(e) => setEmpPf(e.target.value)}
                 placeholder="PF"
                 disabled
@@ -546,12 +677,13 @@ function GenerateSalary() {
               <label className="text-base mx-1">Load EMI:</label>
               <input
                 className="input-style  p-1 rounded-lg"
-                type="text"
+                type="number"
                 rows={2}
-                name="emploanemi"
-                value={emploanemi}
+                name="empLoanemi"
+                value={empLoanemi}
+                placeholder="₹ 0"
                 onChange={(e) => setEmpLoanemi(e.target.value)}
-                placeholder="EMI"
+
               />
             </div>
 
@@ -559,12 +691,12 @@ function GenerateSalary() {
               <label className="text-base mx-1">ESI:</label>
               <input
                 className="input-style  p-1 rounded-lg"
-                type="text"
+                type="number"
                 rows={2}
-                name="empesi"
-                value={empesi}
+                name="empEsi"
+                value={empEsi}
                 onChange={(e) => setEmpESI(e.target.value)}
-                placeholder="Basic ESI"
+                placeholder="₹ 0"
               />
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
@@ -584,6 +716,7 @@ function GenerateSalary() {
           </div>
         </div>
       </div>
+
     </section>
   );
 }

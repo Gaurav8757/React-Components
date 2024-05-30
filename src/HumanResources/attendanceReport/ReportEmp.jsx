@@ -43,6 +43,7 @@ function ReportEmp() {
     const handleMonthChange = (e) => {
         setMonth(parseInt(e.target.value));
     };
+    
     // DATE OF CALENDAR LIKE 01/01/2000 FORMAT
     useEffect(() => {
         // Generate calendar data for the selected month
