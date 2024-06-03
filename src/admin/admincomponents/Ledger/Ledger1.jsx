@@ -179,7 +179,6 @@ function Ledger1() {
         if (entryDate >= startDate && entryDate <= endDate ) {
           debitAmount = parseFloat(item.finalEntryFields - (item.advisorPayoutAmount || 0)).toFixed(0);
         }
-
         // Get paymentDate, paymentType, paymentRefNo, and creditAmount from item
         const paymentDate = item.paymentDate || '';
         const paymentType = item.paymentType || '';
@@ -217,7 +216,6 @@ function Ledger1() {
         toast.success(`${response.data.message}`);
         fetchData();
       }
-
       // Optionally, you can clear filtered data after submission
       setFilteredData([]);
     } catch (error) {

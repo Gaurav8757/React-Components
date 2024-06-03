@@ -187,15 +187,17 @@ function GenerateSalary() {
     handleGrossSalary();
   }, [monthSalary, presentDay]);
 
+ 
   // salary handle
   useEffect(() => {
     const handleSalary = () => {
       let salary = (monthSalary / 30.5) * presentDay;
-      salary = parseFloat(salary.toFixed(2));
-      setSalaries(salary);
+      const halfSalary = (monthSalary / 30.5) * 0.5 * halfDay;
+      salary = parseFloat(salary) + parseFloat(halfSalary);
+      setSalaries(salary.toFixed(2));
     };
     handleSalary();
-  }, [monthSalary, presentDay]);
+  }, [monthSalary, presentDay, halfDay]);
 
   // incentive
   useEffect(() => {

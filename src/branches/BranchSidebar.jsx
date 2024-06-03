@@ -35,24 +35,24 @@ const BranchSidebar = () => {
       // logo: <RiGitBranchFill size={25} />,
       logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
     },
-    {
-      title: "Payout Grid",
-      path: "#",
-      logo: <img src="/grids.png" height={5} width={25} alt="grid"/>,
-      subRoutes: [
-        {
-          title: "Add Payout",
-          path: "/branches/home/payout",
-          dash: ""
-        },
-        {
-          title: "Advisor Payout List",
-          path: "/branches/home/advisor/grids",
-          dash: ""
-        },
+    // {
+    //   title: "Payout Grid",
+    //   path: "#",
+    //   logo: <img src="/grids.png" height={5} width={25} alt="grid"/>,
+    //   subRoutes: [
+    //     {
+    //       title: "Add Payout",
+    //       path: "/branches/home/payout",
+    //       dash: ""
+    //     },
+    //     {
+    //       title: "Advisor Payout List",
+    //       path: "/branches/home/advisor/grids",
+    //       dash: ""
+    //     },
 
-      ]
-    },
+    //   ]
+    // },
     {
       title: "Leger",
       path: "#",

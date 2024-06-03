@@ -1,13 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, startTransition } from "react";
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import VITE_DATA from "../../config/config.jsx";
 import TextLoader from "../../loader/TextLoader.jsx";
-// import UpdateAllBranch from "../branchUpdate/UpdateAllBranch.jsx";
+
 function MasterView() {
   const [allDetailsData, setAllDetailsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,28 +18,23 @@ function MasterView() {
   const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
   const name = sessionStorage.getItem('name');
   useEffect(() => {
-    setItemsPerPage(20);
+    setItemsPerPage(100);
   }, [])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Retrieve branch from sessionStorage
         if (!name) {
           console.error('Branch information not found in sessionStorage');
           return;
         }
         const response = await axios.get(
           `${VITE_DATA}/alldetails/viewdata/branch/hpur`,
-          {
-            params: {
-              branch: name
-            }
-          }
+          { params: { branch: name } }
         );
-        setAllDetailsData(response.data);
-        setIsLoading(false);
-
+        const fetchedData = response.data || [];
+        calculateAndSetAllDetailsData(fetchedData);
+        // setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -47,7 +42,6 @@ function MasterView() {
     fetchData();
   }, [name]);
 
-  // Handle date range filter change
   const handleDateRangeChange = (event, type) => {
     if (type === "start") {
       setStartDate(event.target.value);
@@ -55,103 +49,189 @@ function MasterView() {
       setEndDate(event.target.value);
     }
   };
+
   const filteredData = allDetailsData.filter(data => {
-    // Check if data is defined
     if (!data) return false;
-    // Filter conditions
-    const idLower = data._id?.toLowerCase() || "";
+    const idLower = data.policyrefno?.toLowerCase() || "";
     const insuredNameLower = data.insuredName?.toLowerCase() || "";
     const companyLower = data.company?.toLowerCase() || "";
     const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
     return (
-      // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
-      // Update the state variable for company correctly
       (policyMadeByLower.includes(searchPolicyMadeBy.toLowerCase()) || searchPolicyMadeBy === '') &&
-      // Ensure correct date filtering logic
       (startDate === "" || new Date(data.entryDate) >= new Date(startDate)) &&
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
-});
-  // Calculate total number of pages
+  });
+
   const totalItems = filteredData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Calculate starting and ending indexes of items to be displayed on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+  const onUpdateInsurance = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        toast.error("Not Authorized yet.. Try again!");
+      } else {
+        const response = await axios.get(`${VITE_DATA}/alldetails/viewdata/branch/hpur`, {
+          headers: {
+            Authorization: `${token}`,
+          },
+          params: { branch: name }
+        });
+        const fetchedData = response.data.allList;
+        startTransition(() => {
+          allDetailsData(fetchedData);
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching updated insurance data");
+    }
+  };
+
+  const handleInputChange = (itemId, value) => {
+    setAllDetailsData(prevData =>
+      prevData.map(item =>
+        item._id === itemId ? { ...item, cvpercentage: value } : item
+      )
+    );
+      updateInsuranceAPI(itemId, value); 
+  };
+
+  
+
+  const updateInsuranceAPI = async (itemId, cvpercentage) => {
+    try {
+      if (!cvpercentage) return;
+     const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${itemId}`, { cvpercentage });
+     
+    await onUpdateInsurance();
+    toast.success(`${resp.data.status}`, {
+      position: "top-center",
+      autoClose: 100,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    } catch (error) {
+      console.error("Error updating insurance details:", error);
+    }finally{
+      await onUpdateInsurance();
+    }
+   
+  };
+
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
+    return finalEntryFields * (percentage / 100);
+  };
+
+  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
+    return finalEntryFields - advisorPayout;
+  };
+
+  const calculateAndSetAllDetailsData = (data) => {
+    const updatedData = data.map(item => {
+      const percentage = item.cvpercentage || 0;
+      const netPremium = parseFloat(item.netPremium);
+      const odPremium = parseFloat(item.odPremium);
+      const finalEntryFields = parseFloat(item.finalEntryFields);
+      let advisorPayout, advisorPayable;
+
+      if (
+        item.policyType === 'COMP' &&
+        item.productCode === 'PVT-CAR' &&
+        item.payoutOn === 'OD'
+      ) {
+        advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+      } else {
+        advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+      }
+
+      return {
+        ...item,
+        advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+        advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+      };
+    });
+
+    setAllDetailsData(updatedData);
+  };
+
 
   const exportToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${name}_BRANCH`;
-  
+
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
-        return [    
-        
-            row.policyrefno, // "Reference ID"
-            row.entryDate, // "Entry Date"
-            row.branch, // "Branch"
-            row.insuredName, // "Insured Name"
-            row.contactNo, // "Contact No"
-            row.staffName, // "Policy Made By"
-            row.states, // "State"
-            row.district, // "District"
-            row.vehRegNo, // "Vehicle Reg No"
-            row.segment, // "Segment"
-            row.sourcing, // "Sourcing"
-            row.company, // "Company"
-            row.category, // "Category"
-            row.policyType, // "Policy Type"
-            row.productCode, // "Product Code"
-            row.policyNo, // "Policy No"
-            row.engNo, // "Engine No"
-            row.chsNo, // "Chassis No"
-            row.odPremium, // "OD Premium"
-            row.liabilityPremium, // "Liability Premium"
-            row.netPremium, // "Net Premium"
-            row.rsa, // "RSA"
-            row.taxes, // "GST(in Amount)"
-            row.finalEntryFields, // "Final Amount"
-            row.odDiscount, // "OD Discount(%)"
-            row.ncb, // "NCB"
-           
-            row.policyPaymentMode, // "Policy Payment Mode"
-            row.policyStartDate, // "Policy Start Date"
-            row.policyEndDate, // "Policy End Date"
-            row.odExpiry, // "OD Expiry"
-            row.tpExpiry, // "TP Expiry"
-            row.idv, // "IDV"
-            row.bodyType, // "Body Type"
-            row.makeModel, // "Make & Model"
-            row.mfgYear, // "MFG Year"
-            row.registrationDate, // "Registration Date"
-            row.vehicleAge, // "Vehicle Age"
-            row.fuel, // "Fuel Type"
-            row.gvw, // "GVW"
-            row.cc, // "C.C"
-            row.advisorName, // "Advisor Name"
-            row.subAdvisor, // "Sub Advisor"
-            row.payoutOn, // "Payout On"
-            row.cvpercentage, // "Adivsor %"
-            row.advisorPayoutAmount, // "Advisor Payout"
-            row.advisorPayableAmount, // "Advisor Payable Amount"
-            row.branchpayoutper, // "Branch Payout %"
-            row.branchPayout, // "Branch Payout"
-            row.branchPayableAmount // "Branch Payable Amount"
-          
+        return [
+          row.policyrefno, // "Reference ID"
+          row.entryDate, // "Entry Date"
+          row.branch, // "Branch"
+          row.insuredName, // "Insured Name"
+          row.contactNo, // "Contact No"
+          row.staffName, // "Policy Made By"
+          row.states, // "State"
+          row.district, // "District"
+          row.vehRegNo, // "Vehicle Reg No"
+          row.segment, // "Segment"
+          row.sourcing, // "Sourcing"
+          row.company, // "Company"
+          row.category, // "Category"
+          row.policyType, // "Policy Type"
+          row.productCode, // "Product Code"
+          row.policyNo, // "Policy No"
+          row.engNo, // "Engine No"
+          row.chsNo, // "Chassis No"
+          row.odPremium, // "OD Premium"
+          row.liabilityPremium, // "Liability Premium"
+          row.netPremium, // "Net Premium"
+          row.rsa, // "RSA"
+          row.taxes, // "GST(in Amount)"
+          row.finalEntryFields, // "Final Amount"
+          row.odDiscount, // "OD Discount(%)"
+          row.ncb, // "NCB"
+          row.policyPaymentMode, // "Policy Payment Mode"
+          row.policyStartDate, // "Policy Start Date"
+          row.policyEndDate, // "Policy End Date"
+          row.odExpiry, // "OD Expiry"
+          row.tpExpiry, // "TP Expiry"
+          row.idv, // "IDV"
+          row.bodyType, // "Body Type"
+          row.makeModel, // "Make & Model"
+          row.mfgYear, // "MFG Year"
+          row.registrationDate, // "Registration Date"
+          row.vehicleAge, // "Vehicle Age"
+          row.fuel, // "Fuel Type"
+          row.gvw, // "GVW"
+          row.cc, // "C.C"
+          row.advisorName, // "Advisor Name"
+          row.subAdvisor, // "Sub Advisor"
+          row.payoutOn, // "Payout On"
+          row.cvpercentage, // "Adivsor %"
+          row.advisorPayoutAmount, // "Advisor Payout"
+          row.advisorPayableAmount, // "Advisor Payable Amount"
+          row.branchpayoutper, // "Branch Payout %"
+          row.branchPayout, // "Branch Payout"
+          row.branchPayableAmount // "Branch Payable Amount"
         ];
       });
-  
+
       // Get all table headers in the same order
       const tableHeaders = [
         "Reference ID",
@@ -180,7 +260,6 @@ function MasterView() {
         "Final Amount",
         "OD Discount(%)",
         "NCB",
-       
         "Policy Payment Mode",
         "Policy Start Date",
         "Policy End Date",
@@ -225,7 +304,7 @@ function MasterView() {
       toast.error("Error exporting to Excel");
     }
   };
-  
+
   const handleExportClick = () => {
     exportToExcel();
     // exportToPDF();
@@ -277,8 +356,8 @@ function MasterView() {
                 />
               </div>
 
-              <div className="flex text-start mt-2 justify-start  lg:w-1/4">
-                <label className="my-0 text-base font-medium whitespace-nowrap text-gray-900">Policy Madeby:</label>
+              <div className="flex text-start mt-5 justify-start  lg:w-1/4">
+                <label className="my-0 text-base font-medium whitespace-nowrap text-gray-900">Policy Made By:</label>
                 <input
                   type="search"
                   onChange={(e) => setSearchPolicyMadeBy(e.target.value)}
@@ -288,192 +367,193 @@ function MasterView() {
             </div>
 
             <table className="min-w-full text-center text-sm font-light table  bg-white border border-gray-200 divide-y divide-gray-200  ">
-            {isLoading ? ( // Conditional rendering for loading state
-                <TextLoader />
-              ) : (
+            
                 <div className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
-                  {filteredData.length === 0 ? ( // Conditional rendering when there are no policies
-                    <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No Policies Found.</p>
-                  ) : (<>
-              <thead className=" font-medium  bg-slate-300 sticky top-16 border border-black">
-                <tr className="text-blue-700 sticky top-16 border border-black">
-                  {/* <th scope="col" className=" border border-black">Update</th> */}
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Reference ID</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Entry Date</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Branch</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Insured Name</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Contact No</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Made By</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">State</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">District</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Vehicle Reg No</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Segment</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Sourcing</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Company</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Category</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Type</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Product Code</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy No</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Engine No.</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Chassis No</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">OD Premium</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Liability Premium</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Net Premium</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">RSA</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">GST(in Amount)</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Final Amount</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">OD Discount(%)</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">NCB(%)</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Payment Mode</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Start Date</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Policy End Date</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">OD Expiry</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">TP Expiry</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">IDV</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Body Type</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Make & Model</th>
-                  <th scope="col" className="px-1 pt-2 whitespace-nowrap sticky border border-black">MFG Year</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Registration Date</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Vehicle Age</th>
-                  <th scope="col" className="px-1 pt-2 whitespace-nowrap sticky border border-black">Fuel Type</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">GVW</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">C.C.</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Advisor</th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">Sub Advisor</th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Payout On
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payout %
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payout
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Advisor Payable Amount
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Branch Payout %
-                  </th>
-                  <th scope="col" className="px-1  pt-2 sticky border border-black">
-                    Branch Payout
-                  </th>
-                  <th scope="col" className="px-1 pt-2 sticky border border-black">
-                    Branch Payable Amount
-                  </th>
-                </tr>
-              </thead>
+                {filteredData.length === 0  ? ( // Conditional rendering for loading state
+                <TextLoader />
+              ) :  (<>
+                    <thead className=" font-medium  bg-slate-300 sticky top-16 border border-black">
+                      <tr className="text-blue-700 sticky top-16 border border-black">
+                        {/* <th scope="col" className=" border border-black">Update</th> */}
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Reference ID</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Entry Date</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Branch</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Insured Name</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Contact No</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Made By</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">State</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">District</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Vehicle Reg No</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Segment</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Sourcing</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Company</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Category</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Type</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Product Code</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy No</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Engine No.</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Chassis No</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">OD Premium</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Liability Premium</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Net Premium</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">RSA</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">GST(in Amount)</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Final Amount</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">OD Discount(%)</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">NCB(%)</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Payment Mode</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy Start Date</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Policy End Date</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">OD Expiry</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">TP Expiry</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">IDV</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Body Type</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Make & Model</th>
+                        <th scope="col" className="px-1 pt-2 whitespace-nowrap sticky border border-black">MFG Year</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Registration Date</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Vehicle Age</th>
+                        <th scope="col" className="px-1 pt-2 whitespace-nowrap sticky border border-black">Fuel Type</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">GVW</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">C.C.</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Advisor</th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">Sub Advisor</th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Payout On
+                        </th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Advisor Payout %
+                        </th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Advisor Payout
+                        </th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Advisor Payable Amount
+                        </th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Branch Payout %
+                        </th>
+                        <th scope="col" className="px-1  pt-2 sticky border border-black">
+                          Branch Payout
+                        </th>
+                        <th scope="col" className="px-1 pt-2 sticky border border-black">
+                          Branch Payable Amount
+                        </th>
+                      </tr>
+                    </thead>
 
-              <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
-                {filteredData.slice(startIndex, endIndex).map((data) => (
-                  <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyrefno}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.entryDate}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.branch}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.insuredName}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.contactNo}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.staffName}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.vehRegNo}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.segment}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.sourcing}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.company}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.category}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyType}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.productCode}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyNo}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.engNo}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.chsNo}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.liabilityPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.netPremium}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.rsa}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.taxes}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.finalEntryFields}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odDiscount}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.ncb}</td>
-                    <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyStartDate}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyEndDate}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odExpiry}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.tpExpiry}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.idv}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.bodyType}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.makeModel}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.mfgYear}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.registrationDate}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.vehicleAge}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.fuel}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.gvw}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.cc}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.advisorName}</td>
-                    <td className="whitespace-nowrap px-1 py-0 border border-black">{data.subAdvisor}</td> 
-                    <td className="whitespace-nowrap px-1  py-0 border border-black">
-                      {data.payoutOn}
-                    </td>
-                    <td className="whitespace-nowrap px-1  py-0 border border-black">
-                      {data.cvpercentage}
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
-                    <td className="whitespace-nowrap px-1  py-0 border border-black">
-                      {data.branchpayoutper}
-                    </td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
-                    <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td>  
-                  </tr>
-                ))}
-              </tbody>
-              </>)}
-                            </div>)}
+                    <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
+                      {filteredData.slice(startIndex, endIndex).map((data) => (
+                        <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyrefno}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.entryDate}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.branch}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.insuredName}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.contactNo}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.staffName}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.states}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.district}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.vehRegNo}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.segment}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.sourcing}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.company}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.category}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyType}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.productCode}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyNo}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.engNo}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.chsNo}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odPremium}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.liabilityPremium}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.netPremium}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.rsa}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.taxes}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.finalEntryFields}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odDiscount}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.ncb}</td>
+                          <td className="whitespace-nowrap px-1 py-1 border border-black">{data.policyPaymentMode}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyStartDate}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyEndDate}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.odExpiry}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.tpExpiry}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.idv}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.bodyType}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.makeModel}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.mfgYear}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.registrationDate}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.vehicleAge}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.fuel}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.gvw}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.cc}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.advisorName}</td>
+                          <td className="whitespace-nowrap px-1 py-0 border border-black">{data.subAdvisor}</td>
+                          <td className="whitespace-nowrap px-1  py-0 border border-black">
+                            {data.payoutOn}
+                          </td>
+                          <td className="whitespace-nowrap px-0.5  py-0 border border-black">
+                            {/* {data.cvpercentage} */}
+                            <input type="number" className="w-20 h-10" min="0" max="200" onChange={(e) => handleInputChange(data._id, e.target.value)} name="cvpercentage"
+                              value={data.cvpercentage || 0} />
+                          </td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                          <td className="whitespace-nowrap px-1  py-0 border border-black">
+                            {data.branchpayoutper}
+                          </td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayout}`}</td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.branchPayableAmount}`}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </>)}
+                </div>
             </table>
           </div>
         </div>
       </div>
       {/* Pagination */}
       <nav aria-label="Page navigation  flex example sticky   ">
-      <ul className="flex space-x-2 mt-2 justify-end">
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
-                        >
-                            Previous
-                        </button>
-                    </li>
-                    {Array.from({ length: totalPages }, (_, i) => {
-                        // Display buttons for currentPage and a few surrounding pages
-                        const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
-                        if (showPage) {
-                            return (
-                                <li key={i}>
-                                    <button
-                                        onClick={() => handlePageChange(i + 1)}
-                                        className={`px-3 py-1 ${i + 1 === currentPage
-                                                ? 'bg-green-700 text-white font-bold'
-                                                : 'text-blue-600 hover:bg-blue-400 hover:text-white'
-                                            } border border-blue-600`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                    <li>
-                        <button
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
-                        >
-                            Next
-                        </button>
-                    </li>
-                </ul>
+        <ul className="flex space-x-2 mt-2 justify-end">
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="px-3 py-1 text-blue-600 border border-blue-600 bg rounded-l hover:bg-blue-400 hover:text-white"
+            >
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, i) => {
+            // Display buttons for currentPage and a few surrounding pages
+            const showPage = i + 1 === 1 || i + 1 === currentPage || i + 1 === totalPages || Math.abs(i + 1 - currentPage) <= 2;
+            if (showPage) {
+              return (
+                <li key={i}>
+                  <button
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`px-3 py-1 ${i + 1 === currentPage
+                      ? 'bg-green-700 text-white font-bold'
+                      : 'text-blue-600 hover:bg-blue-400 hover:text-white'
+                      } border border-blue-600`}
+                  >
+                    {i + 1}
+                  </button>
+                </li>
+              );
+            }
+            return null;
+          })}
+          <li>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 text-blue-600 border border-blue-600 rounded-r hover:bg-blue-400 hover:text-white"
+            >
+              Next
+            </button>
+          </li>
+        </ul>
       </nav>
+      {/* <button type="submit" onClick={handleSubmit}></button> */}
     </section>
   );
 }

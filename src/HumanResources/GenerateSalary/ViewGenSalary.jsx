@@ -276,17 +276,19 @@ export default function ViewGenPolicy() {
                                             Absent
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
-                                            Salary
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
-                                            Incentive
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
                                             Gross Salary
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Basic Salary
                                         </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Salary
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Incentive
+                                        </th>
+                                      
+                                        
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             HRA
                                         </th>
@@ -311,11 +313,15 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Loan EMI
                                         </th>
+                                      
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Total Amount
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             View
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                          Send Salary Email
                                         </th>
                                     </tr>
                                 </thead>
@@ -365,18 +371,20 @@ export default function ViewGenPolicy() {
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.totalAbsent}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.genSalary}
-                                                    </td>
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.incentive}
-                                                    </td>
                                                     <td className="whitespace-nowrappx-1 py-0 border border-black">
                                                         {data.empgrossSalary}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.empbasicSalary}
                                                     </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                        {data.genSalary}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                        {data.incentive}
+                                                    </td>
+                                                    
+                                                   
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.emphra}
                                                     </td>
@@ -401,11 +409,12 @@ export default function ViewGenPolicy() {
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.emploanemi}
                                                     </td>
+                                                 
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.totalAmount}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        <button onClick={() => handleViewClick(data)} type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300  shadow-lg shadow-blue-500/50 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
+                                                        <button onClick={() => handleViewClick(data)} type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300  shadow-lg shadow-blue-500/50 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center">
                                                             View
                                                         </button>
 
@@ -413,6 +422,9 @@ export default function ViewGenPolicy() {
                                                     {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
                                             </td> */}
+                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
+
+                                             </td>
                                                 </tr>
                                             );
                                         } else {
