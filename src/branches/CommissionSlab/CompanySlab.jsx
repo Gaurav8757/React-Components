@@ -50,45 +50,45 @@ function CompanySlab() {
   const token = sessionStorage.getItem("token");
 
 
-  const citiesToShow = [ "Araria",
-  "Arwal",
-  "Aurangabad",
-  "Banka",
-  "Begusarai",
-  "Bhagalpur",
-  "Bhojpur",
-  "Buxar",
-  "Darbhanga",
-  "Gaya",
-  "Gopalganj",
-  "Jamui",
-  "Jehanabad",
-  "Kaimur District",
-  "Katihar",
-  "Khagaria",
-  "Kishanganj",
-  "Lakhisarai",
-  "Munger",
-  "Madhepura",
-  "Madhubani",
-  "Muzaffarpur",
-  "Nalanda",
-  "Nawada",
-  "Patna",
-  "Purnia",
-  "Pashchim Champaran",
-  "Purba Champaran",
-  "Rohtas",
-  "Saharsa",
-  "Samastipur",
-  "Saran",
-  "Sheikhpura",
-  "Sheohar",
-  "Sitamarhi",
-  "Siwan",
-  "Supaul",
-  "Vaishali",
-  "West Champaran"];
+  const citiesToShow = ["Araria",
+    "Arwal",
+    "Aurangabad",
+    "Banka",
+    "Begusarai",
+    "Bhagalpur",
+    "Bhojpur",
+    "Buxar",
+    "Darbhanga",
+    "Gaya",
+    "Gopalganj",
+    "Jamui",
+    "Jehanabad",
+    "Kaimur District",
+    "Katihar",
+    "Khagaria",
+    "Kishanganj",
+    "Lakhisarai",
+    "Munger",
+    "Madhepura",
+    "Madhubani",
+    "Muzaffarpur",
+    "Nalanda",
+    "Nawada",
+    "Patna",
+    "Purnia",
+    "Pashchim Champaran",
+    "Purba Champaran",
+    "Rohtas",
+    "Saharsa",
+    "Samastipur",
+    "Saran",
+    "Sheikhpura",
+    "Sheohar",
+    "Sitamarhi",
+    "Siwan",
+    "Supaul",
+    "Vaishali",
+    "West Champaran"];
 
   useEffect(() => {
     // Fetch and set states for India when component mounts
@@ -421,36 +421,36 @@ function CompanySlab() {
       });
 
       if (response.status === 200 || response.status === 201) {
-       
+
         toast.success("Payout Added Successfully...!");
-     
-      // Reset form fields after successful submission if needed
-      setCompany('');
-      setCategory('');
-      setSegment('');
-      setSelectedCity('');
-      setSelectedState('');
-      setPoPercentage('');
-      setNcb('');
-      setSitCapacity('');
-      setPolicyType('');
-      setProductCode('');
-      setNewCity('');
-      setVage('');
-      setFuel('');
-      setAdvisorName('');
-      setCc('');
-      setOdDiscount('');
-      setBranchname('');
-      setSit('');
-      setPayoutOn('');
-      setBranchpayoutper('');
-      setCompanypayoutper('');
-    }else {
-      toast.error("Unexpected response status");
-      throw new Error('Unexpected response status');
-      
-    }
+
+        // Reset form fields after successful submission if needed
+        setCompany('');
+        setCategory('');
+        setSegment('');
+        setSelectedCity('');
+        setSelectedState('');
+        setPoPercentage('');
+        setNcb('');
+        setSitCapacity('');
+        setPolicyType('');
+        setProductCode('');
+        setNewCity('');
+        setVage('');
+        setFuel('');
+        setAdvisorName('');
+        setCc('');
+        setOdDiscount('');
+        setBranchname('');
+        setSit('');
+        setPayoutOn('');
+        setBranchpayoutper('');
+        setCompanypayoutper('');
+      } else {
+        toast.error("Unexpected response status");
+        throw new Error('Unexpected response status');
+
+      }
     } catch (error) {
       console.error("Error adding Payout:", error.response);
       toast.error("Failed to add Payout");
@@ -594,26 +594,6 @@ function CompanySlab() {
               }
             </div>
 
-
-            <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1 ">Seating Capacity:</label>
-              <select
-                className="input-style p-1 text-lg rounded-lg"
-                type="text"
-                value={sitcapacity}
-                onChange={(e) => setSitCapacity(e.target.value)}
-                name="sitcapacity"
-                placeholder="Enter Sitting Capacity"
-              >
-                <option value="">--------------- Select Seating --------------</option>
-                {
-                  sit && sit.map((data) => (
-                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
-                  ))
-                }
-                <option value="All">NOT APPLICABLE</option>
-              </select>
-            </div>
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Segment:<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -630,6 +610,9 @@ function CompanySlab() {
                 <option value="LIFE">LIFE</option>
               </select>
             </div>
+
+
+
 
             {/* 4 */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
@@ -671,6 +654,43 @@ function CompanySlab() {
                 ))}
               </select>
             </div>
+            {(segment === "C V" && (productCode === "SCHOOL BUS" || productCode === "TAXI" || productCode === "ROUTE BUS" || productCode === "STAFF BUS")) ? (
+              <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 text-lg rounded-lg"
+                  value={sitcapacity}
+                  onChange={(e) => setSitCapacity(e.target.value)}
+                  name="sitcapacity"
+                  placeholder="Enter Sitting Capacity"
+                >
+                  <option value="">--------------- Select Seating --------------</option>
+                  {sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))}
+                  <option value="All">NOT APPLICABLE</option>
+                </select>
+              </div>
+            ) : (
+              <div className="flex flex-col mt-5 p-1 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Seating Capacity:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style p-1 text-lg rounded-lg"
+                  value={sitcapacity}
+                  onChange={(e) => setSitCapacity(e.target.value)}
+                  name="sitcapacity"
+                  placeholder="Enter Sitting Capacity"
+                  disabled
+                >
+                  <option value="">--------------- Select Seating --------------</option>
+                  {sit && sit.map((data) => (
+                    <option key={data._id} value={data.sitcapacity}>{data.sitcapacity}</option>
+                  ))}
+                  <option value="All">NOT APPLICABLE</option>
+                </select>
+              </div>
+            )}
+
             {/* AGE */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
@@ -680,13 +700,16 @@ function CompanySlab() {
                 value={vage}
                 onChange={handleVageChange}>
                 <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
-                <option value="NA">NA</option>
+                {/* <option value="NA">NA</option> */}
+                <option value="OLD">OLD</option>
                 <option value="NEW">NEW</option>
                 <option value="1-7 YEARS">1-7 Years</option>
 
-                <option value="MORE THAN 7 YEARS">More Than 7 Years</option>
+                <option value="MORE THAN 7 YEARS"> {`${">7 Years"}`}</option>
               </select>
             </div>
+
+
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
               <select
@@ -695,72 +718,151 @@ function CompanySlab() {
                 name="fuel"
                 onChange={(e) => setFuel(e.target.value)}>
                 <option className="w-1" value="" >-------------- Select Fuel Type ----------</option>
-                {
-                  fuelType.map((fuel) => (
-                    <option key={fuel._id} value={fuel.fuels} >{fuel.fuels}</option>
-                  ))
-                }
+                {segment === "PVT-CAR" ? (
+                  fuelType
+                    .filter(fuel => ["DIESEL", "OTHER THAN DIESEL", "ELECTRIC"].includes(fuel.fuels))
+                    .map(fuel => (
+                      <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                    ))
+                ) : (
+                  fuelType
+                    .filter(fuel => ["CNG", "PETROL", "BIO FUEL", "ALL"].includes(fuel.fuels))
+                    .map(fuel => (
+                      <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                    ))
+                )}
               </select>
             </div>
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                type="text"
-                name="ncb"
-                value={ncb}
-                onChange={(e) => setNcb(e.target.value)} >
-                <option className="w-1" value="" >-------------- Select NCB ------------------</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="both">Both</option>
-                {/* {
+
+            {segment === "PVT-CAR" ? (
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)} >
+                  <option className="w-1" value="" >-------------- Select NCB ------------------</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="both">Both</option>
+                  {/* {
                   ncbList.map((data)=>(
                     <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
                   ))
                  } */}
-              </select>
-            </div>
+                </select>
+              </div>) : (
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">NCB%:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  type="text"
+                  name="ncb"
+                  value={ncb}
+                  onChange={(e) => setNcb(e.target.value)}
+                  disabled
+                >
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                type="text"
-                name="odDiscount"
-                value={odDiscount}
-                onChange={(e) => setOdDiscount(e.target.value)}
-                placeholder="Enter OD Discount">
-                <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
-                <option value="">All</option>
-                {
-                  odList.map((data) => (
-                    <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                  <option className="w-1" value="" >-------------- Select NCB ------------------</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="both">Both</option>
+                  {/* {
+                  ncbList.map((data)=>(
+                    <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
                   ))
-                }
-              </select>
-            </div>
+                 } */}
+                </select>
+              </div>
+            )}
 
-            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style p-1 text-lg rounded-lg"
-                type="text"
-                name="cc"
-                value={cc}
-                onChange={(e) => setCc(e.target.value.toUpperCase())}
-                placeholder="Enter CC">
-                <option className="w-1" value="">----------------- Select CC ------------------</option>
-                <option value="All">All</option>
-                {
-                  ccList.map((data) => (
-                    <option key={data._id} value={data.cc}>{data.cc}</option>
-                  ))
-                }
+            {segment === "PVT-CAR" ? (
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  placeholder="Enter OD Discount">
+                  <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
+                  <option value="">All</option>
+                  {
+                    odList.map((data) => (
+                      <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                    ))
+                  }
+                </select>
+              </div>) : (
+              <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">OD Discount%:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  type="text"
+                  name="odDiscount"
+                  value={odDiscount}
+                  onChange={(e) => setOdDiscount(e.target.value)}
+                  disabled
+                  placeholder="Enter OD Discount">
+                  <option className="w-1" value="NA" >------------ Select OD Discount -------------</option>
+                  <option value="">All</option>
+                  {
+                    odList.map((data) => (
+                      <option key={data._id} value={data.odDiscount} > {data.odDiscount}% </option>
+                    ))
+                  }
+                </select>
+              </div>
+            )
+            }
+            {segment === "TW" || segment === "PVT-CAR" ? (
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style p-1 text-lg rounded-lg"
+                  type="text"
+                  name="cc"
+                  value={cc}
+                  onChange={(e) => setCc(e.target.value.toUpperCase())}
+                  placeholder="Enter CC">
+                  <option className="w-1" value="">----------------- Select CC ------------------</option>
+                  <option value="All">All</option>
+                  {
+                    ccList.map((data) => (
+                      <option key={data._id} value={data.cc}>{data.cc}</option>
+                    ))
+                  }
 
-              </select>
-            </div>
+                </select>
+              </div>
+            ) : (
+              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">CC:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style p-1 text-lg rounded-lg"
+                  type="text"
+                  name="cc"
+                  value={cc}
+                  onChange={(e) => setCc(e.target.value.toUpperCase())}
+                  disabled
+                  placeholder="Enter CC">
+                  <option className="w-1" value="">----------------- Select CC ------------------</option>
+                  <option value="All">All</option>
+                  {
+                    ccList.map((data) => (
+                      <option key={data._id} value={data.cc}>{data.cc}</option>
+                    ))
+                  }
+
+                </select>
+              </div>
+            )
+
+            }
             {/* payout on */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>

@@ -75,7 +75,7 @@ function ViewMasterForm() {
           });
         } catch (error) {
           console.error("Payout Grid Catched Error");
-          
+
         }
       }
     };
@@ -98,7 +98,7 @@ function ViewMasterForm() {
             // limit: itemsPerPage, // Uncomment if you need to use itemsPerPage
           },
         });
-        
+
         startTransition(() => {
           setAllDetailsData(response.data.allList);
           setTotalPages(response.data.totalPages);
@@ -162,7 +162,7 @@ function ViewMasterForm() {
     const product = data.productCode?.toLowerCase() || "";
     const payouts = data.payoutOn?.toLowerCase() || "";
     const year = data.vehicleAge?.toLowerCase() || "";
-    const adv = data.advisorName?.toLowerCase( ) || "";
+    const adv = data.advisorName?.toLowerCase() || "";
 
     return (
       // Filter conditions using optional chaining and nullish coalescing
@@ -185,7 +185,7 @@ function ViewMasterForm() {
       (endDate === "" || new Date(data.entryDate) <= new Date(endDate))
     );
   });
-  
+
   // Calculate total number of pages
   const totalItems = filteredData.length;
   // Handle page change
@@ -215,22 +215,21 @@ function ViewMasterForm() {
             matchingCSLab.states === data.states &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
             matchingCSLab.pcodes === data.productCode &&
-            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL' ) &&
+            (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
             (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
             matchingCSLab.segments === data.segment &&
             (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
-            (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
+            // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              (matchingCSLab.vage === 'NA') ||
+              (matchingCSLab.vage === 'OLD' || matchingCSLab.vage === 'old') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
               (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
               (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
-            ) && 
-            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL' ))
-          )
-           {
+            ) &&
+            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL'))
+          ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
             const odPremium = parseFloat(data.odPremium);
@@ -258,58 +257,53 @@ function ViewMasterForm() {
               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
               profitLoss = companyPayout - branchPayout;
             }
-             // Check if data needs an update
-          if (
-            data.advisorPayoutAmount !== advisorPayout ||
-            data.advisorPayableAmount !== advisorPayable ||
-            data.branchPayableAmount !== branchPayable ||
-            data.branchPayout !== branchPayout ||
-            data.companyPayout !== companyPayout ||
-            data.profitLoss !== profitLoss
-          ) {
+            // Check if data needs an update
+            if (
+              data.advisorPayoutAmount !== advisorPayout ||
+              data.advisorPayableAmount !== advisorPayable ||
+              data.branchPayableAmount !== branchPayable ||
+              data.branchPayout !== branchPayout ||
+              data.companyPayout !== companyPayout ||
+              data.profitLoss !== profitLoss
+            ) {
 
-            // Prepare data for API request
-            const postData = {
-              advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-              advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-              branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
-              branchPayout: parseFloat(branchPayout.toFixed(2)),
-              companyPayout: parseFloat(companyPayout.toFixed(2)),
-              profitLoss: parseFloat(profitLoss.toFixed(2)),
-              cvpercentage: matchingCSLab.cvpercentage,
-              branchpayoutper:matchingCSLab.branchpayoutper,
-              companypayoutper:matchingCSLab.companypayoutper,
-            };
-            // console.log(postData);
-
-            try {
-              // Send data to API
-              const response = axios.put(
-                `${VITE_DATA}/alldetails/updatedata/${data._id}`,
-                postData,
-                {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+              // Prepare data for API request
+              const postData = {
+                // advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+                // advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+                branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
+                branchPayout: parseFloat(branchPayout.toFixed(2)),
+                companyPayout: parseFloat(companyPayout.toFixed(2)),
+                profitLoss: parseFloat(profitLoss.toFixed(2)),
+                // cvpercentage: matchingCSLab.cvpercentage,
+                branchpayoutper: matchingCSLab.branchpayoutper,
+                companypayoutper: matchingCSLab.companypayoutper,
+              };
+              try {
+                // Send data to API
+                const response = axios.put(
+                  `${VITE_DATA}/alldetails/updatedata/${data._id}`,
+                  postData,
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  }
+                );
+                // Handle response status
+                if (response.status !== 200) {
+                  console.error(`Error updating data for policy ID ${data._id}`);
                 }
-              );
-              // Handle response status
-              if (response.status !== 200) {
-                console.error(`Error updating data for policy ID ${data._id}`);
+              } catch (error) {
+                console.error(
+                  `Error updating data for policy ID:`
+                );
               }
-            } catch (error) {
-              console.error(
-                `Error updating data for policy ID:`       
-              );
-            }
             }
           }
         });
       });
-    } 
-    // else {
-    //   console.log('No matching CSLabs found or allDetailsData is empty.');
-    // }
+    }
   }, [allDetailsData, payoutSlab]);
 
   useEffect(() => {
@@ -317,9 +311,9 @@ function ViewMasterForm() {
     const page = parseInt(params.get("page")) || 1;
     const limit = parseInt(params.get("limit")) || 1000;
     startTransition(() => {
-    setCurrentPage(page);
-    setItemsPerPage(limit);
-  })
+      setCurrentPage(page);
+      setItemsPerPage(limit);
+    })
   }, []);
 
   const exportToExcel = () => {
@@ -381,7 +375,7 @@ function ViewMasterForm() {
           row.cvpercentage,
           row.advisorPayableAmount,
           row.branchpayoutper,
-          row.branchPayout, 
+          row.branchPayout,
           row.branchPayableAmount,
           row.companypayoutper,
           row.companyPayout,
@@ -496,6 +490,7 @@ function ViewMasterForm() {
           row.makeModel,
           row.gvw,
           row.cc,
+          row.vehicleAge,
           row.ncb,
           row.odDiscount,
           row.sitcapacity,
@@ -509,9 +504,6 @@ function ViewMasterForm() {
           row.branch,
           row.advisorName,
           row.payoutOn,
-          row.cvpercentage,
-          row.advisorPayoutAmount,
-          row.advisorPayableAmount,
           row.branchpayoutper,
           row.branchPayout,
           row.branchPayableAmount,
@@ -531,6 +523,7 @@ function ViewMasterForm() {
         "Make & Model", // corresponds to row.makeModel
         "GVW", // corresponds to row.gvw
         "C.C", // corresponds to row.cc
+        "Vehicle Age",
         "NCB", // corresponds to row.ncb
         "OD Discount(%)", // corresponds to row.odDiscount
         "Seating Capacity", // corresponds to row.sitcapacity
@@ -544,9 +537,6 @@ function ViewMasterForm() {
         "Branch Name", // corresponds to row.branch
         "Advisor Name", // corresponds to row.advisorName
         "Payout On", // corresponds to row.payoutOn
-        "Advisor Percentage%", // corresponds to row.cvpercentage
-        "Advisor Payout", // corresponds to row.advisorPayoutAmount
-        "Advisor Payable Amount", // corresponds to row.advisorPayableAmount
         "Branch Percentage%", // corresponds to row.branchpayoutper
         "Branch Payout", // corresponds to row.branchPayout
         "Branch Payable Amount", // corresponds to row.branchPayableAmount
@@ -554,7 +544,7 @@ function ViewMasterForm() {
         "Company Payout",
         "Profit/Loss",
       ];
-      
+
       // Create worksheet
       const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExports]);
       // Create workbook and export
@@ -597,7 +587,7 @@ function ViewMasterForm() {
   };
   return (
     // loader
-    
+
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0">
@@ -611,15 +601,15 @@ function ViewMasterForm() {
                 className="text-end mx-0 flex justify-end  text-3xl font-semibold"
                 onClick={handleExportClick}
               >
-                <img src="/excel.png" alt="download" height={50} width={40}  />
+                <img src="/excel.png" alt="download" height={50} width={40} />
               </button>
               <button className="text-end   mr-1  justify-end  text-xl font-semibold " onClick={handleMisExportClick}>
-                
-              <Suspense fallback={<div>Loading...</div>}>
-              <img src="/xls.png"  className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis "/>
-              {/* <span className="text-base">MIS</span> */}
-            </Suspense>
-              
+
+                <Suspense fallback={<div>Loading...</div>}>
+                  <img src="/xls.png" className="rounded-xl mx-0 my-0" height={50} width={40} alt="mis " />
+                  {/* <span className="text-base">MIS</span> */}
+                </Suspense>
+
               </button>
               <NavLink
                 to="/dashboard/masterform"
@@ -773,19 +763,19 @@ function ViewMasterForm() {
 
 
           <div className="inline-block min-w-full w-full py-0 relative">
-               <>
-            {filteredData.length === 0 ? (
+            <>
+              {filteredData.length === 0 ? (
                 <TextLoader />
-            ) : (
-                <TableData 
-                    filteredData={filteredData} 
-                    onUpdateInsurance={onUpdateInsurance} 
-                    onDeleteAllData={onDeleteAllData} 
-                    totalItems={totalItems} 
+              ) : (
+                <TableData
+                  filteredData={filteredData}
+                  onUpdateInsurance={onUpdateInsurance}
+                  onDeleteAllData={onDeleteAllData}
+                  totalItems={totalItems}
                 />
-            )}
-        </>
-             {/* </table> */}
+              )}
+            </>
+            {/* </table> */}
           </div>
         </div>
       </div>

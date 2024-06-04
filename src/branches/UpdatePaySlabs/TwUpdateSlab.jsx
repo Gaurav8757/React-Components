@@ -628,7 +628,7 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
                         </select>
                       </div>
                       {/* PERCENTAGE */}
-                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                      {/* <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">Advisor Payout Percentage(%):<span className="text-red-600 font-bold">*</span></label>
                         <input
                           className="input-style p-1 rounded-lg"
@@ -638,7 +638,7 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
                           name="cvpercentage"
                           placeholder="%"
                         />
-                      </div>
+                      </div> */}
                      
 
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
@@ -669,7 +669,7 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
                     {/* button */}
                     <div className="col-span-4 p-2 mt-4 flex justify-center">
                       <button
-                        className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-3 py-2 text-center "
+                        className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded text-sm px-3 py-2 text-center "
                         onClick={updateInsuranceAPI} type="button" > {loading ? "Submitting..." : "Submit"} </button>
                     </div>
                   </div>

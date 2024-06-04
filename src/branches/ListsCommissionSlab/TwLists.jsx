@@ -80,7 +80,7 @@ function TwLists() {
     // Filter conditions
     const idLower = data.pcodes?.toLowerCase() || "";
     const companyLower = data.cnames?.toLowerCase() || "";
-    const adv = data.advisorName?.toLowerCase( ) || "";
+    const adv = data.vfuels?.toLowerCase( ) || "";
     const ptype = data.policytypes?.toLowerCase() || "";
     return (
       (adv.includes(advs.toLowerCase()) || advs === "") &&
@@ -216,13 +216,13 @@ function TwLists() {
 
                <div className=" p-0 text-center mt-3 justify-start w-1/2 lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
-                Advisor Name:
+                Fuel:
               </label>
               <input
                 type="search"
                 onChange={(e) => setAdv(e.target.value)}
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                placeholder="Search by Advisor"
+                placeholder="Search by Fuel"
               />
             </div>
             
@@ -241,9 +241,9 @@ function TwLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Category Name
             </th>
-            <th scope="col" className="px-1 pt-2 sticky border border-black">
+            {/* <th scope="col" className="px-1 pt-2 sticky border border-black">
               Advisor Name
-            </th>
+            </th> */}
             <th scope="col" className="px-1 pt-2 sticky border border-black">
               State
             </th>
@@ -280,9 +280,9 @@ function TwLists() {
             <th scope="col" className="px-1 py-0 border border-black sticky">
               PayoutOn
             </th>
-            <th scope="col" className="px-1 py-0 border border-black sticky">
+            {/* <th scope="col" className="px-1 py-0 border border-black sticky">
               Advisor Percentage%
-            </th>
+            </th> */}
             <th scope="col" className="px-1 py-0 border border-black sticky">
               Branch Percentage%
             </th>
@@ -307,7 +307,7 @@ function TwLists() {
                     </td>
                   <td className="px-1 py-0 whitespace-nowrap border border-black">{data.cnames}</td>
                   <td className="px-1 py-0 border border-black">{data.catnames}</td>
-                  <td className="px-1 py-0 border border-black">{data.advisorName}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.advisorName}</td> */}
                   <td className="px-1 py-0 border border-black">{data.states}</td>
                   <td className="px-1 py-0 border border-black">
                   <div className="max-h-10 overflow-hidden">
@@ -340,7 +340,7 @@ function TwLists() {
                   <td className="px-1 py-0 border border-black">{data.vcc}</td>
                   {/* <td className="px-1 py-0 border border-black">{data.voddiscount}</td> */}
                   <td className="px-1 py-0 border border-black">{data.payoutons}</td>
-                  <td className="px-1 py-0 border border-black">{data.cvpercentage}</td>
+                  {/* <td className="px-1 py-0 border border-black">{data.cvpercentage}</td> */}
                   <td className="px-1 py-0 border border-black">{data.branchpayoutper}</td>
                   <td className="px-1 py-0 border border-black">{data.companypayoutper}</td>
                   <td className="px-1 py-0 border border-black">
