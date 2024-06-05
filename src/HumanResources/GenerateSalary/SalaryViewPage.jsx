@@ -22,7 +22,7 @@ function SalaryViewPage({ data, onClosed }) {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const imgWidth = 210;
-            const pageHeight = 595;
+            const pageHeight = 600;
             const imgHeight = (canvas.height * imgWidth) / canvas.width;
             let heightLeft = imgHeight;
             let position = 0;
@@ -39,8 +39,8 @@ function SalaryViewPage({ data, onClosed }) {
             pdf.save('salary.pdf');
         });
     };
-
-
+   const netSalary =  data.finalAmountSalary - (data.otherDeduction + data.emploanemi + data.empesi + data.emppf);
+   const TotalPayableAmount = netSalary - (data.fuelExpense + data.otherExpense);
 
     return (
         <>
@@ -239,16 +239,16 @@ function SalaryViewPage({ data, onClosed }) {
                                     <div className="bg-red-800 py-2 px-4">
                                         <h3 className="text-lg text-white font-semibold text-center">NET PAYABLE </h3>
                                     </div>
-                                    <div className="p-4  text-center ">
+                                    <div className="p-4  text-start mx-52">
                                         <div className="grid grid-cols-2 gap-1 text-base">
-                                            <div className="font-semibold ">Salary:</div>
-                                            <div className=''>3456</div>
+                                            <div className="font-semibold ">Salary(E-D):</div>
+                                            <div className='ml-60'> {`₹ ${netSalary}`}</div>
                                             <div className="font-semibold">Fuel Expenses:</div>
-                                            <div>3456</div>
+                                            <div className="ml-60">{`₹ ${data.fuelExpense || 0}`}</div>
                                             <div className="font-semibold">Other Expenses:</div>
-                                            <div>4444</div>
+                                            <div className="ml-60">{`₹ ${data.otherExpense || 0}`}</div>
                                             <div className="font-bold">Total Payable Amount:</div>
-                                            <div className="font-bold">4444</div>
+                                            <div className="font-bold text-green-600 ml-60">{`₹ ${TotalPayableAmount || 0}/-`}</div>
                                         </div>
                                     </div>
                                 </div>

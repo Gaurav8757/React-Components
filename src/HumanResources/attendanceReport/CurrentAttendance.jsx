@@ -12,7 +12,7 @@ function CurrentAttendance() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
     const [date, setDate] = useState(new Date().getDate());
-
+    const [attendanceStatus, setAttendanceStatus] = useState("");
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -60,6 +60,10 @@ function CurrentAttendance() {
 
     const handleDateChange = (e) => {
         setDate(parseInt(e.target.value));
+    };
+
+    const handleAttendanceStatusChange = (e) => {
+        setAttendanceStatus(e.target.value);
     };
 
     const renderYears = () => {
@@ -179,7 +183,31 @@ function CurrentAttendance() {
         return calendarRows;
     };
 
+  const handleToggleAttendance = async () => {
+        try {
+            const empid = sessionStorage.getItem('employeeId');
+            if (!attendanceStatus) {
+                toast.error('Please select a valid attendance status.');
+                return;
+            }
+            const currentDateAndTime = new Date(year, month - 1, date);
+            const datePart = format(currentDateAndTime, 'dd/MM/yyyy');
+            const timePart = format(currentDateAndTime, 'HH:mm:ss');
+            const weekdayPart = format(currentDateAndTime, 'EEEE');
 
+            await axios.put(`${VITE_DATA}/employee/mark/attendance/${empid}`, {
+                status: attendanceStatus,
+                date: datePart,
+                time: timePart,
+                weekday: weekdayPart,
+            });
+
+            toast.success('Today Attendance marked Successfully!');
+        } catch (error) {
+            console.error('Error marking attendance:', error.response ? error.response.data.message : error.message);
+            toast.error(`${error.response ? error.response.data.message : error.message}`);
+        }
+    };
 
 
     const exportToExcel = () => {
@@ -270,7 +298,18 @@ function CurrentAttendance() {
                             </div>
                         </div>
                     </div>
-
+                    <div className="flex justify-between items-center my-4 mt-5  text-orange-600">
+                        <div className="mx-3">
+                            <label htmlFor="attendanceStatus" className="font-bold text-lg">Attendance Status:</label>
+                            <select id="attendanceStatus" value={attendanceStatus} onChange={handleAttendanceStatusChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
+                                <option value="">Select Status</option>
+                                <option value="present">Present</option>
+                                <option value="absent">Absent</option>
+                                <option value="halfday">Halfday</option>
+                            </select>
+                        </div>
+                        <button onClick={handleToggleAttendance} className="text-white bg-orange-600 p-2 rounded-lg">Mark Attendance</button>
+                    </div>
                     <div className="relative">
                         <div className="flex min-w-full w-full bg-orange-100">
                             <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border border-black">
@@ -283,6 +322,9 @@ function CurrentAttendance() {
                                             Employee Name
                                         </th>
                                         {renderTableHeaders()}
+                                        <th scope="col" className="bg-slate-100 sticky p-0 whitespace-nowrap border border-orange-700">
+                                       Mark Droppped Attendance
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y px-0 py-0 overflow-hidden">

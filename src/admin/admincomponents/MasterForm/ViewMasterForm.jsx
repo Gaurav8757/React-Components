@@ -25,6 +25,7 @@ function ViewMasterForm() {
   const [policyMade, setPolicyMade] = useState("");
   const [payon, setPayon] = useState("");
   const [payoutSlab, setPayoutSlab] = useState([]);
+  const [ptypess, setPtypes] = useState("");
   const [advs, setAdv] = useState("");
   const name = sessionStorage.getItem("email");
 
@@ -163,10 +164,12 @@ function ViewMasterForm() {
     const payouts = data.payoutOn?.toLowerCase() || "";
     const year = data.vehRegNo?.toLowerCase() || "";
     const adv = data.advisorName?.toLowerCase() || "";
+    const type = data.policyType?.toLowerCase() || "";
 
     return (
       // Filter conditions using optional chaining and nullish coalescing
       (idLower.includes(searchId.toLowerCase()) || searchId === "") &&
+      (type.includes(ptypess.toLowerCase()) || ptypess === "") &&
       (adv.includes(advs.toLowerCase()) || advs === "") &&
       (branchLower.includes(searchBranch.toLowerCase()) ||
         searchBranch === "") &&
@@ -193,8 +196,8 @@ function ViewMasterForm() {
     setCurrentPage(page);
   };
 
-  // const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
-  // const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
+  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
   const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => finalEntryFields - branchPayout;
   const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => finalEntryFields * (branchpayoutper / 100);
   const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => finalEntryFields * (companypayoutper / 100);
@@ -204,7 +207,7 @@ function ViewMasterForm() {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
       payoutSlab.forEach((matchingCSLab) => {
-        // const percentage = matchingCSLab.cvpercentage || 0;
+        const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData.forEach((data) => {
@@ -213,22 +216,31 @@ function ViewMasterForm() {
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states &&
-            (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL') &&
+            (matchingCSLab.vfuels === data.fuel || (matchingCSLab.vfuels === 'ALL' || matchingCSLab.vfuels === 'OTHER THAN DIESEL')) &&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '') &&
+            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '' || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined) &&
             matchingCSLab.segments === data.segment &&
-            (matchingCSLab.voddiscount === data.odDiscount || matchingCSLab.voddiscount === null) &&
+            (
+              matchingCSLab.voddiscount === data.odDiscount ||
+              !matchingCSLab.voddiscount
+            ) &&
+
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              (matchingCSLab.vage === 'OLD' || matchingCSLab.vage === 'old') ||
+              (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') ||
               (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
-              (matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge >= '1 years' && data.vehicleAge <= '7 years') ||
-              (matchingCSLab.vage === '7-10 YEARS' && data.vehicleAge >= '7 years' && data.vehicleAge <= '10 years') ||
-              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge >= '7 years')
-            ) &&
-            (matchingCSLab.vcc === data.cc || (matchingCSLab.vcc === 'All' || matchingCSLab.vcc === 'ALL'))
+              (matchingCSLab.vage === '1-7 YEARS' && parseInt(data.vehicleAge) >= 1 && parseInt(data.vehicleAge) <= 7) ||
+              (matchingCSLab.vage === '7-10 YEARS' && parseInt(data.vehicleAge) >= 7 && parseInt(data.vehicleAge) <= 10) ||
+              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && parseInt(data.vehicleAge) > 7)
+            )
+            &&
+            (
+              matchingCSLab.vcc === data.cc ||
+              matchingCSLab.vcc.toLowerCase() === 'all'
+            )
+
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
@@ -242,35 +254,33 @@ function ViewMasterForm() {
               data.productCode === 'PVT-CAR' &&
               data.payoutOn === 'OD'
             ) {
-              // advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
               profitLoss = companyPayout - branchPayout;
             } else {
               // Default calculation functions
-              // advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
               profitLoss = companyPayout - branchPayout;
             }
             // Check if data needs an update
-            if (
-              data.advisorPayoutAmount !== advisorPayout ||
-              data.advisorPayableAmount !== advisorPayable ||
-              data.branchPayableAmount !== branchPayable ||
-              data.branchPayout !== branchPayout ||
-              data.companyPayout !== companyPayout ||
-              data.profitLoss !== profitLoss
-            ) {
+            // if (
+            //   data.branchPayableAmount !== branchPayable ||
+            //   data.branchPayout !== branchPayout ||
+            //   data.companyPayout !== companyPayout ||
+            //   data.profitLoss !== profitLoss
+            // ) {
 
               // Prepare data for API request
               const postData = {
-                // advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-                // advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+                advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+                advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
                 branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
                 branchPayout: parseFloat(branchPayout.toFixed(2)),
                 companyPayout: parseFloat(companyPayout.toFixed(2)),
@@ -300,7 +310,7 @@ function ViewMasterForm() {
                 );
               }
             }
-          }
+          // }
         });
       });
     }
@@ -725,6 +735,19 @@ function ViewMasterForm() {
                 placeholder="Search by Product Code"
               />
             </div>
+
+            <div className="flex text-center justify-start mt-4  lg:w-1/4">
+              <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
+                Policy Type:
+              </label>
+              <input
+                type="search"
+                onChange={(e) => setPtypes(e.target.value)}
+                className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                placeholder="Policy Type"
+              />
+            </div>
+
             <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
                 PayoutOn:

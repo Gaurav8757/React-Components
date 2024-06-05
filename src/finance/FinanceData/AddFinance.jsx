@@ -1142,7 +1142,7 @@ function AddFinance() {
                   <option value="TW">TW</option>
                   <option value="HEALTH">HEALTH</option>
                   <option value="NON-MOTOR">NON-MOTOR</option>
-                  <option value="LIFE">LIFE</option>
+                  {/* <option value="LIFE">LIFE</option> */}
                 </select>
                 {errors.segment && <span className="text-red-600 text-sm ">{errors.segment}</span>}
               </div>

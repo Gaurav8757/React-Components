@@ -296,12 +296,12 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
   });
 
   // Update branchpayoutper when cvpercentage changes
-  useEffect(() => {
-    setAllDetails((prevData) => ({
-      ...prevData,
-      branchpayoutper: prevData.cvpercentage,
-    }));
-  }, [allDetails.cvpercentage]);
+  // useEffect(() => {
+  //   setAllDetails((prevData) => ({
+  //     ...prevData,
+  //     branchpayoutper: prevData.cvpercentage,
+  //   }));
+  // }, [allDetails.cvpercentage]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -317,10 +317,32 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
     } else {
       setAllDetails((prevData) => ({
         ...prevData,
-        [name]: value.toUpperCase(),
+        [name]: value,
 
       }));
     }
+  };
+
+  const renderOptions = () => {
+    if (["GCCV 12><20", "GCCV 20><45", "GCCV >45"].includes(slab.pcodes)) {
+      return (
+        <>
+          <option value="NEW">NEW</option>
+          <option value="1-7 YEARS">1-7 Years</option>
+          <option value="MORE THAN 7 YEARS">{">7 Years"}</option>
+        </>
+      );
+    }
+else{
+    return (
+      <>
+        <option value="OLD">OLD</option>
+        <option value="NEW">NEW</option>
+        {/* <option value="1-7 YEARS">1-7 Years</option>
+        <option value="MORE THAN 7 YEARS">{">7 Years"}</option> */}
+      </>
+    );
+  }
   };
 
   const updateInsuranceAPI = async () => {
@@ -525,11 +547,7 @@ function TwUpdateSlab({ slab, update, onClose, onClicks }) {
                           value={allDetails.vage}
                           onChange={handleInputChange}>
                           <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
-                          <option value="NA">NA</option>
-                          <option value="NEW">NEW</option>
-                          <option value="1-7 YEARS">1-7 Years</option>
-
-                          <option value="MORE THAN 7 YEARS">More Than 7 Years</option>
+                          {renderOptions()}
                         </select>
                       </div>
 

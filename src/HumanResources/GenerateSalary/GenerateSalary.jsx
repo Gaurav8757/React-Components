@@ -44,6 +44,8 @@ function GenerateSalary() {
   const [holidayData, setHolidayData] = useState([]);
   const [finalAmountSalary, setFinalAmountSalary] = useState();
   const [finalDeduction, setFinalDeduction] = useState();
+  const [otherExpense, setOtherExpense] = useState();
+  const [fuelExpense, setFuelExpense] = useState();
   useEffect(() => {
     // Fetch the list of employees when the component mounts
     axios.get(`${VITE_DATA}/api/employee-list`).then((response) => {
@@ -300,15 +302,15 @@ function GenerateSalary() {
     const kitValue = parseFloat(kit) || 0;
     const adds = parseFloat(additional) || 0;
     const prevSalary =  parseFloat(arrear) || 0;
-    const loanemis = parseFloat(empLoanemi) || 0;
-    const emppf = parseFloat(empPf) || 0;
-    const esi =  parseFloat(empEsi) || 0;
-    const otherDeductionValue =  parseFloat(otherDeduction) || 0;
-    const incent = parseFloat((salariesValue + incentiveValue + hraValue + daValue + ma + tfinValue + kitValue + adds + prevSalary) - (loanemis + emppf + esi + otherDeductionValue )).toFixed(1);
+    // const loanemis = parseFloat(empLoanemi) || 0;
+    // const emppf = parseFloat(empPf) || 0;
+    // const esi =  parseFloat(empEsi) || 0;
+    // const otherDeductionValue =  parseFloat(otherDeduction) || 0;
+    const incent = parseFloat(salariesValue + incentiveValue + hraValue + daValue + ma + tfinValue + kitValue + adds + prevSalary).toFixed(1);
     setFinalAmountSalary(incent);
   };
   handleFinalSalaryAmount(); // Call the function when the component mounts or when 'absent' state changes
-}, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear, empLoanemi,empPf, empEsi, otherDeduction]);
+}, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear]);
 
 useEffect(() => {
   const handleDeductionAmount = () => {
@@ -316,11 +318,13 @@ useEffect(() => {
     const emppf = parseFloat(empPf) || 0;
     const esi =  parseFloat(empEsi) || 0;
     const otherDeductionValue =  parseFloat(otherDeduction) || 0;
-    const deduct = parseFloat((loanemis + emppf + esi + otherDeductionValue )).toFixed(1);
+    const fuelValue = parseFloat(fuelExpense)|| 0;
+    const otherValue = parseFloat(otherExpense)|| 0;
+    const deduct = parseFloat((loanemis + emppf + esi + otherDeductionValue + fuelValue  + otherValue)).toFixed(1);
     setFinalDeduction(deduct);
   }
     handleDeductionAmount();
-  }, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear, empLoanemi,empPf, empEsi, otherDeduction]);
+  }, [empLoanemi,empPf, empEsi, otherDeduction, fuelExpense, otherExpense]);
 
   // HANDLE COMPANY
   // useEffect(() => {
@@ -409,12 +413,16 @@ useEffect(() => {
         arrear,
         finalAmountSalary,
         otherDeduction,
-        finalDeduction
+        finalDeduction,
+        fuelExpense,
+        otherExpense
       });
       if (response.data) {
         toast.success("Added Successfully!");
         // Reset the form and loading state on successful submission
         setTotal("");
+        setFuelExpense("");
+        setOtherExpense('');
         setIncentive("");
         setFinalDeduction("");
         setTotalDays("");
@@ -445,7 +453,8 @@ useEffect(() => {
         setEmpPf("");
         setEmpESI("");
         setEmpLoanemi("");
-        
+        setFinalDeduction("");
+        setOtherDeduction("");
         setLoading(false);
       } else {
         toast.error("Error Occurred. Try again...!");
@@ -467,7 +476,7 @@ useEffect(() => {
             <div className="flex flex-col   p-2 text-start w-full lg:w-1/5 ">
               <label className="text-base mx-1">Employee Name</label>
               <select
-                className="input-style text-base rounded-lg text-red-900 p-1"
+                className="input-style text-base rounded-lg  p-1"
                 value={empName}
                 onChange={(e) => handleEmployeeChange(e.target.value)}
                 name="empName">
@@ -511,7 +520,7 @@ useEffect(() => {
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label htmlFor="year" className="text-base mx-1">Year:</label>
-              <select id="year" value={year} onChange={handleYearChange} className="input-style p-1 text-base rounded-lg text-red-900" disabled={!empName}>
+              <select id="year" value={year} onChange={handleYearChange} className="input-style p-1 text-base rounded-lg text-black" disabled={!empName}>
                 <option value="" >------------- Select Year ----------</option>
                 {renderYears()}
               </select>
@@ -521,7 +530,7 @@ useEffect(() => {
               <label htmlFor="month" className="text-base mx-1">Months:</label>
 
               <select
-                className="input-style p-1 text-base rounded-lg text-red-900"
+                className="input-style p-1 text-base rounded-lg text-black"
                 type="text"
                 id="month"
                 value={months}
@@ -645,16 +654,12 @@ useEffect(() => {
                 placeholder="₹ 0"
               />
             </div>
-
-           
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
-            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
-            
           </div>
 
 
 
-          <div className="w-full col-span-4 mt-10 mb-4 text-white border-b border border-orange-700 bg-orange-700"></div>
+          <div className="w-full col-span-4 mt-5 mb-4 text-white border-b border border-orange-700 bg-orange-700"></div>
           <div className="flex flex-wrap justify-between">
             {/* next part starts here */}
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5">
@@ -733,7 +738,7 @@ useEffect(() => {
                 placeholder="Tiffin Allowance"
                 disabled
               />
-              <span className="text-xs text-red-700">DISABLED</span>
+              <span className="text-xs text-red-100">DISABLED</span>
             </div>
             <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Kit Allowance:</label>
@@ -843,21 +848,50 @@ useEffect(() => {
                 placeholder="₹ 0"
               />
             </div>
+        
+           
+            <div className="w-full col-span-4 my-4 text-white border-b border border-orange-500 bg-orange-700">Other Expenses</div>
+
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
-            <label className="text-base mx-1">All Deduction Amount:</label>
+            <label className="text-base mx-1">Fuel Expenses:</label>
               <input
                 className="input-style  p-1 rounded-lg"
+                type="number"
+                rows={2}
+                name="fuelExpense"
+                value={fuelExpense}
+                onChange={(e) => setFuelExpense(e.target.value)}
+                placeholder="₹ 0"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+            <label className="text-base mx-1">Other Expenses:</label>
+              <input
+                className="input-style  p-1 rounded-lg"
+                type="number"
+                rows={2}
+                name="otherExpense"
+                value={otherExpense}
+                onChange={(e) => setOtherExpense(e.target.value)}
+                placeholder="₹ 0"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+            <label className="text-base mx-1 font-semibold text-red-700">All Deduction Amount:</label>
+              <input
+                className="input-style  p-1 rounded-lg "
                 type="number"
                 rows={2}
                 name="finalDeduction"
                 value={finalDeduction}
                 onChange={(e) => setFinalDeduction(e.target.value)}
                 placeholder="₹ 0"
+                disabled
               />
             </div>
-           
-           
-            <div className="w-full mt-5 p-2">
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="w-full my-10 p-2">
               <button
                 className="text-white bg-gradient-to-r leading-4 from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded shadow-lg shadow-green-500/50  dark:shadow-lg dark:shadow-green-800/80 text-sm px-5 py-2.5 text-center me-2 mb-2"
                 onClick={handleSubmit}

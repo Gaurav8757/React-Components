@@ -351,17 +351,49 @@ function CompanySlab() {
         </>
       );
     }
-else{
-    return (
-      <>
-        <option value="OLD">OLD</option>
-        {/* <option value="NEW">NEW</option>
-        <option value="1-7 YEARS">1-7 Years</option>
+    else {
+      return (
+        <>
+          <option value="OLD">OLD</option>
+          <option value="NEW">NEW</option>
+          {/* <option value="1-7 YEARS">1-7 Years</option>
         <option value="MORE THAN 7 YEARS">{">7 Years"}</option> */}
-      </>
-    );
-  }
+        </>
+      );
+    }
   };
+
+  const handlePolicyTypeChange = (e) => {
+    const selectedPolicyType = e.target.value;
+    setPolicyType(selectedPolicyType);
+
+    // Filter products based on selected policy type
+    const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products || [];
+    setProducts(filteredProducts);
+
+    // Reset product code when policy type changes
+    setProductCode('');
+  };
+  const filterPolicyTypes = () => {
+    if (segment === "HEALTH" || segment === "NON-MOTOR") {
+      return data.filter(prod => prod.p_type === 'LIABILITY');
+    } else {
+      return data.filter(prod => ['SATP', 'COMP', 'SAOD'].includes(prod.p_type));
+    }
+  };
+
+
+  const getCcOptions = () => {
+    if (segment === "TW") {
+      return ['<150', '151><350', '>351'];
+    } else if (segment === "PVT-CAR") {
+      return ['0><1000', '1001><1500', '>1500'];
+    }
+    return [];
+  };
+
+  const isDisabled = !(segment === "TW" || segment === "PVT-CAR");
+  const ccOptions = getCcOptions();
 
   // const handleChange = (e) => {
   //   const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
@@ -369,6 +401,7 @@ else{
   //   setAdvisorId(selectedAdvisor?._id || ""); // Set the _id of the selected advisor
   //   setAdvisorUniqueId(selectedAdvisor?.uniqueId || ""); // Set the uniqueId of the selected advisor
   // };
+
 
 
   const handleVageChange = (e) => {
@@ -627,7 +660,7 @@ else{
                 <option value="TW">TW</option>
                 <option value="HEALTH">HEALTH</option>
                 <option value="NON-MOTOR">NON-MOTOR</option>
-                <option value="LIFE">LIFE</option>
+                {/* <option value="LIFE">LIFE</option> */}
               </select>
             </div>
 
@@ -641,21 +674,25 @@ else{
                 className="input-style text-lg p-1 rounded-lg"
                 value={policyType}
                 name="policyType"
-                onChange={(e) => {
-                  const selectedPolicyType = e.target.value;
-                  setPolicyType(selectedPolicyType);
-                  // Filter products based on selected policy type
-                  const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
-                  setProducts(filteredProducts);
-                  // Reset product code when policy type changes
-                  setProductCode('');
-                }}
+                // onChange={(e) => {
+                //   const selectedPolicyType = e.target.value;
+                //   setPolicyType(selectedPolicyType);
+                //   // Filter products based on selected policy type
+                //   const filteredProducts = data.find(prod => prod.p_type === selectedPolicyType)?.products;
+                //   setProducts(filteredProducts);
+                //   // Reset product code when policy type changes
+                //   setProductCode('');
+                // }}
+                onChange={handlePolicyTypeChange}
               > <option value="">------------- Select Policy Type -------------</option>
-                {data.map(prod => (
+                {filterPolicyTypes().map(prod => (
                   <option key={prod._id} value={prod.p_type}>{prod.p_type}</option>
                 ))}
               </select>
             </div>
+
+
+
             {/* PRODUCT CODE */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Product Code:<span className="text-red-600 font-bold">*</span></label>
@@ -713,13 +750,13 @@ else{
 
             {/* AGE */}
             <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Vehicle Age:<span className="text-red-600 font-bold">*</span></label>
+              <label className="text-base mx-1">Vehicle Age / Type:<span className="text-red-600 font-bold">*</span></label>
               <select
                 id="vage" name="vage"
                 className="input-style text-lg p-1 rounded-lg"
                 value={vage}
                 onChange={handleVageChange}>
-                <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
+                <option className="w-1" value="">---------- Select Vehicle Age/Type ----------</option>
                 {/* <option value="NA">NA</option> */}
                 {renderOptions()}
                 {/* <option value="OLD">OLD</option>
@@ -730,30 +767,58 @@ else{
               </select>
             </div>
 
+            {
+              segment === "HEALTH" || segment === "NON-MOTOR" ? (<div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Fuel:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  value={fuel}
+                  name="fuel"
+                  onChange={(e) => setFuel(e.target.value)}
+                  disabled
+                >
+                  <option className="w-1" value="" >-------------- Select Fuel Type ----------</option>
+                  {segment === "PVT-CAR" ? (
+                    fuelType
+                      .filter(fuel => ["DIESEL", "OTHER THAN DIESEL", "ELECTRIC", "CNG"].includes(fuel.fuels))
+                      .map(fuel => (
+                        <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                      ))
+                  ) : (
+                    fuelType
+                      .filter(fuel => ["CNG", "PETROL", "BIO FUEL", "ELECTRIC", "ALL"].includes(fuel.fuels))
+                      .map(fuel => (
+                        <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                      ))
+                  )}
+                </select>
+              </div>) : (<div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
+                <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
+                <select
+                  className="input-style text-lg p-1 rounded-lg"
+                  value={fuel}
+                  name="fuel"
+                  onChange={(e) => setFuel(e.target.value)}
 
-            <div className="flex flex-col p-1 mt-5 text-start w-full lg:w-1/4">
-              <label className="text-base mx-1">Fuel:<span className="text-red-600 font-bold">*</span></label>
-              <select
-                className="input-style text-lg p-1 rounded-lg"
-                value={fuel}
-                name="fuel"
-                onChange={(e) => setFuel(e.target.value)}>
-                <option className="w-1" value="" >-------------- Select Fuel Type ----------</option>
-                {segment === "PVT-CAR" ? (
-                  fuelType
-                    .filter(fuel => ["DIESEL", "OTHER THAN DIESEL", "ELECTRIC"].includes(fuel.fuels))
-                    .map(fuel => (
-                      <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
-                    ))
-                ) : (
-                  fuelType
-                    .filter(fuel => ["CNG", "PETROL", "BIO FUEL", "ALL"].includes(fuel.fuels))
-                    .map(fuel => (
-                      <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
-                    ))
-                )}
-              </select>
-            </div>
+                >
+                  <option className="w-1" value="" >-------------- Select Fuel Type ----------</option>
+                  {segment === "PVT-CAR" || segment === "C V" ? (
+                    fuelType
+                      .filter(fuel => ["DIESEL", "OTHER THAN DIESEL", "ELECTRIC", "CNG"].includes(fuel.fuels))
+                      .map(fuel => (
+                        <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                      ))
+                  ) : (
+                    fuelType
+                      .filter(fuel => ["CNG", "PETROL", "BIO FUEL", "ELECTRIC", "ALL"].includes(fuel.fuels))
+                      .map(fuel => (
+                        <option key={fuel._id} value={fuel.fuels}>{fuel.fuels}</option>
+                      ))
+                  )}
+                </select>
+              </div>)
+            }
+
 
 
             {segment === "PVT-CAR" ? (
@@ -840,50 +905,30 @@ else{
               </div>
             )
             }
-            {segment === "TW" || segment === "PVT-CAR" ? (
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">CC:<span className="text-red-600 font-bold">*</span></label>
-                <select
-                  className="input-style p-1 text-lg rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value.toUpperCase())}
-                  placeholder="Enter CC">
-                  <option className="w-1" value="">----------------- Select CC ------------------</option>
-                  <option value="All">All</option>
-                  {
-                    ccList.map((data) => (
-                      <option key={data._id} value={data.cc}>{data.cc}</option>
-                    ))
-                  }
-
-                </select>
-              </div>
-            ) : (
-              <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                <label className="text-base mx-1">CC:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
-                <select
-                  className="input-style p-1 text-lg rounded-lg"
-                  type="text"
-                  name="cc"
-                  value={cc}
-                  onChange={(e) => setCc(e.target.value.toUpperCase())}
-                  disabled
-                  placeholder="Enter CC">
-                  <option className="w-1" value="">----------------- Select CC ------------------</option>
-                  <option value="All">All</option>
-                  {
-                    ccList.map((data) => (
-                      <option key={data._id} value={data.cc}>{data.cc}</option>
-                    ))
-                  }
-
-                </select>
-              </div>
-            )
-
-            }
+            <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+              <label className="text-base mx-1">
+                CC:
+                <span className={`text-red-600 font-bold ${isDisabled ? 'text-xs' : ''}`}>
+                  {isDisabled ? 'DISABLED' : '*'}
+                </span>
+              </label>
+              <select
+                className="input-style p-1 text-lg rounded-lg"
+                name="cc"
+                value={cc}
+                onChange={(e) => setCc(e.target.value.toUpperCase())}
+                disabled={isDisabled}
+                placeholder="Enter CC"
+              >
+                <option value="">----------------- Select CC ------------------</option>
+                <option value="All">All</option>
+                {ccList
+                  .filter(prod => ccOptions.includes(prod.cc))
+                  .map(data => (
+                    <option key={data._id} value={data.cc}>{data.cc}</option>
+                  ))}
+              </select>
+            </div>
             {/* payout on */}
             <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
               <label className="text-base mx-1">Payout On:<span className="text-red-600 font-bold">*</span></label>

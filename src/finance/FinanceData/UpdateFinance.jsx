@@ -874,7 +874,7 @@ function UpdateFinance({ insurance, onUpdate, onClose }) {
                         <option value="TW">TW</option>
                         <option value="HEALTH">HEALTH</option>
                         <option value="NON-MOTOR">NON-MOTOR</option>
-                        <option value="LIFE">LIFE</option>
+                        {/* <option value="LIFE">LIFE</option> */}
                       </select>
                     </div>
                     <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">

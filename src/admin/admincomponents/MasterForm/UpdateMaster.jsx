@@ -734,7 +734,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
                             name="category"
                           > <option className="w-1" value="" >----------- Select Category ---------</option>
                             <option value="GIC">GIC</option>
-                            <option value="LIFE">LIFE</option>
+                            {/* <option value="LIFE">LIFE</option> */}
                           </select>
                         </div>
                         <div className="flex flex-col p-1 mt-3 text-start w-full lg:w-1/5">
@@ -798,7 +798,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
                             <option value="TW">TW</option>
                             <option value="HEALTH">HEALTH</option>
                             <option value="NON-MOTOR">NON-MOTOR</option>
-                            <option value="LIFE">LIFE</option>
+                            {/* <option value="LIFE">LIFE</option> */}
                           </select>
                         </div>
 
