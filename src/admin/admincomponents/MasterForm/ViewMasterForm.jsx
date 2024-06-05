@@ -215,7 +215,7 @@ function ViewMasterForm() {
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
-            matchingCSLab.states === data.states &&
+            matchingCSLab.states === data.states  &&
             (matchingCSLab.vfuels === data.fuel || (matchingCSLab.vfuels === 'ALL' || matchingCSLab.vfuels === 'OTHER THAN DIESEL')) &&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
