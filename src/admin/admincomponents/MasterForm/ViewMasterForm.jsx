@@ -161,7 +161,7 @@ function ViewMasterForm() {
     const branchLower = data.branch?.toLowerCase() || "";
     const product = data.productCode?.toLowerCase() || "";
     const payouts = data.payoutOn?.toLowerCase() || "";
-    const year = data.vehicleAge?.toLowerCase() || "";
+    const year = data.vehRegNo?.toLowerCase() || "";
     const adv = data.advisorName?.toLowerCase() || "";
 
     return (
@@ -738,13 +738,13 @@ function ViewMasterForm() {
             </div>
             <div className="flex text-center justify-start mt-4  lg:w-1/4">
               <label className="my-0 text-lg whitespace-nowrap font-medium text-gray-900">
-                VehicleAge:
+                Vehicle No.:
               </label>
               <input
                 type="search"
                 onChange={(e) => setYears(e.target.value)}
                 className="shadow p-0 text-start  lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
-                placeholder="Search by VehicleAge"
+                placeholder="Vehicle Registration No."
               />
             </div>
             <div className="flex text-center justify-start mt-4  lg:w-1/4">

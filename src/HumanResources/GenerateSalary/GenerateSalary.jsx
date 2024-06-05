@@ -5,6 +5,7 @@ import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDaysInMonth } f
 import VITE_DATA from "../../config/config.jsx";
 function GenerateSalary() {
   const [empList, setEmployeeList] = useState([]);
+  const [arrear, setArrear] = useState();
   const [year, setYear] = useState("");
   const [empName, setEmpname] = useState("");
   const [total, setTotal] = useState(0);
@@ -35,10 +36,14 @@ function GenerateSalary() {
   const [totalAbsentDays, setTotalAbsentDays] = useState(0);
   const [sundays, setSundays] = useState(0);
   const [email, setEmail] = useState("");
+  const [kit, setKit] = useState();
+  const [additional, setAdditional] = useState();
   const [mobile, setMobile] = useState("");
   const [holidayCount, setHolidayCount] = useState("");
+  const [otherDeduction, setOtherDeduction] = useState();
   const [holidayData, setHolidayData] = useState([]);
-
+  const [finalAmountSalary, setFinalAmountSalary] = useState();
+  const [finalDeduction, setFinalDeduction] = useState();
   useEffect(() => {
     // Fetch the list of employees when the component mounts
     axios.get(`${VITE_DATA}/api/employee-list`).then((response) => {
@@ -191,13 +196,15 @@ function GenerateSalary() {
   // salary handle
   useEffect(() => {
     const handleSalary = () => {
-      let salary = (monthSalary / 30.5) * presentDay;
+      let salary = (monthSalary / total) * (presentDay + sundays);
       const halfSalary = (monthSalary / 30.5) * 0.5 * halfDay;
+      console.log(salary);
+      console.log(halfSalary);
       salary = parseFloat(salary) + parseFloat(halfSalary);
       setSalaries(salary.toFixed(2));
     };
     handleSalary();
-  }, [monthSalary, presentDay, halfDay]);
+  }, [monthSalary, presentDay, halfDay, sundays, total]);
 
   // incentive
   useEffect(() => {
@@ -234,7 +241,7 @@ function GenerateSalary() {
   useEffect(() => {
     const handleCa = () => {
       const calculateCa = parseFloat(empGrossSalary) || 0;
-      const finalCa = (calculateCa * 10) / 100;
+      const finalCa = (calculateCa * 5) / 100;
       setEmpCa(finalCa);
     }
     handleCa();
@@ -251,34 +258,89 @@ function GenerateSalary() {
   }, [empGrossSalary]);
 
   // HANDLE TIFFIN
+  // useEffect(() => {
+  //   const handleTiffin = () => {
+  //     const calculateTiffin = parseFloat(empGrossSalary) || 0;
+  //     const finalTiffin = (calculateTiffin * 5) / 100;
+  //     setEmpTiffin(finalTiffin);
+  //   }
+  //   handleTiffin();
+  // }, [empGrossSalary]);
+
+  // HANDLE kit
   useEffect(() => {
-    const handleTiffin = () => {
-      const calculateTiffin = parseFloat(empGrossSalary) || 0;
-      const finalTiffin = (calculateTiffin * 5) / 100;
-      setEmpTiffin(finalTiffin);
+    const handleKit = () => {
+      const calculateKit = parseFloat(empGrossSalary) || 0;
+      const finalTiffin = (calculateKit * 5) / 100;
+      setKit(finalTiffin);
     }
-    handleTiffin();
+    handleKit();
   }, [empGrossSalary]);
+
+  // HANDLE kit
+  useEffect(() => {
+    const handleAdditional = () => {
+      const calculateAdditional = parseFloat(empGrossSalary) || 0;
+      const finalTiffin = (calculateAdditional * 5) / 100;
+      setAdditional(finalTiffin);
+    }
+    handleAdditional();
+  }, [empGrossSalary]);
+
+
+  // handleFinalSalaryAmount
+ useEffect(() => {
+  const handleFinalSalaryAmount = () => {
+    const salariesValue = parseFloat(empBasicSalary) || 0;
+    const incentiveValue = parseFloat(incentive) || 0;
+    const hraValue = parseFloat(empHra) || 0;
+    const daValue = parseFloat(empCa) || 0;
+    const ma = parseFloat(empMedical) || 0;
+    const tfinValue = parseFloat(empTiffin) || 0;
+    const kitValue = parseFloat(kit) || 0;
+    const adds = parseFloat(additional) || 0;
+    const prevSalary =  parseFloat(arrear) || 0;
+    const loanemis = parseFloat(empLoanemi) || 0;
+    const emppf = parseFloat(empPf) || 0;
+    const esi =  parseFloat(empEsi) || 0;
+    const otherDeductionValue =  parseFloat(otherDeduction) || 0;
+    const incent = parseFloat((salariesValue + incentiveValue + hraValue + daValue + ma + tfinValue + kitValue + adds + prevSalary) - (loanemis + emppf + esi + otherDeductionValue )).toFixed(1);
+    setFinalAmountSalary(incent);
+  };
+  handleFinalSalaryAmount(); // Call the function when the component mounts or when 'absent' state changes
+}, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear, empLoanemi,empPf, empEsi, otherDeduction]);
+
+useEffect(() => {
+  const handleDeductionAmount = () => {
+    const loanemis = parseFloat(empLoanemi) || 0;
+    const emppf = parseFloat(empPf) || 0;
+    const esi =  parseFloat(empEsi) || 0;
+    const otherDeductionValue =  parseFloat(otherDeduction) || 0;
+    const deduct = parseFloat((loanemis + emppf + esi + otherDeductionValue )).toFixed(1);
+    setFinalDeduction(deduct);
+  }
+    handleDeductionAmount();
+  }, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear, empLoanemi,empPf, empEsi, otherDeduction]);
 
   // HANDLE COMPANY
-  useEffect(() => {
-    const handleCompanyPf = () => {
-      const calculatePf = parseFloat(empGrossSalary) || 0;
-      const finalPf = (calculatePf * 12) / 100;
-      setEmpCompanyPf(finalPf);
-    }
-    handleCompanyPf();
-  }, [empGrossSalary]);
+  // useEffect(() => {
+  //   const handleCompanyPf = () => {
+  //     const calculatePf = parseFloat(empGrossSalary) || 0;
+  //     const finalPf = (calculatePf * 12) / 100;
+  //     setEmpCompanyPf(finalPf);
+  //   }
+  //   handleCompanyPf();
+  // }, [empGrossSalary]);
 
   // Handle PF
-  useEffect(() => {
-    const handlePf = () => {
-      const calculatePf = parseFloat(empGrossSalary) || 0;
-      const finalPf = (calculatePf * 12) / 100;
-      setEmpPf(finalPf);
-    }
-    handlePf();
-  }, [empGrossSalary]);
+  // useEffect(() => {
+  //   const handlePf = () => {
+  //     const calculatePf = parseFloat(empGrossSalary) || 0;
+  //     const finalPf = (calculatePf * 12) / 100;
+  //     setEmpPf(finalPf);
+  //   }
+  //   handlePf();
+  // }, [empGrossSalary]);
 
   // Handle ESI
   // useEffect(() => {
@@ -299,6 +361,9 @@ function GenerateSalary() {
   //   }
   //   handleLoanEmi();
   // }, [empGrossSalary]);
+
+  
+ 
 
   let genSalary = months + "/" + year;
   // post data
@@ -323,6 +388,8 @@ function GenerateSalary() {
         totalMonthDays: total,
         totalDays: totalDays,
         incentive,
+        kit,
+        additional,
         empgrossSalary: empGrossSalary,
         empbasicSalary: empBasicSalary,
         emphra: empHra,
@@ -339,15 +406,22 @@ function GenerateSalary() {
         empbranch: branchName,
         location: branchName,
         accNum: accNo,
+        arrear,
+        finalAmountSalary,
+        otherDeduction,
+        finalDeduction
       });
       if (response.data) {
         toast.success("Added Successfully!");
         // Reset the form and loading state on successful submission
         setTotal("");
+        setIncentive("");
+        setFinalDeduction("");
         setTotalDays("");
         setEmpname("");
         setMonths("");
         setYear("");
+        setArrear("");
         setPresentDay("");
         setTotalAbsentDays("");
         setHalfDay("");
@@ -371,6 +445,7 @@ function GenerateSalary() {
         setEmpPf("");
         setEmpESI("");
         setEmpLoanemi("");
+        
         setLoading(false);
       } else {
         toast.error("Error Occurred. Try again...!");
@@ -557,9 +632,24 @@ function GenerateSalary() {
                 placeholder="₹ 0"
               />
             </div>
+
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">Arrear:</label>
+              <input
+                className="input-style p-1 rounded-lg"
+                type="number"
+                min="0"
+                value={arrear}
+                onChange={(e) => setArrear(e.target.value)}
+                name="arrear"
+                placeholder="₹ 0"
+              />
+            </div>
+
+           
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
-            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            
           </div>
 
 
@@ -643,6 +733,33 @@ function GenerateSalary() {
                 placeholder="Tiffin Allowance"
                 disabled
               />
+              <span className="text-xs text-red-700">DISABLED</span>
+            </div>
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">Kit Allowance:</label>
+              <input
+                className="input-style bg-red-100 p-1 rounded-lg"
+                type="text"
+                rows={2}
+                name="kit"
+                value={kit}
+                onChange={(e) => setKit(e.target.value)}
+                placeholder="Kit Allowance"
+                disabled
+              />
+            </div>
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+              <label className="text-base mx-1">Additional Allowance:</label>
+              <input
+                className="input-style bg-red-100 p-1 rounded-lg"
+                type="text"
+                rows={2}
+                name="additional"
+                value={additional}
+                onChange={(e) => setAdditional(e.target.value)}
+                placeholder="Additional Allowance"
+                disabled
+              />
             </div>
             <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Company PF:</label>
@@ -656,8 +773,21 @@ function GenerateSalary() {
                 placeholder="PF"
                 disabled
               />
+                <span className="text-xs text-red-700">DISABLED</span>
             </div>
-            <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 mt-4 text-start w-full lg:w-1/5">
+            <label className="text-base mx-1">Final Salary Amount:</label>
+              <input
+                className="input-style bg-green-100  p-1 rounded-lg"
+                type="number"
+                rows={2}
+                name="finalAmountSalary"
+                value={finalAmountSalary}
+                onChange={(e) => setFinalAmountSalary(e.target.value)}
+                placeholder="₹ 0"
+                disabled
+              />
+            </div>
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
             <div className="flex flex-col p-2  text-start w-full lg:w-1/5"></div>
             {/* part-3 */}
@@ -674,6 +804,7 @@ function GenerateSalary() {
                 placeholder="PF"
                 disabled
               />
+                <span className="text-xs text-red-700">DISABLED</span>
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
               <label className="text-base mx-1">Load EMI:</label>
@@ -685,7 +816,6 @@ function GenerateSalary() {
                 value={empLoanemi}
                 placeholder="₹ 0"
                 onChange={(e) => setEmpLoanemi(e.target.value)}
-
               />
             </div>
 
@@ -701,9 +831,32 @@ function GenerateSalary() {
                 placeholder="₹ 0"
               />
             </div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
-            <div className="flex flex-col p-2 text-start w-full lg:w-1/5"></div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+            <label className="text-base mx-1">Others:</label>
+              <input
+                className="input-style  p-1 rounded-lg"
+                type="number"
+                rows={2}
+                name="otherDeduction"
+                value={otherDeduction}
+                onChange={(e) => setOtherDeduction(e.target.value)}
+                placeholder="₹ 0"
+              />
+            </div>
+            <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+            <label className="text-base mx-1">All Deduction Amount:</label>
+              <input
+                className="input-style  p-1 rounded-lg"
+                type="number"
+                rows={2}
+                name="finalDeduction"
+                value={finalDeduction}
+                onChange={(e) => setFinalDeduction(e.target.value)}
+                placeholder="₹ 0"
+              />
+            </div>
+           
+           
             <div className="w-full mt-5 p-2">
               <button
                 className="text-white bg-gradient-to-r leading-4 from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded shadow-lg shadow-green-500/50  dark:shadow-lg dark:shadow-green-800/80 text-sm px-5 py-2.5 text-center me-2 mb-2"

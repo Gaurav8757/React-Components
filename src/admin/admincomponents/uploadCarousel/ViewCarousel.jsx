@@ -138,11 +138,11 @@ function ViewCarousel() {
                                                 {data.usercarousel_desc}
                                             </td>
                                             <td className="whitespace-wrap px-1 py-0.5 text-center">
-                                                {data.usercarousel_link}
+                                                {data.usercarousel_upload}
                                             </td>
 
                                             <td className="whitespace-nowrap px-1 py-0.5">
-                                                <img src={data.usercarousel_upload} alt="file" />
+                                                <img width={80} src={data.usercarousel_upload} alt="file" />
                                             </td>
 
                                             <td className="whitespace-nowrap px-1 py-0.5">

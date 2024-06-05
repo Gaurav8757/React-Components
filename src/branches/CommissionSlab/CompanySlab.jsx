@@ -341,7 +341,27 @@ function CompanySlab() {
     }
   }, []);
 
-
+  const renderOptions = () => {
+    if (["GCCV 12><20", "GCCV 20><45", "GCCV >45"].includes(productCode)) {
+      return (
+        <>
+          <option value="NEW">NEW</option>
+          <option value="1-7 YEARS">1-7 Years</option>
+          <option value="MORE THAN 7 YEARS">{">7 Years"}</option>
+        </>
+      );
+    }
+else{
+    return (
+      <>
+        <option value="OLD">OLD</option>
+        {/* <option value="NEW">NEW</option>
+        <option value="1-7 YEARS">1-7 Years</option>
+        <option value="MORE THAN 7 YEARS">{">7 Years"}</option> */}
+      </>
+    );
+  }
+  };
 
   // const handleChange = (e) => {
   //   const selectedAdvisor = advisors.find(a => a.advisorname === e.target.value);
@@ -701,11 +721,12 @@ function CompanySlab() {
                 onChange={handleVageChange}>
                 <option className="w-1" value="">------------- Select Vehicle Age ----------</option>
                 {/* <option value="NA">NA</option> */}
-                <option value="OLD">OLD</option>
+                {renderOptions()}
+                {/* <option value="OLD">OLD</option>
                 <option value="NEW">NEW</option>
                 <option value="1-7 YEARS">1-7 Years</option>
 
-                <option value="MORE THAN 7 YEARS"> {`${">7 Years"}`}</option>
+                <option value="MORE THAN 7 YEARS"> {`${">7 Years"}`}</option> */}
               </select>
             </div>
 

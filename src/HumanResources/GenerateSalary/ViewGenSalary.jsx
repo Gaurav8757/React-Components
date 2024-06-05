@@ -287,8 +287,12 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Incentive
                                         </th>
-                                      
-                                        
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Total Monthly Amount
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Arrear
+                                        </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             HRA
                                         </th>
@@ -302,6 +306,12 @@ export default function ViewGenPolicy() {
                                             Tiffin Allowance
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
+                                            Kit Allowance
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Additional Allowance
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
                                             Company PF
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
@@ -313,16 +323,18 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Loan EMI
                                         </th>
-                                      
                                         <th scope="col" className="px-1 py-0 border border-black">
-                                            Total Amount
+                                            Other Deduction
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                            Final Amount
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             View
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
+                                        {/* <th scope="col" className="px-1 py-0 border border-black">
                                           Send Salary Email
-                                        </th>
+                                        </th> */}
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -342,7 +354,7 @@ export default function ViewGenPolicy() {
                                                         {data.empName}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.monthsalary}
+                                                        {`₹${data.monthsalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrappx-1 py-0 border border-black">
                                                         {data.monthleave}
@@ -372,46 +384,76 @@ export default function ViewGenPolicy() {
                                                         {data.totalAbsent}
                                                     </td>
                                                     <td className="whitespace-nowrappx-1 py-0 border border-black">
-                                                        {data.empgrossSalary}
+                                                      
+                                                        {`₹${data.empgrossSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.empbasicSalary}
+                                                        
+                                                        {`₹${data.empbasicSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.genSalary}
+                                                        
+                                                        {`₹${data.genSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.incentive}
-                                                    </td>
-                                                    
-                                                   
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.emphra}
+                                                        
+                                                        {`₹${data.incentive || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.empca}
+                                                        
+                                                        {`₹${data.totalAmount || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.empmedical}
+                                                        
+                                                        {`₹${data.arrear || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.emptiffin}
+                                                        
+                                                        {`₹${data.emphra}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.empcompanyPf}
+                                                       
+                                                        {`₹${data.empca || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.emppf}
+                                                        
+                                                        {`₹${data.empmedical || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.empesi}
+                                                     
+                                                        {`₹${data.emptiffin || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.emploanemi}
+                                                        
+                                                        {`₹${data.kit || 0}`}
                                                     </td>
-                                                 
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        {data.totalAmount}
+                                                        
+                                                        {`₹${data.additional || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                      
+                                                        {`₹${data.empcompanyPf || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                       
+                                                        {`₹${data.emppf || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                        
+                                                        {`₹${data.empesi || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                      
+                                                        {`₹${data.emploanemi || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                      
+                                                      {`₹${data.otherDeduction || 0}`}
+                                                  </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                        
+                                                        {`₹${data.finalAmountSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         <button onClick={() => handleViewClick(data)} type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300  shadow-lg shadow-blue-500/50 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center">
@@ -422,9 +464,7 @@ export default function ViewGenPolicy() {
                                                     {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                 <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
                                             </td> */}
-                                             <td className="whitespace-nowrap px-1 py-0 border border-black">
-
-                                             </td>
+                                            
                                                 </tr>
                                             );
                                         } else {

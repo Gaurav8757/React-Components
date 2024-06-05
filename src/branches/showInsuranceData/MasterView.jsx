@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, startTransition } from "react";
+import { useEffect, useState, startTransition, Suspense } from "react";
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import VITE_DATA from "../../config/config.jsx";
@@ -16,6 +16,8 @@ function MasterView() {
   const [searchCompany, setSearchCompany] = useState("");
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
+  const [policies, setPolicies] = useState("");
+
   const name = sessionStorage.getItem('name');
   useEffect(() => {
     setItemsPerPage(100);
@@ -53,11 +55,13 @@ function MasterView() {
   const filteredData = allDetailsData.filter(data => {
     if (!data) return false;
     const idLower = data.policyrefno?.toLowerCase() || "";
+    const numbers = data.policyNo?.toLowerCase() || "";
     const insuredNameLower = data.insuredName?.toLowerCase() || "";
     const companyLower = data.company?.toLowerCase() || "";
     const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
     return (
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
+      (numbers.includes(policies.toLowerCase()) || policies === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
       (policyMadeByLower.includes(searchPolicyMadeBy.toLowerCase()) || searchPolicyMadeBy === '') &&
@@ -307,61 +311,170 @@ function MasterView() {
 
   const handleExportClick = () => {
     exportToExcel();
-    // exportToPDF();
   };
+  const exportMisToExcel = () => {
+    try {
+      const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+      const fileExtension = ".xlsx";
+      const fileName = `${name}_executive`;
+      // Map all data without filtering by current date
+      const dataToExports = filteredData.map(row => {
+        return [
+          row.entryDate,
+          row.company,
+          row.policyNo,
+          row.insuredName,
+          row.vehRegNo,
+          row.makeModel,
+          row.gvw,
+          row.cc,
+          row.ncb,
+          row.odDiscount,
+          row.sitcapacity,
+          row.fuel,
+          row.productCode,
+          row.policyType,
+          row.odPremium,
+          row.liabilityPremium,
+          row.netPremium,
+          row.finalEntryFields,
+          row.branch,
+          row.advisorName,
+          row.payoutOn,
+          row.cvpercentage,
+          row.advisorPayoutAmount,
+          row.advisorPayableAmount,
+          row.branchpayoutper,
+          row.branchPayout,
+          row.branchPayableAmount,
+        ];
+      });
 
+      // Get all table headers in the same order
+      const tableHeaders = [
+        "Entry Date", // corresponds to row.entryDate
+        "Company Name", // corresponds to row.company
+        "Policy No", // corresponds to row.policyNo
+        "Insured Name", // corresponds to row.insuredName
+        "Vehicle Reg No", // corresponds to row.vehRegNo
+        "Make & Model", // corresponds to row.makeModel
+        "GVW", // corresponds to row.gvw
+        "C.C", // corresponds to row.cc
+        "NCB", // corresponds to row.ncb
+        "OD Discount(%)", // corresponds to row.odDiscount
+        "Seating Capacity", // corresponds to row.sitcapacity
+        "Fuel Type", // corresponds to row.fuel
+        "Product Code", // corresponds to row.productCode
+        "Policy Type", // corresponds to row.policyType
+        "OD Premium", // corresponds to row.odPremium
+        "Liability Premium", // corresponds to row.liabilityPremium
+        "Net Premium", // corresponds to row.netPremium
+        "Final Amount", // corresponds to row.finalEntryFields
+        "Branch Name", // corresponds to row.branch
+        "Advisor Name", // corresponds to row.advisorName
+        "Payout On", // corresponds to row.payoutOn
+        "Advisor Percentage%", // corresponds to row.cvpercentage
+        "Advisor Payout", // corresponds to row.advisorPayoutAmount
+        "Advisor Payable Amount", // corresponds to row.advisorPayableAmount
+        "Branch Percentage%", // corresponds to row.branchpayoutper
+        "Branch Payout", // corresponds to row.branchPayout
+        "Branch Payable Amount" // corresponds to row.branchPayableAmount
+      ];
+
+      // Create worksheet
+      const ws = XLSX.utils.aoa_to_sheet([tableHeaders, ...dataToExports]);
+      // Create workbook and export
+      const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+      const excelBuffer = XLSX.write(wb, {
+        bookType: "xlsx",
+        type: "array",
+      });
+      const data = new Blob([excelBuffer], { type: fileType });
+      const url = URL.createObjectURL(data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName + fileExtension);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error exporting to Excel:", error);
+      toast.error("Error exporting to Excel");
+    }
+  };
+  const handleMisExportClick = () => {
+    exportMisToExcel();
+  };
   return (
     <section className="container-fluid  p-0 sm:ml-64 bg-slate-200">
       <div className="inline-block min-w-full w-full py-0">
-        <div className=" m-4 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
+        <div className="my-4  flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
           <h1></h1>
           <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
-          <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
+          <div className="flex ">
+          <button className="text-end  flex justify-end  text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10" /></button>
+          <button className="text-end   mr-0.5  justify-end  text-xl font-semibold  my-auto" onClick={handleMisExportClick}>  <Suspense fallback={<div>Loading...</div>}>
+              <img src="/public/xls.png"  className="rounded-xl mx-0 my-auto" height={50} width={40} alt="mis "/>
+            </Suspense> 
+            </button>
+            </div>
         </div>
         <div className=" relative mt-2">
           <div className="min-w-full w-full py-0  block z-50">
             <div className="flex-wrap flex justify-between  text-blue-500  ">
               {/* date range filter */}
               <div className="flex   p-0 text-start w-full lg:w-1/4">
-                <label className="my-0 text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
-                <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2" placeholder="From Date" />
+                <label className="my-auto  text-base whitespace-nowrap font-medium text-gray-900">Date:</label>
+                <input type="date" value={startDate} onChange={(e) => handleDateRangeChange(e, "start")} className="shadow input-style w-52 my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0  ml-2" placeholder="From Date" />
                 <span className='text-justify mx-1 my-1 '>to</span>
-                <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0 mb-2 " placeholder="To Date" />
+                <input type="date" value={endDate} onChange={(e) => handleDateRangeChange(e, "end")} className="shadow input-style w-52 my-0 py-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none  px-0  " placeholder="To Date" />
               </div>
-              <div className=" p-0 justify-start text-center lg:w-1/4">
-                <label className="my-0 text-base font-medium text-gray-900">ID:</label>
+              <div className=" p-0 justify-start text-center my-auto  lg:w-1/5">
+                <label className="my-auto  text-base font-medium text-gray-900">ID:</label>
                 <input
                   type="search"
                   onChange={(e) => setSearchId(e.target.value)}
-                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-auto  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0  ml-2"
                   placeholder="ID"
                 />
               </div>
-              <div className=" flex justify-start p-0 text-end w-full lg:w-1/4">
-                <label className="my-0 text-base font-medium text-gray-900">Company:</label>
+
+              
+              <div className=" flex text-start my-auto  justify-start  lg:w-1/5">
+                <label className="my-auto  text-base font-medium text-gray-900">Company:</label>
                 <input
                   type="search"
                   onChange={(e) => setSearchCompany(e.target.value)}
-                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-auto  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 ml-2"
                   placeholder="Company Name"
                 />
               </div>
-              <div className="flex justify-start  text-start w-full lg:w-1/4">
-                <label className="my-0 text-base font-medium text-gray-900">Insured Name:</label>
+              <div className="flex text-start my-auto justify-start  lg:w-1/5">
+                <label className="my-auto text-base   font-medium text-gray-900">Insured Name:</label>
                 <input
                   type="search"
                   onChange={(e) => setSearchInsuredName(e.target.value)}
-                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-auto ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0  ml-2"
                   placeholder="Insured Name"
                 />
               </div>
+              <div className=" flex justify-start p-0 text-end my-auto  w-full lg:w-1/5">
+                <label className="my-auto  text-base font-medium text-gray-900">Policy No.:</label>
+                <input
+                  type="search"
+                  onChange={(e) => setPolicies(e.target.value)}
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 ml-2"
+                  placeholder="Policy No."
+                />
+              </div>
 
-              <div className="flex text-start mt-5 justify-start  lg:w-1/4">
-                <label className="my-0 text-base font-medium whitespace-nowrap text-gray-900">Policy Made By:</label>
+            
+
+              <div className="flex text-start my-5   justify-start  lg:w-1/5">
+                <label className="my-auto  text-base font-medium whitespace-nowrap text-gray-900">Policy Made By:</label>
                 <input
                   type="search"
                   onChange={(e) => setSearchPolicyMadeBy(e.target.value)}
-                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 mb-2 ml-2"
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0  ml-2"
                   placeholder="Policy Made By"
                 /></div>
             </div>
