@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, startTransition } from "react";
 import axios from "axios";
 import * as XLSX from 'xlsx';
 import { NavLink } from "react-router-dom";
@@ -12,7 +12,22 @@ function CurrentAttendance() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [month, setMonth] = useState(new Date().getMonth() + 1); // Month starts from 0
     const [date, setDate] = useState(new Date().getDate());
-    const [attendanceStatus, setAttendanceStatus] = useState("");
+    const time = new Date(); // Get current date and time
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    
+    // Convert hours to 12-hour format and determine AM/PM
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const twelveHourFormat = hours % 12 || 12; // Convert 0 to 12
+    
+    // Add leading zeros to minutes and seconds if necessary
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+    
+    // Combine all parts into the desired format
+    const formattedTime = `${twelveHourFormat}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+    
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -48,7 +63,22 @@ function CurrentAttendance() {
             });
     }, []);
 
-
+    const onRefresh = async () => {
+        try {
+            const response = await axios.get(`${VITE_DATA}/api/employee-list`, {
+              headers: {
+                Authorization: `${sessionStorage.getItem("token")}`,
+              },
+            });
+    
+            startTransition(() => {
+                setAPIData(response.data);
+            });
+          
+        } catch (error) {
+          console.error("Error fetching updated insurance data");
+        }
+      };
 
     const handleYearChange = (e) => {
         setYear(parseInt(e.target.value));
@@ -62,10 +92,7 @@ function CurrentAttendance() {
         setDate(parseInt(e.target.value));
     };
 
-    const handleAttendanceStatusChange = (e) => {
-        setAttendanceStatus(e.target.value);
-    };
-
+    
     const renderYears = () => {
         const currentYear = new Date().getFullYear();
         const years = [];
@@ -123,6 +150,56 @@ function CurrentAttendance() {
         return headers;
     };
 
+    const handleToggleAttendance = async (empid, status) => {
+        try {
+            const currentDateAndTime = new Date(year, month - 1, date);
+            const datePart = format(currentDateAndTime, 'dd/MM/yyyy');
+            const timePart = formattedTime;
+            const weekdayPart = format(currentDateAndTime, 'EEEE');
+
+            await axios.post(`${VITE_DATA}/employee/mark/attendance/${empid}`, {
+                status: status,
+                date: datePart,
+                time: timePart,
+                weekday: weekdayPart,
+            });
+            let toastMessage = `${datePart} => ${status} Marked Successfully......!`;
+
+            // Customize toast message based on status
+        if (status === 'absent') {
+            toast.error(toastMessage);
+            onRefresh();
+        } else if (status === 'present') {
+            toast.success(toastMessage);
+            onRefresh();
+        } else if (status === 'halfday') {
+            toast.info(toastMessage); // Apply yellow color with custom CSS class
+            onRefresh();
+        }
+          
+            // Update local APIData state
+            setAPIData((prevData) => {
+                return prevData.map(emp => {
+                    if (emp.empid === empid) {
+                        const updatedDetails = emp.employeeDetails.map(detail => {
+                            if (detail.date === datePart) {
+                                return { ...detail, status, time: timePart, logouttime: timePart }; // Assuming logout time is same as time for simplicity
+                            }
+                            return detail;
+                        });
+                        return { ...emp, employeeDetails: updatedDetails };
+                    }
+                    return emp;
+                });
+            });
+        } catch (error) {
+            console.error('Error marking attendance:', error.response ? error.response.data.message : error.message);
+            toast.error(`${error.response ? error.response.data.message : error.message}`);
+        }
+    };
+
+
+
     const renderCalendar = () => {
         const sortedAPIData = APIData.slice().sort((a, b) => {
             const empidA = parseInt(a.empid.split('-')[1]);
@@ -177,37 +254,26 @@ function CurrentAttendance() {
                         <div className="text-xs whitespace-nowrap my-1">{`${totalHours}`}</div>
                         <div className="text-xs whitespace-nowrap font-normal">{hasAttendance ? `Logout Time: ${attendance.logouttime}` : ''}</div>
                     </td>
+
+                    <td className="whitespace-nowrap px-0 py-2 border sticky bg-orange-200 border-black text-lg font-semibold">
+                        <select
+                            className="p-1 ml-2 rounded-lg text-lg text-red-900"
+                            value={status}
+                            onChange={(e) => handleToggleAttendance(employee._id, e.target.value)}
+                        >
+                            <option value="">Select Status</option>
+                            <option value="present">Present</option>
+                            <option value="absent">Absent</option>
+                            <option value="halfday">Halfday</option>
+                        </select>
+                    </td>
                 </tr>
             );
         }
         return calendarRows;
     };
 
-  const handleToggleAttendance = async () => {
-        try {
-            const empid = sessionStorage.getItem('employeeId');
-            if (!attendanceStatus) {
-                toast.error('Please select a valid attendance status.');
-                return;
-            }
-            const currentDateAndTime = new Date(year, month - 1, date);
-            const datePart = format(currentDateAndTime, 'dd/MM/yyyy');
-            const timePart = format(currentDateAndTime, 'HH:mm:ss');
-            const weekdayPart = format(currentDateAndTime, 'EEEE');
 
-            await axios.put(`${VITE_DATA}/employee/mark/attendance/${empid}`, {
-                status: attendanceStatus,
-                date: datePart,
-                time: timePart,
-                weekday: weekdayPart,
-            });
-
-            toast.success('Today Attendance marked Successfully!');
-        } catch (error) {
-            console.error('Error marking attendance:', error.response ? error.response.data.message : error.message);
-            toast.error(`${error.response ? error.response.data.message : error.message}`);
-        }
-    };
 
 
     const exportToExcel = () => {
@@ -298,18 +364,7 @@ function CurrentAttendance() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-between items-center my-4 mt-5  text-orange-600">
-                        <div className="mx-3">
-                            <label htmlFor="attendanceStatus" className="font-bold text-lg">Attendance Status:</label>
-                            <select id="attendanceStatus" value={attendanceStatus} onChange={handleAttendanceStatusChange} className="p-1 ml-2 rounded-lg text-lg text-red-900">
-                                <option value="">Select Status</option>
-                                <option value="present">Present</option>
-                                <option value="absent">Absent</option>
-                                <option value="halfday">Halfday</option>
-                            </select>
-                        </div>
-                        <button onClick={handleToggleAttendance} className="text-white bg-orange-600 p-2 rounded-lg">Mark Attendance</button>
-                    </div>
+
                     <div className="relative">
                         <div className="flex min-w-full w-full bg-orange-100">
                             <table className="min-w-full text-center divide-y divide-gray-200 text-sm font-light table border border-black">
@@ -323,7 +378,7 @@ function CurrentAttendance() {
                                         </th>
                                         {renderTableHeaders()}
                                         <th scope="col" className="bg-slate-100 sticky p-0 whitespace-nowrap border border-orange-700">
-                                       Mark Droppped Attendance
+                                            Mark Droppped Attendance
                                         </th>
                                     </tr>
                                 </thead>

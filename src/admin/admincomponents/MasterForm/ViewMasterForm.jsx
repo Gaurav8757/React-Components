@@ -196,8 +196,8 @@ function ViewMasterForm() {
     setCurrentPage(page);
   };
 
-  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
-  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
+  // const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
+  // const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
   const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => finalEntryFields - branchPayout;
   const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => finalEntryFields * (branchpayoutper / 100);
   const calculateCompanyPayoutAmount = (finalEntryFields, companypayoutper) => finalEntryFields * (companypayoutper / 100);
@@ -207,7 +207,7 @@ function ViewMasterForm() {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
       payoutSlab.forEach((matchingCSLab) => {
-        const percentage = matchingCSLab.cvpercentage || 0;
+        // const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData.forEach((data) => {
@@ -216,7 +216,8 @@ function ViewMasterForm() {
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states  &&
-            (matchingCSLab.vfuels === data.fuel || (matchingCSLab.vfuels === 'ALL' || matchingCSLab.vfuels === 'OTHER THAN DIESEL')) &&
+            (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL'))&&
+
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
@@ -246,24 +247,24 @@ function ViewMasterForm() {
             const finalEntryFields = parseFloat(data.finalEntryFields);
             const odPremium = parseFloat(data.odPremium);
 
-            let advisorPayout, branchPayout, companyPayout;
-            let advisorPayable, branchPayable, profitLoss;
+            let branchPayout, companyPayout;
+            let  branchPayable, profitLoss;
 
             if (
               data.policyType === 'COMP' &&
               data.productCode === 'PVT-CAR' &&
               data.payoutOn === 'OD'
             ) {
-              advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              // advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
               profitLoss = companyPayout - branchPayout;
             } else {
               // Default calculation functions
-              advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              // advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
@@ -279,8 +280,8 @@ function ViewMasterForm() {
 
               // Prepare data for API request
               const postData = {
-                advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-                advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+                // advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+                // advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
                 branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
                 branchPayout: parseFloat(branchPayout.toFixed(2)),
                 companyPayout: parseFloat(companyPayout.toFixed(2)),

@@ -3,7 +3,7 @@ import UpdateOps from '../updateOPS/UpdateOps.jsx';
 function AllOpsData({ datas, policy, deleteStaff, empData }) {
     return (
         <tr
-            className="divide-y text-sm font-medium border border-black">
+            className="divide-y text-sm font-medium border border-black hover:bg-orange-300 hover:text-base">
             <td className="whitespace-nowrap px-1  border border-black">
                 <UpdateOps UpdateOps={datas} update={policy} APIData={empData} />
             </td>

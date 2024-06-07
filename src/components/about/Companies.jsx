@@ -5,21 +5,22 @@ function Companies() {
        sm:pt-10 bg-orange-50">
         {/* part - 1 */}
         <div className="flex flex-col lg:flex-row bg-orange-50">
-          <div className="lg:w-1/2  max-w-4xl  lg:mr-10 h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
+          <div className="lg:w-1/2  max-w-4xl   h-auto flex justify-center items-center mb-6 pb-5 lg:mb-0 sm:order-first md:order-first lg:order-first xl:order-first">
             <img
-              src="/cname.png" // Add the actual image source
+              src="/logo.webp" // Add the actual image source
               alt="company img"
-              className="w-1/2 sm:w-1/2 md:w-1/2 xl:absolute lg:absolute top-72  max-w-4xl mx-auto me-auto lg:w-fit xl:w-fit h-auto  items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
+              className="w-1/2 sm:w-1/2  md:w-1/2 lg:w-1/4 xl:w-1/4 xl:absolute lg:absolute top-24  max-w-4xl mx-auto me-auto lg:w-fit xl:w-fit h-auto  items-center transition-transform transform hover:scale-105 duration-300 ease-in-out"
             />
           </div>
 
           <div className="w-full lg:w-1/2 max-w-5xl mb-5 mt-16 lg:mr-10 rounded-lg  bg-orange-50">
 
             <div className="text-2xl text-blue-700 font-semibold bg-orange-50">
-              Welcome to Eleedom IMF PVT. LTD. - Your Trusted Insurance Partner
+              Welcome to Eleedom IMF PVT. LTD. <br/>
+               (Your Trusted Insurance Partner)
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
-              <p className=" text-xl mt-5 mx-20">Established in 2022, Eleedom IMF PVT. LTD has a rich legacy that spans over 16 years in the insurance industry. What started as an individual agency in Bihar has evolved into a leading insurance marketing firm, proudly serving the region and beyond.</p>
+              <p className=" text-xl mt-5 mx-10">Established in 2022, Eleedom IMF PVT. LTD has a rich legacy that spans over 16 years in the insurance industry. What started as an individual agency in Bihar has evolved into a leading insurance marketing firm, proudly serving the region and beyond.</p>
             </div>
           </div>
         </div>
@@ -41,7 +42,7 @@ function Companies() {
               Our Journey
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
-              <p className=" text-xl mt-5 mx-20">Rooted in the heart of Bihar, we embarked on our journey in 2006 as individual agents dedicated to providing reliable and comprehensive insurance solutions. Over the years, our commitment to excellence and client satisfaction propelled us to the forefront of the industry.</p>
+              <p className=" text-xl mt-5 mx-10">Rooted in the heart of Bihar, we embarked on our journey in 2006 as individual agents dedicated to providing reliable and comprehensive insurance solutions. Over the years, our commitment to excellence and client satisfaction propelled us to the forefront of the industry.</p>
             </div>
           </div>
         </div>
@@ -62,7 +63,7 @@ function Companies() {
               Leading the Way
             </div>
             <div className="w-full flex items-center justify-center  text-justify">
-              <p className=" text-xl mt-5 mx-20">For the past five years, we have proudly held the title of the leading insurance agent in our region. This achievement is a testament to our unwavering dedication to our clients and our passion for safeguarding what matters most to them.</p>
+              <p className=" text-xl mt-5 mx-10">For the past five years, we have proudly held the title of the leading insurance agent in our region. This achievement is a testament to our unwavering dedication to our clients and our passion for safeguarding what matters most to them.</p>
             </div>
           </div>
         </div>

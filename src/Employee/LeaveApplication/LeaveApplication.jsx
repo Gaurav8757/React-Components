@@ -54,54 +54,73 @@ function LeaveApplication() {
   };
 
   // Function to handle leave submission
+  const formatDates = (startDate, endDate) => {
+    const startDateFormatted = format(new Date(startDate), 'dd/MM/yyyy');
+    const endDateFormatted = format(new Date(endDate), 'dd/MM/yyyy');
+    return { startDateFormatted, endDateFormatted };
+  };
+
+  const calculateDaysCount = (startDate, endDate) => {
+    return differenceInDays(new Date(endDate), new Date(startDate)) + 1;
+  };
+
+  const validateFields = (startDate, endDate, leaveType, reason) => {
+    return startDate && endDate && leaveType && reason;
+  };
+
+  const checkLeaveLimit = (restLeave, daysCount) => {
+    return restLeave === 0 || restLeave - daysCount < 0;
+  };
+
+  const fetchCurrentLeaveDetails = async (employeeId) => {
+    const response = await axios.get(`${VITE_DATA}/api/employee/${employeeId}`);
+    return response.data.leaveDetails || [];
+  };
+
+  const updateLeaveDetails = async (employeeId, updatedLeaveDetails) => {
+    await axios.put(`${VITE_DATA}/api/emp/update/${employeeId}`, { leaveDetails: updatedLeaveDetails });
+  };
+
   const handleSubmit = async () => {
     try {
       setLoading(true);
 
-      if (startDate && endDate && leaveType && reason) {
-        const startDateFormatted = format(new Date(startDate), 'dd/MM/yyyy');
-        const endDateFormatted = format(new Date(endDate), 'dd/MM/yyyy');
+      if (validateFields(startDate, endDate, leaveType, reason)) {
+        const { startDateFormatted, endDateFormatted } = formatDates(startDate, endDate);
+        const daysCount = calculateDaysCount(startDate, endDate);
 
-        const daysCount = differenceInDays(new Date(endDate), new Date(startDate)) + 1;
-        setDayCounts(daysCount);
-
-        // Check if rest leave for the selected leave type is zero
-        if (restLeave === 0 || restLeave - daysCount < 0) {
+        if (checkLeaveLimit(restLeave, daysCount)) {
           toast.warn('Your leave limit for this type has been reached.');
           setLoading(false);
           return;
         }
+
         const restleaveValue = restLeave - daysCount;
-        // Set status to pending
         const status = "pending";
+        const currentLeaveDetails = await fetchCurrentLeaveDetails(employeeId);
 
-        // Fetch current leave details
-        const response = await axios.get(`${VITE_DATA}/api/employee/${employeeId}`);
-        const currentLeaveDetails = response.data.leaveDetails || [];
-
-        // Append new leave application to current leave details
         const updatedLeaveDetails = [
           ...currentLeaveDetails,
           {
-            dateRange: {
-              startDate: startDateFormatted,
-              endDate: endDateFormatted
-            },
+            dateRange: { startDate: startDateFormatted, endDate: endDateFormatted },
             leavetype: leaveType,
-            restleave: restleaveValue, // Update rest leave
+            restleave: restleaveValue,
             reasonForLeave: reason,
             status: status,
             counts: daysCount,
-          }
+          },
         ];
-        // Send updated leave details to backend
-        await axios.put(`${VITE_DATA}/api/emp/update/${employeeId}`, { leaveDetails: updatedLeaveDetails });
+
+        await updateLeaveDetails(employeeId, updatedLeaveDetails);
         toast.success('Leave application submitted successfully.');
+
         setStartDate('');
         setEndDate('');
         setLeaveType('');
         setReason('');
         setLoading(false);
+        setRestLeave("");
+        setDayCounts("");
         setStatusSubmitted(true);
       } else {
         toast.warn('Please fill in all fields.');
@@ -113,39 +132,58 @@ function LeaveApplication() {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    if (startDate && endDate) {
+      const daysCount = calculateDaysCount(startDate, endDate);
+      setDayCounts(daysCount);
+    }
+  }, [startDate, endDate]);
 
   return (
     <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2 px-2'>
       <div className='flex justify-center text-center'>
-        <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide mb-4 text-start font-medium text-orange-700'>Leave Application</h1>
+        <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide mb-4 text-start uppercase font-medium text-orange-700'>Leave Application</h1>
       </div>
       <div className='flex flex-nowrap flex-auto justify-between'>
         <div>
-          <label className="text-base mx-1">From:</label>
+          <label className="text-base mr-1">From:</label>
           <input type="date" className="input-style p-1 rounded-lg" value={startDate} onChange={(e) => setStartDate(e.target.value)} min={currentDate} />
         </div>
         <div>
           <label className="text-base mx-1">To:</label>
-          <input type="date" className="input-style p-1 rounded-lg" value={endDate} onChange={(e) => setEndDate(e.target.value)} min={currentDate}/>
+          <input type="date" className="input-style p-1 rounded-lg" value={endDate} onChange={(e) => setEndDate(e.target.value)} min={currentDate} />
         </div>
       </div>
       <div className='block w-auto '>
-        <div className='flex justify-start text-start mt-5 mb-2'>
-          <h1 className='text-base xl:text-base lg:text-base  tracking-wide  text-start font-medium text-orange-700'>Leave Balance:</h1>
+        <div className='flex justify-center uppercase text-start mt-5'>
+          <h1 className='text-base xl:text-base lg:text-base  tracking-wide  text-start font-medium text-orange-700'>Leave Balance</h1>
         </div>
 
-        <div className='flex justify-between'>
-          <select className="input-style p-1 rounded-lg w-1/4" name='leavetype' value={leaveType} onChange={handleInputChanges}>
-            <option value="">Select Leave Type</option>
-            {APIData.map((data) => (
-              <option key={data._id} value={data.leavetype}>{data.leavetype}</option>
-            ))}
-          </select>
+        <div className='flex justify-between w-full'>
 
-          <div className='flex justify-end'>
-            <label className="text-base mx-1 my-1">Leave Balance:</label>
-            <input className="input-style w-1/2 p-1 rounded-lg" type="" value={restLeave} readOnly />
+          
+          <div className='flex justify-between'>
+            <div className='flex flex-col  p-2 text-start w-full lg:w-1/2 '>
+              <label className="text-base  my-1">Leave Type:</label>
+              <select className="input-style p-1 rounded-lg w-full ps-2" name='leavetype' value={leaveType} onChange={handleInputChanges}>
+                <option value="">Select Leave Type</option>
+                {APIData.map((data) => (
+                  <option key={data._id} value={data.leavetype}>{data.leavetype}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className='flex flex-col  p-2 text-start w-full lg:w-1/2'>
+            <label className="text-base  my-1">Leave Balance:</label>
+            <input type="number" className="input-style w-1/2 p-1 rounded-lg ps-2" value={restLeave} readOnly />
           </div>
+            </div>
+
+          <div className='flex flex-col justify-end p-2 text-start w-full lg:w-1/4 '>
+            <label className="text-base  my-1">No. of Leave:</label>
+            <input className="input-style w-1/2 p-1 rounded-lg ps-2" type="number" value={dayCounts} readOnly />
+          </div>
+          
         </div>
 
       </div>

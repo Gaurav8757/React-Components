@@ -73,7 +73,7 @@ const ServiceClaim = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="abc@geeksforgeeks.org"
+                                placeholder="eleedomimf@gmail.com"
                             />
                         </div>
                         <div className="flex flex-col  p-2 text-start w-full lg:w-1/3">

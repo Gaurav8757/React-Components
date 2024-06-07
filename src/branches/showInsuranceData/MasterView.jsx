@@ -102,39 +102,78 @@ function MasterView() {
     }
   };
 
+ 
   const handleInputChange = (itemId, value) => {
-    setAllDetailsData(prevData =>
-      prevData.map(item =>
-        item._id === itemId ? { ...item, cvpercentage: value } : item
-      )
-    );
-      updateInsuranceAPI(itemId, value); 
+    // First, calculate the new values based on the input change
+    const updatedData = allDetailsData.map(item => {
+      if (item._id === itemId) {
+        const percentage = value || 0;
+        const netPremium = parseFloat(item.netPremium);
+        const odPremium = parseFloat(item.odPremium);
+        const finalEntryFields = parseFloat(item.finalEntryFields);
+        let advisorPayout, advisorPayable;
+  
+        if (
+          item.policyType === 'COMP' &&
+          item.productCode === 'PVT-CAR' &&
+          item.payoutOn === 'OD'
+        ) {
+          advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
+          advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+        } else {
+          advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
+          advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+        }
+  
+        return {
+          ...item,
+          cvpercentage: value,
+          advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
+          advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+        };
+      }
+      return item;
+    });
+  
+    // Update the state with the new calculated values
+    setAllDetailsData(updatedData);
+  
+    // Find the updated item to send it in the API call
+    const updatedItem = updatedData.find(item => item._id === itemId);
+    
+    // Call the API to save the changes
+    updateInsuranceAPI(itemId, updatedItem.cvpercentage, updatedItem.advisorPayoutAmount, updatedItem.advisorPayableAmount);
   };
-
   
 
-  const updateInsuranceAPI = async (itemId, cvpercentage) => {
+  const updateInsuranceAPI = async (itemId, cvpercentage, advisorPayoutAmount, advisorPayableAmount) => {
     try {
       if (!cvpercentage) return;
-     const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${itemId}`, { cvpercentage });
-     
-    await onUpdateInsurance();
-    toast.success(`${resp.data.status}`, {
-      position: "top-center",
-      autoClose: 100,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+      const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${itemId}`, { 
+        cvpercentage, 
+        advisorPayoutAmount, 
+        advisorPayableAmount 
+      });
+      
+      
+      toast.success(`${resp.data.status}`, {
+        position: "top-center",
+        autoClose: 100,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      // console.log(resp.data.message.updatedDetails);
+      await onUpdateInsurance();
     } catch (error) {
       console.error("Error updating insurance details:", error);
-    }finally{
+    } finally {
       await onUpdateInsurance();
     }
-   
   };
+  
 
   const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
     return finalEntryFields * (percentage / 100);
@@ -486,7 +525,7 @@ function MasterView() {
                 <TextLoader />
               ) :  (<>
                     <thead className=" font-medium  bg-slate-300 sticky top-16 border border-black">
-                      <tr className="text-blue-700 sticky top-16 border border-black">
+                      <tr className="text-blue-700 sticky top-16 border border-black ">
                         {/* <th scope="col" className=" border border-black">Update</th> */}
                         <th scope="col" className="px-1 pt-2 sticky border border-black">Reference ID</th>
                         <th scope="col" className="px-1 pt-2 sticky border border-black">Entry Date</th>
@@ -556,7 +595,7 @@ function MasterView() {
 
                     <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
                       {filteredData.slice(startIndex, endIndex).map((data) => (
-                        <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium ">
+                        <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium hover:bg-orange-300 hover:text-base">
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyrefno}</td>
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.entryDate}</td>
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.branch}</td>

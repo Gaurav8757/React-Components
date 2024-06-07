@@ -88,7 +88,7 @@ const FinanceTable = ({ filteredData, onUpdateInsurance }) => {
         <tbody className="divide-y divide-gray-200 overflow-y-hidden bg-slate-200">
           {filteredData.map((data) => (
             <tr
-              className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium"
+              className="border-b dark:border-neutral-200 bg-slate-200 text-sm font-medium hover:bg-orange-300 hover:text-base"
               key={data._id}  >
              <td className="whitespace-nowrap px-1 py-1 border border-black">
              <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">

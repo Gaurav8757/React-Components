@@ -95,7 +95,7 @@ function AddAttendance() {
             <div className='flex flex-wrap '>
             <div className="  w-full sm:w-full md:w-full lg:w-full xl:w-1/2">
               <div className='flex justify-center text-center'>
-            <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide text-start font-medium text-orange-700 me-10'>Make Attendance</h1>
+            <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide text-start font-medium uppercase text-orange-700 me-10'>Make Attendance</h1>
             </div>
               <div className="flex flex-wrap mx-2 text-center justify-center mt-4">
              

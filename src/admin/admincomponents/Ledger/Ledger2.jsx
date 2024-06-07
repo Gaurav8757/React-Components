@@ -426,7 +426,7 @@ function Ledger2() {
                           balanceMonthly += debitMonthlyAmount - (item.creditMonthlyAmount || 0);
                         }
                         return (
-                          <tr key={item._id} className="odd:bg-white text-sm even:bg-gray-100 border-b dark:border-gray-700">
+                          <tr key={item._id} className="odd:bg-white text-sm even:bg-gray-100 border-b dark:border-gray-700 hover:bg-orange-300 hover:text-base hover:font-medium">
                             <td className="whitespace-nowrap">{item.entryDate}</td>
                             <td className="whitespace-wrap w-1/12">{item.policyNo}</td>
                             <td className="whitespace-wrap w-1/12">{item.company}</td>
