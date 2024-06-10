@@ -24,6 +24,12 @@ function DashboardEmp() {
       logo: <img src="/avatar.png" height={5} width={25} alt="snap"/>
     },
     {
+      title: "Policy Lists",
+      path: "/employee/home/policy",
+      // logo: <MdOutlinePolicy size={25} />
+      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
+    }, 
+    {
       title: "Attendance",
       path: "#",
       // logo: <FcPlanner size={25} />,
@@ -42,10 +48,10 @@ function DashboardEmp() {
       ]
     },
     {
-      title: "Policy Lists",
-      path: "/employee/home/policy",
+      title: "Leave History",
+      path: "/employee/home/lists",
       // logo: <MdOutlinePolicy size={25} />
-      logo: <img src="/policy.png" height={5} width={25} alt="policy"/>
+      logo: <img src="/exit.png" height={5} width={25} alt="policy"/>
     }, 
   ];
 

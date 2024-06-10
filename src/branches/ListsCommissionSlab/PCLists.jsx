@@ -233,7 +233,7 @@ function PCLists() {
       </div>
 
 
-      <table className="min-w-full text-center text-sm font-light table bg-slate-200 ">
+      <table className="min-w-full text-center text-xs font-light table bg-slate-200 ">
         {filteredData.length === 0 ? (<TextLoader />) : (<>
           <thead className="border-b  font-medium bg-slate-200  sticky top-16">
             <tr className="text-blue-700 sticky top-16">
@@ -307,7 +307,7 @@ function PCLists() {
             {filteredData.reverse().map((data) => {
               if (data.vehicleSlab) {
                 return (
-                  <tr className=":border-neutral-200 text-sm font-medium hover:bg-orange-300 hover:text-base" key={data._id}>
+                  <tr className=":border-neutral-200 text-sm font-medium hover:bg-orange-100 " key={data._id}>
                     <td className="px-1 py-0 border border-black">
                       <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
                         Update

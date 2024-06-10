@@ -192,12 +192,12 @@ function DashboardHr() {
       logo: <img src="/exit.png" height={10} width={25} alt="exit" />,
 
     },
-    {
-      title: "Leave Balance",
-      path: "/hr/home/leave/balance",
-      // logo: <FcLeave size={25} />,
-      logo: <img src="/visits.png" height={10} width={25} alt="visit" />,
-    },
+    // {
+    //   title: "Leave Balance",
+    //   path: "/hr/home/leave/balance",
+    //   // logo: <FcLeave size={25} />,
+    //   logo: <img src="/visits.png" height={10} width={25} alt="visit" />,
+    // },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

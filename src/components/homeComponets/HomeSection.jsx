@@ -49,9 +49,9 @@ const HomeSection = ({ homesection }) => {
     <section className="container-fluid flex flex-col lg:flex-row justify-between  sm:w-full     bg-slate-100">
       <div className="grid grid-cols-3 xs:grid-cols-2 sm:grid-cols-3  md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2 justify-items-center w-full sm:w-full  md:w-full lg:w-full xl:w-full pb-0  bg-slate-100">
         {homesection.map((item, index) => (
-          <NavLink key={index} to={item.links} className="text-center transition-transform transform hover:translate-y-[-15px] hover:shadow-2xl  shadow-slate-900/50   p-2  sm:w-64 w-40  rounded-lg mx-10 mt-8">
+          <NavLink key={index} to={item.links} className="text-center transition-transform transform hover:translate-y-[-15px] hover:shadow-2xl  shadow-slate-900/50   p-2  sm:w-52 w-32  rounded mx-8 mt-8">
 
-            <img src={item.images} alt={item.name} className="w-full h-auto" />
+            <img src={item.images} alt={item.name} className="w-full mt-3 xs:w-2/3 sm:w-3/4 md:w-3/4 lg:w-full xl:w-full" />
             <h5 className=" text-xl font-semibold tracking-tight align-text-bottom my-2 text-gray-900">
               {item.title}
             </h5>

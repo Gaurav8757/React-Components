@@ -321,7 +321,7 @@ function AllOpsDetails() {
                                 /></div>
                         </div>
 
-                        <table className="min-w-full  text-center text-sm font-light table bg-slate-200">
+                        <table className="min-w-full  text-center text-xs font-light table bg-slate-200">
                        
                         <div className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
                             {APIData.length > 0 ?  (<>

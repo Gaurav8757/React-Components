@@ -1,330 +1,18 @@
-/* eslint-disable react/prop-types */
-// // import React, { useState, useEffect } from 'react';
-// // import axios from 'axios';
-// // import { toast } from "react-toastify";
-
-// // const LeaveApproval = () => {
-// //     const [APIData, setAPIData] = useState([]);
-// //     const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-// //     const [selectedLeaveRequestId, setSelectedLeaveRequestId] = useState(null);
-// //     const [selectedAction, setSelectedAction] = useState('');
-
-// //     useEffect(() => {
-// //         const token = sessionStorage.getItem("token");
-// //         if (!token) {
-// //             toast.error("You were not authorized to get data. Please check again.");
-// //         } else {
-// //             axios
-// //                 .get(`https://eleedomimf.onrender.com/api/employee-list`, {
-// //                     headers: {
-// //                         Authorization: `${token}`,
-// //                     },
-// //                 })
-// //                 .then((response) => {
-// //                     setAPIData(response.data);
-// //                 })
-// //                 .catch((error) => {
-// //                     console.error(error);
-// //                 });
-// //         }
-// //     }, []);
-
-// //     const handleSelectChange = (e, empid, leaveRequestId) => {
-// //         setSelectedAction(e.target.value);
-// //         setSelectedEmployeeId(empid);
-// //         setSelectedLeaveRequestId(leaveRequestId);
-// //     };
-
-// //     const handleStatusUpdate = () => {
-// //         if (!selectedAction || !selectedLeaveRequestId || !selectedEmployeeId) {
-// //             toast.error("Please select an action and a leave request to update.");
-// //             return;
-// //         }
-
-// //         axios.put(`https://eleedomimf.onrender.com/api/emp/update/${selectedEmployeeId}`, {
-// //             leaveRequestId: selectedLeaveRequestId,
-// //             status: selectedAction
-// //         })
-// //         .then(() => {
-// //             updateLocalData(selectedEmployeeId, selectedLeaveRequestId, selectedAction);
-// //             toast.success(`Leave status updated successfully.`);
-// //         })
-// //         .catch((error) => {
-// //             console.error(error);
-// //             toast.error("Failed to update leave status. Please try again.");
-// //         });
-// //     };
-
-// //     const updateLocalData = (empId, requestId, status) => {
-// //         setAPIData(prevData => {
-// //             return prevData.map(data => {
-// //                 if (data._id === empId) {
-// //                     const updatedLeaveDetails = data.leaveDetails.map(leave => {
-// //                         if (leave._id === requestId) {
-// //                             return {
-// //                                 ...leave,
-// //                                 status: status
-// //                             };
-// //                         }
-// //                         return leave;
-// //                     });
-// //                     return {
-// //                         ...data,
-// //                         leaveDetails: updatedLeaveDetails
-// //                     };
-// //                 }
-// //                 return data;
-// //             });
-// //         });
-// //     };
-
-// //     return (
-// //         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-200">
-// //             <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
-// //                 <div className="inline-block min-w-full w-full py-0">
-// //                     <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-// //                         <h1 className="flex justify-center text-3xl w-full font-semibold">Leave Approval Of Employees</h1>
-// //                         <button className="absolute top-2 right-1">
-// //                             <img src="/excel.png" alt="download" className="w-12" />
-// //                         </button>
-// //                     </div>
-
-// //                     <table className="min-w-full text-center text-sm font-light table bg-slate-200 mt-5 z-100">
-// //                         <thead className="border-b font-medium bg-slate-200 border border-black sticky top-16">
-// //                             <tr className="text-blue-700 sticky top-16 border border-black">
-// //                                 <th scope="col" className="px-1 py-0 border border-black">
-// //                                     Employee ID
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Employee Name
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Email ID
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Start Date
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     End Date
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     No. of Days
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Reason for Leave
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Status
-// //                                 </th>
-// //                                 <th scope="col" className="px-1 py-0 border border-black sticky">
-// //                                     Actions
-// //                                 </th>
-// //                             </tr>
-// //                         </thead>
-// //                         <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
-// //                             {APIData.map((data) => (
-// //                                 <tr className=":border-neutral-200 text-sm font-medium" key={data.id}>
-// //                                     <td className="px-1 py-0 border border-black">{data.empid}</td>
-// //                                     <td className="px-1 py-0 whitespace-nowrap border border-black">{data.empname}</td>
-// //                                     <td className="px-1 py-0 border border-black">{data.empemail}</td>
-// //                                     {data.leaveDetails &&
-// //                                         data.leaveDetails.map((info) => (
-// //                                             <React.Fragment key={info._id}>
-// //                                                 {info.status && (
-// //                                                     <>
-// //                                                         <td className="px-1 py-0 whitespace-nowrap border border-black">
-// //                                                             {info.dateRange.startDate}
-// //                                                         </td>
-// //                                                         <td className="px-1 py-0 border border-black">
-// //                                                             {info.dateRange.endDate}
-// //                                                         </td>
-// //                                                         <td className="px-1 py-0 border border-black">{info.counts}</td>
-// //                                                         <td className="px-1 py-0 border border-black">{info.reasonForLeave}</td>
-// //                                                         <td className="px-1 py-0 border border-black">{info.status}</td>
-// //                                                         <td className="px-1 py-0 border border-black">
-// //                                                             <select
-// //                                                                 value={selectedAction}
-// //                                                                 onChange={(e) => handleSelectChange(e, data._id, info._id)}
-// //                                                             >
-// //                                                                 <option value="">Select Action</option>
-// //                                                                 <option value="approved">Approve</option>
-// //                                                                 <option value="rejected">Reject</option>
-// //                                                             </select>
-// //                                                         </td>
-// //                                                     </>
-// //                                                 )}
-// //                                             </React.Fragment>
-// //                                         ))}
-// //                                 </tr>
-// //                             ))}
-// //                         </tbody>
-// //                     </table>
-
-// //                     {selectedEmployeeId && selectedLeaveRequestId && (
-// //                         <div className="flex justify-center mt-4">
-// //                             <button
-// //                                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
-// //                                 onClick={handleStatusUpdate}
-// //                             >
-// //                                 Update Status
-// //                             </button>
-// //                         </div>
-// //                     )}
-// //                 </div>
-// //             </div>
-// //         </section>
-// //     );
-// // };
-
-// // export default LeaveApproval;
-
-// import  { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { toast } from "react-toastify";
-
-// const LeaveApproval = () => {
-//     const [APIData, setAPIData] = useState([]);
-//     const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
-//     const [selectedLeaveRequestId, setSelectedLeaveRequestId] = useState(null);
-//     const [selectedAction, setSelectedAction] = useState('');
-
-//     useEffect(() => {
-//         const token = sessionStorage.getItem("token");
-//         if (!token) {
-//             toast.error("You were not authorized to get data. Please check again.");
-//         } else {
-//             axios
-//                 .get(`https://eleedomimf.onrender.com/api/employee-list`, {
-//                     headers: {
-//                         Authorization: `${token}`,
-//                     },
-//                 })
-//                 .then((response) => {
-//                     setAPIData(response.data);
-//                 })
-//                 .catch((error) => {
-//                     console.error(error);
-//                 });
-//         }
-//     }, []);
-
-//     const handleSelectChange = (e, empid, leaveRequestId) => {
-//         setSelectedAction(e.target.value);
-//         setSelectedEmployeeId(empid);
-//         setSelectedLeaveRequestId(leaveRequestId);
-//     };
-
-//     const handleStatusUpdate = () => {
-//         if (!selectedAction || !selectedLeaveRequestId || !selectedEmployeeId) {
-//             toast.error("Please select an action and a leave request to update.");
-//             return;
-//         }
-
-//         axios.put(`https://eleedomimf.onrender.com/api/emp/update/${selectedEmployeeId}`, {
-//             leaveRequestId: selectedLeaveRequestId,
-//             status: selectedAction
-//         })
-//         .then(() => {
-//             updateLocalData(selectedEmployeeId, selectedLeaveRequestId, selectedAction);
-//             toast.success(`Leave status updated successfully.`);
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//             toast.error("Failed to update leave status. Please try again.");
-//         });
-//     };
-
-//     const updateLocalData = (empId, requestId, status) => {
-//         setAPIData(prevData => {
-//             return prevData.map(data => {
-//                 if (data._id === empId) {
-//                     const updatedLeaveDetails = data.leaveDetails.map(leave => {
-//                         if (leave._id === requestId) {
-//                             return {
-//                                 ...leave,
-//                                 status: status
-//                             };
-//                         }
-//                         return leave;
-//                     });
-//                     return {
-//                         ...data,
-//                         leaveDetails: updatedLeaveDetails
-//                     };
-//                 }
-//                 return data;
-//             });
-//         });
-//     };
-
-//     return (
-//         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-//             <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-//                 <div className="inline-block min-w-full w-full py-0">
-//                     <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-//                         <h1 className="flex justify-center text-3xl w-full font-semibold">Leave Approval Of Employees</h1>
-//                         <button className="absolute top-2 right-1">
-//                             <img src="/excel.png" alt="download" className="w-12" />
-//                         </button>
-//                     </div>
-
-//                     {APIData.map((employee) => (
-//                         <div key={employee._id} className="shadow-2xl bg-cyan-700 text-white rounded-md leading-loose p-4 my-4">
-//                              <p className="text-lg text-start leading-loose "><span className='font-semibold'>Employee ID:</span> {employee.empid}</p>
-//                             <p className="text-lg text-start leading-loose "><span className='font-semibold'>Employee Name: </span>{ employee.empname}</p>
-//                             <p className="text-lg text-start leading-loose "><span className='font-semibold'>Email ID:</span> {employee.empemail}</p>
-//                             {employee.leaveDetails.map((leave) => (
-//                                 <div key={leave._id} className="border border-gray-300 rounded-md p-4 my-4">
-//                                     <p><strong>Start Date:</strong> {leave.dateRange.startDate}</p>
-//                                     <p><strong>End Date:</strong> {leave.dateRange.endDate}</p>
-//                                     <p><strong>Reason for Leave:</strong> {leave.reasonForLeave}</p>
-//                                     <p><strong>Status:</strong> {leave.status}</p>
-//                                     <div>
-//                                         <select
-//                                             value={selectedAction}
-//                                             onChange={(e) => handleSelectChange(e, employee._id, leave._id)}
-//                                         >
-//                                             <option value="">Select Action</option>
-//                                             <option value="approved">Approve</option>
-//                                             <option value="rejected">Reject</option>
-//                                         </select>
-//                                         <button
-//                                             className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2"
-//                                             onClick={handleStatusUpdate}
-//                                         >
-//                                             Update Status
-//                                         </button>
-//                                     </div>
-//                                 </div>
-//                             ))}
-//                         </div>
-//                     ))}
-
-//                 </div>
-//             </div>
-//         </section>
-//     );
-// };
-
-// export default LeaveApproval;
-
-
-
 import axios from "axios";
 import { toast } from "react-toastify";
-import LeaveDetailsPopup from "./LeaveDetailsPopup.jsx";
+import TextLoader from "../../loader/TextLoader.jsx";
 import { useState, useEffect } from 'react';
+import VITE_DATA from "../../config/config.jsx";
 const LeaveApproval = () => {
     const [APIData, setAPIData] = useState([]);
-    
-
+    const [pendingApproval, setPendingApproval] = useState({});
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
             toast.error("You were not authorized to get data. Please check again.");
         } else {
             axios
-                .get(`https://eleedomimf.onrender.com/api/employee-list`, {
+                .get(`${VITE_DATA}/api/employee-list`, {
                     headers: {
                         Authorization: `${token}`,
                     },
@@ -338,54 +26,163 @@ const LeaveApproval = () => {
         }
     }, []);
 
-     // refreshing page after updating data
-     const onUpdateLeave = async () => {
-        try {
-            const token = sessionStorage.getItem("token");
+    const handleInputChange = (e, empId, leaveId) => {
+        const { name, value } = e.target;
+        const updatedAPIData = APIData.map(emp => ({
+            ...emp,
+            leaveDetails: emp.leaveDetails.map(leave => {
+                if (leave._id === leaveId) {
+                    return {
+                        ...leave,
+                        [name]: value
+                    };
+                }
+                return leave;
+            })
+        }));
+        setAPIData(updatedAPIData);
 
-            if (!token) {
-                toast.error("Not Authorized Data yet.. Try again!");
-            } else {
-                const response = await axios.get(
-                    `https://eleedomimf.onrender.com/api/employee-list`,
-                    {
-                        headers: {
-                            Authorization: `${token}`,
-                        },
-                    }
-                );
-                setAPIData(response.data);
+        // Update pending approval state
+        setPendingApproval(prevState => ({
+            ...prevState,
+            [leaveId]: {
+                ...prevState[leaveId],
+                [name]: value,
+                empId: empId
             }
-        } catch (error) {
-            console.error("Error fetching updated Leave data:", error);
+        }));
+        // Check if both status and remarks are set
+        const pendingLeave = pendingApproval[leaveId] || {};
+        if ((name === "status" ) || (name === "remarks" )) {
+            handleApproval(empId, leaveId, name === "status" ? value : pendingLeave.status, name === "remarks" ? value : pendingLeave.remarks);
         }
     };
 
+    const handleApproval = async (empId, leaveId, status, remarks) => {
+        try {
+            const token = sessionStorage.getItem("token");
+            if (!token) {
+                toast.error("You were not authorized to perform this action. Please check again.");
+                return;
+            }
+           
+            const response = await axios.put(`${VITE_DATA}/employee/${empId}/leave/${leaveId}`, {
+                status: status,
+                remarks: remarks
+            }, {
+                headers: {
+                    Authorization: `${token}`,
+                },
+            });
+            // Determine the toast message based on the status
+            const message = status === 'approved' ?
+                `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}` :
+                `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}`;
+
+            // Display appropriate toast message
+            if (status === 'approved') {
+                toast.success(message);
+            } else if (status === 'rejected') {
+                toast.error(message);
+            }
+        } catch (error) {
+            toast.error(`${error}`)
+            console.error('Error updating status:', error);
+        }
+    };
+
+
+
     return (
-        <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-            <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg bg-white">
-                <div className="overflow-x-none w-xl flex mt-2 text-blue-500">
-                    <h1 className="flex justify-center text-3xl w-full font-semibold">Leave Approval Of Employees</h1>
-                    <button className="absolute top-2 right-1">
-                        <img src="/excel.png" alt="download" className="w-12" />                    
-                    </button>
-                </div>
-                <div className="inline-block min-w-full w-full py-0">
-                    {APIData.map((employee) => (
-                        <div key={employee._id} className="shadow-2xl flex  justify-between  bg-cyan-700 text-white rounded-md leading-loose p-4 my-4">
-                            <div>
-                                <p className="text-lg text-start leading-loose "><span className='font-semibold'>Employee ID:</span> {employee.empid}</p>
-                                <p className="text-lg text-start leading-loose "><span className='font-semibold'>Employee Name: </span>{employee.empname}</p>
-                                <p className="text-lg text-start leading-loose "><span className='font-semibold'>Email ID:</span> {employee.empemail}</p>
+        <section className="container-fluid relative p-0 sm:ml-64 bg-orange-50">
+            <div className="container-fluid items-center pt-2 px-2 border-gray-200 border-dashed rounded bg-orange-100">
+                <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide py-2 text-center uppercase font-medium text-orange-700'>Leave History</h1>
+                {APIData.length === 0 ? (<TextLoader />):(<>   {APIData.map((data) =>
+                    data.leaveDetails.map((leave) => (
+                        <div key={leave._id} className="w-full max-w-auto px-4 py-4 mb-5 text-gray-900 bg-orange-500 rounded shadow-2xl shadow-yellow-700 bg-blend-saturation">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center whitespace-nowrap text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">EMP ID:</span>
+                                    <span className="font-semibold text-gray-50">{data.empid}</span>
+                                </div>
+                                <div className="flex items-center whitespace-nowrap text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Name:</span>
+                                    <span className="font-semibold text-gray-50">{data.empname}</span>
+                                </div>
+                                <div className="hidden items-center whitespace-nowrap sm:hidden md:flex lg:flex xl:flex text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Branch:</span>
+                                    <span className="font-semibold text-gray-50">{data.empbranch}</span>
+                                </div>
+                                <div className="flex items-center whitespace-nowrap text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Mobile No.:</span>
+                                    <span className="font-semibold text-gray-50">{data.empmobile}</span>
+                                </div>
+                                <div className="hidden items-center whitespace-nowrap sm:hidden md:hidden lg:flex xl:flex text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Email:</span>
+                                    <span className="font-semibold text-gray-50">{data.empemail}</span>
+                                </div>
+                                <div className="hidden items-center whitespace-nowrap sm:hidden md:hidden lg:hidden xl:flex text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Designation:</span>
+                                    <span className="font-semibold text-gray-50">{data.staffType}</span>
+                                </div>
                             </div>
-                            <div className="text-center my-auto"> 
-                                <LeaveDetailsPopup emp={employee} onUpdate={onUpdateLeave}/>
+                            <div className="flex items-center justify-between mt-2">
+                                <div className="flex items-center whitespace-nowrap  text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Applied Date:</span>
+                                    <span className="font-semibold text-gray-50">{leave.applyDate}</span>
+                                </div>
+                                <div className="flex items-center text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
+                                    <span className="font-semibold text-black me-1">Applied Time:</span>
+                                    <span className="font-semibold text-gray-50">{leave.applytime}</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-7 gap-8 mt-4">
+                                <div className="flex flex-col items-center">
+                                    <span className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">From</span>
+                                    <span className="text-xs xl:text-xl lg:text-sm sm:text-xs font-semibold text-black">{leave.dateRange.startDate}</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">To</span>
+                                    <span className="text-xs xl:text-xl lg:text-sm sm:text-xs font-semibold text-black">{leave.dateRange.endDate}</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm whitespace-nowrap font-semibold text-gray-50">Leave Type</span>
+                                    <span className="text-xs xl:text-xl lg:text-sm sm:text-xs font-semibold text-black">{leave.leavetype}</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm whitespace-nowrap font-semibold text-gray-50">No. of Days</span>
+                                    <span className="text-xs xl:text-xl lg:text-sm sm:text-xs font-semibold text-black">{leave.counts}</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">Reason</span>
+                                    <span className="text-xs xl:text-base lg:text-sm sm:text-xs font-semibold text-black">{leave.reasonForLeave}</span>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span htmlFor="Rem" className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">Remarks</span>
+                                    <textarea type="text" rows="1" name="remarks" id="Rem" value={leave.remarks || ''} onChange={(e) => handleInputChange(e, data._id, leave._id, leave.status)} className="xl:w-36 lg:w-32 md:w-28 sm:w-20 w-16  text-start  text-xs xl:text-base lg:text-sm sm:text-xs  font-semibold text-black rounded overflow-hidden bg-orange-200 border-hidden " />
+                                </div>
+                                <div className="flex flex-col items-center">
+                                    <span htmlFor="stat" className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">Status</span>
+                                    <select name="status" id="stat" value={leave.status || ''} onChange={(e) => handleInputChange(e, data._id, leave._id, leave.remarks)} className="p-1 xl:w-32 cursor-pointer lg:w-32 md:w-16 sm:w-14 w-12 text-start  text-xs xl:text-base lg:text-sm sm:text-xs  font-semibold text-black rounded overflow-hidden ps-1 bg-orange-200 border-hidden">
+                                        <option value="" className="">Select Status</option>
+                                        <option value="approved" className="font-bold text-green-700 hover:cursor-pointer">Approve</option>
+                                        <option value="rejected" className="font-bold text-red-700 cursor-pointer">Reject</option>
+                                    </select>
+                                </div>
+                                {/* <div className="flex flex-col items-center">
+                                <span htmlFor="stat" className="mb-2 text-xs xl:text-xl lg:text-sm sm:text-sm font-semibold text-gray-50">Status</span>
+                                <button onClick={() => handleApproval(data._id, leave._id, leave.status, leave.remarks)} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                                        Submit
+                                    </button>
+                                </div> */}
                             </div>
                         </div>
-                    ))}
-                </div>
+                    ))
+                )} </> )}
             </div>
+
         </section>
+
     );
 };
 

@@ -23,7 +23,7 @@ function LeaveApplication() {
     } else {
       // Fetch leave types
       axios
-        .get(`${VITE_DATA}/leave/type/show`, {
+        .get(`${VITE_DATA}/api/employee-list`, {
           headers: {
             Authorization: `${token}`, // Send the token in the Authorization header
           },
@@ -39,19 +39,21 @@ function LeaveApplication() {
 
   const currentDate = new Date().toISOString().split('T')[0]; // Get current date in yyyy-MM-dd format
 
-  // Function to handle changes in leave type selection
   const handleInputChanges = (e) => {
     const selectedType = e.target.value;
     setLeaveType(selectedType);
 
     // Find the selected leave type in the APIData array
-    const selectedData = APIData.find(data => data.leavetype === selectedType);
-    if (selectedData) {
-      setRestLeave(selectedData.restleave);
+    const selectedData = APIData
+      .filter(data => data._id === sessionStorage.getItem("employeeId"))
+      .map(data => data.leavebalance.find(emp => emp.restLeave === selectedType)); // Convert selectedType to integer if necessary
+    if (selectedData.length > 0 && selectedData[0]) {
+      setRestLeave(selectedData[0].num); // Access restLeave property from selectedData
     } else {
       setRestLeave(0); // Reset leave balance if leave type not found
     }
   };
+
 
   // Function to handle leave submission
   const formatDates = (startDate, endDate) => {
@@ -84,6 +86,37 @@ function LeaveApplication() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
+        // ******************* Current date *******************//
+      const getCurrentDateString = () => {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0');
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const year = today.getFullYear();
+      
+        return `${day}/${month}/${year}`;
+      };
+      const db = getCurrentDateString();
+        // ******************* Current date *******************//
+
+      // ******************* Current time *******************//
+      const getCurrentTimeString = () => {
+        const today = new Date();
+        let hours = today.getHours();
+        const minutes = String(today.getMinutes()).padStart(2, '0');
+        const seconds = String(today.getSeconds()).padStart(2, '0');
+        const amPm = hours >= 12 ? 'PM' : 'AM';
+      
+        hours = hours % 12;
+        hours = hours ? hours : 12; // The hour '0' should be '12'
+        const strHours = String(hours).padStart(2, '0');
+      
+        return `${strHours}:${minutes}:${seconds} ${amPm}`;
+      };
+      
+      // Store the current time string in the dbTime variable
+      const dbTime = getCurrentTimeString();
+  // ******************* Current time *******************//
+
 
       if (validateFields(startDate, endDate, leaveType, reason)) {
         const { startDateFormatted, endDateFormatted } = formatDates(startDate, endDate);
@@ -108,12 +141,13 @@ function LeaveApplication() {
             reasonForLeave: reason,
             status: status,
             counts: daysCount,
+            applyDate: db,
+            applytime:dbTime,
           },
         ];
 
         await updateLeaveDetails(employeeId, updatedLeaveDetails);
-        toast.success('Leave application submitted successfully.');
-
+        toast.success('Leave application submitted successfully....!');
         setStartDate('');
         setEndDate('');
         setLeaveType('');
@@ -161,29 +195,32 @@ function LeaveApplication() {
 
         <div className='flex justify-between w-full'>
 
-          
+
           <div className='flex justify-between'>
             <div className='flex flex-col  p-2 text-start w-full lg:w-1/2 '>
               <label className="text-base  my-1">Leave Type:</label>
               <select className="input-style p-1 rounded-lg w-full ps-2" name='leavetype' value={leaveType} onChange={handleInputChanges}>
                 <option value="">Select Leave Type</option>
-                {APIData.map((data) => (
-                  <option key={data._id} value={data.leavetype}>{data.leavetype}</option>
-                ))}
+                {APIData
+                  .filter(data => data._id === sessionStorage.getItem("employeeId"))
+                  .map(data => data.leavebalance.map(emp => (
+                    <option key={emp._id} value={emp.restLeave}>{emp.restLeave}</option>
+                  )))}
+
               </select>
             </div>
 
             <div className='flex flex-col  p-2 text-start w-full lg:w-1/2'>
-            <label className="text-base  my-1">Leave Balance:</label>
-            <input type="number" className="input-style w-1/2 p-1 rounded-lg ps-2" value={restLeave} readOnly />
-          </div>
+              <label className="text-base  my-1">Leave Balance:</label>
+              <input type="number" className="input-style w-1/2 p-1 rounded-lg ps-2" value={restLeave} readOnly />
             </div>
+          </div>
 
           <div className='flex flex-col justify-end p-2 text-start w-full lg:w-1/4 '>
             <label className="text-base  my-1">No. of Leave:</label>
             <input className="input-style w-1/2 p-1 rounded-lg ps-2" type="number" value={dayCounts} readOnly />
           </div>
-          
+
         </div>
 
       </div>

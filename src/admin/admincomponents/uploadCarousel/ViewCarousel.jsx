@@ -138,7 +138,7 @@ function ViewCarousel() {
                                                 {data.usercarousel_desc}
                                             </td>
                                             <td className="whitespace-wrap px-1 py-0.5 text-center">
-                                                {data.usercarousel_upload}
+                                                {data.usercarousel_link}
                                             </td>
 
                                             <td className="whitespace-nowrap px-1 py-0.5">

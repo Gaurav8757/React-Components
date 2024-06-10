@@ -27,7 +27,7 @@ const Carousel = () => {
   }, []);
 
   return (
-    <section className="container-fluid max-w-lg">
+    <section className="container-fluid max-w-md">
       <Suspense fallback={null}>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, Autoplay]}
@@ -38,7 +38,7 @@ const Carousel = () => {
             delay: 4000,
             disableOnInteraction: false,
           }}
-          className="container-fluid mb-5 w-1/3 mt-5 xs:w-1/3 sm:w-1/3 md:w-3/4 lg:w-3/4 xl:w-full"
+          className="container-fluid mb-3 w-full mt-3 xs:w-2/3 sm:w-3/4 md:w-3/4 lg:w-full xl:w-full"
         >
           {APIData.map((obj, idx) => (
             <SwiperSlide key={idx}>

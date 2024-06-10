@@ -518,7 +518,7 @@ function MasterView() {
                 /></div>
             </div>
 
-            <table className="min-w-full text-center text-sm font-light table  bg-white border border-gray-200 divide-y divide-gray-200  ">
+            <table className="min-w-full text-center text-xs font-light table  bg-white border border-gray-200 divide-y divide-gray-200  ">
             
                 <div className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
                 {filteredData.length === 0  ? ( // Conditional rendering for loading state
@@ -595,7 +595,7 @@ function MasterView() {
 
                     <tbody className="divide-y divide-gray-200 overflow-y-hidden ">
                       {filteredData.slice(startIndex, endIndex).map((data) => (
-                        <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium hover:bg-orange-300 hover:text-base">
+                        <tr key={data._id} className="border-b dark:border-neutral-200 text-sm font-medium hover:bg-orange-100">
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.policyrefno}</td>
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.entryDate}</td>
                           <td className="whitespace-nowrap px-1 py-0 border border-black">{data.branch}</td>

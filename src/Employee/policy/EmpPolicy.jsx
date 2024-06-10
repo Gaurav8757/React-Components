@@ -286,7 +286,7 @@ function EmpPolicy() {
                             <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4"></div>
                         </div>
 
-                        <table className="min-w-full  border text-center bg-slate-200 text-sm font-light table">
+                        <table className="min-w-full  border text-center bg-slate-200 text-xs font-light table">
                             {isLoading ? ( // Conditional rendering for loading state
                                 <TextLoader />
                             ) : (
@@ -393,7 +393,7 @@ function EmpPolicy() {
                                             {filteredData.reverse().slice(startIndex, endIndex).map((data) => {
                                                 return (
                                                     <tr
-                                                        className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium hover:bg-orange-300 hover:text-base"
+                                                        className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium hover:bg-orange-100 "
                                                         key={data._id}>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
