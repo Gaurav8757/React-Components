@@ -124,7 +124,7 @@ function CareersView() {
                   </tr>
                 ))) : (<tr>
                   <td colSpan="18" className="text-center pt-40 text-2xl font-semibold py-4 text-gray-900 dark:text-gray-00">
-                    No feedback available.
+                    No Application Available.
                   </td>
                 </tr>)}
             </tbody>

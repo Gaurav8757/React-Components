@@ -176,7 +176,7 @@ function LeaveApplication() {
   }, [startDate, endDate]);
 
   return (
-    <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2 px-2 bg-orange-100 drop-shadow-2xl shadow-slate-800 rounded-lg'>
+    <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2  mt-4  bg-orange-100  rounded-lg'>
       <div className='flex justify-center text-center'>
         <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide mb-4 text-start uppercase font-medium text-orange-700'>Leave Application</h1>
       </div>
@@ -196,8 +196,6 @@ function LeaveApplication() {
         </div>
 
         <div className='flex justify-between w-full'>
-
-
           <div className='flex justify-between'>
             <div className='flex flex-col  p-2 text-start w-full lg:w-1/2 '>
               <label className="text-base  my-1">Leave Type:</label>
@@ -208,7 +206,6 @@ function LeaveApplication() {
                   .map(data => data.leavebalance.map(emp => (
                     <option key={emp._id} value={emp.restLeave}>{emp.restLeave}</option>
                   )))}
-
               </select>
             </div>
 

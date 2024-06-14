@@ -17,6 +17,7 @@ function MasterView() {
   const [searchInsuredName, setSearchInsuredName] = useState("");
   const [searchPolicyMadeBy, setSearchPolicyMadeBy] = useState("");
   const [policies, setPolicies] = useState("");
+  const [adv, setAdv] = useState("");
 
   const name = sessionStorage.getItem('name');
   useEffect(() => {
@@ -58,10 +59,12 @@ function MasterView() {
     const numbers = data.policyNo?.toLowerCase() || "";
     const insuredNameLower = data.insuredName?.toLowerCase() || "";
     const companyLower = data.company?.toLowerCase() || "";
+    const advisor = data.advisorName?.toLowerCase() || "";
     const policyMadeByLower = data.policyMadeBy?.toLowerCase() || "";
     return (
       (idLower.includes(searchId.toLowerCase()) || searchId === '') &&
       (numbers.includes(policies.toLowerCase()) || policies === '') &&
+      (advisor.includes(adv.toLowerCase()) || adv === '') &&
       (insuredNameLower.includes(searchInsuredName.toLowerCase()) || searchInsuredName === '') &&
       (companyLower.includes(searchCompany.toLowerCase()) || searchCompany === '') &&
       (policyMadeByLower.includes(searchPolicyMadeBy.toLowerCase()) || searchPolicyMadeBy === '') &&
@@ -505,7 +508,15 @@ function MasterView() {
                   placeholder="Policy No."
                 />
               </div>
-
+              <div className=" flex justify-start p-0 text-end my-auto  w-full lg:w-1/5">
+                <label className="my-auto  text-base font-medium text-gray-900">Advisor Name:</label>
+                <input
+                  type="search"
+                  onChange={(e) => setAdv(e.target.value)}
+                  className="shadow p-0 text-start lg:w-1/2 input-style  my-0 ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-1 px-0 ml-2"
+                  placeholder="AdvisorName"
+                />
+              </div>
             
 
               <div className="flex text-start my-5   justify-start  lg:w-1/5">

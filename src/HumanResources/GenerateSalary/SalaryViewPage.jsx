@@ -39,8 +39,8 @@ function SalaryViewPage({ data, onClosed }) {
             pdf.save('salary.pdf');
         });
     };
-   const netSalary =  data.finalAmountSalary - (data.otherDeduction + data.emploanemi + data.empesi + data.emppf);
-   const TotalPayableAmount = netSalary - (data.fuelExpense + data.otherExpense);
+    const netSalary = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.empesi || 0) + (data.emppf || 0)));
+    const TotalPayableAmount = parseFloat(netSalary - ((data.fuelExpense || 0) + (data.otherExpense || 0)));
 
     return (
         <>
@@ -182,9 +182,9 @@ function SalaryViewPage({ data, onClosed }) {
                                                 <div className="font-semibold ">Additional Benefits:</div>
                                                 <div className="ml-28">{`₹ ${data.additional || 0}`}</div>
 
-                                                <div className="font-semibold">Over Time(Days):</div>
+                                                <div className="font-semibold">EPF (Company Contribution):</div>
                                                 <div className="ml-28">{`₹ ${data.fullovertime || 0}`}</div>
-                                                <div className="font-semibold">Over Time(6-to-8):</div>
+                                                <div className="font-semibold">ESI (Company Contribution):</div>
                                                 <div className="ml-28">{`₹ ${data.sixtoeight || 0}`}</div>
                                                 <div className="font-semibold">Incentive:</div>
                                                 <div className="ml-28">{`₹ ${data.incentive || 0}`}</div>
@@ -226,7 +226,7 @@ function SalaryViewPage({ data, onClosed }) {
                                                 <div className="ml-28">00</div> */}
                                                 <div className="font-semibold">Others:</div>
                                                 <div className="ml-28">{`₹ ${data.otherDeduction || 0}`}</div>
-                                               
+
                                                 <div className="font-bold mt-24">Total Deduction:</div>
                                                 <div className="font-bold ml-28 mt-24">{`₹ ${data.finalDeduction || 0}`}</div>
                                             </div>

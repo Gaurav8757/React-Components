@@ -217,7 +217,7 @@ function ViewMasterForm() {
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states  &&
             (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL'))&&
-
+            // (matchingCSLab.vncb === data.ncb?.toLowerCase() || matchingCSLab.vncb === '' || matchingCSLab.vncb === 'both')&&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
@@ -272,12 +272,12 @@ function ViewMasterForm() {
               profitLoss = companyPayout - branchPayout;
             }
             // Check if data needs an update
-            // if (
-            //   data.branchPayableAmount !== branchPayable ||
-            //   data.branchPayout !== branchPayout ||
-            //   data.companyPayout !== companyPayout ||
-            //   data.profitLoss !== profitLoss
-            // ) {
+            if (
+              data.branchPayableAmount !== branchPayable ||
+              data.branchPayout !== branchPayout ||
+              data.companyPayout !== companyPayout ||
+              data.profitLoss !== profitLoss
+            ) {
 
               // Prepare data for API request
               const postData = {
@@ -312,7 +312,7 @@ function ViewMasterForm() {
                 );
               }
             }
-          // }
+          }
         });
       });
     }

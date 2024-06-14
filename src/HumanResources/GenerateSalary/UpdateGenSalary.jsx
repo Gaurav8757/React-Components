@@ -26,9 +26,11 @@ function UpdateGenSalary({ genSalaries, onUpdate, onClose }) {
         setData(genSalaries);
     }, [genSalaries]);
 
+    
+
     useEffect(() => {
         const handleSalary = () => {
-            const presentSalary = (data.monthsalary / 30.5) * data.presentDays;
+            const presentSalary = (data.monthsalary / 30.5) * data.presentDays ;
             const halfSalary = (data.monthsalary / 30.5) * 0.5 * data.totalHalfDays;
             const salary = parseFloat(presentSalary) + parseFloat(halfSalary);
             setData((prevData) => ({
@@ -37,27 +39,59 @@ function UpdateGenSalary({ genSalaries, onUpdate, onClose }) {
             }));
         };
         handleSalary();
-    }, [data.monthsalary, data.presentDays, data.totalHalfDays]);
+    }, [data.monthsalary, data.presentDays, data.totalHalfDays, data.totalAbsent]);
 
     useEffect(() => {
         const handleIncentive = () => {
             const genSalaryValue = parseFloat(data.genSalary) || 0;
             const incentiveValue = parseFloat(data.incentive) || 0;
-            const totalAmount = parseFloat(genSalaryValue + incentiveValue);
+            const esiValue = parseFloat(data.empesi) || 0;
+            const arrearValue = parseFloat(data.arrear) || 0;
+            const fuelValue = parseFloat(data.fuelExpense) || 0;
+            const otherValue = parseFloat(data.otherExpense) || 0;
+            const empLoanValue = parseFloat(data.emploanemi) || 0;
+            const totalAmount = parseFloat(genSalaryValue + incentiveValue + esiValue + arrearValue + fuelValue + otherValue - empLoanValue);
             setData((prevData) => ({
                 ...prevData,
                 totalAmount: totalAmount.toFixed(2)
             }));
         };
         handleIncentive();
-    }, [data.genSalary, data.incentive]);
+    }, [data.genSalary, data.incentive, data.empesi, data.arrear, data.fuelExpense, data.otherExpense, data.emploanemi]);
+
+    // const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setData((prevData) => ({
+    //         ...prevData,
+    //         [name]: value,
+    //     }));
+    // };
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        setData((prevData) => {
+            if (name === "totalAbsent") {
+                const adjustedPresentDays = prevData.totalDays - value;
+                return {
+                    ...prevData,
+                    presentDays: adjustedPresentDays,
+                    [name]: value,
+                };
+            } else if (name === "presentDays") {
+                const adjustedAbsentDays = prevData.totalDays - value;
+                return {
+                    ...prevData,
+                    totalAbsent: adjustedAbsentDays,
+                    [name]: value,
+                };
+            } else {
+                return {
+                    ...prevData,
+                    [name]: value,
+                };
+            }
+        });
     };
 
     const updateGenSalaryAPI = async () => {
@@ -181,6 +215,30 @@ function UpdateGenSalary({ genSalaries, onUpdate, onClose }) {
                                     />
                                 </div>
                                 <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                                    <label className="text-base mx-1">ESI</label>
+                                    <input
+                                        className="input-style p-1 rounded-lg"
+                                        type="number"
+                                        min="0"
+                                        value={data.empesi}
+                                        onChange={handleInputChange}
+                                        name="empesi"
+                                        placeholder="₹"
+                                    />
+                                </div>
+                                <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                                    <label className="text-base mx-1">Arrear</label>
+                                    <input
+                                        className="input-style p-1 rounded-lg"
+                                        type="number"
+                                        min="0"
+                                        value={data.arrear}
+                                        onChange={handleInputChange}
+                                        name="arrear"
+                                        placeholder="₹"
+                                    />
+                                </div>
+                                <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
                                     <label className="text-base mx-1">Incentive</label>
                                     <input
                                         className="input-style p-1 rounded-lg"
@@ -189,6 +247,42 @@ function UpdateGenSalary({ genSalaries, onUpdate, onClose }) {
                                         value={data.incentive}
                                         onChange={handleInputChange}
                                         name="incentive"
+                                        placeholder="₹"
+                                    />
+                                </div>
+                                <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                                    <label className="text-base mx-1">Fuel Expense&apos;s</label>
+                                    <input
+                                        className="input-style p-1 rounded-lg"
+                                        type="number"
+                                        min="0"
+                                        value={data.fuelExpense}
+                                        onChange={handleInputChange}
+                                        name="fuelExpense"
+                                        placeholder="₹"
+                                    />
+                                </div>
+                                <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                                    <label className="text-base mx-1">Other Expense&apos;s</label>
+                                    <input
+                                        className="input-style p-1 rounded-lg"
+                                        type="number"
+                                        min="0"
+                                        value={data.otherExpense}
+                                        onChange={handleInputChange}
+                                        name="otherExpense"
+                                        placeholder="₹"
+                                    />
+                                </div>
+                                <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
+                                    <label className="text-base mx-1">Loan EMI</label>
+                                    <input
+                                        className="input-style p-1 rounded-lg"
+                                        type="number"
+                                        min="0"
+                                        value={data.emploanemi}
+                                        onChange={handleInputChange}
+                                        name="emploanemi"
                                         placeholder="₹"
                                     />
                                 </div>
