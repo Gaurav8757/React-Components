@@ -218,7 +218,7 @@ function EmpPolicy() {
     };
     return (
         <section className="container-fluid    p-0 sm:ml-64 bg-slate-200">
-            <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
+            <div className="container-fluid flex justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-orange-50">
                 <div className="inline-block min-w-full w-full py-0">
                     <div className=" m-4 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
                         <h1></h1>
@@ -286,7 +286,7 @@ function EmpPolicy() {
                             <div className="flex p-0 mt-3 text-center justify-start lg:w-1/4"></div>
                         </div>
 
-                        <table className="min-w-full  border text-center bg-slate-200 text-xs font-light table">
+                        <table className="min-w-full  border text-center bg-orange-50 text-xs font-light table">
                             {isLoading ? ( // Conditional rendering for loading state
                                 <TextLoader />
                             ) : (
@@ -294,7 +294,7 @@ function EmpPolicy() {
                                     {APIData.length === 0 ? ( // Conditional rendering when there are no policies
                                         <p className='mt-20 text-2xl font-bold flex  justify-center text-center'>No policies found.</p>
                                     ) : (<>
-                                        <thead className="   font-medium  bg-slate-200">
+                                        <thead className="   font-medium  bg-orange-100">
                                             <tr className="text-blue-700 font-bold border border-black bg-slate-200 sticky -top-1">
                                                 <th scope="col" className="px-1 pt-2 sticky border border-black">
                                                     Update
@@ -393,7 +393,7 @@ function EmpPolicy() {
                                             {filteredData.reverse().slice(startIndex, endIndex).map((data) => {
                                                 return (
                                                     <tr
-                                                        className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium hover:bg-orange-100 "
+                                                        className="border-b border-gray-200 dark:border-neutral-200 text-sm font-medium hover:bg-orange-200 "
                                                         key={data._id}>
                                                         <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                             <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">

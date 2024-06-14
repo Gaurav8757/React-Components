@@ -119,11 +119,11 @@ function ProfileUpdate() {
     return (
         <>
 
-            <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-                <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
+            <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-orange-100">
+                <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-orange-100">
                     <span className="text-3xl py-1 tracking-wider text-orange-700 font-medium">Update Your Profile</span>
 
-                    <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-slate-200">
+                    <div className="container-fluid flex justify-center p-2  border-dashed rounded-lg  bg-orange-200 shadow-xl">
 
                         <form className="flex flex-wrap justify-between">
                             <div className="flex flex-col  p-2 text-start w-full lg:w-1/5">

@@ -112,8 +112,8 @@ function EmpAttendance() {
   }, [value, APIData]);
 
   return (
-    <section className="container-fluid emp-attendance-container relative h-screen p-0 sm:ml-64 bg-white">
-      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-50">
+    <section className="container-fluid emp-attendance-container relative h-screen p-0 sm:ml-64 bg-orange-100">
+      <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-orange-100">
         <div className="w-full ">
           <span className="text-3xl tracking-wider text-orange-700 font-medium p-4">Attendance</span>
           <div className='flex justify-start'>

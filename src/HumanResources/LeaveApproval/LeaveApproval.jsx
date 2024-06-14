@@ -76,7 +76,24 @@ const getCurrentDateAndTime = () => {
               toast.error(`${error.response ? error.response.data.message : error.message}`);
           }
       };
-      
+      const updateLeaveBalance = (empId, leaveId) => {
+        setAPIData(prevAPIData => 
+          prevAPIData.map(emp => {
+            if (emp._id === empId) {
+              emp.leaveDetails.forEach(detail => {
+                if (detail._id === leaveId && detail.status === "approved") {
+                  emp.leavebalance.forEach(balance => {
+                    if (detail.leavetype === balance.restLeave) {
+                      balance.num -= detail.counts;
+                    }
+                  });
+                }
+              });
+            }
+            return emp;
+          })
+        );
+      };
       
       const handleApproval = async (empId, leaveId, status, remarks, startDate, endDate) => {
         try {
@@ -102,9 +119,11 @@ const getCurrentDateAndTime = () => {
           if (status === 'approved') {
             toast.success(message);
             handleToggleAttendance(empId, 'absent', startDate, endDate);
-          } else if (status === 'rejected') {
+            updateLeaveBalance(empId, leaveId);
+          } 
+          else if (status === 'rejected') {
             toast.error(message);
-            handleToggleAttendance(empId, 'present', startDate, endDate);
+            // handleToggleAttendance(empId, 'present', startDate, endDate);
           }
         } catch (error) {
           toast.error(`${error}`);
