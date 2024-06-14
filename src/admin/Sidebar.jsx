@@ -291,9 +291,29 @@ const Sidebar = () => {
           dash: ""
         },
       ]
-    }
+    },
+    {
+      title: "Careers",
+      path: "/dashboard/career/view/list",
+      logo: <img src="/career.png" height={5} width={25} alt="grid"/>,
+      // subRoutes: [
+  
+      //   {
+      //     title: "Add Payout",
+      //     path: "/dashboard/advisor/slabs",
+      //     dash: ""
+      //   },
+      //   {
+      //     title: "Payout Lists",
+      //     path: "/dashboard/advisor/payout/lists",
+      //     dash: ""
+      //   },
+      // ]
+    },
+  
   ];
 
+ 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 

@@ -6,6 +6,18 @@ import VITE_DATA from "../../config/config.jsx";
 const LeaveApproval = () => {
     const [APIData, setAPIData] = useState([]);
     const [pendingApproval, setPendingApproval] = useState({});
+    // get times
+const getCurrentDateAndTime = () => {
+    const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date());
+    return formattedDate;
+  };
+  // time
+  const formatTime = (dateTimeString) => {
+    const timePart = dateTimeString.split(' ')[2] + ' ' + dateTimeString.split(' ')[3];
+    return timePart;
+  };
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -26,80 +38,119 @@ const LeaveApproval = () => {
         }
     }, []);
 
-    const handleInputChange = (e, empId, leaveId) => {
+    const formatWeekday = (date) => {
+        return date.toLocaleDateString('en-US', { weekday: 'long' });
+      };
+      
+      const handleToggleAttendance = async (empId, attendanceStatus, startDate, endDate) => {
+          try {
+              const token = sessionStorage.getItem("token");
+              if (!token) {
+                  toast.error("You were not authorized to perform this action. Please check again.");
+                  return;
+              }
+              const start = new Date(startDate.split('/').reverse().join('-'));
+              const end = new Date(endDate.split('/').reverse().join('-'));
+              let currentDate = start;
+              while (currentDate <= end) {
+                  const formattedDate = currentDate.toLocaleDateString('en-GB');
+                  const timePart = formatTime(getCurrentDateAndTime());
+                  const weekdayPart = formatWeekday(currentDate);
+                //   console.log(weekdayPart);
+                  // Make a POST request to mark attendance
+                  await axios.post(`${VITE_DATA}/employee/mark/leave/${empId}`, {
+                      status: attendanceStatus,
+                      date: formattedDate,
+                      time: timePart,
+                      weekday: weekdayPart,
+                  }, {
+                      headers: {
+                          Authorization: `${token}`,
+                      },
+                  });
+                  currentDate.setDate(currentDate.getDate() + 1);
+              }
+              toast.success('Leave Attendance Marked Successfully...!');
+          } catch (error) {
+              console.error('Error to Marking Leave Attendance:', error.response ? error.response.data.message : error.message);
+              toast.error(`${error.response ? error.response.data.message : error.message}`);
+          }
+      };
+      
+      
+      const handleApproval = async (empId, leaveId, status, remarks, startDate, endDate) => {
+        try {
+          const token = sessionStorage.getItem("token");
+          if (!token) {
+            toast.error("You were not authorized to perform this action. Please check again.");
+            return;
+          }
+      
+          const response = await axios.put(`${VITE_DATA}/employee/${empId}/leave/${leaveId}`, {
+            status: status,
+            remarks: remarks
+          }, {
+            headers: {
+              Authorization: `${token}`,
+            },
+          });
+      
+          const message = status === 'approved' ?
+            `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}` :
+            `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}`;
+      
+          if (status === 'approved') {
+            toast.success(message);
+            handleToggleAttendance(empId, 'absent', startDate, endDate);
+          } else if (status === 'rejected') {
+            toast.error(message);
+            handleToggleAttendance(empId, 'present', startDate, endDate);
+          }
+        } catch (error) {
+          toast.error(`${error}`);
+          console.error('Error updating status:', error);
+        }
+      };
+      
+      const handleInputChange = (e, empId, leaveId) => {
         const { name, value } = e.target;
-        const updatedAPIData = APIData.map(emp => ({
-            ...emp,
-            leaveDetails: emp.leaveDetails.map(leave => {
-                if (leave._id === leaveId) {
-                    return {
-                        ...leave,
-                        [name]: value
-                    };
-                }
-                return leave;
-            })
+        const updatedAPIData = APIData?.map(emp => ({
+          ...emp,
+          leaveDetails: emp.leaveDetails?.map(leave => {
+            if (leave._id === leaveId) {
+              return {
+                ...leave,
+                [name]: value
+              };
+            }
+            return leave;
+          })
         }));
         setAPIData(updatedAPIData);
-
-        // Update pending approval state
+      
         setPendingApproval(prevState => ({
-            ...prevState,
-            [leaveId]: {
-                ...prevState[leaveId],
-                [name]: value,
-                empId: empId
-            }
+          ...prevState,
+          [leaveId]: {
+            ...prevState[leaveId],
+            [name]: value,
+            empId: empId
+          }
         }));
-        // Check if both status and remarks are set
+      
         const pendingLeave = pendingApproval[leaveId] || {};
         if ((name === "status" ) || (name === "remarks" )) {
-            handleApproval(empId, leaveId, name === "status" ? value : pendingLeave.status, name === "remarks" ? value : pendingLeave.remarks);
+          const leaveDetails = APIData.find(emp => emp._id === empId).leaveDetails.find(leave => leave._id === leaveId);
+          handleApproval(empId, leaveId, name === "status" ? value : pendingLeave.status, name === "remarks" ? value : pendingLeave.remarks, leaveDetails.dateRange.startDate, leaveDetails.dateRange.endDate);
         }
-    };
-
-    const handleApproval = async (empId, leaveId, status, remarks) => {
-        try {
-            const token = sessionStorage.getItem("token");
-            if (!token) {
-                toast.error("You were not authorized to perform this action. Please check again.");
-                return;
-            }
-           
-            const response = await axios.put(`${VITE_DATA}/employee/${empId}/leave/${leaveId}`, {
-                status: status,
-                remarks: remarks
-            }, {
-                headers: {
-                    Authorization: `${token}`,
-                },
-            });
-            // Determine the toast message based on the status
-            const message = status === 'approved' ?
-                `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}` :
-                `${response.data.empname} (${response.data.leaveDetail.dateRange.startDate} - ${response.data.leaveDetail.dateRange.endDate}) ${response.data.message}`;
-
-            // Display appropriate toast message
-            if (status === 'approved') {
-                toast.success(message);
-            } else if (status === 'rejected') {
-                toast.error(message);
-            }
-        } catch (error) {
-            toast.error(`${error}`)
-            console.error('Error updating status:', error);
-        }
-    };
-
-
-
+      };
+    
     return (
         <section className="container-fluid relative p-0 sm:ml-64 bg-orange-50">
             <div className="container-fluid items-center pt-2 px-2 border-gray-200 border-dashed rounded bg-orange-100">
                 <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide py-2 text-center uppercase font-medium text-orange-700'>Leave History</h1>
                 {APIData.length === 0 ? (<TextLoader />):(<>   {APIData.map((data) =>
-                    data.leaveDetails.map((leave) => (
-                        <div key={leave._id} className="w-full max-w-auto px-4 py-4 mb-5 text-gray-900 bg-orange-500 rounded shadow-2xl shadow-yellow-700 bg-blend-saturation">
+                    data.leaveDetails?.map((leave) => (
+                        <div key={leave._id} className="w-full max-w-auto px-4 py-4 mb-5 text-gray-900 bg-orange-600 rounded shadow-2xl shadow-yellow-700 bg-blend-saturation">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center whitespace-nowrap text-white bg-[#050708]/20 focus:ring-[#050708]/20 text-xs lg:text-sm sm:text-xs rounded px-2 py-1 text-center">
                                     <span className="font-semibold text-black me-1">EMP ID:</span>

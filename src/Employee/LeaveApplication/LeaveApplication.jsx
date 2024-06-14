@@ -36,8 +36,10 @@ function LeaveApplication() {
         });
     }
   }, []);
-
-  const currentDate = new Date().toISOString().split('T')[0]; // Get current date in yyyy-MM-dd format
+  
+  const tomorrow = new Date();
+  tomorrow.setDate(new Date().getDate() + 1);
+  const currentDate = tomorrow.toISOString().split('T')[0];
 
   const handleInputChanges = (e) => {
     const selectedType = e.target.value;
@@ -210,7 +212,7 @@ function LeaveApplication() {
               </select>
             </div>
 
-            <div className='flex flex-col  p-2 text-start w-full lg:w-1/2'>
+            <div className='flex flex-col whitespace-nowrap p-2 text-start w-full lg:w-1/2'>
               <label className="text-base  my-1">Leave Balance:</label>
               <input type="number" className="input-style w-1/2 p-1 rounded-lg ps-2" value={restLeave} readOnly />
             </div>

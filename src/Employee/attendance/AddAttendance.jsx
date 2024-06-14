@@ -76,6 +76,7 @@ function AddAttendance() {
       }`)
     }
   }
+  
   const empnam = sessionStorage.getItem('name');
   return (
     <section className="container-fluid relative flex flex-wrap p-0 sm:ml-64 bg-slate-100">

@@ -181,7 +181,8 @@ import PayoutView from "./advisor/payout/PayoutView.jsx";
 import DailyViewLeger from "./branches/ViewLeger/DailyViewLeger.jsx";
 import MonthViewLeger from "./branches/ViewLeger/MonthViewLeger.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
-import ListOfLeave from "./employee/attendance/ListOfLeave.jsx";
+import ListOfLeave from "./Employee/attendance/ListOfLeave.jsx";
+import CareersView from "./admin/admincomponents/Careers/CareersView.jsx";
 // import UpdateFinance from "./finance/FinanceData/UpdateFinance.jsx";
 // import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 
@@ -299,6 +300,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard/ledger2" element={<Ledger2 />} />
           <Route path="/dashboard/ledger3" element={<Ledger3/>} />
           <Route path="/dashboard/updatemasterform" element={<UpdateMaster />} />
+          <Route path="/dashboard/career/view/list" element={<CareersView/>} />
           
         </Route>
       </Route>
