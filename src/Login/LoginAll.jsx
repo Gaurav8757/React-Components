@@ -34,7 +34,6 @@ const formatWeekday = (dateTimeString) => {
 };
 
 
-
 const handleToggleAttendance = async (id) => {
     try {
         // const empid = sessionStorage.getItem('employeeId') ;
@@ -63,7 +62,6 @@ const handleToggleAttendance = async (id) => {
             }`)
     }
 }
-
 
 function LoginAll() {
     const navigate = useNavigate();
@@ -272,8 +270,8 @@ function LoginAll() {
                 }
             }
         } catch (error) {
-            console.log(error);
-            toast.warn("Incorrect UserID/Password or Access Not Allowed! ");
+            console.log(error.response.data.message);
+            toast.warn(`${error.response.data.message}`);
         }
     };
 

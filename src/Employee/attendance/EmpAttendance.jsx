@@ -11,7 +11,6 @@ function EmpAttendance() {
   const [presentDays, setPresentDays] = useState(0);
   const [absentDays, setAbsentDays] = useState(0);
   const [halfday, setHalfDay] = useState(0);
-
   const [holidayDays, setHolidayDays] = useState(0);
   const employeeId = sessionStorage.getItem('employeeId');
 
@@ -76,9 +75,9 @@ function EmpAttendance() {
     const selectedYear = selectedDate.getFullYear();
 
     const filteredData = data.filter((attendance) => {
-      // eslint-disable-next-line no-unused-vars
       const [day, month, year] = attendance.date.split('/');
-      // console.log(day);
+      console.log(day);
+      
       return parseInt(month, 10) === selectedMonth && parseInt(year, 10) === selectedYear;
     });
 

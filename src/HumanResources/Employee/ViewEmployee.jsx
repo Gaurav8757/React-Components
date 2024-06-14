@@ -5,9 +5,7 @@ import { NavLink } from "react-router-dom";
 import UpdateEmployee from "./UpdateEmployee.jsx";
 import TextLoader from "../../loader/TextLoader.jsx";
 import { toast } from "react-toastify";
-
 import VITE_DATA from "../../config/config.jsx";
-
 
 export default function ViewEmployee() {
     const [APIData, setAPIData] = useState([]);
@@ -29,7 +27,7 @@ export default function ViewEmployee() {
     };
 
     useEffect(() => {
-        setItemsPerPage(20);
+        setItemsPerPage(50);
     }, []);
 
     const handleUpdateClick = (id) => {
@@ -74,7 +72,6 @@ export default function ViewEmployee() {
         }
     };
 
-
     const filteredData = APIData.filter(data => {
         // Check if data is defined
         if (!data) return false;
@@ -93,7 +90,6 @@ export default function ViewEmployee() {
             (endDate === "" || new Date(data.empjoiningdate) <= new Date(endDate))
         );
     });
-
 
     // Calculate total number of pages
     const totalItems = filteredData.length;
@@ -124,7 +120,6 @@ export default function ViewEmployee() {
                         },
                     }
                 );
-
                 setAPIData(response.data);
             }
         } catch (error) {
@@ -226,16 +221,38 @@ export default function ViewEmployee() {
 
 
 
-    // ******************** Delete Functions *************************************/
-    const onDeleteEmployee = async (_id) => {
+    const DisableUser = async (_id) => {
         try {
-            await axios.delete(`${VITE_DATA}/emp/api/${_id}`);
-            toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
-            setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+            const employee = APIData.find((data) => data._id === _id);
+            const newFlags = !employee.flags; // Toggle flags
+
+            const resp = await axios.put(`${VITE_DATA}/api/emp/update/${_id}`, { flags: newFlags });
+            console.log(resp.data.message.updatedEmployee.empname);
+            if (newFlags) {
+                toast.success(`${resp.data.message.updatedEmployee.empname} Enabled to Work...!`, { theme: "dark", position: "top-right" });
+            } else {
+                toast.error(`${resp.data.message.updatedEmployee.empname} Employee Disabled...!`, { theme: "dark", position: "top-right" });
+            }
+
+            setAPIData((prevData) => prevData.map((data) =>
+                data._id === _id ? { ...data, flags: newFlags } : data
+            ));
         } catch (error) {
-            console.error('Error deleting employee:', error);
+            console.error('Error updating employee status', error);
+            toast.error('Failed to update employee status.', { theme: "dark", position: "top-right" });
         }
     };
+
+
+    // const onDeleteEmployee = async (_id) => {
+    //     try {
+    //         await axios.delete(`${VITE_DATA}/emp/api/${_id}`);
+    //         toast.warn("Employee Deleted.....!", { theme: "dark", position: "top-right" });
+    //         setAPIData((prevData) => prevData.filter((data) => data._id !== _id));
+    //     } catch (error) {
+    //         console.error('Error deleting employee:', error);
+    //     }
+    // };
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-orange-100">
@@ -292,161 +309,175 @@ export default function ViewEmployee() {
                                 </div>
                             </div>
                             <table className="min-w-full text-center text-sm font-light table bg-orange-100 ">
-                            {filteredData.length === 0 ? (<TextLoader />) : (<>
-                                <thead className="border-b  font-medium bg-slate-200  sticky top-16">
-                                    <tr className="text-blue-700 sticky top-16">
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Update
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
-                                            Employee ID
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Employee Name
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Email ID
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Mobile No.
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            DOB.
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Gender
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Aadhar No.
-                                        </th>
-                                       
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            PAN No.
-                                        </th>
-                                       
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Account Number
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            IFSC Code
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Bank Name
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Joining Date
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Branch
-                                        </th>
-                                        <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
-                                            Current Address
-                                        </th>
-                                        <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
-                                            Permanent Address
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Designation
-                                        </th>
-                                      
-                                        <th scope="col" className="px-1 py-0 border border-black sticky">
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-200 bg-orange-200 overflow-y-hidden">
-                                    {sortedData.slice(startIndex, endIndex).map((data) => {
-                                        return (
-                                            <tr
-                                                className=":border-neutral-200 text-sm font-medium"
-                                                key={data.empid}>
-                                                <td className="px-1 py-0 border border-black">
-                                                <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-3 py-1 my-0.5 text-center ">
-                        Update
-                      </button>
-                                                    
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empid}
-                                                </td>
-                                                <td className="px-1 py-0 whitespace-nowrap border border-black">
-                                                    {data.empname}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empemail}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empmobile}
-                                                </td>
-                                                <td className="px-1 py-0 whitespace-nowrap border border-black">
-                                                    {data.empdob}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empgender}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empaadharno}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.pan}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.accNumber}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.ifsc}
-                                                </td>
-                                                <td className="px-1 py-0 border whitespace-nowrap border-black">
-                                                    {data.bankName}
-                                                </td>
-                                                <td className="px-1 py-0 border whitespace-nowrap border-black">
-                                                    {data.empjoiningdate}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.empbranch}
-                                                </td>
-                                                <td colSpan={3} className="px-1 py-0 border border-black">
-                                                    {data.currentempaddress}
-                                                </td>
-                                                <td colSpan={3} className="px-1 py-0 border  border-black">
-                                                    {data.permanentempaddress}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {data.staffType}
-                                                </td>
-                                                <td className="px-1 py-0 border border-black">
-                                                    {/* to enable delete from here */}
-                                                    <button type="button" onClick={() => staffSend(data._ids)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 text-center">Active</button>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
+                                {filteredData.length === 0 ? (<TextLoader />) : (<>
+                                    <thead className="border-b  font-medium bg-slate-200  sticky top-16">
+                                        <tr className="text-blue-700 sticky top-16">
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Update
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black">
+                                                Employee ID
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Employee Name
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Email ID
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Mobile No.
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                DOB.
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Gender
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Aadhar No.
+                                            </th>
+
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                PAN No.
+                                            </th>
+
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Account Number
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                IFSC Code
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Bank Name
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Joining Date
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Branch
+                                            </th>
+                                            <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
+                                                Current Address
+                                            </th>
+                                            <th scope="col" colSpan={3} className="px-1 py-0 border border-black sticky">
+                                                Permanent Address
+                                            </th>
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Designation
+                                            </th>
+
+                                            <th scope="col" className="px-1 py-0 border border-black sticky">
+                                                Status
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-200 bg-orange-200 overflow-y-hidden">
+                                        {sortedData.slice(startIndex, endIndex).map((data) => {
+                                            return (
+                                                <tr
+                                                    className=":border-neutral-200 text-sm font-medium"
+                                                    key={data.empid}>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 text-center ">
+                                                            Update
+                                                        </button>
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empid}
+                                                    </td>
+                                                    <td className="px-1 py-0 whitespace-nowrap border border-black">
+                                                        {data.empname}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empemail}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empmobile}
+                                                    </td>
+                                                    <td className="px-1 py-0 whitespace-nowrap border border-black">
+                                                        {data.empdob}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empgender}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empaadharno}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.pan}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.accNumber}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.ifsc}
+                                                    </td>
+                                                    <td className="px-1 py-0 border whitespace-nowrap border-black">
+                                                        {data.bankName}
+                                                    </td>
+                                                    <td className="px-1 py-0 border whitespace-nowrap border-black">
+                                                        {data.empjoiningdate}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.empbranch}
+                                                    </td>
+                                                    <td colSpan={3} className="px-1 py-0 border border-black">
+                                                        {data.currentempaddress}
+                                                    </td>
+                                                    <td colSpan={3} className="px-1 py-0 border  border-black">
+                                                        {data.permanentempaddress}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black">
+                                                        {data.staffType}
+                                                    </td>
+                                                    <td className="px-1 py-0 border border-black ">
+                                                        {/* to enable delete from here */}
+                                                        <button type="button" onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            staffSend(data._id);
+                                                        }} className={`text-white font-medium rounded text-sm px-2 py-1 text-center  shadow-2xl
+                                                                ${data.flags ? 'bg-green-500 hover:bg-green-600 ' : 'bg-red-500 hover:bg-red-600'}`}>{data.flags ? "Active" : "Deactive"}</button>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
                                 </>)}
                             </table>
                         </div>
                     </div>
                     {showUpdatePopup && selectedRowId && (
-            <UpdateEmployee employee={selectedRowId} onUpdate={onUpdateBranch} onClose={handleClosePopup} />
-          )}
-                  
+                        <UpdateEmployee employee={selectedRowId} onUpdate={onUpdateBranch} onClose={handleClosePopup} />
+                    )}
+
                     {sendStaffId && (
                         <div id="popup-modal" tabIndex="-1" className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                             <div className="bg-white p-4 rounded-lg ">
-                                <h2 className="text-lg font-semibold text-gray-800"> {`Are you sure you want to delete `}
-                                    <span className="text-red-600">{APIData.find(data => data._id === sendStaffId)?.empname}</span>
-                                    {`?`}</h2>
+                                <h2 className="text-lg font-semibold text-gray-800">
+                                    {`Are you sure you want to ${APIData.find(data => data._id === sendStaffId)?.flags ? 'disable' : 'enable'}`}
+                                    <span className={`${APIData.find(data => data._id === sendStaffId)?.flags ? 'text-red-600 ml-1' : 'text-green-600 ml-1'}`}>
+                                        {APIData.find(data => data._id === sendStaffId)?.empname}
+                                    </span>
+                                    {`?`}
+                                </h2>
                                 <div className="flex justify-end mt-10">
-                                    <button onClick={() => { onDeleteEmployee(sendStaffId); setSendStaffId(null); }} className="text-white bg-red-600 hover:bg-red-800 focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded text-base px-4 mr-2">
+                                    <button
+                                        onClick={() => { DisableUser(sendStaffId); setSendStaffId(null); }}
+                                        className={`text-white ${APIData.find(data => data._id === sendStaffId)?.flags ? 'bg-red-600 hover:bg-red-800 focus:ring-red-300 dark:focus:ring-red-800' : 'bg-green-600 hover:bg-green-800 focus:ring-green-300 dark:focus:ring-green-800'} focus:outline-none font-medium rounded text-sm px-2 py-0 mr-2`}
+                                    >
                                         Yes, I&apos;m sure
                                     </button>
-                                    <button onClick={() => setSendStaffId(null)} className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-base font-medium px-4 py-2 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                    <button
+                                        onClick={() => setSendStaffId(null)}
+                                        className="text-gray-500 bg-gray-100 hover:bg-gray-200 focus:ring-gray-300 rounded-lg border border-gray-900 text-sm font-medium px-2 py-1 hover:text-gray-900 focus:z-10"
+                                    >
                                         No, cancel
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
+
                 </div>
             </div>
             {/* Pagination */}
