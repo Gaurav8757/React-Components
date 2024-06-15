@@ -112,7 +112,7 @@ export default function ViewSalary() {
                             </thead>
                             {/* body */}
                             <tbody className="divide-y divide-gray-200 bg-orange-200">
-                                {APIData.map((data) => {
+                                {APIData.filter(data => data.flags === true).map((data) => {
                                     return (
                                         <tr
                                             className="border-b dark:border-neutral-200 text-sm font-medium"

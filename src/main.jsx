@@ -183,6 +183,7 @@ import MonthViewLeger from "./branches/ViewLeger/MonthViewLeger.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ListOfLeave from "./Employee/attendance/ListOfLeave.jsx";
 import CareersView from "./admin/admincomponents/Careers/CareersView.jsx";
+import ViewSal from "./employee/viewSalary/ViewSal.jsx";
 // import UpdateFinance from "./finance/FinanceData/UpdateFinance.jsx";
 // import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 
@@ -352,7 +353,7 @@ const router = createBrowserRouter(
           <Route path="/employee/home/attendance" element={<EmpAttendance />} />
           <Route path="/employee/home/policy" element={<EmpPolicy />} />
           <Route path="/employee/home/lists" element={<ListOfLeave/>}/>
-          {/* <Route path="/employee/home/leave/application" element={<LeaveApplication />} /> */}
+          <Route path="/employee/home/monthly/salary" element={<ViewSal />} />
         </Route>
       </Route>
 

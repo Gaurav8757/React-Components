@@ -78,6 +78,7 @@ function AddSalary() {
                    --------- Select Employee ----------
                 </option>
                 {sortedAPIData.map((employee) => (
+                 
                   <option key={employee.empid} value={employee.empname} className="text-base">
                     {employee.empid} - {employee.empname}
                   </option>

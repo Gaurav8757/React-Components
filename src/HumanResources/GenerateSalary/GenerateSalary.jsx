@@ -376,10 +376,10 @@ useEffect(() => {
     setLoading(true);
     
     try {
-      console.log(empUniqueId);
+      console.log(typeof empUniqueId);
       // Proceed with the rest of the submission logic
       const response = await axios.post(`${VITE_DATA}/dashboard/gensalary`, {
-        empUniqueId: empUniqueId,
+        empUniqueId,
         empName,
         presentDays: presentDay,
         totalHalfDays: halfDay,
@@ -487,7 +487,7 @@ useEffect(() => {
                 <option value="" className="text-base">
                   -------- Select Employee ----------
                 </option>
-                {empList.map((emp) => (
+                {empList.filter(employee => employee.flags === true).map((emp) => (
                   <option key={emp.empid} value={emp.empname} className="text-base">
                     {`${emp.empid}  -  ${emp.empname}`}
                   </option>

@@ -64,7 +64,7 @@ function ReportEmp() {
             return empidA - empidB;
         });
 
-        return sortedAPIData.map((employee, employeeIndex) => {
+        return sortedAPIData.filter(employee => employee.flags === true).map((employee, employeeIndex) => {
             // Initialize present, absent, half-day, and holiday counts
             let presentCount = 0;
             let absentCount = 0;

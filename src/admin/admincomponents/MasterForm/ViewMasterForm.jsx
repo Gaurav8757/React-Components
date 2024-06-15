@@ -235,14 +235,7 @@ function ViewMasterForm() {
               (matchingCSLab.vage === '1-7 YEARS' && parseInt(data.vehicleAge) >= 1 && parseInt(data.vehicleAge) <= 7) ||
               (matchingCSLab.vage === '7-10 YEARS' && parseInt(data.vehicleAge) >= 7 && parseInt(data.vehicleAge) <= 10) ||
               (matchingCSLab.vage === 'MORE THAN 7 YEARS' && parseInt(data.vehicleAge) > 7)
-            )
-            &&
-            (
-              matchingCSLab.vcc === data.cc ||
-              matchingCSLab.vcc.toLowerCase() === 'all'
-            )  
-            // (matchingCSLab.)
-
+            ) && ( matchingCSLab.vcc === data.cc || matchingCSLab.vcc.toLowerCase() === 'all')  
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);

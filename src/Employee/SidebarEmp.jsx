@@ -48,6 +48,12 @@ function DashboardEmp() {
       ]
     },
     {
+      title: "Salary",
+      path: "/employee/home/monthly/salary",
+      // logo: <MdOutlinePolicy size={25} />
+      logo: <img src="/salary1.png" height={5} width={25} alt="salary"/>
+    }, 
+    {
       title: "Leave History",
       path: "/employee/home/lists",
       // logo: <MdOutlinePolicy size={25} />
