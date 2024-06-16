@@ -105,7 +105,7 @@ function AddSalary() {
                 type="number"
                 min="0"
                 name="monthleave"
-                value={monthleave}
+                value={monthleave || 0}
                 onChange={(e) => setMonthleave(e.target.value)}
                 placeholder=""
               />

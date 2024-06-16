@@ -114,6 +114,7 @@ function GenerateSalary() {
     const formattedDays = daysOfMonth.map((day) => day.getDay());
 
     const filteredDetails = employee.employeeDetails.filter((detail) => {
+      console.log(detail);
       // eslint-disable-next-line no-unused-vars
       const [day, month, year] = detail.date.split("/").map(Number);
       return year === selectedYear && month === selectedMonth;
@@ -293,38 +294,39 @@ function GenerateSalary() {
   // handleFinalSalaryAmount
  useEffect(() => {
   const handleFinalSalaryAmount = () => {
-    const salariesValue = parseFloat(empBasicSalary) || 0;
+    const salariesValue = parseFloat(salaries) || 0;
     const incentiveValue = parseFloat(incentive) || 0;
-    const hraValue = parseFloat(empHra) || 0;
-    const daValue = parseFloat(empCa) || 0;
-    const ma = parseFloat(empMedical) || 0;
-    const tfinValue = parseFloat(empTiffin) || 0;
-    const kitValue = parseFloat(kit) || 0;
-    const adds = parseFloat(additional) || 0;
     const prevSalary =  parseFloat(arrear) || 0;
     const fuelValue = parseFloat(fuelExpense)|| 0;
     const otherValue = parseFloat(otherExpense)|| 0;
+    const esi =  parseFloat(empEsi) || 0;
+    // const hraValue = parseFloat(empHra) || 0;
+    // const daValue = parseFloat(empCa) || 0;
+    // const ma = parseFloat(empMedical) || 0;
+    // const tfinValue = parseFloat(empTiffin) || 0;
+    // const kitValue = parseFloat(kit) || 0;
+    // const adds = parseFloat(additional) || 0;
     // const loanemis = parseFloat(empLoanemi) || 0;
     // const emppf = parseFloat(empPf) || 0;
     // const esi =  parseFloat(empEsi) || 0;
     // const otherDeductionValue =  parseFloat(otherDeduction) || 0;
-    const incent = parseFloat(salariesValue + incentiveValue + hraValue + daValue + ma + tfinValue + kitValue + adds + prevSalary + fuelValue + otherValue).toFixed(1);
+    const incent = parseFloat(salariesValue + incentiveValue +  prevSalary + fuelValue + otherValue+ esi).toFixed(1);
     setFinalAmountSalary(incent);
   };
   handleFinalSalaryAmount(); // Call the function when the component mounts or when 'absent' state changes
-}, [empBasicSalary, incentive,empHra, empCa, empMedical,empTiffin, kit,additional, arrear, fuelExpense, otherExpense]);
+}, [salaries, incentive, arrear, fuelExpense,empEsi, otherExpense]);
 
 useEffect(() => {
   const handleDeductionAmount = () => {
     const loanemis = parseFloat(empLoanemi) || 0;
     const emppf = parseFloat(empPf) || 0;
-    const esi =  parseFloat(empEsi) || 0;
     const otherDeductionValue =  parseFloat(otherDeduction) || 0;
-    const deduct = parseFloat((loanemis + emppf + esi + otherDeductionValue)).toFixed(1);
+
+    const deduct = parseFloat((loanemis + emppf + otherDeductionValue)).toFixed(1);
     setFinalDeduction(deduct);
   }
     handleDeductionAmount();
-  }, [empLoanemi,empPf, empEsi, otherDeduction, otherExpense]);
+  }, [empLoanemi,empPf, otherDeduction, otherExpense]);
 
   // HANDLE COMPANY
   // useEffect(() => {
@@ -816,7 +818,7 @@ useEffect(() => {
                 <span className="text-xs text-red-700">DISABLED</span>
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
-              <label className="text-base mx-1">Load EMI:</label>
+              <label className="text-base mx-1">Loan EMI:</label>
               <input
                 className="input-style  p-1 rounded-lg"
                 type="number"
@@ -842,7 +844,7 @@ useEffect(() => {
               />
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">
-            <label className="text-base mx-1">Others:</label>
+            <label className="text-base mx-1">TDS:</label>
               <input
                 className="input-style  p-1 rounded-lg"
                 type="number"

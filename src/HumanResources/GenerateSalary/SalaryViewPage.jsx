@@ -191,7 +191,7 @@ function SalaryViewPage({ data, onClosed }) {
                                                 <div className="font-semibold">Arrear:</div>
                                                 <div className="ml-28">{`₹ ${data.arrear || 0}`}</div>
                                                 <div className="font-bold ">Total Earnings:</div>
-                                                <div className="font-bold ml-28">{`₹ ${data.finalAmountSalary || 0}`}</div>
+                                                <div className="font-bold ml-28">{`₹ ${(data.genSalary + data.incentive + data.arrear)  || 0}`}</div>
 
                                             </div>
                                         </div>
@@ -224,7 +224,7 @@ function SalaryViewPage({ data, onClosed }) {
                                                 <div className="ml-28">{`₹ ${data.emploanemi || 0}`}</div>
                                                 {/* <div className="font-semibold">Balance Loan Amount:</div>
                                                 <div className="ml-28">00</div> */}
-                                                <div className="font-semibold">Others:</div>
+                                                <div className="font-semibold">TDS:</div>
                                                 <div className="ml-28">{`₹ ${data.otherDeduction || 0}`}</div>
 
                                                 <div className="font-bold mt-24">Total Deduction:</div>
@@ -242,13 +242,13 @@ function SalaryViewPage({ data, onClosed }) {
                                     <div className="p-4  text-start mx-52">
                                         <div className="grid grid-cols-2 gap-1 text-base">
                                             <div className="font-semibold ">Salary(E-D):</div>
-                                            <div className='ml-60'> {`₹ ${netSalary}`}</div>
+                                            <div className='ml-60 font-medium'> {`₹ ${(data.genSalary + data.incentive + data.arrear) - (data.finalDeduction || 0)}/-`}</div>
                                             <div className="font-semibold">Fuel Expenses:</div>
                                             <div className="ml-60">{`₹ ${data.fuelExpense || 0}`}</div>
                                             <div className="font-semibold">Other Expenses:</div>
                                             <div className="ml-60">{`₹ ${data.otherExpense || 0}`}</div>
                                             <div className="font-bold">Total Payable Amount:</div>
-                                            <div className="font-bold text-green-600 ml-60">{`₹ ${TotalPayableAmount || 0}/-`}</div>
+                                            <div className="font-bold text-green-600 ml-60">{`₹ ${(TotalPayableAmount + data.fuelExpense + data.otherExpense )}/-`}</div>
                                         </div>
                                     </div>
                                 </div>

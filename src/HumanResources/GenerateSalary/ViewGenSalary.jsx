@@ -67,7 +67,8 @@ export default function ViewGenPolicy() {
                 });
         }
     }, []);
-
+    APIData.map(data => [
+        deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.emppf || 0)))]);
 
     const updateGenSalary = async () => {
         try {
@@ -100,8 +101,6 @@ export default function ViewGenPolicy() {
             const fileName = `${name}_salary`;
             const columnsToInclude = [
                 "Employee Name",
-                "Monthly Salary",
-                "Monthly Leave",
                 "Months",
                 "Total Days",
                 "Working Days",
@@ -112,56 +111,57 @@ export default function ViewGenPolicy() {
                 "Absent",
                 "Gross Salary",
                 "Salary(working)",
-                "Basic Salary",
-                "Incentive",
+                "Basic Salary",   
                 "HRA",
                 "DA",
                 "Medical Allowance",
                 "Tiffin Allowance",
                 "Kit Allowance",
                 "Additional Benefits",
-                "Arrear",
                 "Company PF",
-                "Employee PF",
                 "ESI",
-                "Loan EMI",
-                "Other Deduction",
+                "Incentive",
                 "Fuel Expenses",
                 "Other Expenses",
+                "Arrear",
+                "Final Amount",
+                "Employee PF",
+                "Loan EMI",
+                "TDS",  
                 "Amount after Deduction"
                 // Include other necessary columns here
             ];
             const rowsToInclude = APIData.map(data => [
+                
                 data.empName,
-                data.monthsalary,
-                data.monthleave,
                 data.genMonths,
                 data.totalMonthDays,
                 data.totalDays,
-                data.presentDays,
                 data.sundays,
+                data.holidayCount,
+                data.presentDays,
                 data.totalHalfDays,
                 data.totalAbsent,
                 data.empgrossSalary,
                 data.genSalary,
                 data.empbasicSalary,
-                data.incentive,
                 data.emphra,
                 data.empca,
                 data.empmedical,
                 data.emptiffin,
                 data.kit,
                 data.additional,
-                data.arrear,
-                data.finalAmountSalary,
                 data.empcompanyPf,
-                data.emppf,
                 data.empesi,
-                data.emploanemi,
-                data.otherDeduction,
+                data.incentive,
                 data.fuelExpense,
                 data.otherExpense,
-                deductAmount
+                data.arrear,
+                data.finalAmountSalary,
+                data.emppf,
+                data.emploanemi,
+                data.otherDeduction,
+                deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.emppf || 0))),
                 // Include other necessary data here
             ]);
 
@@ -262,12 +262,12 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Employee Name
                                         </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
+                                        {/* <th scope="col" className="px-1 py-0 border border-black">
                                             Monthly Salary
-                                        </th>
-                                        <th scope="col" className="px-1 py-0 border border-black">
+                                        </th> */}
+                                        {/* <th scope="col" className="px-1 py-0 border border-black">
                                             Monthly Leave
-                                        </th>
+                                        </th> */}
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Months
                                         </th>
@@ -302,9 +302,7 @@ export default function ViewGenPolicy() {
                                             Basic Salary
                                         </th>
 
-                                        <th scope="col" className="px-1 py-0 border border-black">
-                                            Incentive
-                                        </th>
+
                                         {/* <th scope="col" className="px-1 py-0 border border-black bg-green-200">
                                             Salary + Incentive
                                         </th> */}
@@ -325,14 +323,18 @@ export default function ViewGenPolicy() {
                                             Kit Allowance
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
+                                            Additional Benefits
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
                                             Company PF
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             ESI
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
-                                            Additional Benefits
+                                            Incentive
                                         </th>
+
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Fuel Expenses
                                         </th>
@@ -356,7 +358,7 @@ export default function ViewGenPolicy() {
                                             Loan EMI
                                         </th>
                                         <th scope="col" className="px-1 py-0 border border-black">
-                                            Other Deduction
+                                            TDS
                                         </th>
 
                                         <th scope="col" className="px-1 py-0 border border-black bg-green-200">
@@ -373,13 +375,13 @@ export default function ViewGenPolicy() {
                                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
                                     {filteredData.map((data) => {
                                         if (data.genMonths) {
-                                            deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.empesi || 0) + (data.emppf || 0) + (data.fuelExpense || 0) + (data.otherExpense || 0)));
+                                            deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.emppf || 0)));
                                             return (
                                                 <tr
                                                     className="border-b dark:border-neutral-200 text-sm font-medium"
                                                     key={data._id}>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        <input id="green-checkbox" type="checkbox" value="" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"/>
+                                                        <input id="green-checkbox" type="checkbox" value="" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500" />
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
@@ -389,12 +391,12 @@ export default function ViewGenPolicy() {
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.empName}
                                                     </td>
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                    {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {`₹${data.monthsalary || 0}`}
-                                                    </td>
-                                                    <td className="whitespace-nowrappx-1 py-0 border border-black">
+                                                    </td> */}
+                                                    {/* <td className="whitespace-nowrappx-1 py-0 border border-black">
                                                         {data.monthleave}
-                                                    </td>
+                                                    </td> */}
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {data.genMonths}
                                                     </td>
@@ -432,10 +434,7 @@ export default function ViewGenPolicy() {
                                                         {`₹${data.empbasicSalary || 0}`}
                                                     </td>
 
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
 
-                                                        {`₹${data.incentive || 0}`}
-                                                    </td>
                                                     {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         
                                                         {`₹${data.totalAmount || 0}`}
@@ -462,6 +461,10 @@ export default function ViewGenPolicy() {
                                                         {`₹${data.kit || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
+
+                                                        {`₹${data.additional || 0}`}
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         {`₹${data.empcompanyPf || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
@@ -470,8 +473,9 @@ export default function ViewGenPolicy() {
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
 
-                                                        {`₹${data.additional || 0}`}
+                                                        {`₹${data.incentive || 0}`}
                                                     </td>
+
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
 
                                                         {`₹${data.fuelExpense || 0}`}

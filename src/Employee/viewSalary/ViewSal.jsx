@@ -208,7 +208,7 @@ function ViewSal() {
                                     Loan EMI
                                 </th>
                                 <th scope="col" className="px-1 py-0 border border-black">
-                                    Other Deduction
+                                    TDS
                                 </th>
 
                                 <th scope="col" className="px-1 py-0 border border-black bg-green-200">
