@@ -183,7 +183,7 @@ import MonthViewLeger from "./branches/ViewLeger/MonthViewLeger.jsx";
 import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ListOfLeave from "./Employee/attendance/ListOfLeave.jsx";
 import CareersView from "./admin/admincomponents/Careers/CareersView.jsx";
-import ViewSal from "./employee/viewSalary/ViewSal.jsx";
+import ViewSal from "./Employee/viewSalary/ViewSal.jsx";
 // import UpdateFinance from "./finance/FinanceData/UpdateFinance.jsx";
 // import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
 

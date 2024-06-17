@@ -14,6 +14,7 @@ export default function ViewGenPolicy() {
     const [APIData, setAPIData] = useState([]);
     const [selectedMonth, setSelectedMonth] = useState(new Date());
     const [initialMonth, setInitialMonth] = useState(new Date());
+    const [checkedState, setCheckedState] = useState({});
     // update by id popup
     const [showUpdatePopup, setShowUpdatePopup] = useState(false);
     const [selectedRowId, setSelectedRowId] = useState(null);
@@ -48,51 +49,113 @@ export default function ViewGenPolicy() {
     };
 
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again! ");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`${VITE_DATA}/api/salaries-list`, {
+        const fetchData = async () => {
+            try {
+                const token = sessionStorage.getItem("token");
+                if (!token) {
+                    toast.error("Not Authorized yet.. Try again!");
+                    return;
+                }
+                
+                const response = await axios.get(`${VITE_DATA}/api/salaries-list`, {
                     headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
+                        Authorization: token,
                     },
-                })
-                .then((response) => {
-                    setAPIData(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
                 });
-        }
-    }, []);
-    APIData.map(data => [
-        deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.emppf || 0)))]);
+                
+                const data = response.data;
+                setAPIData(data);
 
-    const updateGenSalary = async () => {
+                // Initialize checkedState based on retrieved data, defaulting to false
+                const initialCheckedState = {};
+                data.forEach(item => {
+                    initialCheckedState[item._id] = item.flags || false;
+                });
+                setCheckedState(initialCheckedState);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    const handleCheckboxChange = async (event, id) => {
+        const isChecked = event.target.checked;
+        setCheckedState(prevState => ({
+            ...prevState,
+            [id]: isChecked,
+        }));
+
         try {
             const token = sessionStorage.getItem("token");
-
             if (!token) {
                 toast.error("Not Authorized yet.. Try again!");
-            } else {
-                const response = await axios.get(
-                    `${VITE_DATA}/api/salaries-list`,
-                    {
-                        headers: {
-                            Authorization: `${token}`,
-                        },
-                    }
-                );
-
-                setAPIData(response.data);
+                return;
             }
+
+            const response = await axios.put(
+                `${VITE_DATA}/api/salaries/${id}`,
+                { flags: isChecked }
+            );
+            toast.success(`${response.data.status}`);
         } catch (error) {
-            console.error("Error fetching Generated Salary data:", error);
+            toast.error(`Error updating flags: ${error.response?.data?.message || error.message}`);
+            console.error("Error updating flags:", error);
         }
     };
 
+    APIData.map(data => [
+        deductAmount = parseFloat(data.finalAmountSalary - ((data.otherDeduction || 0) + (data.emploanemi || 0) + (data.emppf || 0)))]);
+
+        const updateGenSalary = async () => {
+            try {
+                const token = sessionStorage.getItem("token");
+    
+                if (!token) {
+                    toast.error("Not Authorized yet.. Try again!");
+                } else {
+                    const response = await axios.get(
+                        `${VITE_DATA}/api/salaries-list`,
+                        {
+                            headers: {
+                                Authorization: `${token}`,
+                            },
+                        }
+                    );
+                    setAPIData(response.data);
+                    // Reinitialize the checkedState based on the new data
+                    const initialCheckedState = {};
+                    response.data.forEach(item => {
+                        initialCheckedState[item._id] = item.flags || false;
+                    });
+                    setCheckedState(initialCheckedState);
+                }
+            } catch (error) {
+                console.error("Error fetching Generated Salary data:", error);
+            }
+        };
+
+    // const handleCheckboxChange = (event, id) => {
+    //     const isChecked = event.target.checked;
+    //     setCheckedState(prevState => ({
+    //         ...prevState,
+    //         [id]: isChecked,
+    //     }));
+    //     updateGenSalaryAPI(id, isChecked);
+    // };
+
+    // const updateGenSalaryAPI = async (id, isChecked) => {
+    //     try {
+    //         const response = await axios.put(
+    //             `${VITE_DATA}/api/salaries/${id}`,
+    //             { flags: isChecked }
+    //         );
+    //         toast.success(`${response.data.status}`);
+    //     } catch (error) {
+    //         toast.error(`${error}`);
+    //         console.error("Error to sending salary Slip:", error);
+    //     }
+    // };
 
     const exportToExcel = () => {
         try {
@@ -111,7 +174,7 @@ export default function ViewGenPolicy() {
                 "Absent",
                 "Gross Salary",
                 "Salary(working)",
-                "Basic Salary",   
+                "Basic Salary",
                 "HRA",
                 "DA",
                 "Medical Allowance",
@@ -127,12 +190,12 @@ export default function ViewGenPolicy() {
                 "Final Amount",
                 "Employee PF",
                 "Loan EMI",
-                "TDS",  
+                "TDS",
                 "Amount after Deduction"
                 // Include other necessary columns here
             ];
             const rowsToInclude = APIData.map(data => [
-                
+
                 data.empName,
                 data.genMonths,
                 data.totalMonthDays,
@@ -206,16 +269,17 @@ export default function ViewGenPolicy() {
     };
 
     const filteredData = useMemo(() => filterDataByMonth(APIData, selectedMonth), [APIData, selectedMonth]);
+
     // ******************** Delete Functions *************************************/
-    // const onGenSalaryDelete = async (_id) => {
-    //     try {
-    //         await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
-    //         toast.warn("General Salary Deleted!", { theme: "dark", position: "top-right" });
-    //         // Update state or perform any other necessary actions
-    //     } catch (error) {
-    //         console.error('Error deleting general salary:', error);
-    //     }
-    // };
+    const onGenSalaryDelete = async (_id) => {
+        try {
+            await axios.delete(`https://eleedomimf.onrender.com/salaries/api/${_id}`);
+            toast.warn("Generated Salary Deleted!", { theme: "dark", position: "top-right" });
+            // Update state or perform any other necessary actions
+        } catch (error) {
+            console.error('Error deleting generated salary:', error);
+        }
+    };
 
     return (
         <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-orange-100 ">
@@ -262,12 +326,6 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Employee Name
                                         </th>
-                                        {/* <th scope="col" className="px-1 py-0 border border-black">
-                                            Monthly Salary
-                                        </th> */}
-                                        {/* <th scope="col" className="px-1 py-0 border border-black">
-                                            Monthly Leave
-                                        </th> */}
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Months
                                         </th>
@@ -301,12 +359,6 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             Basic Salary
                                         </th>
-
-
-                                        {/* <th scope="col" className="px-1 py-0 border border-black bg-green-200">
-                                            Salary + Incentive
-                                        </th> */}
-
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             HRA
                                         </th>
@@ -367,9 +419,12 @@ export default function ViewGenPolicy() {
                                         <th scope="col" className="px-1 py-0 border border-black">
                                             View
                                         </th>
-                                        {/* <th scope="col" className="px-1 py-0 border border-black">
-                                          Send Salary Email
-                                        </th> */}
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                          
+                                        </th>
+                                        <th scope="col" className="px-1 py-0 border border-black">
+                                          Delete
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 overflow-y-hidden">
@@ -380,9 +435,13 @@ export default function ViewGenPolicy() {
                                                 <tr
                                                     className="border-b dark:border-neutral-200 text-sm font-medium"
                                                     key={data._id}>
-                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        <input id="green-checkbox" type="checkbox" value="" className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500" />
-                                                    </td>
+                                                        <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                    <input
+                                                type="checkbox"
+                                                className="form-checkbox h-4 w-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
+                                                checked={checkedState[data._id] || false}
+                                                onChange={(e) => handleCheckboxChange(e, data._id)}
+                                            /></td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
                                                         <button onClick={() => handleUpdateClick(data)} type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center ">
                                                             Update
@@ -422,24 +481,17 @@ export default function ViewGenPolicy() {
                                                         {data.totalAbsent}
                                                     </td>
                                                     <td className="whitespace-nowrappx-1 py-0 border border-black">
-
                                                         {`₹${data.empgrossSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-
                                                         {`₹${data.genSalary || 0}`}
                                                     </td>
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
-
                                                         {`₹${data.empbasicSalary || 0}`}
                                                     </td>
-
-
-                                                    {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                        
+                                                    {/* <td className="whitespace-nowrap px-1 py-0 border border-black">   
                                                         {`₹${data.totalAmount || 0}`}
                                                     </td> */}
-
                                                     <td className="whitespace-nowrap px-1 py-0 border border-black">
 
                                                         {`₹${data.emphra}`}
@@ -515,11 +567,13 @@ export default function ViewGenPolicy() {
                                                         <button onClick={() => handleViewClick(data)} type="button" className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-blue-300  shadow-lg shadow-blue-500/50 font-medium rounded text-sm px-2 py-1 my-0.5 mx-0.5 text-center">
                                                             View
                                                         </button>
-
                                                     </td>
-                                                    {/* <td className="whitespace-nowrap px-1 py-0 border border-black">
-                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center my-1">Delete</button>
-                                            </td> */}
+                                                    <td className="whitespace-nowrap px-5 py-0 border border-black ">
+                                                        
+                                                    </td>
+                                                    <td className="whitespace-nowrap px-1 py-0 border border-black">
+                                                <button type="button" onClick={() => onGenSalaryDelete(data._id)} className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded text-sm px-2 py-1 text-center my-0.5 ">Delete</button>
+                                            </td>
 
                                                 </tr>
                                             );
