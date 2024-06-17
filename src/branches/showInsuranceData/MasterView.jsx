@@ -35,8 +35,8 @@ function MasterView() {
           `${VITE_DATA}/alldetails/viewdata/branch/hpur`,
           { params: { branch: name } }
         );
-        const fetchedData = response.data || [];
-        calculateAndSetAllDetailsData(fetchedData);
+        const fetchedData = response.data;
+        setAllDetailsData(fetchedData);
         // setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -105,17 +105,32 @@ function MasterView() {
   //   }
   // };
 
-  const handleInputChange = async (itemId, value) => {
-    try {
-        // First, find the item in the current data state
-        const itemToUpdate = allDetailsData.find(item => item._id === itemId);
+  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
+    return finalEntryFields * (percentage / 100);
+  };
+  
+  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
+    return finalEntryFields - advisorPayout;
+  };
 
+const handleInputChange = async (itemId, value) => {
+    try {
+        // Find the item in the current data state
+        const itemToUpdate = allDetailsData.find(item => item._id === itemId);
         if (!itemToUpdate) {
             throw new Error(`Item with ID ${itemId} not found.`);
         }
 
-        // Calculate new values based on the input change
-        const percentage = parseFloat(value) || parseFloat(itemToUpdate.cvpercentage);
+        // Parse the input value to a float
+        const parsedPercentage = parseFloat(value) || 0;
+
+        // Check if the parsed percentage is different from the current value
+        if (isNaN(parsedPercentage) || parsedPercentage === itemToUpdate.cvpercentage) {
+            // If not different or not a valid number, return without updating
+            return;
+        }
+
+        // Calculate advisorPayout and advisorPayable based on the updated cvpercentage
         let advisorPayout, advisorPayable;
 
         if (
@@ -123,17 +138,17 @@ function MasterView() {
             itemToUpdate.productCode === 'PVT-CAR' &&
             itemToUpdate.payoutOn === 'OD'
         ) {
-            advisorPayout = calculateAdvisorPayoutAmount(parseFloat(itemToUpdate.odPremium), percentage);
+            advisorPayout = calculateAdvisorPayoutAmount(parseFloat(itemToUpdate.odPremium), parsedPercentage);
             advisorPayable = calculateAdvisorPayableAmount(parseFloat(itemToUpdate.finalEntryFields), advisorPayout);
         } else {
-            advisorPayout = calculateAdvisorPayoutAmount(parseFloat(itemToUpdate.netPremium), percentage);
+            advisorPayout = calculateAdvisorPayoutAmount(parseFloat(itemToUpdate.netPremium), parsedPercentage);
             advisorPayable = calculateAdvisorPayableAmount(parseFloat(itemToUpdate.finalEntryFields), advisorPayout);
         }
 
-        // Create updated item data
+        // Create updated item data with only necessary changes
         const updatedItem = {
             ...itemToUpdate,
-            cvpercentage: value,
+            cvpercentage: parsedPercentage,
             advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
             advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
         };
@@ -145,90 +160,55 @@ function MasterView() {
         setAllDetailsData(updatedData);
 
         // Call the API to save the changes
-        await updateInsuranceAPI(itemId, updatedItem.cvpercentage, updatedItem.advisorPayoutAmount, updatedItem.advisorPayableAmount);
+        await updateInsuranceAPI(
+            itemId,
+            updatedItem.cvpercentage,
+            updatedItem.advisorPayoutAmount,
+            updatedItem.advisorPayableAmount
+        );
 
     } catch (error) {
-        console.error("Error handling input change:", error);
-        toast.error("Failed to handle input change. Please try again.");
+        console.error("Error handling advisor payout change:", error);
+        toast.error("Failed to handle advisor payout change. Please try again.");
     }
 };
 
-  
-  const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => {
-    return finalEntryFields * (percentage / 100);
-  };
-  
-  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
-    return finalEntryFields - advisorPayout;
-  };
-  
 
-
-  const calculateAndSetAllDetailsData = (data) => {
-    const updatedData = data.map(item => {
-      const percentage = item.cvpercentage;
-      const netPremium = parseFloat(item.netPremium);
-      const odPremium = parseFloat(item.odPremium);
-      const finalEntryFields = parseFloat(item.finalEntryFields);
-      let advisorPayout, advisorPayable;
-
-      if (
-        item.policyType === 'COMP' &&
-        item.productCode === 'PVT-CAR' &&
-        item.payoutOn === 'OD'
-      ) {
-        advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-      } else {
-        advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-        advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
-      }
-
-      return {
-        ...item,
-        advisorPayoutAmount: parseFloat(advisorPayout.toFixed(2)),
-        advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
-      };
-    });
-
-    setAllDetailsData(updatedData);
-  };
-
-  const updateInsuranceAPI = async (itemId, cvpercentage, advisorPayoutAmount, advisorPayableAmount) => {
+const updateInsuranceAPI = async (itemId, cvpercentage, advisorPayoutAmount, advisorPayableAmount) => {
     try {
-      if (!cvpercentage) return; // Assuming cvpercentage is required for update
-  
-      const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${itemId}`, {
-        cvpercentage,
-        advisorPayoutAmount,
-        advisorPayableAmount
-      });
-  
-      // Assuming the backend returns a success message in resp.data.status
-      toast.success(`${resp.data.status}`, {
-        position: "top-center",
-        autoClose: 1000, // Adjusted autoClose time to 1 second (1000 ms)
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-  
-      // Optionally trigger a data refresh after update
-      // await onUpdateInsurance();
+        const resp = await axios.put(`${VITE_DATA}/alldetails/updatedata/${itemId}`, {
+            cvpercentage,
+            advisorPayoutAmount,
+            advisorPayableAmount
+        });
+
+        // Assuming the backend returns a success message in resp.data.status
+        toast.success(`${resp.data.status}`, {
+            position: "top-center",
+            autoClose: 1000, // Adjusted autoClose time to 1 second (1000 ms)
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
+        // Optionally trigger a data refresh after update
+        // await onUpdateInsurance();
     } catch (error) {
-      console.error("Error updating insurance details:", error);
-      toast.error("Failed to update insurance details. Please try again.");
+        console.error("Error updating insurance details:", error);
+        toast.error("Failed to update insurance details. Please try again.");
     }
-  };
+};
+
+
+
 
   const exportToExcel = () => {
     try {
       const fileType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
       const fileExtension = ".xlsx";
       const fileName = `${name}_BRANCH`;
-
       // Map all data without filtering by current date
       const dataToExport = filteredData.map(row => {
         return [
@@ -661,10 +641,10 @@ function MasterView() {
                           <td className="whitespace-nowrap px-0.5  py-0 border border-black">
                             {/* {data.cvpercentage} */}
                             <input type="number" className="w-20 h-10" min="0" max="200" onChange={(e) => handleInputChange(data._id, e.target.value)} name="cvpercentage"
-                              value={data.cvpercentage } />
+                              value={data.cvpercentage || 0 } />
                           </td>
-                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount}`}</td>
-                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount}`}</td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayoutAmount ||0}`}</td>
+                          <td className="whitespace-nowrap px-1 py-0  border border-black">{`₹${data.advisorPayableAmount || 0}`}</td>
                           <td className="whitespace-nowrap px-1  py-0 border border-black">
                             {data.branchpayoutper}
                           </td>
@@ -726,6 +706,4 @@ function MasterView() {
     </section>
   );
 }
-
-
 export default MasterView;

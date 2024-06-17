@@ -225,6 +225,8 @@ function Ledger2() {
       toast.error(`${error.response ? error.response.data.message : error.message}`);
     }
   }
+
+  
   function getCurrentDate() {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
