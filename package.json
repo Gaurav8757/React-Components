@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@react-spring/web": "^9.7.3",
     "antd": "^5.17.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
