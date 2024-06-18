@@ -45,7 +45,7 @@ function ViewSal() {
                 })
                 .then((response) => {
                     // make true flags
-                    const filteredData = response.data.filter(item => item.empUniqueId === employeeId && item.flags === false);
+                    const filteredData = response.data.filter(item => item.empUniqueId === employeeId && item.flags === true);
                     setAPIData(filteredData);
                 })
                 .catch((error) => {

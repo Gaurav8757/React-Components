@@ -169,8 +169,8 @@ function CurrentAttendance() {
     
             // Adjust endpoint and method if status is ""
             if (status === "") {
-                endpoint = `${VITE_DATA}/employee/delete/attendance/${empid}`;
-                method = 'delete';
+                endpoint = `${VITE_DATA}/employee/update/attendance/${empid}`;
+                method = 'put';
             }
     
             // Make the API call
