@@ -112,8 +112,7 @@ function MasterView() {
   const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => {
     return finalEntryFields - advisorPayout;
   };
-
-const handleInputChange = async (itemId, value) => {
+  const handleInputChange = async (itemId, value) => {
     try {
         // Find the item in the current data state
         const itemToUpdate = allDetailsData.find(item => item._id === itemId);
@@ -124,9 +123,9 @@ const handleInputChange = async (itemId, value) => {
         // Parse the input value to a float
         const parsedPercentage = parseFloat(value) || 0;
 
-        // Check if the parsed percentage is different from the current value
-        if (isNaN(parsedPercentage) || parsedPercentage === itemToUpdate.cvpercentage) {
-            // If not different or not a valid number, return without updating
+        // Check if cvpercentage is not 0 and is different from the current value
+        if ( parsedPercentage === itemToUpdate.cvpercentage) {
+            // If not different or is zero, return without updating
             return;
         }
 
@@ -172,6 +171,7 @@ const handleInputChange = async (itemId, value) => {
         toast.error("Failed to handle advisor payout change. Please try again.");
     }
 };
+
 
 
 const updateInsuranceAPI = async (itemId, cvpercentage, advisorPayoutAmount, advisorPayableAmount) => {

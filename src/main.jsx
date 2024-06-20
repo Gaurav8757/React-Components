@@ -127,7 +127,7 @@ import ProfileUpdate from "./Employee/updateProfile/ProfileUpdate.jsx";
 import ForgetFinance from "./finance/ForgetFinance.jsx";
 import ProtectFinance from "./finance/ProtectFinance.jsx";
 import LayoutFinance from "./finance/LayoutFinance.jsx";
-import DashboardFinance from "./finance/DashboardFinance.jsx";
+import DashboardFinance from "./finance/DashboardFinance/DashboardFinance.jsx";
 import CompanyType from "./admin/admincomponents/companyType/CompanyType.jsx";
 import CategoryType from "./admin/admincomponents/companyType/CategoryType.jsx";
 import AddSegment from "./admin/admincomponents/Segment/AddSegment.jsx";
