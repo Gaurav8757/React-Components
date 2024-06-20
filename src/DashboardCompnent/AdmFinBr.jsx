@@ -726,10 +726,10 @@ function AdmFinBr() {
                 </div>
 
 
-{/* employee policy counts */}
 
-                <div className="grid grid-cols-1  gap-3 mb-3">
-                    {/* emp policy  */}
+
+                {/* <div className="grid grid-cols-1  gap-3 mb-3">
+                 
                     <div className=" grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="whitespace-nowrap sm:block mx-1 sm:mx-1 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             EMP ID
@@ -746,7 +746,7 @@ function AdmFinBr() {
                         </span>    
                     </div>  
 
-                             {/* emp data names */}
+                          
 
                     <div className=" grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between justify-center text-center h-14 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="whitespace-nowrap sm:block mx-1 sm:mx-1 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
@@ -765,10 +765,7 @@ function AdmFinBr() {
                     </div>  
 
                              
-                </div>
-
-
-
+                </div> */}
 
             </main>
 
@@ -982,8 +979,11 @@ function AdmFinBr() {
                     </div>
                 </div>
             </div>
-            <h1 className="uppercase  font-serif text-base sm:text-lg lg:text-xl xl:text-2xl">Total Payout</h1>
-            <div className="grid grid-cols-3 gap-3 mb-3" >
+
+
+            <h1 className="uppercase  font-serif text-base sm:text-lg lg:text-xl xl:text-2xl hidden">Total Payout</h1>
+            {/* DISPLAY-NONE SETTED */}
+            <div className=" grid-cols-3 gap-3 mb-3 hidden" >
                 {/* PART COMPANY PAYOUT */}
                 <div className="block ">
                     <div className="mb-3 grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-20 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
@@ -1074,6 +1074,8 @@ function AdmFinBr() {
                     </div>
                 </div>
             </div>
+
+            
         </>
     );
 }
