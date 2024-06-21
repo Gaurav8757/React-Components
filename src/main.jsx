@@ -40,7 +40,7 @@ import ViewPolicy from "./admin/admincomponents/PolicyLists/ViewPolicy.jsx";
 import ViewGenSalary from "./HumanResources/GenerateSalary/ViewGenSalary.jsx";
 import ProtectRoute from "./admin/Protected.jsx";
 import BranchLayout from "./branches/BranchLayout.jsx";
-import BranchDashboard from "./branches/BranchDashboard.jsx";
+import BranchDashboard from "./branches/BranchDash/BranchDashboard.jsx";
 import BranchProtected from "./branches/BranchProtect.jsx";
 import ViewClaim from "./admin/admincomponents/reports/ViewClaim.jsx";
 import ViewComplaint from "./admin/admincomponents/reports/ViewComplaint.jsx";
@@ -111,7 +111,7 @@ import EmpPolicy from "./Employee/policy/EmpPolicy.jsx";
 import ForgetPassOps from "./opsAdmin/ForgetPassOps.jsx";
 import ProtectOps from "./opsAdmin/ProtectOps.jsx";
 import LayoutOps from "./opsAdmin/LayoutOps.jsx";
-import DashboardOps from "./opsAdmin/DashboardOps.jsx";
+import DashboardOps from "./opsAdmin/OPSDashboard/DashboardOps.jsx"
 import AllOpsDetails from "./opsAdmin/AllOpsDetails/AllOpsDetails.jsx";
 import LoginAll from "./Login/LoginAll.jsx";
 import AdminForgot from "./admin/AdminForgot.jsx";

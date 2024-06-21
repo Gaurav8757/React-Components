@@ -196,7 +196,7 @@ function ViewMasterForm() {
     setCurrentPage(page);
   };
 
-  const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
+  // const calculateAdvisorPayableAmount = (finalEntryFields, advisorPayout) => finalEntryFields - advisorPayout;
   // const calculateAdvisorPayoutAmount = (finalEntryFields, percentage) => finalEntryFields * (percentage / 100);
   const calculateBranchPayableAmount = (finalEntryFields, branchPayout) => finalEntryFields - branchPayout;
   const calculateBranchPayoutAmount = (finalEntryFields, branchpayoutper) => finalEntryFields * (branchpayoutper / 100);
@@ -216,12 +216,12 @@ function ViewMasterForm() {
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states  &&
-            (matchingCSLab.vfuels === data.fuel || matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL'))&&
-            // (matchingCSLab.vncb === data.ncb?.toLowerCase() || matchingCSLab.vncb === '' || matchingCSLab.vncb === 'both')&&
+            ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' ||  (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL')))&&
+            (matchingCSLab.vncb === data.ncb?.toLowerCase() || matchingCSLab.vncb === '' || matchingCSLab.vncb === 'both')&&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            (matchingCSLab.sitcapacity === data.sitcapacity || matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '' || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined) &&
+            ((matchingCSLab.sitcapacity === data.sitcapacity) || (matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '' || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined)) &&
             matchingCSLab.segments === data.segment &&
             (
               matchingCSLab.voddiscount === data.odDiscount ||
@@ -231,18 +231,18 @@ function ViewMasterForm() {
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
               (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') ||
-              (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') ||
-              (matchingCSLab.vage === '1-7 YEARS' && parseInt(data.vehicleAge) >= 1 && parseInt(data.vehicleAge) <= 7) ||
-              (matchingCSLab.vage === '7-10 YEARS' && parseInt(data.vehicleAge) >= 7 && parseInt(data.vehicleAge) <= 10) ||
-              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && parseInt(data.vehicleAge) > 7)
-            ) && ( matchingCSLab.vcc === data.cc || matchingCSLab.vcc.toLowerCase() === 'all')  
+              (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') 
+              // (matchingCSLab.vage === '1-7 YEARS' && parseInt(data.vehicleAge) >= 1 && parseInt(data.vehicleAge) <= 7) ||
+              // (matchingCSLab.vage === '7-10 YEARS' && parseInt(data.vehicleAge) >= 7 && parseInt(data.vehicleAge) <= 10) ||
+              // (matchingCSLab.vage === 'MORE THAN 7 YEARS' && parseInt(data.vehicleAge) > 7)
+            ) && ( matchingCSLab.vcc === data.cc || matchingCSLab.vcc.toLowerCase() === 'all' ||  matchingCSLab.vcc === "")  
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
             const odPremium = parseFloat(data.odPremium);
 
-            let advisorPayout, branchPayout, companyPayout;
-            let advisorPayable, branchPayable, profitLoss;
+            let branchPayout, companyPayout;
+            let  branchPayable, profitLoss;
 
             if (
               data.policyType === 'COMP' &&
@@ -250,7 +250,7 @@ function ViewMasterForm() {
               data.payoutOn === 'OD'
             ) {
               // advisorPayout = calculateAdvisorPayoutAmount(odPremium, percentage);
-              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(odPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(odPremium, companypercent);
@@ -258,7 +258,7 @@ function ViewMasterForm() {
             } else {
               // Default calculation functions
               // advisorPayout = calculateAdvisorPayoutAmount(netPremium, percentage);
-              advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
+              // advisorPayable = calculateAdvisorPayableAmount(finalEntryFields, advisorPayout);
               branchPayout = calculateBranchPayoutAmount(netPremium, branchpercent);
               branchPayable = calculateBranchPayableAmount(finalEntryFields, branchPayout);
               companyPayout = calculateCompanyPayoutAmount(netPremium, companypercent);
@@ -266,16 +266,16 @@ function ViewMasterForm() {
             }
             // Check if data needs an update
             if (
-              data.branchPayableAmount !== branchPayable ||
-              data.branchPayout !== branchPayout ||
-              data.companyPayout !== companyPayout ||
-              data.profitLoss !== profitLoss
+              !data.branchPayableAmount ||
+              !data.branchPayout  ||
+              !data.companyPayout  ||
+              !data.profitLoss 
             ) {
 
               // Prepare data for API request
               const postData = {
                 // advisorPayoutAmount: parseFloat(advisorPayout),
-                advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
+                // advisorPayableAmount: parseFloat(advisorPayable.toFixed(2)),
                 branchPayableAmount: parseFloat(branchPayable.toFixed(2)),
                 branchPayout: parseFloat(branchPayout.toFixed(2)),
                 companyPayout: parseFloat(companyPayout.toFixed(2)),

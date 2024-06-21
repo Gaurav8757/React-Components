@@ -81,6 +81,40 @@ function AdmFinBr() {
     const [activeempCount, setActiveEmpCount] = useState(0);
     const [currAttendance, setCurrAttendance] = useState(0);
 
+    const [hajipurNetPremium, setHajipurNetPremium] = useState(0);
+    const [hajipurMonthlyNetPremium, setHajipurMonthlyNetPremium] = useState(0);
+    const [hajipurDailyNetPremium, setHajipurDailyNetPremium] = useState(0);
+
+    const [patnaNetPremium, setPatnaNetPremium] = useState(0);
+    const [patnaMonthlyNetPremium, setPatnaMonthlyNetPremium] = useState(0);
+    const [patnaDailyNetPremium, setPatnaDailyNetPremium] = useState(0);
+
+    const [samastipurNetPremium, setSamastipurNetPremium] = useState(0);
+    const [samastipurMonthlyNetPremium, setSamastipurMonthlyNetPremium] = useState(0);
+    const [samastipurDailyNetPremium, setSamastipurDailyNetPremium] = useState(0);
+
+    const [muzaffarpurNetPremium, setMuzaffarpurNetPremium] = useState(0);
+    const [muzaffarpurMonthlyNetPremium, setMuzaffarpurMonthlyNetPremium] = useState(0);
+    const [muzaffarpurDailyNetPremium, setMuzaffarpurDailyNetPremium] = useState(0);
+
+    const [employees, setEmployees] = useState([]);
+  const [employeePolicyCounts, setEmployeePolicyCounts] = useState({});
+
+    const hajipurNetPremiumProps = useSpring({ number: hajipurNetPremium, from: { number: 0 } });
+    const hajipurMonthlyNetPremiumProps = useSpring({ number: hajipurMonthlyNetPremium, from: { number: 0 } });
+    const hajipurDailyNetPremiumProps = useSpring({ number: hajipurDailyNetPremium, from: { number: 0 } });
+
+    const patnaNetPremiumProps = useSpring({ number: patnaNetPremium, from: { number: 0 } });
+    const patnaMonthlyNetPremiumProps = useSpring({ number: patnaMonthlyNetPremium, from: { number: 0 } });
+    const patnaDailyNetPremiumProps = useSpring({ number: patnaDailyNetPremium, from: { number: 0 } });
+
+    const samastipurNetPremiumProps = useSpring({ number: samastipurNetPremium, from: { number: 0 } });
+    const samastipurMonthlyNetPremiumProps = useSpring({ number: samastipurMonthlyNetPremium, from: { number: 0 } });
+    const samastipurDailyNetPremiumProps = useSpring({ number: samastipurDailyNetPremium, from: { number: 0 } });
+
+    const muzaffarpurNetPremiumProps = useSpring({ number: muzaffarpurNetPremium, from: { number: 0 } });
+    const muzaffarpurMonthlyNetPremiumProps = useSpring({ number: muzaffarpurMonthlyNetPremium, from: { number: 0 } });
+    const muzaffarpurDailyNetPremiumProps = useSpring({ number: muzaffarpurDailyNetPremium, from: { number: 0 } });
 
     const allDetailsProps = useSpring({ number: allDetailsData.length, from: { number: 0 } });
     const monthlyProps = useSpring({ number: monthlyData.length, from: { number: 0 } });
@@ -346,10 +380,79 @@ function AdmFinBr() {
 
                     const calculateTotals = (filteredData, segment) => {
                         const filteredSegmentData = filteredData.filter(item => item.segment === segment);
-                        const totalPayout = filteredSegmentData.reduce((sum, item) => sum + item.netPremium, 0);
+                        const totalPayout = filteredSegmentData.reduce((sum, item) => parseFloat(sum + item.netPremium), 0);
                         const totalCount = filteredSegmentData.length;
                         return { totalPayout, totalCount };
                     };
+
+                    const calculateBranchTotals = (filteredData, branch) => {
+                        const branchData = filteredData.filter(item => item.branch === branch);
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    const calculateMonthlyBranchTotals = (filteredData, branch) => {
+                        const currentMonth = new Date().getMonth() + 1;
+                        const branchData = filteredData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            const itemMonth = itemDate.getMonth() + 1;
+                            return item.branch === branch && itemMonth === currentMonth;
+                        });
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    const calculateDailyBranchTotals = (filteredData, branch) => {
+                        const currentDay = new Date().getDate();
+                        const currentMonth = new Date().getMonth() + 1;
+                        const branchData = filteredData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            const itemDay = itemDate.getDate();
+                            const itemMonth = itemDate.getMonth() + 1;
+                            return item.branch === branch && itemDay === currentDay && itemMonth === currentMonth;
+                        });
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    // Extract unique employees (case insensitive), excluding empty staffName
+        const uniqueEmployees = [...new Set(allData
+            .filter(item => item.staffName.trim() !== '')
+            .map(item => item.staffName.toLowerCase()))];
+          setEmployees(uniqueEmployees);
+          const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
+            const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee);
+  
+            acc[employee] = {
+              ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,
+              mtd: employeeData.filter(item => {
+                const itemDate = new Date(item.entryDate);
+                return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+              }).length,
+              daily: employeeData.filter(item => {
+                const itemDate = new Date(item.entryDate);
+                return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+              }).length,
+            };
+            return acc;
+          }, {});
+  
+
+                    const hajipurNetPremium = calculateBranchTotals(filteredYearlyData, 'HAJIPUR');
+                    const patnaNetPremium = calculateBranchTotals(filteredYearlyData, 'PATNA');
+                    const samastipurNetPremium = calculateBranchTotals(filteredYearlyData, 'SAMASTIPUR');
+                    const muzaffarpurNetPremium = calculateBranchTotals(filteredYearlyData, 'MUZAFFARPUR');
+
+                    const hajipurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'HAJIPUR');
+                    const patnaMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'PATNA');
+                    const samastipurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'SAMASTIPUR');
+                    const muzaffarpurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'MUZAFFARPUR');
+
+                    const hajipurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'HAJIPUR');
+                    const patnaDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'PATNA');
+                    const samastipurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'SAMASTIPUR');
+                    const muzaffarpurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'MUZAFFARPUR');
+
 
                     const cvYearlyTotals = calculateTotals(filteredYearlyData, 'C V');
                     const cvMonthlyTotals = calculateTotals(filteredMonthlyData, 'C V');
@@ -457,6 +560,23 @@ function AdmFinBr() {
                         setTotalNonMotorCount(nonMotorYearlyTotals.totalCount);
                         setMonthlyNonMotorCount(nonMotorMonthlyTotals.totalCount);
                         setDailyNonMotorCount(nonMotorDailyTotals.totalCount);
+
+                        setHajipurNetPremium(hajipurNetPremium);
+                        setPatnaNetPremium(patnaNetPremium);
+                        setSamastipurNetPremium(samastipurNetPremium);
+                        setMuzaffarpurNetPremium(muzaffarpurNetPremium);
+
+                        setHajipurMonthlyNetPremium(hajipurMonthlyNetPremium);
+                        setPatnaMonthlyNetPremium(patnaMonthlyNetPremium);
+                        setSamastipurMonthlyNetPremium(samastipurMonthlyNetPremium);
+                        setMuzaffarpurMonthlyNetPremium(muzaffarpurMonthlyNetPremium);
+
+                        setHajipurDailyNetPremium(hajipurDailyNetPremium);
+                        setPatnaDailyNetPremium(patnaDailyNetPremium);
+                        setSamastipurDailyNetPremium(samastipurDailyNetPremium);
+                        setMuzaffarpurDailyNetPremium(muzaffarpurDailyNetPremium);
+
+                        setEmployeePolicyCounts(newEmployeePolicyCounts);
                     });
                 } catch (error) {
                     console.error("Policy calculation by ID caught an error", error);
@@ -470,117 +590,350 @@ function AdmFinBr() {
     return (
         <>
             <div className="grid grid-cols-3 gap-3 mb-4">
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-24 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-20 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                     <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">YTD NOP</span>
                     <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                         {allDetailsProps.number.to((n) => n.toFixed(0))}
                     </animated.span>
                 </div>
 
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-24 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-20 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                     <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 xl:whitespace-nowrap">MTD NOP</span>
                     <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                         {monthlyProps.number.to((n) => n.toFixed(0))}
                     </animated.span>
                 </div>
 
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-24 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-20 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                     <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">TODAY NOP</span>
                     <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                         {dailyProps.number.to((n) => n.toFixed(0))}
                     </animated.span>
-
                 </div>
             </div>
 
 
 
+            <main className="grid grid-cols-2 gap-3 mb-2">
+                {/* sales */}
+                <div className="grid grid-cols-2 gap-3 mb-2">
+                    {/* part 1 net sales  */}
+                    <div className="block">
+                        <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">NET SALES</h1>
+                        <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                YTD NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {totalCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {totalNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
 
-            <div className="grid grid-cols-4 gap-3 mb-2">
-                {/* part 1 net sales  */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">NET SALES</h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                MTD NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {monthlyNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
+
+                        <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                TODAY NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {dailyCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {dailyNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
+                    </div>
+
+                    {/* FINAL sales  grid */}
+                    <div className="block ">
+                        <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">FINAL SALES</h1>
+                        <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                YTD NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {totalCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {totalFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
+
+                        <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                MTD NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {monthlyFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
+
+                        <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                TODAY NOP PREM.
+                            </span>
+                            {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {dailyCvCountProps.number.to((n) => n.toFixed(0))}
+                        </animated.span> */}
+                            <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {dailyFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            </animated.span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                {/* part 2 employee wise data policy */}
+
+                 {/* part 2 employee wise data policy */}
+                 <div className="block">
+                    <div className="grid grid-cols-6 items-center ">
+                        <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2  text-sm sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                            EMP NAME
+                        </span>
+                        <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                            YTD
+                        </span>
+                        <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                            MTD
+                        </span>
+                        <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                            TODAY
+                        </span>
+                    </div>
+                    {employees.map((employee, index) => (
+                        <div
+                            key={index}
+                            className={`mb-3 xl:mb-0 grid grid-cols-6 items-center h-12 lg:p-1 lg:h-16 xl:h-10 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ${index === 0 ? 'rounded-t' : ''
+                                } ${index === employees.length - 1 ? 'rounded-b' : ''}`}
+                        >
+                            <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                {employee.toUpperCase()}
+                            </span>
+                            {["ytd", "mtd", "daily"].map(period => (
+                                <span key={period} className="col-span-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                    {employeePolicyCounts[employee] ? employeePolicyCounts[employee][period] : '0'}
+                                </span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+
+
+            </main>
+
+            {/* HAJIPUR sales  */}
+            <div className="grid grid-cols-4 gap-3">
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">HAJIPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {totalCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {totalNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {hajipurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurNetPremium} */}
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {monthlyNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {hajipurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurMonthlyNetPremium} */}
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {dailyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {dailyNsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {hajipurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurDailyNetPremium} */}
                         </animated.span>
                     </div>
                 </div>
 
 
-                {/* part 2 FINAL sales  */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">FINAL SALES</h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                {/* PATNA */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">PATNA</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {totalCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {totalFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {patnaNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {monthlyFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {patnaMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
                         </animated.span>
                     </div>
 
-                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP PREM.
                         </span>
-                        {/* <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {dailyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span> */}
                         <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {dailyFsellProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {patnaDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
                         </animated.span>
                     </div>
                 </div>
-                {/* part 3 attendance */}
+
+
+                {/* SAMASTIPUR */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">SAMASTIPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+                </div>
+
+
+                {/* MUZAFFARPUR */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">MUZAFFARPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="grid grid-cols-4 gap-3 mb-3">
+                {/* advsisors */}
+                <div className="block">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">ADVISORS</h1>
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10  rounded-t bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            Total Advisor
+                        </span>
+                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {totalAdvisorsProps.number.to((n) => n.toFixed(0))}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            HAJIPUR
+                        </span>
+                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {countHajipurProps.number.to((n) => n.toFixed(0))}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            PATNA
+                        </span>
+                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {countPatnaProps.number.to((n) => n.toFixed(0))}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MUZAFFARPUR
+                        </span>
+                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {countMuzaffarpurProps.number.to((n) => n.toFixed(0))}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10  rounded-b bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            SAMASTIPUR
+                        </span>
+                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {countSamastipurProps.number.to((n) => n.toFixed(0))}
+                        </animated.span>
+                    </div>
+                </div>
+
+
+                {/* Att/Emp*/}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">Att/Emp</h1>
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 rounded-t bg-green-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-12 rounded-t bg-green-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             Active / total
                         </span>
@@ -595,7 +948,7 @@ function AdmFinBr() {
                         </span>
                     </div>
 
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 bg-green-800 rounded-b shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-12 bg-green-800 rounded-b shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             Att. / Active
                         </span>
@@ -610,6 +963,8 @@ function AdmFinBr() {
                         </span>
                     </div>
 
+
+                    {/* leave */}
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center shadow-2xl drop-shadow-2xl">Leave</h1>
                     <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-12 rounded-t bg-red-900 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
@@ -641,55 +996,7 @@ function AdmFinBr() {
                         </span>
                     </div>
                 </div>
-                {/* part - 4 advsisors */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">ADVISORS</h1>
 
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10  rounded-t bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            Total Advisor
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {totalAdvisorsProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            HAJIPUR
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {countHajipurProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10 bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            PATNA
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {countPatnaProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-12 bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MUZAFFARPUR
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {countMuzaffarpurProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-12 lg:p-1 lg:h-16 xl:h-10  rounded-b bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            SAMASTIPUR
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {countSamastipurProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-                </div>
             </div>
 
 
@@ -698,14 +1005,13 @@ function AdmFinBr() {
 
 
 
+            {/* single liners code */}
+            <main className="flex justify-between my-8">
 
-
-
-            <main className="flex justify-between">
                 {/* single liners code */}
-                <div className="grid grid-cols-5 gap-3 mb-3">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-1 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                <div className="grid grid-cols-5 gap-3 ">
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16 text-white rounded bg-yellow-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-1 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[black]/50 focus:ring-[#050708]/50 uppercase">
                             Total Branch
                         </span>
                         <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
@@ -713,18 +1019,17 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-14 lg:p-1 lg:h-16 xl:h-16 text-white rounded bg-cyan-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[black]/50 focus:ring-[#050708]/50 uppercase">
                             JOB APPLIED
                         </span>
                         <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
                             {careerProps.number.to((n) => n.toFixed(0))}
                         </animated.span>
                     </div>
-                   
-                   {/* {add more single elements} */}
-                </div>
 
+                    {/* {add more single elements} */}
+                </div>
 
 
 
@@ -766,9 +1071,7 @@ function AdmFinBr() {
 
                              
                 </div> */}
-
             </main>
-
 
 
 
@@ -784,7 +1087,7 @@ function AdmFinBr() {
                 {/* cv */}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">CV </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16  rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP
                         </span>
@@ -796,7 +1099,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP
                         </span>
@@ -808,7 +1111,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP
                         </span>
@@ -820,10 +1123,12 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
                 </div>
+
+
                 {/* pvt-car */}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">pvt-car </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP
                         </span>
@@ -835,7 +1140,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP
                         </span>
@@ -847,7 +1152,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP
                         </span>
@@ -859,10 +1164,12 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
                 </div>
+
+
                 {/* TW */}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">tw </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP
                         </span>
@@ -874,7 +1181,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP
                         </span>
@@ -886,7 +1193,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP
                         </span>
@@ -899,10 +1206,11 @@ function AdmFinBr() {
                     </div>
                 </div>
 
+
                 {/* HEALTH */}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">health </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP
                         </span>
@@ -914,7 +1222,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP
                         </span>
@@ -926,7 +1234,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block lg:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP
                         </span>
@@ -939,10 +1247,11 @@ function AdmFinBr() {
                     </div>
                 </div>
 
-                {/* TW */}
+
+                {/* NON-MOTOR */}
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">NON-MOTOR </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             YTD NOP
                         </span>
@@ -954,7 +1263,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             MTD NOP
                         </span>
@@ -966,7 +1275,7 @@ function AdmFinBr() {
                         </animated.span>
                     </div>
 
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                         <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
                             TODAY NOP
                         </span>
@@ -980,6 +1289,14 @@ function AdmFinBr() {
                 </div>
             </div>
 
+
+
+
+
+
+
+
+            {/* total payouts */}
 
             <h1 className="uppercase  font-serif text-base sm:text-lg lg:text-xl xl:text-2xl hidden">Total Payout</h1>
             {/* DISPLAY-NONE SETTED */}
@@ -1075,7 +1392,6 @@ function AdmFinBr() {
                 </div>
             </div>
 
-            
         </>
     );
 }
