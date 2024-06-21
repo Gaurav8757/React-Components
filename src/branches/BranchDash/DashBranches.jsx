@@ -194,7 +194,7 @@ function DashBranches() {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [name]);
 
 
     useEffect(() => {
@@ -322,7 +322,7 @@ function DashBranches() {
         };
 
         fetchData();
-    }, [name]);
+    }, [name, dailyCvPayout, totalCvPayout, monthlyCvPayout]);
 
     return (
         <>
