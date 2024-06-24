@@ -511,7 +511,7 @@ if(company === "GO-DIGIT"){
     // Update odExpiry by adding 1 year to the selected policyStartDate
     const odExpiryDate = new Date(startDate);
     // odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
-    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1, odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
+    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
     setOdExpiry(odExpiryDate.toISOString().split('T')[0]);
     // Update policyEndDate by adding 1 year to the selected policyStartDate
     const policyEndDateValue = new Date(startDate);

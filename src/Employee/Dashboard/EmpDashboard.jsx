@@ -4,28 +4,35 @@ import { toast } from "react-toastify";
 import { useSpring, animated } from "@react-spring/web";
 import VITE_DATA from "../../config/config.jsx";
 
-function DashBranches() {
+
+function EmpDashboard() {
     // eslint-disable-next-line no-unused-vars
-    const [allDetailsData, setAllDetailsData] = useState([]);
     const [APIData, setAPIData] = useState([]);
-    const [employees, setEmployees] = useState([]);
-    const [employeePolicyCounts, setEmployeePolicyCounts] = useState({});
+    const [salary, setSalary] = useState([]);
+    const [formattedsalary, setFormattedSalary] = useState([]);
+    // eslint-disable-next-line no-unused-vars
+    const [EmpData, setEmpData] = useState([]);
+    const [monthlyAttendance, setMonthlyAttendance] = useState([]);
+    // console.log(monthlyAttendance);
     const [yearlyData, setYearlyData] = useState(0);
     const [monthlyData, setMonthlyData] = useState(0);
     const [dailyData, setDailyData] = useState(0);
+
+    const [currAttendance, setCurrAttendance] = useState(0);
+    const [currMattendance, setCurrMattendance] = useState(0);
+
+    const [leaveData, setLeaveData] = useState(0);
+    const [pendingLeave, setPendingLeave] = useState(0);
+    const [rejectLeave, setRejectLeave] = useState(0);
+    const [approveLeave, setApproveLeave] = useState(0);
+
     const [totalNsell, setTotalNsell] = useState(0);
     const [monthlyNsell, setMonthlyNsell] = useState(0);
     const [dailyNsell, setDailyNsell] = useState(0);
+
     const [totalFsell, setTotalFsell] = useState(0);
     const [monthlyFsell, setMonthlyFsell] = useState(0);
     const [dailyFsell, setDailyFsell] = useState(0);
-   
-    const [totalLeavesCounts, setTotalLeavesCounts] = useState(0);
-    const [acptLeaveCounts, setAcptLeaveCounts] = useState(0);
-    const [rejLeaveCounts, setRejLeaveCounts] = useState(0);
-    const [empCount, setEmpCount] = useState(0);
-    const [activeempCount, setActiveEmpCount] = useState(0);
-    const [currAttendance, setCurrAttendance] = useState(0);
 
     const [totalCvPayout, setTotalCvPayout] = useState(0);
     const [monthlyCvPayout, setMonthlyCvPayout] = useState(0);
@@ -61,18 +68,11 @@ function DashBranches() {
     const [totalNonMotorCount, setTotalNonMotorCount] = useState(0);
     const [monthlyNonMotorCount, setMonthlyNonMotorCount] = useState(0);
     const [dailyNonMotorCount, setDailyNonMotorCount] = useState(0);
-    const name = sessionStorage.getItem("name");
+    const empid = sessionStorage.getItem("employeeId");
 
     const allDetailsProps = useSpring({ number: yearlyData, from: { number: 0 } });
     const monthlyProps = useSpring({ number: monthlyData, from: { number: 0 } });
     const dailyProps = useSpring({ number: dailyData, from: { number: 0 } });
-    const totalNsellProps = useSpring({ number: totalNsell, from: { number: 0 } });
-    const monthlyNsellProps = useSpring({ number: monthlyNsell, from: { number: 0 } });
-    const dailyNsellProps = useSpring({ number: dailyNsell, from: { number: 0 } });
-    const totalFsellProps = useSpring({ number: totalFsell, from: { number: 0 } });
-    const monthlyFsellProps = useSpring({ number: monthlyFsell, from: { number: 0 } });
-    const dailyFsellProps = useSpring({ number: dailyFsell, from: { number: 0 } });
-    const advisorDataProps = useSpring({ number: APIData.length, from: { number: 0 } });
 
     const totalCvPayoutProps = useSpring({ number: totalCvPayout, from: { number: 0 } });
     const monthlyCvPayoutProps = useSpring({ number: monthlyCvPayout, from: { number: 0 } });
@@ -80,6 +80,13 @@ function DashBranches() {
     const totalCvCountProps = useSpring({ number: totalCvCount, from: { number: 0 } });
     const monthlyCvCountProps = useSpring({ number: monthlyCvCount, from: { number: 0 } });
     const dailyCvCountProps = useSpring({ number: dailyCvCount, from: { number: 0 } });
+
+    const totalNsellProps = useSpring({ number: totalNsell, from: { number: 0 } });
+    const monthlyNsellProps = useSpring({ number: monthlyNsell, from: { number: 0 } });
+    const dailyNsellProps = useSpring({ number: dailyNsell, from: { number: 0 } });
+    const totalFsellProps = useSpring({ number: totalFsell, from: { number: 0 } });
+    const monthlyFsellProps = useSpring({ number: monthlyFsell, from: { number: 0 } });
+    const dailyFsellProps = useSpring({ number: dailyFsell, from: { number: 0 } });
 
     const totalPvtCarPayoutProps = useSpring({ number: totalPvtCarPayout, from: { number: 0 } });
     const monthlyPvtCarPayoutProps = useSpring({ number: monthlyPvtCarPayout, from: { number: 0 } });
@@ -110,12 +117,64 @@ function DashBranches() {
     const dailyNonMotorCountProps = useSpring({ number: dailyNonMotorCount, from: { number: 0 } });
 
     const currAttendanceProps = useSpring({ number: currAttendance, from: { number: 0 } });
-    const activeempCountProps = useSpring({ number: activeempCount, from: { number: 0 } });
-    const empCountProps = useSpring({ number: empCount, from: { number: 0 } });
+    const currMattendanceProps = useSpring({ number: currMattendance, from: { number: 0 } });
 
-    const totalLeavesCountsProps = useSpring({ number: totalLeavesCounts, from: { number: 0 } });
-    const acptLeaveCountsProps = useSpring({ number: acptLeaveCounts, from: { number: 0 } });
-    const trejLeaveCountsProps = useSpring({ number: rejLeaveCounts, from: { number: 0 } });
+    const leaveDataProps = useSpring({ number: leaveData, from: { number: 0 } });
+    const pendingLeaveProps = useSpring({ number: pendingLeave, from: { number: 0 } });
+    const rejectLeaveProps = useSpring({ number: rejectLeave, from: { number: 0 } });
+    const approveLeaveProps = useSpring({ number: approveLeave, from: { number: 0 } });
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // Fetch leave types
+            axios
+                .get(`${VITE_DATA}/api/employee/${empid}`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    const leave = response.data.leaveDetails;
+                    const currentMonth = new Date().getMonth() + 1; // getMonth() is zero-based
+                    // const currentDay = new Date().getDate();
+                    const currentYear = new Date().getFullYear();
+
+                    // leave management
+                    const filteredMonthlyData = leave.filter(item => {
+                        const [day, month, year] = item.applyDate.split('/'); // Split the date string
+                        const itemDate = new Date(`${year}-${month}-${day}`); // Create a new Date object in YYYY-MM-DD format
+
+                        // Check if the date is valid
+                        if (isNaN(itemDate.getTime())) {
+                            console.error(`Invalid date: ${item.applyDate}`);
+                            return false;
+                        }
+                        return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+                    });
+
+                    const pendingLeaves = filteredMonthlyData.filter(item => item.status === 'pending');
+                    const approvedLeaves = filteredMonthlyData.filter(item => item.status === 'approved');
+                    const rejectedLeaves = filteredMonthlyData.filter(item => item.status === 'rejected');
+
+
+                    startTransition(() => {
+                        setLeaveData(filteredMonthlyData.length);
+                        setPendingLeave(pendingLeaves.length);
+                        setRejectLeave(rejectedLeaves.length);
+                        setApproveLeave(approvedLeaves.length);
+
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [empid]);
+
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (!token) {
@@ -123,233 +182,282 @@ function DashBranches() {
         } else {
             // The user is authenticated, so you can make your API request here.
             axios
-                .get(`${VITE_DATA}/advisor/all/lists`, {
-                    headers: {
-                        Authorization: `${token}`, // Send the token in the Authorization header
-                    }, params: { branch: name }
-                })
-                .then((response) => {
-                    setAPIData(response.data);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }, [name]);
-
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            toast.error("Not Authorized yet.. Try again!");
-        } else {
-            // The user is authenticated, so you can make your API request here.
-            axios
-                .get(`${VITE_DATA}/api/employee-list`, {
+                .get(`${VITE_DATA}/api/salaries-list`, {
                     headers: {
                         Authorization: `${token}`, // Send the token in the Authorization header
                     },
                 })
                 .then((response) => {
-                    const empLists = response.data;
-                    const currentMonth = new Date().getMonth() + 1; // getMonth() is zero-based
-                    const currentDay = new Date().getDate();
+                    // make true flags
+                    const filteredData = response.data.filter(item => item.empUniqueId === empid && item.flags === true);
                     const currentYear = new Date().getFullYear();
-                    const currentDateString = `${currentDay.toString().padStart(2, '0')}/${currentMonth.toString().padStart(2, '0')}/${currentYear}`;
-                    
-                    const activeEmp = empLists.filter(emp => emp.flags === true && emp.empbranch === name);
-                    setActiveEmpCount(activeEmp.length);
-                    setEmpCount(activeEmp.length);
-                    let totalPresentCount = 0;
-                    // Count the current day present employees for each active employee   
-                    activeEmp.forEach(emp => {
-                        const todayEntries = emp.employeeDetails.filter(item => {
-                            return item.status === "present" && item.date === currentDateString;
-                        });
-                        // Increment totalPresentCount by the number of today's present entries
-                        totalPresentCount += todayEntries.length;
+
+                    const filteredYearlyData = filteredData.filter(item => {
+                        // eslint-disable-next-line no-unused-vars
+                        const [month, year] = item.genMonths.split('/'); // Extract month and year
+                        return parseInt(year, 10) === currentYear; // Compare the year part with currentYear
                     });
-                    setCurrAttendance(totalPresentCount);
-
-
-                    // Calculate total leaves across all employees
-                    let totalLeaveCount = 0;
-                    let acptCounts = 0;
-                    let rejCounts = 0;
-                    activeEmp.forEach(emp => {
-                        if (emp.leaveDetails && Array.isArray(emp.leaveDetails)) {
-                            emp.leaveDetails.forEach(leave => {
-                                // Increment totalLeaveCount for each leave record
-                                totalLeaveCount++;
-                                if (leave.status === "approved") { // Adjust condition as per your leave status logic
-                                    acptCounts += leave.counts || 0; // Ensure counts is a number and add to totalLeaveCount
-                                } else if (leave.status === "rejected") {
-                                    rejCounts += leave.counts || 0;
-                                }
-                            });
-                        }
+                    startTransition(() => {
+                        setSalary(filteredYearlyData.map((data) => data.genMonths));
                     });
-
-                    setTotalLeavesCounts(totalLeaveCount);
-                    setAcptLeaveCounts(acptCounts);
-                    setRejLeaveCounts(rejCounts);
-
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
-    }, [name]);
+    }, [empid]);
+
+    // Function to convert '4/2024' to 'April 2024'
+    const formatDate = (dateString) => {
+        const [month, year] = dateString.split('/');
+        const monthName = new Date(`${month}/01/${year}`).toLocaleString('en-US', { month: 'long' });
+        return `${monthName} ${year}`;
+    };
+
+    // useEffect to update monthlyAttendance when salary changes
+    useEffect(() => {
+        const formattedDates = salary.map(date => ({
+            month: formatDate(date),
+        }));
+        setFormattedSalary(formattedDates);
+    }, [salary]);
+
+    // useEffect(() => {
+    //     const token = sessionStorage.getItem('token');
+    //     if (!token) {
+    //       toast.error('Not Authorized yet.. Try again! ');
+    //     } else {
+    //       axios
+    //         .get(`${VITE_DATA}/employee/emp/attendance/${empid}`, {
+    //           headers: {
+    //             Authorization: `${token}`,
+    //           },
+    //         })
+    //         .then((response) => {
+    //             const attend = response.data;
+
+    //                         const currentMonth = new Date().getMonth() + 1;
+    //                         const currentDay = new Date().getDate();
+    //                         const currentYear = new Date().getFullYear();
+    //                         const currentDateString = `${currentDay.toString().padStart(2, '0')}/${currentMonth.toString().padStart(2, '0')}/${currentYear}`;
+
+    //                         const filteredYearlyData = attend?.filter(item => {
+    //                             const itemDate = new Date(item.date);
+    //                             return itemDate && itemDate.getFullYear() === currentYear;
+    //                         });
+    //                        console.log(filteredYearlyData);
+
+
+    //                         const filteredMonthlyData = attend?.filter(item => { 
+    //                             const itemDate = new Date(item.date);
+    //                             return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+    //                         });
+    //                         console.log(filteredMonthlyData);
+
+    //                         const filteredDailyData = attend?.filter(item => {
+    //                             const itemDate = new Date(item.date);
+    //                             return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+    //                         });
+
+
+    //                         // let totalPresentCount = 0;
+    //                         // // Count the current day present employees for each active employee   
+    //                         // filteredYearlyData?.forEach(emp => {
+    //                         //     const todayEntries = emp.employeeDetails?.filter(item => {
+    //                         //         return item.status === "present" && item.date === currentDateString;
+    //                         //     });
+    //                         //     // Increment totalPresentCount by the number of today's present entries
+    //                         //     totalPresentCount += todayEntries.length  || 0;
+    //                         // });
+    //                         // console.log(totalPresentCount);
+    //                         startTransition(() => {
+    //                         setEmpData(attend);
+    //                         setCurrAttendance(filteredYearlyData.length);
+    //                         setCurrMattendance(filteredMonthlyData.length);
+    //                         });
+    //         })
+    //         .catch((error) => {
+    //           console.error(error);
+    //         });
+    //     }
+    //   }, [empid]);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            toast.error('Not Authorized yet.. Try again! ');
+        } else {
+            axios
+                .get(`${VITE_DATA}/employee/emp/attendance/${empid}`, {
+                    headers: {
+                        Authorization: `${token}`,
+                    },
+                })
+                .then((response) => {
+                    const attend = response.data;
+                    const currentYear = new Date().getFullYear();
+                    const filteredYearlyData = attend.filter(item => {
+                        const itemDate = new Date(item.date);
+                        return itemDate.getFullYear() === currentYear;
+                    });
+
+                    const monthlyAttendance = Array(12).fill(0).map((_, month) => {
+                        const monthData = attend.filter(item => {
+                            const itemDate = new Date(item.date);
+                            return itemDate.getMonth() === month;
+                        });
+                        const presentDays = monthData.filter(item => item.status === 'present').length;
+                        const absentDays = monthData.filter(item => item.status === 'absent').length;
+                        const totalDays = new Date(currentYear, month + 1, 0).getDate(); // Days in the month
+                        return {
+                            month: new Date(0, month).toLocaleString('default', { month: 'long' }),
+                            present: presentDays,
+                            absent: absentDays,
+                            total: totalDays
+                        };
+                    });
+
+                    startTransition(() => {
+                        setEmpData(attend);
+                        setCurrAttendance(filteredYearlyData.length);
+                        setMonthlyAttendance(monthlyAttendance);
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [empid]);
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (!name) {
-                    console.error("Branch information not found in sessionStorage");
-                    return;
-                }
-                const response = await axios.get(`${VITE_DATA}/alldetails/viewdata/branch/hpur`, {
-                    params: { branch: name },
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            toast.error("Not Authorized yet.. Try again! ");
+        } else {
+            // The user is authenticated, so you can make your API request here.
+            axios
+                .get(`${VITE_DATA}/alldetails/viewdata/${empid}`, {
+                    headers: {
+                        Authorization: `${token}`, // Send the token in the Authorization header
+                    },
+                })
+                .then((response) => {
+                    const empPolicy = response.data;
+                    const currentMonth = new Date().getMonth() + 1;
+                    const currentDay = new Date().getDate();
+                    const currentYear = new Date().getFullYear();
+
+                    const filteredYearlyData = empPolicy.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        return itemDate.getFullYear() === currentYear;
+                    });
+
+                    const filteredMonthlyData = empPolicy.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+                    });
+
+                    const filteredDailyData = empPolicy.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+                    });
+
+                    const calculateTotals = (filteredData, segment) => {
+                        const filteredSegmentData = filteredData.filter(item => item.segment === segment);
+                        const totalPayout = filteredSegmentData.reduce((sum, item) => parseFloat(sum + item.netPremium), 0);
+                        const totalCount = filteredSegmentData.length;
+                        return { totalPayout, totalCount };
+                    };
+
+                    const cvYearlyTotals = calculateTotals(filteredYearlyData, 'C V');
+                    const cvMonthlyTotals = calculateTotals(filteredMonthlyData, 'C V');
+                    const cvDailyTotals = calculateTotals(filteredDailyData, 'C V');
+
+                    const pvtCarYearlyTotals = calculateTotals(filteredYearlyData, 'PVT-CAR');
+                    const pvtCarMonthlyTotals = calculateTotals(filteredMonthlyData, 'PVT-CAR');
+                    const pvtCarDailyTotals = calculateTotals(filteredDailyData, 'PVT-CAR');
+
+                    const twYearlyTotals = calculateTotals(filteredYearlyData, 'TW');
+                    const twMonthlyTotals = calculateTotals(filteredMonthlyData, 'TW');
+                    const twDailyTotals = calculateTotals(filteredDailyData, 'TW');
+
+                    const healthYearlyTotals = calculateTotals(filteredYearlyData, 'HEALTH');
+                    const healthMonthlyTotals = calculateTotals(filteredMonthlyData, 'HEALTH');
+                    const healthDailyTotals = calculateTotals(filteredDailyData, 'HEALTH');
+
+                    const nonMotorYearlyTotals = calculateTotals(filteredYearlyData, 'NON-MOTOR');
+                    const nonMotorMonthlyTotals = calculateTotals(filteredMonthlyData, 'NON-MOTOR');
+                    const nonMotorDailyTotals = calculateTotals(filteredDailyData, 'NON-MOTOR');
+
+                    const totalnetPremium = filteredYearlyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                    const monthlynetPremium = filteredMonthlyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                    const dailynetPremium = filteredDailyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+
+                    const totalfinalEntryFields = filteredYearlyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
+                    const monthlyfinalEntryFields = filteredMonthlyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
+                    const dailyfinalEntryFields = filteredDailyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
+
+                    startTransition(() => {
+                        setYearlyData(filteredYearlyData.length);
+                        setMonthlyData(filteredMonthlyData.length);
+                        setDailyData(filteredDailyData.length);
+                        setAPIData(empPolicy);
+
+                        setTotalCvPayout(totalCvPayout);
+                        setMonthlyCvPayout(monthlyCvPayout);
+                        setDailyCvPayout(dailyCvPayout);
+                        setTotalCvPayout(cvYearlyTotals.totalPayout);
+                        setMonthlyCvPayout(cvMonthlyTotals.totalPayout);
+                        setDailyCvPayout(cvDailyTotals.totalPayout);
+                        setTotalCvCount(cvYearlyTotals.totalCount);
+                        setMonthlyCvCount(cvMonthlyTotals.totalCount);
+                        setDailyCvCount(cvDailyTotals.totalCount);
+
+                        setTotalNsell(totalnetPremium);
+                        setMonthlyNsell(monthlynetPremium);
+                        setDailyNsell(dailynetPremium);
+                        setTotalFsell(totalfinalEntryFields);
+                        setMonthlyFsell(monthlyfinalEntryFields);
+                        setDailyFsell(dailyfinalEntryFields);
+
+                        setTotalPvtCarPayout(pvtCarYearlyTotals.totalPayout);
+                        setMonthlyPvtCarPayout(pvtCarMonthlyTotals.totalPayout);
+                        setDailyPvtCarPayout(pvtCarDailyTotals.totalPayout);
+                        setTotalPvtCarCount(pvtCarYearlyTotals.totalCount);
+                        setMonthlyPvtCarCount(pvtCarMonthlyTotals.totalCount);
+                        setDailyPvtCarCount(pvtCarDailyTotals.totalCount);
+
+                        setTotalTwPayout(twYearlyTotals.totalPayout);
+                        setMonthlyTwPayout(twMonthlyTotals.totalPayout);
+                        setDailyTwPayout(twDailyTotals.totalPayout);
+                        setTotalTwCount(twYearlyTotals.totalCount);
+                        setMonthlyTwCount(twMonthlyTotals.totalCount);
+                        setDailyTwCount(twDailyTotals.totalCount);
+
+                        setTotalHealthPayout(healthYearlyTotals.totalPayout);
+                        setMonthlyHealthPayout(healthMonthlyTotals.totalPayout);
+                        setDailyHealthPayout(healthDailyTotals.totalPayout);
+                        setTotalHealthCount(healthYearlyTotals.totalCount);
+                        setMonthlyHealthCount(healthMonthlyTotals.totalCount);
+                        setDailyHealthCount(healthDailyTotals.totalCount);
+
+                        setTotalNonMotorPayout(nonMotorYearlyTotals.totalPayout);
+                        setMonthlyNonMotorPayout(nonMotorMonthlyTotals.totalPayout);
+                        setDailyNonMotorPayout(nonMotorDailyTotals.totalPayout);
+                        setTotalNonMotorCount(nonMotorYearlyTotals.totalCount);
+                        setMonthlyNonMotorCount(nonMotorMonthlyTotals.totalCount);
+                        setDailyNonMotorCount(nonMotorDailyTotals.totalCount);
+                    });
+                })
+                .catch((error) => {
+                    toast.error(error);
+                    console.error(error);
                 });
-                const fetchedData = response.data;
-                setAllDetailsData(fetchedData);
-
-                const currentMonth = new Date().getMonth() + 1;
-                const currentDay = new Date().getDate();
-                const currentYear = new Date().getFullYear();
-
-                const filteredYearlyData = fetchedData.filter(item => {
-                    const itemDate = new Date(item.entryDate);
-                    return itemDate.getFullYear() === currentYear;
-                });
-
-                const filteredMonthlyData = fetchedData.filter(item => {
-                    const itemDate = new Date(item.entryDate);
-                    return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-                });
-
-                const filteredDailyData = fetchedData.filter(item => {
-                    const itemDate = new Date(item.entryDate);
-                    return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-                });
-
-                const calculateTotals = (filteredData, segment) => {
-                    const filteredSegmentData = filteredData.filter(item => item.segment === segment);
-                    const totalPayout = filteredSegmentData.reduce((sum, item) => parseFloat(sum + item.netPremium), 0);
-                    const totalCount = filteredSegmentData.length;
-                    return { totalPayout, totalCount };
-                };
-
-                 // Extract unique employees (case insensitive), excluding empty staffName
-      const uniqueEmployees = [...new Set(fetchedData
-        .filter(item => item.staffName.trim() !== '')
-        .map(item => item.staffName.toLowerCase()))];
-      setEmployees(uniqueEmployees);
-      const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
-        const employeeData = fetchedData.filter(item => item.staffName.toLowerCase() === employee && item.empTime);
-
-        acc[employee] = {
-          ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,
-          mtd: employeeData.filter(item => {
-            const itemDate = new Date(item.entryDate);
-            return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-          }).length,
-          daily: employeeData.filter(item => {
-            const itemDate = new Date(item.entryDate);
-            return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-          }).length,
-        };
-        return acc;
-      }, {});
-
-                const cvYearlyTotals = calculateTotals(filteredYearlyData, 'C V');
-                const cvMonthlyTotals = calculateTotals(filteredMonthlyData, 'C V');
-                const cvDailyTotals = calculateTotals(filteredDailyData, 'C V');
-
-                const pvtCarYearlyTotals = calculateTotals(filteredYearlyData, 'PVT-CAR');
-                const pvtCarMonthlyTotals = calculateTotals(filteredMonthlyData, 'PVT-CAR');
-                const pvtCarDailyTotals = calculateTotals(filteredDailyData, 'PVT-CAR');
-
-                const twYearlyTotals = calculateTotals(filteredYearlyData, 'TW');
-                const twMonthlyTotals = calculateTotals(filteredMonthlyData, 'TW');
-                const twDailyTotals = calculateTotals(filteredDailyData, 'TW');
-
-                const healthYearlyTotals = calculateTotals(filteredYearlyData, 'HEALTH');
-                const healthMonthlyTotals = calculateTotals(filteredMonthlyData, 'HEALTH');
-                const healthDailyTotals = calculateTotals(filteredDailyData, 'HEALTH');
-
-                const nonMotorYearlyTotals = calculateTotals(filteredYearlyData, 'NON-MOTOR');
-                const nonMotorMonthlyTotals = calculateTotals(filteredMonthlyData, 'NON-MOTOR');
-                const nonMotorDailyTotals = calculateTotals(filteredDailyData, 'NON-MOTOR');
+        }
+    }, [empid, dailyCvPayout, totalCvPayout, monthlyCvPayout]);
 
 
-                const totalnetPremium = filteredYearlyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
-                const monthlynetPremium = filteredMonthlyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
-                const dailynetPremium = filteredDailyData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
-
-                const totalfinalEntryFields = filteredYearlyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
-                const monthlyfinalEntryFields = filteredMonthlyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
-                const dailyfinalEntryFields = filteredDailyData.reduce((sum, item) => sum + item.finalEntryFields, 0);
-
-                startTransition(() => {
-                    setYearlyData(filteredYearlyData.length);
-                    setMonthlyData(filteredMonthlyData.length);
-                    setDailyData(filteredDailyData.length);
-                    setTotalNsell(totalnetPremium);
-                    setMonthlyNsell(monthlynetPremium);
-                    setDailyNsell(dailynetPremium);
-                    setTotalFsell(totalfinalEntryFields);
-                    setMonthlyFsell(monthlyfinalEntryFields);
-                    setDailyFsell(dailyfinalEntryFields);
-
-                    setTotalCvPayout(totalCvPayout);
-                    setMonthlyCvPayout(monthlyCvPayout);
-                    setDailyCvPayout(dailyCvPayout);
-                    setTotalCvPayout(cvYearlyTotals.totalPayout);
-                    setMonthlyCvPayout(cvMonthlyTotals.totalPayout);
-                    setDailyCvPayout(cvDailyTotals.totalPayout);
-                    setTotalCvCount(cvYearlyTotals.totalCount);
-                    setMonthlyCvCount(cvMonthlyTotals.totalCount);
-                    setDailyCvCount(cvDailyTotals.totalCount);
-
-                    setTotalPvtCarPayout(pvtCarYearlyTotals.totalPayout);
-                    setMonthlyPvtCarPayout(pvtCarMonthlyTotals.totalPayout);
-                    setDailyPvtCarPayout(pvtCarDailyTotals.totalPayout);
-                    setTotalPvtCarCount(pvtCarYearlyTotals.totalCount);
-                    setMonthlyPvtCarCount(pvtCarMonthlyTotals.totalCount);
-                    setDailyPvtCarCount(pvtCarDailyTotals.totalCount);
-
-                    setTotalTwPayout(twYearlyTotals.totalPayout);
-                    setMonthlyTwPayout(twMonthlyTotals.totalPayout);
-                    setDailyTwPayout(twDailyTotals.totalPayout);
-                    setTotalTwCount(twYearlyTotals.totalCount);
-                    setMonthlyTwCount(twMonthlyTotals.totalCount);
-                    setDailyTwCount(twDailyTotals.totalCount);
-
-                    setTotalHealthPayout(healthYearlyTotals.totalPayout);
-                    setMonthlyHealthPayout(healthMonthlyTotals.totalPayout);
-                    setDailyHealthPayout(healthDailyTotals.totalPayout);
-                    setTotalHealthCount(healthYearlyTotals.totalCount);
-                    setMonthlyHealthCount(healthMonthlyTotals.totalCount);
-                    setDailyHealthCount(healthDailyTotals.totalCount);
-
-                    setTotalNonMotorPayout(nonMotorYearlyTotals.totalPayout);
-                    setMonthlyNonMotorPayout(nonMotorMonthlyTotals.totalPayout);
-                    setDailyNonMotorPayout(nonMotorDailyTotals.totalPayout);
-                    setTotalNonMotorCount(nonMotorYearlyTotals.totalCount);
-                    setMonthlyNonMotorCount(nonMotorMonthlyTotals.totalCount);
-                    setDailyNonMotorCount(nonMotorDailyTotals.totalCount);
-
-                    setEmployeePolicyCounts(newEmployeePolicyCounts);
-                });
-
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, [name, dailyCvPayout, totalCvPayout, monthlyCvPayout]);
 
     return (
         <>
@@ -375,6 +483,106 @@ function DashBranches() {
                     </animated.span>
                 </div>
             </div>
+
+            <div className="grid grid-cols-4 gap-3 my-6">
+                <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-green-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                    <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                        Monthly / Yearly Attendance
+                    </span>
+                    <span>
+                        <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {currMattendanceProps.number.to(n => n.toFixed(0))}
+                        </animated.span>
+                        <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
+                        <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+
+                            {currAttendanceProps.number.to(n => n.toFixed(0))}
+                        </animated.span>
+                    </span>
+                </div>
+            </div>
+
+
+
+            {/* LEAVE MANAGEMENT */}
+            <div className="grid grid-cols-3 gap-3 mb-3">
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">LEAVE</h1>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-gray-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
+                            PENDING / Total
+                        </span>
+                        <span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {pendingLeaveProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {leaveDataProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                        </span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-green-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
+                            APPROVED / Total
+                        </span>
+                        <span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {approveLeaveProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {leaveDataProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                        </span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-red-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
+                            rejected / Total
+                        </span>
+                        <span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {rejectLeaveProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
+                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                {leaveDataProps.number.to(n => n.toFixed(0))}
+                            </animated.span>
+                        </span>
+                    </div>
+                </div>
+
+                {/* calendar */}
+                <div className="block col-span-1 ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Attendance</h1>
+                    {monthlyAttendance.map((monthData, index) => (
+                        <div key={index} className="monthly-data grid grid-cols-6 gap-4 justify-between items-center py-1 px-2 bg-gray-800 text-gray-200 rounded mb-1">
+                            <span className=" col-span-3  month-name font-semibold">{monthData.month}</span>
+                            <span className="col-span-3 attendance-data">
+                                {monthData.present} / {monthData.total}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+
+
+                {/* SALARY LISTS */}
+                <div className="block col-span-1 ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Salary</h1>
+                    {formattedsalary.map((monthData, index) => (
+                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200 rounded mb-1">
+                            <span className="bg-[black]/50 py-0.5 px-2  text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl  font-semibold my-auto rounded">{monthData.month}</span> 
+                            <span className=" text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl me-4   font-semibold">Salary</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+
 
             <div className="grid grid-cols-4 gap-3 mb-1">
                 <div className="block">
@@ -626,126 +834,9 @@ function DashBranches() {
                         </animated.span>
                     </div>
                 </div>
-
             </div>
-
-            {/* one liners 5  */}
-            <div className="grid grid-cols-5 gap-3 my-4">
-                <div className="block">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 text-white lg:p-1 lg:h-16 xl:h-16 rounded bg-blue-500 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-1 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[black]/50 focus:ring-[#050708]/50 uppercase">
-                            Total ADVISORS
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {advisorDataProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                    </div>
-                </div>
-
-                <div className="block">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-green-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            Active / total
-                        </span>
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {activeempCountProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {empCountProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                        </span>
-                    </div>
-                </div>
-
-                <div className="block">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-green-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            Att. / Active
-                        </span>
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {currAttendanceProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {activeempCountProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                        </span>
-                    </div>
-                </div>
-
-                <div className="block">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-red-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
-                            APPROVED / TOTAL
-                        </span>
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {acptLeaveCountsProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {totalLeavesCountsProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                        </span>
-                    </div>
-                </div>
-
-                <div className="block">
-                    <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-red-800 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
-                            REJECTED / TOTAL
-                        </span>
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {trejLeaveCountsProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                            <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {totalLeavesCountsProps.number.to(n => n.toFixed(0))}
-                            </animated.span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            {/* tw cv car pvt car */}
-            <div className="block">
-                  <div className="grid grid-cols-6 items-center ">
-                      <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2  text-sm sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                          EMP NAME
-                      </span>
-                      <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                          YTD
-                      </span>
-                      <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                          MTD
-                      </span>
-                      <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                          TODAY
-                      </span>
-                  </div>
-                  {employees.map((employee, index) => (
-                      <div
-                          key={index}
-                          className={`mb-3 xl:mb-0 grid grid-cols-6 items-center h-12 lg:p-1 lg:h-16 xl:h-10 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ${index === 0 ? 'rounded-t' : ''
-                              } ${index === employees.length - 1 ? 'rounded-b' : ''}`}
-                      >
-                          <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                              {employee.toUpperCase()}
-                          </span>
-                          {["ytd", "mtd", "daily"].map(period => (
-                              <span key={period} className="col-span-1 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                  {employeePolicyCounts[employee] ? employeePolicyCounts[employee][period] : '0'}
-                              </span>
-                          ))}
-                      </div>
-                  ))}
-              </div>
         </>
-    );
+    )
 }
 
-export default DashBranches;
+export default EmpDashboard;

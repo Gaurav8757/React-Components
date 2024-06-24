@@ -422,7 +422,7 @@ function FinanceDashboard() {
           .map(item => item.staffName.toLowerCase()))];
         setEmployees(uniqueEmployees);
         const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
-          const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee);
+          const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee && item.empTime);
 
           acc[employee] = {
             ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,

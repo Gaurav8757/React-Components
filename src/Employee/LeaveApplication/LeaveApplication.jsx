@@ -176,7 +176,7 @@ function LeaveApplication() {
   }, [startDate, endDate]);
 
   return (
-    <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2  mt-4  bg-orange-100  rounded-lg'>
+    <div className='flex flex-col w-full flex-wrap sm:w-full lg:w-full xl:w-1/2 px-4 bg-orange-100  rounded'>
       <div className='flex justify-center text-center'>
         <h1 className='text-xl xl:text-2xl lg:text-2xl tracking-wide mb-4 text-start uppercase font-medium text-orange-700'>Leave Application</h1>
       </div>

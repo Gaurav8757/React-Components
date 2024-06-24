@@ -831,9 +831,9 @@ function CompanySlab() {
                   value={ncb}
                   onChange={(e) => setNcb(e.target.value)} >
                   <option className="w-1" value="" >-------------- Select NCB ------------------</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                  <option value="both">Both</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
+                  <option value="BOTH">Both</option>
                   {/* {
                   ncbList.map((data)=>(
                     <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
@@ -853,9 +853,9 @@ function CompanySlab() {
                 >
 
                   <option className="w-1" value="" >-------------- Select NCB ------------------</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
-                  <option value="both">Both</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
+                  <option value="BOTH">Both</option>
                   {/* {
                   ncbList.map((data)=>(
                     <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>

@@ -461,21 +461,21 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
   const handlePolicyStartDateChange = (e) => {
     const startDate = e.target.value;
     const odExpiryDate = new Date(startDate);
-    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1);
+    odExpiryDate.setFullYear(odExpiryDate.getFullYear() + 1 , odExpiryDate.getMonth(), odExpiryDate.getDate() - 1);
     setAllDetails(prevDetails => ({
       ...prevDetails,
       odExpiry: odExpiryDate.toISOString().split('T')[0]
     }));
 
     const policyEndDateValue = new Date(startDate);
-    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1);
+    policyEndDateValue.setFullYear(policyEndDateValue.getFullYear() + 1,  policyEndDateValue.getMonth(), policyEndDateValue.getDate() - 1);
     setAllDetails(prevDetails => ({
       ...prevDetails,
       policyEndDate: policyEndDateValue.toISOString().split('T')[0]
     }));
 
     const tpExpiryDate = new Date(startDate);
-    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 3);
+    tpExpiryDate.setFullYear(tpExpiryDate.getFullYear() + 2, tpExpiryDate.getMonth(), tpExpiryDate.getDate() - 1);
     setAllDetails(prevDetails => ({
       ...prevDetails,
       tpExpiry: tpExpiryDate.toISOString().split('T')[0]

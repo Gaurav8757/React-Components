@@ -96,12 +96,6 @@ function ViewSal() {
                     Monthly Salary List&apos;s
                 </h1>
                 <h1></h1>
-                {/* <div className="flex">
-                    <button className="flex justify-center mx-4" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10" /></button>
-                    <NavLink to="/hr/home/generate/salary" className="flex justify-center">
-                        <button type="button" className="text-white justify-end bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 hover:bg-gradient-to-br focus:ring-1 focus:outline-none focus:ring-orange-300 dark:focus:ring-orange-800 shadow-lg shadow-orange-500/50 dark:shadow-lg dark:shadow-orange-800/80 font-medium rounded text-sm px-3 py-1 text-center my-auto">Go Back</button>
-                    </NavLink>
-                </div> */}
             </div>
             <div className="inline-block min-w-full w-full py-0  my-5 bg-orange-200">
                 <table className="min-w-full text-center text-sm font-light table bg-orange-200">
@@ -371,7 +365,9 @@ function ViewSal() {
             </div>
         </div>
     </div>
- 
+ {
+    
+ }
     {showViewPopup && selectedViewId && (
         <SalaryViewPage data={selectedViewId} onClosed={handleViewClosePopup} />
     )}

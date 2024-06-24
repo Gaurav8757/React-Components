@@ -97,7 +97,7 @@ import UpdateGenHrSalary from "./admin/admincomponents/Salary/UpdateHrSalary.jsx
 import HrAttendance from "./HumanResources/attendance/HrAttendance.jsx";
 import AddHrAttendance from "./HumanResources/attendance/AddHrAttendance.jsx";
 import EmpAttendance from "./Employee/attendance/EmpAttendance.jsx";
-import DashboardEmp from "./Employee/DashboardEmp.jsx";
+import DashboardEmp from "./Employee/Dashboard/DashboardEmp.jsx";
 import AddAttendance from "./Employee/attendance/AddAttendance.jsx";
 import ViewHrAttendace from "./admin/admincomponents/Hr/ViewHrAttendace.jsx";
 import EmpAttendanceModal from "./HumanResources/Employee/EmpAttendanceModal.jsx";

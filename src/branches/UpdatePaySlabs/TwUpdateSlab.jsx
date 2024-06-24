@@ -581,9 +581,9 @@ else{
                                                         <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
 
                                                     ))} */}
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
-                          <option value="both">Both</option>
+                          <option value="YES">Yes</option>
+                          <option value="NO">No</option>
+                          <option value="BOTH">Both</option>
                         </select>
                       </div>
 

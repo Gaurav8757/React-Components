@@ -589,7 +589,7 @@ function PcUpdates({ slab, update, onClose,  }) {
                           <option className="w-1" value="" >------------- Select CC --------------</option>
                           <option value="All">All</option>
                           {
-                            ccList.map((data) => (
+                            ccList.map((data) => ( console.log(data),
                               <option key={data._id} value={data.cc}>{data.cc}</option>
                             ))
                           }
