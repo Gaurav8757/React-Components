@@ -567,26 +567,41 @@ else{
                         </select>
                       </div>
                       {/* FIELD - 18 */}
+                      {
+                        allDetails.segments === 'C V' || allDetails.segments === 'TW'   ? (
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
-                        <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                        <label className="text-base mx-1">NCB%:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
                         <select
                           className="input-style p-1 text-base rounded-lg"
                           type="text"
                           value={allDetails.vncb}
                           name="vncb"
                           onChange={handleInputChange}
+                          disabled
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
-                          {/* {ncbLists.map((data) => (
-                                                        <option key={data._id} value={data.ncb}>{data.ncb}{"%"}</option>
-
-                                                    ))} */}
                           <option value="YES">Yes</option>
                           <option value="NO">No</option>
                           <option value="BOTH">Both</option>
                         </select>
-                      </div>
-
+                      </div>): (
+                          <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
+                          <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
+                          <select
+                            className="input-style p-1 text-base rounded-lg"
+                            type="text"
+                            value={allDetails.vncb}
+                            name="vncb"
+                            onChange={handleInputChange}
+                          >
+                            <option className="w-1" value="" >------------ Select NCB -------------</option>
+                            <option value="YES">Yes</option>
+                            <option value="NO">No</option>
+                            <option value="BOTH">Both</option>
+                          </select>
+                        </div>
+                      )
+}
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">OD Discount%:<span className="text-red-600 font-bold">*</span></label>
                         <select
