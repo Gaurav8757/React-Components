@@ -363,15 +363,7 @@ function HrDash() {
                             </animated.span>
                         </span>
                     </div>
-                    <div className=" col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
-                        <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Holiday</h1>
-                        {formattedholiday.map((monthData, index) => (
-                            <div key={index} className="mb-1 xl:mb-1  grid xl:flex text-black lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 sm:h-16 md:h-16 lg:h-16 xl:h-12 justify-between monthly-data  grid-cols-1  p-1 bg-cyan-600  rounded  shadow-2xl drop-shadow-2xl shadow-orange-950">
-                                <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg  font-semibold  rounded">{monthData.month}</span>
-                                <span className=" text-white  text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg mx-auto font-semibold rounded">{monthData.hDay}</span>
-                            </div>
-                        ))}
-                    </div>
+                
                 </div>
                 {/* part-2 div */}
                 <div className="block ">
@@ -391,7 +383,18 @@ function HrDash() {
                             </animated.span>
                         </span>
                     </div>
+                    <div className=" col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
+                        <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Holiday</h1>
+                        {formattedholiday.map((monthData, index) => (
+                            <div key={index} className="mb-1 xl:mb-1  grid xl:flex text-black lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 sm:h-16 md:h-16 lg:h-16 xl:h-12 justify-between monthly-data  grid-cols-1  p-1 bg-cyan-600  rounded  shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg  font-semibold  rounded">{monthData.month}</span>
+                                <span className=" text-white  text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg mx-auto font-semibold rounded">{monthData.hDay}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+
+
 
 
 

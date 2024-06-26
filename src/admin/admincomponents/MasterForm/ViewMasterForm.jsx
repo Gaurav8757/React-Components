@@ -219,7 +219,7 @@ function ViewMasterForm() {
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states  &&
-            ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' ||  (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL')))&&
+            ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === "" && data.fuel === "") ||  (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL')))&&
             (matchingCSLab.vncb === data.ncb || matchingCSLab.vncb === '' || matchingCSLab.vncb === 'BOTH')&&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
@@ -236,7 +236,7 @@ function ViewMasterForm() {
               ((matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0')) ||
               ((matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') || (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0')) ||
               ((matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge !== '0 years')) 
-            ) && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc.toLowerCase() === 'all'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
+            ) && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
