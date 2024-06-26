@@ -9,7 +9,8 @@ function OpsDashboard() {
     const [yearlyData, setYearlyData] = useState(0);
     const [monthlyData, setMonthlyData] = useState(0);
     const [dailyData, setDailyData] = useState(0);
-
+    const [employees, setEmployees] = useState([]);
+    const [employeePolicyCounts, setEmployeePolicyCounts] = useState({});
     
 
     const allDetailsProps = useSpring({ number: yearlyData, from: { number: 0 } });
@@ -57,10 +58,36 @@ function OpsDashboard() {
                     return itemYear === currentYear && itemMonth === currentMonth && itemDay === currentDay;
                 });
 
+
+
+                
+                    // Extract unique employees (case insensitive), excluding empty staffName
+        const uniqueEmployees = [...new Set(allData
+            .filter(item => item.staffName.trim() !== '')
+            .map(item => item.staffName.toLowerCase()))];
+          setEmployees(uniqueEmployees);
+          const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
+            const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee && item.empTime);
+  
+            acc[employee] = {
+              ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,
+              mtd: employeeData.filter(item => {
+                const itemDate = new Date(item.entryDate);
+                return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+              }).length,
+              daily: employeeData.filter(item => {
+                const itemDate = new Date(item.entryDate);
+                return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+              }).length,
+            };
+            return acc;
+          }, {});
+
                 startTransition(() => {
                     setYearlyData(filteredYearlyData.length);
                     setMonthlyData(filteredMonthlyData.length);
                     setDailyData(filteredDailyData.length);
+                    setEmployeePolicyCounts(newEmployeePolicyCounts);
                 });
 
             } catch (error) {
@@ -72,7 +99,8 @@ function OpsDashboard() {
     }, []);
 
     return (
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        <>
+        <div className="grid grid-cols-3 gap-3 mb-8">
             <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                 <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">
                     YTD NOP
@@ -100,6 +128,43 @@ function OpsDashboard() {
                 </animated.span>
             </div>
         </div>
+
+          {/* part 2 employee wise data policy */}
+          
+          <div className="block">
+          <div className="grid grid-cols-6 items-center ">
+              <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2  text-sm sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                  EMP NAME
+              </span>
+              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                  YTD
+              </span>
+              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                  MTD
+              </span>
+              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
+                  TODAY
+              </span>
+          </div>
+          {employees.map((employee, index) => (
+              <div
+                  key={index}
+                  className={`mb-0 xl:mb-0 lg:mb-0 md:mb-0 sm:mb-0 grid grid-cols-6 items-center h-8 lg:p-1 md:h-10 lg:h-10 xl:h-10 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ${index === 0 ? 'rounded-t' : ''
+                      } ${index === employees.length - 1 ? 'rounded-b' : ''}`}
+              >
+                  <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-sm md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                      {employee.toUpperCase()}
+                  </span>
+                  {["ytd", "mtd", "daily"].map(period => (
+                      <span key={period} className="col-span-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                          {employeePolicyCounts[employee] ? employeePolicyCounts[employee][period] : '0'}
+                      </span>
+                  ))}
+              </div>
+          ))}
+      </div>
+
+      </>
     );
 }
 

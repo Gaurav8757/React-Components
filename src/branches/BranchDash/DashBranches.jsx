@@ -55,6 +55,23 @@ function DashBranches() {
     const [monthlyHealthCount, setMonthlyHealthCount] = useState(0);
     const [dailyHealthCount, setDailyHealthCount] = useState(0);
 
+    const [hajipurNetPremium, setHajipurNetPremium] = useState(0);
+    const [hajipurMonthlyNetPremium, setHajipurMonthlyNetPremium] = useState(0);
+    const [hajipurDailyNetPremium, setHajipurDailyNetPremium] = useState(0);
+
+    const [patnaNetPremium, setPatnaNetPremium] = useState(0);
+    const [patnaMonthlyNetPremium, setPatnaMonthlyNetPremium] = useState(0);
+    const [patnaDailyNetPremium, setPatnaDailyNetPremium] = useState(0);
+
+    const [samastipurNetPremium, setSamastipurNetPremium] = useState(0);
+    const [samastipurMonthlyNetPremium, setSamastipurMonthlyNetPremium] = useState(0);
+    const [samastipurDailyNetPremium, setSamastipurDailyNetPremium] = useState(0);
+
+    const [muzaffarpurNetPremium, setMuzaffarpurNetPremium] = useState(0);
+    const [muzaffarpurMonthlyNetPremium, setMuzaffarpurMonthlyNetPremium] = useState(0);
+    const [muzaffarpurDailyNetPremium, setMuzaffarpurDailyNetPremium] = useState(0);
+
+
     const [totalNonMotorPayout, setTotalNonMotorPayout] = useState(0);
     const [monthlyNonMotorPayout, setMonthlyNonMotorPayout] = useState(0);
     const [dailyNonMotorPayout, setDailyNonMotorPayout] = useState(0);
@@ -73,6 +90,22 @@ function DashBranches() {
     const monthlyFsellProps = useSpring({ number: monthlyFsell, from: { number: 0 } });
     const dailyFsellProps = useSpring({ number: dailyFsell, from: { number: 0 } });
     const advisorDataProps = useSpring({ number: APIData.length, from: { number: 0 } });
+
+    const hajipurNetPremiumProps = useSpring({ number: hajipurNetPremium, from: { number: 0 } });
+    const hajipurMonthlyNetPremiumProps = useSpring({ number: hajipurMonthlyNetPremium, from: { number: 0 } });
+    const hajipurDailyNetPremiumProps = useSpring({ number: hajipurDailyNetPremium, from: { number: 0 } });
+
+    const patnaNetPremiumProps = useSpring({ number: patnaNetPremium, from: { number: 0 } });
+    const patnaMonthlyNetPremiumProps = useSpring({ number: patnaMonthlyNetPremium, from: { number: 0 } });
+    const patnaDailyNetPremiumProps = useSpring({ number: patnaDailyNetPremium, from: { number: 0 } });
+
+    const samastipurNetPremiumProps = useSpring({ number: samastipurNetPremium, from: { number: 0 } });
+    const samastipurMonthlyNetPremiumProps = useSpring({ number: samastipurMonthlyNetPremium, from: { number: 0 } });
+    const samastipurDailyNetPremiumProps = useSpring({ number: samastipurDailyNetPremium, from: { number: 0 } });
+
+    const muzaffarpurNetPremiumProps = useSpring({ number: muzaffarpurNetPremium, from: { number: 0 } });
+    const muzaffarpurMonthlyNetPremiumProps = useSpring({ number: muzaffarpurMonthlyNetPremium, from: { number: 0 } });
+    const muzaffarpurDailyNetPremiumProps = useSpring({ number: muzaffarpurDailyNetPremium, from: { number: 0 } });
 
     const totalCvPayoutProps = useSpring({ number: totalCvPayout, from: { number: 0 } });
     const monthlyCvPayoutProps = useSpring({ number: monthlyCvPayout, from: { number: 0 } });
@@ -136,6 +169,125 @@ function DashBranches() {
                 });
         }
     }, [name]);
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = sessionStorage.getItem("token");
+            if (!token) {
+                toast.error("Not Authorized yet.. Try again!");
+            } else {
+                try {
+                    const response = await axios.get(`${VITE_DATA}/alldetails/show/view`, {
+                        headers: {
+                            Authorization: `${token}`, // Send the token in the Authorization header
+                        },
+                    });
+
+                    const allData = response.data;
+
+                    const currentMonth = new Date().getMonth() + 1; // getMonth() is zero-based
+                    const currentDay = new Date().getDate();
+                    const currentYear = new Date().getFullYear();
+
+
+                    const filteredYearlyData = allData.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        const itemYear = itemDate.getFullYear();
+                        return itemYear === currentYear;
+                    });
+
+                    const filteredMonthlyData = allData.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        const itemMonth = itemDate.getMonth() + 1;
+                        const itemYear = itemDate.getFullYear();
+                        return itemMonth === currentMonth && itemYear === currentYear;
+                    });
+
+                    const filteredDailyData = allData.filter(item => {
+                        const itemDate = new Date(item.entryDate);
+                        const itemDay = itemDate.getDate();
+                        const itemMonth = itemDate.getMonth() + 1;
+                        const itemYear = itemDate.getFullYear();
+                        return itemDay === currentDay && itemMonth === currentMonth && itemYear === currentYear;
+                    });
+
+                    const calculateBranchTotals = (filteredData, branch) => {
+                        const branchData = filteredData.filter(item => item.branch === branch);
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    const calculateMonthlyBranchTotals = (filteredData, branch) => {
+                        const currentMonth = new Date().getMonth() + 1;
+                        const branchData = filteredData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            const itemMonth = itemDate.getMonth() + 1;
+                            return item.branch === branch && itemMonth === currentMonth;
+                        });
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    const calculateDailyBranchTotals = (filteredData, branch) => {
+                        const currentDay = new Date().getDate();
+                        const currentMonth = new Date().getMonth() + 1;
+                        const branchData = filteredData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            const itemDay = itemDate.getDate();
+                            const itemMonth = itemDate.getMonth() + 1;
+                            return item.branch === branch && itemDay === currentDay && itemMonth === currentMonth;
+                        });
+                        const totalPayout = branchData.reduce((sum, item) => sum + parseFloat(item.netPremium || 0), 0);
+                        return totalPayout;
+                    };
+
+                    const hajipurNetPremium = calculateBranchTotals(filteredYearlyData, 'HAJIPUR');
+                    const patnaNetPremium = calculateBranchTotals(filteredYearlyData, 'PATNA');
+                    const samastipurNetPremium = calculateBranchTotals(filteredYearlyData, 'SAMASTIPUR');
+                    const muzaffarpurNetPremium = calculateBranchTotals(filteredYearlyData, 'MUZAFFARPUR');
+
+                    const hajipurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'HAJIPUR');
+                    const patnaMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'PATNA');
+                    const samastipurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'SAMASTIPUR');
+                    const muzaffarpurMonthlyNetPremium = calculateMonthlyBranchTotals(filteredMonthlyData, 'MUZAFFARPUR');
+
+                    const hajipurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'HAJIPUR');
+                    const patnaDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'PATNA');
+                    const samastipurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'SAMASTIPUR');
+                    const muzaffarpurDailyNetPremium = calculateDailyBranchTotals(filteredDailyData, 'MUZAFFARPUR');
+
+                    startTransition(() => {
+                        setAllDetailsData(allData);
+                        setMonthlyData(filteredMonthlyData);
+                        setDailyData(filteredDailyData);
+                    
+                        setHajipurNetPremium(hajipurNetPremium);
+                        setPatnaNetPremium(patnaNetPremium);
+                        setSamastipurNetPremium(samastipurNetPremium);
+                        setMuzaffarpurNetPremium(muzaffarpurNetPremium);
+
+                        setHajipurMonthlyNetPremium(hajipurMonthlyNetPremium);
+                        setPatnaMonthlyNetPremium(patnaMonthlyNetPremium);
+                        setSamastipurMonthlyNetPremium(samastipurMonthlyNetPremium);
+                        setMuzaffarpurMonthlyNetPremium(muzaffarpurMonthlyNetPremium);
+
+                        setHajipurDailyNetPremium(hajipurDailyNetPremium);
+                        setPatnaDailyNetPremium(patnaDailyNetPremium);
+                        setSamastipurDailyNetPremium(samastipurDailyNetPremium);
+                        setMuzaffarpurDailyNetPremium(muzaffarpurDailyNetPremium);
+
+                    });
+                } catch (error) {
+                    console.error("Policy calculation by ID caught an error", error);
+                }
+            }
+        };
+
+        fetchData();
+    }, [totalCvPayout, monthlyCvPayout, dailyCvPayout]);
+
 
     useEffect(() => {
         const token = sessionStorage.getItem("token");
@@ -710,6 +862,150 @@ function DashBranches() {
                     </div>
                 </div>
             </div>
+
+
+
+
+  {/* HAJIPUR sales  */}
+  <div className="grid grid-cols-4 gap-3">
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">HAJIPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {hajipurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurNetPremium} */}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {hajipurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurMonthlyNetPremium} */}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {hajipurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                            {/* {hajipurDailyNetPremium} */}
+                        </animated.span>
+                    </div>
+                </div>
+
+
+                {/* PATNA */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">PATNA</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {patnaNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {patnaMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {patnaDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+                </div>
+
+
+                {/* SAMASTIPUR */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">SAMASTIPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {samastipurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+                </div>
+
+
+                {/* MUZAFFARPUR */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">MUZAFFARPUR</h1>
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            YTD NOP PREM.
+                        </span>
+
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            MTD NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurMonthlyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+
+                    <div className="mb-3  grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                            TODAY NOP PREM.
+                        </span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                            {muzaffarpurDailyNetPremiumProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                        </animated.span>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             {/* tw cv car pvt car */}
             <div className="block">

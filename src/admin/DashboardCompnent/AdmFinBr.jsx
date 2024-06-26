@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect, useState, startTransition } from "react";
 import { useSpring, animated } from '@react-spring/web';
-import VITE_DATA from "../config/config.jsx";
+import VITE_DATA from "../../config/config.jsx";
 
 function AdmFinBr() {
     const [allDetailsData, setAllDetailsData] = useState([]);
@@ -77,6 +77,8 @@ function AdmFinBr() {
     const [company, setCompany] = useState(0);
     const [career, setCareer] = useState(0);
 
+    
+    
     const [empCount, setEmpCount] = useState(0);
     const [activeempCount, setActiveEmpCount] = useState(0);
     const [currAttendance, setCurrAttendance] = useState(0);
@@ -98,7 +100,7 @@ function AdmFinBr() {
     const [muzaffarpurDailyNetPremium, setMuzaffarpurDailyNetPremium] = useState(0);
 
     const [employees, setEmployees] = useState([]);
-  const [employeePolicyCounts, setEmployeePolicyCounts] = useState({});
+    const [employeePolicyCounts, setEmployeePolicyCounts] = useState({});
 
     const hajipurNetPremiumProps = useSpring({ number: hajipurNetPremium, from: { number: 0 } });
     const hajipurMonthlyNetPremiumProps = useSpring({ number: hajipurMonthlyNetPremium, from: { number: 0 } });
@@ -273,24 +275,25 @@ function AdmFinBr() {
                     let totalLeaveCount = 0;
                     let acptCounts = 0;
                     let rejCounts = 0;
+                  
                     activeEmp.forEach(emp => {
                         if (emp.leaveDetails && Array.isArray(emp.leaveDetails)) {
                             emp.leaveDetails.forEach(leave => {
                                 // Increment totalLeaveCount for each leave record
                                 totalLeaveCount++;
                                 if (leave.status === "approved") { // Adjust condition as per your leave status logic
-                                    acptCounts += leave.counts || 0; // Ensure counts is a number and add to totalLeaveCount
+                                    acptCounts++; // Ensure counts is a number and add to totalLeaveCount
                                 } else if (leave.status === "rejected") {
-                                    rejCounts += leave.counts || 0;
-                                }
+                                    rejCounts++;
+                                } 
                             });
                         }
                     });
-
+                    startTransition(() => {
                     setTotalLeavesCounts(totalLeaveCount);
                     setAcptLeaveCounts(acptCounts);
                     setRejLeaveCounts(rejCounts);
-
+                })
                 })
                 .catch((error) => {
                     console.error(error);
@@ -415,28 +418,28 @@ function AdmFinBr() {
                         return totalPayout;
                     };
 
-                    // Extract unique employees (case insensitive), excluding empty staffName
-        const uniqueEmployees = [...new Set(allData
-            .filter(item => item.staffName.trim() !== '')
-            .map(item => item.staffName.toLowerCase()))];
-          setEmployees(uniqueEmployees);
-          const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
-            const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee && item.empTime);
-  
-            acc[employee] = {
-              ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,
-              mtd: employeeData.filter(item => {
-                const itemDate = new Date(item.entryDate);
-                return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-              }).length,
-              daily: employeeData.filter(item => {
-                const itemDate = new Date(item.entryDate);
-                return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-              }).length,
-            };
-            return acc;
-          }, {});
-  
+                                // Extract unique employees (case insensitive), excluding empty staffName
+                    const uniqueEmployees = [...new Set(allData
+                        .filter(item => item.staffName.trim() !== '')
+                        .map(item => item.staffName.toLowerCase()))];
+                    setEmployees(uniqueEmployees);
+                    const newEmployeePolicyCounts = uniqueEmployees.reduce((acc, employee) => {
+                        const employeeData = allData.filter(item => item.staffName.toLowerCase() === employee && item.empTime);
+            
+                        acc[employee] = {
+                        ytd: employeeData.filter(item => new Date(item.entryDate).getFullYear() === currentYear).length,
+                        mtd: employeeData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+                        }).length,
+                        daily: employeeData.filter(item => {
+                            const itemDate = new Date(item.entryDate);
+                            return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
+                        }).length,
+                        };
+                        return acc;
+                    }, {});
+            
 
                     const hajipurNetPremium = calculateBranchTotals(filteredYearlyData, 'HAJIPUR');
                     const patnaNetPremium = calculateBranchTotals(filteredYearlyData, 'PATNA');

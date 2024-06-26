@@ -225,6 +225,9 @@ function ViewJoining() {
                   Created Date
                 </th>
                 <th scope="col" className="px-1 py-0 border border-black sticky">
+                  Joining Date
+                </th>
+                <th scope="col" className="px-1 py-0 border border-black sticky">
                   Name
                 </th>
                 <th scope="col" className="px-1 py-0 border border-black sticky">
@@ -268,6 +271,9 @@ function ViewJoining() {
                     </td>
                     <td className="px-1 py-0 border border-black">
                       {data.ofdate}
+                    </td>
+                    <td className="px-1 py-0 border border-black">
+                      {data.joinempdate}
                     </td>
                     <td className="px-1 py-0 whitespace-nowrap border border-black">
                       {data.ofname}

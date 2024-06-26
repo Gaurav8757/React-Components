@@ -329,7 +329,7 @@ function AddJoining() {
                 name="joinempdate"
                 placeholder="JOINING DATE"
                 onChange={(e) => setSelectedItemData({ ...selectedItemData, joinempdate: e.target.value })}
-                
+                required
               />
             </div>
             <div className="flex flex-col p-2 text-start w-full lg:w-1/5">

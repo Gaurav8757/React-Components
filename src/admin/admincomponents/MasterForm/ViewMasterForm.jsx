@@ -233,8 +233,9 @@ function ViewMasterForm() {
 
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') ||
-              (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') 
+              ((matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0')) ||
+              ((matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') || (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0')) ||
+              ((matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge !== '0 years')) 
             ) && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc.toLowerCase() === 'all'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
           ) {
             const netPremium = parseFloat(data.netPremium);

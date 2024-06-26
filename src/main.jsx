@@ -87,7 +87,7 @@ import ProtectedHr from "./HumanResources/ProtectedHr.jsx";
 import LayoutHr from "./HumanResources/LayoutHr.jsx";
 import AddHr from "./admin/admincomponents/Hr/AddHr.jsx";
 import ViewHr from "./admin/admincomponents/Hr/ViewHr.jsx";
-import DashboardHr from "./HumanResources/DashboardHr.jsx";
+import DashboardHr from "./HumanResources/dashboard/DashboardHr.jsx"
 import AddSalary from "./HumanResources/Salary/AddSalary.jsx";
 import ViewSalary from "./HumanResources/Salary/ViewSalary.jsx";
 import UpdateSalary from "./HumanResources/Salary/UpdateSalary.jsx";

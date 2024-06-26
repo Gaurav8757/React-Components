@@ -574,7 +574,7 @@ function EmpDashboard() {
                 <div className="block col-span-1 ">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Salary</h1>
                     {formattedsalary.map((monthData, index) => (
-                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200 rounded mb-1">
+                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200  rounded mb-1 shadow-2xl drop-shadow-2xl shadow-orange-950">
                             <span className="bg-[black]/50 py-0.5 px-2  text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl  font-semibold my-auto rounded">{monthData.month}</span> 
                             <span className=" text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl me-4   font-semibold">Salary</span>
                         </div>
