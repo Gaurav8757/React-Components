@@ -568,7 +568,7 @@ else{
                       </div>
                       {/* FIELD - 18 */}
                       {
-                        allDetails.segments === 'C V' || allDetails.segments === 'TW'   ? (
+                        allDetails.segments === 'C V' || allDetails.segments === 'TW' || allDetails.segments === 'NON-MOTOR' || allDetails.segments === 'HEALTH' || allDetails.segments === 'LIFE'   ? (
                       <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/4">
                         <label className="text-base mx-1">NCB%:<span className="text-red-600 text-xs font-bold">DISABLED</span></label>
                         <select

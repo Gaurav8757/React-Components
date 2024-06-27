@@ -82,7 +82,7 @@ function HrDash() {
                         return false;
                     });
 
-            
+
                     const filteredYearlyData1 = activeEmp?.filter(item => {
                         if (item.terminatedate && item.terminatedate.trim() !== "") {
                             const [day, month, year] = item.terminatedate.split('-'); // Extract day, month, and year using '-' as the delimiter
@@ -93,10 +93,10 @@ function HrDash() {
 
                     // icrement person lists
                     const allTeminate = filteredYearlyData1.filter(item => item.terminatedate && item.terminatedate.trim() !== "");
-                
+
                     // icrement person lists
                     const todayEntries = filteredYearlyData.filter(item => item.incdate && item.incdate.trim() !== "");
-                                
+
 
                     startTransition(() => {
                         setActiveEmpCount(activeEmp.length);
@@ -363,7 +363,7 @@ function HrDash() {
                             </animated.span>
                         </span>
                     </div>
-                
+
                 </div>
                 {/* part-2 div */}
                 <div className="block ">
@@ -383,15 +383,9 @@ function HrDash() {
                             </animated.span>
                         </span>
                     </div>
-                    <div className=" col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
-                        <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Holiday</h1>
-                        {formattedholiday.map((monthData, index) => (
-                            <div key={index} className="mb-1 xl:mb-1  grid xl:flex text-black lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 sm:h-16 md:h-16 lg:h-16 xl:h-12 justify-between monthly-data  grid-cols-1  p-1 bg-cyan-600  rounded  shadow-2xl drop-shadow-2xl shadow-orange-950">
-                                <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg  font-semibold  rounded">{monthData.month}</span>
-                                <span className=" text-white  text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg mx-auto font-semibold rounded">{monthData.hDay}</span>
-                            </div>
-                        ))}
-                    </div>
+
+
+
                 </div>
 
 
@@ -448,23 +442,23 @@ function HrDash() {
 
                     <h1 className=" mt-4 uppercase font-serif text-xs sm:text-sm lg:text-lg xl:text-2xl">INCREMENTED SALARIES</h1>
                     {incName.map((name) => (
-                    <div key={name._id} className="mb-1 xl:mb-0 sm:mb-0 grid xl:flex lg:flex md:flex sm:flex items-center xl:justify-between  lg:justify-between md:justify-between sm:justify-between h-16 p-1 lg:p-1 sm:h-12 md:h-12  lg:h-12 xl:h-12 rounded-t bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
-                            {name.empname}
-                        </span>
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {name.incmoney}
-                            </animated.span>
-                        </span>
+                        <div key={name._id} className="mb-1 xl:mb-0 sm:mb-0 grid xl:flex lg:flex md:flex sm:flex items-center xl:justify-between  lg:justify-between md:justify-between sm:justify-between h-16 p-1 lg:p-1 sm:h-12 md:h-12  lg:h-12 xl:h-12 rounded-t bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ">
+                            <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/60 focus:ring-[#050708]/50 uppercase">
+                                {name.empname}
+                            </span>
+                            <span>
+                                <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                    {name.incmoney}
+                                </animated.span>
+                            </span>
 
-                        <span>
-                            <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                                {name.incdate}
-                            </animated.span>
-                        </span>
-                    </div>
-  ))}
+                            <span>
+                                <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
+                                    {name.incdate}
+                                </animated.span>
+                            </span>
+                        </div>
+                    ))}
                     <h1 className=" mt-4 uppercase font-serif text-xs sm:text-sm lg:text-lg xl:text-2xl">TERMINATED EMP</h1>
                     {tname.map((name) => (
                         <div key={name._id} className="mb-1 xl:mb-0 sm:mb-0 grid xl:flex lg:flex md:flex sm:flex items-center xl:justify-between  lg:justify-between md:justify-between sm:justify-between h-16 p-1 lg:p-1 sm:h-12 md:h-12  lg:h-12 xl:h-12 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ">
@@ -476,6 +470,17 @@ function HrDash() {
                                     {name.terminatedate}
                                 </animated.span>
                             </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="flex flex-col">
+                <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Holiday</h1>
+                <div className="grid grid-cols-4 gap-1 col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
+                    {formattedholiday.map((monthData, index) => (
+                        <div key={index} className="mb-1 xl:mb-1  grid xl:flex text-black lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 sm:h-16 md:h-16 lg:h-16 xl:h-12 justify-between monthly-data  grid-cols-1  p-1 bg-cyan-600  rounded  shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg  font-semibold  rounded">{monthData.month}</span>
+                            <span className=" text-white  text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg mx-auto font-semibold rounded">{monthData.hDay}</span>
                         </div>
                     ))}
                 </div>

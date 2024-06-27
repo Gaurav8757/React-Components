@@ -877,7 +877,10 @@ function UpdateFinance({ insurance, onUpdate, onClose }) {
                         {/* <option value="LIFE">LIFE</option> */}
                       </select>
                     </div>
-                    <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+
+                    {
+                      allDetails.segment === "PVT-CAR" ? (
+                      <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                       <label className="text-base mx-1">NCB%:<span className="text-red-600 font-bold">*</span></label>
                       <select
                         className="input-style p-1 text-base rounded-lg"
@@ -892,6 +895,27 @@ function UpdateFinance({ insurance, onUpdate, onClose }) {
                         ))}
                       </select>
                     </div>
+                      ):(
+                        <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
+                        <label className="text-base mx-1">NCB%:<span className="text-red-600 text-sm">Disabled</span></label>
+                        <select
+                          className="input-style p-1 text-base rounded-lg"
+                          type="text"
+                          value={allDetails.ncb}
+                          name="ncb"
+                          onChange={handleInputChange}
+                          disabled
+                          >
+                          <option className="w-1" value="">----------- Select NCB ----------</option>
+                          {ncbLists.map((data) => (
+                            <option key={data._id} value={data.ncb}>{data.ncb}</option>
+  
+                          ))}
+                        </select>
+                      </div>
+                      )}
+                    
+                    
                     {/* FIELD - 5 */}
                     <div className="flex flex-col p-1 mt-4 text-start w-full lg:w-1/5">
                       <label className="text-base mx-1">Sourcing:</label>

@@ -166,25 +166,25 @@ function DashboardHr() {
         },
       ],
     },
-    {
-      title: "Resignation Acceptance",
-      path: "#",
-      // logo: <SlNote size={25} />,
-      logo: <img src="/contract.png" height={10} width={25} alt="contract" />,
-      subRoutes: [
-        {
-          title: 'Add Letter',
-          path: '/hr/home/add/resign/letter'
-        },
-        {
-          title: 'View Letter',
-          path: '/hr/home/view/resign/letter'
-        }, {
-          title: 'Letter',
-          path: '/hr/home/resign/letter'
-        }
-      ],
-    },
+    // {
+    //   title: "Resignation Acceptance",
+    //   path: "#",
+    //   // logo: <SlNote size={25} />,
+    //   logo: <img src="/contract.png" height={10} width={25} alt="contract" />,
+    //   subRoutes: [
+    //     {
+    //       title: 'Add Letter',
+    //       path: '/hr/home/add/resign/letter'
+    //     },
+    //     {
+    //       title: 'View Letter',
+    //       path: '/hr/home/view/resign/letter'
+    //     }, {
+    //       title: 'Letter',
+    //       path: '/hr/home/resign/letter'
+    //     }
+    //   ],
+    // },
     {
       title: "Leave Approval",
       path: "/hr/home/leave/approval",

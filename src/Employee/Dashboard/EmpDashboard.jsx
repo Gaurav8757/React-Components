@@ -12,14 +12,14 @@ function EmpDashboard() {
     const [formattedsalary, setFormattedSalary] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [EmpData, setEmpData] = useState([]);
-    const [monthlyAttendance, setMonthlyAttendance] = useState([]);
+    // const [monthlyAttendance, setMonthlyAttendance] = useState([]);
     // console.log(monthlyAttendance);
     const [yearlyData, setYearlyData] = useState(0);
     const [monthlyData, setMonthlyData] = useState(0);
     const [dailyData, setDailyData] = useState(0);
 
-    const [currAttendance, setCurrAttendance] = useState(0);
-    const [currMattendance, setCurrMattendance] = useState(0);
+    // const [currAttendance, setCurrAttendance] = useState(0);
+    // const [currMattendance, setCurrMattendance] = useState(0);
 
     const [leaveData, setLeaveData] = useState(0);
     const [pendingLeave, setPendingLeave] = useState(0);
@@ -116,8 +116,8 @@ function EmpDashboard() {
     const monthlyNonMotorCountProps = useSpring({ number: monthlyNonMotorCount, from: { number: 0 } });
     const dailyNonMotorCountProps = useSpring({ number: dailyNonMotorCount, from: { number: 0 } });
 
-    const currAttendanceProps = useSpring({ number: currAttendance, from: { number: 0 } });
-    const currMattendanceProps = useSpring({ number: currMattendance, from: { number: 0 } });
+    // const currAttendanceProps = useSpring({ number: currAttendance, from: { number: 0 } });
+    // const currMattendanceProps = useSpring({ number: currMattendance, from: { number: 0 } });
 
     const leaveDataProps = useSpring({ number: leaveData, from: { number: 0 } });
     const pendingLeaveProps = useSpring({ number: pendingLeave, from: { number: 0 } });
@@ -222,66 +222,6 @@ function EmpDashboard() {
         setFormattedSalary(formattedDates);
     }, [salary]);
 
-    // useEffect(() => {
-    //     const token = sessionStorage.getItem('token');
-    //     if (!token) {
-    //       toast.error('Not Authorized yet.. Try again! ');
-    //     } else {
-    //       axios
-    //         .get(`${VITE_DATA}/employee/emp/attendance/${empid}`, {
-    //           headers: {
-    //             Authorization: `${token}`,
-    //           },
-    //         })
-    //         .then((response) => {
-    //             const attend = response.data;
-
-    //                         const currentMonth = new Date().getMonth() + 1;
-    //                         const currentDay = new Date().getDate();
-    //                         const currentYear = new Date().getFullYear();
-    //                         const currentDateString = `${currentDay.toString().padStart(2, '0')}/${currentMonth.toString().padStart(2, '0')}/${currentYear}`;
-
-    //                         const filteredYearlyData = attend?.filter(item => {
-    //                             const itemDate = new Date(item.date);
-    //                             return itemDate && itemDate.getFullYear() === currentYear;
-    //                         });
-    //                        console.log(filteredYearlyData);
-
-
-    //                         const filteredMonthlyData = attend?.filter(item => { 
-    //                             const itemDate = new Date(item.date);
-    //                             return itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-    //                         });
-    //                         console.log(filteredMonthlyData);
-
-    //                         const filteredDailyData = attend?.filter(item => {
-    //                             const itemDate = new Date(item.date);
-    //                             return itemDate.getDate() === currentDay && itemDate.getMonth() + 1 === currentMonth && itemDate.getFullYear() === currentYear;
-    //                         });
-
-
-    //                         // let totalPresentCount = 0;
-    //                         // // Count the current day present employees for each active employee   
-    //                         // filteredYearlyData?.forEach(emp => {
-    //                         //     const todayEntries = emp.employeeDetails?.filter(item => {
-    //                         //         return item.status === "present" && item.date === currentDateString;
-    //                         //     });
-    //                         //     // Increment totalPresentCount by the number of today's present entries
-    //                         //     totalPresentCount += todayEntries.length  || 0;
-    //                         // });
-    //                         // console.log(totalPresentCount);
-    //                         startTransition(() => {
-    //                         setEmpData(attend);
-    //                         setCurrAttendance(filteredYearlyData.length);
-    //                         setCurrMattendance(filteredMonthlyData.length);
-    //                         });
-    //         })
-    //         .catch((error) => {
-    //           console.error(error);
-    //         });
-    //     }
-    //   }, [empid]);
-
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (!token) {
@@ -295,32 +235,32 @@ function EmpDashboard() {
                 })
                 .then((response) => {
                     const attend = response.data;
-                    const currentYear = new Date().getFullYear();
-                    const filteredYearlyData = attend.filter(item => {
-                        const itemDate = new Date(item.date);
-                        return itemDate.getFullYear() === currentYear;
-                    });
+                    // const currentYear = new Date().getFullYear();
+                    // const filteredYearlyData = attend.filter(item => {
+                    //     const itemDate = new Date(item.date);
+                    //     return itemDate.getFullYear() === currentYear;
+                    // });
 
-                    const monthlyAttendance = Array(12).fill(0).map((_, month) => {
-                        const monthData = attend.filter(item => {
-                            const itemDate = new Date(item.date);
-                            return itemDate.getMonth() === month;
-                        });
-                        const presentDays = monthData.filter(item => item.status === 'present').length;
-                        const absentDays = monthData.filter(item => item.status === 'absent').length;
-                        const totalDays = new Date(currentYear, month + 1, 0).getDate(); // Days in the month
-                        return {
-                            month: new Date(0, month).toLocaleString('default', { month: 'long' }),
-                            present: presentDays,
-                            absent: absentDays,
-                            total: totalDays
-                        };
-                    });
+                    // const monthlyAttendance = Array(12).fill(0).map((_, month) => {
+                    //     const monthData = attend.filter(item => {
+                    //         const itemDate = new Date(item.date);
+                    //         return itemDate.getMonth() === month;
+                    //     });
+                    //     const presentDays = monthData.filter(item => item.status === 'present').length;
+                    //     const absentDays = monthData.filter(item => item.status === 'absent').length;
+                    //     const totalDays = new Date(currentYear, month + 1, 0).getDate(); // Days in the month
+                    //     return {
+                    //         month: new Date(0, month).toLocaleString('default', { month: 'long' }),
+                    //         present: presentDays,
+                    //         absent: absentDays,
+                    //         total: totalDays
+                    //     };
+                    // });
 
                     startTransition(() => {
                         setEmpData(attend);
-                        setCurrAttendance(filteredYearlyData.length);
-                        setMonthlyAttendance(monthlyAttendance);
+                        // setCurrAttendance(filteredYearlyData.length);
+                        // setMonthlyAttendance(monthlyAttendance);
                     });
                 })
                 .catch((error) => {
@@ -484,23 +424,6 @@ function EmpDashboard() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 gap-3 my-6">
-                <div className="mb-3 xl:mb-0 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-green-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                    <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                        Monthly / Yearly Attendance
-                    </span>
-                    <span>
-                        <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                            {currMattendanceProps.number.to(n => n.toFixed(0))}
-                        </animated.span>
-                        <span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">/</span>
-                        <animated.span className="mx-0.5 text-xs sm:text-xs md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-
-                            {currAttendanceProps.number.to(n => n.toFixed(0))}
-                        </animated.span>
-                    </span>
-                </div>
-            </div>
 
 
 
@@ -556,7 +479,7 @@ function EmpDashboard() {
                 </div>
 
                 {/* calendar */}
-                <div className="block col-span-1 ">
+                {/* <div className="block col-span-1 ">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Attendance</h1>
                     {monthlyAttendance.map((monthData, index) => (
                         <div key={index} className="monthly-data grid grid-cols-6 gap-4 justify-between items-center py-1 px-2 bg-gray-800 text-gray-200 rounded mb-1">
@@ -566,25 +489,12 @@ function EmpDashboard() {
                             </span>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
 
 
-                {/* SALARY LISTS */}
-                <div className="block col-span-1 ">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Salary</h1>
-                    {formattedsalary.map((monthData, index) => (
-                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200  rounded mb-1 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                            <span className="bg-[black]/50 py-0.5 px-2  text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl  font-semibold my-auto rounded">{monthData.month}</span> 
-                            <span className=" text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl me-4   font-semibold">Salary</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
 
 
-
-            <div className="grid grid-cols-4 gap-3 mb-1">
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">NET SALES</h1>
                     <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
@@ -609,6 +519,7 @@ function EmpDashboard() {
                     </div>
                 </div>
 
+
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">FINAL SALES</h1>
                     <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
@@ -632,6 +543,24 @@ function EmpDashboard() {
                         </animated.span>
                     </div>
                 </div>
+
+                {/* SALARY LISTS */}
+                <div className="block ">
+                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Salary</h1>
+                    {formattedsalary.map((monthData, index) => (
+                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200  rounded mb-1 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                            <span className="bg-[black]/50 py-0.5 px-2  text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl  font-semibold my-auto rounded">{monthData.month}</span>
+                            <span className=" text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl me-4   font-semibold">Salary</span>
+                        </div>
+                    ))}
+                </div>
+
+            </div>
+
+
+
+            <div className="grid grid-cols-4 gap-3 mb-1">
+
 
                 {/* cv */}
                 <div className="block">
