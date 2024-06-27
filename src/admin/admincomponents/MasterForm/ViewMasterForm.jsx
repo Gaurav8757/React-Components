@@ -211,10 +211,12 @@ function ViewMasterForm() {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
       payoutSlab?.forEach((matchingCSLab) => {
+        
         // const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
         const companypercent = matchingCSLab.companypayoutper || 0;
         allDetailsData?.forEach((data) => {
+          const vehicleAge1 = parseInt(data.vehicleAge);
           if (
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
@@ -235,7 +237,8 @@ function ViewMasterForm() {
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
               (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0'))  ||
-                ((matchingCSLab.vage === '1-7 YEARS' || matchingCSLab.vage === 'MORE THAN 7 YEARS') && data.vehicleAge !== '0 years')
+              ((matchingCSLab.vage === '1-7 YEARS' && vehicleAge1 >= 1 && vehicleAge1 <= 7) || 
+              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && vehicleAge1 > 7))
               // (matchingCSLab.vage === 'OLD' && (data.vehicleAge !== '0 years' || data.vehicleAge !== '0')) ||
             
             )
