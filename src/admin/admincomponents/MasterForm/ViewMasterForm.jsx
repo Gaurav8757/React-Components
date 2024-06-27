@@ -272,12 +272,12 @@ function ViewMasterForm() {
               profitLoss = companyPayout - branchPayout;
             }
             // Check if data needs an update
-            // if (
-            //   !data.branchPayableAmount ||
-            //   !data.branchPayout  ||
-            //   !data.companyPayout  ||
-            //   !data.profitLoss 
-            // ) {
+            if (
+              !data.branchPayableAmount ||
+              !data.branchPayout  ||
+              !data.companyPayout  ||
+              !data.profitLoss 
+            ) {
 
               // Prepare data for API request
               const postData = {
@@ -310,7 +310,7 @@ function ViewMasterForm() {
                 console.error(
                   `Error updating data for policy ID:`
                 );
-              // }
+              }
             }
           }
         });
