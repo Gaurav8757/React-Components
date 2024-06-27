@@ -328,7 +328,7 @@ function DashboardHr() {
           </ul>
         </div>
       </aside>
-      <main className="mt-16"></main>
+      <main className="mt-16 "></main>
     </>
   );
 }

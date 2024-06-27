@@ -120,6 +120,7 @@ function ProfileUpdate() {
         <>
 
             <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-orange-100">
+                
                 <div className="container-fluid  flex flex-col  justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-orange-100">
                     <span className="text-3xl py-1 tracking-wider text-orange-700 font-medium">Update Your Profile</span>
 

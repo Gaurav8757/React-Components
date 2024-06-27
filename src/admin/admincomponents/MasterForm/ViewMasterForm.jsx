@@ -4,7 +4,7 @@ import TextLoader from "../../../loader/TextLoader.jsx";
 import TableData from "./TableData.jsx";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
-// const FaRegCircleDown = lazy(() => import("react-icons/fa6").then(module => ({ default: module.FaRegCircleDown })));
+
 import * as XLSX from "xlsx";
 import VITE_DATA from "../../../config/config.jsx";
 import PaginationAdmin from "./PaginationAdmin.jsx";
@@ -27,6 +27,7 @@ function ViewMasterForm() {
   const [payoutSlab, setPayoutSlab] = useState([]);
   const [ptypess, setPtypes] = useState("");
   const [advs, setAdv] = useState("");
+  const [recalculate, setRecalculate] = useState(false);
 
   const name = sessionStorage.getItem("email");
 
@@ -233,10 +234,12 @@ function ViewMasterForm() {
 
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              ((matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'OLD' && data.vehicleAge !== '0')) ||
-              ((matchingCSLab.vage === 'NEW' && data.vehicleAge === '0 years') || (matchingCSLab.vage === 'NEW' && data.vehicleAge === '0')) ||
-              ((matchingCSLab.vage === '1-7 YEARS' && data.vehicleAge !== '0 years') || (matchingCSLab.vage === 'MORE THAN 7 YEARS' && data.vehicleAge !== '0 years')) 
-            ) && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
+              (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0'))  ||
+                ((matchingCSLab.vage === '1-7 YEARS' || matchingCSLab.vage === 'MORE THAN 7 YEARS') && data.vehicleAge !== '0 years')
+              // (matchingCSLab.vage === 'OLD' && (data.vehicleAge !== '0 years' || data.vehicleAge !== '0')) ||
+            
+            )
+             && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
@@ -266,12 +269,12 @@ function ViewMasterForm() {
               profitLoss = companyPayout - branchPayout;
             }
             // Check if data needs an update
-            if (
-              !data.branchPayableAmount ||
-              !data.branchPayout  ||
-              !data.companyPayout  ||
-              !data.profitLoss 
-            ) {
+            // if (
+            //   !data.branchPayableAmount ||
+            //   !data.branchPayout  ||
+            //   !data.companyPayout  ||
+            //   !data.profitLoss 
+            // ) {
 
               // Prepare data for API request
               const postData = {
@@ -304,13 +307,17 @@ function ViewMasterForm() {
                 console.error(
                   `Error updating data for policy ID:`
                 );
-              }
+              // }
             }
           }
         });
       });
     }
-  }, [allDetailsData, payoutSlab]);
+  }, [allDetailsData, payoutSlab, recalculate]);
+
+  const handleRecalculate = () => {
+    setRecalculate(prev => !prev);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -598,7 +605,7 @@ function ViewMasterForm() {
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0">
           <div className=" mb-4 mt-2 flex justify-between text-orange-700 max-w-auto mx-auto w-auto">
-            <h1></h1>
+            <h1><button onClick={handleRecalculate}>Recalculate</button></h1>
             <span className=" flex justify-center text-center text-3xl font-semibold">
               All Policy Lists
             </span>

@@ -3,8 +3,10 @@ import SidebarHr from "./SidebarHr.jsx";
 function LayoutHr() {
   return (
     <>
+   
       <SidebarHr/>
         <Outlet />
+        
       </>
   )
 }

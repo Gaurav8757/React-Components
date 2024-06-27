@@ -283,6 +283,7 @@ function HrDash() {
 
     return (
         <>
+        <div className="container ">
             <div className="grid grid-cols-4 gap-3 ">
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">Att/Emp</h1>
@@ -476,14 +477,15 @@ function HrDash() {
             </div>
             <div className="flex flex-col">
                 <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Holiday</h1>
-                <div className="grid grid-cols-4 gap-1 col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
+                <div className="grid grid-cols-6 gap-1 col-span-2 sm:col-span-2 xl:col-span-1 lg:col-span-1 md:col-span-2">
                     {formattedholiday.map((monthData, index) => (
                         <div key={index} className="mb-1 xl:mb-1  grid xl:flex text-black lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 sm:h-16 md:h-16 lg:h-16 xl:h-12 justify-between monthly-data  grid-cols-1  p-1 bg-cyan-600  rounded  shadow-2xl drop-shadow-2xl shadow-orange-950">
-                            <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg  font-semibold  rounded">{monthData.month}</span>
-                            <span className=" text-white  text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg mx-auto font-semibold rounded">{monthData.hDay}</span>
+                            <span className="whitespace-nowrap bg-[white]/60 xl:p-1 text-xs sm:text-xs md:text-sm lg:text-sm xl:text-sm  font-semibold  rounded">{monthData.month}</span>
+                            <span className=" text-white  text-xs sm:text-xs md:text-xs lg:text-xs xl:text-xs mx-auto font-semibold rounded">{monthData.hDay}</span>
                         </div>
                     ))}
                 </div>
+            </div>
             </div>
         </>
     )
