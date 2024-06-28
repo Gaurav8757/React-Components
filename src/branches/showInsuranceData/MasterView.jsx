@@ -419,7 +419,7 @@ function MasterView() {
   return (
     <section className="container-fluid  p-0 sm:ml-64 bg-slate-200">
       <div className="inline-block min-w-full w-full py-0">
-        <div className="my-4  flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
+        <div className="my-4  flex justify-between text-blue-700 max-w-auto mx-auto w-auto ">
           <h1></h1>
           <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
           <div className="flex ">

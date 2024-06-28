@@ -130,7 +130,7 @@ function DailyViewLeger() {
             <div className="container-fluid  p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                 <div className="flex justify-center">
                     <h1></h1>
-                    <h1 className="font-semibold my-auto text-3xl mb-2 text-orange-700">Daily Leger</h1>
+                    <h1 className="font-semibold my-auto text-3xl mb-2 text-blue-700">Daily Leger</h1>
                 </div>
                 <div className="relative w-full lg:w-full p-0 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <div className="flex justify-between flex-col">
@@ -211,7 +211,7 @@ function DailyViewLeger() {
                     {isFilterApplied() && filteredData.length > 0 && (
                         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table className="w-full text-xs  text-center text-black border">
-                                <thead className="text-xs uppercase bg-orange-700 text-white">
+                                <thead className="text-xs uppercase bg-blue-700 text-white">
                                     <tr>
                                         <th scope="col" className="px-0 whitespace-nowrap py-3">Entry Date</th>
                                         <th scope="col" className="px-0 whitespace-nowrap py-3">Policy Number</th>

@@ -1,10 +1,10 @@
 import DashBranches from "./DashBranches.jsx";
 const BranchDashboard = () => {
     return (
-        <div className="p-0 sm:ml-64 bg-white">
-            <div className="p-4 rounded-lg  mt-14">
+        <div className="p-0 sm:ml-64 bg-slate-200 pt-0">
+           
                 <DashBranches/>         
-            </div>
+           
         </div>
     );
 };

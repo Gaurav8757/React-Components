@@ -517,10 +517,10 @@ function CompanySlab() {
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <h1 className="font-bold text-2xl my-4 text-orange-700">Payout Grid</h1>
+        <h1 className="font-bold text-2xl my-4 text-blue-700">Payout Grid</h1>
         <div className="relative w-full lg:w-full p-0  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
 
-          <h1 className="flex font-bold text-2xl justify-center text-orange-800">
+          <h1 className="flex font-bold text-2xl justify-center text-blue-800">
             EleedomIMF Pvt Ltd
           </h1>
           <div className="flex justify-center mb-4">

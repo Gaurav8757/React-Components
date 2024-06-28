@@ -398,7 +398,7 @@ function TwoWheelers() {
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-      <h1 className="font-semibold my-1 text-3xl text-orange-700">Advisor Payout Grid </h1>
+      <h1 className="font-semibold my-1 text-3xl text-blue-700">Advisor Payout Grid </h1>
         <div className="relative w-full lg:w-full p-0 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
          
 

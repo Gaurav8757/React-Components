@@ -314,7 +314,7 @@ function PcUpdates({ slab, update, onClose,  }) {
           className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
           <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
-            <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow dark:bg-slate-100">
+            <div className="relative bg-gradient-to-r from-blue-700 to-sky-700 rounded-lg shadow dark:bg-slate-100">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-100">
@@ -329,7 +329,7 @@ function PcUpdates({ slab, update, onClose,  }) {
               </div>
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-orange-700 to-orange-700">
+              <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-gradient-to-r from-blue-700 to-blue-700">
                 <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                     <div className="flex flex-wrap justify-between">
