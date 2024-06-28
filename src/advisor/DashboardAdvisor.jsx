@@ -100,7 +100,7 @@ function DashboardAdvisor() {
                     <div>
                       <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 " aria-expanded="false" data-dropdown-toggle="dropdown-user">
                         <span className="sr-only">Open user menu</span>
-                        <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
+                        {/* <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" /> */}
                       </button>
                     </div>
                     <div className="z-50 hidden my-4 text-base list-none bg-gray-700 divide-y divide-gray-100 rounded shadow " id="dropdown-user">

@@ -103,7 +103,7 @@ function OpsDashboard() {
         <div className="grid grid-cols-3 gap-3 mb-8">
             <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                 <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">
-                    YTD NOP
+                    YTD
                 </span>
                 <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                     {allDetailsProps.number.to(n => n.toFixed(0))}
@@ -112,7 +112,7 @@ function OpsDashboard() {
 
             <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                 <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 xl:whitespace-nowrap">
-                    MTD NOP
+                    MTD
                 </span>
                 <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                     {monthlyProps.number.to(n => n.toFixed(0))}
@@ -121,7 +121,7 @@ function OpsDashboard() {
 
             <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
                 <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">
-                    TODAY NOP
+                    FTD
                 </span>
                 <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
                     {dailyProps.number.to(n => n.toFixed(0))}
@@ -143,7 +143,7 @@ function OpsDashboard() {
                   MTD
               </span>
               <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                  TODAY
+                  FTD
               </span>
           </div>
           {employees.map((employee, index) => (

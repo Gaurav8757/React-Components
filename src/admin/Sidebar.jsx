@@ -339,8 +339,8 @@ const Sidebar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-orange-800">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+      <nav className="fixed top-0 z-50 w-full bg-blue-800">
+        <div className="px-3 py-2 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <button onClick={toggleSidebar} className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gradient-to-r from-orange-700 to-orange-600 focus:outline-none focus:ring-1 focus:ring-gray-100 dark:text-gray-200  ">
               <span className="sr-only">Open sidebar</span>
@@ -355,9 +355,9 @@ const Sidebar = () => {
             <span className="text-2xl text-white font-medium font-serif hidden xs:block sm:block md:block lg:block xl:block">Admin Dashboard</span>
             <div className="flex">
               <div className="flex items-center mx-5">
-                <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-0 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                   <span className="sr-only">Open user menu</span>
-                  <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
+                  {/* <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" /> */}
                 </button>
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                   <div className="px-4 py-3" role="none">
@@ -389,14 +389,14 @@ const Sidebar = () => {
         </div>
       </nav>
 
-      <aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-orange-800 border-r sm:translate-x-0`} aria-label="Sidebar">
-        <div className="h-full px-4 pb-4 overflow-y-auto text-white bg-orange-800">
+      <aside id="logo-sidebar" className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-blue-800 border-r sm:translate-x-0`} aria-label="Sidebar">
+        <div className="h-full px-4 pb-4 overflow-y-auto text-white bg-blue-800">
           <ul className="space-y-2 font-medium ">
             {dashboardRoutes.map((route, idx) => (
               <li key={idx} className="">
                 {route.subRoutes ? (
                   <div className="relative group ">
-                    <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-500" : ""}`}>
+                    <NavLink to={route.path} onClick={() => toggleSubmenu(idx)} className={`flex items-center p-2 text-white rounded-lg hover:bg-slate-800 group ${openSubmenu === idx ? "bg-slate-800" : ""}`}>
                       <span className="">{route.logo}</span>
                       <span className="ms-3  text-sm flex whitespace-nowrap">{route.title}
                       <img src="/chivron.png" height={1} width={8} className="my-auto mx-2" alt="dropdown"/>
@@ -405,7 +405,7 @@ const Sidebar = () => {
                     <ul onClick={() => toggleSubmenu(idx)} onMouseLeave={closeSubmenu} className={`pl-2 transition-all ease-in-out duration-400 ${openSubmenu === idx ? "opacity-100 max-h-2/3 text-white" : "opacity-0 max-h-0 overflow-hidden"}`}>
                       {route.subRoutes.map((subRoute, subIdx) => (
                         <li key={subIdx}>
-                          <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-2 text-sm hover:bg-gray-500 hover:rounded-xl ">
+                          <NavLink to={subRoute.path} className="flex p-2 text-white text-start mx-2 text-sm hover:bg-slate-800 hover:rounded-xl ">
                           <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
                             {subRoute.title}
                           </NavLink>
@@ -414,7 +414,7 @@ const Sidebar = () => {
                     </ul>
                   </div>
                 ) : (
-                  <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white hover:bg-gray-600 dark:hover:bg-gray-700 group">
+                  <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white hover:bg-slate-800 dark:hover:bg-slate-800 group">
                     <span className="">{route.logo}</span>
                     <span className="ms-4 text-sm hover:bg-slate-600 whitespace-nowrap">{route.title}</span>
                   </NavLink>

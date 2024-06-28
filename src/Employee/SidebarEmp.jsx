@@ -107,7 +107,7 @@ function DashboardEmp() {
                 <div>
                   <button type="button" className=" text-sm hidden sm:block md:block lg:block xl:block bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span className="sr-only">Open user menu</span>
-                    <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
+                    {/* <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" /> */}
                   </button>
                 </div>
 

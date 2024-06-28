@@ -81,8 +81,8 @@ const SidebarFinance = () => {
   const name = sessionStorage.getItem("finname");
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full bg-orange-800">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+      <nav className="fixed top-0 z-50 w-full bg-blue-800">
+        <div className="px-3 py-2 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button onClick={toggleSidebar} type="button" className="inline-flex items-center p-2 text-sm text-black rounded-lg sm:hidden hover:bg-gradient-to-r from-orange-700 to-orange-600 focus:outline-none focus:ring-1 focus:ring-black">
@@ -104,7 +104,7 @@ const SidebarFinance = () => {
                 <div>
                   <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                     <span className="sr-only">Open user menu</span>
-                    <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" />
+                    {/* <img className="w-8 h-8 rounded-full" src="/profile.jpg" alt="user photo" /> */}
                   </button>
                 </div>
                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
@@ -141,10 +141,10 @@ const SidebarFinance = () => {
       {/* aside bar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-orange-800 border-r  sm:translate-x-0 `}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} bg-blue-800 border-r  sm:translate-x-0 `}
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-orange-800">
+        <div className="h-full px-3 pb-4 overflow-y-auto bg-blue-800">
           <ul className="space-y-2 font-medium">
             {dashboardRouted.map((route, idx) => (
               <li key={idx}>
@@ -154,7 +154,7 @@ const SidebarFinance = () => {
                     <NavLink
                       to={route.path}
                       onClick={() => toggleSubmenu(idx)}
-                      className={`flex items-center p-2  rounded-lg text-white hover:bg-orange-800 group ${openSubmenu === idx ? "bg-gray-300" : ""}`}
+                      className={`flex items-center p-2  rounded-lg text-white hover:bg-slate-800 group ${openSubmenu === idx ? "bg-gray-700" : ""}`}
                     >
                       <span className="">{route.logo}</span>
                       <span className="ms-4 text-sm flex whitespace-nowrap">{route.title}
@@ -170,7 +170,7 @@ const SidebarFinance = () => {
                         <li key={subIdx}>
                           <NavLink
                             to={subRoute.path}
-                            className="flex p-2 text-white text-start mx-2  text-sm hover:rounded-xl hover:bg-gray-500"
+                            className="flex p-2 text-white text-start mx-2  text-sm hover:rounded-xl hover:bg-slate-800"
                           >
                              <img src="/chivron1.png" height={1} width={8} className="my-auto mx-2" alt="right"/>
                             {subRoute.title}
@@ -181,7 +181,7 @@ const SidebarFinance = () => {
                   </div>
                 ) : (
                   // Render regular route without sub-routes
-                  <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white  hover:bg-gray-500 group">
+                  <NavLink to={route.path} className="flex items-center p-2 rounded-lg text-white  hover:bg-slate-800 group">
                     <span className="">{route.logo}</span>
                     <span className="ms-4 text-sm">{route.title}</span>
                   </NavLink>
