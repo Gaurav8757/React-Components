@@ -125,9 +125,9 @@ export default function ViewCompany() {
 
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
-            <div className="container-fluid flex justify-center p-2   rounded-lg   bg-slate-200">
+            <div className="container-fluid flex justify-center p-1   rounded-lg   bg-slate-200">
                 <div className="flex flex-col min-w-full w-full py-0 ">
-                    <div className=" m-2 flex justify-between text-orange-700 max-w-full mx-auto w-full ">
+                    <div className=" m-2 flex justify-between text-blue-700 max-w-full mx-auto w-full ">
                         <form className="flex justify-center">
                             <label className=" my-2  text-xl font-medium text-gray-900" > Filter:</label>
                             <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52  ps-5 text-base text-blue-700 border border-gray-300 rounded-md bg-gray-100 focus:ring-gray-100 focus:border-gray-500 appearance-none py-0 px-0 mb-2 ml-2" placeholder="ID Date Branch InsuredName" />

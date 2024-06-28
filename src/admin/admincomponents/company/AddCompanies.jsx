@@ -161,7 +161,7 @@ function AddCompanies() {
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
-        <h1 className="font-semibold text-3xl my-4 text-orange-700 ">Add Homepage Company Details</h1>
+        <h1 className="font-semibold text-3xl my-4 text-blue-700 ">Add Homepage Company Details</h1>
         <div className="relative w-full lg:w-full  p-0 lg:p-4 rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
           {/* <form className="flex flex-wrap" method="post" encType="multipart/form-data"> */}
           <div className="flex flex-wrap justify-between">

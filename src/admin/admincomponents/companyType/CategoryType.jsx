@@ -56,7 +56,7 @@ function CategoryType() {
   return (
     <section className="container-fluid relative flex  p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid  flex flex-col w-full lg:w-1/2 p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">Add Category Type</span>
+        <span className="text-3xl p-2 tracking-wider text-blue-700 font-medium">Add Category Type</span>
         <div className="container-fluid flex flex-wrap justify-between p-2 border-dashed rounded-lg bg-slate-200">
           <div className="flex flex-col p-2 text-start w-full lg:w-1/3">
             <label className="text-base mx-1 my-1">Company Name:</label>
@@ -106,7 +106,7 @@ function CategoryType() {
         </div>
       </div>
       <div className="container-fluid  flex flex-col w-full lg:w-1/2  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2  tracking-wider text-orange-700 font-medium">List of Company with Category</span>
+        <span className="text-3xl p-2  tracking-wider text-blue-700 font-medium">List of Company with Category</span>
         <div className="container-fluid flex justify-center p-2   border-gray-200 border-dashed rounded-lg   bg-slate-200">
           <table className="min-w-full text-center text-sm font-light ">
             <thead className="border-b font-medium dark:border-neutral-500">

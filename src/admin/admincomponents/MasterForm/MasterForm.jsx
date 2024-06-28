@@ -845,7 +845,7 @@ if(company === "GO-DIGIT"){
   return (
     <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-      <h1 className="font-semibold text-3xl my-2 text-orange-700">Create Policy</h1>
+      <h1 className="font-semibold text-3xl my-2 text-blue-700">Create Policy</h1>
         <div className="relative w-full lg:w-full p-0 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
          
           <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between mt-0 overflow-hidden"

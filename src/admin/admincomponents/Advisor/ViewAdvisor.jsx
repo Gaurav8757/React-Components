@@ -161,7 +161,7 @@ function ViewAdvisor() {
                 <div className="inline-block min-w-full w-full py-0 ">
                 <div className="flex justify-between">
                             <h1 className="mr-20"></h1>
-                            <span className=" flex justify-center text-center text-orange-700 text-3xl font-semibold">Advisor&apos;s List</span>
+                            <span className=" flex justify-center text-center text-blue-700 text-3xl font-semibold">Advisor&apos;s List</span>
                             <div className="flex">
                                 <button className="text-end    text-3xl font-semibold " onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-10 " /></button>
                                 {/* <NavLink to="/branches/home/advisor/register" className="my-auto">

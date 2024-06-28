@@ -73,7 +73,7 @@ function UpdateBranch({ branch, onUpdate, onClose }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-orange-700 rounded-lg shadow pb-4 px-4">
+                        <div className="relative bg-blue-700 rounded-lg shadow pb-4 px-4">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg ">
                                 <h3 className="text-xl font-semibold text-gray-100">

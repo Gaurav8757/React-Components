@@ -157,10 +157,10 @@ function UpdateCompanyModal({ datas, onUpdate, onClose }) {
             className="fixed top-0 right-0 left-0 bottom-0 inset-0 z-50 overflow-y-auto overflow-x-hidden bg-black bg-opacity-50">
             <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
               {/* <!-- Modal content --> */}
-              <div className="relative bg-gradient-to-r from-orange-800 to-orange-800 rounded-lg shadow ">
+              <div className="relative bg-gradient-to-r from-blue-700 to-blue-700 rounded-lg shadow ">
                 {/* <!-- Modal header --> */}
                 <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
-                  <h3 className="text-xl font-semibold text-orange-700">
+                  <h3 className="text-xl font-semibold text-blue-700">
                     Update Homepage Company Details
                   </h3>
                   <button

@@ -57,7 +57,7 @@ function UserCarousel() {
     return (
         <section className="container-fluid relative  p-0 sm:ml-64 bg-white">
             <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg  bg-white">
-            <h1 className="font-semibold text-3xl my-2 text-orange-700 ">Add Carousel&apos;s</h1>
+            <h1 className="font-semibold text-3xl my-2 text-blue-700 ">Add Carousel&apos;s</h1>
                 <div className="relative w-full lg:w-full   rounded-xl shadow-xl text-2xl  items-center bg-slate-200">
                     
                     <form className="flex flex-wrap" method="post" onSubmit={handleSubmit} encType="multipart/form-data">

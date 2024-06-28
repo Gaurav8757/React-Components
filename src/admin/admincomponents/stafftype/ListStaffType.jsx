@@ -48,7 +48,7 @@ function ListStaffType() {
         // <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
         <>
         <div className="container-fluid relative  p-0 w-full bg-white">
-         <h1 className="font-semibold text-2xl my-4 text-orange-700">Employee Type List&apos;s </h1>
+         <h1 className="font-semibold text-2xl my-4 text-blue-700">Employee Type List&apos;s </h1>
             <div className="container-fluid flex flex-col  justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
            
                 <table className="min-w-full text-center text-sm font-light mt-1 ">

@@ -34,7 +34,7 @@ function StaffType() {
   return (
     <section className="container-fluid flex relative  p-0 sm:ml-64 bg-white">
       <div className="container-fluid w-full lg:w-1/2  justify-center p-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700  bg-white">
-      <h1 className="font-semibold text-2xl my-2 text-orange-700">Employee Type </h1>
+      <h1 className="font-semibold text-2xl my-2 text-blue-700">Employee Type </h1>
         <div className="relative  p-0 lg:p-4 mt-4 rounded-xl shadow-xl text-2xl  items-center bg-gradient-to-r from-slate-200 to-slate-200">
           <div className="flex flex-col  p-2 text-start w-full lg:w-1/2">
             <label className="text-base  my-2">Employee Type:</label>

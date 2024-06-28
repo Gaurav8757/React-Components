@@ -223,11 +223,11 @@ function ViewMasterForm() {
             matchingCSLab.policytypes === data.policyType &&
             matchingCSLab.states === data.states  &&
             ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === "" && data.fuel === "") ||  (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL')))&&
-            (matchingCSLab.vncb === data.ncb || matchingCSLab.vncb === '' || matchingCSLab.vncb === 'BOTH')&&
+            (!matchingCSLab.vncb || matchingCSLab.vncb === data.ncb || matchingCSLab.vncb === 'BOTH')&&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            ((matchingCSLab.sitcapacity === data.sitcapacity) || (matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '' || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined)) &&
+            ((matchingCSLab.sitcapacity === data.sitcapacity) || (matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === ''|| !matchingCSLab.sitcapacity || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined)) &&
             matchingCSLab.segments === data.segment &&
             (
               matchingCSLab.voddiscount === data.odDiscount ||
@@ -236,11 +236,10 @@ function ViewMasterForm() {
 
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0'))  ||
+              (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0' || data.vehicleAge1 === 0))  ||
               ((matchingCSLab.vage === '1-7 YEARS' && vehicleAge1 >= 1 && vehicleAge1 <= 7) || 
-              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && vehicleAge1 > 7))
-              // (matchingCSLab.vage === 'OLD' && (data.vehicleAge !== '0 years' || data.vehicleAge !== '0')) ||
-            
+              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && vehicleAge1 > 7)) ||
+              (matchingCSLab.vage === 'OLD' && (data.vehicleAge !== '0 years' || data.vehicleAge !== '0'))
             )
              && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
           ) {
@@ -607,10 +606,10 @@ function ViewMasterForm() {
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0">
-          <div className=" mb-4 mt-2 flex justify-between text-orange-700 max-w-auto mx-auto w-auto">
-            <h1><button onClick={handleRecalculate}>Recalculate</button></h1>
-            <span className=" flex justify-center text-center text-3xl font-semibold">
-              All Policy Lists
+          <div className=" mb-4 mt-2 flex  justify-between max-w-auto mx-auto w-auto">
+            <h1 className="bg-blue-500 hover:bg-blue-700 p-1 my-auto px-2 rounded"><button className="text-white my-auto" onClick={handleRecalculate}>Recal</button></h1>
+            <span className=" flex text-blue-700 justify-center text-center text-3xl font-semibold">
+              All Policy List&apos;s
             </span>
             <div className="flex">
               <button
@@ -674,9 +673,6 @@ function ViewMasterForm() {
                 placeholder="ID"
               />
             </div>
-
-           
-           
 
             <div className="flex justify-start p-0 text-end w-full lg:w-1/4">
               <label className="my-auto text-lg font-medium text-gray-900">

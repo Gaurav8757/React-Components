@@ -88,7 +88,7 @@ function UpdateCarousel({ carouselFirst, onUpload, onClose }) {
                 >
                     <div className="relative p-4 w-full max-w-6xl max-h-5xl mx-auto my-20">
                         {/* <!-- Modal content --> */}
-                        <div className="relative bg-gradient-to-r from-orange-700 to-orange-700 rounded-lg shadow">
+                        <div className="relative bg-gradient-to-r from-blue-700 to-blue-700 rounded-lg shadow">
                             {/* <!-- Modal header --> */}
                             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
                                 <h3 className="text-xl font-semibold text-white">
@@ -101,7 +101,7 @@ function UpdateCarousel({ carouselFirst, onUpload, onClose }) {
                                     <img src="/close.png" height={5} width={25} alt="close" className="hover:bg-red-100 rounded-full"/>
                                 </button>
                             </div>
-                            <section className="p-4 md:p-3 bg-orange-700 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto ">
+                            <section className="p-4 md:p-3 bg-blue-700 scroll-smooth hs-scroll-inside-viewport-modal rounded-lg max-h-auto text-justify overflow-y-auto ">
                                 <form className="flex flex-wrap justify-between p-2 font-semibold bg-gradient-to-r from-slate-100 to-white ">
                                    
                                         <div className="flex flex-col mt-4 text-start w-full lg:w-1/4">

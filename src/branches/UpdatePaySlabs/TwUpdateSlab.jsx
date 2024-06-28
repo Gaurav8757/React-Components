@@ -577,7 +577,7 @@ else{
                           value={allDetails.vncb}
                           name="vncb"
                           onChange={handleInputChange}
-                          disabled
+                          // disabled
                         >
                           <option className="w-1" value="" >------------ Select NCB -------------</option>
                           <option value="YES">Yes</option>

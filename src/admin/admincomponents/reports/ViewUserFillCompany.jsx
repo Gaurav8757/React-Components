@@ -41,11 +41,11 @@ function ViewUserFillCompany() {
     return (
         <section className="container-fluid relative  h-screen p-0 sm:ml-64 bg-slate-200">
             <div className="container-fluid  justify-center p-2  border-gray-200 border-dashed rounded-lg   bg-slate-200">
-                <div className="overflow-x-auto  my-auto flex justify-between text-orange-700">
+                <div className="overflow-x-auto  my-auto flex justify-between text-blue-700">
                   <div className="w-1/5"></div>
                     <div className="flex justify-center text-3xl font-semibold  my-4">View Form Filled by Customer&apos;s</div>
                     <div className="flex my-auto justify-end">
-                            <label className=" text-xl font-medium text-orange-900 mx-4 my-auto" > Filter:</label>
+                            <label className=" text-xl font-medium text-blue-800 mx-4 my-auto" > Filter:</label>
                             <input type="search" onChange={(e) => setSearch(e.target.value)} className="shadow input-style w-52 ps-5 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  appearance-none py-2 px-1" placeholder="Search Customer's" />
                         
                             </div>

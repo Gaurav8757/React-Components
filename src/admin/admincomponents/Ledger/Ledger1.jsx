@@ -304,7 +304,7 @@ function Ledger1() {
       <div className="container-fluid  p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
         <div className="flex justify-between">
           <h1></h1>
-        <h1 className="font-semibold my-auto text-3xl mb-2 text-orange-700">Daily Leger</h1>
+        <h1 className="font-semibold my-auto text-3xl mb-2 text-blue-700">Daily Leger</h1>
         <button
           className=" text-white my-auto font-medium rounded-full text-base px-3 py-1 text-center"
           onClick={handleExportClick}
@@ -391,7 +391,7 @@ function Ledger1() {
           {isFilterApplied() && filteredData.length > 0 && (
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
               <table className="w-full text-xs  text-center text-black border">
-                <thead className="text-xs uppercase bg-orange-700 text-white">
+                <thead className="text-xs uppercase bg-blue-700 text-white">
                   <tr>
                     <th scope="col" className="px-0 whitespace-nowrap py-3">Entry Date</th>
                     <th scope="col" className="px-0 whitespace-nowrap py-3">Policy Number</th>

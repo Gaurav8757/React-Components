@@ -384,7 +384,7 @@ function ViewFinance() {
     <section className="container-fluid relative  p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0 ">
-          <div className=" m-2 flex justify-between text-orange-700 max-w-auto mx-auto w-auto ">
+          <div className=" m-2 flex justify-between text-blue-700 max-w-auto mx-auto w-auto ">
             <h1></h1>
             <span className=" flex justify-center text-center  text-3xl font-semibold  ">View All Policies</span>
             <div className="flex ">

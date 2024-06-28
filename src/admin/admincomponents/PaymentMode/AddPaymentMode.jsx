@@ -71,7 +71,7 @@ const deletePaymentMode = async (_id) => {
   return (
     <section className="container-fluid relative flex p-0 sm:ml-64 bg-white">
     <div className="container-fluid flex-col w-full lg:w-full justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-    <h1 className="font-semibold text-3xl my-2 text-orange-700">Add Payment Mode</h1>
+    <h1 className="font-semibold text-3xl my-2 text-blue-700">Add Payment Mode</h1>
         <div className="relative  p-5  rounded-xl shadow-xl text-2xl items-center bg-slate-200">
            
             <div className="flex flex-col p-2 text-start w-full lg:w-1/2">
@@ -100,7 +100,7 @@ const deletePaymentMode = async (_id) => {
         </div>
         <div className="container-fluid flex-col w-full lg:w-full justify-center p-2 border-gray-200 border-dashed rounded-lg  bg-white">
         <div className="inline-block my-0 min-w-full w-full py-0 ">
-            <h1 className="font-semibold text-3xl my-2 text-orange-700">PaymentMode List&apos;s</h1>
+            <h1 className="font-semibold text-3xl my-2 text-blue-700">PaymentMode List&apos;s</h1>
             <table className="min-w-full text-center text-base font-light table bg-slate-200">
                 <thead className="border  font-medium border-black">
                     <tr className="text-blue-700">

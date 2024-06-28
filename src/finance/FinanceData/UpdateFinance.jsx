@@ -470,7 +470,7 @@ function UpdateFinance({ insurance, onUpdate, onClose }) {
 
         <div className="relative p-1 w-full max-w-7xl max-h-7xl mx-auto my-20">
           {/* <!-- Modal content --> */}
-          <div className="relative bg-orange-800 rounded-lg shadow ">
+          <div className="relative bg-blue-600 rounded-lg shadow ">
             {/* <!-- Modal header --> */}
             <div className="flex items-center justify-between p-2 md:p-3 rounded-lg dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-100">
@@ -487,7 +487,7 @@ function UpdateFinance({ insurance, onUpdate, onClose }) {
 
 
             {/* <!-- Modal body --> */}
-            <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-orange-800">
+            <section className="p-4 md:p-3  rounded-lg max-h-auto text-justify overflow-y-auto bg-blue-600">
               <div className="container-fluid flex justify-center p-1 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
                 <div className="relative w-full font-semibold lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
                   <div className="flex flex-wrap justify-between">

@@ -557,7 +557,7 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
 
           <div className="relative p-1 w-10/12 max-w-9xl max-h-7xl mx-auto my-20">
             {/* <!-- Modal content --> */}
-            <div className="relative bg-orange-700">
+            <div className="relative bg-blue-700">
               {/* <!-- Modal header --> */}
               <div className="flex items-center justify-between p-2 md:p-3 rounded-lg ">
                 <h3 className="text-xl font-semibold text-gray-100">
@@ -575,17 +575,17 @@ function UpdateMaster({ insurance, onUpdate, onClose }) {
 
 
               {/* <!-- Modal body --> */}
-              <section className="p-4 md:p-3   rounded-lg max-h-auto text-justify overflow-y-auto bg-orange-700">
-                <div className="container-fluid font-semibold flex justify-center p-1 border-gray-200 border-dashed rounded-lg  bg-orange-700">
+              <section className="p-4 md:p-3   rounded-lg max-h-auto text-justify overflow-y-auto bg-blue-700">
+                <div className="container-fluid font-semibold flex justify-center p-1 border-gray-200 border-dashed rounded-lg  bg-blue-700">
                   <div className="relative w-full lg:w-full p-4 lg:p-1 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
-                    <MultiStep activeStep={0} showNavigation={true} className="bg-orange-500 rounded-lg shadow-md flex justify-between  overflow-hidden"
+                    <MultiStep activeStep={0} showNavigation={true} className="bg-blue-500 rounded-lg shadow-md flex justify-between  overflow-hidden"
                       stepCustomStyle={{
                         display: "inline",
                         width: "50%",
                         marginBottom: "0"
                       }}
-                      titleCustomStyle={{ fontWeight: "bold", color: "orange" }}
-                      contentCustomStyle={{ color: "orange" }}
+                      titleCustomStyle={{ fontWeight: "bold", color: "blue" }}
+                      contentCustomStyle={{ color: "sky" }}
                       prevButton={{
                         title: (
                           <span className="flex justify-start text-base">

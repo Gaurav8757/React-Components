@@ -57,7 +57,7 @@ function AddProductType() {
   return (
     <section className="container-fluid relative flex p-0 sm:ml-64 bg-slate-200">
       <div className="container-fluid  w-full lg:w-1/2 flex flex-col   p-2 border-gray-200 border-dashed rounded-lg bg-white">
-        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">Add Product Type</span>
+        <span className="text-3xl p-2 tracking-wider text-blue-700 font-medium">Add Product Type</span>
 
         <div className="container-fluid flex flex-wrap justify-between p-2 border-dashed rounded-lg bg-slate-200">
           {/* <form className="flex flex-wrap justify-between"> */}
@@ -110,7 +110,7 @@ function AddProductType() {
         </div>
       </div>
       <div className="container-fluid  flex flex-col w-full lg:w-1/2  justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-white">
-        <span className="text-3xl p-2 tracking-wider text-orange-700 font-medium">List of Policy Type with Products</span>
+        <span className="text-3xl p-2 tracking-wider text-blue-700 font-medium">List of Policy Type with Products</span>
 
         <div className="container-fluid flex justify-center p-2   border-gray-200 rounded-lg   bg-slate-200">
           <table className="min-w-full text-center text-sm font-light border border-black ">

@@ -43,11 +43,11 @@ const ViewComplaint = () => {
     <section className="container-fluid relative p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex justify-center p-2 border-gray-200  rounded-lg  bg-white">
         <div className="inline-block min-w-full w-full py-0">
-          <div className="overflow-x-auto w-xl text-orange-700">
+          <div className="overflow-x-auto w-xl text-blue-700">
             {/* <NavLink to="/dashboard/addemployee" className="flex justify-end">
               Back
             </NavLink> */}
-            <h1 className="flex justify-center text-3xl font-semibold w-full my-2 text-orange-700">Complaint List&apos;s</h1>
+            <h1 className="flex justify-center text-3xl font-semibold w-full my-2 text-blue-700">Complaint List&apos;s</h1>
             <hr />
           </div>
           <div className="inline-block min-w-full w-full py-0  bg-slate-200">

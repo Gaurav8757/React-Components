@@ -83,7 +83,7 @@ function HolidayAdd() {
   return (
     <section className="container-fluid relative flex p-0 sm:ml-64 bg-white">
       <div className="container-fluid flex-col  w-full lg:w-1/2 p-2 border-gray-200 border-dashed rounded-lg  bg-white">
-      <h1 className="font-semibold text-3xl my-3 text-orange-700">Add Holiday </h1>
+      <h1 className="font-semibold text-3xl my-3 text-blue-700">Add Holiday </h1>
         <div className="relative p-5 lg:p-4 rounded-xl shadow-xl text-2xl items-center bg-slate-200">
           
           <div className="flex mt-3">
@@ -123,7 +123,7 @@ function HolidayAdd() {
         </div>
         <div className="container-fluid flex-col  w-full lg:w-1/2 p-2 border-gray-200 border-dashed rounded-lg  bg-white">
         <div className="inline-block my-0 min-w-full w-full py-0 ">
-          <h1 className="font-semibold text-3xl my-3 text-orange-700">Holiday List&apos;s</h1>
+          <h1 className="font-semibold text-3xl my-3 text-blue-700">Holiday List&apos;s</h1>
           <table className="min-w-full text-center text-base font-light table bg-slate-200">
             <thead className="border  font-medium border-black">
               <tr className="text-blue-700">

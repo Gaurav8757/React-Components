@@ -132,7 +132,7 @@ export default function ViewBranch() {
                 <div className="inline-block min-w-full my-2">
                     <div className=" flex justify-between text-blue-500">
                       <h1></h1>
-                    <h1 className="text-3xl font-semibold text-orange-700">All Branch List&apos;s</h1>
+                    <h1 className="text-3xl font-semibold text-blue-700">All Branch List&apos;s</h1>
                         <span className="flex justify-end ">
                         <button className="" onClick={handleExportClick}><img src="/excel.png" alt="download" className="w-12" /></button>
                         <NavLink to="/dashboard/addbranch" className="my-auto text-red-700">

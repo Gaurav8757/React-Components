@@ -79,7 +79,7 @@ const ViewContact = () => {
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-gradient-to-r from-slate-200 to-slate-200">
       <div className="container-fluid  justify-center py-4 border-gray-200 border-dashed rounded-lg  bg-gradient-to-r from-slate-200 to-slate-200">
-      <h1 className="flex justify-center text-3xl font-semibold w-full text-orange-700 ">All Contact List&apos;s</h1>
+      <h1 className="flex justify-center text-3xl font-semibold w-full text-blue-700 ">All Contact List&apos;s</h1>
         <div className="inline-block min-w-full w-full py-3">
         
           <div className="inline-block min-w-full w-full py-0 overflow-x-auto">

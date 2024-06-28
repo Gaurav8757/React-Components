@@ -47,7 +47,7 @@ function CareersView() {
 
   return (
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-white">
-    <h1 className="flex justify-center text-3xl text-orange-700 font-semibold w-full py-4">Job Application List&apos;s</h1>
+    <h1 className="flex justify-center text-3xl text-blue-700 font-semibold w-full py-4">Job Application List&apos;s</h1>
     <div className="container-fluid  justify-center p-2 border-gray-200 border-dashed rounded-lg bg-slate-200">
       <div className="inline-block min-w-full w-full py-0 ">
         <div className="inline-block min-w-full w-full py-0 overflow-x-auto">
