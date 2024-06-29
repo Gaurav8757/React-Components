@@ -130,6 +130,7 @@ function LoginAll() {
                     sessionStorage.setItem("email", response.data.user.empemail);
                     sessionStorage.setItem("employeeId", response.data.user._id);
                     sessionStorage.setItem("name", response.data.user.empname);
+                    sessionStorage.setItem("role", response.data.user.staffType);
                     // Mark attendance after successful login
                     await handleToggleAttendance(response.data.user._id);
                     break;
@@ -225,7 +226,10 @@ function LoginAll() {
                             sessionStorage.getItem("token");
                             navigate("/admin/hr/home");
                             toast.success("Logged In Successfully !");
-                        } else {
+                        } 
+                        // else if(response.data.user.staffType === "" )
+                        
+                        else {
                             navigate("/employee/home");
                             toast.success("Logged In Successfully !");
                         }

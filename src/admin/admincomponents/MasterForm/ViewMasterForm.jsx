@@ -392,17 +392,17 @@ function ViewMasterForm() {
           row.productCode,
           row.advisorName,
           row.subAdvisor,
-          row.payoutOn,
-          row.advisorPayout,
-          row.cvpercentage,
-          row.advisorPayableAmount,
-          row.branchpayoutper,
-          row.branchPayout,
-          row.branchPayableAmount,
-          row.companypayoutper,
-          row.companyPayout,
-          row.profitLoss,
-          row.na,
+          // row.payoutOn,
+          // row.advisorPayout,
+          // row.cvpercentage,
+          // row.advisorPayableAmount,
+          // row.branchpayoutper,
+          // row.branchPayout,
+          // row.branchPayableAmount,
+          // row.companypayoutper,
+          // row.companyPayout,
+          // row.profitLoss,
+          // row.na,
           // row.chqNoRefNo,
           // row.bankName,
           // row.chqPaymentDate,
@@ -456,17 +456,17 @@ function ViewMasterForm() {
         "Product Code",
         "Advisor Name",
         "Sub Advisor",
-        "Payout On",
-        "Adivsor %",
-        "Advisor Payout",
-        "Advisor Payable Amount",
-        "Branch Payout %",
-        "Branch Payout",
-        "Branch Payable Amount",
-        "Company Payout %",
-        "Company Payout",
-        "Profit/Loss",
-        " ",
+        // "Payout On",
+        // "Adivsor %",
+        // "Advisor Payout",
+        // "Advisor Payable Amount",
+        // "Branch Payout %",
+        // "Branch Payout",
+        // "Branch Payable Amount",
+        // "Company Payout %",
+        // "Company Payout",
+        // "Profit/Loss",
+        // " ",
         // "CHQ No / Ref No",
         // "Bank Name",
         // "CHQ / Payment Date",
@@ -613,6 +613,7 @@ function ViewMasterForm() {
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
         <div className="inline-block min-w-full  w-full py-0">
+       
           <div className=" mb-4 mt-2 flex  justify-between max-w-auto mx-auto w-auto">
             <h1 className="bg-blue-500 hover:bg-blue-700 p-1 my-auto px-2 rounded"><button className="text-white my-auto" onClick={handleRecalculate}>Recal</button></h1>
             <span className=" flex text-blue-700 justify-center text-center text-3xl font-semibold">
@@ -795,7 +796,7 @@ function ViewMasterForm() {
             </div>
             <div className="flex text-center justify-start mt-4  lg:w-1/4"></div>
           </div>
-
+         
 
           <div className="inline-block min-w-full w-full py-0 relative">
             <>
@@ -810,17 +811,17 @@ function ViewMasterForm() {
                   totalItems={totalItems}
                 />
 
-                <div className="fixed z-50 w-16 h-16 inset-x-2 inset-y-0 bottom-0 left-0 flex justify-end items-end">
+                
+              </>)}
+            </>
+          </div>
+          <div className="flex z-50 w-16 h-16 inset-x-2 inset-y-0 bottom-0 right-0  justify-end items-end">
                   <div className="sticky top-0 w-16 h-16 font-bold rounded-full bg-[green]/80 flex items-center shadow-2xl shadow-red-900 justify-center">
                     <span className="absolute text-white">
                       {counts}
                     </span>
                   </div>
                 </div>
-              </>)}
-            </>
-            {/* </table> */}
-          </div>
         </div>
       </div>
 

@@ -69,6 +69,7 @@ function EmpDashboard() {
     const [monthlyNonMotorCount, setMonthlyNonMotorCount] = useState(0);
     const [dailyNonMotorCount, setDailyNonMotorCount] = useState(0);
     const empid = sessionStorage.getItem("employeeId");
+    const roles = sessionStorage.getItem("role");
 
     const allDetailsProps = useSpring({ number: yearlyData, from: { number: 0 } });
     const monthlyProps = useSpring({ number: monthlyData, from: { number: 0 } });
@@ -400,30 +401,32 @@ function EmpDashboard() {
 
 
     return (
-        <>
-            <div className="grid grid-cols-3 gap-3 mb-4">
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">YTD NOP</span>
-                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                        {allDetailsProps.number.to(n => n.toFixed(0))}
-                    </animated.span>
-                </div>
+        <>  <>
+            {roles === "OPS Executive" || roles === "OPS EXECUTIVE" || roles === "Branch Manager" || roles === "BRANCH MANAGER" || roles === "Executive Finanace" || roles === "EXECUTIVE FINANACE" ? (
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                    <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">YTD NOP</span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
+                            {allDetailsProps.number.to(n => n.toFixed(0))}
+                        </animated.span>
+                    </div>
 
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 xl:whitespace-nowrap">MTD NOP</span>
-                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                        {monthlyProps.number.to(n => n.toFixed(0))}
-                    </animated.span>
-                </div>
+                    <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 xl:whitespace-nowrap">MTD NOP</span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
+                            {monthlyProps.number.to(n => n.toFixed(0))}
+                        </animated.span>
+                    </div>
 
-                <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">TODAY NOP</span>
-                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                        {dailyProps.number.to(n => n.toFixed(0))}
-                    </animated.span>
+                    <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">TODAY NOP</span>
+                        <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
+                            {dailyProps.number.to(n => n.toFixed(0))}
+                        </animated.span>
+                    </div>
                 </div>
-            </div>
-
+            ) : null}
+        </>
 
 
 
@@ -495,6 +498,7 @@ function EmpDashboard() {
 
 
 
+{roles === "OPS Executive" || roles === "OPS EXECUTIVE" || roles === "Branch Manager" || roles === "BRANCH MANAGER" || roles === "Executive Finanace" || roles === "EXECUTIVE FINANACE" ? (<>
                 <div className="block">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl text-center">NET SALES</h1>
                     <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-16 lg:p-1 lg:h-16 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
@@ -543,227 +547,216 @@ function EmpDashboard() {
                         </animated.span>
                     </div>
                 </div>
-
+                </>
+     ) : null}
+           
                 {/* SALARY LISTS */}
                 <div className="block ">
                     <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">Salary</h1>
                     {formattedsalary.map((monthData, index) => (
-                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-center items-center py-1 px-2 bg-green-600 text-gray-200  rounded mb-1 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                        <div key={index} className="flex h-8 lg:p-1 sm:h-8 md:h-8 lg:h-8 xl:h-10 monthly-data  grid-cols-1  gap-4 justify-between items-center py-1 px-2 bg-green-600 text-gray-200  rounded mb-1 shadow-2xl drop-shadow-2xl shadow-orange-950">
                             <span className="bg-[black]/50 py-0.5 px-2  text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl  font-semibold my-auto rounded">{monthData.month}</span>
                             <span className=" text-xs sm:text-xs md:text-xs lg:text-base xl:text-xl me-4   font-semibold">Salary</span>
                         </div>
                     ))}
                 </div>
-
             </div>
 
+            <>
+                {roles === "OPS Executive" || roles === "OPS EXECUTIVE" || roles === "Branch Manager" || roles === "BRANCH MANAGER" || roles === "Executive Finanace" || roles === "EXECUTIVE FINANACE" ? (
+                    <div className="grid grid-cols-4 gap-3 mb-1">
+                        {/* cv */}
+                        <div className="block">
+                            <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">CV</h1>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    YTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalCvCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    MTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    TODAY NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyCvCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                        </div>
 
+                        {/* pvt-car */}
+                        <div className="block">
+                            <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">pvt-car</h1>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    YTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalPvtCarCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    MTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyPvtCarCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    TODAY NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyPvtCarCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                        </div>
 
-            <div className="grid grid-cols-4 gap-3 mb-1">
+                        {/* TW */}
+                        <div className="block">
+                            <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">tw</h1>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    YTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalTwCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    MTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyTwCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    TODAY NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyTwCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                        </div>
 
+                        {/* health */}
+                        <div className="block">
+                            <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">health</h1>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    YTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalHealthCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    MTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyHealthCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    TODAY NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyHealthCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                        </div>
 
-                {/* cv */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">CV </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16  rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            YTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
+                        {/* non-motor */}
+                        <div className="block">
+                            <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">non-motor</h1>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    YTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalNonMotorCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {totalNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    MTD NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyNonMotorCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {monthlyNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                            <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
+                                <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
+                                    TODAY NOP
+                                </span>
+                                <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyNonMotorCountProps.number.to((n) => n.toFixed(0))}
+                                </animated.span>
+                                <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
+                                    {dailyNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
+                                </animated.span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base  font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            TODAY NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyCvCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyCvPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-                </div>
-
-                {/* pvt-car */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">pvt-car </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            YTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalPvtCarCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MTD NOP
-                        </span>
-                        <animated.span className="mx-1  text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyPvtCarCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            TODAY NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyPvtCarCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyPvtCarPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-                </div>
-
-
-                {/* TW */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">tw </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            YTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalTwCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MTD NOP
-                        </span>
-                        <animated.span className="mx-1  text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyTwCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            TODAY NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyTwCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyTwPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-                </div>
-
-
-                {/* HEALTH */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">health </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            YTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalHealthCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyHealthCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block lg:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            TODAY NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyHealthCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyHealthPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-                </div>
-
-                {/* NON-MOTOR */}
-                <div className="block">
-                    <h1 className="uppercase font-serif text-sm sm:text-base lg:text-xl xl:text-2xl">NON-MOTOR </h1>
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            YTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalNonMotorCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {totalNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            MTD NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyNonMotorCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {monthlyNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-
-                    <div className="mb-3 grid xl:flex lg:grid md:grid sm:grid items-center xl:justify-between h-20 lg:p-1 lg:h-24 xl:h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                        <span className="sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                            TODAY NOP
-                        </span>
-                        <animated.span className="mx-1 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyNonMotorCountProps.number.to((n) => n.toFixed(0))}
-                        </animated.span>
-                        <animated.span className="mx-1 sm:mx-2 lg:mx-1 xl:mx-2 text-xs sm:text-xs md:text-base lg:text-base xl:text-lg font-bold text-gray-200">
-                            {dailyNonMotorPayoutProps.number.to((n) => `₹ ${n.toFixed(0)}`)}
-                        </animated.span>
-                    </div>
-                </div>
-            </div>
+                ) : null}
+            </>
         </>
     )
 }
