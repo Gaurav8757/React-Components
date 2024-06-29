@@ -28,6 +28,7 @@ function ViewMasterForm() {
   const [ptypess, setPtypes] = useState("");
   const [advs, setAdv] = useState("");
   const [recalculate, setRecalculate] = useState(false);
+  const [counts, setCounts] = useState(0);
 
   const name = sessionStorage.getItem("email");
 
@@ -122,6 +123,7 @@ function ViewMasterForm() {
 
   useEffect(() => {
     const updateData = async (data, paydata) => {
+
       try {
         const response = await axios.put(
           `${VITE_DATA}/alldetails/updatedata/${data._id}`,
@@ -131,7 +133,8 @@ function ViewMasterForm() {
 
         if (response.status !== 200) {
           console.error(`Error updating data for policy ID ${data._id}`);
-        } else {
+        } else if (response.status === 200) {
+          setCounts(prevCounts => prevCounts + 1);
           console.log("Data updated successfully");
         }
       } catch (error) {
@@ -151,7 +154,7 @@ function ViewMasterForm() {
     });
   }, [allDetailsData]);
 
-  
+
   const filteredData = allDetailsData.filter((data) => {
     // Check if data is defined
     if (!data) return false;
@@ -168,10 +171,10 @@ function ViewMasterForm() {
     const adv = data.advisorName?.toLowerCase() || "";
     const type = data.policyType?.toLowerCase() || "";
 
-   
+
     return (
       // Filter conditions using optional chaining and nullish coalescing
-     
+
       (idLower.includes(searchId.toLowerCase()) || searchId === "") &&
       (type.includes(ptypess.toLowerCase()) || ptypess === "") &&
       (adv.includes(advs.toLowerCase()) || advs === "") &&
@@ -211,7 +214,7 @@ function ViewMasterForm() {
     // Check if there are matching CSLabs and allDetailsData is not empty
     if (payoutSlab.length > 0 && allDetailsData.length > 0) {
       payoutSlab?.forEach((matchingCSLab) => {
-        
+
         // const percentage = matchingCSLab.cvpercentage || 0;
         const branchpercent = matchingCSLab.branchpayoutper || 0;
         const companypercent = matchingCSLab.companypayoutper || 0;
@@ -221,13 +224,13 @@ function ViewMasterForm() {
             matchingCSLab.cnames === data.company &&
             matchingCSLab.catnames === data.category &&
             matchingCSLab.policytypes === data.policyType &&
-            matchingCSLab.states === data.states  &&
-            ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' || (matchingCSLab.vfuels === "" && data.fuel === "") ||  (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL')))&&
-            (!matchingCSLab.vncb || matchingCSLab.vncb === data.ncb || matchingCSLab.vncb === 'BOTH')&&
+            matchingCSLab.states === data.states &&
+            ((matchingCSLab.vfuels === data.fuel) || (matchingCSLab.vfuels === 'ALL' || !matchingCSLab.vfuels  || (matchingCSLab.vfuels === 'OTHER THAN DIESEL' && data.fuel !== 'DIESEL'))) &&
+            (!matchingCSLab.vncb || matchingCSLab.vncb === data.ncb || matchingCSLab.vncb === 'BOTH') &&
             matchingCSLab.pcodes === data.productCode &&
             (matchingCSLab.districts === data.district || matchingCSLab.districts === 'All' || matchingCSLab.districts === 'ALL') &&
             matchingCSLab.payoutons === data.payoutOn &&
-            ((matchingCSLab.sitcapacity === data.sitcapacity) || (matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === ''|| !matchingCSLab.sitcapacity || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined)) &&
+            ((matchingCSLab.sitcapacity === data.sitcapacity) || (matchingCSLab.sitcapacity === 'All' || matchingCSLab.sitcapacity === 'ALL' || matchingCSLab.sitcapacity === '' || !matchingCSLab.sitcapacity || matchingCSLab.sitcapacity === null || matchingCSLab.sitcapacity === undefined)) &&
             matchingCSLab.segments === data.segment &&
             (
               matchingCSLab.voddiscount === data.odDiscount ||
@@ -236,19 +239,19 @@ function ViewMasterForm() {
 
             // (matchingCSLab.advisorName === data.advisorName || matchingCSLab.advisorName === "" )&&
             (
-              (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0' || data.vehicleAge1 === 0))  ||
-              ((matchingCSLab.vage === '1-7 YEARS' && vehicleAge1 >= 1 && vehicleAge1 <= 7) || 
-              (matchingCSLab.vage === 'MORE THAN 7 YEARS' && vehicleAge1 > 7)) ||
+              (matchingCSLab.vage === 'NEW' && (data.vehicleAge === '0 years' || data.vehicleAge === '0' || data.vehicleAge1 === 0)) ||
+              ((matchingCSLab.vage === '1-7 YEARS' && vehicleAge1 >= 1 && vehicleAge1 <= 7) ||
+                (matchingCSLab.vage === 'MORE THAN 7 YEARS' && vehicleAge1 > 7)) ||
               (matchingCSLab.vage === 'OLD' && (data.vehicleAge !== '0 years' || data.vehicleAge !== '0'))
             )
-             && ( (matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL'  ||  matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))  
+            && ((matchingCSLab.vcc === data.cc) || (matchingCSLab.vcc === 'ALL' || matchingCSLab.vcc === "" || matchingCSLab.vcc === null || matchingCSLab.vcc === undefined))
           ) {
             const netPremium = parseFloat(data.netPremium);
             const finalEntryFields = parseFloat(data.finalEntryFields);
             const odPremium = parseFloat(data.odPremium);
 
             let branchPayout, companyPayout;
-            let  branchPayable, profitLoss;
+            let branchPayable, profitLoss;
 
             if (
               data.policyType === 'COMP' &&
@@ -273,9 +276,9 @@ function ViewMasterForm() {
             // Check if data needs an update
             if (
               !data.branchPayableAmount ||
-              !data.branchPayout  ||
-              !data.companyPayout  ||
-              !data.profitLoss 
+              !data.branchPayout ||
+              !data.companyPayout ||
+              !data.profitLoss
             ) {
 
               // Prepare data for API request
@@ -303,7 +306,11 @@ function ViewMasterForm() {
                 );
                 // Handle response status
                 if (response.status !== 200) {
-                  console.error(`Error updating data for policy ID ${data._id}`);
+                  console.error(`Error updating data for policy ID ${data.policyrefno}`);
+                } else {
+                  // if (response.status === 200) {
+                  //   setCounts(prevCounts => prevCounts + 1);
+                  console.log("Data updated successfully");
                 }
               } catch (error) {
                 console.error(
@@ -600,8 +607,8 @@ function ViewMasterForm() {
       console.error("Error deleting Insurance :", error);
     }
   };
-  return (
-    // loader
+  return (<>
+
 
     <section className="container-fluid relative h-screen p-0 sm:ml-64 bg-slate-100">
       <div className="container-fluid flex justify-center p-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 bg-slate-200">
@@ -794,14 +801,23 @@ function ViewMasterForm() {
             <>
               {filteredData.length === 0 ? (
                 <TextLoader />
-              ) : (
+              ) : (<>
+
                 <TableData
                   filteredData={filteredData}
                   onUpdateInsurance={onUpdateInsurance}
                   onDeleteAllData={onDeleteAllData}
                   totalItems={totalItems}
                 />
-              )}
+
+                <div className="fixed z-50 w-16 h-16 inset-x-2 inset-y-0 bottom-0 left-0 flex justify-end items-end">
+                  <div className="sticky top-0 w-16 h-16 font-bold rounded-full bg-[green]/80 flex items-center shadow-2xl shadow-red-900 justify-center">
+                    <span className="absolute text-white">
+                      {counts}
+                    </span>
+                  </div>
+                </div>
+              </>)}
             </>
             {/* </table> */}
           </div>
@@ -816,6 +832,7 @@ function ViewMasterForm() {
       />
 
     </section>
+  </>
   );
 }
 export default ViewMasterForm;

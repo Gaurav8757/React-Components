@@ -100,69 +100,65 @@ function OpsDashboard() {
 
     return (
         <>
-        <div className="grid grid-cols-3 gap-3 mb-8">
-            <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">
-                    YTD
-                </span>
-                <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                    {allDetailsProps.number.to(n => n.toFixed(0))}
-                </animated.span>
-            </div>
+       <div className="grid grid-cols-3 gap-3 mb-5">
+                <div className="flex xl:flex lg:flex md:flex sm:flex items-center justify-between  h-16 rounded-lg bg-cyan-600 shadow-2xl drop-shadow-2xl shadow-blue-650">
+                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded-lg text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg font-semibold text-white  focus:ring-[#050708]/50">YTD</span>
+                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl font-bold text-gray-50">
+                        {allDetailsProps.number.to((n) => n.toFixed(0))}
+                    </animated.span>
+                </div>
 
-            <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 xl:whitespace-nowrap">
-                    MTD
-                </span>
-                <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                    {monthlyProps.number.to(n => n.toFixed(0))}
-                </animated.span>
-            </div>
+                <div className="flex xl:flex lg:flex md:flex sm:flex i items-center justify-between h-16 rounded-lg bg-blue-600 shadow-2xl drop-shadow-2xl shadow-blue-650">
+                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded-lg text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg font-semibold text-white  focus:ring-[#050708]/50 xl:whitespace-nowrap">MTD</span>
+                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl font-bold text-gray-50">
+                        {monthlyProps.number.to((n) => n.toFixed(0))}
+                    </animated.span>
+                </div>
 
-            <div className="grid xl:flex lg:flex md:grid sm:grid items-center xl:justify-between h-16 rounded bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950">
-                <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6 px-2 py-1 rounded text-xs sm:text-sm md:text-base lg:text-base xl:text-lg font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50">
-                    FTD
-                </span>
-                <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6 text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-200">
-                    {dailyProps.number.to(n => n.toFixed(0))}
-                </animated.span>
+                <div className="flex xl:flex lg:flex md:flex sm:flex  items-center justify-between  h-16 rounded-lg bg-sky-500 shadow-2xl drop-shadow-2xl shadow-blue-650">
+                    <span className="sm:block mx-1 sm:mx-2 lg:mx-3 xl:mx-6  px-2 py-1 rounded-lg text-xs sm:text-sm md:text-sm lg:text-base xl:text-lg font-semibold text-white  focus:ring-[#050708]/50">FTD</span>
+                    <animated.span className="mx-1 sm:mx-2 lg:mx-3 xl:mx-6text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl font-bold text-gray-50">
+                        {dailyProps.number.to((n) => n.toFixed(0))}
+                    </animated.span>
+                </div>
             </div>
-        </div>
 
           {/* part 2 employee wise data policy */}
           
-          <div className="block">
-          <div className="grid grid-cols-6 items-center ">
-              <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2  text-sm sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                  EMP NAME
-              </span>
-              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                  YTD
-              </span>
-              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                  MTD
-              </span>
-              <span className="col-span-1 text-xs sm:text-base lg:text-xl xl:text-2xl uppercase font-serif">
-                  FTD
-              </span>
-          </div>
-          {employees.map((employee, index) => (
-              <div
-                  key={index}
-                  className={`mb-0 xl:mb-0 lg:mb-0 md:mb-0 sm:mb-0 grid grid-cols-6 items-center h-8 lg:p-1 md:h-10 lg:h-10 xl:h-10 bg-orange-700 shadow-2xl drop-shadow-2xl shadow-orange-950 ${index === 0 ? 'rounded-t' : ''
-                      } ${index === employees.length - 1 ? 'rounded-b' : ''}`}
-              >
-                  <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded text-xs sm:text-sm md:text-sm lg:text-base xl:text-base font-semibold text-black-500 bg-[white]/50 focus:ring-[#050708]/50 uppercase">
-                      {employee.toUpperCase()}
-                  </span>
-                  {["ytd", "mtd", "daily"].map(period => (
-                      <span key={period} className="col-span-1 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-gray-200">
-                          {employeePolicyCounts[employee] ? employeePolicyCounts[employee][period] : '0'}
-                      </span>
-                  ))}
-              </div>
-          ))}
-      </div>
+        
+          <div className=" flex flex-col justify-between ">
+                    <div className="grid grid-cols-6 items-center ">
+                        <span className="col-span-3 uppercase font-serif text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl text-center">
+                            EMP NAME
+                        </span>
+                        <span className="col-span-1 uppercase font-serif text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl text-center">
+                            YTD
+                        </span>
+                        <span className="col-span-1 tuppercase font-serif text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl text-center">
+                            MTD
+                        </span>
+                        <span className="col-span-1 uppercase font-serif text-xs sm:text-sm md:text-sm lg:text-base xl:text-xl text-center">
+                            FTD
+                        </span>
+                    </div>
+                    {employees.map((employee, index) => (
+                        <div
+                            key={index}
+                            className={`odd:bg-sky-500  grid grid-cols-6 items-center h-10 lg:p-1 lg:h-16 xl:h-10 bg-blue-600 shadow-2xl drop-shadow-2xl shadow-blue-650 ${index === 0 ? 'rounded-t-lg' : ''
+                                } ${index === employees.length - 1 ? 'rounded-b-lg ' : ''}`}
+                        >
+                            <span className="col-span-3 sm:block mx-1 sm:mx-2 lg:mx-1 xl:mx-2 px-2 py-0.5 rounded-lg text-xs sm:text-xs md:text-sm lg:text-base xl:text-base font-semibold text-white  focus:ring-[#050708]/50 uppercase">
+                                {employee.toUpperCase()}
+                            </span>
+                            {["ytd", "mtd", "daily"].map(period => (
+                                <span key={period} className="col-span-1 text-xs sm:text-xs md:text-sm lg:text-base xl:text-xl font-bold text-gray-50">
+                                    {employeePolicyCounts[employee] ? employeePolicyCounts[employee][period] : '0'}
+                                </span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+           
 
       </>
     );

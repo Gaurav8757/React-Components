@@ -309,12 +309,12 @@ function LoginAll() {
 
     return (
         <>
-            <section className="container-fluid h-screen relative bg-orange-500" >
-                <div className="container-fluid pt-0 flex flex-col md:flex-row items-center pb-0 justify-between bg-orange-500" >
+            <section className="container-fluid h-screen relative bg-orange-600" >
+                <div className="container-fluid pt-0 flex flex-col md:flex-row items-center pb-0 justify-between bg-orange-600" >
                     {/* <div className="flex-shrink-4  md:h-full h-full w-full xs:w-full   sm:w-full md:w-full mx-auto  lg:w-2/5 xl:py-20"> */}
                     <img
                         src="/insurance.png"
-                        className="h-1/3 mt-80  w-3/4 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-1/4 "
+                        className="h-1/2 mt-48 w-1/2 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-1/3 "
                         alt="Logo"
                     />
                     
@@ -322,7 +322,7 @@ function LoginAll() {
                     <div className="flex-shrink-1 mt-10 md:h-1/4 h-full w-full xs:w-full backdrop:bg-transparent  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-5">
                         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
                             <div
-                                className="absolute inset-0 bg-gradient-to-r from-orange-700 to-red-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+                                className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
                             </div>
                             <div className="w-full max-w-xl p-6 space-y-1  mx-auto  rounded-lg  relative px-4 py-10 bg-slate-100 shadow-lg sm:rounded-3xl sm:p-10">
                                 <img
@@ -332,7 +332,7 @@ function LoginAll() {
                                     rel="preload"
                                     alt="Logo"
                                 />
-                                <div className="text-base font-bold mt-3 w-64 mx-auto text-orange-800 text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
+                                <div className="text-base font-bold mt-3 w-64 mx-auto text-blue-700 text-black-700 flex justify-center">Eleedom IMF Private Limited</div>
                                 <form
                                     className="mt-8 space-y-4"
                                     method="POST"
@@ -341,7 +341,7 @@ function LoginAll() {
                                     <div>
                                         <label
                                             htmlFor="email"
-                                            className="block mb-1 text-base text-start font-medium text-orange-900 "
+                                            className="block mb-1 text-base text-start font-medium text-blue-700 "
                                         >
                                             Email
                                         </label>
@@ -363,7 +363,7 @@ function LoginAll() {
                                     <div>
                                         <label
                                             htmlFor="password"
-                                            className="block mb-1 text-base text-start font-medium text-orange-900 ">
+                                            className="block mb-1 text-base text-start font-medium text-blue-700 ">
                                             Password
                                         </label>
                                         <div className="relative">
@@ -396,7 +396,7 @@ function LoginAll() {
                                     </div>
 
                                     <div className=" text-justify mt-1 ml-0 ">
-                                        <label htmlFor="type" className="block mx-0  text-base font-medium mt-3 ml-1 text-orange-900">Login Type</label>
+                                        <label htmlFor="type" className="block mx-0  text-base font-medium mt-3 ml-1 text-blue-700">Login Type</label>
                                         <select
                                         id="type"
                                             className="input-style  bg-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
@@ -416,7 +416,7 @@ function LoginAll() {
                                     <div className="flex items-start">
                                         <NavLink
                                             to={forgotPasswordLink()}
-                                            className="ml-auto text-base font-semibold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 text-red-800 hover:underline hover:text-orange-600 "
+                                            className="ml-auto text-base font-semibold transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 text-blue-700 hover:underline hover:text-blue-500 "
                                             target="_blank"
                                         >
                                             Forgot Password?
@@ -424,7 +424,7 @@ function LoginAll() {
                                     </div>
                                     <button
                                         type="submit"
-                                        className="w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 flex justify-center py-2 px-4 rounded hover:bg-orange-600 bg-orange-800  focus:ring-1 focus:ring-orange-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                                        className="w-full transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-10 duration-300 flex justify-center py-2 px-4 rounded hover:bg-blue-600 bg-blue-800  focus:ring-1 focus:ring-blue-900 text-base font-semibold text-white shadow-sm focus-visible:outline focus-visible:ring focus-visible:ring-blue-500 focus-visible:ring-opacity-50"
                                     >
                                         SIGN IN
                                     </button>
