@@ -184,8 +184,14 @@ import UpdateMaster from "./admin/admincomponents/MasterForm/UpdateMaster.jsx";
 import ListOfLeave from "./Employee/attendance/ListOfLeave.jsx";
 import CareersView from "./admin/admincomponents/Careers/CareersView.jsx";
 import ViewSal from "./Employee/viewSalary/ViewSal.jsx";
-// import UpdateFinance from "./finance/FinanceData/UpdateFinance.jsx";
-// import LegerDailyView from "./admin/admincomponents/Ledger/LegerDailyView.jsx";
+import ForgetCIC from "./claim&indosrhment/ForgetPassCIC.jsx";
+import ForgetPassCIC from "./claim&indosrhment/ForgetPassCIC.jsx";
+import ProtectCIC from "./claim&indosrhment/sidebar/ProtectCIC.jsx";
+import LayoutCIC from "./claim&indosrhment/sidebar/LayoutCIC.jsx";
+import DashboardCIC from "./claim&indosrhment/dashboard/DashboardCIC.jsx";
+import Claim from "./claim&indosrhment/allform/claim/Claim.jsx";
+import Indorshment from "./claim&indosrhment/allform/indosh/Indorshment.jsx";
+import Cancelation from "./claim&indosrhment/allform/cancelation/Cancelation.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -431,6 +437,19 @@ const router = createBrowserRouter(
           <Route path="/finance/home/monthly/leger" element={<Ledger2 />} />
           <Route path="/finance/home/company/leger" element={<Ledger3 />} />
         </Route>
+      </Route>
+
+{/* CLAIM/INDOSRSHMENT/CANCEL */}
+<Route path="/cic" element={<LoginAll />} />
+      <Route path="/cic/forget" element={<ForgetCIC />} />
+      <Route path="/reset/password/cic/:cId/:token" element={<ForgetPassCIC />} />
+      <Route element={<ProtectCIC />}>
+      <Route path="/cic/home" element={<LayoutCIC />}>
+      <Route path="" element={<DashboardCIC/>} />
+          <Route path="/cic/home/claim" element={<Claim />} />
+          <Route path="/cic/home/indorsh" element={<Indorshment />} />
+          <Route path="/cic/home/cancelation" element={<Cancelation />} />
+      </Route>
       </Route>
     </Route>
   )

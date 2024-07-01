@@ -31,11 +31,11 @@ function EmpPassUpdate() {
   };
 
   return (
-    <section className="container-fluid h-screen relative" style={{ backgroundColor: "#A31217" }}>
-    <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between" style={{ backgroundColor: "#A31217" }}>
+    <section className="container-fluid h-screen relative bg-blue-700">
+    <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between bg-blue-700">
         <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
             <img
-                src="/logo.jpg"
+                src="/logo.webp"
                 className="h-1/4 w-2/5 rounded-md mx-auto "
                 alt="Logo"
             />

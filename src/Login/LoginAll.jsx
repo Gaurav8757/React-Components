@@ -201,6 +201,18 @@ function LoginAll() {
                     sessionStorage.setItem("finname", response.data.name);
                     break;
 
+
+                case "cic":
+                    response = await axios.post(`${VITE_DATA}/cic/login`, {
+                        cicemail: email,
+                        cicpassword: password,
+                    });
+                    sessionStorage.setItem("token", response.data.token);
+                    sessionStorage.setItem("cicemail", response.data.email);
+                    sessionStorage.setItem("cicname", response.data.name);
+                    break;
+
+
                 default:
                     response = await axios.post(`${VITE_DATA}/ops/login`, {
                         opsemail: email,
@@ -226,9 +238,9 @@ function LoginAll() {
                             sessionStorage.getItem("token");
                             navigate("/admin/hr/home");
                             toast.success("Logged In Successfully !");
-                        } 
+                        }
                         // else if(response.data.user.staffType === "" )
-                        
+
                         else {
                             navigate("/employee/home");
                             toast.success("Logged In Successfully !");
@@ -266,7 +278,11 @@ function LoginAll() {
                         toast.success("Logged In Successfully !");
                         break;
 
-
+                    case "cic":
+                        sessionStorage.getItem("token");
+                        navigate("/cic/home");
+                        toast.success("Logged In Successfully !");
+                        break;
 
                     default:
                         toast.warn("Please Select Login Type..! ");
@@ -298,6 +314,8 @@ function LoginAll() {
                 return "/advisor/forget";
             case "finance":
                 return "/finance/forget";
+            case "cic":
+                return "/cic/forget";
 
             default:
                 return "/login";
@@ -321,7 +339,7 @@ function LoginAll() {
                         className="h-1/2 mt-48 w-1/2 rounded-md mx-auto md:h-full  xs:w-full   sm:w-full md:w-full   lg:w-1/3 "
                         alt="Logo"
                     />
-                    
+
                     {/* <div className="text-4xl font-bold mt-3 w-64 mx-auto  text-black-700 flex justify-center">Login</div> */}
                     <div className="flex-shrink-1 mt-10 md:h-1/4 h-full w-full xs:w-full backdrop:bg-transparent  sm:w-full md:1/2 mx-auto lg:w-1/3 xl:w-1/4 xl:py-5">
                         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
@@ -371,7 +389,7 @@ function LoginAll() {
                                             Password
                                         </label>
                                         <div className="relative">
-                                           
+
                                             <input
                                                 type={showPassword ? 'text' : 'password'}
                                                 name="password"
@@ -390,10 +408,10 @@ function LoginAll() {
                                             >
                                                 {showPassword ? (
                                                     // <IoEyeOutline size={25} />
-                                                    <img src="/view.png" height={5} width={25} alt="close" className=" rounded-full"/>
+                                                    <img src="/view.png" height={5} width={25} alt="close" className=" rounded-full" />
                                                 ) : (
                                                     // <IoEyeOffOutline size={25} />
-                                                    <img src="/eye.png" height={5} width={25} alt="close" className="rounded-full"/>
+                                                    <img src="/eye.png" height={5} width={25} alt="close" className="rounded-full" />
                                                 )}
                                             </button>
                                         </div>
@@ -402,18 +420,21 @@ function LoginAll() {
                                     <div className=" text-justify mt-1 ml-0 ">
                                         <label htmlFor="type" className="block mx-0  text-base font-medium mt-3 ml-1 text-blue-700">Login Type</label>
                                         <select
-                                        id="type"
+                                            id="type"
                                             className="input-style  bg-gray-50 border my-2 border-gray-300 text-gray-900 text-base rounded focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5"
                                             value={loginType}
                                             onChange={handleLoginTypeChange}>
                                             <option value="" >  -------------- Select Login Type -----------------</option>
                                             <option value="admin">Admin</option>
-                                            <option value="branches">Branch</option>
-                                            <option value="employee">Employee</option>
-                                            <option value="hrmanager">HR Manager</option>
-                                            <option value="ops">OPS Admin</option>
-                                            <option value="advisor">Advisor</option>
                                             <option value="finance">Finance Admin</option>
+                                            <option value="ops">OPS Admin</option>
+                                            <option value="branches">Branch</option>
+                                            <option value="cic">CIC</option>
+                                            <option value="hrmanager">HR Manager</option>
+                                            <option value="employee">Employee</option>
+
+                                            <option value="advisor">Advisor</option>
+
                                         </select>
                                     </div>
 

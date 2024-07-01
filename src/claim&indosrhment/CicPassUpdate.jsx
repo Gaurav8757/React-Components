@@ -3,42 +3,38 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import VITE_DATA from "../config/config.jsx";
-function BrpassUpdate() {
+function CicPassUpdate() {
     const navigate = useNavigate();
-    const { userId, token } = useParams();
-    const [password, setPassword] = useState("");
+    const { cicId, token } = useParams();
+    const [cicpassword, setcicPassword] = useState("");
     const [confirmpass, setConfirmpass] = useState("");
 
     // Update the API endpoint URL to match your backend route
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${VITE_DATA}/branch/pass/${userId}/${token}`, {
-                password,
-                confirm_password: confirmpass,
+            const response = await axios.post(`${VITE_DATA}/cic/pass/${cicId}/${token}`, {
+                cicpassword,
+                confirm_cicpassword: confirmpass,
             });
             if (response) {
                 navigate("/login");
                 toast.success("Password Updated Successfully...!");
             } else {
-                navigate("/branches/forget");
+                navigate("/cic/forget");
                 toast.error("Error Occured. Try Again...!");
             }
         } catch (error) {
             console.log(error);
-            toast.warn("Branch Not Registered Yet...! ", error);
+            toast.warn("CIC Not Registered Yet...! ", error);
         }
     };
-
-
-
-
     return (
-        <section className="container-fluid h-screen relative bg-blue-700">
+        <section className="container-fluid h-screen relative bg-blue-700" >
             <div className="container-fluid pt-20 flex flex-col md:flex-row items-center pb-16 justify-between bg-blue-700">
                 <div className="flex-shrink-4 px-6 md:h-full h-full py-20">
                     <img
-                        src="/logo.webp"
+                        src="/logo.jpg"
                         className="h-1/4 w-2/5 rounded-md mx-auto "
                         alt="Logo"
                     />
@@ -66,10 +62,10 @@ function BrpassUpdate() {
                             <div>
                                 <input
                                     type="password"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="cicpassword"
+                                    name="cicpassword"
+                                    value={cicpassword}
+                                    onChange={(e) => setcicPassword(e.target.value)}
                                     placeholder="New Password"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
                                     required
@@ -78,10 +74,9 @@ function BrpassUpdate() {
                             <div>
                                 <input
                                     type="password"
-                                    id="confirm-password"
+                                    id="confirm_cicpassword"
                                     value={confirmpass}
-                                    name="confirm_password"
-
+                                    name="confirm_cicpassword"
                                     placeholder="Confirm New Password"
                                     onChange={(e) => setConfirmpass(e.target.value)}
                                     autoComplete="current-password"
@@ -104,4 +99,4 @@ function BrpassUpdate() {
     )
 }
 
-export default BrpassUpdate;
+export default CicPassUpdate;

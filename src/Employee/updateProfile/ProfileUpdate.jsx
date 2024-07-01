@@ -15,7 +15,7 @@ function ProfileUpdate() {
 
         permanentempaddress: "",
         currentempaddress: "",
-        empaadharno: "",
+        empaadharno: 0,
         // empdesignation: "",
         empaadharfile: "",
         // staffType: "",
@@ -71,7 +71,7 @@ function ProfileUpdate() {
         } else {
             setData((prevData) => ({
                 ...prevData,
-                [name]: value.toUpperCase(),
+                [name]: value,
             }));
         }
     };
@@ -312,10 +312,10 @@ function ProfileUpdate() {
                                 <label className="text-base mx-1">Aadhar No:</label>
                                 <input
                                     className="input-style p-1 rounded-lg"
-                                    type="number"
+                                    type="text"
                                     value={data.empaadharno}
                                     onChange={handleInputChange}
-                                    name="aadharno"
+                                    name="empaadharno"
 
                                 />
                             </div>
